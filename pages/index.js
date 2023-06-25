@@ -15,6 +15,10 @@ export default function Home() {
         <p className="description">
           Get started by editing <code>pages/index.js</code>
         </p>
+        <form netlify name="testForm" method="POST">
+          <input type="text" name="name"/>
+          <input type="file" name="logo"/>
+        </form>
       </main>
 
       <Footer />
