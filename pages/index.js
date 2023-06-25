@@ -18,6 +18,7 @@ export default function Home() {
         <form netlify name="testForm" method="POST">
           <input type="text" name="name"/>
           <input type="file" name="logo"/>
+          <button>Submit</button>
         </form>
       </main>
 
