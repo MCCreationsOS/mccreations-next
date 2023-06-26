@@ -32,9 +32,6 @@ export default function Home() {
                         <label>Message: <textarea name="message"></textarea></label>
                     </p>
                     <p>
-                        <label>Logo<input type="file" name="logo"/></label>
-                    </p>
-                    <p>
                         <button type="submit">Send</button>
                     </p>
                 </form>
