@@ -1,0 +1,71 @@
+.featuredCard {
+    margin: 0 auto;
+    min-width: 400px;
+    background-color: #171717;
+    position: relative;
+    height: 65vh;
+    
+}
+
+.featuredImage {
+    width: 100%;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,1), rgba(0,0,0,0.4),rgba(0,0,0,0.04), rgba(0,0,0,0));
+    object-fit: cover;
+    height: 80vh;
+}
+
+.featuredText {
+    position: absolute;
+    bottom: 40%;
+    left: 2%;
+}
+
+.featuredText h2 {
+    font-size: 4vh;
+}
+
+.featuredText p {
+    font-size: 1.3rem;
+}
+
+.mapCard {
+    background-color: #272727;
+    padding: 5px 10px;
+    border-radius: 10px;
+    color: white;
+    height: 35vh;
+    width: 100%;
+}
+
+.mapCardTitle {
+    margin: 5px 0 5px 0;
+}
+
+.mapCardDesc {
+    color: #aaaaaa;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    max-height: 70px;
+}
+
+.mapLogo {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.mapAuthor {
+    margin: 0 0 5px 0;
+    font-size: 0.95rem;
+    color: #aaaaaa;
+}
+
+.mapStats {
+    display: flex;
+    width: 100%;
+}
+
+.mapStat {
+    margin: 0 10px 0 0px;
+}

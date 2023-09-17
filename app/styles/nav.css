@@ -1,0 +1,48 @@
+.mainNav {
+    display: flex;
+}
+
+.navList {
+    margin: 20px 0 20px -15px;
+    font-family: 'Lato', sans-serif;
+    flex: 50%
+  }
+  
+  .navBrand {
+    display: inline;
+    font-weight: 700;
+    font-size: 20px;
+  }
+  
+  .navItem {
+    display: inline;
+    margin: 0 5px 0 5px;
+  }
+  
+  .navLink {
+    text-decoration: none;
+    color: #777777;
+    padding: 8px 10px;
+    transition: 0.2s ease;
+    font-size: 17px;
+  }
+
+  .navLink:visited {
+    color: #777777;
+  }
+  
+  .navLink.navLinkSelected {
+    color: #dddddd;
+  }
+  
+  .navLink:hover {
+    color: #222222;
+    background-color: #eeeeee;
+    border-radius: 5px;
+    transition: 0.2s ease;
+  }
+
+  .actionList {
+    margin: 20px 0 20px -15px;
+    font-family: 'Lato', sans-serif;
+  }

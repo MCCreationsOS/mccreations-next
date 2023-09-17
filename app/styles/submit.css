@@ -1,0 +1,12 @@
+.imageUpload {
+    display: flex;
+    gap: 10px;
+    width: 400px;
+    height: 200px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    border: 1px solid #474747;
+    border-radius: 5px;
+}
