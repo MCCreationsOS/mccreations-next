@@ -3,9 +3,9 @@ import ContentGrid from "@components/ContentGrid";
 import ContentCard from "@components/ContentCard";
 
 async function getFeatured() {
-    let response = await fetch('http://localhost:3001/image')
+    let response = await fetch('http://localhost:3001/maps?featured=true')
     let data = await response.json();
-    return data.image;
+    return data.maps;
 }
 
 async function getMaps() {
@@ -15,16 +15,18 @@ async function getMaps() {
 }
 
 export default async function Page() {
-    let image = await getFeatured();
+    let featured = await getFeatured();
     const maps = await getMaps();
     return (
         <>
         <Menu selectedPage='home'></Menu>
         <div className='featuredCard'>
-            <img className="featuredImage" src={"data:image/jpeg;base64," + image}></img>
+            <img className="featuredBackground" src={featured[0].images[0]}></img>
             <div className="featuredText">
-                <h2>Biome Pets 12</h2>
-                <p>The epic finale to the titular Minecraft Series</p>
+                <img className="featuredImage" src={featured[0].images[0]}></img>
+                <h2>{featured[0].title}</h2>
+                <p>{featured[0].shortDescription}</p>
+                <p>{featured[0].creators[0].username}</p>
             </div>
         </div>
         <ContentGrid content={maps.map(map => <ContentCard key={map.mapId} content={map}></ContentCard>)}>
