@@ -3,8 +3,8 @@
     min-width: 400px;
     background-color: #171717;
     position: relative;
-    height: 65vh;
-    
+    height: fit-content;
+    max-height: 65vh;
 }
 
 .featuredBackground {
@@ -15,39 +15,51 @@
 }
 
 .featuredImage {
-    width: 25vw;
-    border-radius: 15px;
+    width: auto;
+    height: 30vh;
+    /* border-radius: 15px; */
 }
 
 .featuredText {
     position: absolute;
-    bottom: 15%;
+    top: 0%;
     left: 2%;
+    max-width: 700px;
+    margin-top: 50px;
 }
 
-.featuredText h2 {
-    font-size: 4vh;
+.featuredTitle {
+    font-size: 2.5rem;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
-.featuredText p {
+.featuredDescription {
     font-size: 1.2rem;
+    margin: 10px 0px 3px 0px;
 }
 
-.mapCard {
-    padding: 5px 10px;
+.featuredAuthor {
+    font-size: 1.1rem;
+    margin: 10px 0px 15px 0px;
+    color: #ddd;
+}
+
+.featuredText .cardStats {
+    color: #ddd;
+}
+
+.contentCard {
     border-radius: 10px;
     color: white;
     width: 100%;
-    position: relative;
 }
 
-.mapCardTitle {
+.contentCardTitle {
     margin: 5px 0 5px 0;
 }
 
-.mapCardDesc {
+.cardDescription {
     background-color: #171717cc;
     color: #ddd;
     margin: 0;
@@ -56,50 +68,67 @@
     font-size: 1rem;
     position: absolute;
     padding: 10px;
-    top: 0;
+    top: 0px;
     opacity: 0;
     width: 100%;
-    height: 15vh;
+    height: 100%;
     transition: opacity 0.2s;
 }
 
-.mapCard:hover .mapCardDesc {
+.cardDescription * {
+    margin: 5px 0;
+}
+
+.contentCard:hover .cardDescription {
     opacity: 1;
 }
 
-.mapLogo {
+.cardImage {
     width: 100%;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     opacity: 1;
     margin-bottom: 10px;
 }
 
-.mapTitle {
+.cardLogoFloat {
+    height: max-content;
+    position: relative;
+}
+
+.cardTitle {
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: #ddd;
     text-decoration: none;
     margin-bottom: 10px;
 }
 
-.mapAuthor {
+.cardAuthor {
     margin: 0 0 5px 0;
     font-size: 0.95rem;
     color: #aaaaaa;
 }
 
-.mapAuthorLink {
+.cardAuthorLink {
     margin: 0 0 5px 0;
     font-size: 0.95rem;
     color: #aaaaaa;
     text-decoration: underline;
 }
 
-.mapStats {
+.cardStats {
     display: flex;
     width: 100%;
+    align-items: center;
 }
 
-.mapStat {
-    margin: 0 10px 0 0px;
+.cardStat {
+    margin: 0 15px 0 0px;
+    display: flex;
+    align-items: center;
+}
+
+.cardStat img {
+    margin: 0 5px 0 0px;
+    width: 18px;
 }

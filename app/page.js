@@ -1,6 +1,7 @@
 import Menu from "@components/Menu"
 import ContentGrid from "@components/ContentGrid";
 import ContentCard from "@components/ContentCard";
+import FeaturedCard from "@components/FeaturedCard";
 
 async function getFeatured() {
     let response = await fetch('http://localhost:3001/maps?featured=true')
@@ -15,20 +16,13 @@ async function getMaps() {
 }
 
 export default async function Page() {
-    let featured = await getFeatured();
+    const featured = await getFeatured();
     const maps = await getMaps();
+    
     return (
         <>
         <Menu selectedPage='home'></Menu>
-        <div className='featuredCard'>
-            <img className="featuredBackground" src={featured[0].images[0]}></img>
-            <div className="featuredText">
-                <img className="featuredImage" src={featured[0].images[0]}></img>
-                <h2>{featured[0].title}</h2>
-                <p>{featured[0].shortDescription}</p>
-                <p>{featured[0].creators[0].username}</p>
-            </div>
-        </div>
+        <FeaturedCard featured={featured} />
         <ContentGrid content={maps.map(map => <ContentCard key={map.mapId} content={map}></ContentCard>)}>
                     
         </ContentGrid>

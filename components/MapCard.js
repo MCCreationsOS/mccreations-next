@@ -1,20 +1,28 @@
 import Link from "next/link";
 
 export default function MapCard({map}) {
+
+    let authorLink = map.creators[0].link;
+    if(!authorLink || authorLink.length <= 0 || map.creators[0].hasMatchingUser) {
+        authorLink = "/creators/" + map.creators[0].username
+    }
+
     return (
 
-            <div className='mapCard' >
-                <div className='mapCardDesc'>
-                    {map.shortDescription}
-                    <div className='mapStats'>
-                        <div className="mapStat"><img src='/download.svg'></img>{map.downloads}</div>
-                        <div className="mapStat"><img src='/heart.svg'></img>{map.likes}</div>
+            <div className='contentCard' >
+                <div className="cardLogoFloat">
+                    <div className='cardDescription'>
+                        {map.shortDescription}
+                        <div className='cardStats'>
+                            <div className="cardStat"><img className="inTextIcon" src='/download.svg'></img>{map.downloads}</div>
+                            <div className="cardStat"><img className="inTextIcon" src='/heart.svg'></img>{map.likes}</div>
+                            <div className='cardStat'><img className="inTextIcon" src='/map.svg'></img>{map.files[0].minecraftVersion}</div>
+                        </div>
                     </div>
-                    <div className='version'>{map.files[0].minecraftVersion}</div>
+                    <img className='cardImage' src='/thetroleyprolem2.png'></img>
                 </div>
-                <img className='mapLogo' src='/thetroleyprolem2.png'></img>
-                <Link className='mapTitle' href={`/maps/${map.slug}`}>{map.title}</Link>
-                <p className='mapAuthor'>by <a className='mapAuthorLink'>{map.creators[0].username}</a></p>
+                <Link className='cardTitle' href={`/maps/${map.slug}`}>{map.title}</Link>
+                <p className='cardAuthor'>by <Link href={authorLink} className='cardAuthorLink'>{map.creators[0].username}</Link></p>
             </div>
     )
 }

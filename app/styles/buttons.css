@@ -1,0 +1,15 @@
+.featuredDownloadButton {
+    margin: 10px 0;
+    padding: 10px 50px;
+    font-size: 1.2rem;
+    background-color: #3154f4;
+    font-weight: 500;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.featuredDownloadButton:hover {
+    background-color: #2a48d0;
+}
