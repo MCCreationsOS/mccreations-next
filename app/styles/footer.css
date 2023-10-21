@@ -1,0 +1,14 @@
+.footer {
+    background-color: #272727;
+}
+
+.footerFlex {
+    display: flex;
+    width: 100%;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.footerFlex div {
+    margin: 20px 50px;
+}

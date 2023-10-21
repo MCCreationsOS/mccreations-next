@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import './styles/globals.css'
 import Loading from './loading'
+import Footer from '@components/Footer'
  
 export default function RootLayout({ children }) {
  return (
@@ -9,6 +10,7 @@ export default function RootLayout({ children }) {
         <Suspense fallback={<Loading />}>
             {children}
         </Suspense>
+        <Footer></Footer>
     </body>
     </html>
   )

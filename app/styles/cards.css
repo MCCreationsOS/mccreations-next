@@ -1,10 +1,52 @@
-.featuredCard {
+.featuredZone {
+    position: relative;
+    height: 75vh;
     margin: 0 auto;
     min-width: 400px;
+}
+
+.featuredCard {
+    margin: 0 auto;
+    width: 100%;
+    min-width: 400px;
     background-color: #171717;
-    position: relative;
+    position: absolute;
     height: fit-content;
-    max-height: 65vh;
+    max-height: 75vh;
+    transition: all 0.2s ease;
+}
+
+.featuredCard.inactive {
+    animation: featuredFadeOut 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.featuredCard.active {
+    animation: featuredFadeIn 0.5s ease-in;
+    animation-fill-mode: both;
+}
+
+@keyframes featuredFadeOut {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes featuredFadeIn {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .featuredBackground {
@@ -16,26 +58,50 @@
 
 .featuredImage {
     width: auto;
-    height: 30vh;
+    height: 25vh;
     /* border-radius: 15px; */
+}
+
+.featuredSlideArrowLeft {
+    position: absolute;
+    top: 50%;
+    left: 1%;
+    width: 40px;
+    opacity: 0.6;
+}
+
+.featuredSlideArrowRight {
+    position: absolute;
+    top: 50%;
+    right: 1%;
+    width: 40px;
+    opacity: 0.6;
+}
+
+.featuredSlideArrowLeft:hover {
+    opacity: 1;
+}
+
+.featuredSlideArrowRight:hover {
+    opacity: 1;
 }
 
 .featuredText {
     position: absolute;
-    top: 0%;
-    left: 2%;
+    bottom: 10%;
+    left: 5%;
     max-width: 700px;
     margin-top: 50px;
 }
 
 .featuredTitle {
-    font-size: 2.5rem;
+    font-size: 2.0rem;
     margin-top: 5px;
     margin-bottom: 5px;
 }
 
 .featuredDescription {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     margin: 10px 0px 3px 0px;
 }
 
@@ -47,6 +113,33 @@
 
 .featuredText .cardStats {
     color: #ddd;
+}
+
+.featuredSlideMarker {
+    cursor: pointer;
+  height: 10px;
+  width: 20px;
+  margin: 20px 4px;
+  background-color: #55555588;
+  border-radius: 20px;
+  display: inline-block;
+  transition: all 0.6s ease;
+  overflow: hidden;
+}
+
+.featuredSlideMarker.active {
+    width: 30px;
+    height: 12px;
+    transition: all 0.6s ease;
+}
+
+.featuredSlideMarkerColor {
+    width: 30px;
+    height: 20px;
+    background-color: #2a48d0;
+    display: inline-block;
+    margin: 0 -200%;
+    transition: width 0.5s ease;
 }
 
 .contentCard {
@@ -120,6 +213,7 @@
     display: flex;
     width: 100%;
     align-items: center;
+    margin-bottom: 20px;
 }
 
 .cardStat {
@@ -131,4 +225,8 @@
 .cardStat img {
     margin: 0 5px 0 0px;
     width: 18px;
+}
+
+.creatorCard {
+    
 }

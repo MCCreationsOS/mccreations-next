@@ -1,9 +1,6 @@
 // const contentful = require('contentful')
 const fetch = require('node-fetch')
 
-import Head from 'next/head'
-import Header from 'components/Header'
-import Footer from 'components/Footer'
 import ContentGrid from "@components/ContentGrid"
 import ContentCard from "@components/ContentCard"
 import Menu from "@components/Menu"
@@ -23,9 +20,9 @@ import Menu from "@components/Menu"
 // }
 
 async function getMaps() {
-    let response = await fetch('http://localhost:3001/maps')
+    let response = await fetch(`${process.env.DATA_URL}/maps`)
     let data = await response.json();
-    return data.maps
+    return data
 }
 
 export default async function Maps() {

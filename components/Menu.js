@@ -19,18 +19,18 @@ export default function Menu({selectedPage}) {
                         <Link className={(selectedPage == 'maps') ? "navLink navLinkSelected" : "navLink"} href="/maps">Maps</Link>
                     </li>
     <li className="navItem">
-                        <a className="navLink" href="/resourcepacks">Resourcepacks</a>
+                        {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
                     </li>
                 </ul>
                 <ul className='actionList'>
                     <li className='navItem'>
-                        <Link href='/submit'>
-                            <button className='navButton'>Submit</button>
+                        <Link href='/submit' className="navLink">
+                            Submit
                         </Link>
                     </li>
                     <li className='navItem'>
-                        <Link href='/signup'>
-                            <button className='navButton'>Log In</button>
+                        <Link href='/signup' className="navLink">
+                            Log In
                         </Link>
                     </li>
                 </ul>

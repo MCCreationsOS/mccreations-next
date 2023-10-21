@@ -1,8 +1,8 @@
 .contentGrid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 0.5rem;
-    margin: 0 auto;
+    gap: 15px;
+    margin: 0 auto 70px auto;
     width: 90%;
 }
 
@@ -10,8 +10,8 @@
     .contentGrid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 1rem;
-        margin: 0 auto;
+        grid-gap: 8px;
+        margin: 0 auto 70px auto;
         width: 90%;
     }
 }
@@ -20,8 +20,13 @@
     .contentGrid {
         display: grid;
         grid-template-columns: repeat(6, 1fr);
-        grid-gap: 1rem;
-        margin: 0 auto;
+        gap: 20px;
+        margin: 0 auto 70px auto;
         width: 90%;
     }
+}
+
+.playlistHeader {
+    font-size: 1.7rem;
+    margin: 0px 5% 15px 5%;
 }

@@ -1,15 +1,88 @@
-.featuredDownloadButton {
-    margin: 10px 0;
+.buttonMain {
     padding: 10px 50px;
     font-size: 1.2rem;
     background-color: #3154f4;
     font-weight: 500;
     border: none;
     color: white;
-    cursor: pointer;
     transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
 }
 
-.featuredDownloadButton:hover {
+.buttonMain:hover {
     background-color: #2a48d0;
+}
+
+.navButton {
+    padding: 5px 20px;
+    font-size: 0.9rem;
+    border: none;
+    margin: 0;
+    background-color: #272727;
+    color: white;
+  }
+
+.rating {
+    position: relative;
+    width: 120px;
+    height: 20px;
+    overflow: hidden;
+    list-style: none;
+    margin: 0 10px;
+    padding: 0;
+    background: url(/star_white.svg) left -1000px repeat-x;
+    background-position: 0 center;
+}
+
+.currentRating {
+    background: url(/star.svg) left -1000px repeat-x;
+    background-position: 0 center;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    overflow: hidden;
+}
+
+.rating li {
+    display: inline;
+}
+
+.rating li a {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    overflow: hidden;
+}
+
+.rating li a#one {
+    z-index: 6;
+    width: 20%;
+}
+
+.rating li a#two {
+    z-index: 5;
+    width: 40%;
+}
+
+.rating li a#three {
+    z-index: 4;
+    width: 60%;
+}
+
+.rating li a#four {
+    z-index: 3;
+    width: 80%;
+}
+
+.rating li a#five {
+    z-index: 2;
+    width: 100%;
 }

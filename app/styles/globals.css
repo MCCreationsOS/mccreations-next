@@ -4,6 +4,8 @@
 @import 'accounts.css';
 @import 'submit.css';
 @import 'buttons.css';
+@import 'content.css';
+@import 'footer.css';
 
 html,
 body {
