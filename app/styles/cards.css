@@ -178,6 +178,8 @@
 
 .cardImage {
     width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
     /* border-radius: 5px; */
     opacity: 1;
     margin-bottom: 10px;
