@@ -4,19 +4,19 @@ import ContentCard from "@components/ContentCard";
 import FeaturedCard from "@components/FeaturedCard";
 
 async function getFeatured() {
-    let response = await fetch(`${process.env.DATA_URL}/maps?featured=true`)
+    let response = await fetch(`${process.env.DATA_URL}/maps?featured=true&limit=5`)
     let data = await response.json();
     return data;
 }
 
 async function getNewest() {
-    let response = await fetch(`${process.env.DATA_URL}/maps`)
+    let response = await fetch(`${process.env.DATA_URL}/maps?limit=10`)
     let data = await response.json();
     return data
 }
 
 async function getUpdated() {
-    let response = await fetch(`${process.env.DATA_URL}/maps?updated=true`)
+    let response = await fetch(`${process.env.DATA_URL}/maps?sort=updated&limit=10`)
     let data = await response.json();
     return data;
 }
