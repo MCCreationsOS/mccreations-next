@@ -3,6 +3,7 @@ import Rating from '@components/Rating';
 import { JSDOM } from 'jsdom';
 import DOMPurify from 'dompurify';
 import CreatorCard from '@components/CreatorCard';
+import Image from 'next/image';
 
 const window = new JSDOM('').window;
 const purify = DOMPurify(window);
@@ -25,10 +26,10 @@ export default async function Page({params}) {
             <>
             <Menu></Menu>
             <div className='mapPage'>
-                <img className='mapPageBackground' src={map.images[0]}></img>
+                <Image className='mapPageBackground' width={1920} height={1080} src={map.images[0]}></Image>
                 <div className='mapPageForeground'>
                     <div className='mapPageLogoContainer'>
-                        <img className='mapPageLogo'  src={map.images[0]}></img>
+                        <Image className='mapPageLogo' width={1920} height={1080} src={map.images[0]}></Image>
                     </div>
                 </div>
                 <div className='mapInfo'>
@@ -45,10 +46,18 @@ export default async function Page({params}) {
                     <div className='mapDescription'>
                         <div className='mapDescriptionContent' dangerouslySetInnerHTML={{__html: purify.sanitize(map.description)}}>       
                         </div>
-                        <div className='mapCreators'>
-                            <section>
-                                <h4 className='mapCreatorsHeader'>Creators</h4>
+                        <div className='mapSidebar'>
+                            <section className='mapSidebarSection'>
+                                <h4 className='mapSidebarHeader'>Creators</h4>
                                 {map.creators.map((creator, idx) => <CreatorCard key={idx} creator={creator} />)}
+                            </section>
+                            <section className='mapSidebarSection'>
+                                <h4 className='mapSidebarHeader'>Stats</h4>
+                                <p className='mapSidebarStat'>Downloads</p>
+                                <p className='mapSidebarStat'>Ratings</p>
+                                <p className='mapSidebarStat'>Minecraft Version</p>
+                                <p className='mapSidebarStat'>Created Date</p>
+                                <p className='mapSidebarStat'>Updated Date</p>
                             </section>
                         </div>
                     </div>

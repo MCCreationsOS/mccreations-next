@@ -31,10 +31,11 @@ main {
 }
 
 code {
-  background: #fafafa;
+  background: #272727;
   border-radius: 5px;
   padding: 0.75rem;
   font-family: Menlo, Monaco, Lucida Console, Courier New, monospace;
+  line-height: 2.6rem;
 }
 
 .container {

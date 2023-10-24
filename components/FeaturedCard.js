@@ -2,6 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Link from 'next/link'
+import Image from "next/image";
+import chevLeft from 'public/chev-left.svg'
+import chevRight from 'public/chev-right.svg'
+import download from 'public/download.svg'
+import heart from 'public/heart.svg';
+import map from 'public/map.svg'
 
 export default function FeaturedCard({allFeatured}) {
     const [index, setIndex] = useState(0)
@@ -44,18 +50,18 @@ export default function FeaturedCard({allFeatured}) {
             {allFeatured.map((f, idx) => {
                 return (
                     <div key={idx} className={(index === idx) ? "featuredCard active" : "featuredCard inactive"}>
-                        <img className="featuredBackground" src={f.images[0]}></img>
-                        <img className="featuredSlideArrowLeft" src="chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
-                        <img className="featuredSlideArrowRight" src="chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
+                        <Image className="featuredBackground" src={f.images[0]} width={1920} height={1080}></Image>
+                        <Image className="featuredSlideArrowLeft" src={chevLeft} onClick={() => {slideButtonClicked(true)}}></Image>
+                        <Image className="featuredSlideArrowRight" src={chevRight} onClick={() => {slideButtonClicked(false)}}></Image>
                         <div className="featuredText">
-                            <img className="featuredImage" src={f.images[0]}></img>
+                            <Image className="featuredImage" src={f.images[0]} width={1920} height={1080}></Image>
                             <h2 className="featuredTitle">{f.title}</h2>
                             <p className="featuredDescription">{f.shortDescription}</p>
                             <p className="featuredAuthor">by {f.creators[0].username}</p>
                             <div className='cardStats'>
-                                        <div className="cardStat"><img className="inTextIcon" src='/download.svg'></img>{f.downloads}</div>
-                                        <div className="cardStat"><img className="inTextIcon" src='/heart.svg'></img>{f.likes}</div>
-                                        <div className='cardStat'><img className="inTextIcon" src='/map.svg'></img>{f.files[0].minecraftVersion}</div>
+                                        <div className="cardStat"><Image className="inTextIcon" src={download}></Image>{f.downloads}</div>
+                                        <div className="cardStat"><Image className="inTextIcon" src={heart}></Image>{f.likes}</div>
+                                        <div className='cardStat'><Image className="inTextIcon" src={map}></Image>{f.files[0].minecraftVersion}</div>
                             </div>
                             <Link href={`/maps/${f.slug}`}><button className="buttonMain">Download</button></Link>
                             <div>

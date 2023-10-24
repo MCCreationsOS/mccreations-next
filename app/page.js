@@ -2,29 +2,13 @@ import Menu from "@components/Menu"
 import ContentGrid from "@components/ContentGrid";
 import ContentCard from "@components/ContentCard";
 import FeaturedCard from "@components/FeaturedCard";
+import { getMaps } from "./getData";
 
-async function getFeatured() {
-    let response = await fetch(`${process.env.DATA_URL}/maps?featured=true&limit=5`)
-    let data = await response.json();
-    return data;
-}
-
-async function getNewest() {
-    let response = await fetch(`${process.env.DATA_URL}/maps?limit=10`)
-    let data = await response.json();
-    return data
-}
-
-async function getUpdated() {
-    let response = await fetch(`${process.env.DATA_URL}/maps?sort=updated&limit=10`)
-    let data = await response.json();
-    return data;
-}
 
 export default async function Page() {
-    const featured = await getFeatured();
-    const newest = await getNewest();
-    const updated = await getUpdated();
+    const featured = await getMaps({featured: true, limit: 5})
+    const newest = await getMaps({limit: 10})
+    const updated = await getMaps({sort: "updated", limit: 10})
     return (
         <>
         <Menu selectedPage='home'></Menu>

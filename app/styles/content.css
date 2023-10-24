@@ -31,6 +31,7 @@
     width: 100%;
     aspect-ratio: 16/9;
     object-fit: cover;
+    height: 100%;
 }
 
 .mapInfo {
@@ -79,9 +80,24 @@
     flex: 50%;
 }
 
-.mapCreators {
+.mapSidebarHeader {
+    margin-top: 0;
+}
+
+.mapSidebar {
     width: 250px;
     padding: 10px;
     margin: 10px 0 0 5px;
     background-color: #272727;
+}
+
+.mapSidebarStat {
+    font-size: 0.85rem;
+    margin: 1px 0;
+}
+
+.mapSidebarSection {
+    margin-bottom: 25px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
 }

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function MapCard({map}) {
 
@@ -19,7 +20,7 @@ export default function MapCard({map}) {
                             <div className='cardStat'><img className="inTextIcon" src='/map.svg'></img>{map.files[0].minecraftVersion}</div>
                         </div>
                     </div>
-                    <img className='cardImage' src={map.images[0]}></img>
+                    <Image className='cardImage' src={map.images[0]} width={1920} height={1080}></Image>
                 </div>
                 <Link className='cardTitle' href={`/maps/${map.slug}`}>{map.title}</Link>
                 <p className='cardAuthor'>by <Link href={authorLink} className='cardAuthorLink'>{map.creators[0].username}</Link></p>
