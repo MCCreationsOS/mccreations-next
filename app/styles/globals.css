@@ -61,3 +61,15 @@ a {
 a:visited {
   color: #506be3;
 }
+
+.errorBox {
+  background-color: #272727;
+  padding: 20px;
+  width: 40%;
+  margin: 20px auto;
+}
+
+.errorBox p {
+  background-color: #331111;
+  padding: 10px;
+}

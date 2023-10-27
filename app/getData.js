@@ -35,7 +35,11 @@ export async function getMaps(queryOptions) {
         let data = await response.json();
         return data;
     } catch(e) {
-        console.error("Server Query Error: " + e);
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: queryOptions
+        }
     }
     
 }
@@ -56,4 +60,16 @@ export async function getUpdated() {
     let response = await fetch(`${process.env.DATA_URL}/maps?sort=updated&limit=10`)
     let data = await response.json();
     return data;
+}
+
+export async function postRating(mapSlug, rating) {
+    let response = await fetch(`${process.env.DATA_URL}/maps/rate/${mapSlug}`, { 
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({rating: rating})
+    })
+    let newRating = await response.json().rating
+    return newRating;
 }

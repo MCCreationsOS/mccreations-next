@@ -3,7 +3,10 @@ import Rating from '@components/Rating';
 import { JSDOM } from 'jsdom';
 import DOMPurify from 'dompurify';
 import CreatorCard from '@components/CreatorCard';
+import FileCard from '@components/FileCard';
 import Image from 'next/image';
+import Link from 'next/link';
+import MapImageSlideshow from '@components/MapImageSlideshow';
 
 const window = new JSDOM('').window;
 const purify = DOMPurify(window);
@@ -15,6 +18,7 @@ async function getMap(slug) {
 }
 
 export default async function Page({params}) {
+    console.log("Looking for map with slug " + params.slug)
     const map = await getMap(params.slug)
 
     const ratingUpdate = (value) => {
@@ -38,8 +42,8 @@ export default async function Page({params}) {
                             <h1 className='mapPageTitle'>{map.title}</h1>
                         </div>
                         <div className='mapPageDownloadStack'>
-                            <Rating value={0.5} contentId={map._id} />
-                            <button className='buttonMain'>Download</button>
+                            <Rating value={map.rating} contentId={map.slug} />
+                            <Link href={map.files[0].worldUrl} className='buttonMain'>Download</Link>
                         </div>
                     </div>
                     <div className='mapVideo'></div>
@@ -53,15 +57,20 @@ export default async function Page({params}) {
                             </section>
                             <section className='mapSidebarSection'>
                                 <h4 className='mapSidebarHeader'>Stats</h4>
-                                <p className='mapSidebarStat'>Downloads</p>
-                                <p className='mapSidebarStat'>Ratings</p>
-                                <p className='mapSidebarStat'>Minecraft Version</p>
-                                <p className='mapSidebarStat'>Created Date</p>
-                                <p className='mapSidebarStat'>Updated Date</p>
+                                <p className='mapSidebarStatHeader'>Downloads <span className='mapSidebarStat'>{map.downloads}</span></p>
+                                <p className='mapSidebarStatHeader'>Ratings <span className='mapSidebarStat'>{(map.ratings) ? map.ratings.length : 0}</span></p>
+                                <p className='mapSidebarStatHeader'>Minecraft Version <span className='mapSidebarStat'>{map.files[0].minecraftVersion}</span></p>
+                                <p className='mapSidebarStatHeader'>Created Date <span className='mapSidebarStat'>{new Date(map.createdDate).toLocaleDateString()}</span></p>
+                                <p className='mapSidebarStatHeader'>Updated Date <span className='mapSidebarStat'>{new Date(map.updatedDate).toLocaleDateString()}</span></p>
+                            </section>
+                            <section className='mapSidebarSection'>
+                                <h4 className='mapSidebarHeader'>Files</h4>
+                                {map.files.map((file, idx) => <FileCard key={idx} file={file} />)}
                             </section>
                         </div>
                     </div>
                 </div>
+                <MapImageSlideshow images={map.images.slice(1)} />
             </div>
             </>
         )

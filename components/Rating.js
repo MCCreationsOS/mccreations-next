@@ -1,13 +1,21 @@
 'use client'
 
-import { useState } from "react";
+import { postRating } from "app/getData";
+import { getCookie, setCookie } from "app/setCookies";
+import { useState, useEffect } from "react";
 
 export default function Rating(props) {
-    let [value, setValue] = useState(props.value);
+    const [value, setValue] = useState(props.value);
     let contentId = props.contentId;
 
-    const sendRating = (value) => {
-        console.log("sent rating " + value)
+    console.log(value)
+
+    const sendRating = async (value) => {
+        if(!getCookie("RATED_" + contentId)) {
+            let newRating = await postRating(contentId, value);
+            setCookie("RATED_" + contentId, true)
+            setValue(newRating)
+        }
     }
 
     let ratingHover = (event) => {
@@ -20,11 +28,11 @@ export default function Rating(props) {
         <div>
             <ul className="rating" onMouseMove={(e) => {ratingHover(e)}} onMouseLeave={() => {setValue(props.value)}}>
                 <li className="currentRating" style={{width: value*100 + '%'}}></li>
-                <li><a id="one" href="#" title="1 out of 5 stars" onClick={() => {sendRating(1)}}></a></li>
-                <li><a id="two" href="#" title="2 out of 5 stars" onClick={() => {sendRating(2)}}></a></li>
-                <li><a id="three" href="#" title="3 out of 5 stars" onClick={() => {sendRating(3)}}></a></li>
-                <li><a id="four" href="#" title="4 out of 5 stars" onClick={() => {sendRating(4)}}></a></li>
-                <li><a id="five" href="#" title="5 out of 5 stars" onClick={() => {sendRating(5)}}></a></li>
+                <li><a id="one" href="#" title="1 out of 5 stars" onClick={() => {sendRating(0.2)}}></a></li>
+                <li><a id="two" href="#" title="2 out of 5 stars" onClick={() => {sendRating(0.4)}}></a></li>
+                <li><a id="three" href="#" title="3 out of 5 stars" onClick={() => {sendRating(0.6)}}></a></li>
+                <li><a id="four" href="#" title="4 out of 5 stars" onClick={() => {sendRating(0.8)}}></a></li>
+                <li><a id="five" href="#" title="5 out of 5 stars" onClick={() => {sendRating(1)}}></a></li>
             </ul>
         </div>
     )

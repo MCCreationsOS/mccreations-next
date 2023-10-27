@@ -22,7 +22,20 @@
     margin: 0;
     background-color: #272727;
     color: white;
-  }
+}
+
+.fileButton {
+    margin-left: 10px;
+    padding: 8px;
+    color: white;
+    background-color: #344ec1;
+    text-align: center;
+}
+
+.fileButton svg {
+    position: relative;
+    margin-bottom: -5px;
+}
 
 .rating {
     position: relative;

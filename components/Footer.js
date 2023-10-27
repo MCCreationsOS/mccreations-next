@@ -23,7 +23,7 @@ export default function Footer() {
             <h2>Legal and Contact</h2>
           </div>
         </div>
-        © Ben Meier 2023
+        © Ben Meier/CrazyCowMM {new Date(Date.now()).getFullYear()}
       </footer>
     </>
   )

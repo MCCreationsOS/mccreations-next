@@ -17,7 +17,7 @@
 .mapPageForeground {
     width: 100%;
     position: absolute;
-    top: 5%;
+    top: 5vh;
     left: 0%;
 }
 
@@ -91,13 +91,35 @@
     background-color: #272727;
 }
 
+.mapSidebarStatHeader {
+    font-size: 0.85rem;
+    margin: 5px 0;
+    width: 100%;
+}
+
 .mapSidebarStat {
     font-size: 0.85rem;
-    margin: 1px 0;
+    float: right;
+    color: #bbb;
 }
 
 .mapSidebarSection {
     margin-bottom: 25px;
     border-bottom: 1px solid gray;
     padding-bottom: 10px;
+}
+
+.fileCard {
+    background-color: #373737;
+    padding: 5px 8px;
+}
+
+.fileDownloadOptions {
+    height: fit-content;
+    display: flex;
+    align-items: center;
+}
+
+.fileDownloadOptions p {
+    flex: 50%;
 }
