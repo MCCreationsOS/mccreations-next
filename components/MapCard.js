@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-export default function MapCard({map}) {
+export default function MapCard({map, id}) {
 
     let authorLink = map.creators[0].link;
     if(!authorLink || authorLink.length <= 0 || map.creators[0].hasMatchingUser) {
@@ -10,7 +10,7 @@ export default function MapCard({map}) {
 
     return (
 
-            <div className='contentCard' >
+            <div className='contentCard' id={id} >
                 <div className="cardLogoFloat">
                     <div className='cardDescription'>
                         {map.shortDescription}

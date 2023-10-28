@@ -63,6 +63,12 @@ export async function getUpdated() {
     return data;
 }
 
+export async function getMapCount() {
+    let response = await fetch(`${process.env.DATA_URL}/maps/getCount`)
+    let data = await response.json();
+    return data.count;
+}
+
 export async function postRating(mapSlug, rating, map) {
     let response = await fetch(`${process.env.DATA_URL}/maps/rate/${mapSlug}`, { 
         method: "POST",

@@ -1,7 +1,7 @@
 import MapCard from "./MapCard"
 
-export default function ContentCard({content}) {
+export default function ContentCard({content, playlist, index}) {
     return (
-        <MapCard key={content._id} map={content}></MapCard>
+        <MapCard id={playlist + "_" + index} key={content._id} map={content}></MapCard>
     )
 }

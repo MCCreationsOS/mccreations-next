@@ -146,3 +146,15 @@
 .commentInput:focus {
     border: 1px solid #344ec1;
 }
+
+.contentPageNavigator {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.contentPageNavigator p {
+    margin: 0 20px;
+}
