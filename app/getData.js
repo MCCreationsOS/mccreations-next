@@ -1,3 +1,4 @@
+import { revalidateTag } from "next/cache";
 
 
 export async function getMaps(queryOptions) {
@@ -62,14 +63,37 @@ export async function getUpdated() {
     return data;
 }
 
-export async function postRating(mapSlug, rating) {
+export async function postRating(mapSlug, rating, map) {
     let response = await fetch(`${process.env.DATA_URL}/maps/rate/${mapSlug}`, { 
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({rating: rating})
+        body: JSON.stringify({rating: rating, map: map})
     })
     let newRating = await response.json().rating
+    try {
+        revalidateTag(mapSlug)
+    }
+    catch(e) {
+
+    }
     return newRating;
+}
+
+export async function postComment(mapSlug, username, comment) {
+    await fetch(`${process.env.DATA_URL}/maps/comment/${mapSlug}`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({username: username, comment: comment})
+    })
+    try {
+        revalidateTag(mapSlug)
+    }
+    catch(e) {
+        
+    }
+    return true
 }

@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from 'next/link'
 import Image from "next/image";
-import chevLeft from 'public/chev-left.svg'
-import chevRight from 'public/chev-right.svg'
 import download from 'public/download.svg'
 import heart from 'public/heart.svg';
 import map from 'public/map.svg'
@@ -45,14 +43,19 @@ export default function FeaturedCard({allFeatured}) {
             setIndex(index => index + 1)
         }
     }
+
+    const setSlide = (index) => {
+        setSlideTime(0)
+        setIndex(index);
+    }
     return (
         <div className="featuredZone">
             {allFeatured.map((f, idx) => {
                 return (
                     <div key={idx} className={(index === idx) ? "featuredCard active" : "featuredCard inactive"}>
                         <Image className="featuredBackground" src={f.images[0]} width={1920} height={1080}></Image>
-                        <Image className="featuredSlideArrowLeft" src={chevLeft} onClick={() => {slideButtonClicked(true)}}></Image>
-                        <Image className="featuredSlideArrowRight" src={chevRight} onClick={() => {slideButtonClicked(false)}}></Image>
+                        <img className="featuredSlideArrowLeft" src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
+                        <img className="featuredSlideArrowRight" src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
                         <div className="featuredText">
                             <Image className="featuredImage" src={f.images[0]} width={1920} height={1080}></Image>
                             <h2 className="featuredTitle">{f.title}</h2>
@@ -68,7 +71,7 @@ export default function FeaturedCard({allFeatured}) {
                                 {
                                     allFeatured.map((f, idx) => {
                                         return (
-                                            <div key={idx} className={(index === idx) ? "featuredSlideMarker active" : "featuredSlideMarker"}>
+                                            <div onClick={() => setSlide(idx)} key={idx} className={(index === idx) ? "featuredSlideMarker active" : "featuredSlideMarker"}>
                                                 {index === idx ? (<span className="featuredSlideMarkerColor" style={{margin: `0 -${slideTime}%`}}></span>): (<span className="featuredSlideMarkerColor"></span>)} 
                                             </div>
                                         )

@@ -123,3 +123,26 @@
 .fileDownloadOptions p {
     flex: 50%;
 }
+
+.commentSection {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.commentInputLabel {
+    margin: 0 0 5px 0;
+}
+
+.commentInput {
+    background-color: #272727;
+    color: white;
+    padding: 10px 12px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.commentInput:focus {
+    border: 1px solid #344ec1;
+}

@@ -7,12 +7,13 @@ import FileCard from '@components/FileCard';
 import Image from 'next/image';
 import Link from 'next/link';
 import MapImageSlideshow from '@components/MapImageSlideshow';
+import Comments from '@components/Comments';
 
 const window = new JSDOM('').window;
 const purify = DOMPurify(window);
 
 async function getMap(slug) {
-    let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`)
+    let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`, { next: { tags: [slug] }})
     let data = await response.json();
     return data
 }
@@ -42,7 +43,7 @@ export default async function Page({params}) {
                             <h1 className='mapPageTitle'>{map.title}</h1>
                         </div>
                         <div className='mapPageDownloadStack'>
-                            <Rating value={map.rating} contentId={map.slug} />
+                            <Rating value={map.rating} content={map} />
                             <Link href={map.files[0].worldUrl} className='buttonMain'>Download</Link>
                         </div>
                     </div>
@@ -71,6 +72,7 @@ export default async function Page({params}) {
                     </div>
                 </div>
                 <MapImageSlideshow images={map.images.slice(1)} />
+                <Comments mapSlug={map.slug} comments={map.comments}/>
             </div>
             </>
         )

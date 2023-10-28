@@ -4,6 +4,7 @@ import ContentCard from "@components/ContentCard";
 import FeaturedCard from "@components/FeaturedCard";
 import { getMaps } from "./getData";
 import Error from "@components/Error";
+import ContentSlideshow from "@components/ContentSlideshow";
 
 
 export default async function Page() {
@@ -25,7 +26,7 @@ export default async function Page() {
         <Menu selectedPage='home'></Menu>
         {(featured) ? (<FeaturedCard allFeatured={featured} />) : "MCCreations API Error"}
         <h2 className="playlistHeader">New Content</h2>
-        {(newest) ? (<ContentGrid content={newest.map(map => <ContentCard key={map._id} content={map}></ContentCard>)}></ContentGrid>) : "MCCreations API Error"}
+        {(newest) ? (<ContentSlideshow content={newest.map(map => <ContentCard key={map._id} content={map}></ContentCard>)}></ContentSlideshow>) : "MCCreations API Error"}
         <h2 className="playlistHeader">Recently Updated</h2>
         {(updated) ? (<ContentGrid content={updated.map(content => <ContentCard key={content._id} content={content}></ContentCard>)}></ContentGrid>): "MCCreations API Error"}
         </>

@@ -45,6 +45,11 @@ export default function MapImageSlideshow({images}) {
             setIndex(index => index + 1)
         }
     }
+
+    const setSlide = (index) => {
+        setSlideTime(0)
+        setIndex(index);
+    }
     return (
         <div className="mapImageSlideshow">
             {images.map((f, idx) => {
@@ -59,7 +64,7 @@ export default function MapImageSlideshow({images}) {
                                 {
                                     images.map((f, idx) => {
                                         return (
-                                            <div key={idx} className={(index === idx) ? "featuredSlideMarker active" : "featuredSlideMarker"}>
+                                            <div onClick={() => setSlide(idx)} key={idx} className={(index === idx) ? "featuredSlideMarker active" : "featuredSlideMarker"}>
                                                 {index === idx ? (<span className="featuredSlideMarkerColor" style={{margin: `0 -${slideTime}%`}}></span>): (<span className="featuredSlideMarkerColor"></span>)} 
                                             </div>
                                         )

@@ -30,3 +30,54 @@
     font-size: 1.7rem;
     margin: 0px 5% 15px 5%;
 }
+
+.contentSlideshow {
+    margin-bottom: 70px;
+    overflow: hidden;
+    position: relative;
+}
+
+.contentSlideshowContents {
+    width: 90%;
+    margin: 0 auto -15px auto;
+    display: grid;
+    grid-auto-columns: calc(100%/5);
+    grid-auto-flow: column;
+    grid-template-rows: repeat(1,auto);
+    scroll-padding: 0;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    overflow: auto;
+    overscroll-behavior-x: none;
+}
+
+.contentSlideshowContents div {
+    margin-right: 10px;
+    scroll-snap-align: none center;
+}
+
+.contentSlideArrowLeft {
+    position: absolute;
+    top: 0;
+    left: 1%;
+    width: 40px;
+    height: 300px;
+    opacity: 0.6;
+}
+
+.contentSlideArrowRight {
+    position: absolute;
+    top: 0;
+    right: 1%;
+    width: 40px;
+    height: 300px;
+    opacity: 0.6;
+}
+
+.contentSlideArrowLeft:hover {
+    opacity: 1;
+}
+
+.contentSlideArrowRight:hover {
+    opacity: 1;
+}

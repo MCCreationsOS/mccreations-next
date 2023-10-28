@@ -6,13 +6,14 @@ import { useState, useEffect } from "react";
 
 export default function Rating(props) {
     const [value, setValue] = useState(props.value);
-    let contentId = props.contentId;
+    let contentId = props.content.slug;
 
     console.log(value)
 
     const sendRating = async (value) => {
-        if(!getCookie("RATED_" + contentId)) {
-            let newRating = await postRating(contentId, value);
+        let cookie = await getCookie("RATED_" + contentId)
+        if(!cookie) {
+            let newRating = await postRating(contentId, value, props.content);
             setCookie("RATED_" + contentId, true)
             setValue(newRating)
         }
