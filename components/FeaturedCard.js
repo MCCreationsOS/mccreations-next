@@ -66,7 +66,7 @@ export default function FeaturedCard({allFeatured}) {
                                         <div className="cardStat"><Image className="inTextIcon" src={heart}></Image>{f.likes}</div>
                                         <div className='cardStat'><Image className="inTextIcon" src={map}></Image>{f.files[0].minecraftVersion}</div>
                             </div>
-                            <Link href={`/maps/${f.slug}`}><button className="buttonMain">Download</button></Link>
+                            <Link href={`/maps/${f.slug}`}><button className="buttonMain">See More!</button></Link>
                             <div>
                                 {
                                     allFeatured.map((f, idx) => {

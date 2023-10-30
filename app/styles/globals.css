@@ -62,6 +62,10 @@ a:visited {
   color: #506be3;
 }
 
+a:active {
+  color: white;
+}
+
 .errorBox {
   background-color: #272727;
   padding: 20px;

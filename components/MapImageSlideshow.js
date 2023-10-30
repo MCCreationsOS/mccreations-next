@@ -56,8 +56,8 @@ export default function MapImageSlideshow({images}) {
                 return (
                     <div key={idx} className={(index === idx) ? "mapImage active" : "mapImage inactive"}>
                         <Image className="mapImageBackground" src={f} width={1920} height={1080}></Image>
-                        <Image className="mapImageSlideArrowLeft" src={chevLeft} onClick={() => {slideButtonClicked(true)}}></Image>
-                        <Image className="mapImageSlideArrowRight" src={chevRight} onClick={() => {slideButtonClicked(false)}}></Image>
+                        <img className="mapImageSlideArrowLeft" src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
+                        <img className="mapImageSlideArrowRight" src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
                         <div className="mapSlideshowText">
                             <Image className="mapSlideshowImage" src={f} width={1920} height={1080}></Image>
                         <div className="mapImageSlideshowMarkers">

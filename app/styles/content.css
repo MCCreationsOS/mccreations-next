@@ -151,10 +151,48 @@
     display: flex;
     align-items: center;
     width: 50%;
-    margin: 0 auto;
+    margin: 15px auto;
     justify-content: center;
+    position: relative;
 }
 
-.contentPageNavigator p {
-    margin: 0 20px;
+.contentPageNavigator a {
+    margin: 0 3px;
+    padding: 5px;
+    background-color: #272727;
+    border-radius: 100%;
+    text-align: center;
+    font-size: 1.3rem;
+    min-width: 33px;
+    text-decoration: none;
+    height: 35px;
+}
+
+.contentPageNavigator img {
+    width: 25px;
+}
+
+.search {
+    background-color: #272727;
+    color: white;
+    padding: 12px 12px;
+    border: 1px solid gray;
+    width: 350px;
+    font-size: 1.2rem;
+    flex: 50%;
+}
+
+.searchAndFilter {
+    width: 50%;
+    margin: 20px auto;
+}
+
+.searchStack {
+    display: flex;
+}
+
+.filters {
+    /* display: none; */
+    background-color: #272727;
+    padding: 5px;
 }

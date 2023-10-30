@@ -269,17 +269,19 @@
     position: absolute;
     top: 45%;
     left: 1%;
-    width: 25px;
+    width: 45px;
     opacity: 0.6;
+    cursor: pointer;
 }
 
 .mapImageSlideArrowRight {
     position: absolute;
     top: 45%;
     right: 1%;
-    width: 25px;
+    width: 45px;
     height: 100px;
     opacity: 0.6;
+    cursor: pointer;
 }
 
 .mapImageSlideshow {
@@ -287,6 +289,14 @@
     height: 40vw;
     margin: 0 auto;
     min-width: 400px;
+}
+
+.mapImageSlideArrowLeft:hover {
+    opacity: 1;
+}
+
+.mapImageSlideArrowRight:hover {
+    opacity: 1;
 }
 
 .mapImage {
