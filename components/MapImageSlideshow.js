@@ -28,8 +28,10 @@ export default function MapImageSlideshow({images}) {
     }
 
     useEffect(() => {
-        const slideTicker = setInterval(() => {updateSlide()}, 100);
-        return () => clearInterval(slideTicker);
+        if(images.length > 1) {
+            const slideTicker = setInterval(() => {updateSlide()}, 100);
+            return () => clearInterval(slideTicker);
+        }
     }, [slideTime, index])
 
     const slideButtonClicked = (left) => {

@@ -17,7 +17,7 @@ export default function MapCard({map, id, priority}) {
                         {map.shortDescription}
                         <div className='cardStats'>
                             <div className="cardStat"><img className="inTextIcon" src='/download.svg'></img>{map.downloads}</div>
-                            <div className="cardStat"><img className="inTextIcon" src='/heart.svg'></img>{map.likes}</div>
+                            {(map.rating > 0) ? <div className="cardStat"><img className="inTextIcon" src='/star_white.svg'></img>{(Math.round(map.rating*100)/100) * 5}</div>: <></> }
                             <div className='cardStat'><img className="inTextIcon" src='/map.svg'></img>{map.files[0].minecraftVersion}</div>
                         </div>
                     </div>
