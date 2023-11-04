@@ -28,7 +28,7 @@ export default function Comments({mapSlug, comments}) {
                     <button className="buttonMain" >Send!</button>
                     </form>
                 <h2>Comments</h2>
-                {(comments) ? comments.map((comment, idx) => <CommentCard key={idx} comment={comment} />) : <></>}
+                {(comments && comments[0].comment) ? comments.map((comment, idx) => <CommentCard key={idx} comment={comment} />) : <><div className="noComments"><h3>None Yet!</h3><p>Be the first to comment!</p></div></>}
         </div>
     )
 }

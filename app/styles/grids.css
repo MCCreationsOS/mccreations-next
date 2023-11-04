@@ -39,9 +39,9 @@
 
 .contentSlideshowContents {
     width: 90%;
-    margin: 0 auto -15px auto;
+    margin: 0 auto -16px auto;
     display: grid;
-    grid-auto-columns: calc(100%/5);
+    grid-auto-columns: calc(100%/4);
     grid-auto-flow: column;
     grid-template-rows: repeat(1,auto);
     scroll-padding: 0;
@@ -51,8 +51,15 @@
     overscroll-behavior-x: none;
 }
 
+@media screen and (min-width: 2200px) {
+    .contentSlideshowContents {
+        grid-auto-columns: calc(100%/5);
+    }
+}
+
 .contentSlideshowContents div {
     margin-right: 10px;
+    margin-bottom: 10px;
     scroll-snap-align: none center;
 }
 

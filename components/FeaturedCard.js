@@ -6,6 +6,7 @@ import Image from "next/image";
 import download from 'public/download.svg'
 import heart from 'public/heart.svg';
 import map from 'public/map.svg'
+import { shimmer, toBase64 } from "./skeletons/imageShimmer";
 
 export default function FeaturedCard({allFeatured}) {
     const [index, setIndex] = useState(0)
@@ -57,7 +58,7 @@ export default function FeaturedCard({allFeatured}) {
                         <img className="featuredSlideArrowLeft" src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
                         <img className="featuredSlideArrowRight" src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
                         <div className="featuredText">
-                            <Image className="featuredImage" src={f.images[0]} width={1920} height={1080}></Image>
+                            <Image placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} priority={true} className="featuredImage" src={f.images[0]} width={1920} height={1080} alt={`The logo for ${f.title}, a Minecraft Map for ${f.files[0].minecraftVersion} by ${f.creators[0].username}`}></Image>
                             <h2 className="featuredTitle">{f.title}</h2>
                             <p className="featuredDescription">{f.shortDescription}</p>
                             <p className="featuredAuthor">by {f.creators[0].username}</p>

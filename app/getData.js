@@ -1,40 +1,49 @@
 import { revalidateTag } from "next/cache";
 
-
-export async function getMaps(queryOptions) {
+function formatQueryOptions(queryOptions) {
     let limit = queryOptions.limit;
     let skip = queryOptions.skip;
     let featured = queryOptions.featured;
     let sort = queryOptions.sort;
+    let search = queryOptions.search
 
-    if(!limit) {
-        limit = 0
+    if(!queryOptions.limit) {
+        queryOptions.limit = 0
     }
-    if(limit > 20 || limit < 0) {
+    if(queryOptions.limit > 20 || queryOptions.limit < 0) {
         console.error("Limit is above 20 or below 0")
     }
 
-    if(!skip) {
-        skip = 0;
+    if(!queryOptions.skip) {
+        queryOptions.skip = 0;
     }
-    if(skip < 0) {
+    if(queryOptions.skip < 0) {
         console.error("Skip cannot be less than 0")
     }
 
-    if(featured === undefined) {
-        featured = false
+    if(queryOptions.featured === undefined) {
+        queryOptions.featured = false
     }
-    if(!featured instanceof Boolean) {
+    if(!queryOptions.featured instanceof Boolean) {
         console.error("Featured must be either true or false")
     }
 
-    if(!sort) {
-        sort = "newest"
+    if(!queryOptions.sort) {
+        queryOptions.sort = "newest"
     }
+
+    if(!queryOptions.search) {
+        queryOptions.search = ""
+    }
+    return queryOptions
+}
+
+export async function getMaps(queryOptions) {
+    queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps?featured=${featured}&limit=${limit}&skip=${skip}&sort=${sort}`)
+        let response = await fetch(`${process.env.DATA_URL}/maps?featured=${queryOptions.featured}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}`)
         let data = await response.json();
-        return data;
+        return data.documents;
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e);
         return {
@@ -63,10 +72,19 @@ export async function getUpdated() {
     return data;
 }
 
-export async function getMapCount() {
-    let response = await fetch(`${process.env.DATA_URL}/maps/getCount`)
-    let data = await response.json();
-    return data.count;
+export async function getMapCount(queryOptions) {
+    queryOptions = formatQueryOptions(queryOptions);
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/maps?featured=${queryOptions.featured}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=true`)
+        let data = await response.json();
+        return data.count;
+    } catch(e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: queryOptions
+        }
+    }
 }
 
 export async function postRating(mapSlug, rating, map) {

@@ -7,7 +7,7 @@ export default function Footer() {
         <div className='footerFlex'>
           <div>
             <h2>MCCreations</h2>
-            <p>Create for Community</p>
+            <p>Wonderfully generic slogan here</p>
           </div>
           <div>
             <h2>Join the Community</h2>

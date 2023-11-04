@@ -14,9 +14,6 @@ export default function MenuSkeleton() {
                     <li className="navItem">
                         <a className="navLink" href="/maps">Maps</a>
                     </li>
-    <li className="navItem">
-                        <a className="navLink" href="/resourcepacks">Resourcepacks</a>
-                    </li>
                 </ul>
                 <ul className='actionList'>
                     <li className='navItem'>

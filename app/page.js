@@ -26,9 +26,9 @@ export default async function Page() {
         <Menu selectedPage='home'></Menu>
         {(featured) ? (<FeaturedCard allFeatured={featured} />) : "MCCreations API Error"}
         <h2 className="playlistHeader">New Content</h2>
-        {(newest) ? (<ContentSlideshow playlist={"newest"} content={newest.map((map, idx) => <ContentCard key={map._id} content={map} playlist={"newest"} index={idx}></ContentCard>)}></ContentSlideshow>) : "MCCreations API Error"}
+        {(newest) ? (<ContentSlideshow limit={10} playlist={"newest"} content={newest.map((map, idx) => <ContentCard key={map._id} content={map} playlist={"newest"} index={idx} priority={true}></ContentCard>)}></ContentSlideshow>) : "MCCreations API Error"}
         <h2 className="playlistHeader">Recently Updated</h2>
-        {(updated) ? (<ContentSlideshow playlist={"updated"} content={updated.map((content, idx) => <ContentCard key={content._id} content={content} playlist={"updated"} index={idx}></ContentCard>)}></ContentSlideshow>): "MCCreations API Error"}
+        {(updated) ? (<ContentSlideshow limit={10} playlist={"updated"} content={updated.map((content, idx) => <ContentCard key={content._id} content={content} playlist={"updated"} index={idx} priority={false}></ContentCard>)}></ContentSlideshow>): "MCCreations API Error"}
         </>
     )
 }

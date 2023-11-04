@@ -1,13 +1,8 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import Link from 'next/link'
 import Image from "next/image";
-import chevLeft from 'public/chev-left.svg'
-import chevRight from 'public/chev-right.svg'
-import download from 'public/download.svg'
-import heart from 'public/heart.svg';
-import map from 'public/map.svg'
+import { shimmer, toBase64 } from "./skeletons/imageShimmer";
 
 export default function MapImageSlideshow({images}) {
     const [index, setIndex] = useState(0)
@@ -59,7 +54,7 @@ export default function MapImageSlideshow({images}) {
                         <img className="mapImageSlideArrowLeft" src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
                         <img className="mapImageSlideArrowRight" src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
                         <div className="mapSlideshowText">
-                            <Image className="mapSlideshowImage" src={f} width={1920} height={1080}></Image>
+                            <Image alt="" placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className="mapSlideshowImage" src={f} width={1920} height={1080}></Image>
                         <div className="mapImageSlideshowMarkers">
                                 {
                                     images.map((f, idx) => {

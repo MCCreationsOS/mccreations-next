@@ -10,6 +10,9 @@ export default function CommentCard({comment}) {
         image = defaultLogo
     }
 
+    // if(!comment.comment) {
+    //     return (<></>)
+    // }
     return (
         <div className="comment">
             <Image src={image} width={45} height={45} className='creatorLogo'></Image>
