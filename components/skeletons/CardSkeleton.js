@@ -17,7 +17,7 @@ export default function CardSkeleton() {
                     </div>
                     <Image src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className='cardImage' width={1920} height={1080} sizes="25vw" alt=""></Image>
                 </div>
-                <Link className='cardTitle' href="">Loading...</Link>
+                <a className='cardTitle' href={null}>Loading...</a>
                 <p className='cardAuthor'>by Loading...</p>
             </div>
     )

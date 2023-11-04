@@ -68,7 +68,7 @@ export default function Maps() {
         return pathname + '?' + createQueryString('page', page)
       }
 
-      if(maps.length == 0) {
+      if(maps.length == 0 && !search) {
         return (
             <Loading />
         )
@@ -79,7 +79,7 @@ export default function Maps() {
             <Menu selectedPage='maps'></Menu>
             <div className="searchAndFilter">
                 <div className="searchStack">
-                    <input type="text" placeholder="Search" className="search" onChange={(e) => {setSearch(e.target.value); goToPage(0);}}></input>
+                    <input type="text" placeholder="Search" className="search" onKeyDown={(e) => {if(e.code == "Enter") {setSearch(e.target.value); goToPage(0);}}} onChange={(e) => {if(!search || Math.abs(e.target.value.length - search.length) > 2) setSearch(e.target.value); goToPage(0);}}></input>
                     <button className="buttonSecondary" onClick={() => setFiltering(!filtering)}><Filter /></button>
                 </div>
                 <div className="filters" style={{display: (filtering) ? "block": "none"}}>
