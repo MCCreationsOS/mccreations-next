@@ -18,9 +18,17 @@ export default function Footer() {
           </div>
           <div>
             <h2>About And Support</h2>
+            <ul>
+              <li><Link href="https://www.mccreations.net/about">About</Link></li>
+            </ul>
           </div>
           <div>
             <h2>Legal and Contact</h2>
+            <ul>
+              <li><Link href="https://www.mccreations.net/request-data">Request Data</Link></li>
+              <li><Link href="https://www.mccreations.net/privacy">Privacy Policy</Link></li>
+              <li><Link href="https://www.mccreations.net/contact">Contact</Link></li>
+            </ul>
           </div>
         </div>
         © Ben Meier/CrazyCowMM {new Date(Date.now()).getFullYear()}
