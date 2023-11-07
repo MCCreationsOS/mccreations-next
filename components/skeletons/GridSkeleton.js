@@ -6,7 +6,7 @@ export default function GridSkeleton({amount}) {
         content[i] = i;
     }
     return (
-        <div className='contentGrid'>
+        <div className='content_grid'>
             {content.map((id) => <CardSkeleton key={id} />)}
         </div>
     )

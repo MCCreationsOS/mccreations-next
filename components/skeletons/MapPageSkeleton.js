@@ -10,40 +10,40 @@ export default async function MapPageSkeleton({params}) {
         return (
             <>
             <Menu></Menu>
-            <div className='mapPage'>
-                <Image className='mapPageBackground' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
-                <div className='mapPageForeground'>
-                    <div className='mapPageLogoContainer'>
-                        <Image className='mapPageLogo' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
+            <div className='map_page'>
+                <Image className='image_background' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
+                <div className='map_logo_foreground'>
+                    <div className='map_logo_container'>
+                        <Image className='map_logo' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
                     </div>
                 </div>
-                <div className='mapInfo'>
-                    <div className='mapPageTitleInfo'>
-                        <div className="mapTitleStack">
-                            <h1 className='mapPageTitle'></h1>
+                <div className='centered_content'>
+                    <div className='map_title_bar'>
+                        <div className="map_title_stack">
+                            <h1 className='map_title'></h1>
                         </div>
-                        <div className='mapPageDownloadStack'>
+                        <div className='map_download_stack'>
                             <Rating value={0} content={{slug: ""}} />
                             <button className='main_button'>Download</button>
                         </div>
                     </div>
-                    <div className='mapDescription'>
-                        <div className='mapDescriptionContent'>       
+                    <div className='map_information'>
+                        <div className='map_description'>       
                         </div>
-                        <div className='mapSidebar'>
-                            <section className='mapSidebarSection'>
-                                <h4 className='mapSidebarHeader'>Creators</h4>
+                        <div className='map_sidebar'>
+                            <section className='map_sidebar_section'>
+                                <h4 className='header'>Creators</h4>
                             </section>
-                            <section className='mapSidebarSection'>
-                                <h4 className='mapSidebarHeader'>Stats</h4>
-                                <p className='mapSidebarStatHeader'>Downloads <span className='mapSidebarStat'>-</span></p>
-                                <p className='mapSidebarStatHeader'>Ratings <span className='mapSidebarStat'>-</span></p>
-                                <p className='mapSidebarStatHeader'>Minecraft Version <span className='mapSidebarStat'>-</span></p>
-                                <p className='mapSidebarStatHeader'>Created Date <span className='mapSidebarStat'>-</span></p>
-                                <p className='mapSidebarStatHeader'>Updated Date <span className='mapSidebarStat'>-</span></p>
+                            <section className='map_sidebar_section'>
+                                <h4 className='header'>Stats</h4>
+                                <p className='stat_header'>Downloads <span className='stat'>-</span></p>
+                                <p className='stat_header'>Ratings <span className='stat'>-</span></p>
+                                <p className='stat_header'>Minecraft Version <span className='stat'>-</span></p>
+                                <p className='stat_header'>Created Date <span className='stat'>-</span></p>
+                                <p className='stat_header'>Updated Date <span className='stat'>-</span></p>
                             </section>
-                            <section className='mapSidebarSection'>
-                                <h4 className='mapSidebarHeader'>Files</h4>
+                            <section className='map_sidebar_section'>
+                                <h4 className='header'>Files</h4>
                             </section>
                         </div>
                     </div>

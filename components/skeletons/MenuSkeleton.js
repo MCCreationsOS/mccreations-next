@@ -3,22 +3,32 @@ export default function MenuSkeleton() {
     return (
         <>
             <div id='login'></div>
-            <nav className="mainNav">
-                <ul className="navList">
-                    <li className="navItem">
-                        <p className="navBrand">MCCreations</p>
+            <nav className="nav">
+                <ul className="nav_list">
+                    <li className="item">
+                        <p className="brand">MCCreations</p>
                     </li>
-                    <li className="navItem">
-                        <a className="navLink" href="/">Home</a>
+                    <li className="item">
+                        <a className="link" href="/">Home</a>
                     </li>
-                    <li className="navItem">
-                        <a className="navLink" href="/maps">Maps</a>
+                    <li className="item">
+                        <a className="link" href="/maps">Maps</a>
+                    </li>
+                    <li className="item">
+                        {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
                     </li>
                 </ul>
-                <ul className='actionList'>
-                    <li className='navItem'>
-                        <button className='navButton'>Create</button>
+                <ul className='action_list'>
+                    <li className='item'>
+                        <a href='https://mccreations.net/submit' className="nav_button">
+                            Create
+                        </a>
                     </li>
+                    {/* <li className='navItem'>
+                        <Link href='/signup' className="navLink">
+                            Log In
+                        </Link>
+                    </li> */}
                 </ul>
             </nav>
         </>
