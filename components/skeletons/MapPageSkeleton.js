@@ -11,10 +11,10 @@ export default async function MapPageSkeleton({params}) {
             <>
             <Menu></Menu>
             <div className='mapPage'>
-                <Image className='mapPageBackground' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`}></Image>
+                <Image className='mapPageBackground' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
                 <div className='mapPageForeground'>
                     <div className='mapPageLogoContainer'>
-                        <Image className='mapPageLogo' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`}></Image>
+                        <Image className='mapPageLogo' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
                     </div>
                 </div>
                 <div className='mapInfo'>
@@ -24,7 +24,7 @@ export default async function MapPageSkeleton({params}) {
                         </div>
                         <div className='mapPageDownloadStack'>
                             <Rating value={0} content={{slug: ""}} />
-                            <Link href="" className='main_button'>Download</Link>
+                            <button className='main_button'>Download</button>
                         </div>
                     </div>
                     <div className='mapDescription'>

@@ -54,7 +54,7 @@ export default function FeaturedCard({allFeatured}) {
             {allFeatured.map((f, idx) => {
                 return (
                     <div key={idx} className={(index === idx) ? "slide active" : "slide inactive"}>
-                        <Image className="image_background" src={f.images[0]} width={1920} height={1080}></Image>
+                        <Image className="image_background" src={f.images[0]} width={1920} height={1080} alt=""></Image>
                         <img className="nav_arrow left" src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
                         <img className="nav_arrow right" src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
                         <div className="information">

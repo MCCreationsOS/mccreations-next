@@ -23,7 +23,7 @@ export default function MapCard({map, id, priority}) {
                 <Image priority={priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className='logo' src={map.images[0]} width={1920} height={1080} sizes="25vw" alt={`The logo for ${map.title}, a Minecraft Map for ${map.files[0].minecraftVersion} by ${map.creators[0].username}`}></Image>
             </div>
             <Link className='title' href={`/maps/${map.slug}`}>{map.title}</Link>
-            <p className='author'>by <Link href={authorLink} className='cardAuthorLink'>{map.creators[0].username}</Link></p>
+            <p className='author'>by <span className='cardAuthorLink'>{map.creators[0].username}</span></p>
         </div>
     )
 }

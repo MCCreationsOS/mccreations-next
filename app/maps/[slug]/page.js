@@ -34,7 +34,7 @@ export default async function Page({params}) {
             <>
             <Menu></Menu>
             <div className='map_page'>
-                <Image className='image_background' width={1920} height={1080} src={map.images[0]}></Image>
+                <Image className='image_background' width={1920} height={1080} src={map.images[0]} alt=""></Image>
                 <div className='map_logo_foreground'>
                     <div className='map_logo_container'>
                         {(map.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>: <Image className='map_logo' width={1920} height={1080} src={map.images[0]}></Image>}

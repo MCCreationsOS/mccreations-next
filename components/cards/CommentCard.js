@@ -15,7 +15,7 @@ export default function CommentCard({comment}) {
     // }
     return (
         <div className="comment">
-            <Image src={image} width={45} height={45} className='logo'></Image>
+            <Image src={image} width={45} height={45} className='logo' alt={`${comment.username}'s logo`}></Image>
             <div className="body">
                 <div className='header'>
                     <h4>{comment.username}</h4>

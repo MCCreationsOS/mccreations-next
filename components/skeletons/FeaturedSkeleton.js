@@ -9,7 +9,7 @@ export default function FeaturedSkeleton() {
     return (
         <div className="big_slideshow featured">
             <div className="slide active">
-                <Image className="image_background" src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} width={1920} height={1080}></Image>
+                <Image className="image_background" src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} width={1920} height={1080} alt=""></Image>
                 <img className="nav_arrow left" src="/chev-left.svg"></img>
                 <img className="nav_arrow right" src="/chev-right.svg"></img>
                 <div className="information">
@@ -18,11 +18,11 @@ export default function FeaturedSkeleton() {
                     <p className="description"></p>
                     <p className="author"></p>
                     <div className='stats'>
-                        <div className="cardStat"><Image className="inTextIcon" src={download}></Image></div>
-                        <div className="cardStat"><Image className="inTextIcon" src={heart}></Image></div>
-                        <div className='cardStat'><Image className="inTextIcon" src={map}></Image></div>
+                        <div className="cardStat"><Image className="inTextIcon" src={download} alt=""></Image></div>
+                        <div className="cardStat"><Image className="inTextIcon" src={heart} alt=""></Image></div>
+                        <div className='cardStat'><Image className="inTextIcon" src={map} alt=""></Image></div>
                     </div>
-                    <Link href={""}><button className="main_button">See More!</button></Link>
+                    <button className="main_button">See More!</button>
                     <div>
                         <div className="marker active">
                             <span className="color" style={{margin: `0 -0%`}}></span>

@@ -11,7 +11,7 @@ export default function CreatorCard({creator}) {
 
     return (
         <div className="creator_card">
-            <Image src={image} width={50} height={50} className='logo'></Image>
+            <Image src={image} width={50} height={50} className='logo' alt={`${creator.username}'s logo`}></Image>
             <div>
                 {creator.username}
             </div>
