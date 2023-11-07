@@ -14,7 +14,7 @@ const window = new JSDOM('').window;
 const purify = DOMPurify(window);
 
 async function getMap(slug) {
-    let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`, { next: { tags: [slug] }})
+    let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`, { next: { tags: [slug], revalidate: 3600 }})
     let data = await response.json();
     return data
 }

@@ -41,7 +41,7 @@ function formatQueryOptions(queryOptions) {
 export async function getMaps(queryOptions) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps?featured=${queryOptions.featured}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}`)
+        let response = await fetch(`${process.env.DATA_URL}/maps?featured=${queryOptions.featured}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}`,  {next: { revalidate: 3600 } })
         let data = await response.json();
         return data.documents;
     } catch(e) {
@@ -55,19 +55,19 @@ export async function getMaps(queryOptions) {
 }
 
 export async function getFeatured() {
-    let response = await fetch(`${process.env.DATA_URL}/maps?featured=true&limit=5`)
+    let response = await fetch(`${process.env.DATA_URL}/maps?featured=true&limit=5`, {next: { revalidate: 3600 } })
     let data = await response.json();
     return data;
 }
 
 export async function getNewest() {
-    let response = await fetch(`${process.env.DATA_URL}/maps?limit=10`)
+    let response = await fetch(`${process.env.DATA_URL}/maps?limit=10`, {next: { revalidate: 3600 } })
     let data = await response.json();
     return data
 }
 
 export async function getUpdated() {
-    let response = await fetch(`${process.env.DATA_URL}/maps?sort=updated&limit=10`)
+    let response = await fetch(`${process.env.DATA_URL}/maps?sort=updated&limit=10`, {next: { revalidate: 3600 } })
     let data = await response.json();
     return data;
 }
