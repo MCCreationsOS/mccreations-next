@@ -1,4 +1,4 @@
-.contentGrid {
+.content_grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
@@ -7,7 +7,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .contentGrid {
+    .content_grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 8px;
@@ -17,7 +17,7 @@
 }
 
 @media screen and (min-width: 2200px) {
-    .contentGrid {
+    .content_grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 20px;
@@ -59,6 +59,11 @@
     width: 25px;
 }
 
+.search_and_filter {
+    width: 50%;
+    margin: 20px auto;
+}
+
 .search {
     background-color: #272727;
     color: white;
@@ -69,12 +74,8 @@
     flex: 50%;
 }
 
-.searchAndFilter {
-    width: 50%;
-    margin: 20px auto;
-}
 
-.searchStack {
+.search_stack {
     display: flex;
 }
 

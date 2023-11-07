@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <>
       <footer className="footer">
-        <div className='footerFlex'>
+        <div className='footer_flex'>
           <div>
             <h2>MCCreations</h2>
             <p>Wonderfully generic slogan here</p>

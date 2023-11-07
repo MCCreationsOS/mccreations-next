@@ -1,49 +1,49 @@
-.mainNav {
+.nav {
     display: flex;
     margin: 0 10px;
 }
 
-.navList {
+.nav_list {
     margin: 20px 0 20px -15px;
     font-family: 'Lato', sans-serif;
     flex: 50%
   }
   
-  .navBrand {
+.nav .brand {
     display: inline;
     font-weight: 700;
     font-size: 20px;
-  }
+}
   
-  .navItem {
+.nav .item {
     display: inline;
     margin: 0 5px 0 5px;
-  }
+}
   
-  .navLink {
+.nav .link {
     text-decoration: none;
     color: #777777;
     padding: 8px 10px;
     transition: 0.2s ease;
     font-size: 17px;
-  }
+}
 
-  .navLink:visited {
+.nav .link:visited {
     color: #777777;
-  }
+}
   
-  .navLink.navLinkSelected {
+  .nav .link.selected {
     color: #dddddd;
   }
   
-  .navLink:hover {
+  .nav .link:hover {
     color: #222222;
     background-color: #eeeeee;
     border-radius: 5px;
     transition: 0.2s ease;
   }
 
-  .actionList {
+  .action_list {
     margin: 20px 0 20px -15px;
     font-family: 'Lato', sans-serif;
   }

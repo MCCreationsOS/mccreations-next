@@ -7,23 +7,23 @@ export default function Menu({selectedPage}) {
     return (
         <>
             <div id='login'></div>
-            <nav className="mainNav">
-                <ul className="navList">
-                    <li className="navItem">
-                        <p className="navBrand">MCCreations</p>
+            <nav className="nav">
+                <ul className="nav_list">
+                    <li className="item">
+                        <p className="brand">MCCreations</p>
                     </li>
-                    <li className="navItem">
-                        <Link className={(selectedPage == 'home') ? "navLink navLinkSelected" : "navLink"} href="/">Home</Link>
+                    <li className="item">
+                        <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">Home</Link>
                     </li>
-                    <li className="navItem">
-                        <Link className={(selectedPage == 'maps') ? "navLink navLinkSelected" : "navLink"} href="/maps">Maps</Link>
+                    <li className="item">
+                        <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
                     </li>
-    <li className="navItem">
+                    <li className="item">
                         {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
                     </li>
                 </ul>
-                <ul className='actionList'>
-                    <li className='navItem'>
+                <ul className='action_list'>
+                    <li className='item'>
                         <Link href='https://mccreations.net/submit' className="nav_button">
                             Create
                         </Link>

@@ -77,8 +77,8 @@ export default function Maps() {
     return (
         <div>
             <Menu selectedPage='maps'></Menu>
-            <div className="searchAndFilter">
-                <div className="searchStack">
+            <div className="search_and_filter">
+                <div className="search_stack">
                     <input type="text" placeholder="Search" className="search" onKeyDown={(e) => {if(e.code == "Enter") {setSearch(e.target.value); goToPage(0);}}} onChange={(e) => {if(!search || Math.abs(e.target.value.length - search.length) > 2) setSearch(e.target.value); goToPage(0);}}></input>
                     <button className="secondary_button" onClick={() => setFiltering(!filtering)}><Filter /></button>
                 </div>
