@@ -2,7 +2,7 @@
 const fetch = require('node-fetch')
 
 import ContentGrid from "@components/ContentGrid"
-import ContentCard from "@components/ContentCard"
+import ContentCard from "@components/cards/ContentCard"
 import Menu from "@components/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
@@ -80,7 +80,7 @@ export default function Maps() {
             <div className="searchAndFilter">
                 <div className="searchStack">
                     <input type="text" placeholder="Search" className="search" onKeyDown={(e) => {if(e.code == "Enter") {setSearch(e.target.value); goToPage(0);}}} onChange={(e) => {if(!search || Math.abs(e.target.value.length - search.length) > 2) setSearch(e.target.value); goToPage(0);}}></input>
-                    <button className="buttonSecondary" onClick={() => setFiltering(!filtering)}><Filter /></button>
+                    <button className="secondary_button" onClick={() => setFiltering(!filtering)}><Filter /></button>
                 </div>
                 <div className="filters" style={{display: (filtering) ? "block": "none"}}>
                     {/* Sort: <select>
@@ -96,11 +96,11 @@ export default function Maps() {
                 </div>
             </div>
                 <div>
-                    <ContentGrid content={maps.map(map => <ContentCard key={map.mapId} content={map} priority={true}></ContentCard>)}></ContentGrid>
+                    <ContentGrid content={maps}></ContentGrid>
                 </div>
-                <div className="contentPageNavigator">
-                    {(page != 0) ? <Link href={goToPage(0)}><div className="imageBumper"></div><img src="/chevs-left.svg"></img></Link> : <></>}
-                    {(page != 0) ? <Link href={goToPage(page - 1)}><div className="imageBumper"></div><img src="/chev-left.svg"></img></Link> : <></>}
+                <div className="navigator">
+                    {(page != 0) ? <Link href={goToPage(0)}><img src="/chevs-left.svg"></img></Link> : <></>}
+                    {(page != 0) ? <Link href={goToPage(page - 1)}><img src="/chev-left.svg"></img></Link> : <></>}
                     {(page - 3 >= 0) ? (page < pages - 4) ? <Link href={goToPage(page - 3)}>{page - 2}</Link> : <Link className={page == pages-7 ? "current": ""} href={goToPage(pages-7)}>{pages - 6}</Link> : <Link className={page == 0 ? "current": ""} href={goToPage(0)}>{1}</Link>}
                     {(pages > 1) ? (page - 3 >= 0) ? (page < pages - 4) ? <Link href={goToPage(page - 2)}>{page - 1}</Link> : <Link className={page == pages-6 ? "current": ""} href={goToPage(pages-6)}>{pages - 5}</Link> : <Link className={page == 1 ? "current": ""} href={goToPage(1)}>{2}</Link>: <></>}
                     {(pages > 2) ? (page - 3 >= 0) ? (page < pages - 4) ? <Link href={goToPage(page - 1)}>{page}</Link> : <Link className={page == pages-5 ? "current": ""} href={goToPage(pages-5)}>{pages - 4}</Link> : <Link className={page == 2 ? "current": ""} href={goToPage(2)}>{3}</Link>: <></>}
@@ -108,8 +108,8 @@ export default function Maps() {
                     {(pages > 4) ? (page - 3 >= 0) ? (page < pages - 4) ? <Link href={goToPage(page +1)}>{page +2}</Link> : <Link className={page == pages-3 ? "current": ""} href={goToPage(pages-3)}>{pages - 2}</Link> : <Link className={page == 4 ? "current": ""} href={goToPage(4)}>{5}</Link>: <></>}
                     {(pages > 5) ? (page - 3 >= 0) ? (page < pages - 4) ? <Link href={goToPage(page +2)}>{page+3}</Link> : <Link className={page == pages-2 ? "current": ""} href={goToPage(pages-2)}>{pages - 1}</Link> : <Link className={page == 5 ? "current": ""} href={goToPage(5)}>{6}</Link>: <></>}
                     {(pages > 6) ? (page - 3 >= 0) ? (page < pages - 4) ? <Link href={goToPage(page+3)}>{page + 4}</Link> : <Link className={page == pages-1 ? "current": ""} href={goToPage(pages-1)}>{pages}</Link> : <Link className={page == 6 ? "current": ""} href={goToPage(6)}>{7}</Link>: <></>}
-                    {(pages > 1) ? (page != pages -1) ? <Link href={goToPage(page + 1)}><div className="imageBumper"></div><img src="/chev-right.svg"></img></Link> : <></>: <></>}
-                    {(pages > 6) ? (page != pages -1) ? <Link href={goToPage(pages - 1)}><div className="imageBumper"></div><img src="/chevs-right.svg"></img></Link> : <></>: <></>}
+                    {(pages > 1) ? (page != pages -1) ? <Link href={goToPage(page + 1)}><img src="/chev-right.svg"></img></Link> : <></>: <></>}
+                    {(pages > 6) ? (page != pages -1) ? <Link href={goToPage(pages - 1)}><img src="/chevs-right.svg"></img></Link> : <></>: <></>}
                 </div>
         </div>
     )

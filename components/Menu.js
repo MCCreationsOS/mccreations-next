@@ -24,8 +24,8 @@ export default function Menu({selectedPage}) {
                 </ul>
                 <ul className='actionList'>
                     <li className='navItem'>
-                        <Link href='https://mccreations.net/submit' className="navLink">
-                            Submit
+                        <Link href='https://mccreations.net/submit' className="nav_button">
+                            Create
                         </Link>
                     </li>
                     {/* <li className='navItem'>

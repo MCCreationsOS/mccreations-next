@@ -10,9 +10,9 @@ export default function CreatorCard({creator}) {
     }
 
     return (
-        <div className="creatorCard">
-            <Image src={image} width={50} height={50} className='creatorLogo'></Image>
-            <div className="creatorNameStack">
+        <div className="creator_card">
+            <Image src={image} width={50} height={50} className='logo'></Image>
+            <div>
                 {creator.username}
             </div>
         </div>

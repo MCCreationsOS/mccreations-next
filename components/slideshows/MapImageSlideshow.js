@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { shimmer, toBase64 } from "./skeletons/imageShimmer";
+import { shimmer, toBase64 } from "../skeletons/imageShimmer";
 
 export default function MapImageSlideshow({images}) {
     const [index, setIndex] = useState(0)
@@ -48,21 +48,21 @@ export default function MapImageSlideshow({images}) {
         setIndex(index);
     }
     return (
-        <div className="mapImageSlideshow">
+        <div className="big_slideshow map_images">
             {images.map((f, idx) => {
                 return (
-                    <div key={idx} className={(index === idx) ? "mapImage active" : "mapImage inactive"}>
-                        <Image className="mapImageBackground" src={f} width={1920} height={1080}></Image>
-                        <img className="mapImageSlideArrowLeft" src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
-                        <img className="mapImageSlideArrowRight" src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
-                        <div className="mapSlideshowText">
-                            <Image alt="" placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className="mapSlideshowImage" src={f} width={1920} height={1080}></Image>
-                        <div className="mapImageSlideshowMarkers">
+                    <div key={idx} className={(index === idx) ? "slide active" : "slide inactive"}>
+                        <Image className="image_background" src={f} width={1920} height={1080}></Image>
+                        <img className="nav_arrow left" src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
+                        <img className="nav_arrow right" src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
+                        <div className="information">
+                            <Image alt="" placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className="image" src={f} width={1920} height={1080}></Image>
+                        <div className="centered_markers">
                                 {
                                     images.map((f, idx) => {
                                         return (
-                                            <div onClick={() => setSlide(idx)} key={idx} className={(index === idx) ? "featuredSlideMarker active" : "featuredSlideMarker"}>
-                                                {index === idx ? (<span className="featuredSlideMarkerColor" style={{margin: `0 -${slideTime}%`}}></span>): (<span className="featuredSlideMarkerColor"></span>)} 
+                                            <div onClick={() => setSlide(idx)} key={idx} className={(index === idx) ? "marker active" : "marker"}>
+                                                {index === idx ? (<span className="color" style={{margin: `0 -${slideTime}%`}}></span>): (<span className="color"></span>)} 
                                             </div>
                                         )
                                     })

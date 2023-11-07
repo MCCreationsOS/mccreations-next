@@ -10,7 +10,7 @@ export default function Loading() {
         <div className="searchAndFilter">
                 <div className="searchStack">
                     <input type="text" placeholder="Search" className="search"></input>
-                    <button className="buttonSecondary"><Filter /></button>
+                    <button className="secondaryButton"><Filter /></button>
                 </div>
             </div>
         <GridSkeleton amount={20} />

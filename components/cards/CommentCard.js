@@ -15,9 +15,9 @@ export default function CommentCard({comment}) {
     // }
     return (
         <div className="comment">
-            <Image src={image} width={45} height={45} className='creatorLogo'></Image>
-            <div className="commentBody">
-                <div className='commentHeader'>
+            <Image src={image} width={45} height={45} className='logo'></Image>
+            <div className="body">
+                <div className='header'>
                     <h4>{comment.username}</h4>
                     <p>{new Date(comment.date).toLocaleString()}</p>
                 </div>

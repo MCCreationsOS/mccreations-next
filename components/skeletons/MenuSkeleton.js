@@ -17,7 +17,7 @@ export default function MenuSkeleton() {
                 </ul>
                 <ul className='actionList'>
                     <li className='navItem'>
-                        <button className='navButton'>Submit</button>
+                        <button className='navButton'>Create</button>
                     </li>
                 </ul>
             </nav>

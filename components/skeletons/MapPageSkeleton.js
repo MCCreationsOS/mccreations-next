@@ -24,7 +24,7 @@ export default async function MapPageSkeleton({params}) {
                         </div>
                         <div className='mapPageDownloadStack'>
                             <Rating value={0} content={{slug: ""}} />
-                            <Link href="" className='buttonMain'>Download</Link>
+                            <Link href="" className='main_button'>Download</Link>
                         </div>
                     </div>
                     <div className='mapDescription'>

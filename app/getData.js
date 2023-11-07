@@ -106,7 +106,7 @@ export async function postRating(mapSlug, rating, map) {
 }
 
 export async function postComment(mapSlug, username, comment) {
-    await fetch(`${process.env.DATA_URL}/maps/comment/${mapSlug}`, {
+    fetch(`${process.env.DATA_URL}/maps/comment/${mapSlug}`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
@@ -117,7 +117,7 @@ export async function postComment(mapSlug, username, comment) {
         revalidateTag(mapSlug)
     }
     catch(e) {
-        
+        return true
     }
     return true
 }

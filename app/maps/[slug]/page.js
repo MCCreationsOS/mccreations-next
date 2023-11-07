@@ -2,11 +2,11 @@ import Menu from '@components/Menu';
 import Rating from '@components/Rating';
 import { JSDOM } from 'jsdom';
 import DOMPurify from 'dompurify';
-import CreatorCard from '@components/CreatorCard';
-import FileCard from '@components/FileCard';
+import CreatorCard from '@components/cards/CreatorCard';
+import FileCard from '@components/cards/FileCard';
 import Image from 'next/image';
 import Link from 'next/link';
-import MapImageSlideshow from '@components/MapImageSlideshow';
+import MapImageSlideshow from '@components/slideshows/MapImageSlideshow';
 import Comments from '@components/Comments';
 
 const window = new JSDOM('').window;
@@ -33,41 +33,41 @@ export default async function Page({params}) {
         return (
             <>
             <Menu></Menu>
-            <div className='mapPage'>
-                <Image className='mapPageBackground' width={1920} height={1080} src={map.images[0]}></Image>
-                <div className='mapPageForeground'>
-                    <div className='mapPageLogoContainer'>
-                        {(map.videoUrl) ?  <div className='mapVideo'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>: <Image className='mapPageLogo' width={1920} height={1080} src={map.images[0]}></Image>}
+            <div className='map_page'>
+                <Image className='image_background' width={1920} height={1080} src={map.images[0]}></Image>
+                <div className='map_logo_foreground'>
+                    <div className='map_logo_container'>
+                        {(map.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>: <Image className='map_logo' width={1920} height={1080} src={map.images[0]}></Image>}
                     </div>
                 </div>
-                <div className='mapInfo'>
-                    <div className='mapPageTitleInfo'>
-                        <div className="mapTitleStack">
-                            <h1 className='mapPageTitle'>{map.title}</h1>
+                <div className='centered_content'>
+                    <div className='map_title_bar'>
+                        <div className="map_title_stack">
+                            <h1 className='map_title'>{map.title}</h1>
                         </div>
-                        <div className='mapPageDownloadStack'>
+                        <div className='map_download_stack'>
                             <Rating value={map.rating} content={map} />
-                            <Link href={map.files[0].worldUrl} className='buttonMain'>Download</Link>
+                            <Link href={map.files[0].worldUrl} className='main_button'>Download</Link>
                         </div>
                     </div>
-                    <div className='mapDescription'>
-                        <div className='mapDescriptionContent' dangerouslySetInnerHTML={{__html: purify.sanitize(map.description)}}>       
+                    <div className='map_information'>
+                        <div className='map_description' dangerouslySetInnerHTML={{__html: purify.sanitize(map.description)}}>       
                         </div>
-                        <div className='mapSidebar'>
-                            <section className='mapSidebarSection'>
-                                <h4 className='mapSidebarHeader'>Creators</h4>
+                        <div className='map_sidebar'>
+                            <section className='map_sidebar_section'>
+                                <h4 className='header'>Creators</h4>
                                 {map.creators.map((creator, idx) => <CreatorCard key={idx} creator={creator} />)}
                             </section>
-                            <section className='mapSidebarSection'>
-                                <h4 className='mapSidebarHeader'>Stats</h4>
-                                <p className='mapSidebarStatHeader'>Downloads <span className='mapSidebarStat'>{map.downloads}</span></p>
-                                <p className='mapSidebarStatHeader'>Ratings <span className='mapSidebarStat'>{(map.ratings) ? map.ratings.length : 0}</span></p>
-                                <p className='mapSidebarStatHeader'>Minecraft Version <span className='mapSidebarStat'>{map.files[0].minecraftVersion}</span></p>
-                                <p className='mapSidebarStatHeader'>Created Date <span className='mapSidebarStat'>{new Date(map.createdDate).toLocaleDateString()}</span></p>
-                                <p className='mapSidebarStatHeader'>Updated Date <span className='mapSidebarStat'>{new Date(map.updatedDate).toLocaleDateString()}</span></p>
+                            <section className='map_sidebar_section stats'>
+                                <h4 className='header'>Stats</h4>
+                                <p className='stat_header'>Downloads <span className='stat'>{map.downloads}</span></p>
+                                <p className='stat_header'>Ratings <span className='stat'>{(map.ratings) ? map.ratings.length : 0}</span></p>
+                                <p className='stat_header'>Minecraft Version <span className='stat'>{map.files[0].minecraftVersion}</span></p>
+                                <p className='stat_header'>Created Date <span className='stat'>{new Date(map.createdDate).toLocaleDateString()}</span></p>
+                                <p className='stat_header'>Updated Date <span className='stat'>{new Date(map.updatedDate).toLocaleDateString()}</span></p>
                             </section>
-                            <section className='mapSidebarSection'>
-                                <h4 className='mapSidebarHeader'>Files</h4>
+                            <section className='map_sidebar_section'>
+                                <h4 className='header'>Files</h4>
                                 {map.files.map((file, idx) => <FileCard key={idx} file={file} />)}
                             </section>
                         </div>

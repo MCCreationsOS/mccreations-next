@@ -19,10 +19,10 @@ export default function ContentSlideshow({content, playlist}) {
     }
 
     return (
-        <div className='contentSlideshow'>
-            <img className="contentSlideArrowLeft" src="/chev-left.svg" onClick={(e) => {slideButtonClicked(true, e)}}></img>
-            <img className="contentSlideArrowRight" src="/chev-right.svg" onClick={(e) => {slideButtonClicked(false, e)}}></img>
-            <div className="contentSlideshowContents" id={playlist}>
+        <div className='carousel'>
+            <img className="nav_arrow left" src="/chev-left.svg" onClick={(e) => {slideButtonClicked(true, e)}}></img>
+            <img className="nav_arrow right" src="/chev-right.svg" onClick={(e) => {slideButtonClicked(false, e)}}></img>
+            <div className="scroll_window" id={playlist}>
                 {content}
             </div>
         </div>

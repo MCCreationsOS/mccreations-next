@@ -1,4 +1,4 @@
-.buttonMain {
+.main_button {
     padding: 10px 50px;
     font-size: 1.2rem;
     background-color: #3154f4;
@@ -11,11 +11,11 @@
     opacity: 1;
 }
 
-.buttonMain:hover {
+.main_button:hover {
     background-color: #2a48d0;
 }
 
-.buttonSecondary {
+.secondary_button {
     padding: 10px 20px;
     font-size: 1.2rem;
     background-color: #272727;
@@ -28,91 +28,27 @@
     opacity: 1;
 }
 
-.buttonSecondary:hover {
+.secondary_button:hover {
     background-color: #474747;
 }
 
-.navButton {
-    padding: 5px 20px;
-    font-size: 0.9rem;
-    border: none;
-    margin: 0;
-    background-color: #272727;
+.nav_button {
+    padding: 10px 35px;
+    font-size: 1rem;
+    border: 1px solid #3154f4;
+    font-weight: 500;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+}
+
+.nav_button:visited {
     color: white;
 }
 
-.fileButton {
-    margin-left: 10px;
-    padding: 8px;
-    color: white;
-    background-color: #344ec1;
-    text-align: center;
-}
-
-.fileButton svg {
-    position: relative;
-    margin-bottom: -5px;
-}
-
-.rating {
-    position: relative;
-    width: 120px;
-    height: 20px;
-    overflow: hidden;
-    list-style: none;
-    margin: 0 10px;
-    padding: 0;
-    background: url(/star_white.svg) left -1000px repeat-x;
-    background-position: 0 center;
-}
-
-.currentRating {
-    background: url(/star.svg) left -1000px repeat-x;
-    background-position: 0 center;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    overflow: hidden;
-}
-
-.rating li {
-    display: inline;
-}
-
-.rating li a {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 20px;
-    overflow: hidden;
-}
-
-.rating li a#one {
-    z-index: 6;
-    width: 20%;
-}
-
-.rating li a#two {
-    z-index: 5;
-    width: 40%;
-}
-
-.rating li a#three {
-    z-index: 4;
-    width: 60%;
-}
-
-.rating li a#four {
-    z-index: 3;
-    width: 80%;
-}
-
-.rating li a#five {
-    z-index: 2;
-    width: 100%;
+.nav_button:hover {
+    background-color: #3154f4;
+    border-radius: 5px;
 }

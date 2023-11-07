@@ -28,7 +28,7 @@ export default function Rating(props) {
     return (
         <div>
             <ul className="rating" onMouseMove={(e) => {ratingHover(e)}} onMouseLeave={() => {setValue(props.value)}}>
-                <li className="currentRating" style={{width: value*100 + '%'}}></li>
+                <li className="current_rating" style={{width: value*100 + '%'}}></li>
                 <li><a id="one" href="#" title="1 out of 5 stars" onClick={() => {sendRating(0.2)}}></a></li>
                 <li><a id="two" href="#" title="2 out of 5 stars" onClick={() => {sendRating(0.4)}}></a></li>
                 <li><a id="three" href="#" title="3 out of 5 stars" onClick={() => {sendRating(0.6)}}></a></li>
