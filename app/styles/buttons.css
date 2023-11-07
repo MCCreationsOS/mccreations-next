@@ -1,0 +1,54 @@
+.main_button {
+    padding: 10px 50px;
+    font-size: 1.2rem;
+    background-color: #3154f4;
+    font-weight: 500;
+    border: none;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+}
+
+.main_button:hover {
+    background-color: #2a48d0;
+}
+
+.secondary_button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #272727;
+    font-weight: 500;
+    border: none;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+}
+
+.secondary_button:hover {
+    background-color: #474747;
+}
+
+.nav_button {
+    padding: 10px 35px;
+    font-size: 1rem;
+    border: 1px solid #3154f4;
+    font-weight: 500;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+}
+
+.nav_button:visited {
+    color: white;
+}
+
+.nav_button:hover {
+    background-color: #3154f4;
+    border-radius: 5px;
+}

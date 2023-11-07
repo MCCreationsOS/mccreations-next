@@ -28,6 +28,8 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env
 
 # Local Netlify folder
 .netlify
+firebase/.env

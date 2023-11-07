@@ -1,0 +1,165 @@
+.map_page {
+    margin: 0 auto;
+    min-width: 400px;
+    background-color: #171717;
+    position: relative;
+    height: fit-content;
+}
+
+.map_page .image_background {
+    height: 30vw;
+    min-height: 300px;
+}
+
+.map_logo_foreground {
+    width: 100%;
+    position: absolute;
+    top: 5vh;
+    left: 0%;
+}
+
+.map_logo_container {
+    margin: 0 auto;
+    width: 50%;
+    min-width: 500px;
+}
+
+.map_logo {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    height: 100%;
+}
+
+.map_title_bar {
+    display: flex;
+    align-items: flex-start;
+}
+
+.map_title_stack {
+    flex: 50%;
+}
+
+.map_title {
+    margin: 0;
+}
+
+.map_download_stack {
+    display: flex;
+    align-items: center;
+}
+
+.rating {
+    position: relative;
+    width: 120px;
+    height: 20px;
+    overflow: hidden;
+    list-style: none;
+    margin: 0 10px;
+    padding: 0;
+    background: url(/star_white.svg) left -1000px repeat-x;
+    background-position: 0 center;
+}
+
+.current_rating {
+    background: url(/star.svg) left -1000px repeat-x;
+    background-position: 0 center;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    overflow: hidden;
+}
+
+.rating li {
+    display: inline;
+}
+
+.rating li a {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    overflow: hidden;
+}
+
+.rating li a#one {
+    z-index: 6;
+    width: 20%;
+}
+
+.rating li a#two {
+    z-index: 5;
+    width: 40%;
+}
+
+.rating li a#three {
+    z-index: 4;
+    width: 60%;
+}
+
+.rating li a#four {
+    z-index: 3;
+    width: 80%;
+}
+
+.rating li a#five {
+    z-index: 2;
+    width: 100%;
+}
+
+.map_information {
+    color: #ddd;
+    line-height: 1.35;
+    font-size: 1.05rem;
+    display: flex;
+}
+
+.map_description {
+    flex: 50%;
+}
+
+.map_sidebar {
+    width: 250px;
+    padding: 10px;
+    margin: 10px 0 0 5px;
+    background-color: #272727;
+}
+
+.map_sidebar_section {
+    margin-bottom: 25px;
+    border-bottom: 1px solid gray;
+    padding-bottom: 10px;
+}
+
+.map_sidebar_section .header {
+    margin-top: 0;
+}
+
+.map_sidebar_section.stats {
+    display: block;
+}
+
+.map_sidebar_section.stats .stat_header {
+    font-size: 0.85rem;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.map_sidebar_section.stats .stat {
+    font-size: 0.85rem;
+    float: right;
+    color: #bbb;
+}
+
+.no_comments {
+    background-color: #272727;
+    width: 50%;
+    margin: 20px auto;
+    padding: 10px;
+    text-align: center;
+}

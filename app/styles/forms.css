@@ -1,0 +1,25 @@
+.field {
+    padding: 10px 0;
+}
+
+.label {
+    margin: 0 0 5px 0;
+}
+
+.input {
+    background-color: #272727;
+    color: white;
+    padding: 10px 12px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    width: 350px;
+    font-size: 1rem;
+}
+
+.input:focus {
+    border: 1px solid #344ec1;
+}
+
+.input.wide {
+    width: 100%;
+}
