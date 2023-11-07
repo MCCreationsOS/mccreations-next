@@ -33,4 +33,3 @@ yarn-error.log*
 # Local Netlify folder
 .netlify
 firebase/.env
-next.config.js
