@@ -8,6 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import MapImageSlideshow from '@components/slideshows/MapImageSlideshow';
 import Comments from '@components/Comments';
+import '../../styles/mapPage.css'
 
 const window = new JSDOM('').window;
 const purify = DOMPurify(window);

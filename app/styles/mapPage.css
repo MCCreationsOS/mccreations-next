@@ -140,6 +140,10 @@
     margin-top: 0;
 }
 
+.map_sidebar_section.stats {
+    display: block;
+}
+
 .map_sidebar_section.stats .stat_header {
     font-size: 0.85rem;
     margin: 5px 0;
