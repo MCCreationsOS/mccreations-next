@@ -1,6 +1,4 @@
 'use client'
-const fetch = require('node-fetch')
-
 import ContentGrid from "@components/ContentGrid"
 import ContentCard from "@components/cards/ContentCard"
 import Menu from "@components/Menu"
