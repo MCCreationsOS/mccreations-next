@@ -1,4 +1,5 @@
 import { revalidateTag } from "next/cache";
+import { IMap } from "./types";
 
 export enum SortOptions {
     "newest",
@@ -90,7 +91,7 @@ export async function fetchMap(slug: string) {
 
 }
 
-export async function postRating(mapSlug: string, rating: number, map: any) {
+export async function postRating(mapSlug: string, rating: number, map: IMap) {
     let response = await fetch(`${process.env.DATA_URL}/maps/rate/${mapSlug}`, { 
         method: "POST",
         headers: {

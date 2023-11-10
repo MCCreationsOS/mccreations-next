@@ -5,6 +5,7 @@ import Loading from './loading'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://next.mccreations.net'),
   title: "MCCreations | The greatest Minecraft Maps from the Minecraft Community",
   description: "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
   twitter: {

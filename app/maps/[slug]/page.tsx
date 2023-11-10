@@ -9,11 +9,19 @@ import Link from 'next/link';
 import MapImageSlideshow from '@/components/slideshows/MapImageSlideshow';
 import Comments from '@/components/Comments';
 import '../../styles/mapPage.css'
-import { fetchMap } from '@/app/getData';
+import { fetchMap, fetchMaps } from '@/app/getData';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import { ICreator, IFile, IMap } from '@/app/types';
 
 const window = new JSDOM('').window;
 const purify = DOMPurify(window);
+
+export async function generateStaticParams() {
+    const maps = await fetchMaps({}, false)
+    return maps.map((map: IMap) => ({
+        slug: map.slug
+    }))
+}
 
 export default async function Page({params}: {params: Params}) {
     console.log("Looking for map with slug " + params.slug)
@@ -29,7 +37,7 @@ export default async function Page({params}: {params: Params}) {
     if(map) {
         return (
             <>
-            <Menu selectedPage={"Maps"}></Menu>
+            <Menu selectedPage={"maps"}></Menu>
             <div className='map_page'>
                 <Image className='image_background' width={1920} height={1080} src={map.images[0]} alt=""></Image>
                 <div className='map_logo_foreground'>
@@ -53,7 +61,7 @@ export default async function Page({params}: {params: Params}) {
                         <div className='map_sidebar'>
                             <section className='map_sidebar_section'>
                                 <h4 className='header'>Creators</h4>
-                                {map.creators.map((creator: any, idx: number) => <CreatorCard key={idx} creator={creator} />)}
+                                {map.creators.map((creator: ICreator, idx: number) => <CreatorCard key={idx} creator={creator} />)}
                             </section>
                             <section className='map_sidebar_section stats'>
                                 <h4 className='header'>Stats</h4>
@@ -65,7 +73,7 @@ export default async function Page({params}: {params: Params}) {
                             </section>
                             <section className='map_sidebar_section'>
                                 <h4 className='header'>Files</h4>
-                                {map.files.map((file: any, idx: number) => <FileCard key={idx} file={file} />)}
+                                {map.files.map((file: IFile, idx: number) => <FileCard key={idx} file={file} />)}
                             </section>
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import { SortOptions, fetchMaps } from "@/app/getData";
 import Error from "@/components/Error";
 import ContentSlideshow from "@/components/slideshows/ContentSlideshow";
 import './styles/homepage.css'
+import { IMap } from "./types";
 
 
 export default async function Page() {
@@ -27,9 +28,9 @@ export default async function Page() {
         <Menu selectedPage='home'></Menu>
         {(featured) ? (<FeaturedCard allFeatured={featured} />) : "MCCreations API Error"}
         <h2 className="playlist_header">New Content</h2>
-        {(newest) ? (<ContentSlideshow playlist={"newest"} content={newest.map((map: any, idx: number) => <ContentCard key={map._id} content={map} playlist={"newest"} index={idx} priority={true}></ContentCard>)}></ContentSlideshow>) : "MCCreations API Error"}
+        {(newest) ? (<ContentSlideshow playlist={"newest"} content={newest.map((map: IMap, idx: number) => <ContentCard key={map._id} content={map} playlist={"newest"} index={idx} priority={true}></ContentCard>)}></ContentSlideshow>) : "MCCreations API Error"}
         <h2 className="playlist_header">Recently Updated</h2>
-        {(updated) ? (<ContentSlideshow playlist={"updated"} content={updated.map((map: any, idx: number) => <ContentCard key={map._id} content={map} playlist={"updated"} index={idx} priority={false}></ContentCard>)}></ContentSlideshow>): "MCCreations API Error"}
+        {(updated) ? (<ContentSlideshow playlist={"updated"} content={updated.map((map: IMap, idx: number) => <ContentCard key={map._id} content={map} playlist={"updated"} index={idx} priority={false}></ContentCard>)}></ContentSlideshow>): "MCCreations API Error"}
         </>
     )
 }

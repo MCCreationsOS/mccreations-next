@@ -2,9 +2,10 @@
 
 import { postRating } from "@/app/getData";
 import { getCookie, setCookie } from "@/app/setCookies";
+import { IMap } from "@/app/types";
 import { useState, useEffect } from "react";
 
-export default function Rating(props: any) {
+export default function Rating(props: { value: number, content: IMap}) {
     const [value, setValue] = useState(props.value);
     let contentId = props.content.slug;
 

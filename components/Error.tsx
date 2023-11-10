@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-export default function Error({message}) {
+export default function Error({message}: {message: string}) {
     return (
         <div className="errorBox">
             <h2>Error!</h2>

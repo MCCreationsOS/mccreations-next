@@ -1,8 +1,9 @@
 import defaultLogo from 'public/defaultLogo.png'
 import Image from 'next/image';
 import { Heart } from 'react-feather';
+import { IComment } from '@/app/types';
 
-export default function CommentCard({comment}: {comment: any}) {
+export default function CommentCard({comment}: {comment: IComment}) {
     let image;
     if(comment.icon) {
         image = comment.icon;

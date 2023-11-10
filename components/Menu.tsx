@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export default function Menu({selectedPage}) {
+export default function Menu({selectedPage}: {selectedPage: string}) {
 
     return (
         <>

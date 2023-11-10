@@ -3,8 +3,9 @@
 import { useState } from "react"
 import CommentCard from "./cards/CommentCard"
 import { postComment } from "@/app/getData";
+import { IComment } from "@/app/types";
 
-export default function Comments({mapSlug, comments}: {mapSlug: string, comments: any[]}) {
+export default function Comments({mapSlug, comments}: {mapSlug: string, comments: IComment[]}) {
     const [username, setUsername] = useState("");
     const [comment, setComment] = useState("");
     const [commentsState, setComments] = useState(comments)
@@ -32,7 +33,7 @@ export default function Comments({mapSlug, comments}: {mapSlug: string, comments
                     <button className="main_button" >Send!</button>
                     </form>
                 <h2>Comments</h2>
-                {(commentsState && commentsState.length > 0 && commentsState[0].comment) ? commentsState.map((comment: any, idx: number) => <CommentCard key={idx} comment={comment} />) : <><div className="no_comments"><h3>None Yet!</h3><p>Be the first to comment!</p></div></>}
+                {(commentsState && commentsState.length > 0 && commentsState[0].comment) ? commentsState.map((comment: IComment, idx: number) => <CommentCard key={idx} comment={comment} />) : <><div className="no_comments"><h3>None Yet!</h3><p>Be the first to comment!</p></div></>}
         </div>
     )
 }
