@@ -23,7 +23,7 @@ export default function MapImageSlideshow({images}: {images: string[]}) {
         }
     }
 
-    if(index >= images.length) {
+    if(index >= images.length && index != 0) {
         setIndex(0)
     }
 
@@ -32,6 +32,7 @@ export default function MapImageSlideshow({images}: {images: string[]}) {
             const slideTicker = setInterval(() => {updateSlide()}, 100);
             return () => clearInterval(slideTicker);
         }
+        return;
     }, [slideTime, index])
 
     const slideButtonClicked = (left: boolean) => {
@@ -46,6 +47,11 @@ export default function MapImageSlideshow({images}: {images: string[]}) {
     const setSlide = (index: number) => {
         setSlideTime(0)
         setIndex(index);
+    }
+    if(images.length == 0) {
+        return (
+            <></>
+        )
     }
     return (
         <div className="big_slideshow map_images">
