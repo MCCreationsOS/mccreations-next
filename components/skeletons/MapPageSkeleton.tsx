@@ -21,7 +21,7 @@ export default async function MapPageSkeleton() {
                             <h1 className='map_title'></h1>
                         </div>
                         <div className='map_download_stack'>
-                            <Rating value={0} content={{slug: ""}} />
+                            {/* <Rating value={0} content={{slug: ""}} /> */}
                             <button className='main_button'>Download</button>
                         </div>
                     </div>
