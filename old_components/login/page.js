@@ -3,7 +3,7 @@
 import React from "react"
 import signIn from "app/firebase/auth/signin"
 import { useRouter } from "next/navigation"
-import Menu from "@components/Menu";
+import Menu from "components/Menu";
 import Link from "next/link";
 
 export default function SignIn() {

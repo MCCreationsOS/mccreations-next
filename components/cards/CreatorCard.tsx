@@ -1,7 +1,7 @@
 import defaultLogo from 'public/defaultLogo.png'
 import Image from 'next/image';
 
-export default function CreatorCard({creator}) {
+export default function CreatorCard({creator}: {creator: any}) {
     let image;
     if(creator.icon) {
         image = creator.icon;

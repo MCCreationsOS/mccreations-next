@@ -1,5 +1,5 @@
 'use client'
-import Menu from '@components/Menu'
+import Menu from 'components/Menu'
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'

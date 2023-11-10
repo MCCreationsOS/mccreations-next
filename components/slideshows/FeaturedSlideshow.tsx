@@ -8,7 +8,7 @@ import heart from 'public/heart.svg';
 import map from 'public/map.svg'
 import { shimmer, toBase64 } from "../skeletons/imageShimmer";
 
-export default function FeaturedCard({allFeatured}) {
+export default function FeaturedCard({allFeatured}: {allFeatured: any}) {
     const [index, setIndex] = useState(0)
     const [slideTime, setSlideTime] = useState(0);
 
@@ -36,7 +36,7 @@ export default function FeaturedCard({allFeatured}) {
         return () => clearInterval(slideTicker);
     }, [slideTime, index])
 
-    const slideButtonClicked = (left) => {
+    const slideButtonClicked = (left: boolean) => {
         setSlideTime(0)
         if(left) {
             setIndex(index => index - 1)
@@ -45,13 +45,13 @@ export default function FeaturedCard({allFeatured}) {
         }
     }
 
-    const setSlide = (index) => {
+    const setSlide = (index: number) => {
         setSlideTime(0)
         setIndex(index);
     }
     return (
         <div className="big_slideshow featured">
-            {allFeatured.map((f, idx) => {
+            {allFeatured.map((f: any, idx: number) => {
                 return (
                     <div key={idx} className={(index === idx) ? "slide active" : "slide inactive"}>
                         <Image className="image_background" src={f.images[0]} width={1920} height={1080} alt=""></Image>
@@ -70,7 +70,7 @@ export default function FeaturedCard({allFeatured}) {
                             <Link href={`/maps/${f.slug}`}><button className="main_button">See More!</button></Link>
                             <div>
                                 {
-                                    allFeatured.map((f, idx) => {
+                                    allFeatured.map((f: any, idx: number) => {
                                         return (
                                             <div onClick={() => setSlide(idx)} key={idx} className={(index === idx) ? "marker active" : "marker"}>
                                                 {index === idx ? (<span className="color" style={{margin: `0 -${slideTime}%`}}></span>): (<span className="color"></span>)} 

@@ -1,5 +1,5 @@
-import GridSkeleton from "@components/skeletons/GridSkeleton";
-import MenuSkeleton from "@components/skeletons/MenuSkeleton";
+import GridSkeleton from "@/components/skeletons/GridSkeleton";
+import MenuSkeleton from "@/components/skeletons/MenuSkeleton";
 import { Filter } from "react-feather";
 
 

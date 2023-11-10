@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Archive, Box, Compass } from "react-feather";
 
-export default function FileCard({file}) {
+export default function FileCard({file}: {file: any}) {
 
     return (
         <div className="file_card">

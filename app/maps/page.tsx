@@ -1,10 +1,10 @@
 'use client'
-import ContentGrid from "@components/ContentGrid"
-import ContentCard from "@components/cards/ContentCard"
-import Menu from "@components/Menu"
+import ContentGrid from "@/components/ContentGrid"
+import ContentCard from "@/components/cards/ContentCard"
+import Menu from "@/components/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
-import { getMapCount, getMaps } from "app/getData"
+import { SortOptions, fetchMaps } from "@/app/getData"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
@@ -31,9 +31,9 @@ export default function Maps() {
     const [pages, setPages] = useState(0)
     const [filtering, setFiltering] = useState(false);
     const [search, setSearch] = useState(searchParams.get("search"))
-    let page = (Number.parseInt(searchParams.get("page")));
-    if(!page || page > pages) {
-        page = 0;
+    let page: number = 0;
+    if(searchParams.get("page") != null) {
+       page = (Number.parseInt(searchParams.get("page")!));
     }
 
     useEffect(() => {
@@ -42,17 +42,17 @@ export default function Maps() {
     }, [page, search])
 
     const findMaps = async () => {
-        let m = await getMaps({sort: "newest", limit: 20, skip: (page * 20), search: search})
+        let m = await fetchMaps({sort: SortOptions.newest, limit: 20, skip: (page * 20), search: search!}, false)
         setMaps(m);
     }
 
     const getPageCount = async () => {
-        let count = await getMapCount({sort: "newest", limit: 20, skip: (page * 20), search: search});
+        let count = await fetchMaps({sort: SortOptions.newest, limit: 20, skip: (page * 20), search: search!}, true);
         setPages(Math.ceil(count / 20.0))
     }
 
     const createQueryString = useCallback(
-        (name, value) => {
+        (name: string, value: string) => {
           const params = new URLSearchParams(searchParams)
           params.set(name, value)
      
@@ -62,8 +62,8 @@ export default function Maps() {
       )
       
 
-      const goToPage = (page) => {
-        return pathname + '?' + createQueryString('page', page)
+      const goToPage = (page: number) => {
+        return pathname + '?' + createQueryString('page', page.toString())
       }
 
       if(maps.length == 0 && !search) {
@@ -77,7 +77,7 @@ export default function Maps() {
             <Menu selectedPage='maps'></Menu>
             <div className="search_and_filter">
                 <div className="search_stack">
-                    <input type="text" placeholder="Search" className="search" onKeyDown={(e) => {if(e.code == "Enter") {setSearch(e.target.value); goToPage(0);}}} onChange={(e) => {if(!search || Math.abs(e.target.value.length - search.length) > 2) setSearch(e.target.value); goToPage(0);}}></input>
+                    <input type="text" placeholder="Search" className="search" onKeyDown={(e) => {if(e.code == "Enter") {setSearch(e.currentTarget.value); goToPage(0);}}} onChange={(e) => {if(!search || Math.abs(e.target.value.length - search.length) > 2) setSearch(e.target.value); goToPage(0);}}></input>
                     <button className="secondary_button" onClick={() => setFiltering(!filtering)}><Filter /></button>
                 </div>
                 <div className="filters" style={{display: (filtering) ? "block": "none"}}>
