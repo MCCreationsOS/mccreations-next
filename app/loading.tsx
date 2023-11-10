@@ -1,6 +1,6 @@
-import FeaturedSkeleton from "@components/skeletons/FeaturedSkeleton";
-import GridSkeleton from "@components/skeletons/GridSkeleton";
-import MenuSkeleton from "@components/skeletons/MenuSkeleton";
+import FeaturedSkeleton from "@/components/skeletons/FeaturedSkeleton";
+import GridSkeleton from "@/components/skeletons/GridSkeleton";
+import MenuSkeleton from "@/components/skeletons/MenuSkeleton";
 
 export default function Loading() {
     return (

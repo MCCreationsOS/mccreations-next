@@ -1,27 +1,31 @@
-import Menu from '@components/Menu';
-import Rating from '@components/Rating';
+import Menu from '@/components/Menu';
+import Rating from '@/components/Rating';
 import { JSDOM } from 'jsdom';
 import DOMPurify from 'dompurify';
-import CreatorCard from '@components/cards/CreatorCard';
-import FileCard from '@components/cards/FileCard';
+import CreatorCard from '@/components/cards/CreatorCard';
+import FileCard from '@/components/cards/FileCard';
 import Image from 'next/image';
 import Link from 'next/link';
-import MapImageSlideshow from '@components/slideshows/MapImageSlideshow';
-import Comments from '@components/Comments';
+import MapImageSlideshow from '@/components/slideshows/MapImageSlideshow';
+import Comments from '@/components/Comments';
 import '../../styles/mapPage.css'
+import { fetchMap, fetchMaps } from '@/app/getData';
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
+import { ICreator, IFile, IMap } from '@/app/types';
 
 const window = new JSDOM('').window;
 const purify = DOMPurify(window);
 
-async function getMap(slug) {
-    let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`, { next: { tags: [slug], revalidate: 3600 }})
-    let data = await response.json();
-    return data
+export async function generateStaticParams() {
+    const maps = await fetchMaps({}, false)
+    return maps.map((map: IMap) => ({
+        slug: map.slug
+    }))
 }
 
-export default async function Page({params}) {
+export default async function Page({params}: {params: Params}) {
     console.log("Looking for map with slug " + params.slug)
-    const map = await getMap(params.slug)
+    const map = await fetchMap(params.slug)
 
     let videoID = ""
     if(map.videoUrl && map.videoUrl.includes("?v=")) {
@@ -30,15 +34,17 @@ export default async function Page({params}) {
         videoID = map.videoUrl.substring(map.videoUrl.lastIndexOf("/") + 1)
     }
 
+    console.log(map.images)
+
     if(map) {
         return (
             <>
-            <Menu></Menu>
+            <Menu selectedPage={"maps"}></Menu>
             <div className='map_page'>
                 <Image className='image_background' width={1920} height={1080} src={map.images[0]} alt=""></Image>
                 <div className='map_logo_foreground'>
                     <div className='map_logo_container'>
-                        {(map.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>: <Image className='map_logo' width={1920} height={1080} src={map.images[0]}></Image>}
+                        {(map.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image className='map_logo' width={1920} height={1080} src={map.images[0]} alt={`The logo for ${map.title}, a Minecraft Map for ${map.files[0].minecraftVersion} by ${map.creators[0].username}`}></Image>}
                     </div>
                 </div>
                 <div className='centered_content'>
@@ -57,7 +63,7 @@ export default async function Page({params}) {
                         <div className='map_sidebar'>
                             <section className='map_sidebar_section'>
                                 <h4 className='header'>Creators</h4>
-                                {map.creators.map((creator, idx) => <CreatorCard key={idx} creator={creator} />)}
+                                {map.creators.map((creator: ICreator, idx: number) => <CreatorCard key={idx} creator={creator} />)}
                             </section>
                             <section className='map_sidebar_section stats'>
                                 <h4 className='header'>Stats</h4>
@@ -69,7 +75,7 @@ export default async function Page({params}) {
                             </section>
                             <section className='map_sidebar_section'>
                                 <h4 className='header'>Files</h4>
-                                {map.files.map((file, idx) => <FileCard key={idx} file={file} />)}
+                                {map.files.map((file: IFile, idx: number) => <FileCard key={idx} file={file} />)}
                             </section>
                         </div>
                     </div>

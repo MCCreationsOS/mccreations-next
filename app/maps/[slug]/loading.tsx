@@ -1,5 +1,5 @@
-import MapPageSkeleton from "@components/skeletons/MapPageSkeleton";
-import MenuSkeleton from "@components/skeletons/MenuSkeleton";
+import MapPageSkeleton from "@/components/skeletons/MapPageSkeleton";
+import MenuSkeleton from "@/components/skeletons/MenuSkeleton";
 
 
 export default function Loading() {

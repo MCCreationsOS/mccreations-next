@@ -1,25 +1,26 @@
 'use client'
 
-import { postRating } from "app/getData";
-import { getCookie, setCookie } from "app/setCookies";
+import { postRating } from "@/app/getData";
+import { getCookie, setCookie } from "@/app/setCookies";
+import { IMap } from "@/app/types";
 import { useState, useEffect } from "react";
 
-export default function Rating(props) {
+export default function Rating(props: { value: number, content: IMap}) {
     const [value, setValue] = useState(props.value);
     let contentId = props.content.slug;
 
     console.log(value)
 
-    const sendRating = async (value) => {
+    const sendRating = async (value: number) => {
         let cookie = await getCookie("RATED_" + contentId)
         if(!cookie) {
             let newRating = await postRating(contentId, value, props.content);
-            setCookie("RATED_" + contentId, true)
+            setCookie("RATED_" + contentId, "true")
             setValue(newRating)
         }
     }
 
-    let ratingHover = (event) => {
+    let ratingHover = (event: any) => {
         let value = Math.floor(((event.pageX - event.currentTarget.offsetLeft) / 12.0) + 2)
         value = (Math.floor(value/2))/5
         setValue(value)

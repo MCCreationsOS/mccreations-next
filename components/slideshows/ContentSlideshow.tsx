@@ -1,8 +1,8 @@
 'use client'
 
-export default function ContentSlideshow({content, playlist}) {
+export default function ContentSlideshow({content, playlist}: {content: any, playlist: string}) {
 
-    const slideButtonClicked = (left, e) => {
+    const slideButtonClicked = (left: boolean, e: any) => {
         e.preventDefault();
         let elem
         if(left) {
@@ -12,8 +12,8 @@ export default function ContentSlideshow({content, playlist}) {
             console.log(`Sending you to #${playlist}_${9}`)
             elem = document.querySelector(`#${playlist}_${9}`)
         }
-        document.querySelector(`#${playlist}`).scrollTo({
-            left: elem.getBoundingClientRect().left,
+        document.querySelector(`#${playlist}`)?.scrollTo({
+            left: elem?.getBoundingClientRect().left,
             behavior: "smooth"
         })
     }

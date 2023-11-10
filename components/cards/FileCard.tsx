@@ -1,7 +1,8 @@
+import { IFile } from "@/app/types";
 import Link from "next/link";
 import { Archive, Box, Compass } from "react-feather";
 
-export default function FileCard({file}) {
+export default function FileCard({file}: {file: IFile}) {
 
     return (
         <div className="file_card">

@@ -1,6 +1,6 @@
 import CardSkeleton from "./CardSkeleton";
 
-export default function GridSkeleton({amount}) {
+export default function GridSkeleton({amount}: {amount: number}) {
     let content = []
     for(let i = 0; i < amount; i++) {
         content[i] = i;
