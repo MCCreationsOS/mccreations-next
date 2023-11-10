@@ -42,12 +42,12 @@ export default function Maps() {
     }, [page, search])
 
     const findMaps = async () => {
-        let m = await fetchMaps({sort: SortOptions.newest, limit: 20, skip: (page * 20), search: search!}, false)
+        let m = await fetchMaps({sort: SortOptions.Newest, limit: 20, skip: (page * 20), search: search!}, false)
         setMaps(m);
     }
 
     const getPageCount = async () => {
-        let count = await fetchMaps({sort: SortOptions.newest, limit: 20, skip: (page * 20), search: search!}, true);
+        let count = await fetchMaps({sort: SortOptions.Newest, limit: 20, skip: (page * 20), search: search!}, true);
         setPages(Math.ceil(count / 20.0))
     }
 

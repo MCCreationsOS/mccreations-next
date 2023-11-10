@@ -2,16 +2,16 @@ import { revalidateTag } from "next/cache";
 import { IMap } from "./types";
 
 export enum SortOptions {
-    "newest",
-    "oldest",
-    "updated",
-    "tile_ascending",
-    "title_descending",
-    "highest_rated",
-    "lowest_rated",
-    "creator_ascending",
-    "creator_descending",
-    "best_match"
+    Newest = "newest",
+    Oldest = "oldest",
+    Updated = "updated",
+    TitleAscending = "tile_ascending",
+    TitleDescending = "title_descending",
+    HighestRated = "highest_rated",
+    LowestRated = "lowest_rated",
+    CreatorAscending = "creator_ascending",
+    CreatorDescending = "creator_descending",
+    BestMatch = "best_match"
 }
 
 export interface QueryOptions {
@@ -48,7 +48,7 @@ function formatQueryOptions(queryOptions: QueryOptions) {
     }
 
     if(!queryOptions.sort) {
-        queryOptions.sort = SortOptions.newest
+        queryOptions.sort = SortOptions.Newest
     }
 
     if(!queryOptions.search) {
@@ -60,6 +60,7 @@ function formatQueryOptions(queryOptions: QueryOptions) {
 export async function fetchMaps(queryOptions: QueryOptions, count: boolean) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
+        console.log(`${process.env.DATA_URL}/maps?featured=${queryOptions.featured}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}`)
         let response = await fetch(`${process.env.DATA_URL}/maps?featured=${queryOptions.featured}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}`, {next:{revalidate:3600}})
         let data = await response.json();
         if(count) {
