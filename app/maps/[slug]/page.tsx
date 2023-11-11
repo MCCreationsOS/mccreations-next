@@ -34,8 +34,6 @@ export default async function Page({params}: {params: Params}) {
         videoID = map.videoUrl.substring(map.videoUrl.lastIndexOf("/") + 1)
     }
 
-    console.log(map.images)
-
     if(map) {
         return (
             <>

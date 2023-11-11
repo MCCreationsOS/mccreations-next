@@ -10,7 +10,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
             <nav className="nav">
                 <ul className="nav_list">
                     <li className="item">
-                        <p className="brand">MCCreations</p>
+                        <p className="brand">MCCreations <span className="badge red">Alpha</span></p>
                     </li>
                     <li className="item">
                         <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">Home</Link>

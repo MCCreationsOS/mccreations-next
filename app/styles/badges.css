@@ -1,0 +1,11 @@
+.badge {
+    padding: 2px 10px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 200;
+}
+
+.badge.red {
+    color: white;
+    background-color: #9f0d0d;
+}

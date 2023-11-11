@@ -21,7 +21,7 @@
 .map_logo_container {
     margin: 0 auto;
     width: 50%;
-    min-width: 500px;
+    min-width: 450px;
 }
 
 .map_logo {
@@ -162,4 +162,15 @@
     margin: 20px auto;
     padding: 10px;
     text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+    .map_information {
+        display: block;
+    }
+
+    .map_sidebar {
+        width: 90%;
+        margin: 0 auto;
+    }
 }
