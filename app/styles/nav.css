@@ -85,8 +85,14 @@
     animation-fill-mode: both;
   }
 
+  .mobile_nav .nav_list {
+    display: none;
+    background-color: none;
+  }
+
   .mobile_nav .nav_list.inactive {
     display: none;
+    background-color: none;
   }
 
   .mobile_nav .item {
