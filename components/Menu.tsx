@@ -1,39 +1,66 @@
 'use client'
 
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Menu({selectedPage}: {selectedPage: string}) {
+    const [mobileMenuActive, setMobileMenuActive] = useState(false)
 
     return (
         <>
             <div id='login'></div>
             <nav className="nav">
-                <ul className="nav_list">
-                    <li className="item">
+                <div className="main_nav">
+                    <ul className="nav_list">
+                        <li className="item">
+                            <p className="brand">MCCreations <span className="badge red">Alpha</span></p>
+                        </li>
+                        <li className="item">
+                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">Home</Link>
+                        </li>
+                        <li className="item">
+                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
+                        </li>
+                        <li className="item">
+                            {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
+                        </li>
+                    </ul>
+                    <ul className='action_list'>
+                        <li className='item'>
+                            <Link href='https://mccreations.net/submit' className="nav_button">
+                                Create
+                            </Link>
+                        </li>
+                        {/* <li className='navItem'>
+                            <Link href='/signup' className="navLink">
+                                Log In
+                            </Link>
+                        </li> */}
+                    </ul>
+                </div>
+                <div className="mobile_nav">
+                    <div className="icon_align">
+                        <img className="menu_icon" src='/menu.svg' alt="" onClick={() => {setMobileMenuActive(true)}}/>
                         <p className="brand">MCCreations <span className="badge red">Alpha</span></p>
-                    </li>
-                    <li className="item">
-                        <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">Home</Link>
-                    </li>
-                    <li className="item">
-                        <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
-                    </li>
-                    <li className="item">
-                        {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
-                    </li>
-                </ul>
-                <ul className='action_list'>
-                    <li className='item'>
-                        <Link href='https://mccreations.net/submit' className="nav_button">
-                            Create
-                        </Link>
-                    </li>
-                    {/* <li className='navItem'>
-                        <Link href='/signup' className="navLink">
-                            Log In
-                        </Link>
-                    </li> */}
-                </ul>
+                    </div>
+                    <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
+                        <li className="item">
+                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">Home</Link>
+                        </li>
+                        <li className="item">
+                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
+                        </li>
+                        <li className="item">
+                            {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
+                        </li>
+                        <li className='item'>
+                            <Link href='https://mccreations.net/submit' className="nav_button">
+                                Create
+                            </Link>
+                        </li>
+                    </ul>
+                    <img className={(mobileMenuActive) ? "menu_icon close_button active" : "menu_icon close_button"} src='/x.svg' alt="" onClick={() => {setMobileMenuActive(false)}} />
+                </div>
             </nav>
         </>
     )

@@ -30,7 +30,7 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
-        grid-gap: 8px;
+        gap: 25px;
         margin: 0 auto 70px auto;
         width: 90%;
     }
