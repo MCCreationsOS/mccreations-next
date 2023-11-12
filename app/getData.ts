@@ -1,49 +1,5 @@
 import { revalidateTag } from "next/cache";
-import { IMap } from "./types";
-
-/** 
- * All sort options supported by the API
- * @Newest Sort by created date descending
- * @Oldest Sort by created date ascending
- * @Updated Sort by updated date descending
- * @TitleAscending Sort by title ascending
- * @TitleDescending Sort by title descending
- * @HighestRated Sort by rating (not ratings) descending
- * @LowestRated Sort by rating ascending
- * @CreatorAscending Sort by creator name ascending. Sorts by first creator, then second, etc.
- * @CreatorDescending Sort by creator name descending
- * @BestMatch Sort by textScore parameter when doing a text search. Not correctly implemented atm.
-*/
-export enum SortOptions {
-    Newest = "newest",
-    Oldest = "oldest",
-    Updated = "updated",
-    TitleAscending = "tile_ascending",
-    TitleDescending = "title_descending",
-    HighestRated = "highest_rated",
-    LowestRated = "lowest_rated",
-    CreatorAscending = "creator_ascending",
-    CreatorDescending = "creator_descending",
-    BestMatch = "best_match"
-}
-/**
- * Options to send to the API when doing a query
- * @limit Number of documents to return
- * @skip Number of documents to skip. Skip 20 returns maps 20-40 for example.
- * @featured Only return maps that are featured (status: 3). Should be replaced with a status query
- * @sort Which option to use when sorting
- * @search A text string to search by. Searches the title, short description and creator names. 
- * 
- * If any information is not provided it will be filled in with default values when performing a query
- * instead of being left undefined. 
- */
-export interface QueryOptions {
-    limit?: number;
-    skip?: number;
-    featured?: boolean;
-    sort?: SortOptions;
-    search?: string ;
-}
+import { ErrorMessage, IMap, QueryOptions, SortOptions } from "./types";
 
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
@@ -104,9 +60,9 @@ export async function fetchMaps(queryOptions: QueryOptions, count: boolean) {
         let response = await fetch(`${process.env.DATA_URL}/maps?featured=${queryOptions.featured}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}`, {next:{revalidate:3600}})
         let data = await response.json();
         if(count) {
-            return data.count as number
+            return data.count
         } else {
-            return data.documents as IMap[];
+            return data.documents
         }
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e);
@@ -126,7 +82,7 @@ export async function fetchMap(slug: string) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`, { next: { tags: [slug], revalidate: 3600 }})
         let data = await response.json();
-        return data as IMap
+        return data
     } catch (e) {
         console.error("API fetch error! Is it running?: " + e);
         return {

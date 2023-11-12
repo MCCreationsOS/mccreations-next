@@ -4,11 +4,12 @@ import ContentCard from "@/components/cards/ContentCard"
 import Menu from "@/components/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
-import { SortOptions, fetchMaps } from "@/app/getData"
+import { fetchMaps } from "@/app/getData"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
 import Loading from "./loading"
+import { IMap, SortOptions } from "../types"
 
 // const client = contentful.createClient({
 //     space: 'xfoauilnv892',

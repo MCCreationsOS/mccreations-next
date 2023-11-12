@@ -5,10 +5,10 @@ import CommentCard from "./cards/CommentCard"
 import { postComment } from "@/app/getData";
 import { IComment } from "@/app/types";
 
-export default function Comments({mapSlug, comments}: {mapSlug: string, comments: IComment[]}) {
+export default function Comments({mapSlug, comments}: {mapSlug: string, comments: IComment[] | undefined}) {
     const [username, setUsername] = useState("");
     const [comment, setComment] = useState("");
-    const [commentsState, setComments] = useState(comments)
+    const [commentsState, setComments] = useState(comments!)
 
     const sendComment = async () => {
         postComment(mapSlug, username, comment);

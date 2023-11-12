@@ -2,11 +2,11 @@ import Menu from "@/components/Menu"
 import ContentGrid from "@/components/ContentGrid";
 import ContentCard from "@/components/cards/ContentCard";
 import FeaturedCard from "@/components/slideshows/FeaturedSlideshow";
-import { SortOptions, fetchMaps } from "@/app/getData";
+import { fetchMaps } from "@/app/getData";
 import Error from "@/components/Error";
 import ContentSlideshow from "@/components/slideshows/ContentSlideshow";
 import './styles/homepage.css'
-import { IMap } from "./types";
+import { IMap, SortOptions } from "./types";
 
 
 export default async function Page() {
