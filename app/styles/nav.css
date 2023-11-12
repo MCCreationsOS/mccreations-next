@@ -55,6 +55,7 @@
     width: 40px;
     height: 40px;
     margin: 0 10px;
+    cursor: pointer;
   }
 
   .mobile_nav {
@@ -85,8 +86,7 @@
   }
 
   .mobile_nav .nav_list.inactive {
-    animation: bigSlideshowSlideFadeOut 0.2s ease-in;
-    animation-fill-mode: both;
+    display: none;
   }
 
   .mobile_nav .item {
