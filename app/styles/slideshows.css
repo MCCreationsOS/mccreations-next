@@ -189,7 +189,7 @@
     justify-content: center;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and ((max-width: 600px) or (max-height: 600px)) {
     .big_slideshow.featured .information {
         left: 2.5%;
         text-align: center;
@@ -273,6 +273,13 @@
     right: 1%;
     height: 10vw;
 }
+
+@media screen and (max-width: 1024px) {
+    .carousel .scroll_window {
+        grid-auto-columns: calc(100%/2.25);
+    }
+}
+
 
 @media screen and (max-width: 600px) {
     .carousel .scroll_window {
