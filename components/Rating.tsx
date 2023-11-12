@@ -14,7 +14,7 @@ export default function Rating(props: { value: number, content: IMap}) {
     const sendRating = async (value: number) => {
         let cookie = await getCookie("RATED_" + contentId)
         if(!cookie) {
-            let newRating = await postRating(contentId, value, props.content);
+            let newRating = await postRating(value, props.content);
             setCookie("RATED_" + contentId, "true")
             setValue(newRating)
         }
