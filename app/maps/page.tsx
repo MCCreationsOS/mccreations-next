@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
 import Loading from "./loading"
-import { IMap, SortOptions } from "../types"
+import { IMap, SortOptions, StatusOptions } from "../types"
 
 // const client = contentful.createClient({
 //     space: 'xfoauilnv892',
@@ -32,6 +32,12 @@ export default function Maps() {
     const [pages, setPages] = useState(0)
     const [filtering, setFiltering] = useState(false);
     const [search, setSearch] = useState(searchParams.get("search"))
+    const [popupOpen, setPopupOpen] = useState(false)
+    const [sortDropdown, setSortDropdown] = useState(false)
+    const [sort, setSort] = useState(SortOptions.Newest);
+    // const [statusDropdown, setStatusDropdown] = useState(false)
+    // const [status, setStatus] = useState(StatusOptions.Approved)
+    const [loading, setLoading] = useState(false)
     let page: number = 0;
     if(searchParams.get("page") != null) {
        page = (Number.parseInt(searchParams.get("page")!));
@@ -40,15 +46,17 @@ export default function Maps() {
     useEffect(() => {
         getPageCount();
         findMaps();
-    }, [page, search])
+    }, [page, search, sort, status])
 
     const findMaps = async () => {
-        let m = await fetchMaps({sort: SortOptions.Newest, limit: 20, skip: (page * 20), search: search!}, false)
+        setLoading(true)
+        let m = await fetchMaps({sort: sort, limit: 20, skip: (page * 20), search: search!}, false)
+        setLoading(false);
         setMaps(m);
     }
 
     const getPageCount = async () => {
-        let count = await fetchMaps({sort: SortOptions.Newest, limit: 20, skip: (page * 20), search: search!}, true);
+        let count = await fetchMaps({sort: sort, limit: 20, skip: (page * 20), search: search!}, true);
         setPages(Math.ceil(count / 20.0))
     }
 
@@ -67,31 +75,55 @@ export default function Maps() {
         return pathname + '?' + createQueryString('page', page.toString())
       }
 
-      if(maps.length == 0 && !search) {
+      const closePopups = () => {
+        setSortDropdown(false);
+        // setStatusDropdown(false)
+      }
+
+      if(maps.length == 0 && !search || loading) {
         return (
             <Loading />
         )
       }
     
     return (
-        <div>
+        <div onClick={() => {(popupOpen == true) ? closePopups(): false}}>
             <Menu selectedPage='maps'></Menu>
-            <div className="search_and_filter">
+            <div className="search_and_filter" onClick={() => {(popupOpen == true) ? closePopups(): false}}>
                 <div className="search_stack">
                     <input type="text" placeholder="Search" className="search" onKeyDown={(e) => {if(e.code == "Enter") {setSearch(e.currentTarget.value); goToPage(0);}}} onChange={(e) => {if(!search || Math.abs(e.target.value.length - search.length) > 2) setSearch(e.target.value); goToPage(0);}}></input>
                     <button className="secondary_button" onClick={() => setFiltering(!filtering)}><Filter /></button>
                 </div>
-                <div className="filters" style={{display: (filtering) ? "block": "none"}}>
-                    {/* Sort: <select>
-                        <option value={"newest"}>Newest</option>
-                        <option value={"updated"}>Updated</option>
-                        <option value={"oldest"}>Oldest</option>
-                        <option value={"title_ascending"}>Title Ascending</option>
-                        <option value={"title_descending"}>Title Descending</option>
-                        <option value={"highest_rated"}>Highest Rated</option>
-                        <option value={"lowest_rated"}>Lowest Rated</option>
-                    </select> */}
-                    Coming Soon :p
+                <div className="filters" style={{display: (filtering) ? "flex": "none"}}>
+                    <div className="filter_option">
+                        Sort by 
+                        <div className="select" onClick={() => {setSortDropdown(true)}}>
+                            <button className="selected_option">{sort.charAt(0).toUpperCase() + sort.replaceAll("_", " ").substring(1)}</button>
+                            <div className={(sortDropdown) ? "options active" : "options"}>
+                                <div className={(sort === SortOptions.Newest) ? "option selected": "option"} onClick={() => setSort(SortOptions.Newest)}>Newest</div>
+                                <div className={(sort === SortOptions.Oldest) ? "option selected": "option"} onClick={() => setSort(SortOptions.Oldest)}>Oldest</div>
+                                <div className={(sort === SortOptions.Updated) ? "option selected": "option"} onClick={() => setSort(SortOptions.Updated)}>Updated</div>
+                                <div className={(sort === SortOptions.TitleAscending) ? "option selected": "option"} onClick={() => setSort(SortOptions.TitleAscending)}>Title Ascending</div>
+                                <div className={(sort === SortOptions.TitleDescending) ? "option selected": "option"} onClick={() => setSort(SortOptions.TitleDescending)}>Title Descending</div>
+                                <div className={(sort === SortOptions.CreatorAscending) ? "option selected": "option"} onClick={() => setSort(SortOptions.CreatorAscending)}>Creator Ascending</div>
+                                <div className={(sort === SortOptions.CreatorDescending) ? "option selected": "option"} onClick={() => setSort(SortOptions.CreatorDescending)}>Creator Descending</div>
+                                <div className={(sort === SortOptions.HighestRated) ? "option selected": "option"} onClick={() => setSort(SortOptions.HighestRated)}>Highest Rated</div>
+                                <div className={(sort === SortOptions.LowestRated) ? "option selected": "option"} onClick={() => setSort(SortOptions.LowestRated)}>Lowest Rated</div>
+                                {/* <div className="option" onClick={() => setSort(SortOptions.BestMatch)}>Best Match</div> */}
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="filter_option">
+                        Status
+                        <div className="select" onClick={() => {setStatusDropdown(true)}}>
+                                <button className="selected_option">{sort.charAt(0).toUpperCase() + sort.replaceAll("_", " ").substring(1)}</button>
+                                <div className={(sortDropdown) ? "options active" : "options"}>
+                                    <div className={(status === StatusOptions.Unapproved) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Unapproved)}>Unapproved</div>
+                                    <div className={(status === StatusOptions.Approved) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Approved)}>Approved</div>
+                                    <div className={(status === StatusOptions.Featured) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Featured)}>Featured</div>
+                                </div>
+                            </div>
+                        </div> */}
                 </div>
             </div>
                 <div>

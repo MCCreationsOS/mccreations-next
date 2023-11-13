@@ -15,7 +15,7 @@ export enum SortOptions {
     Newest = "newest",
     Oldest = "oldest",
     Updated = "updated",
-    TitleAscending = "tile_ascending",
+    TitleAscending = "title_ascending",
     TitleDescending = "title_descending",
     HighestRated = "highest_rated",
     LowestRated = "lowest_rated",
@@ -23,6 +23,14 @@ export enum SortOptions {
     CreatorDescending = "creator_descending",
     BestMatch = "best_match"
 }
+
+export enum StatusOptions {
+    Draft,
+    Unapproved,
+    Approved,
+    Featured
+}
+
 /**
  * Options to send to the API when doing a query
  * @limit number of documents to return

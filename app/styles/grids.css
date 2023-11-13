@@ -84,7 +84,7 @@
     background-color: #272727;
     color: white;
     padding: 12px 12px;
-    border: 1px solid gray;
+    border: 1px solid #474747;
     width: 350px;
     font-size: 1.2rem;
     flex: 50%;
@@ -99,4 +99,10 @@
     /* display: none; */
     background-color: #272727;
     padding: 5px;
+}
+
+.filter_option {
+    margin: 10px 5px;
+    color: #aaa;
+    font-size: 1.05rem;
 }
