@@ -315,12 +315,12 @@
 
 @keyframes carouselCardPeak {
     0% {
-        margin-left: 0;
+        transform: translateX(0);
     }
     50% {
-        margin-left: -10%;
+        transform: translateX(-50px);
     }
     100% {
-        margin-left: 0;
+        transform: translateX(0);
     }
 }
