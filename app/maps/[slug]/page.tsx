@@ -17,7 +17,7 @@ const window = new JSDOM('').window;
 const purify = DOMPurify(window);
 
 export async function generateStaticParams() {
-    const maps = await fetchMaps({}, false)
+    const maps = (await fetchMaps({}, false)).documents
     return maps.map((map: IMap) => ({
         slug: map.slug
     }))

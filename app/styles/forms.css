@@ -16,6 +16,18 @@ input {
     font-size: 1rem;
 }
 
+.input {
+    background-color: #272727;
+    color: white;
+    padding: 10px 12px;
+    border: 1px solid gray;
+    border-radius: 2px;
+    width: 350px;
+    font-size: 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
+    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
 .input:focus {
     border: 1px solid #344ec1;
 }
