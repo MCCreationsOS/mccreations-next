@@ -17,7 +17,7 @@ const window = new JSDOM('').window;
 const purify = DOMPurify(window);
 
 export async function generateStaticParams() {
-    const maps = await fetchMaps({}, false)
+    const maps = (await fetchMaps({}, false)).documents
     return maps.map((map: IMap) => ({
         slug: map.slug
     }))
@@ -33,8 +33,6 @@ export default async function Page({params}: {params: Params}) {
     } else if(map.videoUrl) {
         videoID = map.videoUrl.substring(map.videoUrl.lastIndexOf("/") + 1)
     }
-
-    console.log(map.images)
 
     if(map) {
         return (

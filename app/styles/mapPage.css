@@ -163,3 +163,36 @@
     padding: 10px;
     text-align: center;
 }
+
+@media screen and (max-width: 600px) {
+    .map_page {
+        min-width: 100%;
+    }
+
+    .map_logo_container {
+        min-width: 90%;
+    }
+
+    .map_page .image_background {
+        margin-bottom: -80px;
+        height: 75vw;
+    }
+
+    .map_title_bar {
+        display: block;
+        text-align: center;
+    }
+
+    .map_title {
+        margin-bottom: 15px;
+    }
+
+    .map_information {
+        display: block;
+    }
+
+    .map_sidebar {
+        width: 90%;
+        margin: 0 auto;
+    }
+}

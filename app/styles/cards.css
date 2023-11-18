@@ -70,6 +70,19 @@
     margin-bottom: 10px;
 }
 
+@media screen and (max-width: 600px) {
+    .content_card .information .description {
+        font-size: 1.1rem;
+    }
+
+    .content_card .title {
+        display: block;
+        width: 100%;
+        margin-bottom: 0;
+        font-size: 1.2rem;
+    }
+}
+
 .content_card .author {
     margin: 0 0 5px 0;
     font-size: 0.95rem;

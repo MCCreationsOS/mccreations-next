@@ -1,15 +1,37 @@
 .nav {
-    display: flex;
-    margin: 0 10px;
+    margin: 0x;
+    padding-left: 10px;
+    position: sticky;
+    top: 0%;
+    z-index: 100;
+    background-color: #171717;
+}
+
+.main_nav {
+  display: flex;
 }
 
 .nav_list {
-    margin: 20px 0 20px -15px;
+    margin: 5px 0 5px -15px;
     font-family: 'Lato', sans-serif;
-    flex: 50%
-  }
+    flex: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.nav a.brand {
+  display: inline-flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+}
+
+.nav .brand_icon {
+  width: 50px;
+  image-rendering: pixelated;
+}
   
-.nav .brand {
+.nav .brand_name {
     display: inline;
     font-weight: 700;
     font-size: 20px;
@@ -46,4 +68,80 @@
   .action_list {
     margin: 20px 0 20px -15px;
     font-family: 'Lato', sans-serif;
+  }
+
+  .menu_icon {
+    width: 40px;
+    height: 40px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+
+  .mobile_nav {
+    display: none;
+  }
+
+  .icon_align {
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile_nav .nav_list {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: #272727;
+    z-index: 100;
+    margin: 0;
+    padding: 40px;
+    top: 0%;
+    left: 0%;
+  }
+
+  .mobile_nav .nav_list.active {
+    display: block;
+    animation: bigSlideshowSlideFadeIn 0.2s ease-in;
+    animation-fill-mode: both;
+  }
+
+  .mobile_nav .nav_list {
+    display: none;
+    background-color: none;
+  }
+
+  .mobile_nav .nav_list.inactive {
+    display: none;
+    background-color: none;
+  }
+
+  .mobile_nav .item {
+    display: block;
+    margin: 30px 0;
+    text-align: center;
+  }
+
+  .mobile_nav .link {
+    font-size: 1.2rem;
+  }
+
+  .mobile_nav .close_button {
+    position: absolute;
+    z-index: 101;
+    right: 1%;
+    top: 1%;
+    display: none;
+  }
+
+  .mobile_nav .close_button.active {
+    display: block;
+  }
+
+  @media screen and (max-width: 600px) {
+    .main_nav {
+      display: none;
+    }
+
+    .mobile_nav {
+      display: block;
+    }
   }

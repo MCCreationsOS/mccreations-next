@@ -2,17 +2,17 @@ import Menu from "@/components/Menu"
 import ContentGrid from "@/components/ContentGrid";
 import ContentCard from "@/components/cards/ContentCard";
 import FeaturedCard from "@/components/slideshows/FeaturedSlideshow";
-import { SortOptions, fetchMaps } from "@/app/getData";
+import { fetchMaps } from "@/app/getData";
 import Error from "@/components/Error";
 import ContentSlideshow from "@/components/slideshows/ContentSlideshow";
 import './styles/homepage.css'
-import { IMap } from "./types";
+import { IMap, SortOptions } from "./types";
 
 
 export default async function Page() {
-    const featured = await fetchMaps({featured: true, limit: 5}, false)
-    const newest = await fetchMaps({limit: 10}, false)
-    const updated = await fetchMaps({sort: SortOptions.Updated, limit: 10}, false)
+    const featured = (await fetchMaps({status: 3, limit: 5}, false)).documents
+    const newest = (await fetchMaps({limit: 10}, false)).documents
+    const updated = (await fetchMaps({sort: SortOptions.Updated, limit: 10}, false)).documents
 
     if(featured.error || newest.error || updated.error) {
         let msgBase = "MCCreations API Error! Failed to fetch featured, newest or updated on the homepage. Query was "
