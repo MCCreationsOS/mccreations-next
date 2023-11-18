@@ -28,7 +28,7 @@ export default function FeaturedCard({allFeatured}: {allFeatured: IMap[]}) {
         }
     }
 
-    if(index >= allFeatured.length || index < 0) {
+    if((index >= allFeatured.length || index < 0) && index != 0) {
         setIndex(0)
     }
 

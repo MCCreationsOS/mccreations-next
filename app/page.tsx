@@ -10,9 +10,9 @@ import { IMap, SortOptions } from "./types";
 
 
 export default async function Page() {
-    const featured = await fetchMaps({featured: true, limit: 5}, false)
-    const newest = await fetchMaps({limit: 10}, false)
-    const updated = await fetchMaps({sort: SortOptions.Updated, limit: 10}, false)
+    const featured = (await fetchMaps({status: 3, limit: 5}, false)).documents
+    const newest = (await fetchMaps({limit: 10}, false)).documents
+    const updated = (await fetchMaps({sort: SortOptions.Updated, limit: 10}, false)).documents
 
     if(featured.error || newest.error || updated.error) {
         let msgBase = "MCCreations API Error! Failed to fetch featured, newest or updated on the homepage. Query was "

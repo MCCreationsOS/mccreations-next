@@ -7,12 +7,24 @@
 }
 
 .nav_list {
-    margin: 20px 0 20px -15px;
+    margin: 5px 0 20px -15px;
     font-family: 'Lato', sans-serif;
-    flex: 50%
-  }
+    flex: 50%;
+    display: flex;
+    align-items: center;
+}
+
+.nav div.brand {
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav .brand_icon {
+  width: 50px;
+  image-rendering: pixelated;
+}
   
-.nav .brand {
+.nav .brand_name {
     display: inline;
     font-weight: 700;
     font-size: 20px;

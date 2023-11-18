@@ -16,7 +16,7 @@
     }
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1070px) {
     .content_grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -74,12 +74,6 @@
     margin: 20px auto;
 }
 
-@media screen and (max-width: 600px) {
-    .search_and_filter {
-        width: 90%;
-    }
-}
-
 .search {
     background-color: #272727;
     color: white;
@@ -99,10 +93,21 @@
     /* display: none; */
     background-color: #272727;
     padding: 5px;
+    flex-wrap: wrap;
 }
 
 .filter_option {
     margin: 10px 5px;
     color: #aaa;
     font-size: 1.05rem;
+}
+
+@media screen and (max-width: 600px) {
+    .search_and_filter {
+        width: 90%;
+    }
+
+    .filters {
+        justify-content: center;
+    }
 }

@@ -6,7 +6,7 @@
     margin: 0 0 5px 0;
 }
 
-.input {
+input {
     background-color: #272727;
     color: white;
     padding: 10px 12px;
@@ -56,6 +56,12 @@
     border: 1px solid #474747;
     box-shadow: 3px 3px 10px #000000;
     border-radius: 5px;
+    max-height: 40vh;
+    scroll-padding: 0;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    overflow: auto;
+    overscroll-behavior-y: none;
 }
 
 .select .options.active {

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
 import Loading from "./loading"
-import { IMap, SortOptions, StatusOptions } from "../types"
+import { IMap, MinecraftVersion, SortOptions, StatusOptions } from "../types"
 
 // const client = contentful.createClient({
 //     space: 'xfoauilnv892',
@@ -35,8 +35,11 @@ export default function Maps() {
     const [popupOpen, setPopupOpen] = useState(false)
     const [sortDropdown, setSortDropdown] = useState(false)
     const [sort, setSort] = useState(SortOptions.Newest);
-    // const [statusDropdown, setStatusDropdown] = useState(false)
-    // const [status, setStatus] = useState(StatusOptions.Approved)
+    const [statusDropdown, setStatusDropdown] = useState(false)
+    const [status, setStatus] = useState(StatusOptions.Approved)
+    const [version, setVersion] = useState("")
+    const [versionDropdown, setVersionDropdown] = useState(false)
+    const [versionFilter, setVersionFilter] = useState("")
     const [loading, setLoading] = useState(false)
     let page: number = 0;
     if(searchParams.get("page") != null) {
@@ -44,21 +47,22 @@ export default function Maps() {
     }
 
     useEffect(() => {
-        getPageCount();
         findMaps();
-    }, [page, search, sort, status])
+    }, [page, search, sort, status, version])
 
     const findMaps = async () => {
         setLoading(true)
-        let m = await fetchMaps({sort: sort, limit: 20, skip: (page * 20), search: search!}, false)
+        let m = await fetchMaps({sort: sort, limit: 20, skip: (page * 20), search: search!, status: status, version: version}, false)
         setLoading(false);
-        setMaps(m);
+        setMaps(m.documents);
+        setPages(Math.ceil(m.totalCount / 20.0))
+
+        if(search && search.length > 0) {
+            searchParams.append()
+        }
     }
 
-    const getPageCount = async () => {
-        let count = await fetchMaps({sort: sort, limit: 20, skip: (page * 20), search: search!}, true);
-        setPages(Math.ceil(count / 20.0))
-    }
+    console.log(pages)
 
     const createQueryString = useCallback(
         (name: string, value: string) => {
@@ -75,19 +79,21 @@ export default function Maps() {
         return pathname + '?' + createQueryString('page', page.toString())
       }
 
-      const closePopups = () => {
-        setSortDropdown(false);
-        // setStatusDropdown(false)
-      }
-
-      if(maps.length == 0 && !search || loading) {
+      if(loading) {
         return (
             <Loading />
         )
       }
+
+      const closePopups = () => {
+        setSortDropdown(false);
+        setStatusDropdown(false);
+        setVersionDropdown(false)
+        setPopupOpen(false)
+      }
     
     return (
-        <div onClick={() => {(popupOpen == true) ? closePopups(): false}}>
+        <div>
             <Menu selectedPage='maps'></Menu>
             <div className="search_and_filter" onClick={() => {(popupOpen == true) ? closePopups(): false}}>
                 <div className="search_stack">
@@ -97,7 +103,7 @@ export default function Maps() {
                 <div className="filters" style={{display: (filtering) ? "flex": "none"}}>
                     <div className="filter_option">
                         Sort by 
-                        <div className="select" onClick={() => {setSortDropdown(true)}}>
+                        <div className="select" onClick={() => {setSortDropdown(true); setPopupOpen(true)}}>
                             <button className="selected_option">{sort.charAt(0).toUpperCase() + sort.replaceAll("_", " ").substring(1)}</button>
                             <div className={(sortDropdown) ? "options active" : "options"}>
                                 <div className={(sort === SortOptions.Newest) ? "option selected": "option"} onClick={() => setSort(SortOptions.Newest)}>Newest</div>
@@ -113,17 +119,28 @@ export default function Maps() {
                             </div>
                         </div>
                     </div>
-                    {/* <div className="filter_option">
+                    <div className="filter_option">
                         Status
-                        <div className="select" onClick={() => {setStatusDropdown(true)}}>
-                                <button className="selected_option">{sort.charAt(0).toUpperCase() + sort.replaceAll("_", " ").substring(1)}</button>
-                                <div className={(sortDropdown) ? "options active" : "options"}>
-                                    <div className={(status === StatusOptions.Unapproved) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Unapproved)}>Unapproved</div>
-                                    <div className={(status === StatusOptions.Approved) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Approved)}>Approved</div>
-                                    <div className={(status === StatusOptions.Featured) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Featured)}>Featured</div>
-                                </div>
+                        <div className="select" onClick={() => {setStatusDropdown(true); setPopupOpen(true)}}>
+                            <button className="selected_option">{StatusOptions[status]}</button>
+                            <div className={(statusDropdown) ? "options active" : "options"}>
+                                <div className={(status === StatusOptions.Unapproved) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Unapproved)}>Unapproved</div>
+                                <div className={(status === StatusOptions.Approved) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Approved)}>Approved</div>
+                                <div className={(status === StatusOptions.Featured) ? "option selected": "option"} onClick={() => setStatus(StatusOptions.Featured)}>Featured</div>
                             </div>
-                        </div> */}
+                        </div>
+                    </div>
+                    <div className="filter_option">
+                        Version
+                        <div className="select" onClick={() => {setVersionDropdown(true); setPopupOpen(true)}}>
+                            <button className="selected_option">{(version === "") ? "None" : version}</button>
+                            <div className={(versionDropdown) ? "options active" : "options"}>
+                                <input type="text" className={(version === "") ? "option selected": "option"} onChange={(e) => setVersionFilter(e.target.value)} onClick={(e) => {e.preventDefault(); setVersionDropdown(true); setPopupOpen(true)}}></input>
+                                <div className={(version === "") ? "option selected": "option"} onClick={() => setVersion("")}>None</div>
+                                {Object.entries(MinecraftVersion).slice(Object.entries(MinecraftVersion).length/2).map((v, idx) => <div key={idx} className={(v[1] === MinecraftVersion[idx]) ? "option selected": "option"} onClick={() => setVersion(v[0] as string)}>{v[0]}</div>)}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
                 <div>

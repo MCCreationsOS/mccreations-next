@@ -29,9 +29,13 @@ function formatQueryOptions(queryOptions: QueryOptions) {
         console.error("Skip cannot be less than 0")
     }
 
-    // Defines featured if it is not defined
-    if(!queryOptions.featured) {
-        queryOptions.featured = false
+    // Defines status if it is not defined
+    if(!queryOptions.status) {
+        queryOptions.status = 2
+    }
+
+    if(!queryOptions.version) {
+        queryOptions.version = ""
     }
 
     // Defines sort if it is not defined
@@ -57,13 +61,11 @@ function formatQueryOptions(queryOptions: QueryOptions) {
 export async function fetchMaps(queryOptions: QueryOptions, count: boolean) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps?featured=${queryOptions.featured}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}`, {next:{revalidate:3600}})
+        console.log(`Send request ${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}`)
+        let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}`, {next:{revalidate:3600}})
         let data = await response.json();
-        if(count) {
-            return data.count
-        } else {
-            return data.documents
-        }
+        return data
+
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e);
         return {

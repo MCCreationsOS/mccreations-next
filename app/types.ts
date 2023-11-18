@@ -45,9 +45,10 @@ export enum StatusOptions {
 export interface QueryOptions {
     limit?: number;
     skip?: number;
-    featured?: boolean;
+    status?: number;
     sort?: SortOptions;
-    search?: string ;
+    search?: string;
+    version?: string
 }
 
 export interface ErrorMessage {
