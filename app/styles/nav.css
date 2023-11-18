@@ -19,9 +19,11 @@
     align-items: center;
 }
 
-.nav div.brand {
+.nav a.brand {
   display: inline-flex;
   align-items: center;
+  color: white;
+  text-decoration: none;
 }
 
 .nav .brand_icon {

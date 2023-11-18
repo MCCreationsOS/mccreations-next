@@ -13,10 +13,10 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                 <div className="main_nav">
                     <ul className="nav_list">
                         <li className="item brand">
-                            <div className="brand">
+                            <Link href="/" className="brand">
                                 <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
                                 <p className="brand_name">MCCreations <span className="badge red">Alpha</span></p>
-                            </div>
+                            </Link>
                         </li>
                         <li className="item">
                             <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">Home</Link>

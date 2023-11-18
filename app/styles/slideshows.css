@@ -191,11 +191,11 @@
 
 @media screen and ((max-width: 600px) or (max-height: 600px)) {
     .big_slideshow.featured {
-        height: 60vh;
+        height: 45vh;
     }
 
     .big_slideshow.featured .image_background{  
-        height: 60vh;
+        height: 45vh;
     }
 
     .big_slideshow.featured .information {
@@ -206,11 +206,11 @@
     }
 
     .big_slideshow .nav_arrow.left {
-        top: 30%;
+        top: 50%;
     }
     
     .big_slideshow .nav_arrow.right {
-        top: 30%;
+        top: 50%;
     }
 
     .big_slideshow.featured .information .image {

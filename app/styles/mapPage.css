@@ -175,6 +175,7 @@
 
     .map_page .image_background {
         margin-bottom: -80px;
+        height: 75vw;
     }
 
     .map_title_bar {
