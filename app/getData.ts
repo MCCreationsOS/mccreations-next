@@ -14,11 +14,6 @@ function formatQueryOptions(queryOptions: QueryOptions) {
         queryOptions.limit = 0
     }
 
-    // Limit should not exceed 20 for performance reasons
-    if(queryOptions.limit > 20 || queryOptions.limit < 0) {
-        console.error("Limit is above 20 or below 0")
-    }
-
     // Define a skip amount of there is none defined
     if(!queryOptions.skip) {
         queryOptions.skip = 0;

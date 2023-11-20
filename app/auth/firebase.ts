@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-    apiKey: process.env.FIREBASE_KEY,
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_KEY,
     authDomain: "mccreations-c3cb8.firebaseapp.com",
     databaseURL: "https://mccreations-c3cb8.firebaseio.com",
     projectId: "mccreations-c3cb8",
