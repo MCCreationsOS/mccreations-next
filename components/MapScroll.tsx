@@ -1,8 +1,17 @@
+'use client'
 import { fetchMaps } from "@/app/getData";
 import ContentScrollGrid from "./slideshows/ContentScrollGrid";
+import { useEffect, useState } from "react";
 
-export default async function MapScroll() {
-    const maps = (await fetchMaps({status: 3, limit: 60}, false)).documents;
+export default function MapScroll() {
+    const [maps, setMaps] = useState([]);
+
+    useEffect(() => {
+        const getMaps = async () => {
+            setMaps((await fetchMaps({status: 3, limit: 60}, false)).documents)
+        }
+        getMaps();
+    }, [])
 
     return (
         <div className="map_scroll">
