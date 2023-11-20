@@ -43,8 +43,10 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                 <div className="mobile_nav">
                     <div className="icon_align">
                         <img className="menu_icon" src='/menu.svg' alt="" onClick={() => {setMobileMenuActive(true)}}/>
-                        <img src="/mcc_scaffold_cube.png"></img>
-                        <p className="brand">MCCreations <span className="badge red">Alpha</span></p>
+                        <Link href="/" className="brand">
+                            <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
+                            <p className="brand_name">MCCreations <span className="badge red">Alpha</span></p>
+                        </Link>
                     </div>
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">

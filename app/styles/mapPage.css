@@ -181,6 +181,12 @@
     .map_title_bar {
         display: block;
         text-align: center;
+        width: 100%;
+    }
+
+    .map_download_stack {
+        width: 100%;
+        justify-content: center;
     }
 
     .map_title {
