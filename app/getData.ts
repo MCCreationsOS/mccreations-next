@@ -141,3 +141,20 @@ export async function postComment(mapSlug: string, username: string, comment: st
         console.error(e);
     }
 }
+
+/**
+ * Creates a creator from a newly created user account. User accounts are not stored on our primary database,
+ * but extra information like a banner, about me, etc. is.
+ * @param uid The user uid returned by Firebase on user creation
+ * @param username The username of the creator
+ */
+export async function postAccountCreator(uid: string, username: string) {
+    // fetch(`${process.env.DATA_URL}/creators`, {
+    //     method: 'POST',
+    //     headers: {
+    //         'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({username: username, uid: uid, type: 'account'})
+    // })
+    console.log(`Creating creator for ${username}`);
+}

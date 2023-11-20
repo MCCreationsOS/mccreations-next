@@ -138,6 +138,13 @@ export interface IFile {
     contentVersion: string
 }
 
+export interface IUser {
+    displayName?: string,
+    email?: string,
+    photoUrl?: string,
+    uid?: string
+}
+
 /**
  * An enum representing all existing Minecraft Versions.
  */

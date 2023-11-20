@@ -1,7 +1,8 @@
 'use client'
 
 import Link from "next/link";
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import UserOptions from "./UserOptions";
 
 export default function Menu({selectedPage}: {selectedPage: string}) {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
@@ -34,11 +35,9 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                                 Create
                             </Link>
                         </li>
-                        {/* <li className='navItem'>
-                            <Link href='/signup' className="navLink">
-                                Log In
-                            </Link>
-                        </li> */}
+                        <li className='item'>
+                            <UserOptions />
+                        </li>
                     </ul>
                 </div>
                 <div className="mobile_nav">

@@ -16,6 +16,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: "mccreations.s3.us-west-1.amazonaws.com"
+      },
+      {
+        protocol: 'https',
+        hostname: "lh3.googleusercontent.com"
+      },
+      {
+        protocol: 'https',
+        hostname: "avatars.githubusercontent.com"
       }
     ],
   }

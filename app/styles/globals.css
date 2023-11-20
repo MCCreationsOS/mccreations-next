@@ -8,6 +8,7 @@
 @import 'footer.css';
 @import 'slideshows.css';
 @import 'badges.css';
+@import 'popupPage.css';
 
 html,
 body {
@@ -91,14 +92,30 @@ a:active {
   width: 50%;
 }
 
+.centered_content.small {
+  width: 20%;
+}
+
+.centered_content.popup {
+  background-color: #272727;
+  border-radius: 5px;
+}
+
 @media screen and (max-width: 1920px) {
   .centered_content {
       width: 65%;
+  }
+
+  .centered_content.small {
+    width: 40%;
   }
 }
 
 @media screen and (max-width: 900px) {
   .centered_content {
       width: 90%;
+  }
+  .centered_content.small {
+    width: 95%;
   }
 }
