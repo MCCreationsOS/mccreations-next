@@ -1,11 +1,12 @@
 'use client'
 import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { auth } from "../auth/firebase";
 import { SiGithub, SiGoogle } from "@icons-pack/react-simple-icons";
 import Link from "next/link";
 import { Circle } from "react-feather";
+import MapScroll from "@/components/MapScroll";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
@@ -47,6 +48,10 @@ export default function SignIn() {
     }
 
     return (
+        <div className="popup_page">
+            <Suspense>
+                <MapScroll />
+            </Suspense>
         <div className="centered_content small popup">
             <h2>Sign In with...</h2>
             <div className="sign_in_providers">
@@ -71,6 +76,7 @@ export default function SignIn() {
                 <Link href="/signup">Don't have an account?</Link>
                 <Link href="/signin/reset" >Forgot your password?</Link>
             </div>
+        </div>
         </div>
     )
 }

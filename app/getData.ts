@@ -143,13 +143,12 @@ export async function postComment(mapSlug: string, username: string, comment: st
  * @param uid The user uid returned by Firebase on user creation
  * @param username The username of the creator
  */
-export async function postAccountCreator(uid: string, username: string) {
+export async function postAccountCreator(uid: string) {
     // fetch(`${process.env.DATA_URL}/creators`, {
     //     method: 'POST',
     //     headers: {
     //         'Content-Type': 'application/json'
     //     },
-    //     body: JSON.stringify({username: username, uid: uid, type: 'account'})
+    //     body: JSON.stringify({uid: uid, type: 'account'})
     // })
-    console.log(`Creating creator for ${username}`);
 }

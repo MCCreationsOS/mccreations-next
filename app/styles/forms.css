@@ -128,3 +128,12 @@ input {
 .sign_up_options a {
     margin-right: 20px;
 }
+
+.settings_option {
+    display: flex;
+    align-items: center;
+}
+
+.settings_option .text {
+    flex: 50%
+}

@@ -6,11 +6,13 @@ import { useState } from "react"
 import Image from "next/image"
 import { IUser } from "@/app/types"
 import Link from "next/link"
-import { LogOut } from "react-feather"
+import { LogOut, Settings } from "react-feather"
+import { useRouter } from "next/navigation"
 
 export default function UserOptions() {
     const [user, setUser] = useState({} as IUser)
     const [showOptions, setShowOptions] = useState(false)
+    const router = useRouter();
 
     if(!user.uid) {
         auth.onAuthStateChanged((authUser) => {
@@ -53,6 +55,9 @@ export default function UserOptions() {
                     <p className="email">{user.email}</p>
                 </div>
                 <hr></hr>
+                <div className="option icon" onClick={() => {router.push("/account")}}>
+                    <Settings />Settings
+                </div>
                 <div className="option icon" onClick={() => {signOut(auth)}}>
                     <LogOut />Sign Out
                 </div>

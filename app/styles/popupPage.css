@@ -22,9 +22,9 @@
 
 @keyframes mapScrollScroll {
     0% {
-        transform: rotateZ(-45deg) translateX(calc(120% + 32vw - 25vh)) translateY(8%)
+        transform: rotateZ(-45deg) translateX(calc(120% + 32vw - 25vh)) translateY(5%)
     }
     100% {
-        transform: rotateZ(-45deg) translateX(calc(120% + 32vw - 25vh)) translateY(-42%)
+        transform: rotateZ(-45deg) translateX(calc(120% + 32vw - 25vh)) translateY(-45%)
     }
 }
