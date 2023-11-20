@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { IUser } from "../types"
 import { auth } from "../auth/firebase"
 import { useRouter } from "next/navigation"
@@ -17,7 +17,7 @@ export default function AccountPage() {
     const [user, setUser] = useState({} as IUser)
     const router = useRouter();
 
-    if(!user.uid) {
+    useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
             if(authUser) {
                 let formatUser = {
@@ -41,7 +41,8 @@ export default function AccountPage() {
                 router.push("/")
             }
         })
-    }
+    }, [])
+        
 
     const saveUser = () => {
         if(username.length > 1 && username != user.displayName) {

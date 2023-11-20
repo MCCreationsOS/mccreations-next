@@ -2,7 +2,7 @@
 
 import { auth } from "@/app/auth/firebase"
 import { onAuthStateChanged, signOut } from "firebase/auth"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { IUser } from "@/app/types"
 import Link from "next/link"
@@ -14,7 +14,7 @@ export default function UserOptions() {
     const [showOptions, setShowOptions] = useState(false)
     const router = useRouter();
 
-    if(!user.uid) {
+    useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
             if(authUser) {
                 let formatUser = {
@@ -38,7 +38,9 @@ export default function UserOptions() {
                 setUser({});
             }
         })
+    }, [])
 
+    if(!user.uid) {
         return (
             <div className="user_menu">
                 <Link href="/signup">Sign Up</Link>
