@@ -2,7 +2,7 @@ import Menu from "@/components/Menu"
 import ContentGrid from "@/components/ContentGrid";
 import ContentCard from "@/components/cards/ContentCard";
 import FeaturedCard from "@/components/slideshows/FeaturedSlideshow";
-import { fetchMaps } from "@/app/getData";
+import { fetchMaps } from "@/app/api/content";
 import Error from "@/components/Error";
 import ContentSlideshow from "@/components/slideshows/ContentSlideshow";
 import './styles/homepage.css'

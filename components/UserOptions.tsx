@@ -1,13 +1,12 @@
 'use client'
 
-import { auth } from "@/app/auth/firebase"
-import { onAuthStateChanged, signOut } from "firebase/auth"
 import { useEffect, useState } from "react"
 import Image from "next/image"
 import { IUser } from "@/app/types"
 import Link from "next/link"
-import { LogOut, Settings } from "react-feather"
+import { LogOut, Settings, User } from "react-feather"
 import { useRouter } from "next/navigation"
+import { getUser } from "@/app/api/auth"
 
 export default function UserOptions() {
     const [user, setUser] = useState({} as IUser)
@@ -15,32 +14,19 @@ export default function UserOptions() {
     const router = useRouter();
 
     useEffect(() => {
-        auth.onAuthStateChanged((authUser) => {
-            if(authUser) {
-                let formatUser = {
-                    uid: authUser.uid
-                } as IUser
-    
-                if(authUser.displayName) {
-                    formatUser.displayName = authUser.displayName;
+        const getData = async () => {
+            let token = sessionStorage.getItem('jwt')
+            if(token) {
+                let user = await getUser(undefined, token)
+                if(user) {
+                    setUser(user);
                 }
-                if(authUser.email) {
-                    formatUser.email = authUser.email;
-                }
-                if(authUser.photoURL) {
-                    formatUser.photoUrl = authUser.photoURL;
-                }
-    
-                if(formatUser != user) {
-                    setUser(formatUser)
-                }
-            } else {
-                setUser({});
             }
-        })
+        }
+        getData();
     }, [])
 
-    if(!user.uid) {
+    if(!user._id) {
         return (
             <div className="user_menu">
                 <Link href="/signup">Sign Up</Link>
@@ -50,17 +36,20 @@ export default function UserOptions() {
 
     return (
         <div className="user_menu" onClick={() => {setShowOptions(!showOptions)}}>
-            <Image className="icon" src={(user.photoUrl) ? user.photoUrl : "/defaultLogo.png"} alt="User Icon" width={40} height={40} />
+            <Image className="icon" src={(user.iconURL) ? user.iconURL : "/defaultLogo.png"} alt="User Icon" width={40} height={40} />
             <div className="options" style={{display: (showOptions) ? "block": "none"}}>
                 <div className="option">
-                    <p className="display_name">{user.displayName}</p>
+                    <p className="display_name">{user.username}</p>
                     <p className="email">{user.email}</p>
                 </div>
                 <hr></hr>
+                <div className="option icon" onClick={() => {router.push("/creator/"+user.handle)}}>
+                    <User />Profile
+                </div>
                 <div className="option icon" onClick={() => {router.push("/account")}}>
                     <Settings />Settings
                 </div>
-                <div className="option icon" onClick={() => {signOut(auth)}}>
+                <div className="option icon" onClick={() => {sessionStorage.clear(); router.refresh()}}>
                     <LogOut />Sign Out
                 </div>
             </div>

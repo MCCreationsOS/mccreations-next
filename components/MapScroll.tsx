@@ -1,5 +1,5 @@
 'use client'
-import { fetchMaps } from "@/app/getData";
+import { fetchMaps } from "@/app/api/content";
 import ContentScrollGrid from "./slideshows/ContentScrollGrid";
 import { useEffect, useState } from "react";
 

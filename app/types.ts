@@ -139,10 +139,28 @@ export interface IFile {
 }
 
 export interface IUser {
-    displayName?: string,
-    email?: string,
-    photoUrl?: string,
-    uid?: string
+    _id?: string
+    type: UserTypes
+    username: string,
+    email: string,
+    password?: string,
+    handle?: string,
+    iconURL?: string,
+    about?: string,
+    bannerURL?: string,
+    socialLinks?: [{
+        link: string,
+        name: string
+    }]
+}
+
+export enum UserTypes {
+    Account,
+    Creator
+}
+
+export interface FilePreview extends File {
+    preview?: string
 }
 
 /**

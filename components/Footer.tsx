@@ -6,8 +6,9 @@ export default function Footer() {
       <footer className="footer">
         <div className='footer_flex'>
           <div>
-            <h2>MCCreations</h2>
-            <p>Wonderfully generic slogan here</p>
+            <h2><img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>MCCreations</h2>
+            <p>Now with accounts!</p>
+            <p>MCCreations is <Link href="https://github.com/BenMeie/mccreations-next">open source</Link>. Contribute today!</p>
           </div>
           <div>
             <h2>Join the Community</h2>
@@ -31,7 +32,7 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        © Ben Meier/CrazyCowMM {new Date(Date.now()).getFullYear()}
+        © Ben Meier/CrazyCowMM {new Date(Date.now()).getFullYear()} NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.
       </footer>
     </>
   )

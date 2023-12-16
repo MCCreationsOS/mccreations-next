@@ -9,7 +9,7 @@ import Link from 'next/link';
 import MapImageSlideshow from '@/components/slideshows/MapImageSlideshow';
 import Comments from '@/components/Comments';
 import '../../styles/mapPage.css'
-import { fetchMap, fetchMaps } from '@/app/getData';
+import { fetchMap, fetchMaps } from '../../api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IMap } from '@/app/types';
 
@@ -52,7 +52,7 @@ export default async function Page({params}: {params: Params}) {
                         </div>
                         <div className='map_download_stack'>
                             <Rating value={map.rating} content={map} />
-                            <Link href={map.files[0].worldUrl} className='main_button'>Download</Link>
+                            {/* <Link href={map.files[0].worldUrl} className='main_button'>Download</Link> */}
                         </div>
                     </div>
                     <div className='map_information'>

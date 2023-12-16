@@ -155,6 +155,7 @@
 
   .user_menu .icon {
     border-radius: 50%;
+    object-fit: cover;
   }
 
   .user_menu .options {

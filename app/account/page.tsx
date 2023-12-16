@@ -6,9 +6,10 @@ import { auth } from "../auth/firebase"
 import { useRouter } from "next/navigation"
 import { X } from "react-feather"
 import { deleteUser, sendEmailVerification, updateEmail, updatePassword, updateProfile } from "firebase/auth"
+import { getUser } from "../api/auth"
 
 export default function AccountPage() {
-    const [username, setUsername] = useState("")
+    const [handle, setHandle] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
@@ -18,55 +19,65 @@ export default function AccountPage() {
     const router = useRouter();
 
     useEffect(() => {
-        auth.onAuthStateChanged((authUser) => {
-            if(authUser) {
-                let formatUser = {
-                    uid: authUser.uid
-                } as IUser
-    
-                if(authUser.displayName) {
-                    formatUser.displayName = authUser.displayName;
-                }
-                if(authUser.email) {
-                    formatUser.email = authUser.email;
-                }
-                if(authUser.photoURL) {
-                    formatUser.photoUrl = authUser.photoURL;
-                }
-    
-                if(formatUser != user) {
-                    setUser(formatUser)
+        const getData = async () => {
+            let token = sessionStorage.getItem('jwt')
+            if(token) {
+                let user = await getUser(undefined, token)
+                if(user) {
+                    console.log(user)
+                    setUser(user);
                 }
             } else {
-                router.push("/")
+                router.push('/signin')
             }
-        })
+        }
+        getData();
     }, [])
         
 
     const saveUser = () => {
-        if(username.length > 1 && username != user.displayName) {
-            updateProfile(auth.currentUser!, {
-                displayName: username
+        let token = sessionStorage.getItem('jwt')
+        if(handle.length > 1 && handle != user.handle) {
+            fetch(`${process.env.DATA_URL}/auth/user/updateHandle`, {
+                method: 'POST',
+                headers: {
+                    authorization: token!
+                }
             }).then(() => {
-                setUser({uid: user.uid, displayName: username, email: user.email})
-                setUsername("");
+                setUser({_id: user._id, username: user.username, handle: handle, email: user.email, type: user.type})
+                setHandle("");
             })
         }
         if(email.length > 1 && email != user.email) {
-            updateEmail(auth.currentUser!, email).then(() => {
-                sendEmailVerification(auth.currentUser!);
-                setUser({uid: user.uid, displayName: user.displayName, email: email})
+            fetch(`${process.env.DATA_URL}/auth/user/updateEmail`, {
+                method: 'POST',
+                headers: {
+                    authorization: token!,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({email: email})
+            }).then(() => {
+                // sendEmailVerification(auth.currentUser!);
+                setUser({_id: user._id, username: user.username, handle: user.handle, email: email, type: user.type})
                 setEmail("");
             })
         }
         if(password.length > 1 && password === password2) {
-            updatePassword(auth.currentUser!, password).catch(e => {
-                router.push("/signin")
+            console.log("setting password")
+            fetch(`${process.env.DATA_URL}/auth/user/updatePassword`, {
+                method: 'POST',
+                headers: {
+                    authorization: token!,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({password: password})
+            }).then(() => {
+                console.log("request sent")
             })
+            setPassword("")
+            setPassword2("")
         }
         setFormOpen(0);
-        router.refresh();
     }
 
     const deleteAccount = () => {
@@ -86,10 +97,10 @@ export default function AccountPage() {
                 <h2>Account Settings</h2>
                 <div className="settings_option">
                     <div className="text">
-                        <h3>Username</h3>
-                        <p>{user.displayName}</p>
+                        <h3>Handle</h3>
+                        <p>{user.handle}</p>
                     </div>
-                    <button className="secondary_button" onClick={() => {setFormOpen(1)}}>Change Username</button>
+                    <button className="secondary_button" onClick={() => {setFormOpen(1)}}>Change Handle</button>
                 </div>
                     <div className="settings_option">
                     <div className="text">
@@ -114,15 +125,15 @@ export default function AccountPage() {
             <div className="popup_background" style={{display: (formOpen > 0) ? "block": "none"}}></div>
             <div className="centered_content popup small" style={{display: (formOpen > 0) ? "block": "none"}}>
                 <div className="titlebar">
-                    <h3 className='label title'>{(formOpen == 1) ? "Change Username" : (formOpen == 2) ? "Change Email" : "Update Password"}</h3>
+                    <h3 className='label title'>{(formOpen == 1) ? "Change Handle" : (formOpen == 2) ? "Change Email" : "Update Password"}</h3>
                     <div className="close" onClick={() => {setFormOpen(0)}}><X /></div>
                 </div>
                 <form>
                     <div className='field'>
-                        <h4 className='label'>{(formOpen == 1) ? "Username" : (formOpen == 2) ? "Email" : "Password"}</h4>
+                        <h4 className='label'>{(formOpen == 1) ? "Handle" : (formOpen == 2) ? "Email" : "Password"}</h4>
                         <input className='input wide' type='text' name='data' onChange={(e) => {
                             if(formOpen == 1) {
-                                setUsername(e.target.value)
+                                setHandle(e.target.value)
                             } else if(formOpen == 2) {
                                 setEmail(e.target.value)
                             } else {

@@ -1,5 +1,4 @@
-import { revalidateTag } from "next/cache";
-import { ErrorMessage, IMap, QueryOptions, SortOptions } from "./types";
+import { QueryOptions, SortOptions } from "../types";
 
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
@@ -88,67 +87,4 @@ export async function fetchMap(slug: string) {
         }
     }
 
-}
-
-/**
- * Rate a map
- * @param rating The rating to send
- * @param map The map to send the rating to. We pass the whole map object to avoid having to fetch it again
- * on the database since we know we have it here.
- * @returns The new rating of the map
- */
-export async function postRating(rating: number, map: IMap) {
-    let response = await fetch(`${process.env.DATA_URL}/maps/rate/${map.slug}`, { 
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({rating: rating, map: map})
-    })
-    let newRating = (await response.json()).rating as number
-    try {
-        revalidateTag(map.slug)
-    }
-    catch(e) {
-        console.error(e);
-    }
-    return newRating;
-}
-
-/**
- * Post a comment to a map
- * @param mapSlug The map to post a comment to
- * @param username The username of the user who sent the comment
- * @param comment The actual comment
- */
-export async function postComment(mapSlug: string, username: string, comment: string) {
-    fetch(`${process.env.DATA_URL}/maps/comment/${mapSlug}`, {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({username: username, comment: comment})
-    })
-    try {
-        revalidateTag(mapSlug)
-    }
-    catch(e) {
-        console.error(e);
-    }
-}
-
-/**
- * Creates a creator from a newly created user account. User accounts are not stored on our primary database,
- * but extra information like a banner, about me, etc. is.
- * @param uid The user uid returned by Firebase on user creation
- * @param username The username of the creator
- */
-export async function postAccountCreator(uid: string) {
-    // fetch(`${process.env.DATA_URL}/creators`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify({uid: uid, type: 'account'})
-    // })
 }
