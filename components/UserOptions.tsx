@@ -29,7 +29,7 @@ export default function UserOptions() {
     if(!user._id) {
         return (
             <div className="user_menu">
-                <Link href="/signup">Sign Up</Link>
+                <Link className="nav_button" href="/signup">Sign Up</Link>
             </div>
         )
     }

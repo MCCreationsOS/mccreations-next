@@ -63,6 +63,9 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                                 Create
                             </Link>
                         </li>
+                        <li className='item'>
+                            <UserOptions />
+                        </li>
                     </ul>
                     <img className={(mobileMenuActive) ? "menu_icon close_button active" : "menu_icon close_button"} src='/x.svg' alt="" onClick={() => {setMobileMenuActive(false)}} />
                 </div>
