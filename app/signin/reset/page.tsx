@@ -1,7 +1,6 @@
 'use client'
 
-import { auth } from "@/app/auth/firebase"
-import { sendPasswordResetEmail } from "firebase/auth"
+import { sendPasswordResetEmail } from "@/app/api/auth"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -10,8 +9,8 @@ export default function ResetPage() {
     const router = useRouter()
     
     const resetPassword = () => {
-        sendPasswordResetEmail(auth, email).then(() => {
-            router.push("/signin");
+        sendPasswordResetEmail(email).then((data) => {
+            router.push("/")
         })
     }
     

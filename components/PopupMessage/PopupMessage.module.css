@@ -1,0 +1,57 @@
+.popup_container {
+    position: fixed;
+    width: 100%;
+    z-index: 500;
+    top: -10%;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    animation-duration: 0.2s;
+}
+
+.popup_message_alert {
+    background-color: #373737;
+    color: white;
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+    min-width: 100px;
+    padding: 5px 15px;
+}
+
+.popup_message_warning {
+    background-color: #f0b432;
+    color: black;
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+    min-width: 100px;
+    padding: 5px 15px;
+}
+
+.popup_message_error {
+    background-color: #c73030;
+    color: white;
+    position: relative;
+    margin: 0 auto;
+    width: fit-content;
+    min-width: 100px;
+    padding: 5px 15px;
+}
+
+@keyframes popIn {
+    0% {
+        top: -10%;
+    }
+    100% {
+        top: 8%;
+    }
+}
+
+@keyframes popOut {
+    0% {
+        top: 8%;
+    }
+    100% {
+        top: -10%;
+    }
+}

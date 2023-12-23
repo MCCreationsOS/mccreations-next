@@ -1,6 +1,7 @@
 'use client'
 
 import Menu from "@/components/Menu";
+import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -20,12 +21,22 @@ export default function OauthHandlerPage() {
                         'method': 'POST'
                     }).then(res => {
                         res.json().then(data => {
+                            if(data.error) {
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error, () => {
+                                    router.push("/")
+                                }))
+                                sessionStorage.removeItem('rqGh')
+                                return;
+                            }
                             sessionStorage.setItem('jwt', data.token);
                             sessionStorage.removeItem('rqGh')
                             router.push('/')
                         });
                     }).catch(error => {
-                        console.log(error)
+                        sessionStorage.removeItem('rqGh')
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error communicating with our API", () => {
+                            router.push("/")
+                        }))
                     })
                 }
                 signInWithDiscord();
@@ -37,12 +48,22 @@ export default function OauthHandlerPage() {
                         'method': 'POST'
                     }).then(res => {
                         res.json().then(data => {
+                            if(data.error) {
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error, () => {
+                                    router.push("/")
+                                }))
+                                sessionStorage.removeItem('rqGh')
+                                return;
+                            }
                             sessionStorage.setItem('jwt', data.token);
                             sessionStorage.removeItem('rqGh')
                             router.push('/')
                         });
                     }).catch(error => {
-                        console.log(error)
+                        sessionStorage.removeItem('rqGh')
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error communicating with our API", () => {
+                            router.push("/")
+                        }))
                     })
                 }
                 signInWithGithub();
@@ -53,17 +74,28 @@ export default function OauthHandlerPage() {
                 while(m = regex.exec(hash)) {
                     params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
                 }
-                console.log(params)
                 if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie") {
                     sessionStorage.setItem('rqGh', "true")
                     fetch(`${process.env.DATA_URL}/auth/signInWithGoogle?access_token=` + params.access_token, {
                         method: 'POST'
                     }).then(res => {
                         res.json().then(data => {
+                            if(data.error) {
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error, () => {
+                                    router.push("/")
+                                }))
+                                sessionStorage.removeItem('rqGh')
+                                return;
+                            }
                             sessionStorage.setItem('jwt', data.token)
                             sessionStorage.removeItem('rqGh')
                             router.push('/')
                         })
+                    }).catch(e => {
+                        sessionStorage.removeItem('rqGh')
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error communicating with our API", () => {
+                            router.push("/")
+                        }))
                     })
                 } else {
                     router.push("/signup")
@@ -76,12 +108,22 @@ export default function OauthHandlerPage() {
                         'method': 'POST'
                     }).then(res => {
                         res.json().then(data => {
+                            if(data.error) {
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error, () => {
+                                    router.push("/")
+                                }))
+                                sessionStorage.removeItem('rqGh')
+                                return;
+                            }
                             sessionStorage.setItem('jwt', data.token);
                             sessionStorage.removeItem('rqGh')
                             router.push('/')
                         });
                     }).catch(error => {
-                        console.log(error)
+                        sessionStorage.removeItem('rqGh')
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error communicating with our API", () => {
+                            router.push("/")
+                        }))
                     })
                 }
                 signInWithMicrosoft();

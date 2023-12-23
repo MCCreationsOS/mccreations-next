@@ -1,11 +1,11 @@
 'use client'
-import { FacebookAuthProvider, GithubAuthProvider, GoogleAuthProvider, OAuthProvider, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { SiDiscord, SiGithub, SiGoogle, SiMicrosoft } from "@icons-pack/react-simple-icons";
 import Link from "next/link";
 import MapScroll from "@/components/MapScroll";
 import { UserTypes } from "../types";
+import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
@@ -15,27 +15,33 @@ export default function SignIn() {
 
     const signInWithEmail = () => {
         fetch(`${process.env.DATA_URL}/auth/signInWithEmail`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-                type: UserTypes.Account
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password,
+                    type: UserTypes.Account
+                })
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.token) {
+                        sessionStorage.setItem('jwt', data.token);
+                        router.push('/')
+                    } else {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))
+                        return;
+                    }
+                }).catch(e => {
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error signing you in"))
+                    return;
+                })
+            }).catch(error => {
+                console.log(error)
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error communicating with our API"))
+                return;
             })
-        }).then(res => {
-            res.json().then(data => {
-                if(data.token) {
-                    sessionStorage.setItem('jwt', data.token);
-                    router.push('/')
-                } else {
-                    setMessage(data.message)
-                }
-            });
-        }).catch(error => {
-            console.log(error)
-        })
     }
 
     const signUpWithGoogle = () => {

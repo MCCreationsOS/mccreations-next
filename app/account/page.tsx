@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from "react"
 import { IUser } from "../types"
-import { auth } from "../auth/firebase"
 import { useRouter } from "next/navigation"
 import { X } from "react-feather"
-import { deleteUser, sendEmailVerification, updateEmail, updatePassword, updateProfile } from "firebase/auth"
-import { getUser } from "../api/auth"
+import { deleteUser, getUser } from "../api/auth"
 
 export default function AccountPage() {
     const [handle, setHandle] = useState("")
@@ -17,10 +15,11 @@ export default function AccountPage() {
     const [triedDeleteAccount, setTriedDeleteAccount] = useState(false)
     const [user, setUser] = useState({} as IUser)
     const router = useRouter();
+    let token: string | null;
 
     useEffect(() => {
         const getData = async () => {
-            let token = sessionStorage.getItem('jwt')
+            token = sessionStorage.getItem('jwt')
             if(token) {
                 let user = await getUser(undefined, token)
                 if(user) {
@@ -36,7 +35,7 @@ export default function AccountPage() {
         
 
     const saveUser = () => {
-        let token = sessionStorage.getItem('jwt')
+        token = sessionStorage.getItem('jwt')
         if(handle.length > 1 && handle != user.handle) {
             fetch(`${process.env.DATA_URL}/auth/user/updateHandle`, {
                 method: 'POST',
@@ -84,9 +83,7 @@ export default function AccountPage() {
         if(!triedDeleteAccount) {
             setTriedDeleteAccount(true)
         } else {
-            deleteUser(auth.currentUser!).catch(e => {
-                router.push("/signin")
-            })
+            deleteUser(token!)
         }
     }
 

@@ -109,7 +109,7 @@ input {
     background-color: #373737;
     border-radius: 5px;
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     cursor: pointer;
 }
@@ -122,7 +122,7 @@ input {
 
 .sign_up_options {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     width: 100%;
     margin-top: 20px;
 }
