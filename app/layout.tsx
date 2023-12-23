@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import './styles/globals.css'
 import Loading from './loading'
 import Footer from '@/components/Footer'
+import PopupMessageComponent from '@/components/PopupMessage/PopupMessage'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://next.mccreations.net'),
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: {children: React.ReactNode}) {
         <meta property="og:url" content="https://www.mccreations.net"></meta>
       </head>
       <body id="view">
+        <PopupMessageComponent />
         <Suspense fallback={<Loading />}>
             {children}
         </Suspense>

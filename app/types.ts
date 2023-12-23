@@ -138,6 +138,31 @@ export interface IFile {
     contentVersion: string
 }
 
+export interface IUser {
+    _id?: string
+    type: UserTypes
+    username: string,
+    email: string,
+    password?: string,
+    handle?: string,
+    iconURL?: string,
+    about?: string,
+    bannerURL?: string,
+    socialLinks?: [{
+        link: string,
+        name: string
+    }]
+}
+
+export enum UserTypes {
+    Account,
+    Creator
+}
+
+export interface FilePreview extends File {
+    preview?: string
+}
+
 /**
  * An enum representing all existing Minecraft Versions.
  */

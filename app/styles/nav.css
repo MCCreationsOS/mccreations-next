@@ -68,6 +68,8 @@
   .action_list {
     margin: 20px 0 20px -15px;
     font-family: 'Lato', sans-serif;
+    display: inline-flex;
+    align-items: center;
   }
 
   .menu_icon {
@@ -144,4 +146,56 @@
     .mobile_nav {
       display: block;
     }
+  }
+
+  .user_menu {
+    margin: 0 40px 0 20px;
+    position: relative;
+  }
+
+  .user_menu .icon {
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .user_menu .options {
+    position: absolute;
+    top: 100%;
+    right: 0%;
+    background-color: #272727;
+    padding: 10px 15px;
+    border: 1px solid #474747;
+    box-shadow: 3px 3px 10px #000000;
+    border-radius: 5px;
+    width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .user_menu .options .option {
+    padding: 8px;
+    border-radius: 5px;
+  }
+
+  .user_menu .options .option:hover {
+    background-color: #373737;
+  }
+
+  .user_menu .options .option.icon {
+    display: flex;
+    align-items: center;
+  }
+
+  .user_menu .options .option svg {
+    margin-right: 10px;
+  }
+
+  .options .option .display_name {
+    margin: 0 0 5px 0;
+  }
+
+  .options .option .email {
+    color: #888;
+    font-size: 0.9rem;
+    margin: 0;
   }

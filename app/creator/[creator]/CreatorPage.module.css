@@ -1,0 +1,141 @@
+.banner_background {
+    height: 25vh;
+    min-height: 300px;
+    width: 100%;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.8), rgba(0,0,0,0));
+    object-fit: cover;
+    object-position: 0% 50%;
+    z-index: -1;
+}
+
+.banner_foreground {
+    width: 100%;
+    position: absolute;
+    top: 10vh;
+    left: 0%;
+}
+
+.banner_container {
+    margin: 0 auto;
+    width: 80%;
+    min-width: 500px;
+    max-width: 1130px;
+    position: relative;
+}
+
+.banner {
+    width: 100%;
+    aspect-ratio: 16/4;
+    object-fit: cover;
+    max-height: 150px;
+}
+
+.icon_container {
+    position: absolute;
+    left: 5px;
+    top: 120px
+}
+
+.icon_content {
+    display: flex;
+    align-items: end;
+}
+
+.icon_content img {
+    object-fit: cover;
+}
+
+.creator_info {
+    color: white;
+    padding: 10px 30px;
+    margin: 0 -20px;
+    z-index: -1;
+    border-radius: 10px;
+}
+
+.creator_info h2 {
+    margin: 0 0 5px 0;
+}
+
+.creator_info p {
+    margin: 0;
+}
+
+.section_header {
+    font-size: 1.7rem;
+    margin: 0px 5% 15px 5%;
+}
+
+.info_section {
+    background-color: #272727;
+    border-radius: 20px;
+    width: 80%;
+    max-width: 1130px;
+    padding: 20px;
+    margin: 10px auto 30px auto;
+    display: flex;
+}
+
+.about_section {
+    flex: 50%;
+}
+
+.link_section {
+    text-align: left;
+    padding-right: 10%;
+}
+
+.link_section a {
+    display: block;
+    text-decoration: none;
+    margin: 5px 0;
+    color: #aaa;
+    padding: 2px;
+}
+
+.link_section a:hover {
+    color: white;
+}
+
+.about_header {
+    font-size: 1.5rem;
+    margin: 0 0 15px 0;
+}
+
+.profile_page {
+    display: grid;
+    grid-template: auto auto 1fr/25rem 1fr;
+    margin: 30px;
+    gap: 15px
+}
+
+.profile_card {
+    position: relative;
+    background-color: #272727;
+}
+
+.profile_edit {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    border: none;
+    background-color: #27272788;
+    color: white;
+    padding: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.profile_edit:hover {
+    background-color: #272727;
+    transition: background-color 0.2s ease;
+}
+
+.profile_content {
+    margin-top: 70px;
+    padding: 20px;
+}
+
+.profile_section {
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
+}

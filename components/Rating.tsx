@@ -1,6 +1,6 @@
 'use client'
 
-import { postRating } from "@/app/getData";
+import { postRating } from "@/app/api/community";
 import { getCookie, setCookie } from "@/app/setCookies";
 import { IMap } from "@/app/types";
 import { useState, useEffect } from "react";

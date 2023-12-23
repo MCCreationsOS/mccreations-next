@@ -5,6 +5,28 @@
     margin: 0 auto 70px auto;
     width: 90%;
 }
+.content_grid.three {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin: 0 auto 70px auto;
+    width: 100%;
+}
+.content_grid.two {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 0 auto 70px auto;
+    width: 90%;
+}
+
+.content_scroll_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: calc(70vw + 60vh);
+    margin-bottom: 15px;
+}
 
 @media screen and (min-width: 2200px) {
     .content_grid {
