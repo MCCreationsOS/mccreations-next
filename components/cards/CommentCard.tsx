@@ -7,7 +7,10 @@ import { getCreator } from '@/app/api/community';
 export default async function CommentCard({comment}: {comment: IComment}) {
     let image
     if(comment.handle) {
-        image = (await getCreator(comment.handle)).iconURL
+        let creator = await getCreator(comment.handle);
+        if(creator && creator.iconURL) {
+            image = (await getCreator(comment.handle)).iconURL
+        }
     } else {
         image = defaultLogo
     }

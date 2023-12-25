@@ -52,8 +52,15 @@ export async function postComment(mapSlug: string, username: string, comment: st
 export async function getCreator(handle: string) {
     try {
         let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: Infinity }})
-        return (await data.json())
+        try {
+            let json = await data.json()
+            return json;
+        } catch(e) {
+            console.log(e)
+        }
+        return undefined
     } catch(e) {
         console.log(e)
     }
+    return undefined;
 }
