@@ -73,7 +73,7 @@ const SingleDropzone = ({ presetImage, imageSet }: { presetImage?: string, image
                 <div {...getRootProps()}>
                     <input {...getInputProps({ name: 'file' })} />
                     <div className={styles.single_dropzone}>
-                        <Image className={styles.image_preview} src={(files[0] && files[0].preview) ? `${files[0].preview}` : `${presetImage}`} width={1920} height={1080} alt=''></Image>
+                        <Image className={styles.image_preview} src={(files[0] && files[0].preview) ? files[0].preview : (presetImage) ? presetImage : ""} width={1920} height={1080} alt=''></Image>
                         {<UploadCloud></UploadCloud>}
                         {isDragActive ? (
                             <span>Drop it!</span>

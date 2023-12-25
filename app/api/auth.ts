@@ -67,7 +67,7 @@ export async function sendPasswordResetEmail(email: string) {
 
 export async function resetPassword(token: string, password: string) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/resetPassword`, {
+        let res = await fetch(`${process.env.DATA_URL}/auth/resetPassword`, {
             method: 'POST',
             headers: {
                 'Authorization': token,
@@ -75,7 +75,17 @@ export async function resetPassword(token: string, password: string) {
             },
             body: JSON.stringify({password: password})
         })
+        try {
+            let data = await res.json()
+            if(data && data.error) {
+                return data.error
+            }
+            return undefined
+        } catch(e) {
+            return undefined
+        }
     } catch(e) {
         console.log(e)
+        return e
     }
 }

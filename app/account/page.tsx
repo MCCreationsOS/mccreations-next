@@ -47,13 +47,14 @@ export default function AccountPage() {
                 res.json().then(data => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
                 }).catch(e => {
-                    setUser({_id: user._id, username: user.username, handle: PopupForm.inputs[0].value, email: user.email, type: user.type})
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Handle successfully updated to " + PopupForm.inputs[0].value, () => {
+                        setUser({_id: user._id, username: user.username, handle: PopupForm.inputs[0].value, email: user.email, type: user.type})
+                    })) 
                 })
             }).catch(e => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error")) 
                 console.log(e)
             })
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Handle successfully updated to " + PopupForm.inputs[0].value)) 
         }
         if(PopupForm.inputs[0].value && PopupForm.inputs[0].value != user.email && PopupForm.title === "Change Email") {
             fetch(`${process.env.DATA_URL}/auth/user/updateEmail`, {
@@ -67,12 +68,13 @@ export default function AccountPage() {
                 res.json().then(data => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
                 }).catch(e => {
-                    setUser({_id: user._id, username: user.username, handle: user.handle, email: PopupForm.inputs[0].value!, type: user.type})
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Email successfully updated to " + PopupForm.inputs[0].value, () => {
+                        setUser({_id: user._id, username: user.username, handle: user.handle, email: PopupForm.inputs[0].value!, type: user.type})
+                    })) 
                 })
             }).catch(e => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error")) 
             })
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Email successfully updated to " + PopupForm.inputs[0].value)) 
         }
         if(PopupForm.inputs[0].value && PopupForm.inputs[1].value && PopupForm.inputs[0].value === PopupForm.inputs[1].value && PopupForm.title === "Change Password") {
             fetch(`${process.env.DATA_URL}/auth/user/updatePassword`, {
@@ -86,18 +88,22 @@ export default function AccountPage() {
                 res.json().then(data => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
                 }).catch(e => {
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Password successfully updated"))
                 })
             })
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Password successfully updated"))
         }
     }
 
     const deleteAccount = () => {
+        token = sessionStorage.getItem('jwt')
         if(!triedDeleteAccount) {
             setTriedDeleteAccount(true)
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, "Click again to delete your account. This is permanent!")) 
+        } else if(!token) {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "Authorization Error. Please sign in again")) 
         } else {
             deleteUser(token!)
+            router.push("/")
         }
     }
 

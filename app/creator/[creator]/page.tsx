@@ -13,6 +13,9 @@ import { useEffect, useState } from "react"
 import { IUser, UserTypes } from "@/app/types"
 import { Edit } from "react-feather"
 import EditProfile from "@/components/EditProfile"
+import defaultLogo from 'public/defaultLogo.png'
+import defaultBanner from 'public/defaultBanner.png'
+import PopupFormComponent, { PopupForm } from "@/components/PopupForm/PopupForm"
 
 export default async function ProfilePage({params}: {params: Params}) {
     const [creator, setCreator] = useState<IUser>({type: 0, username: "", email: ""})
@@ -38,8 +41,15 @@ export default async function ProfilePage({params}: {params: Params}) {
         setEditing(false)
     }
 
-    const saveCreator = (creator: IUser) => {
-        setCreator(creator);
+    const saveCreator = () => {
+        let token = sessionStorage.getItem('jwt')
+        updateProfile(token!, PopupForm.inputs[0].value, PopupForm.inputs[1].value, undefined, PopupForm.inputs[2].value)
+        setCreator({
+            ...creator,
+            bannerURL: PopupForm.inputs[0].value,
+            iconURL: PopupForm.inputs[1].value,
+            about: PopupForm.inputs[2].value
+        });
     }
 
 
@@ -49,13 +59,13 @@ export default async function ProfilePage({params}: {params: Params}) {
         <Menu selectedPage="" />
         <div className={styles.profile_page}>
             <div className={styles.profile_card}>
-                {(canEdit) ? <button className={styles.profile_edit} onClick={() => {setEditing(!editing)}}><Edit /></button>: <></>}
-                <Image className={styles.banner} width={1920} height={540} src={creator.bannerURL || ""} alt={`${creator.username}'s banner image`}></Image>
+                {(canEdit) ? <button className={styles.profile_edit} onClick={() => {PopupForm.openForm("Edit Profile", [{name: "Change Banner", type: "image", defaultValue: creator.bannerURL}, {name: "Change Icon", type: "image", defaultValue: creator.iconURL}, {name: "About", type: "text", defaultValue: creator.about}], saveCreator)}}><Edit /></button>: <></>}
+                <Image className={styles.banner} width={1920} height={540} src={(creator.bannerURL) ? creator.bannerURL : defaultBanner} alt={`${creator.username}'s banner image`}></Image>
                 <svg className={styles.icon_container} width={400} height={140} viewBox="0 0 400 140">
                     <circle fill="#272727" r="50" cx="50" cy="50"></circle>
                     <foreignObject width={400} height={90} x="5" y="5">
                         <div className={styles.icon_content}>
-                            <Image style={{borderRadius: "50%"}} width={90} height={90} src={creator.iconURL || ""} alt="" />
+                            <Image style={{borderRadius: "50%"}} width={90} height={90} src={(creator.iconURL) ? creator.iconURL : defaultLogo} alt="" />
                             <div className={styles.creator_info}>
                                 <h2>{creator.username}</h2>
                                 <p>@{creator.handle}</p>
@@ -78,7 +88,8 @@ export default async function ProfilePage({params}: {params: Params}) {
             </div>
             {(content) ? <ContentGrid content={content} cards="three"/>: <></>}
         </div>
-        <EditProfile visible={editing} creator={creator} update={saveCreator} close={closeEditProfile}/>
+        <PopupFormComponent></PopupFormComponent>
+        {/* <EditProfile visible={editing} creator={creator} update={saveCreator} close={closeEditProfile}/> */}
         {/* <Image className={styles.banner_background} width={1920} height={1080} src={creator.bannerURL || ""} alt=""></Image>
                 <div className={styles.banner_foreground}>
                     <div className={styles.banner_container}>

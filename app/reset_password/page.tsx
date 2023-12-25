@@ -24,7 +24,7 @@ export default function Page() {
         }
     }, [])
 
-    const updatePassword = () => {
+    const updatePassword = async () => {
         if(password === password2) {
 
             if(!password || password.length < 9) {
@@ -39,7 +39,10 @@ export default function Page() {
                 return;
             }
 
-            resetPassword(token!, password)
+            let result = await resetPassword(token!, password)
+            if(result) {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error))
+            }
             router.push("/signin")
         } else {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "Passwords are not the same"))

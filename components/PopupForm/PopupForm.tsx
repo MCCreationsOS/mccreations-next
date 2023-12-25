@@ -33,6 +33,13 @@ export class PopupForm {
     }
 
     static saveForm() {
+
+        PopupForm.inputs.forEach(input => {
+            if(!input.value && input.defaultValue) {
+                input.value = input.defaultValue;
+            }
+        })
+
         PopupForm.onSave()
         PopupForm.onClose()
     }
@@ -70,7 +77,7 @@ export default function PopupFormComponent() {
                         </div> :
                         <div className='field'>
                             <h4 className="label">{input.name}</h4>
-                            <Dropzone imageSet={(input.onChange) ? input.onChange: (url) => {input.value = url}} presetImage={input.placeholder}/>
+                            <Dropzone imageSet={(input.onChange) ? input.onChange: (url) => {input.value = url}} presetImage={(input.defaultValue) ? input.defaultValue : "/defaultBanner.png"}/>
                         </div>
                     )})}
                     <button type="button" className="main_button" onClick={PopupForm.saveForm}>Save</button>
