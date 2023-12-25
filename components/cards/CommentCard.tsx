@@ -9,7 +9,7 @@ export default async function CommentCard({comment}: {comment: IComment}) {
     if(comment.handle) {
         let creator = await getCreator(comment.handle);
         if(creator && creator.iconURL) {
-            image = (await getCreator(comment.handle)).iconURL
+            image = creator.iconURL
         }
     } else {
         image = defaultLogo
