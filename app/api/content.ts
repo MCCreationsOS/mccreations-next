@@ -55,7 +55,6 @@ function formatQueryOptions(queryOptions: QueryOptions) {
 export async function fetchMaps(queryOptions: QueryOptions, count: boolean) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        console.log(`Send request ${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}`)
         let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}`, {next:{revalidate:3600}})
         let data = await response.json();
         return data

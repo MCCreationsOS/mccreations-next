@@ -25,7 +25,6 @@ export default function AccountPage() {
             if(token) {
                 let user = await getUser(undefined, token)
                 if(user) {
-                    console.log(user)
                     setUser(user);
                 }
             } else {
@@ -47,19 +46,15 @@ export default function AccountPage() {
                 },
                 body: JSON.stringify({handle: handle})
             }).then((res) => {
-                console.log("Fetch success")
                 res.json().then(data => {
-                    console.log(data)
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, data.error)) 
                 }).catch(e => {
-                    console.log(handle)
                     setUser({_id: user._id, username: user.username, handle: handle, email: user.email, type: user.type})
                     setHandle("");
                 })
             }).catch(e => {
                 console.log(e)
             })
-            console.log("Handle was changed")
         }
         if(email.length > 1 && email != user.email) {
             fetch(`${process.env.DATA_URL}/auth/user/updateEmail`, {
@@ -76,7 +71,6 @@ export default function AccountPage() {
             })
         }
         if(password.length > 1 && password === password2) {
-            console.log("setting password")
             fetch(`${process.env.DATA_URL}/auth/user/updatePassword`, {
                 method: 'POST',
                 headers: {
@@ -85,12 +79,10 @@ export default function AccountPage() {
                 },
                 body: JSON.stringify({password: password})
             }).then(() => {
-                console.log("request sent")
             })
             setPassword("")
             setPassword2("")
         }
-        console.log("Form saved")
         setFormOpen(0);
     }
 

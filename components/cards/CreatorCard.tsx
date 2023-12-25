@@ -4,7 +4,6 @@ import { ICreator } from '@/app/types';
 import { getCreator } from '@/app/api/community';
 
 export default async function CreatorCard({creator}: {creator: ICreator}) {
-    console.log(creator)
     let image
     if(creator.handle) {
         image = (await getCreator(creator.handle)).iconURL

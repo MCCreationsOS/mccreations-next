@@ -7,10 +7,8 @@ const bucket = new s3({
 });
 
 export default async function upload(file: File) {
-    console.log(file);
     let name = file.name.substring(0, file.name.lastIndexOf('.')) + Date.now() + file.name.substring(file.name.lastIndexOf('.'))
     name = name.replaceAll(" ", "-")
-    console.log("Uploading file " + name);
     const params = {
         Bucket: 'mccreations',
         Key: name,

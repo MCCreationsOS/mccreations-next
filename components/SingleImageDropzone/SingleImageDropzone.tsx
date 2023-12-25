@@ -15,7 +15,6 @@ const SingleDropzone = ({ presetImage, imageSet }: { presetImage?: string, image
     const onDrop = useCallback((acceptedFiles: FilePreview[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
             upload(acceptedFiles[0]).then(url => {
-                console.log("Got URL " + url)
                 if(url) {
                     imageSet(url);
                 }
@@ -65,7 +64,6 @@ const SingleDropzone = ({ presetImage, imageSet }: { presetImage?: string, image
         const file = files[0]
         if (!file) return
         // get a signature using server action
-        console.log("Form Submitted")
 
     }
 

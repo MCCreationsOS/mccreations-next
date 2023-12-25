@@ -26,7 +26,6 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({params}: {params: Params}) {
-    console.log("Looking for map with slug " + params.slug)
     const map = await fetchMap(params.slug)
 
     let videoID = ""

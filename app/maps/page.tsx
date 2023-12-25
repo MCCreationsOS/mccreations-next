@@ -49,7 +49,6 @@ export default function Maps() {
         setPages(Math.ceil(m.totalCount / 20.0))
     }
 
-    console.log(pages)
 
     const createQueryString = useCallback(
         (name: string, value: string) => {

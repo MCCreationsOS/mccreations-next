@@ -13,7 +13,6 @@ export default function EditProfile({visible, creator, update, close}: {visible:
     
     const saveProfile = () => {
         let token = sessionStorage.getItem('jwt')
-        console.log(banner, icon, about)
         updateProfile(token!, banner, icon, undefined, about)
         update({
             ...creator,

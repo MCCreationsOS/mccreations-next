@@ -6,10 +6,8 @@ export default function ContentSlideshow({content, playlist}: {content: any, pla
         e.preventDefault();
         let elem
         if(left) {
-            console.log(`Sending you to #${playlist}_${0}`)
             elem = document.querySelector(`#${playlist}_${0}`)
         } else {
-            console.log(`Sending you to #${playlist}_${9}`)
             elem = document.querySelector(`#${playlist}_${9}`)
         }
         document.querySelector(`#${playlist}`)?.scrollTo({
