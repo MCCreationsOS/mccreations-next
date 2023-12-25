@@ -103,6 +103,18 @@ input {
     margin-bottom: 50px;
 }
 
+@media screen and (max-width: 465px) {
+    .sign_in_providers {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .sign_in_providers {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
 .sign_in_providers .provider {
     margin: 2px;
     padding: 8px 20px;

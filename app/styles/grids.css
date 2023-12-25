@@ -36,6 +36,7 @@
         margin: 0 auto 70px auto;
         width: 90%;
     }
+    
 }
 
 @media screen and (max-width: 1070px) {
@@ -46,6 +47,11 @@
         margin: 0 auto 70px auto;
         width: 90%;
     }
+
+    .content_grid.three {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -55,6 +61,16 @@
         gap: 25px;
         margin: 0 auto 70px auto;
         width: 90%;
+    }
+
+    .content_grid.three {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 25px;
+    }
+
+    .content_grid.three {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 25px;
     }
 }
 

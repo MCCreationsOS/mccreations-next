@@ -2,11 +2,12 @@ import defaultLogo from 'public/defaultLogo.png'
 import Image from 'next/image';
 import { Heart } from 'react-feather';
 import { IComment } from '@/app/types';
+import { getCreator } from '@/app/api/community';
 
-export default function CommentCard({comment}: {comment: IComment}) {
-    let image;
-    if(comment.icon) {
-        image = comment.icon;
+export default async function CommentCard({comment}: {comment: IComment}) {
+    let image
+    if(comment.handle) {
+        image = (await getCreator(comment.handle)).iconURL
     } else {
         image = defaultLogo
     }

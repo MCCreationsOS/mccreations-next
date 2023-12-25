@@ -109,6 +109,16 @@
     gap: 15px
 }
 
+@media screen and (max-width: 800px) {
+    .profile_page {
+        display: block;
+    }
+
+    .profile_card {
+        margin-bottom: 20px;
+    }
+}
+
 .profile_card {
     position: relative;
     background-color: #272727;

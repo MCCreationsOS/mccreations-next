@@ -15,15 +15,17 @@ export default function ResetPage() {
     }
     
     return (
-        <div className="centered_content small popup">
-            <h2>Reset Password</h2>
-            <form>
-                <div className='field'>
-                    <p className='label'>Email</p>
-                    <input className='input wide' type='text' autoComplete="email" name='email' placeholder='crazycowmm@gmail.com' onChange={(e) => {setEmail(e.target.value)}}></input>
-                </div>
-                <button type="button" className="main_button" onClick={resetPassword}>Send Reset Email</button>
-            </form>
+        <div className="popup_page">
+            <div className="centered_content small popup">
+                <h2>Reset Password</h2>
+                <form>
+                    <div className='field'>
+                        <p className='label'>Email</p>
+                        <input className='input wide' type='text' autoComplete="email" name='email' placeholder='crazycowmm@gmail.com' onChange={(e) => {setEmail(e.target.value)}}></input>
+                    </div>
+                    <button type="button" className="main_button" onClick={resetPassword}>Send Reset Email</button>
+                </form>
+            </div>
         </div>
     )
 }

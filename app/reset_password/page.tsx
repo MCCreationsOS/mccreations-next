@@ -48,19 +48,21 @@ export default function Page() {
     }
 
     return (
-        <div className="centered_content small popup">
-            <h2>Reset Password</h2>
-            <form>
-                <div className='field'>
-                    <p className='label'>New Password</p>
-                    <input className='input wide' type='password' autoComplete="email" name='email' placeholder='password' onChange={(e) => {setPassword(e.target.value)}}></input>
-                </div>
-                <div className='field'>
-                    <p className='label'>Retype Password</p>
-                    <input className='input wide' type='password' autoComplete="email" name='email' placeholder='password' onChange={(e) => {setPassword2(e.target.value)}}></input>
-                </div>
-                <button type="button" className="main_button" onClick={updatePassword}>Reset</button>
-            </form>
+        <div className="popup_page">
+            <div className="centered_content small popup">
+                <h2>Reset Password</h2>
+                <form>
+                    <div className='field'>
+                        <p className='label'>New Password</p>
+                        <input className='input wide' type='password' autoComplete="email" name='email' placeholder='password' onChange={(e) => {setPassword(e.target.value)}}></input>
+                    </div>
+                    <div className='field'>
+                        <p className='label'>Retype Password</p>
+                        <input className='input wide' type='password' autoComplete="email" name='email' placeholder='password' onChange={(e) => {setPassword2(e.target.value)}}></input>
+                    </div>
+                    <button type="button" className="main_button" onClick={updatePassword}>Reset</button>
+                </form>
+            </div>
         </div>
     )
 }

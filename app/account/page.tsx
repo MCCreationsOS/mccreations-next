@@ -5,6 +5,8 @@ import { IUser } from "../types"
 import { useRouter } from "next/navigation"
 import { X } from "react-feather"
 import { deleteUser, getUser } from "../api/auth"
+import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
+import PopupFormComponent, { PopupForm } from "@/components/PopupForm/PopupForm"
 
 export default function AccountPage() {
     const [handle, setHandle] = useState("")
@@ -40,12 +42,24 @@ export default function AccountPage() {
             fetch(`${process.env.DATA_URL}/auth/user/updateHandle`, {
                 method: 'POST',
                 headers: {
-                    authorization: token!
-                }
-            }).then(() => {
-                setUser({_id: user._id, username: user.username, handle: handle, email: user.email, type: user.type})
-                setHandle("");
+                    authorization: token!,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({handle: handle})
+            }).then((res) => {
+                console.log("Fetch success")
+                res.json().then(data => {
+                    console.log(data)
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, data.error)) 
+                }).catch(e => {
+                    console.log(handle)
+                    setUser({_id: user._id, username: user.username, handle: handle, email: user.email, type: user.type})
+                    setHandle("");
+                })
+            }).catch(e => {
+                console.log(e)
             })
+            console.log("Handle was changed")
         }
         if(email.length > 1 && email != user.email) {
             fetch(`${process.env.DATA_URL}/auth/user/updateEmail`, {
@@ -76,6 +90,7 @@ export default function AccountPage() {
             setPassword("")
             setPassword2("")
         }
+        console.log("Form saved")
         setFormOpen(0);
     }
 
@@ -85,6 +100,10 @@ export default function AccountPage() {
         } else {
             deleteUser(token!)
         }
+    }
+
+    const handleChange = () => {
+
     }
 
 
@@ -97,20 +116,20 @@ export default function AccountPage() {
                         <h3>Handle</h3>
                         <p>{user.handle}</p>
                     </div>
-                    <button className="secondary_button" onClick={() => {setFormOpen(1)}}>Change Handle</button>
+                    <button className="secondary_button" onClick={() => {PopupForm.openForm("Change Handle", [{type: 'text', name: 'Handle', onChange: setHandle, placeholder: ""}], saveUser)}}>Change Handle</button>
                 </div>
                     <div className="settings_option">
                     <div className="text">
                         <h3>Email</h3>
                         <p>{user.email}</p>
                     </div>
-                    <button className="secondary_button" onClick={() => {setFormOpen(2)}}>Change Email</button>
+                    <button className="secondary_button" onClick={() => {PopupForm.openForm("Change Email", [{type: 'text', name: 'Email', onChange: setEmail, placeholder: ""}], saveUser)}}>Change Email</button>
                 </div>
                 <div className="settings_option">
                     <div className="text">
                         <h3>Password</h3>   
                     </div>
-                    <button className="secondary_button" onClick={() => {setFormOpen(3)}}>Change Password</button>
+                    <button className="secondary_button" onClick={() => {PopupForm.openForm("Change Password", [{type: 'password', name: 'New Password', onChange: setPassword, placeholder: ""}, {type: 'password', name: 'Retype Password', onChange: setPassword2, placeholder: ""}], saveUser)}}>Change Password</button>
                 </div>
                 <div className="settings_option">
                     <div className="text">
@@ -119,29 +138,7 @@ export default function AccountPage() {
                     <button className="red_button" onClick={deleteAccount}>Delete Account</button>
                 </div>
             </div>
-            <div className="popup_background" style={{display: (formOpen > 0) ? "block": "none"}}></div>
-            <div className="centered_content popup small" style={{display: (formOpen > 0) ? "block": "none"}}>
-                <div className="titlebar">
-                    <h3 className='label title'>{(formOpen == 1) ? "Change Handle" : (formOpen == 2) ? "Change Email" : "Update Password"}</h3>
-                    <div className="close" onClick={() => {setFormOpen(0)}}><X /></div>
-                </div>
-                <form>
-                    <div className='field'>
-                        <h4 className='label'>{(formOpen == 1) ? "Handle" : (formOpen == 2) ? "Email" : "Password"}</h4>
-                        <input className='input wide' type='text' name='data' onChange={(e) => {
-                            if(formOpen == 1) {
-                                setHandle(e.target.value)
-                            } else if(formOpen == 2) {
-                                setEmail(e.target.value)
-                            } else {
-                                setPassword(e.target.value)
-                            }
-                        }}></input>
-                        {(formOpen == 3) ? <div className="field"><h4 className="label">Retype Password</h4><input className='input wide' type='text' name='data' onChange={(e) => {setPassword2(e.target.value)}}></input></div> : <></>}
-                    </div>
-                    <button type="button" className="main_button" onClick={saveUser}>Save</button>
-                </form>
-            </div>
+            <PopupFormComponent></PopupFormComponent>
         </div>
     )
 }

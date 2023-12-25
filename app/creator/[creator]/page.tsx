@@ -8,7 +8,7 @@ import styles from './CreatorPage.module.css'
 import ContentGrid from "@/components/ContentGrid"
 import { fetchMaps } from "@/app/api/content"
 import Link from "next/link"
-import { getUser } from "@/app/api/auth"
+import { getUser, updateProfile } from "@/app/api/auth"
 import { useEffect, useState } from "react"
 import { IUser, UserTypes } from "@/app/types"
 import { Edit } from "react-feather"

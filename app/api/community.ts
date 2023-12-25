@@ -33,13 +33,13 @@ export async function postRating(rating: number, map: IMap) {
  * @param comment The actual comment
  * @param account The UID of the poster of the comment
  */
-export async function postComment(mapSlug: string, username: string, comment: string, account?: string) {
+export async function postComment(mapSlug: string, username: string, comment: string, handle?: string) {
     fetch(`${process.env.DATA_URL}/maps/comment/${mapSlug}`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({username: username, comment: comment})
+        body: JSON.stringify({username: username, comment: comment, handle: handle})
     })
     try {
         revalidateTag(mapSlug)
@@ -50,6 +50,6 @@ export async function postComment(mapSlug: string, username: string, comment: st
 }
 
 export async function getCreator(handle: string) {
-    let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`)
+    let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: Infinity }})
     return (await data.json())
 }

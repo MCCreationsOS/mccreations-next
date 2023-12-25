@@ -103,7 +103,7 @@ export interface IMap {
  */
 export interface ICreator {
     username: string,
-    icon?: string
+    handle?: string
 }
 
 /**
@@ -115,7 +115,7 @@ export interface ICreator {
  */
 export interface IComment {
     username: string,
-    icon?: string,
+    handle?: string,
     comment: string,
     date: number
 }

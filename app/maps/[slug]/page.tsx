@@ -12,6 +12,8 @@ import '../../styles/mapPage.css'
 import { fetchMap, fetchMaps } from '../../api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IMap } from '@/app/types';
+import CommentForm from '@/components/ComentForm';
+import { Suspense } from 'react';
 
 const window = new JSDOM('').window;
 const purify = DOMPurify(window);
@@ -61,7 +63,7 @@ export default async function Page({params}: {params: Params}) {
                         <div className='map_sidebar'>
                             <section className='map_sidebar_section'>
                                 <h4 className='header'>Creators</h4>
-                                {map.creators.map((creator: ICreator, idx: number) => <CreatorCard key={idx} creator={creator} />)}
+                                {map.creators.map((creator: ICreator, idx: number) => <Suspense><CreatorCard key={idx} creator={creator} /></Suspense>)}
                             </section>
                             <section className='map_sidebar_section stats'>
                                 <h4 className='header'>Stats</h4>
@@ -79,6 +81,7 @@ export default async function Page({params}: {params: Params}) {
                     </div>
                 </div>
                 <MapImageSlideshow images={map.images.slice(1)} />
+                <CommentForm mapSlug={map.slug}></CommentForm>
                 <Comments mapSlug={map.slug} comments={map.comments}/>
             </div>
             </>
