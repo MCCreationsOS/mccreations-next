@@ -47,7 +47,7 @@ export default function SignIn() {
     const signUpWithGoogle = () => {
         let googleParams = new URLSearchParams({
             client_id: "92325017566-5lilo6v3qr4csbpnm3uvlub20e8va8ho.apps.googleusercontent.com",
-            redirect_uri: "http://localhost:3000/auth/oauth_handler?provider=google",
+            redirect_uri: "https://next.mccreations.net/auth/oauth_handler?provider=google",
             response_type: "token",
             scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
             state: "ILikeBigMoosAndICannotLie"
@@ -63,7 +63,7 @@ export default function SignIn() {
         let microsoftParams = new URLSearchParams({
             client_id: "f4c0f386-febc-4e8e-b0d5-20a99b4d0667",
             response_type: "code",
-            redirect_uri: "http://localhost:3000/auth/oauth_handler",
+            redirect_uri: "https://next.mccreations.net/auth/oauth_handler",
             scope: "openid email profile",
             response_mode: "query",
             state: "ShoutoutToMyBoyMicrosoft"

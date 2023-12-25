@@ -7,10 +7,11 @@ import Dropzone from "../SingleImageDropzone/SingleImageDropzone";
 
 export interface IPopupInput {
     name: string,
-    placeholder?: string,
     type: string,
+    placeholder?: string,
     defaultValue?: string,
-    onChange: (value: string) => void
+    value?: string
+    onChange?: (value: string) => void
 }
 
 export class PopupForm {
@@ -24,16 +25,16 @@ export class PopupForm {
         this.title = title;
         this.inputs = inputs
         this.onSave = onSave
-        this.onOpen();
+        PopupForm.onOpen();
     }
 
     static closeForm() {
-        this.onClose();
+        PopupForm.onClose();
     }
 
     static saveForm() {
-        this.onSave();
-        this.onClose()
+        PopupForm.onSave()
+        PopupForm.onClose()
     }
 }
 
@@ -65,11 +66,11 @@ export default function PopupFormComponent() {
                         (input.type !== 'image') ? 
                         <div className='field' key={idx}>
                             <h4 className='label'>{input.name}</h4>
-                            <input className='input wide' type={input.type} onChange={(e) => {input.onChange(e.target.value)}} name='data' placeholder={input.placeholder} defaultValue={input.defaultValue}></input>
+                            <input className='input wide' type={input.type} onChange={(e) => {(input.onChange) ? input.onChange(e.target.value): ""; input.value = e.target.value}} name='data' placeholder={input.placeholder} defaultValue={input.defaultValue}></input>
                         </div> :
                         <div className='field'>
                             <h4 className="label">{input.name}</h4>
-                            <Dropzone imageSet={input.onChange} presetImage={input.placeholder}/>
+                            <Dropzone imageSet={(input.onChange) ? input.onChange: (url) => {input.value = url}} presetImage={input.placeholder}/>
                         </div>
                     )})}
                     <button type="button" className="main_button" onClick={PopupForm.saveForm}>Save</button>

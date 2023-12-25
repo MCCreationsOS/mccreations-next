@@ -76,6 +76,9 @@ export default function PopupMessageComponent() {
 
     PopupMessage.onMessageClear = () => {
         setDisplay(false);
+        setTimeout(() => {
+            setMessage("")
+        }, 200)
     }
 
     return (
