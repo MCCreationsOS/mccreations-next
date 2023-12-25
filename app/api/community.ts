@@ -9,21 +9,21 @@ import { IMap } from "../types";
  * @returns The new rating of the map
  */
 export async function postRating(rating: number, map: IMap) {
-    let response = await fetch(`${process.env.DATA_URL}/maps/rate/${map.slug}`, { 
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({rating: rating, map: map})
-    })
-    let newRating = (await response.json()).rating as number
     try {
+        let response = await fetch(`${process.env.DATA_URL}/maps/rate/${map.slug}`, { 
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({rating: rating, map: map})
+        })
+        let newRating = (await response.json()).rating as number
         revalidateTag(map.slug)
+        return newRating;
     }
     catch(e) {
         console.error(e);
     }
-    return newRating;
 }
 
 /**
@@ -34,14 +34,14 @@ export async function postRating(rating: number, map: IMap) {
  * @param account The UID of the poster of the comment
  */
 export async function postComment(mapSlug: string, username: string, comment: string, handle?: string) {
-    fetch(`${process.env.DATA_URL}/maps/comment/${mapSlug}`, {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({username: username, comment: comment, handle: handle})
-    })
     try {
+        fetch(`${process.env.DATA_URL}/maps/comment/${mapSlug}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({username: username, comment: comment, handle: handle})
+        })
         revalidateTag(mapSlug)
     }
     catch(e) {
@@ -50,6 +50,10 @@ export async function postComment(mapSlug: string, username: string, comment: st
 }
 
 export async function getCreator(handle: string) {
-    let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: Infinity }})
-    return (await data.json())
+    try {
+        let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: Infinity }})
+        return (await data.json())
+    } catch(e) {
+        console.log(e)
+    }
 }
