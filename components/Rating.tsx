@@ -15,7 +15,8 @@ export default function Rating(props: { value: number, content: IMap}) {
         if(!cookie) {
             let newRating = await postRating(value, props.content);
             setCookie("RATED_" + contentId, "true")
-            setValue(newRating)
+            if(newRating)
+                setValue(newRating)
         }
     }
 
