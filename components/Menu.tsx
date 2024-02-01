@@ -3,9 +3,47 @@
 import Link from "next/link";
 import { Suspense, useState } from "react";
 import UserOptions from "./UserOptions";
+import PopupComponent, { Popup } from "./Popup/Popup";
+import FormComponent from "./Form/Form";
+import Tabs from "./Tabs/Tabs";
+import { createNewContent, importContent } from "@/app/api/content";
+import { PopupMessage, PopupMessageType } from "./PopupMessage/PopupMessage";
+import { useRouter } from "next/navigation";
 
 export default function Menu({selectedPage}: {selectedPage: string}) {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
+    const router = useRouter();
+
+    const onMapCreate = (title?: string, type?: string, shortDescription?: string) => {
+        if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A title must be included to save content"))
+        if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A type must be selected to save content"))
+        if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A short description must be included to save content"))
+
+        let creatorStr = sessionStorage.getItem('creator');
+        let creator = { username: undefined, handle: undefined }
+        if(creatorStr) {
+            creator = JSON.parse(creatorStr);
+        }
+
+        createNewContent(title!, type!, shortDescription!, creator.username, creator.handle)
+    }
+
+    const onMapImport = async (link?: string) => {
+        if(link) {
+            console.log('Got valid link')
+            let token = sessionStorage.getItem('jwt')
+            let res = await importContent(link, token)
+            console.log('response returned from API')
+            console.log(res)
+            if(res.error) {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
+            } else if(res.content) {
+                router.push('/maps/' + res.content)
+            }
+        } else {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A link must be added to import content"))
+        }
+    }
 
     return (
         <>
@@ -31,9 +69,35 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                     </ul>
                     <ul className='action_list'>
                         <li className='item'>
-                            <Link href='https://mccreations.net/submit' className="nav_button">
+                            <div className="nav_button" onClick={() => {Popup.createPopup(
+                                <Tabs tabs={[
+                                    {
+                                        title: "Create", 
+                                        content: <FormComponent inputs={[
+                                            {type: "text", name: "Title", placeholder: "An Awesome Map"}, 
+                                            {type: "select", name: "Type", value: "Map", options: [{name: "Map"}]}, 
+                                            {type: "text", name: "Short Description"}
+                                        ]} onSave={(inputs) => {
+                                            onMapCreate(inputs[0].value, inputs[1].value, inputs[2].value)
+                                        }} />
+                                    }, 
+                                    {
+                                        title: "Import",
+                                        content: <>
+                                            <p>Import your existing content from Planet Minecraft or MinecraftMaps.com below.</p>
+                                            <FormComponent inputs={[
+                                                {type: "text", name: "Link", placeholder: "https://planetminecraft.com/project/..."}
+                                            ]}
+                                            onSave={(inputs) => {
+                                                onMapImport(inputs[0].value)
+                                            }}></FormComponent>
+                                        </>
+                                    }
+                                ]} />,
+                                 "Create"
+                            )}}>
                                 Create
-                            </Link>
+                            </div>
                         </li>
                         <li className='item'>
                             <UserOptions />
@@ -59,9 +123,9 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                             {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
                         </li>
                         <li className='item'>
-                            <Link href='https://mccreations.net/submit' className="nav_button">
+                            <div className="nav_button" onClick={() => {Popup.createPopup(<FormComponent inputs={[{type: "text", name: "Title", placeholder: "An Awesome Map"}, {type: "select", name: "Type", value: "Map", options: [{name: "Map"}]}, {type: "text", name: "Short Description"}]} onSave={() => {}} />, "Create")}}>
                                 Create
-                            </Link>
+                            </div>
                         </li>
                         <li className='item'>
                             <UserOptions />
@@ -70,6 +134,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                     <img className={(mobileMenuActive) ? "menu_icon close_button active" : "menu_icon close_button"} src='/x.svg' alt="" onClick={() => {setMobileMenuActive(false)}} />
                 </div>
             </nav>
+            <PopupComponent />
         </>
     )
 }

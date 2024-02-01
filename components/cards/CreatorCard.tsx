@@ -8,10 +8,10 @@ export default async function CreatorCard({creator}: {creator: ICreator}) {
     if(creator.handle) {
         let realCreator = await getCreator(creator.handle);
         if(realCreator && realCreator.iconURL) {
-            realCreator.iconURL
+            image = realCreator.iconURL
         }
     } else {
-        image = defaultLogo
+        image = "/defaultLogo.png"
     }
 
     return (

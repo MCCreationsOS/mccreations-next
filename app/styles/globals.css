@@ -117,7 +117,7 @@ a:active {
 
 .popup_background {
   position: absolute;
-  z-index: 0;
+  z-index: 11;
   background-color: black;
   opacity: 0.5;
   width: 100vw;

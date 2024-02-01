@@ -1,6 +1,9 @@
 'use client'
 
-export default function ContentSlideshow({content, playlist}: {content: any, playlist: string}) {
+import { IMap } from "@/app/types";
+import ContentCard from "../cards/ContentCard";
+
+export default function ContentSlideshow({content, playlist}: {content: IMap[], playlist: string}) {
 
     const slideButtonClicked = (left: boolean, e: any) => {
         e.preventDefault();
@@ -21,7 +24,7 @@ export default function ContentSlideshow({content, playlist}: {content: any, pla
             <img className="nav_arrow left" src="/chev-left.svg" onClick={(e) => {slideButtonClicked(true, e)}}></img>
             <img className="nav_arrow right" src="/chev-right.svg" onClick={(e) => {slideButtonClicked(false, e)}}></img>
             <div className="scroll_window" id={playlist}>
-                {content}
+                {content.map((map: IMap, idx: number) => <ContentCard key={idx} content={map} playlist={"newest"} index={idx} priority={true}></ContentCard>)}
             </div>
         </div>
     )

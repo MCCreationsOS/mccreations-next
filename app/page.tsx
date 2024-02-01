@@ -7,19 +7,20 @@ import Error from "@/components/Error";
 import ContentSlideshow from "@/components/slideshows/ContentSlideshow";
 import './styles/homepage.css'
 import { IMap, SortOptions } from "./types";
+import ContentArea from "@/components/ContentArea/ContentArea";
+import { Suspense } from "react";
+import GridSkeleton from "@/components/skeletons/GridSkeleton";
 
 
 export default async function Page() {
     const featured = (await fetchMaps({status: 3, limit: 5}, false)).documents
-    const newest = (await fetchMaps({limit: 10}, false)).documents
-    const updated = (await fetchMaps({sort: SortOptions.Updated, limit: 10}, false)).documents
 
-    if(featured.error || newest.error || updated.error) {
+    if(featured.error) {
         let msgBase = "MCCreations API Error! Failed to fetch featured, newest or updated on the homepage. Query was "
         return (
             <>
                 <Menu selectedPage='home'></Menu>
-                <Error message={(featured.error) ? msgBase + JSON.stringify(featured.query) : (newest.error) ? msgBase + JSON.stringify(newest.query) : msgBase + JSON.stringify(updated.query)}></Error>
+                <Error message={msgBase + JSON.stringify(featured.query)}></Error>
             </>
         )
     }
@@ -28,9 +29,13 @@ export default async function Page() {
         <Menu selectedPage='home'></Menu>
         {(featured) ? (<FeaturedCard allFeatured={featured} />) : "MCCreations API Error"}
         <h2 className="playlist_header">New Content</h2>
-        {(newest) ? (<ContentSlideshow playlist={"newest"} content={newest.map((map: IMap, idx: number) => <ContentCard key={map._id} content={map} playlist={"newest"} index={idx} priority={true}></ContentCard>)}></ContentSlideshow>) : "MCCreations API Error"}
+        <Suspense fallback={<GridSkeleton amount={4} />}>
+            <ContentArea type="scroll" playlist="new_content" options={{status: 2, sort: SortOptions.Newest}} />
+        </Suspense>
         <h2 className="playlist_header">Recently Updated</h2>
-        {(updated) ? (<ContentSlideshow playlist={"updated"} content={updated.map((map: IMap, idx: number) => <ContentCard key={map._id} content={map} playlist={"updated"} index={idx} priority={false}></ContentCard>)}></ContentSlideshow>): "MCCreations API Error"}
+        <Suspense fallback={<GridSkeleton amount={4} />}>
+            <ContentArea type="scroll" playlist="updated_content" options={{status: 2, sort: SortOptions.Updated}} />
+        </Suspense>
         </>
     )
 }

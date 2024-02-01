@@ -1,4 +1,4 @@
-import { QueryOptions, SortOptions } from "../types";
+import { IMap, QueryOptions, SortOptions } from "../types"
 
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
@@ -73,9 +73,14 @@ export async function fetchMaps(queryOptions: QueryOptions, count: boolean) {
  * @param slug The slug of the map to fetch
  * @returns A single map document.
  */
-export async function fetchMap(slug: string) {
+export async function fetchMap(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`, { next: { tags: [slug], revalidate: 3600 }})
+        let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`, { 
+            next: { tags: [slug], revalidate: 3600 },
+            headers: {
+                authorization: token + ""
+            }
+        })
         let data = await response.json();
         return data
     } catch (e) {
@@ -85,5 +90,57 @@ export async function fetchMap(slug: string) {
             query: slug
         }
     }
+}
 
+export async function createNewContent(title: string, type: string, summary: string, username?: string, handle?: string) {
+    try {
+        let res = await fetch(`${process.env.DATA_URL}/content`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content: {
+                    title: title,
+                    type: type,
+                    summary: summary
+                },
+                creator: {
+                    username: username,
+                    handle: handle
+                }
+            })
+        })
+    } catch(e) {
+        console.error("API fetch error! Is it running?: " + e)
+        return {
+            error: e
+        }
+    }
+}
+
+// Consider moving import to a worker thread
+
+export async function importContent(link: string, token?: string | null) {
+    try {
+        console.log('Sending import request')
+        let response = await fetch(`${process.env.DATA_URL}/content/import`, { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                url: link,
+                token: token
+            })
+        })
+        let data = await response.json();
+        console.log(data)
+        return data;
+    } catch(e) {
+        console.error("API fetch error! Is it running?: " + e)
+        return {
+            error: e
+        }
+    }
 }

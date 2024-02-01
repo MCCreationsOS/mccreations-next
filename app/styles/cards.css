@@ -70,6 +70,10 @@
     margin-bottom: 10px;
 }
 
+.content_card .title:hover {
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 600px) {
     .content_card .information .description {
         font-size: 1.1rem;

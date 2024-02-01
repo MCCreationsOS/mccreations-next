@@ -29,7 +29,7 @@ export default function UserOptions() {
     if(!user._id) {
         return (
             <div className="user_menu">
-                <Link className="nav_button" href="/signup">Sign Up</Link>
+                <Link className="nav_button" href="/signin">Sign In</Link>
             </div>
         )
     }
@@ -49,7 +49,7 @@ export default function UserOptions() {
                 <div className="option icon" onClick={() => {router.push("/account")}}>
                     <Settings />Settings
                 </div>
-                <div className="option icon" onClick={() => {sessionStorage.clear(); router.refresh()}}>
+                <div className="option icon" onClick={() => {sessionStorage.clear(); location.reload()}}>
                     <LogOut />Sign Out
                 </div>
             </div>
