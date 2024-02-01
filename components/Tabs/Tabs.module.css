@@ -1,0 +1,23 @@
+.tabs {
+    display: flex;
+    border-bottom: 1px solid gray;
+}
+
+.tab_link {
+    margin-top: 10px;
+    padding: 0 5px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    color: white;
+}
+
+.tab_link_selected {
+    box-sizing: border-box;
+    margin-top: 10px;
+    margin-bottom: -2px;
+    padding: 0 5px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    color: white;
+    border-bottom: 3px solid #3154f4;
+}
