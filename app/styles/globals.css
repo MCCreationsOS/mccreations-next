@@ -143,3 +143,11 @@ a:active {
     width: 95%;
   }
 }
+
+.center_text {
+  text-align: center;
+}
+
+.footer_margin {
+  margin: 20px auto 0 auto;
+}
