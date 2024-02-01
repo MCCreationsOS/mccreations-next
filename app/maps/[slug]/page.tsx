@@ -2,7 +2,7 @@ import '../../styles/mapPage.css'
 import { fetchMap, fetchMaps } from '../../api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IMap } from '@/app/types';
-import MapComp from '@/components/Map/Map';
+import MapWrapper from '@/components/Map/MapWrapper';
 
 
 
@@ -19,7 +19,7 @@ export default async function Page({params}: {params: Params}) {
     
     if(map) {
         return (
-            <MapComp map={map} slug={params.slug}/>
+            <MapWrapper map={map} slug={params.slug}/>
         )
     } else {
         return (

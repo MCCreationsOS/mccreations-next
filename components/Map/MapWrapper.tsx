@@ -7,7 +7,9 @@ import { IMap } from "@/app/types";
 
 export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
     if('_id' in map) {
-        <MapComponent map={map} />
+        return (
+            <MapComponent map={map} />
+        )
     } else {
         const [map, setMap] = useState<IMap>()
 
@@ -23,7 +25,7 @@ export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
 
 
         if(map && '_id' in map) {
-           <MapComponent map={map} />
+           return (<MapComponent map={map} />)
         } else {
             return (
                 <div>
