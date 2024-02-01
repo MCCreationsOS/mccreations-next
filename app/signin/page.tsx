@@ -28,6 +28,7 @@ export default function SignIn() {
                 res.json().then(data => {
                     if(data.token) {
                         sessionStorage.setItem('jwt', data.token);
+                        sessionStorage.setItem('creator', JSON.stringify(data.creator))
                         router.push('/')
                     } else {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))
@@ -77,9 +78,9 @@ export default function SignIn() {
 
     return (
         <div className="popup_page">
-            <Suspense>
+            {/* <Suspense>
                 <MapScroll />
-            </Suspense>
+            </Suspense> */}
         <div className="centered_content small popup">
             {(message) ? <div className="errorBox"><p>{message}</p></div>: <></>}
             <h2>Sign In With...</h2>

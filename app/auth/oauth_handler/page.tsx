@@ -29,6 +29,7 @@ export default function OauthHandlerPage() {
                                 return;
                             }
                             sessionStorage.setItem('jwt', data.token);
+                            sessionStorage.setItem('creator', data.creator)
                             sessionStorage.removeItem('rqGh')
                             router.push('/')
                         });
@@ -56,6 +57,7 @@ export default function OauthHandlerPage() {
                                 return;
                             }
                             sessionStorage.setItem('jwt', data.token);
+                            sessionStorage.setItem('creator', data.creator)
                             sessionStorage.removeItem('rqGh')
                             router.push('/')
                         });
@@ -88,6 +90,7 @@ export default function OauthHandlerPage() {
                                 return;
                             }
                             sessionStorage.setItem('jwt', data.token)
+                            sessionStorage.setItem('creator', data.creator)
                             sessionStorage.removeItem('rqGh')
                             router.push('/')
                         })
@@ -116,6 +119,7 @@ export default function OauthHandlerPage() {
                                 return;
                             }
                             sessionStorage.setItem('jwt', data.token);
+                            sessionStorage.setItem('creator', JSON.stringify(data.creator))
                             sessionStorage.removeItem('rqGh')
                             router.push('/')
                         });
