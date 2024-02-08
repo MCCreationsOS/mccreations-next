@@ -2,8 +2,7 @@ import '../../styles/mapPage.css'
 import { fetchMap, fetchMaps } from '../../api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IMap } from '@/app/types';
-import MapWrapper from '@/components/Map/MapWrapper';
-
+import MapWrapper from '@/components/Content/ContentWrapper';
 
 
 export async function generateStaticParams() {

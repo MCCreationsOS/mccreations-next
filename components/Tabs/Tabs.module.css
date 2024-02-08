@@ -1,21 +1,31 @@
 .tabs {
+    flex: 50;
     display: flex;
     border-bottom: 1px solid gray;
 }
 
 .tab_link {
     margin-top: 10px;
-    padding: 0 5px;
+    padding: 0 12px;
     padding-bottom: 10px;
     text-decoration: none;
     color: white;
+}
+
+.tab_disabled {
+    margin-top: 10px;
+    padding: 0 12px;
+    padding-bottom: 10px;
+    text-decoration: none;
+    color: gray;
+    cursor: not-allowed;
 }
 
 .tab_link_selected {
     box-sizing: border-box;
     margin-top: 10px;
     margin-bottom: -2px;
-    padding: 0 5px;
+    padding: 0 12px;
     padding-bottom: 10px;
     text-decoration: none;
     color: white;

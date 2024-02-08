@@ -1,13 +1,11 @@
-import Rating from '@/components/Rating';
 import Image from 'next/image';
-import Link from 'next/link';
 import { shimmer, toBase64 } from './imageShimmer';
-import MenuSkeleton from './MenuSkeleton';
+import ContentMenu from '../Content/ContentMenu';
 
 export default async function MapPageSkeleton() {
         return (
             <>
-            <MenuSkeleton/>
+            <ContentMenu slug="" creators={[]} />
             <div className='map_page'>
                 <Image className='image_background' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
                 <div className='map_logo_foreground'>

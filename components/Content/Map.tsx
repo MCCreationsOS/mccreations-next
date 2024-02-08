@@ -9,8 +9,10 @@ import CommentForm from "../ComentForm";
 import Comments from "../Comments";
 import DOMPurify from "isomorphic-dompurify";
 import Link from "next/link";
+import ContentMenu from "./ContentMenu";
+import ContentWarnings from "./ContentWarnings";
 
-export default function MapComponent({map}: {map: IMap}) {
+export default function MapComponent({map, privileged}: {map: IMap, privileged?: boolean}) {
     let videoID = ""
         if(map.videoUrl && map.videoUrl.includes("?v=")) {
             videoID = map.videoUrl.substring(map.videoUrl.indexOf("?v=") + 3)
@@ -19,11 +21,13 @@ export default function MapComponent({map}: {map: IMap}) {
         }
         return (
             <>
+            <ContentWarnings map={map} />
+            <ContentMenu slug={map.slug} creators={map.creators} />
             <div className='map_page'>
                 <Image className='image_background' width={1920} height={1080} src={map.images[0]} alt=""></Image>
                 <div className='map_logo_foreground'>
                     <div className='map_logo_container'>
-                        {(map.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image className='map_logo' width={1920} height={1080} src={map.images[0]} alt={`The logo for ${map.title}, a Minecraft Map for ${map.files[0].minecraftVersion} by ${map.creators[0].username}`}></Image>}
+                        {(map.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image priority className='map_logo' width={1920} height={1080} src={map.images[0]} alt={`The logo for ${map.title}, a Minecraft Map for ${map.files[0].minecraftVersion} by ${map.creators[0].username}`}></Image>}
                     </div>
                 </div>
                 <div className='centered_content'>

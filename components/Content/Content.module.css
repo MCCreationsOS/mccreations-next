@@ -1,0 +1,19 @@
+.content_submenu {
+    width: 50%;
+    margin: 0 auto;
+    min-width: 500px;
+}
+
+.content_submenu li {
+    display: inline;
+}
+
+.content_tabs {
+    display: flex;
+}
+
+@media screen and (max-width: 600px) {
+    .content_submenu {
+        min-width: 90%;
+    }
+}
