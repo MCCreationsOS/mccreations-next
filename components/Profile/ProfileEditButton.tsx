@@ -12,7 +12,6 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
     let storedCreatorStr = sessionStorage.getItem('creator')
     let storedCreator: IUser | undefined;
     if(storedCreatorStr) {
-        console.log(storedCreatorStr)
         try {
             storedCreator = JSON.parse(storedCreatorStr);
         } catch (e) {
