@@ -1,6 +1,7 @@
 .options {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 .option {
@@ -9,6 +10,7 @@
     border: 1px solid #373737;
     font-size: 1.1rem;
     cursor: pointer;
+    margin-right: 10px;
 }
 
 .option:hover {
@@ -20,4 +22,5 @@
     background-color: #373737;
     border: 1px solid #3154f4;
     font-size: 1.1rem;
+    margin-right: 10px;
 }

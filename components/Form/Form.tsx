@@ -1,14 +1,19 @@
 import { useState } from "react";
-import Dropzone from "../SingleImageDropzone/SingleImageDropzone";
+import ImageDropzone, { UploadedImageRepresentation } from "../ImageDropzone/ImageDropzone";
 import styles from './Form.module.css'
+import { FilePreview, IFile } from "@/app/types";
+import CreatorSelector from "../CreatorSelector/CreatorSelector";
+import FileDropzone from "../FileDropzone/FileDropzone";
 
 export interface IFormInput {
     name: string,
-    type: string,
+    type: 'image' | 'select'| 'creator'| 'text' | 'long_text' | 'multi_image'| 'file' ,
     placeholder?: string,
     value?: string,
     onChange?: (value: string) => void,
-    options?: IFormOptions[]
+    options?: IFormOptions[],
+    presetFiles?: IFile[] | UploadedImageRepresentation[],
+    description?: string
 }
 
 export interface IFormOptions {
@@ -25,35 +30,66 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
 
     return (
         <form method="none">
-                    {inputs && inputs.map((input, idx) => {return (
-                        (input.type === 'image') ? 
-                        <div className='field' key={idx}>
-                            <h3 className="label">{input.name}</h3>
-                            <Dropzone imageSet={(input.onChange) ? input.onChange: (url) => {input.value = url}} presetImage={(input.value) ? input.value : "/defaultBanner.png"}/>
-                        </div>:
-                        (input.type === 'select') ?
-                        <div className='field' key={idx}>
-                            <h3 className="label">{input.name}</h3>
-                            <div className={styles.options}>
-                                {input.options?.map((option) => {return (
-                                    <div className={(option.name === input.value) ? styles.option_selected : styles.option} onClick={() => {input.value = option.name; setOptionSelectRerender(optionSelectRerender+1)}}>{option.name}</div>
-                                )})}
-                            </div>
-                        </div> :
-                        (input.type === 'creator') ?
-                        <div className='field' key={idx}>
-                            <h3 className='label'>{input.name}</h3>
-                            <div className={styles.options}>
-                                {input.options?.map((option) => {return (
-                                    <div className={(option.name === input.value) ? styles.option_selected : styles.option} onClick={() => {input.value = option.name; setOptionSelectRerender(optionSelectRerender+1)}}>{option.name}</div>
-                                )})}
-                            </div>
-                        </div>:
-                        <div className='field' key={idx}>
-                            <h3 className='label'>{input.name}</h3>
-                            <input className='input wide' type={input.type} onChange={(e) => {(input.onChange) ? input.onChange(e.target.value): ""; input.value = e.target.value}} name='data' placeholder={input.placeholder} defaultValue={input.value}></input>
-                        </div> 
-                    )})}
+                    {inputs && inputs.map((input, idx) => {
+                        switch(input.type) {
+                            case 'text':
+                                return (
+                                    <div className='field' key={idx}>
+                                        <h3 className='label'>{input.name}</h3>
+                                        <p className={styles.description}>{input.description}</p>
+                                        <input className='input wide' type={input.type} onChange={(e) => {(input.onChange) ? input.onChange(e.target.value): ""; input.value = e.target.value}} name='data' placeholder={input.placeholder} defaultValue={input.value}></input>
+                                    </div> 
+                                )
+                            case 'long_text':
+                                return (
+                                    <div className='field' key={idx}>
+                                        <h3 className='label'>{input.name}</h3>
+                                        <p className={styles.description}>{input.description}</p>
+                                        <textarea className='input wide' onChange={(e) => {(input.onChange) ? input.onChange(e.target.value): ""; input.value = e.target.value}} name='data' placeholder={input.placeholder} defaultValue={input.value}></textarea>
+                                    </div>
+                                )
+                            case 'select':
+                                return (
+                                    <div className='field' key={idx}>
+                                        <h3 className="label">{input.name}</h3>
+                                        <p className={styles.description}>{input.description}</p>
+                                        <div className={styles.options}>
+                                            {input.options?.map((option) => {return (
+                                                <div className={(option.value === input.value) ? styles.option_selected : styles.option} onClick={() => {input.value = option.name; setOptionSelectRerender(optionSelectRerender+1)}}>{option.name}</div>
+                                            )})}
+                                        </div>
+                                    </div>
+                                )
+                            case 'creator':
+                                return (
+                                    <CreatorSelector onChange={(creators) => {input.value = JSON.stringify(creators); console.log('Creator loaded')}} />
+                                )
+                            case 'image':
+                                return (
+                                    <div className='field' key={idx}>
+                                        <h3 className="label">{input.name}</h3>
+                                        <p className={styles.description}>{input.description}</p>
+                                        <ImageDropzone allowMultiple={false} onImagesUploaded={(input.onChange) ? (files) => {input.onChange!(JSON.stringify(files))}: (files) => {input.value = JSON.stringify(files)}} presetImage={(input.value) ? input.value : "/defaultBanner.png"}/>
+                                    </div>
+                                )
+                            case 'multi_image':
+                                return (
+                                    <div className='field' key={idx}>
+                                        <h3 className="label">{input.name}</h3>
+                                        <p className={styles.description}>{input.description}</p>
+                                        <ImageDropzone allowMultiple={true} onImagesUploaded={(input.onChange) ? (files) => {input.onChange!(JSON.stringify(files))}: (files) => {input.value = JSON.stringify(files)}} presetImage={(input.value) ? input.value : "/defaultBanner.png"} presetFiles={input.presetFiles as UploadedImageRepresentation[]}/>
+                                    </div>
+                                )
+                            case "file":
+                                return (
+                                    <div className='field' key={idx}>
+                                        <h3 className="label">{input.name}</h3>
+                                        <p className={styles.description}>{input.description}</p>
+                                        <FileDropzone onFilesUploaded={(input.onChange) ? (file) => {input.onChange!(JSON.stringify(file))} : (files) => {input.value = JSON.stringify(files)}} presetFiles={input.presetFiles as IFile[]}/>
+                                    </div>
+                                )
+                        }
+                        })}
                     <button type="button" className="main_button" onClick={saveForm}>Save</button>
                     <input type='hidden' value={optionSelectRerender}></input>
                 </form>
