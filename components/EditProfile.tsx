@@ -2,7 +2,7 @@
 
 import { FilePreview, IUser } from "@/app/types";
 import { X } from "react-feather";
-import Dropzone from "./SingleImageDropzone/SingleImageDropzone";
+import Dropzone from "./ImageDropzone/ImageDropzone";
 import { useState } from "react";
 import { updateProfile } from "@/app/api/auth";
 

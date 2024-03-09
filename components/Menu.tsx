@@ -122,11 +122,15 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         <li className="item">
                             {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
                         </li>
-                        <li className='item'>
-                            <div className="nav_button" onClick={() => {Popup.createPopup(<FormComponent inputs={[{type: "text", name: "Title", placeholder: "An Awesome Map"}, {type: "select", name: "Type", value: "Map", options: [{name: "Map"}]}, {type: "text", name: "Short Description"}]} onSave={() => {}} />, "Create")}}>
+                        {/* <li className='item'>
+                            <div className="nav_button" onClick={() => {Popup.createPopup(<FormComponent inputs={[
+                                {type: "text", name: "Title", placeholder: "An Awesome Map"}, 
+                                {type: "select", name: "Type", value: "Map", options: [{name: "Map"}]}, 
+                                {type: "text", name: "Short Description"}]} 
+                                onSave={() => {}} />, "Create")}}>
                                 Create
                             </div>
-                        </li>
+                        </li> */}
                         <li className='item'>
                             <UserOptions />
                         </li>

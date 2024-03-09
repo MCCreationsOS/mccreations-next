@@ -103,7 +103,8 @@ export interface IMap {
  */
 export interface ICreator {
     username: string,
-    handle?: string
+    handle?: string,
+    selected?: boolean,
 }
 
 /**
@@ -134,7 +135,7 @@ export interface IFile {
     worldUrl: string,
     resourceUrl?: string,
     dataUrl?: string,
-    minecraftVersion: MinecraftVersion,
+    minecraftVersion: string,
     contentVersion: string
 }
 
@@ -159,8 +160,10 @@ export enum UserTypes {
     Creator
 }
 
-export interface FilePreview extends File {
-    preview?: string
+export interface FilePreview {
+    preview?: string,
+    file?: File,
+    name: string
 }
 
 /**
