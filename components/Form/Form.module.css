@@ -32,3 +32,8 @@
     border: 1px solid #3154f4;
     font-size: 1.1rem;
 }
+
+.description {
+    margin: 0 0 5px 0;
+    color: gray
+}

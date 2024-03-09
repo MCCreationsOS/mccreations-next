@@ -1,6 +1,6 @@
 'use client'
 
-import { FilePreview, MinecraftVersion } from '@/app/types'
+import { FilePreview, IFile, MinecraftVersion } from '@/app/types'
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
@@ -10,8 +10,8 @@ import upload from '@/app/api/upload'
 import FormComponent from '../Form/Form'
 import { PopupMessage, PopupMessageType } from '../PopupMessage/PopupMessage'
 
-const FileDropzone = ({ fileSet, presetFiles }: { presetImage?: string, fileSet(url: string, remove: boolean) : void, presetFiles?: File[] }) => {
-    const [files, setFiles] = useState<File[]>([])
+const FileDropzone = ({ onFilesUploaded, presetFiles }: { presetImage?: string, onFilesUploaded(files: IFile[]) : void, presetFiles?: string }) => {
+    const [files, setFiles] = useState<IFile[]>([])
     const [rejected, setRejected] = useState<FileRejection[]>([])
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
@@ -20,15 +20,14 @@ const FileDropzone = ({ fileSet, presetFiles }: { presetImage?: string, fileSet(
             acceptedFiles.forEach(file => {
                 upload(file).then(url => {
                     if(url) {
-                        fileSet(url, false);
+                        onFilesUploaded(files);
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploaded ${file.name}`))
+                        setFiles([...files, {worldUrl: url, type: "", minecraftVersion: "", contentVersion: ""}])
+                    } else {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `Uploading ${file.name} failed`))
                     }
                 });
             })
-            setFiles(previousFiles => [
-                ...previousFiles,
-                ...acceptedFiles
-            ])
         }
 
         if (rejectedFiles?.length) {
@@ -47,13 +46,17 @@ const FileDropzone = ({ fileSet, presetFiles }: { presetImage?: string, fileSet(
     })
 
     useEffect(() => {
-        if(presetFiles)
-        setFiles(presetFiles);
+        if(presetFiles) {
+            let files = JSON.parse(presetFiles) as IFile[]
+            if(files && files.length > 0) {
+                setFiles(files);
+            }
+        }
     }, [])
 
     const removeFile = (name: string) => {
-        fileSet("https://mccreations.s3.us-west-1.amazonaws.com/" + name, true)
-        setFiles(files => files.filter(file => file.name !== name))
+        setFiles(files => files.filter(file => file.worldUrl !== name))
+        onFilesUploaded(files.filter(file => file.worldUrl !== name))
     }
 
     const removeAll = () => {
@@ -94,13 +97,17 @@ const FileDropzone = ({ fileSet, presetFiles }: { presetImage?: string, fileSet(
                 {files.map((file, idx) => {
                     return (
                         <div key={idx} className={styles.uploaded_file_wrapper}>
-                            <div className={styles.uploaded_file_remove} onClick={() => {removeFile(file.name)}}> <X /> </div>
+                            <div className={styles.uploaded_file_remove} onClick={() => {removeFile(file.worldUrl)}}> <X /> </div>
                             <FormComponent inputs={[
-                                { name: "File", type: 'select', options: [{name: file.name}]},
-                                { name: "Type", type: 'select', options: [{name: 'World', value: 'world'}, {name: 'Resourcepack', value: 'resourcepack'}, {name: "Datapack", value: 'datapack'}]},
-                                { name: 'Minecraft Version', type: 'text' },
-                                { name: "Content Version", type: 'text', value: "1.0"}
-                                ]} onSave={() => {}} />
+                                { name: "File", type: 'select', options: [{name: file.worldUrl.substring(file.worldUrl.lastIndexOf('/') + 1)}]},
+                                { name: "Type", type: 'select', value: file.type, options: [{name: 'World', value: 'world'}, {name: 'Resourcepack', value: 'resourcepack'}, {name: "Datapack", value: 'datapack'}]},
+                                { name: 'Minecraft Version', type: 'text', value: file.minecraftVersion },
+                                { name: "Content Version", type: 'text', value: file.contentVersion}
+                                ]} onSave={(inputs) => {
+                                    file.type = inputs[1].value!
+                                    file.minecraftVersion = inputs[2].value!
+                                    file.contentVersion = inputs[3].value!
+                                }} />
                         </div>
                     )
                 })}

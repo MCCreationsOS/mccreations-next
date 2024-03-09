@@ -8,9 +8,15 @@ import { UploadCloud } from 'react-feather'
 import styles from './ImageDropzone.module.css'
 import upload from '@/app/api/upload'
 import { PopupMessage, PopupMessageType } from '../PopupMessage/PopupMessage'
+import { stringMap } from 'aws-sdk/clients/backup'
 
-const ImageDropzone = ({ presetImage, imageSet, allowMultiple, presetFiles }: { presetImage?: string, imageSet(url: string, files?: FilePreview[]) : void, allowMultiple: boolean, presetFiles?: FilePreview[] }) => {
-    const [files, setFiles] = useState<FilePreview[]>([])
+export interface UploadedImageRepresentation {
+    name: string,
+    url: string
+}
+
+const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFiles }: { presetImage?: string, onImagesUploaded(files: UploadedImageRepresentation[]) : void, allowMultiple: boolean, presetFiles?: string }) => {
+    const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     const [rejected, setRejected] = useState<FileRejection[]>([])
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
@@ -18,25 +24,26 @@ const ImageDropzone = ({ presetImage, imageSet, allowMultiple, presetFiles }: { 
             acceptedFiles.forEach(file => {
                 upload(file).then(url => {
                     if(url) {
-                        imageSet(url, files);
+                        onImagesUploaded(files);
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploaded ${file.name}`))
+
+                        if(allowMultiple) {
+                            setFiles(previousFiles => [
+                                ...previousFiles,
+                                ...acceptedFiles.map(file =>
+                                    {return { url: url, name: file.name }}
+                                )
+                            ])
+                        } else {
+                            setFiles([
+                                ...acceptedFiles.map(file =>
+                                    {return { url: url, name: file.name }}
+                                )
+                            ])
+                        }
                     }
                 });
             })
-            if(allowMultiple) {
-                setFiles(previousFiles => [
-                    ...previousFiles,
-                    ...acceptedFiles.map(file =>
-                        {return { preview: URL.createObjectURL(file), file: file, name: file.name }}
-                    )
-                ])
-            } else {
-                setFiles([
-                    ...acceptedFiles.map(file =>
-                        {return { preview: URL.createObjectURL(file), file: file, name: file.name }}
-                    )
-                ])
-            }
         }
 
         if (rejectedFiles?.length) {
@@ -57,14 +64,18 @@ const ImageDropzone = ({ presetImage, imageSet, allowMultiple, presetFiles }: { 
     })
 
     useEffect(() => {
-        if(presetFiles)
-        setFiles(presetFiles);
+        if(presetFiles) {
+            let files = JSON.parse(presetFiles) as UploadedImageRepresentation[]
+            if(files && files.length > 1) {
+                setFiles(files);
+            }
+        }
     }, [])
 
-    useEffect(() => {
-        // Revoke the data uris to avoid memory leaks
-        return () => files.forEach(file => URL.revokeObjectURL(file.preview!))
-    }, [files])
+    // useEffect(() => {
+    //     // Revoke the data uris to avoid memory leaks
+    //     return () => files.forEach(file => URL.revokeObjectURL(file.preview!))
+    // }, [files])
 
     const removeFile = (name: string) => {
         setFiles(files => files.filter(file => file.name !== name))
@@ -92,7 +103,7 @@ const ImageDropzone = ({ presetImage, imageSet, allowMultiple, presetFiles }: { 
                 <div {...getRootProps()}>
                     <input {...getInputProps({ name: 'file' })} />
                     <div className={styles.single_dropzone}>
-                        <Image className={styles.image_preview} src={(files[files.length-1] && files[files.length-1].preview) ? files[files.length-1].preview! : (presetImage) ? presetImage : ""} width={1920} height={1080} alt=''></Image>
+                        <Image className={styles.image_preview} src={(files[files.length - 1] && files[files.length - 1].url) ? files[files.length - 1].url : "/defaultBanner.png"} width={1920} height={1080} alt=''></Image>
                         <div className={styles.image_overlay}>
                             <UploadCloud></UploadCloud>
                             {isDragActive ? (
@@ -108,7 +119,7 @@ const ImageDropzone = ({ presetImage, imageSet, allowMultiple, presetFiles }: { 
                 {files.map((file, idx) => {
                     return (
                         <div key={idx} className={styles.uploaded_image_wrapper} onClick={(e) => {removeFile(file.name)}}>
-                            <Image className={styles.uploaded_image} src={(file.preview) ? file.preview : (presetImage) ? presetImage : ""} width={150} height={150} alt={`Uploaded Image ${idx}`}></Image>
+                            <Image className={styles.uploaded_image} src={(file.url) ? file.url : (presetImage) ? presetImage : ""} width={150} height={150} alt={`${file.url.substring(file.url.lastIndexOf('/') + 1)}`}></Image>
                         </div>
                     )
                 })}
