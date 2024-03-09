@@ -12,7 +12,6 @@ export interface IFormInput {
     value?: string,
     onChange?: (value: string) => void,
     options?: IFormOptions[],
-    presetFiles?: IFile[] | UploadedImageRepresentation[],
     description?: string
 }
 
@@ -77,7 +76,7 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
                                     <div className='field' key={idx}>
                                         <h3 className="label">{input.name}</h3>
                                         <p className={styles.description}>{input.description}</p>
-                                        <ImageDropzone allowMultiple={true} onImagesUploaded={(input.onChange) ? (files) => {input.onChange!(JSON.stringify(files))}: (files) => {input.value = JSON.stringify(files)}} presetImage={(input.value) ? input.value : "/defaultBanner.png"} presetFiles={input.presetFiles as UploadedImageRepresentation[]}/>
+                                        <ImageDropzone allowMultiple={true} onImagesUploaded={(input.onChange) ? (files) => {input.onChange!(JSON.stringify(files))}: (files) => {input.value = JSON.stringify(files)}} presetImage={(input.value) ? input.value : "/defaultBanner.png"} presetFiles={input.value}/>
                                     </div>
                                 )
                             case "file":
@@ -85,7 +84,7 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
                                     <div className='field' key={idx}>
                                         <h3 className="label">{input.name}</h3>
                                         <p className={styles.description}>{input.description}</p>
-                                        <FileDropzone onFilesUploaded={(input.onChange) ? (file) => {input.onChange!(JSON.stringify(file))} : (files) => {input.value = JSON.stringify(files)}} presetFiles={input.presetFiles as IFile[]}/>
+                                        <FileDropzone onFilesUploaded={(input.onChange) ? (file) => {input.onChange!(JSON.stringify(file))} : (files) => {input.value = JSON.stringify(files)}} presetFiles={input.value}/>
                                     </div>
                                 )
                         }
