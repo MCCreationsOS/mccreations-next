@@ -37,11 +37,11 @@ export default function EditProfile({visible, creator, update, close}: {visible:
                 <form>
                     <div className='field'>
                         <h4 className="label">Change Banner</h4>
-                        <Dropzone imageSet={setBanner} presetImage={creator.bannerURL}/>
+                        <Dropzone allowMultiple={false} onImagesUploaded={(files) => {setBanner(files[0].url)}} presetFiles={JSON.stringify([{url: creator.bannerURL, name: "banner"}])}/>
                     </div>
                     <div className="field">
                         <h4 className="label">Change Icon</h4>
-                        <Dropzone imageSet={setIcon} presetImage={creator.iconURL}/>
+                        <Dropzone allowMultiple={false} onImagesUploaded={(files) => {setIcon(files[0].url)}} presetFiles={JSON.stringify([{url: creator.iconURL, name: "icon"}])}/>
                     </div>
                     <div className="field">
                         <h4 className="label">About</h4>
