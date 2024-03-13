@@ -10,6 +10,7 @@ import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupM
 import Tabs from "@/components/Tabs/Tabs"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useEffect, useState } from "react"
+import { ArrowLeft } from "react-feather"
 
 export default function EditContentPage({params}: {params: Params}) {
     const [user, setUser] = useState<IUser>()
@@ -45,7 +46,12 @@ export default function EditContentPage({params}: {params: Params}) {
     if(match) {
         return (
             <div className="centered_content">
-                <Tabs tabs={[
+                <Tabs preselectedTab={1} tabs={[
+                {
+                    title: <ArrowLeft />,
+                    content: <></>,
+                    link: `/maps/${map!.slug}`
+                },
                 {
                     
                     // General Tab
