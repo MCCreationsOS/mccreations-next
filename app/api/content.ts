@@ -92,6 +92,18 @@ export async function fetchMap(slug: string, token?: string) {
     }
 }
 
+export async function downloadMap(slug: string) {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/maps/${slug}/download`)
+    } catch (e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: slug
+        }
+    }
+}
+
 export async function createNewContent(title: string, type: string, summary: string, token?: string | null) {
     if(!token) token = ""
     try {
