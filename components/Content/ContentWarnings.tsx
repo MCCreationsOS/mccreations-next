@@ -20,14 +20,22 @@ export default function ContentWarnings({map}: {map: IMap}) {
     }, [])
 
     let match = false;
-    map.creators.forEach((creator) => {
+    map.creators && map.creators.forEach((creator) => {
         if(creator.handle && user && user.handle && creator.handle === user?.handle) {
             match = true
         }
     })
+    if(map.status === 0) match = true;
     if(match) {
         let messages: IMessage[] = []
-        if(map.shortDescription.length < 20) {
+        if(!map.creators || !map.creators[0].handle) {
+            messages.push({
+                type: 'Warning',
+                title: 'Not Linked to an Account',
+                message: `This map is not linked to an account on MCCreations. This means that your access to edit this content will expire in 24 hours. It is recommended to upload maps with an account so you can retain access to all features.`
+            })
+        }
+        if(!map.shortDescription || map.shortDescription.length < 20) {
             messages.push({
                 type: 'Error',
                 title: 'Short Description Too Short',
@@ -64,13 +72,6 @@ export default function ContentWarnings({map}: {map: IMap}) {
                 })
             }
         })
-        if(!map.creators[0].handle) {
-            messages.push({
-                type: 'Warning',
-                title: 'Not Linked to an Account',
-                message: `This map is not linked to an account on MCCreations. This means that your access to edit this content will expire in 24 hours. It is recommended to upload maps with an account so you can retain access to all features.`
-            })
-        }
         return (
             <MessageComponent messages={messages} />
         )

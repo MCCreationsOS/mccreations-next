@@ -19,13 +19,15 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
         if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A type must be selected to save content"))
         if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A short description must be included to save content"))
 
-        let creatorStr = sessionStorage.getItem('creator');
-        let creator = { username: undefined, handle: undefined }
-        if(creatorStr) {
-            creator = JSON.parse(creatorStr);
-        }
-
-        createNewContent(title!, type!, shortDescription!, creator.username, creator.handle)
+        let token  = sessionStorage.getItem('jwt')
+        createNewContent(title!, type!, shortDescription!, token).then((key) => {
+            if(key && 'key' in key) {
+                sessionStorage.setItem('temp_key', key.key)
+            }
+            if('slug' in key) {
+                router.push(`/maps/${key.slug}/edit`)
+            }
+        })
     }
 
     const onMapImport = async (link?: string) => {
@@ -38,7 +40,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
             if(res.error) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
             } else if(res.content) {
-                router.push('/maps/' + res.content)
+                router.push('/maps/' + res.content + '/edit')
             }
         } else {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A link must be added to import content"))

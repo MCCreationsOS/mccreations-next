@@ -92,25 +92,25 @@ export async function fetchMap(slug: string, token?: string) {
     }
 }
 
-export async function createNewContent(title: string, type: string, summary: string, username?: string, handle?: string) {
+export async function createNewContent(title: string, type: string, summary: string, token?: string | null) {
+    if(!token) token = ""
     try {
         let res = await fetch(`${process.env.DATA_URL}/content`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token
             },
             body: JSON.stringify({
                 content: {
                     title: title,
                     type: type,
                     summary: summary
-                },
-                creator: {
-                    username: username,
-                    handle: handle
                 }
             })
         })
+        let b = await res.json();
+        return b
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e)
         return {

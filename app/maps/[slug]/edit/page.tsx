@@ -22,6 +22,10 @@ export default function EditContentPage({params}: {params: Params}) {
                 setUser(u);
                 let m = await fetchMap(params.slug, token)
                 setMap(m);
+            } else {
+                token = sessionStorage.getItem('temp_key')
+                let m = await fetchMap(params.slug, token + "")
+                setMap(m);
             }
         }
         getData();
@@ -29,17 +33,20 @@ export default function EditContentPage({params}: {params: Params}) {
 
     let match = false;
     if(map && '_id' in map) {
-        console.log(map)
-        map?.creators.forEach((creator) => {
+        map?.creators?.forEach((creator) => {
             if(creator.handle && user && user.handle && creator.handle === user?.handle) {
                 match = true
             }
         })
+        if(map.status === 0) {
+            match = true;
+        }
     }
     if(match) {
         return (
             <div className="centered_content">
-                <Tabs tabs={[{
+                <Tabs tabs={[
+                {
                     
                     // General Tab
                     title: "General",
@@ -92,7 +99,9 @@ export default function EditContentPage({params}: {params: Params}) {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "No description entered"))
                             }
 
-                            updateContent(newMap)
+                            updateContent(newMap).then(() => {
+                                setMap(newMap)
+                            })
                         }} />
                     },{
 
@@ -103,7 +112,9 @@ export default function EditContentPage({params}: {params: Params}) {
                             ...map!
                         }
                         newMap.images = files.map(f => f.url)
-                        updateContent(newMap)
+                        updateContent(newMap).then(() => {
+                            setMap(newMap)
+                        })
                     }} presetFiles={JSON.stringify(map?.images.map(image => {return {url: image, name: image}}))}/>
                     }, {
 
@@ -130,7 +141,9 @@ export default function EditContentPage({params}: {params: Params}) {
                                 return;
                             }
 
-                            updateContent(newMap)
+                            updateContent(newMap).then(() => {
+                                setMap(newMap)
+                            })
                         }} />
                     }]} />
             </div>

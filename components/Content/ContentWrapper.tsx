@@ -20,6 +20,9 @@ export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
             let token = sessionStorage.getItem('jwt')
             if(token) {
                 getData(token)
+            } else {
+                token = sessionStorage.getItem('temp_key')
+                if(token) getData(token)
             }
         }, [])
 

@@ -50,7 +50,7 @@ export default function CreatorSelector({value, onChange}: {value?: IUser[], onC
         let newCreators: CreatorSelection[] = []
         if(creators)
             newCreators = [...creators]
-        newCreators.push({username: inputs[0].value!, handle: inputs[1].value, type: UserTypes.Creator, email: "", iconURL: inputs[2].value, selected: true})
+        newCreators.push({username: inputs[0].value!, handle: (inputs[1]) ? inputs[1].value: "", type: UserTypes.Creator, email: "", iconURL: "", selected: true})
         setCreators(newCreators)
         if(onChange) {
             onChange(newCreators)

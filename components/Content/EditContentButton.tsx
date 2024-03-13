@@ -6,7 +6,7 @@ import { ICreator, IUser } from "@/app/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-export default function EditContentButton({slug, creators}: {slug: string, creators: ICreator[]}) {
+export default function EditContentButton({slug, creators, status}: {slug: string, creators: ICreator[], status: number}) {
     const [user, setUser] = useState<IUser>()
     useEffect(() => {
         let token = sessionStorage?.getItem('jwt')
@@ -20,11 +20,12 @@ export default function EditContentButton({slug, creators}: {slug: string, creat
     }, [])
 
     let match = false;
-    creators.forEach((creator) => {
+    creators && creators.forEach((creator) => {
         if(creator.handle && user && user.handle && creator.handle === user?.handle) {
             match = true
         }
     })
+    if(status === 0) match = true
     if(match) {
         return (
             <Link href={`./${slug}/edit`} className="main_button" style={{display: "inline"}}>Edit</Link>
