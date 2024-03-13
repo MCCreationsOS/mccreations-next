@@ -8,7 +8,6 @@ import { UploadCloud } from 'react-feather'
 import styles from './ImageDropzone.module.css'
 import upload from '@/app/api/upload'
 import { PopupMessage, PopupMessageType } from '../PopupMessage/PopupMessage'
-import { stringMap } from 'aws-sdk/clients/backup'
 
 export interface UploadedImageRepresentation {
     name: string,
@@ -24,10 +23,15 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
             acceptedFiles.forEach(file => {
                 upload(file).then(url => {
                     if(url) {
-                        onImagesUploaded(files);
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploaded ${file.name}`))
-
+                        
                         if(allowMultiple) {
+                            onImagesUploaded([
+                                ...files,
+                                ...acceptedFiles.map(file =>
+                                    {return { url: url, name: file.name }}
+                                )
+                            ]);
                             setFiles(previousFiles => [
                                 ...previousFiles,
                                 ...acceptedFiles.map(file =>
@@ -35,6 +39,11 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                                 )
                             ])
                         } else {
+                            onImagesUploaded([
+                                ...acceptedFiles.map(file =>
+                                    {return { url: url, name: file.name }}
+                                )
+                            ]);
                             setFiles([
                                 ...acceptedFiles.map(file =>
                                     {return { url: url, name: file.name }}
@@ -66,7 +75,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
     useEffect(() => {
         if(presetFiles) {
             let files = JSON.parse(presetFiles) as UploadedImageRepresentation[]
-            if(files && files.length > 1) {
+            if(files && files.length > 0) {
                 setFiles(files);
             }
         }
@@ -79,6 +88,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
 
     const removeFile = (name: string) => {
         setFiles(files => files.filter(file => file.name !== name))
+        onImagesUploaded(files.filter(file => file.name !== name));
     }
 
     const removeAll = () => {
