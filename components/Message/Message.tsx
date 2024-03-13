@@ -16,7 +16,7 @@ export default function MessageComponent({messages}: {messages: IMessage[]}) {
         const [message, setMessage] = useState(0);
         const [visible, setVisible] = useState(true);
 
-        if(visible) {
+        if(visible && messages[message]) {
             return (
                 <div className={(messages[message].type === 'Message') ? styles.message_container : (messages[message].type === 'Warning') ? styles.warning_container : styles.error_container}>
                     <div className={styles.title_bar}>
@@ -32,7 +32,7 @@ export default function MessageComponent({messages}: {messages: IMessage[]}) {
                     {(messages[message].link) ? <Link href={messages[message].link!}>Fix it</Link> : <></>}
                 </div>
             )
-        } else {
+        } else if( messages[message]) {
             return (
                 <div className={(messages[message].type === 'Message') ? styles.message_container : (messages[message].type === 'Warning') ? styles.warning_container : styles.error_container}>
                     <div className={styles.title_bar}>
