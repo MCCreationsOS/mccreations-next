@@ -54,7 +54,7 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
                                         <p className={styles.description}>{input.description}</p>
                                         <div className={styles.options}>
                                             {input.options?.map((option) => {return (
-                                                <div className={(option.value === input.value) ? styles.option_selected : styles.option} onClick={() => {input.value = option.name; setOptionSelectRerender(optionSelectRerender+1)}}>{option.name}</div>
+                                                <div className={(option.value === input.value) ? styles.option_selected : styles.option} onClick={() => {input.value = (option.value) ? option.value : option.name; setOptionSelectRerender(optionSelectRerender+1)}}>{option.name}</div>
                                             )})}
                                         </div>
                                     </div>
