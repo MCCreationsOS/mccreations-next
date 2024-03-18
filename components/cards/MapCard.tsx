@@ -18,10 +18,10 @@ export default function MapCard({map, id, priority}: {map: IMap, id: string, pri
                     <div className='stats'>
                         <div className="stat"><img className="in_text_icon" src='/download.svg'></img>{map.downloads}</div>
                         {(map.rating > 0) ? <div className="stat"><img className="in_text_icon" src='/star_white.svg'></img>{(Math.round(map.rating*100)/100) * 5}</div>: <></> }
-                        <div className='stat'><img className="in_text_icon" src='/map.svg'></img>{map.files[0].minecraftVersion}</div>
+                        {(map.files && map.files.length > 0) ? <div className='stat'><img className="in_text_icon" src='/map.svg'></img>{map.files[0].minecraftVersion}</div>: <></> }
                     </div>
                 </div>
-                <Image priority={priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className='logo' src={map.images[0]} width={1920} height={1080} sizes="25vw" alt={`The logo for ${map.title}, a Minecraft Map for ${map.files[0].minecraftVersion} by ${map.creators[0].username}`}></Image>
+                <Image priority={priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className='logo' src={map.images[0]} width={1920} height={1080} sizes="25vw" alt={`The logo for ${map.title}, a Minecraft Map for ${(map.files && map.files.length > 0) ? map.files[0].minecraftVersion : ""} by ${map.creators[0].username}`}></Image>
             </div>
             <Link className='title' href={`/maps/${map.slug}`}>{map.title}</Link>
             <p className='author'>by <span className='cardAuthorLink'>{map.creators[0].username}</span></p>

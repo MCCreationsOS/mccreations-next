@@ -1,4 +1,4 @@
-import defaultLogo from 'public/defaultLogo.png'
+// import defaultLogo from './defaultLogo.png'
 import Image from 'next/image';
 import { Heart } from 'react-feather';
 import { IComment } from '@/app/types';
@@ -12,7 +12,7 @@ export default async function CommentCard({comment}: {comment: IComment}) {
             image = creator.iconURL
         }
     } else {
-        image = defaultLogo
+        image = "/defaultLogo.png"
     }
 
     // if(!comment.comment) {

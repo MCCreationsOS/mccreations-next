@@ -1,5 +1,5 @@
-import defaultLogo from 'public/defaultLogo.png'
-import defaultBanner from 'public/defaultBanner.png'
+import defaultLogo from '/public/defaultLogo.png'
+import defaultBanner from '/public/defaultBanner.png'
 import Image from "next/image"
 import Link from "next/link"
 import styles from './ProfileStyle.module.css'
