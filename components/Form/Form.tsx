@@ -3,7 +3,8 @@ import ImageDropzone, { UploadedImageRepresentation } from "../ImageDropzone/Ima
 import styles from './Form.module.css'
 import { FilePreview, IFile } from "@/app/types";
 import CreatorSelector from "../CreatorSelector/CreatorSelector";
-import FileDropzone from "../FileDropzone/FileDropzone";
+import FileDropzone from "../VersionUploader/VersionUploader";
+import RichText from "../RichText/RichText";
 
 export interface IFormInput {
     name: string,
@@ -28,7 +29,7 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
     }
 
     return (
-        <form method="none">
+        <div>
                     {inputs && inputs.map((input, idx) => {
                         switch(input.type) {
                             case 'text':
@@ -44,7 +45,7 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
                                     <div className='field' key={idx}>
                                         <h3 className='label'>{input.name}</h3>
                                         <p className={styles.description}>{input.description}</p>
-                                        <textarea className='input wide' onChange={(e) => {(input.onChange) ? input.onChange(e.target.value): ""; input.value = e.target.value}} name='data' placeholder={input.placeholder} defaultValue={input.value}></textarea>
+                                        <RichText initialValue={input.value} sendOnChange={(v) => {input.value = v}}/>
                                     </div>
                                 )
                             case 'select':
@@ -53,15 +54,15 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
                                         <h3 className="label">{input.name}</h3>
                                         <p className={styles.description}>{input.description}</p>
                                         <div className={styles.options}>
-                                            {input.options?.map((option) => {return (
-                                                <div className={(option.value === input.value) ? styles.option_selected : styles.option} onClick={() => {input.value = (option.value) ? option.value : option.name; setOptionSelectRerender(optionSelectRerender+1)}}>{option.name}</div>
+                                            {input.options?.map((option, idx) => {return (
+                                                <div key={idx} className={(option.value === input.value) ? styles.option_selected : styles.option} onClick={() => {input.value = (option.value) ? option.value : option.name; setOptionSelectRerender(optionSelectRerender+1)}}>{option.name}</div>
                                             )})}
                                         </div>
                                     </div>
                                 )
                             case 'creator':
                                 return (
-                                    <CreatorSelector onChange={(creators) => {input.value = JSON.stringify(creators); console.log('Creator loaded')}} />
+                                    <CreatorSelector key={idx} onChange={(creators) => {input.value = JSON.stringify(creators); console.log('Creator loaded')}} />
                                 )
                             case 'image':
                                 return (
@@ -91,6 +92,6 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
                         })}
                     <button type="button" className="main_button" onClick={saveForm}>Save</button>
                     <input type='hidden' value={optionSelectRerender}></input>
-                </form>
+                </div>
     )
 }
