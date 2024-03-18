@@ -41,6 +41,11 @@ function formatQueryOptions(queryOptions: QueryOptions) {
     if(!queryOptions.search) {
         queryOptions.search = ""
     }
+
+    if(!queryOptions.exclusiveStatus) {
+        queryOptions.exclusiveStatus = false
+    }
+
     return queryOptions
 }
 
@@ -55,7 +60,7 @@ function formatQueryOptions(queryOptions: QueryOptions) {
 export async function fetchMaps(queryOptions: QueryOptions, count: boolean) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}`, {next:{revalidate:3600}})
+        let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}&exclusiveStatus=${queryOptions.exclusiveStatus}`, {next:{revalidate:3600}})
         let data = await response.json();
         return data
 
@@ -175,7 +180,37 @@ export async function updateContent(map: IMap, token?: string | null) {
         return data;
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e)
-        return {
+        throw {
+            error: e
+        }
+    }
+}
+
+export async function requestApproval(slug: string) {
+    try {
+        await fetch(`${process.env.DATA_URL}/content/request_approval`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                slug: slug
+            })
+        })
+        return;
+    } catch(e) {
+        throw {
+            error: e
+        }
+    }
+}
+
+export async function approveContent(slug: string) {
+    try {
+        await fetch(`${process.env.DATA_URL}/content/${slug}/approve`)
+        return;
+    } catch(e) {
+        throw {
             error: e
         }
     }

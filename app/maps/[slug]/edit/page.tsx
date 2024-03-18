@@ -1,7 +1,7 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { fetchMap, updateContent } from "@/app/api/content"
+import { fetchMap, requestApproval, updateContent } from "@/app/api/content"
 import { FilePreview, IFile, IMap, IUser, MinecraftVersion } from "@/app/types"
 import FormComponent from "@/components/Form/Form"
 import { UploadedImageRepresentation } from "@/components/ImageDropzone/ImageDropzone"
@@ -46,6 +46,9 @@ export default function EditContentPage({params}: {params: Params}) {
     if(match) {
         return (
             <div className="centered_content">
+                <h1>Editing {map?.title}</h1>
+                <p>Status: {(map?.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map?.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
+                {map?.status === 0 && (<button className="main_button" onClick={() => {requestApproval(map!.slug).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</button>)}
                 <Tabs preselectedTab={1} tabs={[
                 {
                     title: <ArrowLeft />,
@@ -107,6 +110,9 @@ export default function EditContentPage({params}: {params: Params}) {
 
                             updateContent(newMap).then(() => {
                                 setMap(newMap)
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Map info saved successfully'))
+                            }).catch((e) => {
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                             })
                         }} />
                     },{
@@ -120,6 +126,9 @@ export default function EditContentPage({params}: {params: Params}) {
                         newMap.images = files.map(f => f.url)
                         updateContent(newMap).then(() => {
                             setMap(newMap)
+                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Images saved successfully'))
+                        }).catch((e) => {
+                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                         })
                     }} presetFiles={JSON.stringify(map?.images.map(image => {return {url: image, name: image}}))}/>
                     }, {
@@ -127,7 +136,7 @@ export default function EditContentPage({params}: {params: Params}) {
                     // Versions Tab
                     title: "Versions",
                     content: <FormComponent inputs={[
-                            { type: 'file', name: 'Files', value: JSON.stringify(map!.files) }
+                            { type: 'file', name: 'Versions', value: JSON.stringify(map!.files) }
                         ]} onSave={(inputs) => {
 
                             let newMap: IMap = {
@@ -149,6 +158,9 @@ export default function EditContentPage({params}: {params: Params}) {
 
                             updateContent(newMap).then(() => {
                                 setMap(newMap)
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Files saved successfully'))
+                            }).catch((e) => {
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                             })
                         }} />
                     }]} />
@@ -157,7 +169,7 @@ export default function EditContentPage({params}: {params: Params}) {
     }
     return (
         <>
-        {(map) ? (map as any).error : ""}
+        {(map) ? <p>Error</p> : ""}
         </>
     )
 }
