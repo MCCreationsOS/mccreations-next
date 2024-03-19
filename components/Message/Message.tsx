@@ -22,7 +22,7 @@ export default function MessageComponent({messages}: {messages: IMessage[]}) {
                     <div className={styles.title_bar}>
                         <h4 className={styles.title}>{messages[message].title}</h4>
                         <div className={styles.options}>
-                            <div className={styles.option}><p className={styles.option_text}>{message + 1}</p></div>
+                            <div className={styles.option}><p className={styles.option_text}>{message + 1} / {messages.length}</p></div>
                             <div className={styles.option} onClick={() => {if(message > 0) setMessage(message - 1); else setMessage(messages.length - 1)}}><ArrowLeft /></div>
                             <div className={styles.option} onClick={() => {if(message < messages.length - 1) setMessage(message + 1); else setMessage(0)}}><ArrowRight /></div>
                             <div className={styles.option} onClick={() => {setVisible(false); setMessage(0)}}><ChevronDown /></div>
