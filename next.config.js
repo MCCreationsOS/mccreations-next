@@ -3,7 +3,7 @@ const withMDX = require('@next/mdx')()
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    DATA_URL: 'http://next.mccreations.net/',
+    DATA_URL: 'https://api.mccreations.net',
   },
   images: {
     remotePatterns: [
