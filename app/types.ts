@@ -48,7 +48,8 @@ export interface QueryOptions {
     status?: number;
     sort?: SortOptions;
     search?: string;
-    version?: string
+    version?: string,
+    exclusiveStatus?: boolean
 }
 
 export interface ErrorMessage {
