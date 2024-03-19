@@ -24,7 +24,7 @@ function formatQueryOptions(queryOptions: QueryOptions) {
     }
 
     // Defines status if it is not defined
-    if(!queryOptions.status) {
+    if(queryOptions.status === undefined) {
         queryOptions.status = 2
     }
 
@@ -54,13 +54,21 @@ function formatQueryOptions(queryOptions: QueryOptions) {
  * @param queryOptions The query options to send to the API
  * @param count Return the count of maps found rather than the actual maps. Used for pagination. For performance reasons
  * when this parameter is set ONLY the count of maps is returned not the actual map objects
- * @returns An array of map documents
- * @returns The count of maps found by the query
+ * @returns `documents` An array of map documents
+ * @returns `count` The count of maps found by the query
 */
-export async function fetchMaps(queryOptions: QueryOptions, count: boolean) {
+export async function fetchMaps(queryOptions: QueryOptions, count: boolean, token?: string | null) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}&exclusiveStatus=${queryOptions.exclusiveStatus}`, {next:{revalidate:3600}})
+        let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}&exclusiveStatus=${queryOptions.exclusiveStatus}`, {
+            next:{
+                revalidate:3600
+            },
+            method: 'GET',
+            headers: {
+                authorization: token + ""
+            }
+        })
         let data = await response.json();
         return data
 
@@ -99,7 +107,8 @@ export async function fetchMap(slug: string, token?: string) {
 
 export async function downloadMap(slug: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps/${slug}/download`)
+        await fetch(`${process.env.DATA_URL}/maps/${slug}/download`)
+        return;
     } catch (e) {
         console.error("API fetch error! Is it running?: " + e);
         return {
@@ -162,13 +171,14 @@ export async function importContent(link: string, token?: string | null) {
     }
 }
 
-export async function updateContent(map: IMap, token?: string | null) {
+export async function updateContent(map: IMap, token: string | null) {
     try {
         console.log('Sending update request')
         let response = await fetch(`${process.env.DATA_URL}/content/update`, { 
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token + ""
             },
             body: JSON.stringify({
                 content: map,
@@ -186,12 +196,13 @@ export async function updateContent(map: IMap, token?: string | null) {
     }
 }
 
-export async function requestApproval(slug: string) {
+export async function requestApproval(slug: string, token: string | null) {
     try {
         await fetch(`${process.env.DATA_URL}/content/request_approval`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token + ""
             },
             body: JSON.stringify({
                 slug: slug
@@ -205,9 +216,13 @@ export async function requestApproval(slug: string) {
     }
 }
 
-export async function approveContent(slug: string) {
+export async function approveContent(slug: string, token: string | null) {
     try {
-        await fetch(`${process.env.DATA_URL}/content/${slug}/approve`)
+        await fetch(`${process.env.DATA_URL}/content/${slug}/approve`, {
+            headers: {
+                'Authorization': token + ""
+            }
+        })
         return;
     } catch(e) {
         throw {
