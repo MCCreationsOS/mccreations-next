@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import Image from "next/image"
 import { IUser } from "@/app/types"
 import Link from "next/link"
-import { LogOut, Settings, User } from "react-feather"
+import { LogOut, Settings, Table, User } from "react-feather"
 import { useRouter } from "next/navigation"
 import { getUser } from "@/app/api/auth"
 
@@ -45,6 +45,9 @@ export default function UserOptions() {
                 <hr></hr>
                 <div className="option icon" onClick={() => {router.push("/creator/"+user.handle)}}>
                     <User />Profile
+                </div>
+                <div className="option icon" onClick={() => {router.push("/dashboard")}}>
+                    <Table />Dashboard
                 </div>
                 <div className="option icon" onClick={() => {router.push("/account")}}>
                     <Settings />Settings
