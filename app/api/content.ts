@@ -173,7 +173,6 @@ export async function importContent(link: string, token?: string | null) {
 
 export async function updateContent(map: IMap, token: string | null) {
     try {
-        console.log('Sending update request')
         let response = await fetch(`${process.env.DATA_URL}/content/update`, { 
             method: 'POST',
             headers: {
@@ -190,8 +189,8 @@ export async function updateContent(map: IMap, token: string | null) {
         return data;
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e)
-        throw {
-            error: e
+        return {
+            message: e
         }
     }
 }

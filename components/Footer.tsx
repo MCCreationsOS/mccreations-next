@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className='footer_flex'>
                     <div>
                         <h2><img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>MCCreations</h2>
-                        <p>Now with accounts!</p>
+                        <p>Submission is the best admission</p>
                         <p>MCCreations is <Link href="https://github.com/BenMeie/mccreations-next">open source</Link>. Contribute today!</p>
                     </div>
                     <div>

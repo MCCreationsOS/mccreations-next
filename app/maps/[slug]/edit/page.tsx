@@ -10,22 +10,24 @@ import MediaGallery from "@/components/MediaGallery/MediaGallery"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import Tabs from "@/components/Tabs/Tabs"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { ArrowLeft } from "react-feather"
 
 export default function EditContentPage({params}: {params: Params}) {
     const [user, setUser] = useState<IUser>()
     const [map, setMap] = useState<IMap>()
+    const token = useRef("")
     useEffect(() => {
-        let token = sessionStorage?.getItem('jwt')
+        token.current = sessionStorage?.getItem('jwt') + ""
+        console.log("Token is " + token.current)
         const getData = async () => {
-            if(token) {
-                let u = await getUser(undefined, token)
+            if(token && token.current.length > 0) {
+                let u = await getUser(undefined, token.current)
                 setUser(u);
-                let m = await fetchMap(params.slug, token)
+                let m = await fetchMap(params.slug, token.current)
                 setMap(m);
             } else {
-                token = sessionStorage.getItem('temp_key')
+                token.current = sessionStorage.getItem('temp_key') + ""
                 let m = await fetchMap(params.slug, token + "")
                 setMap(m);
             }
@@ -50,7 +52,7 @@ export default function EditContentPage({params}: {params: Params}) {
                 <ContentWarnings map={map!} />
                 <h1>Editing {map?.title}</h1>
                 <p>Status: {(map?.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map?.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
-                {map?.status === 0 && (<button className="main_button" onClick={() => {requestApproval(map!.slug, sessionStorage.getItem('jwt')).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</button>)}
+                {map?.status === 0 && (<button className="main_button" onClick={() => {requestApproval(map!.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</button>)}
                 <Tabs preselectedTab={1} tabs={[
                 {
                     title: <ArrowLeft />,
@@ -110,7 +112,11 @@ export default function EditContentPage({params}: {params: Params}) {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "No description entered"))
                             }
 
-                            updateContent(newMap, sessionStorage.getItem('jwt')).then(() => {
+                            updateContent(newMap, token.current).then((error) => {
+                                if(error.message) {
+                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, error.message))
+                                    return;
+                                }
                                 setMap(newMap)
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Map info saved successfully'))
                             }).catch((e) => {
@@ -126,7 +132,7 @@ export default function EditContentPage({params}: {params: Params}) {
                             ...map!
                         }
                         newMap.images = files.map(f => f.url)
-                        updateContent(newMap, sessionStorage.getItem('jwt')).then(() => {
+                        updateContent(newMap, token.current).then(() => {
                             setMap(newMap)
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Images saved successfully'))
                         }).catch((e) => {
@@ -158,7 +164,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                 return;
                             }
 
-                            updateContent(newMap, sessionStorage.getItem('jwt')).then(() => {
+                            updateContent(newMap, token.current).then(() => {
                                 setMap(newMap)
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Files saved successfully'))
                             }).catch((e) => {

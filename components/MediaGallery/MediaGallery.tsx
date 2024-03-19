@@ -72,7 +72,8 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
 
     useEffect(() => {
         // Revoke the data uris to avoid memory leaks
-        onImagesUploaded(files)
+        if(files.length > 0)
+            onImagesUploaded(files)
     }, [files])
 
     const removeFile = (name: string) => {

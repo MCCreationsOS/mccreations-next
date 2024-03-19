@@ -56,7 +56,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         <li className="item brand">
                             <Link href="/" className="brand">
                                 <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
-                                <p className="brand_name">MCCreations <span className="badge red">Alpha</span></p>
+                                <p className="brand_name">MCCreations <span className="badge red">Beta</span></p>
                             </Link>
                         </li>
                         <li className="item">
