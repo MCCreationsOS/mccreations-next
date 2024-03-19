@@ -8,7 +8,7 @@ import RichText from "../RichText/RichText";
 
 export interface IFormInput {
     name: string,
-    type: 'image' | 'select'| 'creator'| 'text' | 'long_text' | 'multi_image'| 'file' ,
+    type: 'image' | 'select'| 'creator'| 'text' | 'long_text' | 'multi_image'| 'file' | 'password',
     placeholder?: string,
     value?: string,
     onChange?: (value: string) => void,
@@ -33,6 +33,14 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
                     {inputs && inputs.map((input, idx) => {
                         switch(input.type) {
                             case 'text':
+                                return (
+                                    <div className='field' key={idx}>
+                                        <h3 className='label'>{input.name}</h3>
+                                        <p className={styles.description}>{input.description}</p>
+                                        <input className='input wide' type={input.type} onChange={(e) => {(input.onChange) ? input.onChange(e.target.value): ""; input.value = e.target.value}} name='data' placeholder={input.placeholder} defaultValue={input.value}></input>
+                                    </div> 
+                                )
+                            case 'password': 
                                 return (
                                     <div className='field' key={idx}>
                                         <h3 className='label'>{input.name}</h3>
