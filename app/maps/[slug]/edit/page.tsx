@@ -3,6 +3,7 @@
 import { getUser } from "@/app/api/auth"
 import { fetchMap, requestApproval, updateContent } from "@/app/api/content"
 import { FilePreview, IFile, IMap, IUser, MinecraftVersion } from "@/app/types"
+import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
 import { UploadedImageRepresentation } from "@/components/ImageDropzone/ImageDropzone"
 import MediaGallery from "@/components/MediaGallery/MediaGallery"
@@ -46,6 +47,7 @@ export default function EditContentPage({params}: {params: Params}) {
     if(match) {
         return (
             <div className="centered_content">
+                <ContentWarnings map={map!} />
                 <h1>Editing {map?.title}</h1>
                 <p>Status: {(map?.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map?.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
                 {map?.status === 0 && (<button className="main_button" onClick={() => {requestApproval(map!.slug, sessionStorage.getItem('jwt')).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</button>)}
