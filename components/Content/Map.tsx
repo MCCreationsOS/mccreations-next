@@ -24,8 +24,8 @@ export default function MapComponent({map, privileged}: {map: IMap, privileged?:
         videoID = map.videoUrl.substring(map.videoUrl.lastIndexOf("/") + 1)
     }
 
-    const downloadButtonClicked = () => {
-        downloadMap(map.slug)
+    const downloadButtonClicked = async () => {
+        await downloadMap(map.slug)
         router.push(map.files[0].worldUrl)
     }
 
