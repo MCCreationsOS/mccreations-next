@@ -48,7 +48,7 @@ export default function EditContentPage({params}: {params: Params}) {
             <div className="centered_content">
                 <h1>Editing {map?.title}</h1>
                 <p>Status: {(map?.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map?.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
-                {map?.status === 0 && (<button className="main_button" onClick={() => {requestApproval(map!.slug).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</button>)}
+                {map?.status === 0 && (<button className="main_button" onClick={() => {requestApproval(map!.slug, sessionStorage.getItem('jwt')).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</button>)}
                 <Tabs preselectedTab={1} tabs={[
                 {
                     title: <ArrowLeft />,
@@ -108,7 +108,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "No description entered"))
                             }
 
-                            updateContent(newMap).then(() => {
+                            updateContent(newMap, sessionStorage.getItem('jwt')).then(() => {
                                 setMap(newMap)
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Map info saved successfully'))
                             }).catch((e) => {
@@ -124,7 +124,7 @@ export default function EditContentPage({params}: {params: Params}) {
                             ...map!
                         }
                         newMap.images = files.map(f => f.url)
-                        updateContent(newMap).then(() => {
+                        updateContent(newMap, sessionStorage.getItem('jwt')).then(() => {
                             setMap(newMap)
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Images saved successfully'))
                         }).catch((e) => {
@@ -156,7 +156,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                 return;
                             }
 
-                            updateContent(newMap).then(() => {
+                            updateContent(newMap, sessionStorage.getItem('jwt')).then(() => {
                                 setMap(newMap)
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Files saved successfully'))
                             }).catch((e) => {
