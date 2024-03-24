@@ -8,6 +8,8 @@ import { deleteUser, getUser } from "../api/auth"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import PopupComponent, { Popup } from "@/components/Popup/Popup";
 import FormComponent, { IFormInput } from "@/components/Form/Form";
+import SecondaryButton from "@/components/Buttons/SecondaryButton"
+import WarningButton from "@/components/Buttons/WarningButton"
 
 export default function AccountPage() {
     const [email, setEmail] = useState("")
@@ -123,29 +125,28 @@ export default function AccountPage() {
                         <h3>Handle</h3>
                         <p>{user.handle}</p>
                     </div>
-                    <button className="secondary_button" onClick={() => {Popup.createPopup(<FormComponent inputs={[{type: 'text', name: 'Handle', placeholder: ""}]} onSave={updateHandle} />, "Change Handle")}}>Change Handle</button>
+                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent inputs={[{type: 'text', name: 'Handle', placeholder: ""}]} onSave={updateHandle} />, title: "Change Handle"})}}>Change Handle</SecondaryButton>
                 </div>
                     <div className="settings_option">
                     <div className="text">
                         <h3>Email</h3>
                         <p>{user.email}</p>
                     </div>
-                    <button className="secondary_button" onClick={() => {Popup.createPopup(<FormComponent inputs={[{type: 'text', name: 'Email', placeholder: ""}]} onSave={updateEmail} />, "Change Email")}}>Change Email</button>
+                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent inputs={[{type: 'text', name: 'Email', placeholder: ""}]} onSave={updateEmail} />, title: "Change Email"})}}>Change Email</SecondaryButton>
                 </div>
                 <div className="settings_option">
                     <div className="text">
                         <h3>Password</h3>   
                     </div>
-                    <button className="secondary_button" onClick={() => {Popup.createPopup(<FormComponent inputs={[{type: 'password', name: 'New Password', placeholder: ""}, {type: 'password', name: 'Retype Password', placeholder: ""}]} onSave={updatePassword} />, "Update Password")}}>Change Password</button>
+                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent inputs={[{type: 'password', name: 'New Password', placeholder: ""}, {type: 'password', name: 'Retype Password', placeholder: ""}]} onSave={updatePassword} />, title: "Update Password"})}}>Change Password</SecondaryButton>
                 </div>
                 <div className="settings_option">
                     <div className="text">
                         <h3>Delete Account</h3>
                     </div>
-                    <button className="red_button" onClick={deleteAccount}>Delete Account</button>
+                    <WarningButton onClick={deleteAccount}>Delete Account</WarningButton>
                 </div>
             </div>
-            <PopupComponent />
         </div>
     )
 }

@@ -3,10 +3,12 @@
 import { getUser } from "@/app/api/auth"
 import { fetchMap, requestApproval, updateContent } from "@/app/api/content"
 import { FilePreview, IFile, IMap, IUser, MinecraftVersion } from "@/app/types"
+import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
-import { UploadedImageRepresentation } from "@/components/ImageDropzone/ImageDropzone"
-import MediaGallery from "@/components/MediaGallery/MediaGallery"
+import { UploadedImageRepresentation } from "@/components/FormInputs/ImageDropzone/ImageDropzone"
+import MediaGallery from "@/components/FormInputs/MediaGallery/MediaGallery"
+import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import Tabs from "@/components/Tabs/Tabs"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
@@ -52,7 +54,7 @@ export default function EditContentPage({params}: {params: Params}) {
                 <ContentWarnings map={map!} />
                 <h1>Editing {map?.title}</h1>
                 <p>Status: {(map?.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map?.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
-                {map?.status === 0 && (<button className="main_button" onClick={() => {requestApproval(map!.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</button>)}
+                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map!.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</MainButton>)}
                 <Tabs preselectedTab={1} tabs={[
                 {
                     title: <ArrowLeft />,
@@ -143,34 +145,23 @@ export default function EditContentPage({params}: {params: Params}) {
 
                     // Versions Tab
                     title: "Versions",
-                    content: <FormComponent inputs={[
-                            { type: 'file', name: 'Versions', value: JSON.stringify(map!.files) }
-                        ]} onSave={(inputs) => {
+                    content: <VersionManager presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
+                        let newMap: IMap = {
+                            ...map!
+                        }
+                        newMap.files = JSON.parse(vString)
+                        
+                        newMap.files.sort((a, b) => {
+                            return parseFloat(b.contentVersion) - parseFloat(a.contentVersion)
+                        })
 
-                            let newMap: IMap = {
-                                ...map!
-                            }
-
-                            if(inputs[0].value) {
-                                let files = JSON.parse(inputs[0].value) as IFile[]
-                                console.log(files)
-                                if(files.length > 0 && 'worldUrl' in files[0]) {
-                                    newMap.files = files
-                                } else {
-                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'There was an error saving your files'))
-                                }
-                            } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No files provided'))
-                                return;
-                            }
-
-                            updateContent(newMap, token.current).then(() => {
-                                setMap(newMap)
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Files saved successfully'))
-                            }).catch((e) => {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
-                            })
-                        }} />
+                        updateContent(newMap, token.current).then(() => {
+                            setMap(newMap)
+                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Versions saved successfully'))
+                        }).catch((e) => {
+                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
+                        })
+                    }} />
                     }]} />
             </div>
         )

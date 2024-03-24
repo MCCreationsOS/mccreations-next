@@ -27,12 +27,14 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
         return (
             <>
             <button className={styles.profile_edit} onClick={() => {
-                Popup.createPopup(
-                <FormComponent inputs={[
+                Popup.createPopup({
+                    content: <FormComponent inputs={[
                     {name: "Change Banner", type: "image", value: creator.bannerURL}, 
                     {name: "Change Icon", type: "image", value: creator.iconURL}, 
                     {name: "About", type: "text", value: creator.about}
-                ]} onSave={saveCreator} />, "Update Profile")}}>
+                ]} onSave={saveCreator} />, 
+                title: "Update Profile"
+                })}}>
                     <Edit />
             </button>
             </>

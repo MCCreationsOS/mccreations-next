@@ -1,10 +1,10 @@
-import Menu from "@/components/Menu"
+import Menu from "@/components/Menu/Menu"
 import ContentGrid from "@/components/ContentGrid";
-import ContentCard from "@/components/cards/ContentCard";
-import FeaturedCard from "@/components/slideshows/FeaturedSlideshow";
+import ContentCard from "@/components/ContentSlideshow/ContentCard";
+import FeaturedCard from "@/components/FeaturedSlideshow/FeaturedSlideshow";
 import { fetchMaps } from "@/app/api/content";
 import Error from "@/components/Error";
-import ContentSlideshow from "@/components/slideshows/ContentSlideshow";
+import ContentSlideshow from "@/components/ContentSlideshow/ContentSlideshow";
 import './styles/homepage.css'
 import { IMap, SortOptions } from "./types";
 import ContentArea from "@/components/ContentArea/ContentArea";

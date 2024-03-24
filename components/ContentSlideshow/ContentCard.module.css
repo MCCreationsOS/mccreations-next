@@ -1,0 +1,101 @@
+.content_card {
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+}
+
+.content_card .information {
+    height: max-content;
+    position: relative;
+}
+
+.content_card .information .description {
+    background-color: #171717ee;
+    color: #ddd;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    position: absolute;
+    padding: 10px;
+    top: 0px;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity 0.2s;
+}
+
+.content_card .information .description * {
+    margin: 5px 0;
+}
+
+.stats {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px !important;
+}
+
+.stats .stat {
+    margin: 0 15px 0 0px !important;
+    display: flex;
+    align-items: center;
+}
+
+.stats .stat .in_text_icon {
+    margin: 0 5px 0 0px !important;
+    width: 18px;
+}
+
+.content_card:hover .description {
+    opacity: 1;
+}
+
+.content_card .logo {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    /* border-radius: 5px; */
+    opacity: 1;
+    margin-bottom: 0px;
+}
+
+
+.content_card .title {
+    font-weight: bold;
+    font-size: 1rem;
+    color: #ddd;
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.content_card .title:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+    .content_card .information .description {
+        font-size: 1.1rem;
+    }
+
+    .content_card .title {
+        display: block;
+        width: 100%;
+        margin-bottom: 0;
+        font-size: 1.2rem;
+    }
+}
+
+.content_card .author {
+    margin: 0 0 5px 0;
+    font-size: 0.95rem;
+    color: #aaaaaa;
+}
+
+.content_card .author a {
+    margin: 0 0 5px 0;
+    font-size: 0.95rem;
+    color: #aaaaaa;
+    text-decoration: underline;
+}

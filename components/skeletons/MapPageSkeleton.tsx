@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { shimmer, toBase64 } from './imageShimmer';
 import ContentMenu from '../Content/ContentMenu';
+import MainButton from '../Buttons/MainButton';
 
 export default async function MapPageSkeleton() {
         return (
@@ -20,7 +21,7 @@ export default async function MapPageSkeleton() {
                         </div>
                         <div className='map_download_stack'>
                             {/* <Rating value={0} content={{slug: ""}} /> */}
-                            <button className='main_button'>Download</button>
+                            <MainButton>Download</MainButton>
                         </div>
                     </div>
                     <div className='map_information'>

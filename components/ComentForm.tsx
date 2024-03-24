@@ -1,10 +1,11 @@
 'use client'
 
 import { Suspense, useEffect, useState } from "react"
-import CommentCard from "./cards/CommentCard"
+import CommentCard from "./Comment/CommentCard"
 import { postComment } from "@/app/api/community";
 import { IComment, IUser } from "@/app/types";
 import { getUser } from "@/app/api/auth";
+import MainButton from "./Buttons/MainButton";
 
 export default function CommentForm({mapSlug}: {mapSlug: string}) {
     const [username, setUsername] = useState("");
@@ -35,7 +36,7 @@ export default function CommentForm({mapSlug}: {mapSlug: string}) {
 
     return (
         <div className='centered_content'>
-                <form onSubmit={sendComment} method="none">
+                <form method="none">
                     <h2>Leave a Comment</h2>
                     {(user) ? <></> : 
                         <div className='field'>
@@ -47,7 +48,7 @@ export default function CommentForm({mapSlug}: {mapSlug: string}) {
                             <p className='label'>Comment</p>
                             <textarea className='input wide' name='comment' placeholder='Cool project bro!'onChange={(e) => {setComment(e.target.value)}}></textarea>
                     </div>
-                    <button className="main_button" >Send!</button>
+                    <MainButton onClick={sendComment} >Send!</MainButton>
                     </form>
         </div>
     )

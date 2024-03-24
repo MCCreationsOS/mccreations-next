@@ -1,7 +1,7 @@
 'use client'
 import ContentGrid from "@/components/ContentGrid"
-import ContentCard from "@/components/cards/ContentCard"
-import Menu from "@/components/Menu"
+import ContentCard from "@/components/ContentSlideshow/ContentCard"
+import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
 import { fetchMaps } from "@/app/api/content"

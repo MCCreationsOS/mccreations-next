@@ -6,7 +6,7 @@ import { IMap } from "../types";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUser } from "../api/auth";
-import Menu from "@/components/Menu";
+import Menu from "@/components/Menu/Menu";
 import Image from "next/image";
 import { Image as ImageIcon } from "react-feather";
 import { Edit } from "react-feather";

@@ -1,18 +1,17 @@
 import { ICreator, IFile, IMap } from "@/app/types";
-import Menu from "../Menu";
 import Image from 'next/image'
 import Rating from "../Rating";
-import CreatorCard from "../cards/CreatorCard";
-import FileCard from "../cards/FileCard";
-import MapImageSlideshow from "../slideshows/MapImageSlideshow";
+import CreatorCard from "../Creator/CreatorCard";
+import FileCard from "../File/FileCard";
+import MapImageSlideshow from "../MapImageSlideshow/MapImageSlideshow";
 import CommentForm from "../ComentForm";
-import Comments from "../Comments";
+import PretechedCommentsList from "@/components/Comment/CommentsList";
 import DOMPurify from "isomorphic-dompurify";
-import Link from "next/link";
 import ContentMenu from "./ContentMenu";
 import ContentWarnings from "./ContentWarnings";
 import { downloadMap } from "@/app/api/content";
 import { useRouter } from "next/navigation";
+import MainButton from "../Buttons/MainButton";
 
 export default function MapComponent({map, privileged}: {map: IMap, privileged?: boolean}) {
     const router = useRouter()
@@ -47,7 +46,7 @@ export default function MapComponent({map, privileged}: {map: IMap, privileged?:
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={map.rating} content={map} />
-                        {(map.files) ? <span className='main_button' onClick={downloadButtonClicked}>Download</span>: <></>}
+                        {(map.files) ? <MainButton onClick={downloadButtonClicked}>Download</MainButton>: <></>}
                     </div>
                 </div>
                 <div className='map_information'>
@@ -75,7 +74,7 @@ export default function MapComponent({map, privileged}: {map: IMap, privileged?:
             </div>
             <MapImageSlideshow images={map.images.slice(1)} />
             <CommentForm mapSlug={map.slug}></CommentForm>
-            <Comments mapSlug={map.slug} comments={map.comments}/>
+            <PretechedCommentsList mapSlug={map.slug} comments={map.comments}/>
         </div>
         </>
     )

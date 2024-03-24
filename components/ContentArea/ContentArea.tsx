@@ -1,8 +1,8 @@
 import { QueryOptions } from "@/app/types"
 import ContentGrid from "../ContentGrid"
-import ContentScrollGrid from "../slideshows/ContentScrollGrid"
+import ContentScrollGrid from "../ContentScrollBackground/ContentScrollGrid"
 import { fetchMaps } from "@/app/api/content"
-import ContentSlideshow from "../slideshows/ContentSlideshow"
+import ContentSlideshow from "../ContentSlideshow/ContentSlideshow"
 
 export default async function ContentArea({type, options, playlist, cards}: {type: string, options: QueryOptions, playlist?: string, cards?: string}) {
     let content = (await fetchMaps(options, false)).documents

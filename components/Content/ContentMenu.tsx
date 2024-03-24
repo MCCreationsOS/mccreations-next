@@ -1,7 +1,7 @@
 import { ICreator } from "@/app/types";
 import Tabs from "../Tabs/Tabs";
 import styles from "./Content.module.css"
-import EditContentButton from "./EditContentButton";
+import EditContentButton from "@/components/Buttons/EditContentButton";
 
 export default function ContentMenu({slug, creators, status}: {slug: string, creators: ICreator[], status: number}) {
     return (

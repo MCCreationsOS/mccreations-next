@@ -1,5 +1,5 @@
 import { IMap } from "@/app/types"
-import ContentCard from "./cards/ContentCard"
+import ContentCard from "./ContentSlideshow/ContentCard"
 
 export default function ContentGrid({content, cards}: {content: IMap[], cards?: string}) {
     return (

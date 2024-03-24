@@ -1,5 +1,5 @@
 import { getCreator } from "@/app/api/community"
-import Menu from "@/components/Menu"
+import Menu from "@/components/Menu/Menu"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import styles from './CreatorPage.module.css'
 import PopupComponent, { Popup } from "@/components/Popup/Popup";
@@ -25,8 +25,6 @@ export default async function ProfilePage({params}: {params: Params}) {
             <ProfileCard creator={c} />
             <ContentArea cards="three" type="grid" options={{search:c.username, limit: 20}} />
         </div>
-        <PopupComponent></PopupComponent>
-        {/* <EditProfile visible={editing} creator={creator} update={saveCreator} close={closeEditProfile}/> */}
         {/* <Image className={styles.banner_background} width={1920} height={1080} src={creator.bannerURL || ""} alt=""></Image>
                 <div className={styles.banner_foreground}>
                     <div className={styles.banner_container}>

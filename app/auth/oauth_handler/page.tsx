@@ -1,6 +1,6 @@
 'use client'
 
-import Menu from "@/components/Menu";
+import Menu from "@/components/Menu/Menu";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"

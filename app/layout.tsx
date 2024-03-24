@@ -2,8 +2,9 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import './styles/globals.css'
 import Loading from './loading'
-import Footer from '@/components/Footer'
+import Footer from '@/components/Footer/Footer'
 import PopupMessageComponent from '@/components/PopupMessage/PopupMessage'
+import PopupComponent from '@/components/Popup/Popup'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://next.mccreations.net'),
@@ -39,6 +40,7 @@ export default function RootLayout({ children }: {children: React.ReactNode}) {
       </head>
       <body id="view">
         <PopupMessageComponent />
+        <PopupComponent />
         <Suspense fallback={<Loading />}>
             {children}
         </Suspense>

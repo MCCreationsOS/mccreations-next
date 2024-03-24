@@ -6,7 +6,8 @@ import { IMap } from "../types";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUser } from "../api/auth";
-import Menu from "@/components/Menu";
+import Menu from "@/components/Menu/Menu";
+import MainButton from "@/components/Buttons/MainButton";
 
 export default function Page() {
     const [maps, setMaps] = useState<IMap[]>([])
@@ -26,7 +27,7 @@ export default function Page() {
             }
         })
 
-        fetchMaps({status: 1, exclusiveStatus: true}, false).then((maps) => {
+        fetchMaps({status: 1, exclusiveStatus: true}, false, jwt).then((maps) => {
             setMaps(maps.documents)
         })
     
@@ -41,7 +42,7 @@ export default function Page() {
                     <h2>{map.title}</h2>
                     <p>{map.shortDescription}</p>
                     <Link href={`/maps/${map.slug}`}>View</Link>
-                    <button className="main_button" onClick={() => {approveContent(map.slug, sessionStorage.getItem('jwt'))}}>Approve</button>
+                    <MainButton onClick={() => {approveContent(map.slug, sessionStorage.getItem('jwt'))}}>Approve</MainButton>
                 </div>
             ))}
         </div>

@@ -1,0 +1,47 @@
+.map_scroll {
+    position: absolute;
+    z-index: 1;
+    filter: blur(10px);
+    opacity: 0.15;
+    top: 0%;
+    animation: mapScrollScroll 50s linear;
+    animation-iteration-count: infinite;
+}
+
+@keyframes mapScrollScroll {
+    0% {
+        transform: rotateZ(-45deg) translateX(calc(120% + 32vw - 25vh)) translateY(5%)
+    }
+    100% {
+        transform: rotateZ(-45deg) translateX(calc(120% + 32vw - 25vh)) translateY(-45%)
+    }
+}
+
+.content_scroll_grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    width: calc(70vw + 60vh);
+    margin-bottom: 15px;
+}
+
+.content_card {
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+}
+
+.content_card .information {
+    height: max-content;
+    position: relative;
+}
+
+.content_card .logo {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    /* border-radius: 5px; */
+    opacity: 1;
+    margin-bottom: 0px;
+}

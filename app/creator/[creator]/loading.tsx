@@ -1,14 +1,6 @@
 import styles from './CreatorPage.module.css'
 import Image from "next/image"
-import ContentGrid from "@/components/ContentGrid"
-import { fetchMaps } from "@/app/api/content"
-import Link from "next/link"
-import { getUser } from "@/app/api/auth"
-import { useEffect, useState } from "react"
-import { IUser, UserTypes } from "@/app/types"
-import { Edit } from "react-feather"
-import EditProfile from "@/components/EditProfile"
-import Menu from '@/components/Menu'
+import Menu from '@/components/Menu/Menu'
 import { shimmer, toBase64 } from '@/components/skeletons/imageShimmer'
 
 export default function ProfileLoading() {

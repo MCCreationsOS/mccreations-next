@@ -3,9 +3,11 @@ import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SiDiscord, SiFacebook, SiGithub, SiGoogle, SiMicrosoft } from '@icons-pack/react-simple-icons'
 import Link from "next/link";
-import MapScroll from "@/components/MapScroll";
+import MapScroll from "@/components/ContentScrollBackground/MapScroll";
 import { UserTypes } from "../types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
+import MainButton from "@/components/Buttons/MainButton";
+import PopupComponent from "@/components/Popup/Popup";
 
 export default function SignUp() {
     const [username, setUsername] = useState("");
@@ -111,36 +113,36 @@ export default function SignUp() {
             <Suspense>
                 <MapScroll />
             </Suspense>
-             <div className="centered_content small popup">
-                {(message) ? <div className="errorBox"><p>{message}</p></div>: <></>}
-                <h2>Sign In With</h2>
-                <div className="sign_in_providers">
-                    <div className="provider" onClick={signUpWithGoogle}><SiGoogle /> Google</div>
-                    <div className="provider" onClick={signInWithDiscord}><SiDiscord />Discord</div>
-                    <div className="provider" onClick={signUpWithGithub}><SiGithub />Github</div>
-                    <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />Microsoft</div>
-                </div>
-                <h2>Or Sign Up</h2>
-                <form method="">
-                    <div className='field'>
-                        <p className='label'>Username</p>
-                        <input className='input wide' type='text' autoComplete="username" name='username' placeholder='CrazyCowMM' onChange={(e) => {setUsername(e.target.value)}}></input>
+            <PopupComponent useBackground={false} canClose={false}>
+                    {(message) ? <div className="errorBox"><p>{message}</p></div>: <></>}
+                    <h2>Sign In With</h2>
+                    <div className="sign_in_providers">
+                        <div className="provider" onClick={signUpWithGoogle}><SiGoogle /> Google</div>
+                        <div className="provider" onClick={signInWithDiscord}><SiDiscord />Discord</div>
+                        <div className="provider" onClick={signUpWithGithub}><SiGithub />Github</div>
+                        <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />Microsoft</div>
                     </div>
-                    <div className='field'>
-                        <p className='label'>Email</p>
-                        <input className='input wide' type='text' autoComplete="email" name='email' placeholder='crazycowmm@gmail.com' onChange={(e) => {setEmail(e.target.value)}}></input>
+                    <h2>Or Sign Up</h2>
+                    <form method="">
+                        <div className='field'>
+                            <p className='label'>Username</p>
+                            <input className='input wide' type='text' autoComplete="username" name='username' placeholder='CrazyCowMM' onChange={(e) => {setUsername(e.target.value)}}></input>
+                        </div>
+                        <div className='field'>
+                            <p className='label'>Email</p>
+                            <input className='input wide' type='text' autoComplete="email" name='email' placeholder='crazycowmm@gmail.com' onChange={(e) => {setEmail(e.target.value)}}></input>
+                        </div>
+                        <div className='field'>
+                            <p className='label'>Password</p>
+                            <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}}></input>
+                        </div>
+                        <MainButton onClick={signUpWithEmail}>Sign up</MainButton>
+                    </form>
+                    <div className="sign_up_options">
+                        <Link href="/signin">Already have an account?</Link>
+                        <Link href="/signin/reset" >Forgot your password?</Link>
                     </div>
-                    <div className='field'>
-                        <p className='label'>Password</p>
-                        <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}}></input>
-                    </div>
-                    <button type="button" className="main_button" onClick={signUpWithEmail}>Sign up</button>
-                </form>
-                <div className="sign_up_options">
-                    <Link href="/signin">Already have an account?</Link>
-                    <Link href="/signin/reset" >Forgot your password?</Link>
-                </div>
-            </div>
+            </PopupComponent>
         </div>
        
     )

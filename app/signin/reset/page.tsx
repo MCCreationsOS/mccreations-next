@@ -1,6 +1,7 @@
 'use client'
 
 import { sendPasswordResetEmail } from "@/app/api/auth"
+import MainButton from "@/components/Buttons/MainButton"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
@@ -23,7 +24,7 @@ export default function ResetPage() {
                         <p className='label'>Email</p>
                         <input className='input wide' type='text' autoComplete="email" name='email' placeholder='crazycowmm@gmail.com' onChange={(e) => {setEmail(e.target.value)}}></input>
                     </div>
-                    <button type="button" className="main_button" onClick={resetPassword}>Send Reset Email</button>
+                    <MainButton onClick={resetPassword}>Send Reset Email</MainButton>
                 </form>
             </div>
         </div>

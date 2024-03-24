@@ -1,10 +1,11 @@
 import { useState } from "react";
-import ImageDropzone, { UploadedImageRepresentation } from "../ImageDropzone/ImageDropzone";
+import ImageDropzone, { UploadedImageRepresentation } from "../FormInputs/ImageDropzone/ImageDropzone";
 import styles from './Form.module.css'
 import { FilePreview, IFile } from "@/app/types";
-import CreatorSelector from "../CreatorSelector/CreatorSelector";
-import FileDropzone from "../VersionUploader/VersionUploader";
-import RichText from "../RichText/RichText";
+import CreatorSelector from "../FormInputs/CreatorSelector/CreatorSelector";
+import FileDropzone from "../FormInputs/VersionUploader/FileUpload";
+import RichText from "../FormInputs/RichText/RichText";
+import MainButton from "../Buttons/MainButton";
 
 export interface IFormInput {
     name: string,
@@ -93,12 +94,12 @@ export default function FormComponent({inputs, onSave}: {inputs: IFormInput[], o
                                     <div className='field' key={idx}>
                                         <h3 className="label">{input.name}</h3>
                                         <p className={styles.description}>{input.description}</p>
-                                        <FileDropzone onFilesUploaded={(input.onChange) ? (file) => {input.onChange!(JSON.stringify(file))} : (files) => {input.value = JSON.stringify(files)}} presetFiles={input.value}/>
+                                        <FileDropzone onFilesUploaded={(input.onChange) ? (file) => {input.onChange!(file)} : (file) => {input.value = file}} presetFile={input.value}/>
                                     </div>
                                 )
                         }
                         })}
-                    <button type="button" className="main_button" onClick={saveForm}>Save</button>
+                    <MainButton onClick={saveForm}>Save</MainButton>
                     <input type='hidden' value={optionSelectRerender}></input>
                 </div>
     )
