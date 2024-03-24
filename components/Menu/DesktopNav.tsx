@@ -63,7 +63,10 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                             <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
                         </li>
                         <li className="item">
-                            {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
+                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="https://www.mccreations.net/resourcepacks">Resourcepacks</Link>
+                        </li>
+                        <li className="item">
+                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="https://www.mccreations.net/datapacks">Datapacks</Link>
                         </li>
                     </ul>
                     <ul className='action_list'>
