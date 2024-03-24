@@ -43,6 +43,10 @@ export class Popup {
 
         Popup.onCreate();
     }
+
+    static close() {
+        Popup.onClose();
+    }
 }
 
 export default function PopupComponent(props: PopupProps) {

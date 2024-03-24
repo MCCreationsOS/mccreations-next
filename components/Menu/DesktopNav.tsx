@@ -18,6 +18,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
         if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A short description must be included to save content"))
 
         let token  = sessionStorage.getItem('jwt')
+        Popup.close()
         createNewContent(title!, type!, shortDescription!, token).then((key) => {
             if(key && 'key' in key) {
                 sessionStorage.setItem('temp_key', key.key)
@@ -38,6 +39,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
             if(res.error) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
             } else if(res.content) {
+                Popup.close()
                 router.push('/maps/' + res.content + '/edit')
             }
         } else {
