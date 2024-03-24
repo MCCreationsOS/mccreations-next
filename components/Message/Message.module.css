@@ -1,0 +1,60 @@
+.message_container {
+    background-color: #373737;
+    color: white;
+    width: 50%;
+    margin: 0 auto;
+    min-width: 500px;
+    overflow: hidden;
+}
+
+.warning_container {
+    background-color: #f0b432;
+    color: black;
+    width: 50%;
+    margin: 0 auto;
+    min-width: 500px;
+    overflow: hidden;
+}
+
+.error_container {
+    background-color: #c73030;
+    color: white;
+    width: 50%;
+    margin: 0 auto;
+    min-width: 500px;
+    overflow: hidden;
+}
+
+.title_bar {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding: 5px 10px;
+}
+
+.title {
+    flex: 50;
+    margin: 0;
+}
+
+.options {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.option {
+    padding: 3px;
+    margin: 2px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.option_text {
+    margin: 0 0 2px 0;
+    cursor: default;
+}
+
+.message {
+    padding: 10px;
+}

@@ -1,13 +1,9 @@
 @import 'grids.css';
-@import 'cards.css';
 @import 'nav.css';
 @import 'forms.css';
-@import 'buttons.css';
 @import 'mapPage.css';
-@import 'footer.css';
-@import 'slideshows.css';
-@import 'badges.css';
 @import 'popupPage.css';
+@import 'editor.css';
 
 html,
 body {
@@ -46,14 +42,6 @@ code {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-
-.popup {
-  background-color: #272727;
-  width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 5px;
 }
 
 a {
@@ -95,36 +83,6 @@ a:active {
   width: 20%;
 }
 
-.centered_content.popup {
-  background-color: #272727;
-  border-radius: 5px;
-}
-
-.popup .titlebar {
-  display: flex;
-  background-color: #171717;
-  margin: -20px -20px 10px -20px;
-  padding: 20px;
-}
-
-.popup .titlebar .title {
-  flex: 50%;
-}
-
-.popup .titlebar .close {
-  cursor: pointer;
-}
-
-.popup_background {
-  position: absolute;
-  z-index: 0;
-  background-color: black;
-  opacity: 0.5;
-  width: 100vw;
-  height: 100vh;
-  top: 0%;
-}
-
 @media screen and (max-width: 1920px) {
   .centered_content {
       width: 65%;
@@ -142,4 +100,12 @@ a:active {
   .centered_content.small {
     width: 95%;
   }
+}
+
+.center_text {
+  text-align: center;
+}
+
+.footer_margin {
+  margin: 20px auto 0 auto;
 }

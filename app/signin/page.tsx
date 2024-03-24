@@ -3,9 +3,10 @@ import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { SiDiscord, SiGithub, SiGoogle, SiMicrosoft } from "@icons-pack/react-simple-icons";
 import Link from "next/link";
-import MapScroll from "@/components/MapScroll";
+import MapScroll from "@/components/ContentScrollBackground/MapScroll";
 import { UserTypes } from "../types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
+import MainButton from "@/components/Buttons/MainButton";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
@@ -28,6 +29,7 @@ export default function SignIn() {
                 res.json().then(data => {
                     if(data.token) {
                         sessionStorage.setItem('jwt', data.token);
+                        sessionStorage.setItem('creator', JSON.stringify(data.creator))
                         router.push('/')
                     } else {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))
@@ -77,9 +79,9 @@ export default function SignIn() {
 
     return (
         <div className="popup_page">
-            <Suspense>
+            {/* <Suspense>
                 <MapScroll />
-            </Suspense>
+            </Suspense> */}
         <div className="centered_content small popup">
             {(message) ? <div className="errorBox"><p>{message}</p></div>: <></>}
             <h2>Sign In With...</h2>
@@ -99,7 +101,7 @@ export default function SignIn() {
                     <p className='label'>Password</p>
                     <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}}></input>
                 </div>
-                <button type="button" className="main_button" onClick={signInWithEmail}>Sign in</button>
+                <MainButton onClick={signInWithEmail}>Sign in</MainButton>
             </form>
             <div className="sign_up_options">
                 <Link href="/signup">Don't have an account?</Link>

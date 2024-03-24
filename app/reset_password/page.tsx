@@ -3,6 +3,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { resetPassword } from "@/app/api/auth";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
+import MainButton from "@/components/Buttons/MainButton";
 
 export default function Page() {
     const [password, setPassword] = useState("")
@@ -63,7 +64,7 @@ export default function Page() {
                         <p className='label'>Retype Password</p>
                         <input className='input wide' type='password' autoComplete="email" name='email' placeholder='password' onChange={(e) => {setPassword2(e.target.value)}}></input>
                     </div>
-                    <button type="button" className="main_button" onClick={updatePassword}>Reset</button>
+                    <MainButton onClick={updatePassword}>Reset</MainButton>
                 </form>
             </div>
         </div>

@@ -16,6 +16,24 @@ export async function getUser(id?: object, authorization?: string) {
     }
 }
 
+export async function getCreators(authorization: string): Promise<IUser[] | undefined> {
+    try {
+        let res = await fetch(`${process.env.DATA_URL}/auth/user/creators`, {
+            headers: {
+                'Authorization': authorization
+            }
+        })
+        let data = await res.json();
+        if(data.creators) {
+            return data.creators as IUser[]
+        } else {
+            return data.error
+        }
+    } catch(e) {
+        console.log(e)
+    }
+}
+
 export async function deleteUser(authorization: string) {
     try {
         fetch(`${process.env.DATA_URL}/auth/user`, {

@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import Loading from './loading'
-import Footer from '@/components/Footer'
+import Footer from '@/components/Footer/Footer'
  
 export default function MapsLayout({ children }: {children: React.ReactNode}) {
  return (

@@ -9,7 +9,7 @@ export default function MenuSkeleton() {
                 <div className="main_nav">
                     <ul className="nav_list">
                         <li className="item">
-                            <p className="brand">MCCreations <span className="badge red">Alpha</span></p>
+                            <p className="brand">MCCreations <span className="badge red">Beta</span></p>
                         </li>
                         <li className="item">
                             <Link className="link" href="/">Home</Link>

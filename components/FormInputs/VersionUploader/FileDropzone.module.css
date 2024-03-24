@@ -1,0 +1,48 @@
+.upload {
+    width: 100%;
+    object-fit: cover;
+    position: relative;
+    margin: 3px 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.upload p {
+    font-size: 0.8rem;
+    color: gray;
+    text-align: center;
+}
+
+.dnd {
+    width: 100%;
+    height: 150px;
+    max-width: 500px;
+    object-fit: cover;
+    position: relative;
+    margin: 3px 3px;
+    background-color: #272727;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.version {
+    margin: 10px 0;
+    padding: 5px 10px;
+    background-color: #272727;
+    position: relative;
+}
+
+.version.collapsed {
+    max-height: 100px;
+    overflow: hidden;
+}
+
+.hide_version {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}

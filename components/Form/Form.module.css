@@ -1,0 +1,39 @@
+.background {
+    background-color: black;
+    opacity: 0.5;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    right: 0;
+    z-index: 11;
+}
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.option {
+    padding: 10px;
+    background-color: #2b2b2b;
+    border: 1px solid #373737;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.option:hover {
+    background-color: #373737;
+}
+
+.option_selected {
+    padding: 10px;
+    background-color: #373737;
+    border: 1px solid #3154f4;
+    font-size: 1.1rem;
+}
+
+.description {
+    margin: 0 0 5px 0;
+    color: gray
+}

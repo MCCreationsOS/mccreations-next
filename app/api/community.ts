@@ -10,7 +10,7 @@ import { IMap } from "../types";
  */
 export async function postRating(rating: number, map: IMap) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps/rate/${map.slug}`, { 
+        let response = await fetch(`${process.env.DATA_URL}/content/rate/${map.slug}`, { 
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',

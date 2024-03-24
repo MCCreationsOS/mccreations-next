@@ -4,6 +4,7 @@ import download from 'public/download.svg'
 import heart from 'public/heart.svg';
 import map from 'public/map.svg'
 import { shimmer, toBase64 } from "./imageShimmer";
+import MainButton from '../Buttons/MainButton';
 
 export default function FeaturedSkeleton() {
     return (
@@ -22,7 +23,7 @@ export default function FeaturedSkeleton() {
                         <div className="cardStat"><Image className="inTextIcon" src={heart} alt=""></Image></div>
                         <div className='cardStat'><Image className="inTextIcon" src={map} alt=""></Image></div>
                     </div>
-                    <button className="main_button">See More!</button>
+                    <MainButton>See More!</MainButton>
                     <div>
                         <div className="marker active">
                             <span className="color" style={{margin: `0 -0%`}}></span>

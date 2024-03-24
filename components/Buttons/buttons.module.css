@@ -1,0 +1,78 @@
+.main_button {
+    padding: 10px 50px;
+    font-size: 1.2rem;
+    background-color: #3154f4;
+    font-weight: 500;
+    border: none;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+}
+
+.main_button:hover {
+    background-color: #2a48d0;
+}
+
+.main_button:visited {
+    color: white;
+}
+
+.hollow_button {
+    padding: 10px 35px;
+    font-size: 1rem;
+    border: 1px solid #3154f4;
+    font-weight: 500;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+    background-color: transparent;
+}
+
+.hollow_button:visited {
+    color: white;
+}
+
+.hollow_button:hover {
+    background-color: #3154f4;
+    border-radius: 5px;
+}
+
+.secondary_button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #272727;
+    font-weight: 500;
+    border: none;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+    height: fit-content
+}
+
+.secondary_button:hover {
+    background-color: #474747;
+}
+
+.warning_button {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    background-color: #c73030;
+    font-weight: 500;
+    border: none;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+    height: fit-content
+}
+
+.warning_button:hover {
+    background-color: #9b2424;
+}

@@ -1,0 +1,215 @@
+.slideshow {
+    position: relative;
+    margin: 0 auto;
+}
+
+.slideshow {
+    height: 75vh;
+}
+
+.slideshow .slide {
+    margin: 0 auto;
+    width: 100%;
+    background-color: #171717;
+    position: absolute;
+    height: fit-content;
+    transition: all 0.2s ease;
+}
+
+.slideshow .slide {
+    max-height: 75vh;
+}
+
+.slideshow .slide.inactive {
+    animation: bigSlideshowSlideFadeOut 0.5s ease-out;
+    animation-fill-mode: both;
+}
+
+.slideshow .slide.active {
+    animation: bigSlideshowSlideFadeIn 0.5s ease-in;
+    animation-fill-mode: both;
+}
+
+@keyframes bigSlideshowSlideFadeOut {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+@keyframes bigSlideshowSlideFadeIn {
+    0% {
+        opacity: 0;
+        display: none;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.slideshow .image_background{  
+    height: 80vh;
+    width: 100%;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.8), rgba(0,0,0,0.4),rgba(0,0,0,0.04), rgba(0,0,0,0));
+    object-fit: cover;
+}
+
+.nav_arrow {
+    position: absolute;
+    width: 40px;
+    opacity: 0.6;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.nav_arrow:hover {
+    opacity: 1;
+}
+
+.slideshow .nav_arrow.left {
+    top: 45%;
+    left: 1%;
+}
+
+.slideshow .nav_arrow.right {
+    top: 45%;
+    right: 1%;
+}
+
+.slideshow .nav_arrow {
+    height: 300px;
+}
+
+.slideshow .information {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    max-width: 700px;
+    margin-top: 50px;
+}
+
+.slideshow .information .title {
+    font-size: 2.0rem;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.slideshow .information .description {
+    font-size: 1.1rem;
+    margin: 10px 0px 3px 0px;
+}
+
+.slideshow .information .author {
+    font-size: 1.1rem;
+    margin: 10px 0px 15px 0px;
+    color: #ddd;
+}
+
+.slideshow .information .stats {
+    color: #ddd;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.stats .stat {
+    margin: 0 15px 0 0px !important;
+    display: flex;
+    align-items: center;
+}
+
+.stats .stat .in_text_icon {
+    margin: 0 5px 0 0px !important;
+    width: 18px;
+}
+
+.slideshow .information .image {
+    aspect-ratio: 16/9;
+    object-fit: cover;
+}
+
+.slideshow .information .image {
+    width: auto;
+    height: 25vh;
+}
+
+.slideshow .marker {
+    text-align: left;
+    cursor: pointer;
+    height: 10px;
+    width: 20px;
+    margin: 20px 4px;
+    background-color: #55555588;
+    border-radius: 20px;
+    display: inline-block;
+    transition: width 0.6s ease;
+    overflow: hidden;
+}
+
+.slideshow .marker.active {
+    width: 70px;
+}
+
+.slideshow .marker .color {
+    width: 70px;
+    height: 20px;
+    display: inline-block;
+    transition: width 0.1s ease;
+}
+
+.slideshow .marker.active .color {
+    background-color: #2a48d0;
+}
+
+@media screen and ((max-width: 600px) or (max-height: 600px)) {
+    .slideshow {
+        height: 60vh;
+    }
+
+    .slideshow .image_background{  
+        height: 60vh;
+    }
+
+    .slideshow .information {
+        top: 0%;
+        left: 2.5%;
+        text-align: center;
+        width: 95vw;
+    }
+
+    .slideshow .nav_arrow.left {
+        top: 50%;
+    }
+    
+    .slideshow .nav_arrow.right {
+        top: 50%;
+    }
+
+    .slideshow .information .image {
+        width: auto;
+        height: 25vh;
+        max-width: 90vw;
+    }
+
+    .slideshow .information .title {
+        font-size: 1.5rem;
+        margin-bottom: 2px;
+        text-align: center;
+    }
+
+    .slideshow .information .description {
+        display: none;
+    }
+
+    .slideshow .information .stats {
+        justify-content: center;
+    }
+}
+

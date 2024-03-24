@@ -20,14 +20,6 @@
     width: 90%;
 }
 
-.content_scroll_grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    width: calc(70vw + 60vh);
-    margin-bottom: 15px;
-}
-
 @media screen and (min-width: 2200px) {
     .content_grid {
         display: grid;

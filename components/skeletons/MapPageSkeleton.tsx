@@ -1,13 +1,12 @@
-import Rating from '@/components/Rating';
 import Image from 'next/image';
-import Link from 'next/link';
 import { shimmer, toBase64 } from './imageShimmer';
-import MenuSkeleton from './MenuSkeleton';
+import ContentMenu from '../Content/ContentMenu';
+import MainButton from '../Buttons/MainButton';
 
 export default async function MapPageSkeleton() {
         return (
             <>
-            <MenuSkeleton/>
+            <ContentMenu status={0} slug="" creators={[]} />
             <div className='map_page'>
                 <Image className='image_background' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
                 <div className='map_logo_foreground'>
@@ -22,7 +21,7 @@ export default async function MapPageSkeleton() {
                         </div>
                         <div className='map_download_stack'>
                             {/* <Rating value={0} content={{slug: ""}} /> */}
-                            <button className='main_button'>Download</button>
+                            <MainButton>Download</MainButton>
                         </div>
                     </div>
                     <div className='map_information'>
