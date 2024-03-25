@@ -5,6 +5,8 @@ import Loading from './loading'
 import Footer from '@/components/Footer/Footer'
 import PopupMessageComponent from '@/components/PopupMessage/PopupMessage'
 import PopupComponent from '@/components/Popup/Popup'
+import { Analytics } from "@vercel/analytics/react"
+
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://next.mccreations.net'),
@@ -45,6 +47,7 @@ export default function RootLayout({ children }: {children: React.ReactNode}) {
             {children}
         </Suspense>
         <Footer></Footer>
+        <Analytics />
     </body>
     </html>
   )

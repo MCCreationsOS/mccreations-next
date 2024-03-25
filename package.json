@@ -17,6 +17,7 @@
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "^14.0.2",
     "@types/mdx": "^2.0.10",
+    "@vercel/analytics": "^1.2.2",
     "aws-sdk": "^2.1520.0",
     "axios": "^1.6.5",
     "dompurify": "^3.0.8",

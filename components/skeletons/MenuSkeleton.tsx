@@ -1,4 +1,6 @@
 import Link from "next/link"
+import Badge from "../Badge"
+import HollowButton from "../Buttons/HollowButton"
 
 export default function MenuSkeleton() {
 
@@ -9,7 +11,7 @@ export default function MenuSkeleton() {
                 <div className="main_nav">
                     <ul className="nav_list">
                         <li className="item">
-                            <p className="brand">MCCreations <span className="badge red">Beta</span></p>
+                            <p className="brand">MCCreations <Badge color="red">Beta</Badge></p>
                         </li>
                         <li className="item">
                             <Link className="link" href="/">Home</Link>
@@ -23,9 +25,7 @@ export default function MenuSkeleton() {
                     </ul>
                     <ul className='action_list'>
                         <li className='item'>
-                            <Link href='https://mccreations.net/submit' className="nav_button">
-                                Create
-                            </Link>
+                            <HollowButton>Create</HollowButton>
                         </li>
                         {/* <li className='navItem'>
                             <Link href='/signup' className="navLink">
@@ -37,7 +37,7 @@ export default function MenuSkeleton() {
                 <div className="mobile_nav">
                     <div className="icon_align">
                         <img className="menu_icon" src='/menu.svg' alt="" />
-                        <p className="brand">MCCreations <span className="badge red">Alpha</span></p>
+                        <p className="brand">MCCreations <Badge color="red">Beta</Badge></p>
                     </div>
                  </div>
             </nav>

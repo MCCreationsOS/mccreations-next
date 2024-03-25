@@ -8,7 +8,6 @@ import { fetchMaps } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
-import Loading from "./loading"
 import { SortOptions, StatusOptions } from "../types"
 import SearchAndFilter from "@/components/SearchAndFilter"
 
@@ -63,12 +62,6 @@ export default function Maps() {
 
       const goToPage = (page: number) => {
         return pathname + '?' + createQueryString('page', page.toString())
-      }
-
-      if(loading) {
-        return (
-            <Loading />
-        )
       }
 
     
