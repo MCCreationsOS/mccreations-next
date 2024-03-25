@@ -2,6 +2,7 @@ import { MinecraftVersion, SortOptions, StatusOptions } from "@/app/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Filter } from "react-feather";
+import SecondaryButton from "./Buttons/SecondaryButton";
 
 export default function SearchAndFilter({callback}: {callback: Function}) {
     const searchParams = useSearchParams()
@@ -66,7 +67,7 @@ export default function SearchAndFilter({callback}: {callback: Function}) {
         <div className="search_and_filter" onClick={() => {(popupOpen == true) ? closePopups(): false}}>
                 <div className="search_stack">
                     <input type="text" placeholder="Search" className="search" defaultValue={(search) ? search : ""} onKeyDown={(e) => (e.key === "Enter") ? updateSearch(e.currentTarget.value) : false}></input>
-                    <button className="secondary_button" onClick={() => setFiltering(!filtering)}><Filter /></button>
+                    <SecondaryButton onClick={() => setFiltering(!filtering)}><Filter /></SecondaryButton>
                 </div>
                 <div className="filters" style={{display: (filtering) ? "flex": "none"}}>
                     <div className="filter_option">

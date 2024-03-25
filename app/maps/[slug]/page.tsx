@@ -3,6 +3,32 @@ import { fetchMap, fetchMaps } from '../../api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IMap } from '@/app/types';
 import MapWrapper from '@/components/Content/ContentWrapper';
+import { Metadata, ResolvingMetadata } from 'next';
+
+export async function generateMetadata(
+{ params }: {params: Params},
+parent: ResolvingMetadata
+): Promise<Metadata> {
+    // read route params
+    const id = params.id
+   
+    // fetch data
+    const map: IMap = await fetchMap(params.slug)
+   
+    return {
+      title: map.title + " on MCCreations",
+      openGraph: {
+        title: map.title + " on MCCreations",
+        description: map.shortDescription,
+        images: [
+          map.images[0]
+        ],
+        siteName: "MCCreations",
+        type: "article",
+        url: "https://next.mccreations.net/maps/" + map.slug
+      }
+    }
+  }
 
 
 export async function generateStaticParams() {
