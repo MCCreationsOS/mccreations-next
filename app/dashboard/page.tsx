@@ -1,24 +1,26 @@
 'use client'
 
 import Link from "next/link";
-import { approveContent, fetchMaps } from "../api/content";
+import { approveContent, deleteContent, fetchMaps } from "../api/content";
 import { IMap } from "../types";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUser } from "../api/auth";
 import Menu from "@/components/Menu/Menu";
 import Image from "next/image";
-import { Image as ImageIcon } from "react-feather";
+import { Image as ImageIcon, Trash } from "react-feather";
 import { Edit } from "react-feather";
 import styles from './dashboard.module.css'
+import WarningButton from "@/components/Buttons/WarningButton";
 
 export default function Page() {
     const [maps, setMaps] = useState<IMap[]>([])
     const router = useRouter();
+    let jwt: string | null = null;
 
     useEffect(() => {
 
-        let jwt = sessionStorage.getItem('jwt')
+        jwt = sessionStorage.getItem('jwt')
         if(!jwt) {
             router.push('/signin')
             return;
@@ -32,11 +34,15 @@ export default function Page() {
             
         })
 
+        getOwnedContent(jwt)
+    
+    }, [])
+
+    const getOwnedContent = async (jwt: any) => {
         fetchMaps({status: 0, search: "CrazyCowMM"}, false, jwt).then((maps) => {
             setMaps(maps.documents)
         })
-    
-    }, [])
+    }
     
 
     return (
@@ -65,7 +71,7 @@ export default function Page() {
                         <p>Rating</p>
                     </div>
                 </div>
-            {maps && maps.map((map: IMap) => (
+            {maps && maps.map((map: IMap, idx) => (
                 <div className={styles.content_item} key={map.slug}>
                     <div className={styles.content_item_item}>
                         <Image className={styles.logo} src={map.images[0]} width={160} height={90} alt=""></Image>
@@ -76,6 +82,7 @@ export default function Page() {
                         <div className={styles.info_buttons}>
                             <Link href={`/maps/${map.slug}`} title="Preview"><ImageIcon /></Link>
                             <Link href={`/maps/${map.slug}/edit`} title="Edit"><Edit /></Link>
+                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, sessionStorage.getItem('jwt')); getOwnedContent(sessionStorage.getItem('jwt'))}}><Trash /></span>
                         </div>
                     </div>
                     <div className={styles.content_item_item}>

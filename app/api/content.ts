@@ -1,4 +1,4 @@
-import { IMap, QueryOptions, SortOptions } from "../types"
+import { ICreator, IMap, QueryOptions, SortOptions } from "../types"
 
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
@@ -191,6 +191,26 @@ export async function updateContent(map: IMap, token: string | null) {
         console.error("API fetch error! Is it running?: " + e)
         return {
             message: e
+        }
+    }
+}
+
+export async function deleteContent(id: any, token: string | null) {
+    try {
+        await fetch(`${process.env.DATA_URL}/content`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token + ""
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        })
+        return;
+    } catch(e) {
+        throw {
+            error: e
         }
     }
 }
