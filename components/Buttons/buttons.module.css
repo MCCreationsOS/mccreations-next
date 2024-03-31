@@ -9,6 +9,7 @@
     cursor: pointer;
     text-decoration: none;
     opacity: 1;
+    height: fit-content;
 }
 
 .main_button:hover {
