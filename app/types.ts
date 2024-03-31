@@ -44,11 +44,12 @@ export enum StatusOptions {
  */
 export interface QueryOptions {
     limit?: number;
-    skip?: number;
+    page?: number;
     status?: number;
     sort?: SortOptions;
     search?: string;
-    version?: string,
+    includeTags?: string,
+    excludeTags?: string,
     exclusiveStatus?: boolean
 }
 
@@ -94,7 +95,8 @@ export interface IMap {
     ratings?: number[],
     createdDate: Date,
     updatedDate?: Date,
-    _id: any
+    _id: any,
+    tags: string[]
 }
 
 /**
@@ -165,6 +167,14 @@ export interface FilePreview {
     preview?: string,
     file?: File,
     name: string
+}
+
+export interface Tags {
+    genre: string[],
+    subgenre: string[],
+    difficulty: string[],
+    theme: string[],
+    length: string[]
 }
 
 /**

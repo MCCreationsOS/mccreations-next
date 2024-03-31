@@ -1,0 +1,49 @@
+.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+}
+
+.search_buttons {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 20px;
+    flex-direction: row-reverse;
+}
+
+.search_button {
+    margin-left: 10px;
+}
+
+.wide {
+    width: 200%;
+    overflow: scroll;
+    scrollbar-width: 2px;
+    scrollbar-color: #474747 #272727;
+    scrollbar-gutter: stable;
+}
+
+.tags_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.tag {
+    padding: 5px 10px;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid gray;
+    cursor: pointer;
+}
+
+.include {
+    border: 1px solid green;
+}
+
+.exclude {
+    border: 1px solid #c73030;
+}

@@ -37,12 +37,32 @@ export default function Maps() {
     }
 
     useEffect(() => {
-        findMaps("", SortOptions.Newest, StatusOptions.Approved, "");
-    }, [page])
+        let search = ""
+        let sort = SortOptions.Newest
+        let status = StatusOptions.Approved
+        let include: string = ""
+        let exclude: string = ""
+        if(searchParams.get("search") && searchParams.get("search") != search) {
+            search = searchParams.get("search") + ""
+        }
+        if(searchParams.get("sort") && searchParams.get("sort") != sort) {
+            sort = searchParams.get("sort")! as SortOptions
+        }
+        if(searchParams.get("status")&& Number.parseInt(searchParams.get("status")!) != status) {
+            status = Number.parseInt(searchParams.get("status")!)
+        }
+        if(searchParams.get("include") && searchParams.get("include") != "") {
+            include = searchParams.get("include")!
+        }
+        if(searchParams.get('exclude') && searchParams.get('exclude') != "") {
+            exclude = searchParams.get('exclude')!
+        }
+        findMaps(search, sort, status, include, exclude);
+    }, [])
 
-    const findMaps = async (search: string, sort: SortOptions, status: StatusOptions, version: string) => {
+    const findMaps = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await fetchMaps({sort: sort, limit: 20, skip: (page * 20), search: search, status: status, version: version}, false)
+        let m = await fetchMaps({sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
         setMaps(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
