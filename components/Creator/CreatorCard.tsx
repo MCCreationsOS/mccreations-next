@@ -31,8 +31,8 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
         )
     } else {
         return (
-            <div className="creator_card">
-                <Image src={image} width={50} height={50} className='logo' alt={`${creator.username}'s logo`}></Image>
+            <div className={styles.card}>
+                <Image src={image} width={50} height={50} className={styles.logo} alt={`${creator.username}'s logo`}></Image>
                 <div>
                     {creator.username}
                 </div>
