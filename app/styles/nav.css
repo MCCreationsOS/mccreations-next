@@ -199,3 +199,20 @@
     font-size: 0.9rem;
     margin: 0;
   }
+
+  .beta_warning {
+    background-color: #c73030;
+    color: white;
+    padding: 5px 0px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  
+  .beta_warning a {
+    color: white;
+    text-decoration: underline;
+  }
+  
+  .beta_warning a:visited {
+    color: white;
+  }

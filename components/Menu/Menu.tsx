@@ -18,7 +18,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
 
     return (
         <>
-            <div id='login'></div>
+            <div className="beta_warning">MCCreations is currently in beta. Please leave any feedback or report any issues using <a href="https://forms.gle/J7HEX9KKbYhQXCii7">this form.</a></div>
             <nav className="nav">
                 <DesktopNav selectedPage={selectedPage} />
                 <div className="mobile_nav">
