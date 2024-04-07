@@ -4,6 +4,7 @@ import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IMap } from '@/app/types';
 import MapWrapper from '@/components/Content/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
+import { sendLog } from '@/app/api/logging';
 
 export async function generateMetadata(
 { params }: {params: Params},
@@ -14,6 +15,22 @@ parent: ResolvingMetadata
    
     // fetch data
     const map: IMap = await fetchMap(params.slug)
+
+    if(!map || !map.images) return {
+        title: "Map Not Found",
+        openGraph: {
+            title: "Map Not Found",
+            description: "Map Not Found",
+            images: [
+            {
+                url: "https://next.mccreations.net/images/logo.png"
+            }
+            ],
+            siteName: "MCCreations",
+            type: "article",
+            url: "https://next.mccreations.net/maps/" + params.slug
+        }
+    }
    
     return {
       title: map.title + " on MCCreations",
@@ -21,7 +38,7 @@ parent: ResolvingMetadata
         title: map.title + " on MCCreations",
         description: map.shortDescription,
         images: [
-          map.images[0]
+          ...map.images
         ],
         siteName: "MCCreations",
         type: "article",
@@ -47,6 +64,7 @@ export default async function Page({params}: {params: Params}) {
             <MapWrapper map={map} slug={params.slug}/>
         )
     } else {
+        sendLog("Map Page", "")
         return (
             <div>
                 <h1>Map Not Found</h1>

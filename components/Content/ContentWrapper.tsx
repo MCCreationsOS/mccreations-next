@@ -4,6 +4,7 @@ import MapComponent from "./Map";
 import { Suspense, useEffect, useState } from "react";
 import { fetchMap } from "@/app/api/content";
 import { IMap } from "@/app/types";
+import { sendLog } from "@/app/api/logging";
 
 export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
     if('_id' in map) {
@@ -30,6 +31,7 @@ export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
         if(map && '_id' in map) {
            return (<MapComponent map={map} privileged={true} />)
         } else {
+            sendLog("Content Wrapper", "Map Not Found")
             return (
                 <div>
                     <h1>Map Not Found</h1>
