@@ -73,6 +73,7 @@ export async function fetchMaps(queryOptions: QueryOptions, count: boolean, toke
                 authorization: token + ""
             }
         })
+        console.log("Do we get here when fetch fails")
         let data = await response.json();
         return data
 

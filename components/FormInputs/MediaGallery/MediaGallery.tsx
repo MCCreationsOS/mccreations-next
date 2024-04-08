@@ -112,6 +112,7 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
                     <p>Drag and Drop here or click to upload images</p>
                 </div>
             </div>
+            <input type='hidden' name='files' value={JSON.stringify(files)} />
         </>
     )
 }

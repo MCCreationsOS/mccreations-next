@@ -7,9 +7,10 @@ import { X } from "react-feather"
 import { deleteUser, getUser } from "../api/auth"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import PopupComponent, { Popup } from "@/components/Popup/Popup";
-import FormComponent, { IFormInput } from "@/components/Form/Form";
+import FormComponent, { FormElement } from "@/components/Form/Form";
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
 import WarningButton from "@/components/Buttons/WarningButton"
+import Text from "@/components/FormInputs/Text"
 
 export default function AccountPage() {
     const [email, setEmail] = useState("")
@@ -35,7 +36,7 @@ export default function AccountPage() {
         getData();
     }, [])
 
-    const updateHandle = (inputs: IFormInput[]) => {
+    const updateHandle = (inputs: string[]) => {
         token = sessionStorage.getItem('jwt')
         fetch(`${process.env.DATA_URL}/auth/user/updateHandle`, {
             method: 'POST',
@@ -43,13 +44,13 @@ export default function AccountPage() {
                 authorization: token!,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({handle: inputs[0].value})
+            body: JSON.stringify({handle: inputs[0]})
         }).then((res) => {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Handle successfully updated to " + inputs[0].value, () => {
-                    setUser({_id: user._id, username: user.username, handle: inputs[0].value, email: user.email, type: user.type})
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Handle successfully updated to " + inputs[0], () => {
+                    setUser({_id: user._id, username: user.username, handle: inputs[0], email: user.email, type: user.type})
                 })) 
             })
         }).catch(e => {
@@ -58,7 +59,7 @@ export default function AccountPage() {
         })
     }
 
-    const updateEmail = (inputs: IFormInput[]) => {
+    const updateEmail = (inputs: string[]) => {
         token = sessionStorage.getItem('jwt')
         fetch(`${process.env.DATA_URL}/auth/user/updateEmail`, {
             method: 'POST',
@@ -66,13 +67,13 @@ export default function AccountPage() {
                 authorization: token!,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({email: inputs[0].value})
+            body: JSON.stringify({email: inputs[0]})
         }).then((res) => {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Email successfully updated to " + inputs[0].value, () => {
-                    setUser({_id: user._id, username: user.username, handle: user.handle, email: inputs[0].value!, type: user.type})
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Email successfully updated to " + inputs[0], () => {
+                    setUser({_id: user._id, username: user.username, handle: user.handle, email: inputs[0]!, type: user.type})
                 })) 
             })
         }).catch(e => {
@@ -80,8 +81,8 @@ export default function AccountPage() {
         })
     }
 
-    const updatePassword = (inputs: IFormInput[]) => {
-        if(inputs[0].value === inputs[1].value && inputs[0].value) {
+    const updatePassword = (inputs: string[]) => {
+        if(inputs[0] === inputs[1] && inputs[0]) {
             token = sessionStorage.getItem('jwt')
             fetch(`${process.env.DATA_URL}/auth/user/updatePassword`, {
                 method: 'POST',
@@ -89,7 +90,7 @@ export default function AccountPage() {
                     authorization: token!,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({password: inputs[0].value})
+                body: JSON.stringify({password: inputs[0]})
             }).then((res) => {
                 res.json().then(data => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
@@ -125,20 +126,27 @@ export default function AccountPage() {
                         <h3>Handle</h3>
                         <p>{user.handle}</p>
                     </div>
-                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent inputs={[{type: 'text', name: 'Handle', placeholder: ""}]} onSave={updateHandle} />, title: "Change Handle"})}}>Change Handle</SecondaryButton>
+                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeHandle"} onSave={updateHandle}>
+                        <Text name="Handle" placeholder={user.handle} />
+                    </FormComponent>, title: "Change Handle"})}}>Change Handle</SecondaryButton>
                 </div>
                     <div className="settings_option">
                     <div className="text">
                         <h3>Email</h3>
                         <p>{user.email}</p>
                     </div>
-                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent inputs={[{type: 'text', name: 'Email', placeholder: ""}]} onSave={updateEmail} />, title: "Change Email"})}}>Change Email</SecondaryButton>
+                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeEmail"} onSave={updateEmail}>
+                        <Text name="Email" placeholder={user.email} />    
+                    </FormComponent>, title: "Change Email"})}}>Change Email</SecondaryButton>
                 </div>
                 <div className="settings_option">
                     <div className="text">
                         <h3>Password</h3>   
                     </div>
-                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent inputs={[{type: 'password', name: 'New Password', placeholder: ""}, {type: 'password', name: 'Retype Password', placeholder: ""}]} onSave={updatePassword} />, title: "Update Password"})}}>Change Password</SecondaryButton>
+                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id="changePassword" onSave={updatePassword}>
+                        <Text name="Password" type="password" />
+                        <Text name="Confirm Password" type="password" />    
+                    </FormComponent>, title: "Update Password"})}}>Change Password</SecondaryButton>
                 </div>
                 <div className="settings_option">
                     <div className="text">
