@@ -46,3 +46,7 @@
     right: 5px;
     top: 5px;
 }
+
+.hide_reversed {
+    transform: rotate(180deg);
+}

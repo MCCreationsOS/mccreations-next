@@ -15,8 +15,10 @@ export default function VersionManager({onVersionsChanged, presetVersions}: {onV
     const [collapsed, setCollapsed] = useState<boolean[]>([])
 
     useEffect(() => {
-        if(versions.length > 0)
+        if(versions.length > 0) {
             onVersionsChanged(JSON.stringify(versions))
+            setCollapsed(versions.map((v, idx) => idx !== 0))
+        }
     }, [versions])
 
     useEffect(() => {
@@ -29,6 +31,12 @@ export default function VersionManager({onVersionsChanged, presetVersions}: {onV
         <div>
             <h2>Manage Versions</h2>
             <div>
+                <div>
+                    <SecondaryButton onClick={() => {
+                        setVersions([...versions, {type: 'map', contentVersion: "", minecraftVersion: "", worldUrl: "", resourceUrl: "", dataUrl: ""}])
+                        setCollapsed([...collapsed, false])
+                    }}>Add Version</SecondaryButton>
+                </div>
                 {versions.map((version, idx) => {
                     return (
                         <div key={idx} className={`${styles.version} ${(collapsed[idx]) ? styles.collapsed : ""}`} >
@@ -50,16 +58,10 @@ export default function VersionManager({onVersionsChanged, presetVersions}: {onV
                                 <VersionUploader name="Resource Pack" value={version.resourceUrl} />
                                 <VersionUploader name="Datapack" value={version.dataUrl} />
                             </FormComponent>
-                            <div className={styles.hide_version} onClick={() => {let nc = [...collapsed]; nc[idx] = !nc[idx]; setCollapsed(nc)}}><ChevronDown /></div>
+                            <div className={`${styles.hide_version} ${(collapsed[idx]) ? styles.hide_reversed : ""}`} onClick={() => {let nc = [...collapsed]; nc[idx] = !nc[idx]; setCollapsed(nc)}}><ChevronDown /></div>
                         </div>
                     )
                 })}
-                <div>
-                    <SecondaryButton onClick={() => {
-                        setVersions([...versions, {type: 'map', contentVersion: "", minecraftVersion: "", worldUrl: "", resourceUrl: "", dataUrl: ""}])
-                        setCollapsed([...collapsed, false])
-                    }}>Add Version</SecondaryButton>
-                </div>
             </div>
         </div>
     )
