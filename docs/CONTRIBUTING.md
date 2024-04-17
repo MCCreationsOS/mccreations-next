@@ -24,7 +24,7 @@ Once you're happy with a pull request or you want to indicate some problems, lea
 
 # Contributing to MCCreations Next
 ### Setting Up
-MCCreations Next requires both Node.js and NPM to be installed on your machine. Installation and instructions can be found [https://nodejs.org/en](here)
+MCCreations Next requires both Node.js and NPM to be installed on your machine. Installation and instructions can be found [here](https://nodejs.org/en)
 
 ### Cloning the Repository
 Building directly on top of the existing MCCreations repository is not recommended. To clone the repository, first create a new fork, and then clone that fork to your local machine. You can use the Github CLI, Desktop App or any other Git compatiable applications to do this.
@@ -55,7 +55,7 @@ Short Summary (about 50 characters or less)
 Detailed Description of the changes if needed. This may seem redunant, but anything you can do to help other people understand your code better is one step closer to getting your changes merged
 ```
 ### Creating a Pull Request
-[https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork](Create a PR with this guide)
+[Create a PR with this guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
 
 
 
