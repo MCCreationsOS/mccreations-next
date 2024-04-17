@@ -30,11 +30,16 @@ MCCreations Next requires both Node.js and NPM to be installed on your machine. 
 Building directly on top of the existing MCCreations repository is not recommended. To clone the repository, first create a new fork, and then clone that fork to your local machine. You can use the Github CLI, Desktop App or any other Git compatiable applications to do this.
 
 ### Install Depencancies
-Run ```$ npm install ```
+Run 
+```
+$ npm install
+```
 
 ### Running MCCreations Next
 To test your changes run:
-```$ npm run dev ```
+```
+$ npm run dev
+ ```
 *Since some operations require security keys not all operations will function on your local machine. At this time, only uploading new files is not supported*
 
 ### Writing Code
@@ -45,14 +50,18 @@ When making changes to MCCreations, keep these things in mind:
 
 ### Building
 Before creating a pull request on MCCreations, you must first build your changes to make sure they work in a production environment.
-```$ npm run build```
+```
+$ npm run build
+```
 
 ### Committng Changes
 When you're happy with the changes you've made, commit them to your fork of the repository. A good commit should look something like this:
 ```
 Short Summary (about 50 characters or less)
 
-Detailed Description of the changes if needed. This may seem redunant, but anything you can do to help other people understand your code better is one step closer to getting your changes merged
+Detailed Description of the changes if needed. This may seem redunant,
+but anything you can do to help other people understand your code better
+is one step closer to getting your changes merged
 ```
 ### Creating a Pull Request
 [Create a PR with this guide](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)
