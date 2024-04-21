@@ -13,6 +13,7 @@ import LexicalAutoLinkPlugin from './AutoLinkPlugin';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import LinkPlugin from './LinkPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import DOMPurify from 'isomorphic-dompurify';
 
 const theme = {
         code: 'editor-code',
@@ -62,7 +63,7 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     editor.update(() => {
         // In the browser you can use the native DOMParser API to parse the HTML string.
         const parser = new DOMParser();
-        const dom = parser.parseFromString(html, "text/html");
+        const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
       
         // Once you have the DOM instance it's easy to generate LexicalNodes.
         const nodes = $generateNodesFromDOM(editor, dom);
