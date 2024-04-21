@@ -25,6 +25,8 @@ export default function CommentCard({comment}: {comment: IComment}) {
         }
     }, [])
 
+    if(!comment.approved) return (<></>)
+
     return (
         <div className={styles.comment}>
             <Image src={image} width={45} height={45} className={styles.logo} alt={`${comment.username}'s logo`}></Image>

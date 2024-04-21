@@ -121,7 +121,8 @@ export interface IComment {
     username: string,
     handle?: string,
     comment: string,
-    date: number
+    date: number,
+    approved: boolean
 }
 
 /**
