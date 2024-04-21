@@ -1,6 +1,7 @@
 .card {
     background-color: #373737;
-    padding: 5px 8px;
+    padding: 0px 8px;
+    margin-bottom: 5px;
 }
 
 .card .download_options {
@@ -20,6 +21,7 @@
     background-color: #344ec1;
     text-align: center;
     transition: background-color 0.2s ease;
+    cursor: pointer;
 }
 
 .button:hover {
