@@ -112,7 +112,7 @@ export default function SearchAndFilter({callback}: {callback: Function}) {
         <div className="search_and_filter">
             <div className={styles.fullscreen} style={{display: (popupOpen) ? "block": "none"}} onClick={() => {(popupOpen == true) ? closePopups(): false}}></div>
                 <div className="search_stack">
-                    <input type="text" placeholder="Search" className="search" defaultValue={(search) ? search : ""} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={(e) => (e.key === "Enter") ? performSearch() : false}></input>
+                    <input type="text" placeholder="Search title, creator, version, etc." className="search" defaultValue={(search) ? search : ""} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={(e) => (e.key === "Enter") ? performSearch() : false}></input>
                     <SecondaryButton onClick={() => setFiltering(!filtering)}><Filter /></SecondaryButton>
                 </div>
                 <div className="filters" style={{display: (filtering) ? "flex": "none"}}>
