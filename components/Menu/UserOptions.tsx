@@ -9,6 +9,9 @@ import { useRouter } from "next/navigation"
 import { getUser } from "@/app/api/auth"
 import HollowButton from "../Buttons/HollowButton"
 
+/**
+ * The user options menu displayed on the far right of the menu
+ */
 export default function UserOptions() {
     const [user, setUser] = useState({} as IUser)
     const [showOptions, setShowOptions] = useState(false)

@@ -9,6 +9,7 @@ import styles from './FileDropzone.module.css'
 import upload from '@/app/api/upload'
 import FormComponent from '../../Form/Form'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
+import Text from '../Text'
 
 const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
     const [file, setFile] = useState<string>("")
@@ -77,12 +78,14 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 </div>
                 <p>Or...</p>
                 <div className={styles.dnd}>
-                    <FormComponent inputs={[{name: "Link", type: 'text', value: file}]} onSave={(inputs) => {
-                        let url = inputs[0].value
+                    <FormComponent id="linkFile" onSave={(inputs) => {
+                        let url = inputs[0]
                         if(url) {
                             setFile(url)
                         }
-                    }} />
+                    }}>
+                        <Text type="text" name="Link" placeholder="https://example.com/file.zip" />    
+                    </FormComponent>
                 </div>
             </div>
         </>

@@ -1,0 +1,21 @@
+.admin_table {
+    width: 100vw;
+    margin: 20px;
+    overflow: auto;
+}
+
+.table_row {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #d3d3d3;
+    text-align: left;
+}
+
+.table_item {
+    overflow: auto;
+    width: 200px;
+    height: 50px;
+    margin: 0 10px;
+}

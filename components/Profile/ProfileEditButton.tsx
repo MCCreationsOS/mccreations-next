@@ -2,10 +2,12 @@
 
 import { IUser } from "@/app/types"
 import PopupComponent, { Popup } from "@/components/Popup/Popup";
-import FormComponent, { IFormInput } from "@/components/Form/Form";
+import FormComponent from "@/components/Form/Form";
 import { Edit } from "react-feather"
 import styles from './ProfileStyle.module.css'
 import { updateProfile } from "@/app/api/auth";
+import ImageInput from "../FormInputs/ImageDropzone";
+import Text from "../FormInputs/Text";
 
 export default function ProfileEditButton({creator}: {creator: IUser}) {
     let token = sessionStorage.getItem('jwt')
@@ -19,8 +21,8 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
         }
     }
 
-    const saveCreator = (inputs: IFormInput[]) => {
-        updateProfile(token!, inputs[0].value, inputs[1].value, undefined, inputs[2].value)
+    const saveCreator = (inputs: string[]) => {
+        updateProfile(token!, inputs[0], inputs[1], undefined, inputs[2])
     }
 
     if(token && storedCreator?.handle === creator.handle) {
@@ -28,11 +30,11 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
             <>
             <button className={styles.profile_edit} onClick={() => {
                 Popup.createPopup({
-                    content: <FormComponent inputs={[
-                    {name: "Change Banner", type: "image", value: creator.bannerURL}, 
-                    {name: "Change Icon", type: "image", value: creator.iconURL}, 
-                    {name: "About", type: "text", value: creator.about}
-                ]} onSave={saveCreator} />, 
+                    content: <FormComponent id="updateProfile" onSave={saveCreator}>
+                    <ImageInput name="Change Banner" value={creator.bannerURL} />
+                    <ImageInput name="Change Icon" value={creator.iconURL} />
+                    <Text name="About" value={creator.about} />    
+                </FormComponent>, 
                 title: "Update Profile"
                 })}}>
                     <Edit />

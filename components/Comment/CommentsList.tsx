@@ -4,7 +4,12 @@ import { postComment } from "@/app/api/community";
 import { IComment, IUser } from "@/app/types";
 import { getUser } from "@/app/api/auth";
 
-export default function PretechedCommentsList({mapSlug, comments}: {mapSlug: string, comments: IComment[] | undefined}) {
+/**
+ * A list of comments that are cached with the map, this component should be improved to initially display the cached comments and then fetch any new ones
+ * @param mapSlug The slug of the map - Not currently used
+ * @param comments The comments to display 
+ */
+export default function PrefetchedCommentsList({mapSlug, comments}: {mapSlug: string, comments: IComment[] | undefined}) {
 
     return (
         <div className='centered_content'>

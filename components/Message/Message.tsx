@@ -12,6 +12,10 @@ export interface IMessage {
     link?: string
 }
 
+/**
+ * A message component that displays messages, warnings, and errors
+ * @param messages The messages to display
+ */
 export default function MessageComponent({messages}: {messages: IMessage[]}) {
         const [message, setMessage] = useState(0);
         const [visible, setVisible] = useState(true);

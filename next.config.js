@@ -4,6 +4,7 @@ const withMDX = require('@next/mdx')()
 const nextConfig = {
   env: {
     DATA_URL: 'https://api.mccreations.net',
+    LOGGING_URL: 'https://api.mccreations.net/bamboo/v1'
   },
   images: {
     remotePatterns: [

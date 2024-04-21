@@ -4,11 +4,17 @@ import MapComponent from "./Map";
 import { Suspense, useEffect, useState } from "react";
 import { fetchMap } from "@/app/api/content";
 import { IMap } from "@/app/types";
+import { sendLog } from "@/app/api/logging";
 
+/**
+ * Wrapper for the map component that checks whether a user should be able to view the current content
+ * @param slug The slug of the map
+ * @param map The map object
+ */
 export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
     if('_id' in map) {
         return (
-            <MapComponent map={map} privileged={false} />
+            <MapComponent map={map} />
         )
     } else {
         const [map, setMap] = useState<IMap>()
@@ -28,8 +34,9 @@ export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
 
 
         if(map && '_id' in map) {
-           return (<MapComponent map={map} privileged={true} />)
+           return (<MapComponent map={map} />)
         } else {
+            sendLog("Content Wrapper", "Map Not Found")
             return (
                 <div>
                     <h1>Map Not Found</h1>

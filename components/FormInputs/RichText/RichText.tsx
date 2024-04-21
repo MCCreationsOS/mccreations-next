@@ -13,6 +13,7 @@ import LexicalAutoLinkPlugin from './AutoLinkPlugin';
 import { AutoLinkNode, LinkNode } from '@lexical/link';
 import LinkPlugin from './LinkPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import DOMPurify from 'isomorphic-dompurify';
 
 const theme = {
         code: 'editor-code',
@@ -57,31 +58,35 @@ function onError(error: any) {
     console.error(error);
 }
 
+/**
+ * Load preset HTML into the editor
+ * @param html The HTML string to load 
+ * @returns 
+ */
 function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     const [editor] = useLexicalComposerContext();
     editor.update(() => {
-        // In the browser you can use the native DOMParser API to parse the HTML string.
         const parser = new DOMParser();
-        const dom = parser.parseFromString(html, "text/html");
+        const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
       
-        // Once you have the DOM instance it's easy to generate LexicalNodes.
         const nodes = $generateNodesFromDOM(editor, dom);
       
-        // Select the root
         $getRoot().clear();
         $getRoot().select();
       
-        // Insert them at a selection.
         $insertNodes(nodes);
       });
     return <></>;
 }
 
+/**
+ * Export the HTML from the editor
+ * @param setHTML A function used to pass the HTML out of the editor
+ * @returns 
+ */
 function ExportHTMLPlugin({ setHTML }: { setHTML: (html: string) => void }): JSX.Element {
     const [editor] = useLexicalComposerContext();
     editor.registerUpdateListener(({editorState}) => {
-        // The latest EditorState can be found as `editorState`.
-        // To read the contents of the EditorState, use the following API:
       
         editorState.read(() => {
             let html = $generateHtmlFromNodes(editor, null);
@@ -91,6 +96,12 @@ function ExportHTMLPlugin({ setHTML }: { setHTML: (html: string) => void }): JSX
     return <></>;
 }
 
+/**
+ * The RichText component is a rich text editor that uses Lexical
+ * @param sendOnChange The function to call when the text in the editor changes
+ * @param initialValue The initial value of the editor
+ * @returns 
+ */
 export default function RichText({ sendOnChange, initialValue }: { sendOnChange: (state: string) => void, initialValue?: string }) {
 
     const initialConfig = {

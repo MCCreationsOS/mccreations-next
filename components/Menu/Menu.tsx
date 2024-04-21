@@ -13,6 +13,10 @@ import HollowButton from "../Buttons/HollowButton";
 import Badge from "../Badge";
 import DesktopNav from "./DesktopNav";
 
+/**
+ * The menu for the site
+ * @param selectedPage The currently selected page
+ */
 export default function Menu({selectedPage}: {selectedPage: string}) {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
 

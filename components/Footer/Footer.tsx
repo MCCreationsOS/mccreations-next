@@ -1,6 +1,9 @@
 import Link from 'next/link'
 import styles from './Footer.module.css'
 
+/**
+ * The footer
+ */
 export default function Footer() {
     return (
         <>

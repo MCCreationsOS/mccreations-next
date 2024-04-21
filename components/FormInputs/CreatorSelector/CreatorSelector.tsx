@@ -4,13 +4,23 @@ import { useEffect, useRef, useState } from "react"
 import styles from './CreatorSelector.module.css'
 import { Plus } from "react-feather"
 import { Popup } from "../../Popup/Popup"
-import FormComponent, { IFormInput } from "../../Form/Form"
+import FormComponent from "../../Form/Form"
+import Text from "../Text"
+import ImageInput from "../ImageDropzone"
 
-interface CreatorSelection extends IUser {
+/**
+ * Extends the ICreator interface to include a selected property
+ */
+interface CreatorSelection extends ICreator {
     selected?: boolean
 }
 
-export default function CreatorSelector({value, onChange}: {value?: IUser[], onChange: (creators: IUser[]) => void}) {
+/**
+ * A selector for creators. Also allows adding new creators
+ * @param value The creators that are selected
+ * @param onChange The function to call when the selected creators change
+ */
+export default function CreatorSelector({value, onChange}: {value?: ICreator[], onChange?: (creators: ICreator[]) => void}) {
     const [creators, setCreators] = useState<CreatorSelection[]>()
     const loggedIn = useRef(false)
 
@@ -26,7 +36,7 @@ export default function CreatorSelector({value, onChange}: {value?: IUser[], onC
                     setCreators(users)
                 }
             } else {
-                setCreators([{username: "Guest", handle: "", type: UserTypes.Creator, email: ""}])
+                setCreators([{username: "Guest", handle: ""}])
             }
         }
         getData();
@@ -46,11 +56,11 @@ export default function CreatorSelector({value, onChange}: {value?: IUser[], onC
         }
     }
 
-    const saveNewCreator = (inputs: IFormInput[]) => {
+    const saveNewCreator = (inputs: string[]) => {
         let newCreators: CreatorSelection[] = []
         if(creators)
             newCreators = [...creators]
-        newCreators.push({username: inputs[0].value!, handle: (inputs[1]) ? inputs[1].value: "", type: UserTypes.Creator, email: "", iconURL: "", selected: true})
+        newCreators.push({username: inputs[0]!, handle: (inputs[1]) ? inputs[1]: "", selected: true})
         setCreators(newCreators)
         if(onChange) {
             onChange(newCreators)
@@ -64,37 +74,14 @@ export default function CreatorSelector({value, onChange}: {value?: IUser[], onC
                 {creators && creators.map((creator, idx) => {return (
                     <div key={idx} className={(creator.selected) ? styles.option_selected : styles.option} onClick={() => {selectCreator(idx)}}>{creator.username}</div>
                 )})}
-                <div className={styles.option} onClick={() => (loggedIn.current) ? Popup.createPopup({content: <FormComponent inputs={[{name: 'Username', type: 'text', placeholder: 'CrazyCowMM'}, {name: 'Handle', type: 'text', placeholder: 'crazycowmm'}, {name: "Icon", type: 'image'}]} onSave={saveNewCreator}/>, title: "Add Creator"}) : Popup.createPopup({content: <FormComponent inputs={[{name: 'Username', type: 'text', placeholder: 'crazycowmm'}]} onSave={saveNewCreator}/>, title: "Add Creator"})}>
+                <div className={styles.option} onClick={() => Popup.createPopup({content: <FormComponent id="newCreator" onSave={saveNewCreator}>
+                        <Text name="Username" placeholder="CrazyCowMM" />
+                        <Text name="Handle" placeholder="crazycowmm" />
+                     </FormComponent>, title: "Add Creator"})}>
                     <Plus />
                 </div>
             </div>
+            <input type='hidden' name='creators' value={JSON.stringify(creators)}></input>
         </div>
     )
-
-    // if(creators && creators.length > 0) {
-    //     return (
-    //         <div className='field'>
-    //             <h3 className='label'>Creators</h3>
-    //             <div className={styles.options}>
-    //                 {creators.map((creator, idx) => {return (
-    //                     <div key={idx} className={(creator.handle === creators[selected].handle) ? styles.option_selected : styles.option} onClick={() => {setSelected(idx); onChange(creator.handle!)}}>{creator.username}</div>
-    //                 )})}
-    //             </div>
-    //         </div>
-    //     )
-    // } else {
-    //     return (
-    //         <div className='field'>
-    //             <h3 className='label'>Creators</h3>
-    //             <div className={styles.options}>
-    //                 <div className={styles.option_selected}>
-    //                     <div className='text'>
-    //                         <h3 className='label'>Username</h3>
-    //                         <input className='input wide' type='text' name='data' placeholder="Username" onChange={(e) => {onChange("", e.currentTarget.value)}}></input>
-    //                     </div> 
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     )
-    // }
 }

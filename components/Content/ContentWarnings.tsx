@@ -6,8 +6,14 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import MessageComponent, { IMessage } from "../Message/Message"
 
+/**
+ * Content warnings for the map creator(s)
+ * @param map The map to check
+ */
 export default function ContentWarnings({map}: {map: IMap}) {
     const [user, setUser] = useState<IUser>()
+
+    // Get the user on load
     useEffect(() => {
         let token = sessionStorage?.getItem('jwt')
         const getData = async () => {
@@ -19,13 +25,13 @@ export default function ContentWarnings({map}: {map: IMap}) {
         getData();
     }, [])
 
+    // Check if the user is a creator
     let match = false;
     map.creators && map.creators.forEach((creator) => {
         if(creator.handle && user && user.handle && creator.handle === user?.handle) {
             match = true
         }
     })
-    if(map.status === 0) match = true;
     if(match) {
         let messages: IMessage[] = []
         if(!map.creators || !map.creators[0].handle) {

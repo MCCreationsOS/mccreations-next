@@ -7,10 +7,15 @@ import { getCreator } from '@/app/api/community';
 import styles from './Comment.module.css';
 import { useEffect, useState } from 'react';
 
+/**
+ * A comment
+ * @param comment The comment to display 
+ */
 export default function CommentCard({comment}: {comment: IComment}) {
     const [image, setImage] = useState("/defaultLogo.png")
 
     useEffect(() => {
+        // If the comment is attached to a user, get the user's icon
         if(comment.handle) {
             getCreator(comment.handle).then((creator) => {
                 if(creator && creator.iconURL) {
@@ -20,9 +25,8 @@ export default function CommentCard({comment}: {comment: IComment}) {
         }
     }, [])
 
-    // if(!comment.comment) {
-    //     return (<></>)
-    // }
+    if(!comment.approved) return (<></>)
+
     return (
         <div className={styles.comment}>
             <Image src={image} width={45} height={45} className={styles.logo} alt={`${comment.username}'s logo`}></Image>
@@ -32,10 +36,7 @@ export default function CommentCard({comment}: {comment: IComment}) {
                     <p>{new Date(comment.date).toLocaleDateString()}</p>
                 </div>
                 <p>{comment.comment}</p>
-                {/* <div className={styles.actions}>
-                    <p><Heart /> {comment.likes}</p>
-                    <p>Reply</p>
-                </div> */}
+                {/* Likes and replies may eventually go here  */}
             </div>
         </div>
     )

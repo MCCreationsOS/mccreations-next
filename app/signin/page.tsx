@@ -7,6 +7,7 @@ import MapScroll from "@/components/ContentScrollBackground/MapScroll";
 import { UserTypes } from "../types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import MainButton from "@/components/Buttons/MainButton";
+import { sendLog } from "../api/logging";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
@@ -40,7 +41,7 @@ export default function SignIn() {
                     return;
                 })
             }).catch(error => {
-                console.log(error)
+                sendLog("Sign in with email", error)
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error communicating with our API"))
                 return;
             })

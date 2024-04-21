@@ -14,13 +14,13 @@ function formatQueryOptions(queryOptions: QueryOptions) {
     }
 
     // Define a skip amount of there is none defined
-    if(!queryOptions.skip) {
-        queryOptions.skip = 0;
+    if(!queryOptions.page) {
+        queryOptions.page = 0;
     }
 
     // Error if the skip is set incorrectly
-    if(queryOptions.skip < 0) {
-        console.error("Skip cannot be less than 0")
+    if(queryOptions.page < 0) {
+        console.error("Page cannot be less than 0")
     }
 
     // Defines status if it is not defined
@@ -28,8 +28,12 @@ function formatQueryOptions(queryOptions: QueryOptions) {
         queryOptions.status = 2
     }
 
-    if(!queryOptions.version) {
-        queryOptions.version = ""
+    if(!queryOptions.includeTags) {
+        queryOptions.includeTags = ""
+    }
+
+    if(!queryOptions.excludeTags){ 
+        queryOptions.excludeTags = ""
     }
 
     // Defines sort if it is not defined
@@ -60,7 +64,7 @@ function formatQueryOptions(queryOptions: QueryOptions) {
 export async function fetchMaps(queryOptions: QueryOptions, count: boolean, token?: string | null) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&skip=${queryOptions.skip}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&version=${queryOptions.version}&exclusiveStatus=${queryOptions.exclusiveStatus}`, {
+        let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
             next:{
                 revalidate:3600
             },
@@ -101,6 +105,19 @@ export async function fetchMap(slug: string, token?: string) {
         return {
             error: e,
             query: slug
+        }
+    }
+}
+
+export async function fetchTags() {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/get_map_tags`)
+        let data = await response.json();
+        return data
+    } catch (e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e
         }
     }
 }
@@ -171,7 +188,7 @@ export async function importContent(link: string, token?: string | null) {
     }
 }
 
-export async function updateContent(map: IMap, token: string | null) {
+export async function updateContent(map: IMap, token: string | null, dontSendDate?: boolean) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/content/update`, { 
             method: 'POST',
@@ -181,7 +198,8 @@ export async function updateContent(map: IMap, token: string | null) {
             },
             body: JSON.stringify({
                 content: map,
-                token: token
+                token: token,
+                dontUpdateDate: dontSendDate
             })
         })
         let data = await response.json();

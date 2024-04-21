@@ -13,7 +13,12 @@ import { downloadMap } from "@/app/api/content";
 import { useRouter } from "next/navigation";
 import MainButton from "../Buttons/MainButton";
 
-export default function MapComponent({map, privileged}: {map: IMap, privileged?: boolean}) {
+/**
+ * The map component represents all the information displayed on a map page
+ * @param map The map to display
+ * @param privileged If the user is privileged to see the content
+ */
+export default function MapComponent({map}: {map: IMap}) {
     const router = useRouter()
 
     let videoID = ""
@@ -23,9 +28,9 @@ export default function MapComponent({map, privileged}: {map: IMap, privileged?:
         videoID = map.videoUrl.substring(map.videoUrl.lastIndexOf("/") + 1)
     }
 
-    const downloadButtonClicked = async () => {
+    const downloadButtonClicked = async (url: string) => {
         await downloadMap(map.slug)
-        router.push(map.files[0].worldUrl)
+        router.push(url)
     }
 
     return (
@@ -46,7 +51,7 @@ export default function MapComponent({map, privileged}: {map: IMap, privileged?:
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={map.rating} content={map} />
-                        {(map.files) ? <MainButton onClick={downloadButtonClicked}>Download</MainButton>: <></>}
+                        {(map.files) ? <MainButton onClick={() => {downloadButtonClicked(map.files[0].worldUrl)}}>Download</MainButton>: <></>}
                     </div>
                 </div>
                 <div className='map_information'>
@@ -67,7 +72,7 @@ export default function MapComponent({map, privileged}: {map: IMap, privileged?:
                         </section>
                         <section className='map_sidebar_section'>
                             <h4 className='header'>Files</h4>
-                            {map.files && map.files.map((file: IFile, idx: number) => <FileCard key={idx} file={file} />)}
+                            {map.files && map.files.slice(0, 3).map((file: IFile, idx: number) => <FileCard key={idx} file={file} download={downloadButtonClicked}/>)}
                         </section>
                     </div>
                 </div>

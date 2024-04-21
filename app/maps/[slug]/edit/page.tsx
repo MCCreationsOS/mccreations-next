@@ -1,13 +1,17 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { fetchMap, requestApproval, updateContent } from "@/app/api/content"
-import { FilePreview, IFile, IMap, IUser, MinecraftVersion } from "@/app/types"
+import { fetchMap, fetchTags, requestApproval, updateContent } from "@/app/api/content"
+import { FilePreview, IFile, IMap, IUser, MinecraftVersion, Tags } from "@/app/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
+import CreatorSelector from "@/components/FormInputs/CreatorSelector/CreatorSelector"
 import { UploadedImageRepresentation } from "@/components/FormInputs/ImageDropzone/ImageDropzone"
 import MediaGallery from "@/components/FormInputs/MediaGallery/MediaGallery"
+import RichTextInput from "@/components/FormInputs/RichText"
+import Select from "@/components/FormInputs/Select"
+import Text from "@/components/FormInputs/Text"
 import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import Tabs from "@/components/Tabs/Tabs"
@@ -18,6 +22,7 @@ import { ArrowLeft } from "react-feather"
 export default function EditContentPage({params}: {params: Params}) {
     const [user, setUser] = useState<IUser>()
     const [map, setMap] = useState<IMap>()
+    const [tags, setTags] = useState<Tags>()
     const token = useRef("")
     useEffect(() => {
         token.current = sessionStorage?.getItem('jwt') + ""
@@ -33,6 +38,11 @@ export default function EditContentPage({params}: {params: Params}) {
                 let m = await fetchMap(params.slug, token + "")
                 setMap(m);
             }
+            fetchTags().then((data) => {
+                if('genre' in data) {
+                    setTags(data)
+                }
+            })
         }
         getData();
     }, [])
@@ -47,6 +57,7 @@ export default function EditContentPage({params}: {params: Params}) {
         if(map.status === 0) {
             match = true;
         }
+        
     }
     if(match) {
         return (
@@ -65,53 +76,52 @@ export default function EditContentPage({params}: {params: Params}) {
                     
                     // General Tab
                     title: "General",
-                    content: <FormComponent inputs={[
-                            { type: 'text', name: 'Title', value: map?.title },
-                            { type: 'text', name: 'Slug', value: map?.slug},
-                            { type: 'creator', name: 'Creators', value: JSON.stringify(map!.creators) },
-                            { type: 'text', name: 'Short Description', value: map?.shortDescription },
-                            { type: 'text', name: "Video URL", value: map?.videoUrl },
-                            { type: 'long_text', name: 'Description', value: map?.description },
-                        ]} onSave={(inputs) => {
+                    content: <FormComponent id="general" onSave={(inputs) => {
                             let newMap: IMap = {
                                 ...map!
                             }
                             
-                            if(inputs[0].value) {
-                                newMap.title = inputs[0].value
+                            if(inputs[0]) {
+                                newMap.title = inputs[0]
                             } else {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No title entered'))
                             }
         
-                            if(inputs[1].value) {
-                                newMap.slug = inputs[1].value
+                            if(inputs[1]) {
+                                newMap.slug = inputs[1]
                             } else {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No slug entered'))
                             }
         
-                            if(inputs[2].value) {
-                                newMap.creators = JSON.parse(inputs[2].value)
+                            if(inputs[2]) {
+                                newMap.creators = JSON.parse(inputs[2])
                             } else {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No creator entered'))
                             }
         
-                            if(inputs[3].value) {
-                                newMap.shortDescription = inputs[3].value
-                                if(inputs[3].value.length < 20) {
+                            if(inputs[3]) {
+                                newMap.shortDescription = inputs[3]
+                                if(inputs[3].length < 20) {
                                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, "Short description needs to be longer than 20 characters"))
                                 }
                             } else {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No short description entered'))
                             }
         
-                            if(inputs[4].value) {
-                                newMap.videoUrl = inputs[4].value
+                            if(inputs[4]) {
+                                newMap.videoUrl = inputs[4]
                             }
         
-                            if(inputs[5].value) {
-                                newMap.description = inputs[5].value
+                            if(inputs[5]) {
+                                newMap.description = inputs[5]
                             } else {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "No description entered"))
+                            }
+
+                            if(inputs[6]) {
+                                newMap.tags = inputs[6].concat(inputs[7]).concat(inputs[8]).concat(inputs[9]).concat(inputs[10]).split(',')
+                            } else {
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No tags entered'))
                             }
 
                             updateContent(newMap, token.current).then((error) => {
@@ -124,7 +134,29 @@ export default function EditContentPage({params}: {params: Params}) {
                             }).catch((e) => {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                             })
-                        }} />
+                        }}> 
+                            <Text type="text" name="Title" value={map?.title} />
+                            <Text type="text" name="Slug" value={map?.slug}/>
+                            <CreatorSelector value={map!.creators} />
+                            <Text type="text" name="Short Description" value={map?.shortDescription} />
+                            <Text type="text" name="Video URL" value={map?.videoUrl} />
+                            <RichTextInput name="Description" value={map?.description} />
+                            <Select name="Genre" options={tags?.genre.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                            <Select name="Subgenre" options={tags?.subgenre.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                            <Select name="Theme" options={tags?.theme.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                            <Select name="Difficulty" options={tags?.difficulty.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                            <Select name="Length" options={tags?.length.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                        </FormComponent>
                     },{
 
                     // Images Tab
