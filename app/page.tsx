@@ -1,7 +1,7 @@
 import Menu from "@/components/Menu/Menu"
 import ContentGrid from "@/components/ContentGrid";
 import ContentCard from "@/components/ContentSlideshow/ContentCard";
-import FeaturedCard from "@/components/FeaturedSlideshow/FeaturedSlideshow";
+import FeaturedSlideshow from "@/components/FeaturedSlideshow/FeaturedSlideshow";
 import { fetchMaps } from "@/app/api/content";
 import Error from "@/components/Error";
 import ContentSlideshow from "@/components/ContentSlideshow/ContentSlideshow";
@@ -27,7 +27,7 @@ export default async function Page() {
     return (
         <>
         <Menu selectedPage='home'></Menu>
-        {(featured) ? (<FeaturedCard allFeatured={featured} />) : "MCCreations API Error"}
+        {(featured) ? (<FeaturedSlideshow content={featured} />) : "MCCreations API Error"}
         <h2 className="playlist_header">New Content</h2>
         <Suspense fallback={<GridSkeleton amount={4} />}>
             <ContentArea type="scroll" playlist="new_content" options={{status: 2, sort: SortOptions.Newest}} />

@@ -22,6 +22,16 @@ export interface SelectElement extends FormElement {
     props: SelectProps
 }
 
+/**
+ * A select form element
+ * @param name The name of the input
+ * @param value The value of the input, can be set to a default value
+ * @param options The options to display in the select
+ * @param description A description of the input
+ * @param onChange The function to call when the value of the select changes
+ * @param multiSelect Whether or not the select should allow multiple options to be selected
+ * @returns 
+ */
 export default function Select(props: SelectProps): SelectElement {
     const [value, setValue] = useState(props.value || props.options?.[0].value || props.options?.[0].name || "")
 

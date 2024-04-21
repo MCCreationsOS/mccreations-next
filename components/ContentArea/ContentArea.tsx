@@ -4,6 +4,13 @@ import ContentScrollGrid from "../ContentScrollBackground/ContentScrollGrid"
 import { fetchMaps } from "@/app/api/content"
 import ContentSlideshow from "../ContentSlideshow/ContentSlideshow"
 
+/**
+ * The Content Area component displays a grid or a scroll of content
+ * @param type The type of content to display
+ * @param options The options for the content to display
+ * @param playlist The playlist identifier if the type is scroll
+ * @param cards The number of cards to display if the type is grid
+ */
 export default async function ContentArea({type, options, playlist, cards}: {type: string, options: QueryOptions, playlist?: string, cards?: string}) {
     let content = (await fetchMaps(options, false)).documents
     if(type === "grid") {

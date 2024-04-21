@@ -13,7 +13,12 @@ import { downloadMap } from "@/app/api/content";
 import { useRouter } from "next/navigation";
 import MainButton from "../Buttons/MainButton";
 
-export default function MapComponent({map, privileged}: {map: IMap, privileged?: boolean}) {
+/**
+ * The map component represents all the information displayed on a map page
+ * @param map The map to display
+ * @param privileged If the user is privileged to see the content
+ */
+export default function MapComponent({map}: {map: IMap}) {
     const router = useRouter()
 
     let videoID = ""

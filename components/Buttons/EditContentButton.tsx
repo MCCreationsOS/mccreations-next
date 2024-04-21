@@ -7,6 +7,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import MainButton from "./MainButton";
 
+/**
+ * The Edit Content button, which displays if the user is a creator of the content
+ * @param slug The slug of the content
+ * @param creators The creators of the content
+ * @param status The status of the content 
+ */
 export default function EditContentButton({slug, creators, status}: {slug: string, creators: ICreator[], status: number}) {
     const [user, setUser] = useState<IUser>()
     useEffect(() => {
@@ -26,7 +32,9 @@ export default function EditContentButton({slug, creators, status}: {slug: strin
             match = true
         }
     })
+    // If the user made it to a page with status 0 we can assume they are the creator.
     if(status === 0) match = true
+
     if(match) {
         return (
             <Link href={`./${slug}/edit`}><MainButton>Edit</MainButton></Link>

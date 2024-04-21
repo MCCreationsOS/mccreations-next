@@ -6,6 +6,10 @@ import FileDropzone from "../FormInputs/VersionUploader/FileUpload";
 import RichText from "../FormInputs/RichText/RichText";
 import MainButton from "../Buttons/MainButton";
 
+/**
+ * A FormElement is a JSX element that represents a form element. It must have a name prop and can have a value, description, and onChange prop. The onChange prop is a function that takes in the value of the input and the index of the input in the form.
+ * This base interface is extended by other form elements to add additional props
+ */
 export interface FormElement extends JSX.Element {
     type: any;
     props: {
@@ -17,6 +21,12 @@ export interface FormElement extends JSX.Element {
     key: string | null;
 }
 
+/**
+ * A form component that takes in FormElements as children and a function to call when the form is saved. The values of all of the FormElements is passed to the onSave function as a list of strings. Each form must have a unique id
+ * @param id The id of the form - Must be unique on the page
+ * @param children The FormElements that make up the form
+ * @param onSave The function to call when the form is saved 
+ */
 export default function FormComponent({id, children, onSave}: {id: string, children: FormElement[] | FormElement, onSave: (inputs: string[]) => void}) {
     const saveForm = () => {
         let inputs: string[] = []

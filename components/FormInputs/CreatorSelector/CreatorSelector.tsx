@@ -8,10 +8,18 @@ import FormComponent from "../../Form/Form"
 import Text from "../Text"
 import ImageInput from "../ImageDropzone"
 
+/**
+ * Extends the ICreator interface to include a selected property
+ */
 interface CreatorSelection extends ICreator {
     selected?: boolean
 }
 
+/**
+ * A selector for creators. Also allows adding new creators
+ * @param value The creators that are selected
+ * @param onChange The function to call when the selected creators change
+ */
 export default function CreatorSelector({value, onChange}: {value?: ICreator[], onChange?: (creators: ICreator[]) => void}) {
     const [creators, setCreators] = useState<CreatorSelection[]>()
     const loggedIn = useRef(false)
@@ -76,31 +84,4 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
             <input type='hidden' name='creators' value={JSON.stringify(creators)}></input>
         </div>
     )
-
-    // if(creators && creators.length > 0) {
-    //     return (
-    //         <div className='field'>
-    //             <h3 className='label'>Creators</h3>
-    //             <div className={styles.options}>
-    //                 {creators.map((creator, idx) => {return (
-    //                     <div key={idx} className={(creator.handle === creators[selected].handle) ? styles.option_selected : styles.option} onClick={() => {setSelected(idx); onChange(creator.handle!)}}>{creator.username}</div>
-    //                 )})}
-    //             </div>
-    //         </div>
-    //     )
-    // } else {
-    //     return (
-    //         <div className='field'>
-    //             <h3 className='label'>Creators</h3>
-    //             <div className={styles.options}>
-    //                 <div className={styles.option_selected}>
-    //                     <div className='text'>
-    //                         <h3 className='label'>Username</h3>
-    //                         <input className='input wide' type='text' name='data' placeholder="Username" onChange={(e) => {onChange("", e.currentTarget.value)}}></input>
-    //                     </div> 
-    //                 </div>
-    //             </div>
-    //         </div>
-    //     )
-    // }
 }

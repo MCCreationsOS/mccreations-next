@@ -5,6 +5,9 @@ import styles from '../Input.module.css'
 import { FormElement } from "@/components/Form/Form"
 import { useState } from "react"
 
+/**
+ * Extend FormElement to include an 'allowMultiple' property
+ */
 export interface ImageInputProps {
     name: string,
     value?: string,
@@ -17,6 +20,14 @@ export interface ImageInput extends FormElement {
     props: ImageInputProps
 }
 
+/**
+ * An ImageInput form element
+ * @param name The name of the input
+ * @param value The value of the input, can be set to a default value
+ * @param allowMultiple Whether or not the input should allow multiple images to be uploaded
+ * @param description A description of the input 
+ * @returns 
+ */
 export default function ImageInput(props: ImageInputProps): ImageInput {
     const [value, setValue] = useState<string>(props.value || "")
 

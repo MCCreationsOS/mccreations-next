@@ -18,6 +18,16 @@ export interface TextElement extends FormElement {
     props: TextProps
 }
 
+/**
+ * A text form element
+ * @param name The name of the input
+ * @param type The type of the input - passed directly into the HTML input element type
+ * @param placeholder The placeholder of the input
+ * @param value The value of the input, can be set to a default value
+ * @param description A description of the input
+ * @param onChange The function to call when the value of the input changes
+ * @returns 
+ */
 export default function Text(props: TextProps): TextElement {
     const value = useRef(props.value)
 

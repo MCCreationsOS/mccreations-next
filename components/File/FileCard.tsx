@@ -3,6 +3,11 @@ import Link from "next/link";
 import { Archive, Box, Compass } from "react-feather";
 import styles from './FileCard.module.css';
 
+/**
+ * A card that displays download options for a file
+ * @param file The file to display
+ * @param download The function to call when a download button is clicked
+ */
 export default function FileCard({file, download}: {file: IFile, download: (url: string) => void}) {
 
     return (

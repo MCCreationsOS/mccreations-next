@@ -11,6 +11,11 @@ import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 import { UploadedImageRepresentation } from '../ImageDropzone/ImageDropzone'
 import GalleryImage from './GalleryImage'
 
+/**
+ * A gallery of images that can be uploaded
+ * @param onImagesUploaded The function to call when images are uploaded
+ * @param presetFiles The preset files to display
+ */
 const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(files: UploadedImageRepresentation[]) : void, presetFiles?: string }) => {
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     const [rejected, setRejected] = useState<FileRejection[]>([])

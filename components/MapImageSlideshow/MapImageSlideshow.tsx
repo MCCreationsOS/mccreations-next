@@ -5,6 +5,10 @@ import Image from "next/image";
 import { shimmer, toBase64 } from "../skeletons/imageShimmer";
 import styles from './MapImageSlideshow.module.css'
 
+/**
+ * The slideshow of images on a map page
+ * @param images The images to display
+ */
 export default function MapImageSlideshow({images}: {images: string[]}) {
     const [index, setIndex] = useState(0)
     const [slideTime, setSlideTime] = useState(510);

@@ -16,6 +16,7 @@
     background-color: #2a48d0;
 }
 
+/** Override Link color in case the button is actually a link */
 .main_button:visited {
     color: white;
 }

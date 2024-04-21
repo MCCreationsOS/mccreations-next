@@ -4,6 +4,13 @@ import Link from "next/link"
 import { shimmer, toBase64 } from "../skeletons/imageShimmer"
 import styles from './ContentCard.module.css'
 
+/**
+ * A card for displaying content
+ * @param content The content to display
+ * @param playlist The playlist the content is in
+ * @param index The index of the content in the playlist
+ * @param priority Whether the image should be loaded with priority
+ */
 export default function ContentCard({content, playlist, index, priority}: {content: IMap, playlist: string, index: number, priority: boolean}) {
         // let authorLink = map.creators[0].link;
     // if(!authorLink || authorLink.length <= 0 || map.creators[0].hasMatchingUser) {

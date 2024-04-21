@@ -2,6 +2,12 @@ import Image from "next/image";
 import { IMap } from "@/app/types";
 import styles from './ContentScrollBackground.module.css'
 
+/**
+ * A special, uninteractable and stripped down card for the content scroll background
+ * @param map The map to display
+ * @param id The id of the card
+ * @param priority Whether the image should be loaded with priority
+ */
 export default function ContentScrollCard({map, id, priority}: {map: IMap, id: string, priority: boolean}) {
     return (
         <div className={styles.content_card} id={id} >

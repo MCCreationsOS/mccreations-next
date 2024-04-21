@@ -4,6 +4,9 @@ import ContentScrollGrid from "./ContentScrollGrid";
 import { useEffect, useState } from "react";
 import styles from './ContentScrollBackground.module.css'
 
+/**
+ * The special Map Scroll background used on the sign up page.
+ */
 export default function MapScroll() {
     const [maps, setMaps] = useState([]);
 

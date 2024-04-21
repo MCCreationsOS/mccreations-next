@@ -9,13 +9,26 @@ import styles from './ImageDropzone.module.css'
 import upload from '@/app/api/upload'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 
+/**
+ * The representation of an uploaded image
+ * @param name The name of the image
+ * @param url The url of the image
+ */
 export interface UploadedImageRepresentation {
     name: string,
     url: string
 }
 
+/**
+ * A dropzone for images, uses react-dropzone
+ * @param presetImage The preset image to display
+ * @param onImagesUploaded The function to call when images are uploaded
+ * @param allowMultiple Whether or not the dropzone should allow multiple images to be uploaded
+ * @param presetFiles The preset files to display
+ */
 const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFiles }: { presetImage?: string, onImagesUploaded(files: UploadedImageRepresentation[]) : void, allowMultiple: boolean, presetFiles?: string }) => {
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
+    // Reject files are collected, although not technically displayed
     const [rejected, setRejected] = useState<FileRejection[]>([])
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
@@ -26,6 +39,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploaded ${file.name}`))
                         
                         if(allowMultiple) {
+                            // Send uploaded files to the parent component, then update the internal state of images
                             onImagesUploaded([
                                 ...files,
                                 ...acceptedFiles.map(file =>
@@ -81,11 +95,6 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
         }
     }, [])
 
-    // useEffect(() => {
-    //     // Revoke the data uris to avoid memory leaks
-    //     return () => files.forEach(file => URL.revokeObjectURL(file.preview!))
-    // }, [files])
-
     const removeFile = (name: string) => {
         setFiles(files => files.filter(file => file.name !== name))
         onImagesUploaded(files.filter(file => file.name !== name));
@@ -100,16 +109,9 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
         setRejected(files => files.filter(({ file }) => file.name !== name))
     }
 
-    async function action() {
-        const file = files[0]
-        if (!file) return
-        // get a signature using server action
-
-    }
-
     return (
         <>
-            <form onSubmit={action}>
+            <form>
                 <div {...getRootProps()}>
                     <input {...getInputProps({ name: 'file' })} />
                     <div className={styles.single_dropzone}>

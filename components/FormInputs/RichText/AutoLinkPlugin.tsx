@@ -19,6 +19,10 @@ import {
     }),
   ];
   
+  /**
+   * AutoLinkPlugin 'stolen' from Lexical. This plugin automatically makes pasted links into link objects recognized by the editor
+   * @returns 
+   */
   export default function LexicalAutoLinkPlugin(): JSX.Element {
     return <AutoLinkPlugin matchers={MATCHERS} />;
   }
