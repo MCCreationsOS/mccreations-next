@@ -1,8 +1,8 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { fetchMap, requestApproval, updateContent } from "@/app/api/content"
-import { FilePreview, IFile, IMap, IUser, MinecraftVersion } from "@/app/types"
+import { fetchMap, fetchTags, requestApproval, updateContent } from "@/app/api/content"
+import { FilePreview, IFile, IMap, IUser, MinecraftVersion, Tags } from "@/app/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
@@ -10,6 +10,7 @@ import CreatorSelector from "@/components/FormInputs/CreatorSelector/CreatorSele
 import { UploadedImageRepresentation } from "@/components/FormInputs/ImageDropzone/ImageDropzone"
 import MediaGallery from "@/components/FormInputs/MediaGallery/MediaGallery"
 import RichTextInput from "@/components/FormInputs/RichText"
+import Select from "@/components/FormInputs/Select"
 import Text from "@/components/FormInputs/Text"
 import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
@@ -21,6 +22,7 @@ import { ArrowLeft } from "react-feather"
 export default function EditContentPage({params}: {params: Params}) {
     const [user, setUser] = useState<IUser>()
     const [map, setMap] = useState<IMap>()
+    const [tags, setTags] = useState<Tags>()
     const token = useRef("")
     useEffect(() => {
         token.current = sessionStorage?.getItem('jwt') + ""
@@ -36,6 +38,11 @@ export default function EditContentPage({params}: {params: Params}) {
                 let m = await fetchMap(params.slug, token + "")
                 setMap(m);
             }
+            fetchTags().then((data) => {
+                if('genre' in data) {
+                    setTags(data)
+                }
+            })
         }
         getData();
     }, [])
@@ -50,6 +57,7 @@ export default function EditContentPage({params}: {params: Params}) {
         if(map.status === 0) {
             match = true;
         }
+        
     }
     if(match) {
         return (
@@ -110,6 +118,12 @@ export default function EditContentPage({params}: {params: Params}) {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "No description entered"))
                             }
 
+                            if(inputs[6]) {
+                                newMap.tags = inputs[6].concat(inputs[7]).concat(inputs[8]).concat(inputs[9]).concat(inputs[10]).split(',')
+                            } else {
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No tags entered'))
+                            }
+
                             updateContent(newMap, token.current).then((error) => {
                                 if(error.message) {
                                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, error.message))
@@ -127,6 +141,21 @@ export default function EditContentPage({params}: {params: Params}) {
                             <Text type="text" name="Short Description" value={map?.shortDescription} />
                             <Text type="text" name="Video URL" value={map?.videoUrl} />
                             <RichTextInput name="Description" value={map?.description} />
+                            <Select name="Genre" options={tags?.genre.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                            <Select name="Subgenre" options={tags?.subgenre.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                            <Select name="Theme" options={tags?.theme.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                            <Select name="Difficulty" options={tags?.difficulty.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
+                            <Select name="Length" options={tags?.length.map(tag => {
+                                return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                            })} multiSelect={true} value={map!.tags?.join(',')}/>
                         </FormComponent>
                     },{
 
