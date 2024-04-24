@@ -19,9 +19,10 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
         if (acceptedFiles?.length) {
             console.log("Got a valid file")
             acceptedFiles.forEach(file => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploading ${file.name}`))
                 upload(file).then(url => {
                     if(url) {
-                        // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploaded ${file.name}`))
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploaded ${file.name}`))
                         setFile(url)
                     } else {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `Uploading ${file.name} failed`))
@@ -78,13 +79,13 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 </div>
                 <p>Or...</p>
                 <div className={styles.dnd}>
-                    <FormComponent id="linkFile" onSave={(inputs) => {
+                    <FormComponent id={"linkFile" + Math.floor(Math.random() * 1000)} onSave={(inputs) => {
                         let url = inputs[0]
                         if(url) {
                             setFile(url)
                         }
                     }}>
-                        <Text type="text" name="Link" placeholder="https://example.com/file.zip" />    
+                        <Text type="text" name="Link" placeholder="https://example.com/file.zip" value={file} />    
                     </FormComponent>
                 </div>
             </div>

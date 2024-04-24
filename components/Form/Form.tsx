@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ImageDropzone, { UploadedImageRepresentation } from "../FormInputs/ImageDropzone/ImageDropzone";
 import styles from './Form.module.css'
 import CreatorSelector from "../FormInputs/CreatorSelector/CreatorSelector";
@@ -37,10 +37,12 @@ export default function FormComponent({id, children, onSave}: {id: string, child
         onSave(inputs)
     }
 
-    let otherForms = document.querySelectorAll('#' + id)
-    if(otherForms.length > 0) {
-        console.warn('Form with id ' + id + ' already exists. This may cause unexpected behavior')
-    }
+    useEffect(() => {
+        let otherForms = document.querySelectorAll('#' + id)
+        if(otherForms.length > 1) {
+            console.warn('Form with id ' + id + ' already exists. This may cause unexpected behavior')
+        }
+    }, [])
 
     return (
         <div id={id}>
