@@ -81,7 +81,7 @@ export default function Page() {
                         title: (document.querySelectorAll('input')[(idx * 3)] as HTMLInputElement).value,
                         slug: (document.querySelectorAll('input')[(idx * 3) + 1] as HTMLInputElement).value,
                         tags: (document.querySelectorAll('input')[(idx * 3) + 2] as HTMLInputElement).value.split(','),
-                        shortDescription: (document.querySelectorAll('textarea')[0] as HTMLTextAreaElement).value
+                        shortDescription: (document.querySelectorAll('textarea')[idx] as HTMLTextAreaElement).value
                     }])}}><Plus /></button>
                     {(map.status === 1) ? <MainButton onClick={() => {approveContent(map.slug, sessionStorage.getItem('jwt'))}}>Approve</MainButton> : <></> }
                 </div>
