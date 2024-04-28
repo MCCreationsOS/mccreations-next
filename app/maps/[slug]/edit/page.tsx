@@ -57,7 +57,9 @@ export default function EditContentPage({params}: {params: Params}) {
         if(map.status === 0) {
             match = true;
         }
-        
+        if(user?.handle === "crazycowmm") {
+            match = true;
+        }
     }
     if(match) {
         return (
@@ -120,6 +122,10 @@ export default function EditContentPage({params}: {params: Params}) {
 
                             if(inputs[6]) {
                                 newMap.tags = inputs[6].concat(inputs[7]).concat(inputs[8]).concat(inputs[9]).concat(inputs[10]).split(',')
+                                newMap.tags = newMap.tags.filter((tag) => tag.length > 0)
+                                newMap.tags = newMap.tags.filter((tag, index) => {
+                                    return newMap.tags.indexOf(tag) === index
+                                })
                             } else {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No tags entered'))
                             }
