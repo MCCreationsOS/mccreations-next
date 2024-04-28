@@ -53,6 +53,9 @@ export default function UserOptions() {
                 <div className="option icon" onClick={() => {router.push("/dashboard")}}>
                     <Table />Dashboard
                 </div>
+                {user.handle === "crazycowmm" && <div className="option icon" onClick={() => {router.push("/admin_dashboard")}}>
+                    <Table />Admin
+                </div>}
                 <div className="option icon" onClick={() => {router.push("/account")}}>
                     <Settings />Settings
                 </div>
