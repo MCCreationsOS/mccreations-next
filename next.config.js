@@ -33,6 +33,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'www.minecraftmaps.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'static.planetminecraft.com'
       }
     ],
   }
