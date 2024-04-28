@@ -31,7 +31,7 @@ export default function Page() {
             }
         })
 
-        fetch(`${process.env.DATA_URL}/old/maps?status=1&limit=20&page=${page}`, {
+        fetch(`${process.env.DATA_URL}/old/maps?status=0&limit=20&page=${page}`, {
             headers: {
                 authorization: jwt + ""
             }
@@ -45,7 +45,7 @@ export default function Page() {
 
     useEffect(() => {
         let jwt = sessionStorage.getItem('jwt')
-        fetch(`${process.env.DATA_URL}/old/maps?status=1&limit=20&page=${page}`, {
+        fetch(`${process.env.DATA_URL}/old/maps?status=0&limit=20&page=${page}`, {
             headers: {
                 authorization: jwt + ""
             }
