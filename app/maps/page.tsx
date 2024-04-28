@@ -31,7 +31,7 @@ export default function Maps() {
     const [maps, setMaps] = useState([])
     const [pages, setPages] = useState(0)
     const [loading, setLoading] = useState(false)
-    let page: number = 0;
+    let page = 0
     if(searchParams.get("page") != null) {
        page = (Number.parseInt(searchParams.get("page")!));
     }
@@ -59,6 +59,30 @@ export default function Maps() {
         }
         findMaps(search, sort, status, include, exclude);
     }, [])
+
+    useEffect(() => {
+        let search = ""
+        let sort = SortOptions.Newest
+        let status = StatusOptions.Approved
+        let include: string = ""
+        let exclude: string = ""
+        if(searchParams.get("search") && searchParams.get("search") != search) {
+            search = searchParams.get("search") + ""
+        }
+        if(searchParams.get("sort") && searchParams.get("sort") != sort) {
+            sort = searchParams.get("sort")! as SortOptions
+        }
+        if(searchParams.get("status")&& Number.parseInt(searchParams.get("status")!) != status) {
+            status = Number.parseInt(searchParams.get("status")!)
+        }
+        if(searchParams.get("include") && searchParams.get("include") != "") {
+            include = searchParams.get("include")!
+        }
+        if(searchParams.get('exclude') && searchParams.get('exclude') != "") {
+            exclude = searchParams.get('exclude')!
+        }
+        findMaps(search, sort, status, include, exclude);
+    }, [page])
 
     const findMaps = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)

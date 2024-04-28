@@ -3,6 +3,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { shimmer, toBase64 } from "../skeletons/imageShimmer"
 import styles from './ContentCard.module.css'
+import { useRouter } from "next/navigation"
 
 /**
  * A card for displaying content
@@ -12,13 +13,10 @@ import styles from './ContentCard.module.css'
  * @param priority Whether the image should be loaded with priority
  */
 export default function ContentCard({content, playlist, index, priority}: {content: IMap, playlist: string, index: number, priority: boolean}) {
-        // let authorLink = map.creators[0].link;
-    // if(!authorLink || authorLink.length <= 0 || map.creators[0].hasMatchingUser) {
-    //     authorLink = "/creators/" + map.creators[0].username
-    // }
+    const router = useRouter()
 
     return (
-        <div className={styles.content_card} id={playlist + "_" + index} >
+        <div className={styles.content_card} id={playlist + "_" + index} onClick={() => {router.push(`/maps/${content.slug}`)}} >
             <div className={styles.information}>
                 <div className={styles.description}>
                     {content.shortDescription}
