@@ -4,6 +4,7 @@ import Link from "next/link"
 import { shimmer, toBase64 } from "../skeletons/imageShimmer"
 import styles from './ContentCard.module.css'
 import { useRouter } from "next/navigation"
+import InContentAdUnit from "../AdUnits/InContent"
 
 /**
  * A card for displaying content
@@ -16,6 +17,7 @@ export default function ContentCard({content, playlist, index, priority}: {conte
     const router = useRouter()
 
     return (
+        <>
         <div className={styles.content_card} id={playlist + "_" + index} onClick={() => {router.push(`/maps/${content.slug}`)}} >
             <div className={styles.information}>
                 <div className={styles.description}>
@@ -31,5 +33,9 @@ export default function ContentCard({content, playlist, index, priority}: {conte
             <Link className={styles.title} href={`/maps/${content.slug}`}>{content.title}</Link>
             <p className={styles.author}>by <span className='cardAuthorLink'>{content.creators[0].username}</span></p>
         </div>
+        {index === 2 && <div className={styles.content_card}>
+            <InContentAdUnit />    
+        </div>}
+        </>
     )
 }
