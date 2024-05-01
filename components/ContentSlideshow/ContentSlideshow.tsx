@@ -10,20 +10,20 @@ import styles from './ContentSlideshow.module.css'
  * @param playlist The playlist to display
  */
 export default function ContentSlideshow({content, playlist}: {content: IMap[], playlist: string}) {
+    let location = 0
 
     const slideButtonClicked = (left: boolean, e: any) => {
         e.preventDefault();
         let elem
         // This should be improve to be more dynamic ad support slideshows of any length
         if(left) {
-            elem = document.querySelector(`#${playlist}_${0}`)
+            if(location > 0) location -= 4
+            elem = document.querySelector(`#${playlist}_${location}`)
         } else {
-            elem = document.querySelector(`#${playlist}_${9}`)
+            if(location < 16) location += 4
+            elem = document.querySelector(`#${playlist}_${location}`)
         }
-        document.querySelector(`#${playlist}`)?.scrollTo({
-            left: elem?.getBoundingClientRect().left,
-            behavior: "smooth"
-        })
+        elem?.scrollIntoView({behavior: "smooth", inline: "start"})
     }
 
     return (
