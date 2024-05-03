@@ -33,9 +33,8 @@ export default function ContentCard({content, playlist, index, priority}: {conte
             <Link className={styles.title} href={`/maps/${content.slug}`}>{content.title}</Link>
             <p className={styles.author}>by <span className='cardAuthorLink'>{content.creators[0].username}</span></p>
         </div>
-        {index === 2 && <div className={styles.content_card}>
-            <InContentAdUnit />    
-        </div>}
+        {index === Math.floor(Math.random() * 19) &&
+            <InContentAdUnit />    }
         </>
     )
 }
