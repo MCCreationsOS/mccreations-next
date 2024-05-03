@@ -13,9 +13,8 @@ import InContentAdUnit from "../AdUnits/InContent"
  * @param index The index of the content in the playlist
  * @param priority Whether the image should be loaded with priority
  */
-export default function ContentCard({content, playlist, index, priority}: {content: IMap, playlist: string, index: number, priority: boolean}) {
+export default function ContentCard({content, playlist, index, priority, adPosition}: {content: IMap, playlist: string, index: number, priority: boolean, adPosition?: number}) {
     const router = useRouter()
-
     return (
         <>
         <div className={styles.content_card} id={playlist + "_" + index} onClick={() => {router.push(`/maps/${content.slug}`)}} >
@@ -33,9 +32,8 @@ export default function ContentCard({content, playlist, index, priority}: {conte
             <Link className={styles.title} href={`/maps/${content.slug}`}>{content.title}</Link>
             <p className={styles.author}>by <span className='cardAuthorLink'>{content.creators[0].username}</span></p>
         </div>
-        {index === 2 && <div className={styles.content_card}>
-            <InContentAdUnit />    
-        </div>}
+        {index === adPosition &&
+            <InContentAdUnit />    }
         </>
     )
 }

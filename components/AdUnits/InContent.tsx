@@ -1,18 +1,33 @@
 'use client'
 
+import { adUnits } from "@/app/api/ads"
 import { useEffect, useState } from "react"
 import styles from './Ads.module.css'
 
 export default function InContentAdUnit() {
     const [isClient, setIsClient] = useState(false)
+    const [adUnit, setAdUnit] = useState("")
  
     useEffect(() => {
-      setIsClient(true)
+        let foundAdUnit = false
+        adUnits.forEach(unit => {
+            if(!unit.inUse && adUnit.length === 0 && !foundAdUnit) {
+                console.log("Found ad unit not in use")
+                setAdUnit(unit.id)
+                unit.inUse = true
+                foundAdUnit = true
+            } else if (adUnit.length !== 0 && unit.id === adUnit) {
+                unit.inUse = false
+                setAdUnit("")
+            }
+        
+        })
+        setIsClient(true)
     }, [])
     return (
         <>
-        <div className={styles.background}>Ad</div>
-        {isClient && <>
+        {isClient && adUnit.length !== 0 && <div style={{position: "relative"}}>
+            <div className={styles.background}>Ad</div>
             <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
                     crossOrigin="anonymous"></script>
                 <ins className="adsbygoogle"
@@ -20,11 +35,11 @@ export default function InContentAdUnit() {
                     data-ad-format="fluid"
                     data-ad-layout-key="-7p+eu-10-1k+6x"
                     data-ad-client="ca-pub-5425604215170333"
-                    data-ad-slot="7972645086"></ins>
+                    data-ad-slot={adUnit}></ins>
                 <script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
                 </script>
-            </>}
+            </div>}
         </>
     )
 }
