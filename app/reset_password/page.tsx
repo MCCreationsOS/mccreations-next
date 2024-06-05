@@ -15,9 +15,7 @@ export default function Page() {
     
     useEffect(() => {
         token = params.get('token')
-        if(token) {
-
-        } else {
+        if(!token) {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, "No token found, returning to previous page", () => {
                 router.back()
             }))
@@ -26,6 +24,13 @@ export default function Page() {
     }, [])
 
     const updatePassword = async () => {
+        token = params.get('token')
+        if(!token) {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, "No token found, returning to previous page", () => {
+                router.back()
+            }))
+            return;
+        }
         if(password === password2) {
 
             if(!password || password.length < 9) {
@@ -40,9 +45,9 @@ export default function Page() {
                 return;
             }
 
-            let result = await resetPassword(token!, password)
-            if(result) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error))
+            let error = await resetPassword(token!, password)
+            if(error) {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, error))
             }
             router.push("/signin")
         } else {
