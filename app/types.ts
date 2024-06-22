@@ -93,8 +93,8 @@ export interface IMap {
     views: number,
     rating: number,
     ratings?: number[],
-    createdDate: Date,
-    updatedDate?: Date,
+    createdDate: number,
+    updatedDate?: number,
     _id: any,
     tags: string[]
 }
