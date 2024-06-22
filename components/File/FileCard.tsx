@@ -1,7 +1,8 @@
 import { IFile } from "@/app/types";
 import Link from "next/link";
-import { Archive, Box, Compass } from "react-feather";
+import { Archive, Box, Compass, Globe, Map } from "react-feather";
 import styles from './FileCard.module.css';
+import IconButton from "../Buttons/IconButton";
 
 /**
  * A card that displays download options for a file
@@ -14,9 +15,9 @@ export default function FileCard({file, download}: {file: IFile, download: (url:
         <div className={styles.card}>
             <div className={styles.download_options}>
                 <p>{(file.contentVersion) ? file.contentVersion : "1.0"}</p>
-                {(file.worldUrl) ? <span title="Download Complete World" className={styles.button}  onClick={() => {download(file.worldUrl)}}><Archive /></span> : <></>}
-                {(file.resourceUrl) ? <Link title="Download Resourcepack" className={styles.button}  href={file.resourceUrl}><Compass /></Link> : <></>}
-                {(file.dataUrl) ? <Link title="Download Datapack" className={styles.button}  href={file.dataUrl}><Box /></Link> : <></>}
+                <IconButton onClick={() => {download(file.worldUrl)}}><Archive /></IconButton>
+                {(file.resourceUrl) ? <Link title="Download Resourcepack" href={file.resourceUrl}><IconButton><Compass /></IconButton></Link> : <></>}
+                {(file.dataUrl) ? <Link title="Download Datapack" href={file.dataUrl}><IconButton><Box/></IconButton></Link> : <></>}
             </div>
         </div>
     )
