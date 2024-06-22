@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { approveContent, deleteContent, fetchMaps } from "../api/content";
-import { IMap } from "../types";
-import { useEffect, useState } from "react";
+import { IMap, IUser } from "../types";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUser } from "../api/auth";
 import Menu from "@/components/Menu/Menu";
@@ -15,6 +15,7 @@ import WarningButton from "@/components/Buttons/WarningButton";
 
 export default function Page() {
     const [maps, setMaps] = useState<IMap[]>([])
+    const user = useRef<IUser | undefined>(undefined)
     const router = useRouter();
     let jwt: string | null = null;
 
@@ -25,12 +26,12 @@ export default function Page() {
             router.push('/signin')
             return;
         }
-        getUser(undefined, jwt).then((user) => {
-            if(!user) {
+        getUser(undefined, jwt).then((u) => {
+            if(!u) {
                 router.push('/signin')
                 return;
             }
-
+            user.current = u
             
         })
 
@@ -39,8 +40,14 @@ export default function Page() {
     }, [])
 
     const getOwnedContent = async (jwt: any) => {
-        fetchMaps({status: 0, search: "CrazyCowMM"}, false, jwt).then((maps) => {
-            setMaps(maps.documents)
+        fetch(`${process.env.DATA_URL}/maps-nosearch?status=0&limit=20&page=0&creator=${user.current?.handle}`, {
+            headers: {
+                authorization: jwt + ""
+            }
+        }).then((res) => {
+            res.json().then((data) => {
+                setMaps(data.documents)
+            })
         })
     }
     
@@ -89,7 +96,7 @@ export default function Page() {
                         <p>{(map.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{map.createdDate && new Date(map.createdDate).toDateString()}</p>
+                        <p>{map.createdDate && new Date(map.createdDate * 1000).toDateString()}</p>
                     </div>
                     <div className={styles.content_item_item}>
                         <p>{map.views}</p>
