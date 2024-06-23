@@ -15,7 +15,7 @@ import WarningButton from "@/components/Buttons/WarningButton";
 
 export default function Page() {
     const [maps, setMaps] = useState<IMap[]>([])
-    const user = useRef<IUser | undefined>(undefined)
+    const [user, setUser] = useState<IUser>()
     const router = useRouter();
     let jwt: string | null = null;
 
@@ -26,21 +26,25 @@ export default function Page() {
             router.push('/signin')
             return;
         }
-        getUser(undefined, jwt).then((u) => {
-            if(!u) {
-                router.push('/signin')
-                return;
-            }
-            user.current = u
-            
-        })
-
-        getOwnedContent(jwt)
+        getUserLocal(jwt)
     
     }, [])
 
+    useEffect(() => {
+        getOwnedContent(jwt)
+    }, [user])
+
+    const getUserLocal = async (jwt: string | undefined) => {
+        let u = await getUser(undefined, jwt)
+        if(!u) {
+            router.push('/signin')
+        }
+        console.log("Dashboard", u)
+        setUser(u)
+    }
+
     const getOwnedContent = async (jwt: any) => {
-        fetch(`${process.env.DATA_URL}/maps-nosearch?status=0&limit=20&page=0&creator=${user.current?.handle}`, {
+        fetch(`${process.env.DATA_URL}/maps-nosearch?status=0&limit=20&page=0&creator=${user?.handle}`, {
             headers: {
                 authorization: jwt + ""
             }
