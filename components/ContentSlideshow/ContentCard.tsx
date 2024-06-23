@@ -1,3 +1,5 @@
+'use client'
+
 import { IMap } from "@/app/types"
 import Image from "next/image"
 import Link from "next/link"
