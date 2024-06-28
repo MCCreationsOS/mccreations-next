@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Image from "next/image"
-import { IUser } from "@/app/types"
+import { IUser, UserTypes } from "@/app/types"
 import Link from "next/link"
 import { LogOut, Settings, Table, User } from "react-feather"
 import { useRouter } from "next/navigation"
@@ -53,7 +53,7 @@ export default function UserOptions() {
                 <div className="option icon" onClick={() => {router.push("/dashboard")}}>
                     <Table />Dashboard
                 </div>
-                {user.handle === "crazycowmm" && <div className="option icon" onClick={() => {router.push("/admin_dashboard")}}>
+                {user.type === UserTypes.Admin && <div className="option icon" onClick={() => {router.push("/admin_dashboard")}}>
                     <Table />Admin
                 </div>}
                 <div className="option icon" onClick={() => {router.push("/account")}}>
