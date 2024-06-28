@@ -1,7 +1,7 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { ICreator, IMap, IUser } from "@/app/types"
+import { ICreator, IContentDoc, IUser } from "@/app/types"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import MessageComponent, { IMessage } from "../Message/Message"
@@ -10,7 +10,7 @@ import MessageComponent, { IMessage } from "../Message/Message"
  * Content warnings for the map creator(s)
  * @param map The map to check
  */
-export default function ContentWarnings({map}: {map: IMap}) {
+export default function ContentWarnings({map}: {map: IContentDoc}) {
     const [user, setUser] = useState<IUser>()
 
     // Get the user on load

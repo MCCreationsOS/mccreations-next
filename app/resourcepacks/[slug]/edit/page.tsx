@@ -7,7 +7,7 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 export default function EditPage({params}: {params: Params}) {
     return (
         <>
-        <EditContentPage params={params} contentType={ContentTypes.Maps} />
+        <EditContentPage params={params} contentType={ContentTypes.Resourcepacks} />
         </>
     )
 }

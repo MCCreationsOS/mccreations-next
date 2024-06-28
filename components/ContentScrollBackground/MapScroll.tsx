@@ -1,5 +1,5 @@
 'use client'
-import { fetchMaps } from "@/app/api/content";
+import { fetchContent } from "@/app/api/content";
 import ContentScrollGrid from "./ContentScrollGrid";
 import { useEffect, useState } from "react";
 import styles from './ContentScrollBackground.module.css'
@@ -12,7 +12,7 @@ export default function MapScroll() {
 
     useEffect(() => {
         const getMaps = async () => {
-            setMaps((await fetchMaps({status: 3, limit: 60}, false)).documents)
+            setMaps((await fetchContent({contentType: "content", status: 3, limit: 60}, false)).documents)
         }
         getMaps();
     }, [])

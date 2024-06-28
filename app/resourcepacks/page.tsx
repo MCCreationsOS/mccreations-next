@@ -4,12 +4,12 @@ import ContentCard from "@/components/ContentSlideshow/ContentCard"
 import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
-import { fetchContent } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
 import { ContentTypes, SortOptions, StatusOptions } from "../types"
 import SearchAndFilter from "@/components/SearchAndFilter"
+import { fetchContent } from "../api/content"
 
 // const client = contentful.createClient({
 //     space: 'xfoauilnv892',
@@ -25,10 +25,10 @@ import SearchAndFilter from "@/components/SearchAndFilter"
 //     return res.items;
 // }
 
-export default function Maps() {
+export default function Resourcepacks() {
     const pathname = usePathname()
     const searchParams = useSearchParams()
-    const [maps, setMaps] = useState([])
+    const [resourcepacks, setResourcepacks] = useState([])
     const [pages, setPages] = useState(0)
     const [loading, setLoading] = useState(false)
     let page = 0
@@ -57,7 +57,7 @@ export default function Maps() {
         if(searchParams.get('exclude') && searchParams.get('exclude') != "") {
             exclude = searchParams.get('exclude')!
         }
-        findMaps(search, sort, status, include, exclude);
+        findResourcepacks(search, sort, status, include, exclude);
     }, [])
 
     useEffect(() => {
@@ -81,14 +81,14 @@ export default function Maps() {
         if(searchParams.get('exclude') && searchParams.get('exclude') != "") {
             exclude = searchParams.get('exclude')!
         }
-        findMaps(search, sort, status, include, exclude);
+        findResourcepacks(search, sort, status, include, exclude);
     }, [page])
 
-    const findMaps = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
+    const findResourcepacks = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await fetchContent({contentType: ContentTypes.Maps, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await fetchContent({contentType: ContentTypes.Resourcepacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
-        setMaps(m.documents);
+        setResourcepacks(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
     }
 
@@ -111,19 +111,19 @@ export default function Maps() {
     
     return (
         <div>
-            <Menu selectedPage='maps'></Menu>
-            <SearchAndFilter callback={findMaps}  contentType={ContentTypes.Maps}/>
-            { maps && maps.length !== 0 && (
+            <Menu selectedPage='resourcepacks'></Menu>
+            <SearchAndFilter callback={findResourcepacks}  contentType={ContentTypes.Resourcepacks}/>
+            { resourcepacks && resourcepacks.length !== 0 && (
                 <div>
-                <ContentGrid content={maps}></ContentGrid>
+                <ContentGrid content={resourcepacks} linkTo="resourcepacks"></ContentGrid>
             </div>
             )}
-            { !maps || maps.length === 0 && (
+            { !resourcepacks || resourcepacks.length === 0 && (
                 <div className="no_comments">
-                    <h2>No Maps Found</h2>
+                    <h2>No Resourcepacks Found</h2>
                 </div>
             )}
-            { maps && maps.length > 20 &&  (<div className="navigator">
+            { resourcepacks && resourcepacks.length > 20 &&  (<div className="navigator">
                 {(page != 0) ? <Link href={goToPage(0)}><img src="/chevs-left.svg"></img></Link> : <></>}
                 {(page != 0) ? <Link href={goToPage(page - 1)}><img src="/chev-left.svg"></img></Link> : <></>}
                 {(page - 3 >= 0) ? (page < pages - 4) ? <Link href={goToPage(page - 3)}>{page - 2}</Link> : <Link className={page == pages-7 ? "current": ""} href={goToPage(pages-7)}>{pages - 6}</Link> : <Link className={page == 0 ? "current": ""} href={goToPage(0)}>{1}</Link>}
@@ -136,6 +136,7 @@ export default function Maps() {
                 {(pages > 1) ? (page != pages -1) ? <Link href={goToPage(page + 1)}><img src="/chev-right.svg"></img></Link> : <></>: <></>}
                 {(pages > 6) ? (page != pages -1) ? <Link href={goToPage(pages - 1)}><img src="/chevs-right.svg"></img></Link> : <></>: <></>}
             </div>) }
+               
         </div>
     )
 }

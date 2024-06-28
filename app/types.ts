@@ -21,7 +21,9 @@ export enum SortOptions {
     LowestRated = "lowest_rated",
     CreatorAscending = "creator_ascending",
     CreatorDescending = "creator_descending",
-    BestMatch = "best_match"
+    BestMatch = "best_match",
+    HighestDownloads = "highest_downloads",
+    LowestDownloads = "lowest_downloads"
 }
 
 export enum StatusOptions {
@@ -50,12 +52,19 @@ export interface QueryOptions {
     search?: string;
     includeTags?: string,
     excludeTags?: string,
-    exclusiveStatus?: boolean
+    exclusiveStatus?: boolean,
+    contentType: ContentTypes | "content"
 }
 
 export interface ErrorMessage {
     error: unknown,
     query: string | QueryOptions
+}
+
+export enum ContentTypes {
+    Maps = "Maps",
+    Datapacks = "datapacks",
+    Resourcepacks = "resourcepacks"
 }
 
 /**
@@ -78,7 +87,7 @@ export interface ErrorMessage {
  * @updatedDate The date the map was last updated on the site. Will be 12/31/1969 if it has not been updated
  * @_id The Object ID of the map. Not currently used, but required by MongoDB
  */
-export interface IMap {
+export interface IContentDoc {
     comments?: IComment[],
     creators: ICreator[],
     description: string,
@@ -161,7 +170,8 @@ export interface IUser {
 
 export enum UserTypes {
     Account,
-    Creator
+    Creator,
+    Admin
 }
 
 export interface FilePreview {
@@ -173,9 +183,7 @@ export interface FilePreview {
 export interface Tags {
     genre: string[],
     subgenre: string[],
-    difficulty: string[],
-    theme: string[],
-    length: string[]
+    [key: string]: string[]
 }
 
 /**

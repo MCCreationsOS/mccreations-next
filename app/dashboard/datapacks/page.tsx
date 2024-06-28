@@ -1,6 +1,6 @@
 'use client'
 
-import { ContentTypes, IContentDoc, IUser } from "../types";
+import { ContentTypes, IContentDoc, IUser } from "@/app/types";
 import Menu from "@/components/Menu/Menu";
 import Tabs from "@/components/Tabs/Tabs";
 import Table from "@/components/Dashboard/Table";
@@ -26,8 +26,8 @@ export default function Page() {
                 title: "Resourcepacks",
                 link: '/dashboard/resourcepacks'
             }
-        ]} />
-        <Table contentType={ContentTypes.Maps} />
+        ]} preselectedTab={1}/>
+        <Table contentType={ContentTypes.Datapacks} />
         </>
     )
 }

@@ -1,7 +1,7 @@
 import { QueryOptions } from "@/app/types"
 import ContentGrid from "../ContentGrid"
 import ContentScrollGrid from "../ContentScrollBackground/ContentScrollGrid"
-import { fetchMaps } from "@/app/api/content"
+import { fetchContent } from "@/app/api/content"
 import ContentSlideshow from "../ContentSlideshow/ContentSlideshow"
 
 /**
@@ -12,7 +12,7 @@ import ContentSlideshow from "../ContentSlideshow/ContentSlideshow"
  * @param cards The number of cards to display if the type is grid
  */
 export default async function ContentArea({type, options, playlist, cards}: {type: string, options: QueryOptions, playlist?: string, cards?: string}) {
-    let content = (await fetchMaps(options, false)).documents
+    let content = (await fetchContent(options, false)).documents
     if(type === "grid") {
         if(!cards) cards = "four"
         return (

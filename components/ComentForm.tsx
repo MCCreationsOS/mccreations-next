@@ -7,7 +7,7 @@ import { IComment, IUser } from "@/app/types";
 import { getUser } from "@/app/api/auth";
 import MainButton from "./Buttons/MainButton";
 
-export default function CommentForm({mapSlug}: {mapSlug: string}) {
+export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: string, content_type: string}) {
     const [username, setUsername] = useState("");
     const [comment, setComment] = useState("");
     const [user, setUser] = useState<IUser>()
@@ -28,9 +28,9 @@ export default function CommentForm({mapSlug}: {mapSlug: string}) {
 
     const sendComment = async () => {
         if(user) {
-            postComment(mapSlug, user.username, comment, user.handle);
+            postComment(slug, content_type, user.username, comment, user.handle);
         } else {
-            postComment(mapSlug, username, comment)
+            postComment(slug, content_type, username, comment)
         }
     }
 

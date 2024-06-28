@@ -32,23 +32,26 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                 sessionStorage.setItem('temp_key', key.key)
             }
             if('slug' in key) {
-                router.push(`/maps/${key.slug}/edit`)
+                router.push(`/${type}s/${key.slug}/edit`)
+            }
+            if('error' in key) {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, key.error))
             }
         })
     }
 
-    const onMapImport = async (link?: string) => {
-        if(link) {
+    const onMapImport = async (link?: string, type?: string) => {
+        if(link && type) {
             console.log('Got valid link')
             let token = sessionStorage.getItem('jwt')
-            let res = await importContent(link, token)
+            let res = await importContent(link, type, token)
             console.log('response returned from API')
             console.log(res)
             if(res.error) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
             } else if(res.content) {
                 Popup.close()
-                router.push('/maps/' + res.content + '/edit')
+                router.push(`/${type}s/${res.content}/edit`)
             }
         } else {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A link must be added to import content"))
@@ -71,10 +74,10 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                             <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="https://www.mccreations.net/resourcepacks">Resourcepacks</Link>
+                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">Data Packs</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="https://www.mccreations.net/datapacks">Datapacks</Link>
+                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">Resource Packs</Link>
                         </li>
                     </ul>
                     <ul className='action_list'>
@@ -88,7 +91,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                                             onMapCreate(inputs[0], inputs[1], inputs[2])
                                         }}>
                                             <Text type="text" name="Title" placeholder="An Awesome Map" />
-                                            <Select name="Type" options={[{name: "Map"}]} />
+                                            <Select name="Type" options={[{name: "Map", value: 'map'}, {name: "Data Pack", value: "datapack"}, {name: 'Resource pack', value: 'resourcepack'}]} />
                                             <Text type="text" name="Short Description" />
                                         </FormComponent>
                                     }, 
@@ -98,8 +101,9 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                                             <p>Import your existing content from Planet Minecraft or MinecraftMaps.com below.</p>
                                             <FormComponent id={"importForm"}
                                             onSave={(inputs) => {
-                                                onMapImport(inputs[0])
+                                                onMapImport(inputs[1], inputs[0])
                                             }}>
+                                                <Select name="Type" options={[{name: "Map", value: 'Maps'}, {name: "Data Pack", value: "datapacks"}, {name: 'Resource pack', value: 'resourcepacks'}]} />
                                                 <Text type="text" name="Link" placeholder="https://planetminecraft.com/project/..." />
                                             </FormComponent>
                                         </>

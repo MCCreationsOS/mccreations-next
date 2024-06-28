@@ -5,11 +5,11 @@ import Link from 'next/link'
 import Image from "next/image";
 import styles from './FeaturedSlideshow.module.css'
 import { shimmer, toBase64 } from "../skeletons/imageShimmer";
-import { IMap } from "@/app/types";
+import { IContentDoc } from "@/app/types";
 import MainButton from "../Buttons/MainButton";
 
 
-export default function FeaturedSlideshow({content}: {content: IMap[]}) {
+export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
     const [index, setIndex] = useState(0)
     const [slideTime, setSlideTime] = useState(720);
 
@@ -52,7 +52,7 @@ export default function FeaturedSlideshow({content}: {content: IMap[]}) {
     }
     return (
         <div className={styles.slideshow}>
-            {content.map((f: IMap, idx: number) => {
+            {content.map((f: IContentDoc, idx: number) => {
                 return (
                     <div key={idx} className={(index === idx) ? `${styles.slide} ${styles.active}` : `${styles.slide} ${styles.inactive}`}>
                         <Image className={styles.image_background} src={f.images[0]} width={1920} height={1080} alt=""></Image>
@@ -77,7 +77,7 @@ export default function FeaturedSlideshow({content}: {content: IMap[]}) {
                             
                             <div>
                                 {
-                                    content.map((f: IMap, idx: number) => {
+                                    content.map((f: IContentDoc, idx: number) => {
                                         return (
                                             <div onClick={() => setSlide(idx)} key={idx} className={(index === idx) ? `${styles.marker} ${styles.active}` : styles.marker}>
                                                 {index === idx ? (<span className={styles.color} style={{width: `${slideTime/10}px`}}></span>): (<span className={styles.color}></span>)} 
