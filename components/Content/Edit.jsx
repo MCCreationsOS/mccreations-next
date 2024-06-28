@@ -19,10 +19,10 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useEffect, useRef, useState } from "react"
 import { ArrowLeft } from "react-feather"
 
-export default function EditContentPage({params, contentType}: {params: Params, contentType: ContentTypes}) {
-    const [user, setUser] = useState<IUser>()
-    const [map, setMap] = useState<IContentDoc>()
-    const [tags, setTags] = useState<Tags>()
+export default function EditContentPage({params, contentType}) {
+    const [user, setUser] = useState()
+    const [map, setMap] = useState()
+    const [tags, setTags] = useState()
     const token = useRef("")
     useEffect(() => {
         token.current = sessionStorage?.getItem('jwt') + ""
@@ -91,23 +91,23 @@ export default function EditContentPage({params, contentType}: {params: Params, 
     if(match) {
         return (
             <div className="centered_content">
-                <ContentWarnings map={map!} />
+                <ContentWarnings map={map} />
                 <h1>Editing {map?.title}</h1>
                 <p>Status: {(map?.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map?.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
-                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map!.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</MainButton>)}
+                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</MainButton>)}
                 <Tabs preselectedTab={1} tabs={[
                 {
                     title: <ArrowLeft />,
                     content: <></>,
-                    link: `/${contentType}/${map!.slug}`
+                    link: `/${contentType}/${map.slug}`
                 },
                 {
                     
                     // General Tab
                     title: "General",
                     content: <FormComponent id="general" onSave={(inputs) => {
-                            let newMap: IContentDoc = {
-                                ...map!
+                            let newMap = {
+                                ...map
                             }
                             
                             if(inputs[0]) {
@@ -170,23 +170,23 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                         }}> 
                             <Text type="text" name="Title" value={map?.title} />
                             <Text type="text" name="Slug" value={map?.slug}/>
-                            <CreatorSelector value={map!.creators} />
+                            <CreatorSelector value={map.creators} />
                             <Text type="text" name="Short Description" value={map?.shortDescription} />
                             <Text type="text" name="Video URL" value={map?.videoUrl} />
                             <RichTextInput name="Description" value={map?.description} />
                             {tags && Object.keys(tags).map(category => {
                                 return <Select name={category.charAt(0).toUpperCase() + category.substring(1)} options={tags[category].map(tag => {
                                     return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
-                                })} multiSelect={true} value={map!.tags?.join(',')}/>
-                            })}
+                                })} multiSelect={true} value={map.tags?.join(',')}/>
+                            }) || undefined}
                         </FormComponent>
                     },{
 
-                    // Images Tab
+                    // Images Tbat
                     title: "Images",
                     content: <MediaGallery onImagesUploaded={(files) => {
-                        let newMap: IContentDoc = {
-                            ...map!
+                        let newMap = {
+                            ...map
                         }
                         newMap.images = files.map(f => f.url)
                         updateContent(newMap, token.current, contentType).then(() => {
@@ -201,8 +201,8 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                     // Versions Tab
                     title: "Versions",
                     content: <VersionManager presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
-                        let newMap: IContentDoc = {
-                            ...map!
+                        let newMap = {
+                            ...map
                         }
                         newMap.files = JSON.parse(vString)
                         

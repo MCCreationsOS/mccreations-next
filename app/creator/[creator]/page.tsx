@@ -23,7 +23,7 @@ export default async function ProfilePage({params}: {params: Params}) {
         <Menu selectedPage="" />
         <div className={styles.profile_page}>
             <ProfileCard creator={c} />
-            <ContentArea cards="three" type="grid" options={{search:c.username, limit: 20}} />
+            <ContentArea cards="three" type="grid" options={{contentType: "content", search:c.username, limit: 20}} />
         </div>
         {/* <Image className={styles.banner_background} width={1920} height={1080} src={creator.bannerURL || ""} alt=""></Image>
                 <div className={styles.banner_foreground}>

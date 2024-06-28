@@ -11,18 +11,21 @@ export default function Page() {
     const router = useRouter();
 
     useEffect(() => {
-
-        let jwt = sessionStorage.getItem('jwt')
-        if(!jwt) {
-            router.push('/signin')
-            return;
-        }
-        getUser(undefined, jwt).then((user) => {
-            if(!user || user.type !== UserTypes.Admin) {
-                router.push('/')
+        try {
+            let jwt = sessionStorage.getItem('jwt')
+            if(!jwt) {
+                router.push('/signin')
                 return;
             }
-        })
+            getUser(undefined, jwt).then((user) => {
+                if(!user || user.type !== UserTypes.Admin) {
+                    router.push('/')
+                    return;
+                }
+            })
+        } catch {
+            router.push('/signin')
+        }
     
     }, [])
 

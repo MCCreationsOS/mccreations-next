@@ -12,7 +12,7 @@ import { fetchTags } from "@/app/api/content";
 export default function SearchAndFilter({callback, contentType}: {callback: Function, contentType: ContentTypes}) {
     const searchParams = useSearchParams()
     const [filtering, setFiltering] = useState(false);
-    const [tags, setTags] = useState()
+    const [tags, setTags] = useState<{[key: string]: string[]}>()
 
     const [search, setSearch] = useState("")
 
