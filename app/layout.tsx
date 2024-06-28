@@ -6,6 +6,7 @@ import Footer from '@/components/Footer/Footer'
 import PopupMessageComponent from '@/components/PopupMessage/PopupMessage'
 import PopupComponent from '@/components/Popup/Popup'
 import { Analytics } from "@vercel/analytics/react"
+import Script from 'next/script'
 
 
 export const metadata: Metadata = {
@@ -39,8 +40,8 @@ export default function RootLayout({ children }: {children: React.ReactNode}) {
         <meta property="og:image:width" content="2500"></meta>
         <meta property="og:image:height" content="1408"></meta>
         <meta property="og:url" content="https://www.mccreations.net"></meta>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
-     crossOrigin="anonymous"></script>
+        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
+     crossOrigin="anonymous"></Script>
       </head>
       <body id="view">
         <PopupMessageComponent />

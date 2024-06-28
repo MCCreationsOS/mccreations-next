@@ -3,6 +3,7 @@
 import { adUnits } from "@/app/api/ads"
 import { useEffect, useState } from "react"
 import styles from './Ads.module.css'
+import Script from "next/script"
 
 export default function InContentAdUnit() {
     const [isClient, setIsClient] = useState(false)
@@ -27,18 +28,15 @@ export default function InContentAdUnit() {
     return (
         <>
         {isClient && adUnit.length !== 0 && <div style={{position: "relative"}}>
-            <div className={styles.background}>Ad</div>
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
-                    crossOrigin="anonymous"></script>
                 <ins className="adsbygoogle"
                     style={{display: 'block'}}
                     data-ad-format="fluid"
                     data-ad-layout-key="-7p+eu-10-1k+6x"
                     data-ad-client="ca-pub-5425604215170333"
                     data-ad-slot={adUnit}></ins>
-                <script>
+                <Script>
                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
+                </Script>
             </div>}
         </>
     )
