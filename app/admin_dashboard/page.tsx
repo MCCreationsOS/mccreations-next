@@ -1,6 +1,6 @@
 'use client'
 import { ContentTypes, UserTypes } from "../types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUser } from "../api/auth";
 import Menu from "@/components/Menu/Menu";
@@ -8,6 +8,7 @@ import Tabs from "@/components/Tabs/Tabs";
 import AdminTable from "@/components/Admin/Table";
 
 export default function Page() {
+    const [jwt, setJwt] = useState("")
     const router = useRouter();
 
     useEffect(() => {
@@ -22,6 +23,7 @@ export default function Page() {
                     router.push('/')
                     return;
                 }
+                setJwt(jwt + "")
             })
         } catch {
             router.push('/signin')
@@ -34,15 +36,15 @@ export default function Page() {
         <Menu selectedPage="" />
         <Tabs tabs={[
             {
-                content: <AdminTable contentType={ContentTypes.Maps} jwt={sessionStorage.getItem('jwt') + ""} />,
+                content: <AdminTable contentType={ContentTypes.Maps} jwt={jwt!} />,
                 title: "Maps"
             },
             {
-                content: <AdminTable contentType={ContentTypes.Datapacks} jwt={sessionStorage.getItem('jwt') + ""} />,
+                content: <AdminTable contentType={ContentTypes.Datapacks} jwt={jwt!} />,
                 title: "Datapacks"
             },
             {
-                content: <AdminTable contentType={ContentTypes.Resourcepacks} jwt={sessionStorage.getItem('jwt') + ""} />,
+                content: <AdminTable contentType={ContentTypes.Resourcepacks} jwt={jwt!} />,
                 title: "Resourcepacks"
             }
         ]} />
