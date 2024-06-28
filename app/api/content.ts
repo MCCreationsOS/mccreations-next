@@ -1,4 +1,4 @@
-import { ICreator, IMap, QueryOptions, SortOptions } from "../types"
+import { ICreator, IContentDoc, QueryOptions, SortOptions, ContentTypes } from "../types"
 
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
@@ -54,17 +54,17 @@ function formatQueryOptions(queryOptions: QueryOptions) {
 }
 
 /**
- * Fetch an array of maps from the API
+ * Fetch an array of content from the API
  * @param queryOptions The query options to send to the API
  * @param count Return the count of maps found rather than the actual maps. Used for pagination. For performance reasons
  * when this parameter is set ONLY the count of maps is returned not the actual map objects
  * @returns `documents` An array of map documents
  * @returns `count` The count of maps found by the query
 */
-export async function fetchMaps(queryOptions: QueryOptions, count: boolean, token?: string | null) {
+export async function fetchContent(queryOptions: QueryOptions, count: boolean, token?: string | null) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps?status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
+        let response = await fetch(`${process.env.DATA_URL}/content?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
             next:{
                 revalidate:3600
             },
@@ -109,9 +109,57 @@ export async function fetchMap(slug: string, token?: string) {
     }
 }
 
-export async function fetchTags() {
+/**
+ * Fetch a single datapack from the API by slug
+ * @param slug The slug of the datapack to fetch
+ * @returns A single datapack document.
+ */
+export async function fetchDatapack(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/get_map_tags`)
+        let response = await fetch(`${process.env.DATA_URL}/datapacks/${slug}`, { 
+            next: { tags: [slug], revalidate: 3600 },
+            headers: {
+                authorization: token + ""
+            }
+        })
+        let data = await response.json();
+        return data
+    } catch (e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: slug
+        }
+    }
+}
+
+/**
+ * Fetch a single resourcepack from the API by slug
+ * @param slug The slug of the resourcepack to fetch
+ * @returns A single resourcepack document.
+ */
+export async function fetchResourcepack(slug: string, token?: string) {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/resourcepacks/${slug}`, { 
+            next: { tags: [slug], revalidate: 3600 },
+            headers: {
+                authorization: token + ""
+            }
+        })
+        let data = await response.json();
+        return data
+    } catch (e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: slug
+        }
+    }
+}
+
+export async function fetchTags(type: ContentTypes) {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/tags/${type}`)
         let data = await response.json();
         return data
     } catch (e) {
@@ -164,7 +212,7 @@ export async function createNewContent(title: string, type: string, summary: str
 
 // Consider moving import to a worker thread
 
-export async function importContent(link: string, token?: string | null) {
+export async function importContent(link: string, type: string, token?: string | null) {
     try {
         console.log('Sending import request')
         let response = await fetch(`${process.env.DATA_URL}/content/import`, { 
@@ -174,6 +222,7 @@ export async function importContent(link: string, token?: string | null) {
             },
             body: JSON.stringify({
                 url: link,
+                type: type,
                 token: token
             })
         })
@@ -188,7 +237,7 @@ export async function importContent(link: string, token?: string | null) {
     }
 }
 
-export async function updateContent(map: IMap, token: string | null, dontSendDate?: boolean) {
+export async function updateContent(map: IContentDoc, token: string | null, type: ContentTypes, dontSendDate?: boolean) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/content/update`, { 
             method: 'POST',
@@ -199,7 +248,8 @@ export async function updateContent(map: IMap, token: string | null, dontSendDat
             body: JSON.stringify({
                 content: map,
                 token: token,
-                dontUpdateDate: dontSendDate
+                dontUpdateDate: dontSendDate,
+                type: type
             })
         })
         let data = await response.json();

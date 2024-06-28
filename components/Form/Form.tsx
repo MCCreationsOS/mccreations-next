@@ -27,7 +27,7 @@ export interface FormElement extends JSX.Element {
  * @param children The FormElements that make up the form
  * @param onSave The function to call when the form is saved 
  */
-export default function FormComponent({id, children, onSave}: {id: string, children: FormElement[] | FormElement, onSave: (inputs: string[]) => void}) {
+export default function FormComponent({id, children, onSave}: {id: string, children?: FormElement[] | FormElement, onSave: (inputs: string[]) => void}) {
     const saveForm = () => {
         let inputs: string[] = []
         document.querySelector('#' + id)?.querySelectorAll('input').forEach((input) => {

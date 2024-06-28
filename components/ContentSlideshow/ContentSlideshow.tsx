@@ -1,6 +1,6 @@
 'use client'
 
-import { IMap } from "@/app/types";
+import { IContentDoc } from "@/app/types";
 import ContentCard from "./ContentCard";
 import styles from './ContentSlideshow.module.css'
 import { useEffect, useState } from "react";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
  * @param content The content to display
  * @param playlist The playlist to display
  */
-export default function ContentSlideshow({content, playlist}: {content: IMap[], playlist: string}) {
+export default function ContentSlideshow({content, playlist}: {content: IContentDoc[], playlist: string}) {
     const [adPosition, setAdPosition] = useState(-1)
     let location = 0
     const slideButtonClicked = (left: boolean) => {
@@ -37,7 +37,7 @@ export default function ContentSlideshow({content, playlist}: {content: IMap[], 
             <img className={`${styles.nav_arrow} ${styles.left}`}  src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
             <img className={`${styles.nav_arrow} ${styles.right}`} src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
             <div className={styles.scroll_window} id={playlist}>
-                {content.map((map: IMap, idx: number) => <ContentCard key={idx} content={map} playlist={playlist} index={idx} priority={true} adPosition={adPosition}></ContentCard>)}
+                {content.map((map: IContentDoc, idx: number) => <ContentCard key={idx} content={map} playlist={playlist} index={idx} priority={true} adPosition={adPosition}></ContentCard>)}
             </div>
         </div>
     )

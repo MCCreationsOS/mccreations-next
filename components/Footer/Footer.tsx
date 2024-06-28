@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styles from './Footer.module.css'
+import MainButton from '../Buttons/MainButton'
 
 /**
  * The footer
@@ -11,8 +12,9 @@ export default function Footer() {
                 <div className={styles.flex}>
                     <div>
                         <h2><img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>MCCreations</h2>
-                        <p>Submission is the best admission</p>
+                        <p>Packs galore</p>
                         <p>MCCreations is <Link href="https://github.com/BenMeie/mccreations-next">open source</Link>. Contribute today!</p>
+                        <Link href={'https://blog.mccreations.net'}><MainButton>Updates</MainButton></Link>
                     </div>
                     <div>
                         <h2>Join the Community</h2>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IMap } from "@/app/types";
+import { IContentDoc } from "@/app/types";
 import styles from './ContentScrollBackground.module.css'
 
 /**
@@ -8,7 +8,7 @@ import styles from './ContentScrollBackground.module.css'
  * @param id The id of the card
  * @param priority Whether the image should be loaded with priority
  */
-export default function ContentScrollCard({map, id, priority}: {map: IMap, id: string, priority: boolean}) {
+export default function ContentScrollCard({map, id, priority}: {map: IContentDoc, id: string, priority: boolean}) {
     return (
         <div className={styles.content_card} id={id} >
             <div className={styles.information}>

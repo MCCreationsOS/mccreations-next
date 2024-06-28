@@ -41,7 +41,10 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                             <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
                         </li>
                         <li className="item">
-                            {/* <a className="navLink" href="/resourcepacks">Resourcepacks</a> */}
+                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">Data Packs</Link>
+                        </li>
+                        <li className="item">
+                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">Resource Packs</Link>
                         </li>
                         <li className='item'>
                             <UserOptions />

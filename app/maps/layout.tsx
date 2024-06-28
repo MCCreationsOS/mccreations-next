@@ -5,7 +5,7 @@ import { Metadata } from 'next'
 export const metadata: Metadata = {
   metadataBase: new URL('https://next.mccreations.net'),
   title: "Download Minecraft Maps | MCCreations",
-  description: "Download the latest verified Minecraft Maps on MCCreations!",
+  description: "Download the latest verified Minecraft Maps on MCCreations! Minecraft Maps are custom worlds created by the community. They can be anything from an adventure map to a parkour map to a minigame and more!",
   twitter: {
     title: "Download Minecraft Maps | MCCreations",
     description: "Download the latest verified Minecraft Maps on MCCreations!",

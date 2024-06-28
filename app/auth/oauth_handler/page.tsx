@@ -76,7 +76,7 @@ export default function OauthHandlerPage() {
                 while(m = regex.exec(hash)) {
                     params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
                 }
-                if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie") {
+                if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie" && params.access_token) {
                     sessionStorage.setItem('rqGh', "true")
                     fetch(`${process.env.DATA_URL}/auth/signInWithGoogle?access_token=` + params.access_token, {
                         method: 'POST'

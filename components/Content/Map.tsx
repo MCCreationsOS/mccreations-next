@@ -1,4 +1,4 @@
-import { ICreator, IFile, IMap } from "@/app/types";
+import { ICreator, IFile, IContentDoc } from "@/app/types";
 import Image from 'next/image'
 import Rating from "../Rating";
 import CreatorCard from "../Creator/CreatorCard";
@@ -12,13 +12,16 @@ import ContentWarnings from "./ContentWarnings";
 import { downloadMap } from "@/app/api/content";
 import { useRouter } from "next/navigation";
 import MainButton from "../Buttons/MainButton";
+import IconButton from "../Buttons/IconButton";
+import { Server } from "react-feather";
+import Link from "next/link";
 
 /**
  * The map component represents all the information displayed on a map page
  * @param map The map to display
  * @param privileged If the user is privileged to see the content
  */
-export default function MapComponent({map}: {map: IMap}) {
+export default function MapComponent({map}: {map: IContentDoc}) {
     const router = useRouter()
 
     let videoID = ""
@@ -52,6 +55,7 @@ export default function MapComponent({map}: {map: IMap}) {
                     <div className='map_download_stack'>
                         <Rating value={map.rating} content={map} />
                         {(map.files) ? <MainButton onClick={() => {downloadButtonClicked(map.files[0].worldUrl)}}>Download</MainButton>: <></>}
+                        <Link title="Get a server for this map for 25% off" href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
                     </div>
                 </div>
                 <div className='map_information'>
@@ -78,7 +82,7 @@ export default function MapComponent({map}: {map: IMap}) {
                 </div>
             </div>
             <MapImageSlideshow images={map.images.slice(1)} />
-            <CommentForm mapSlug={map.slug}></CommentForm>
+            <CommentForm mapSlug={map.slug} content_type="Maps"></CommentForm>
             <PretechedCommentsList mapSlug={map.slug} comments={map.comments}/>
         </div>
         </>

@@ -1,5 +1,5 @@
 import { revalidateTag } from "next/cache";
-import { IMap } from "../types";
+import { IContentDoc } from "../types";
 
 /**
  * Rate a map
@@ -8,7 +8,7 @@ import { IMap } from "../types";
  * on the database since we know we have it here.
  * @returns The new rating of the map
  */
-export async function postRating(rating: number, map: IMap) {
+export async function postRating(rating: number, map: IContentDoc) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/content/rate/${map.slug}`, { 
             method: "POST",
@@ -33,16 +33,21 @@ export async function postRating(rating: number, map: IMap) {
  * @param comment The actual comment
  * @param account The UID of the poster of the comment
  */
-export async function postComment(mapSlug: string, username: string, comment: string, handle?: string) {
+export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string) {
     try {
-        fetch(`${process.env.DATA_URL}/maps/comment/${mapSlug}`, {
+        fetch(`${process.env.DATA_URL}/maps/comment/${slug}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({username: username, comment: comment, handle: handle})
+            body: JSON.stringify({
+                username: username,
+                comment: comment,
+                handle: handle,
+                content_type: content_type
+            })
         })
-        revalidateTag(mapSlug)
+        revalidateTag(slug)
     }
     catch(e) {
         console.error(e);

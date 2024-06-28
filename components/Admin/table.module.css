@@ -6,7 +6,7 @@
 
 .table_row {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #d3d3d3;

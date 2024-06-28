@@ -1,4 +1,4 @@
-import { MinecraftVersion, SortOptions, StatusOptions, Tags } from "@/app/types";
+import { ContentTypes, MinecraftVersion, SortOptions, StatusOptions, Tags } from "@/app/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Filter } from "react-feather";
@@ -9,10 +9,10 @@ import WarningButton from "../Buttons/WarningButton";
 import FormComponent from "../Form/Form";
 import { fetchTags } from "@/app/api/content";
 
-export default function SearchAndFilter({callback}: {callback: Function}) {
+export default function SearchAndFilter({callback, contentType}: {callback: Function, contentType: ContentTypes}) {
     const searchParams = useSearchParams()
     const [filtering, setFiltering] = useState(false);
-    const [tags, setTags] = useState<Tags>()
+    const [tags, setTags] = useState<{[key: string]: string[]}>()
 
     const [search, setSearch] = useState("")
 
@@ -32,7 +32,7 @@ export default function SearchAndFilter({callback}: {callback: Function}) {
 
     useEffect(() => {
 
-        fetchTags().then((data) => {
+        fetchTags(contentType).then((data) => {
             if('genre' in data) {
                 setTags(data)
             }
@@ -124,12 +124,14 @@ export default function SearchAndFilter({callback}: {callback: Function}) {
                                 <div className={(sort === SortOptions.Newest) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Newest)}>Newest</div>
                                 <div className={(sort === SortOptions.Oldest) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Oldest)}>Oldest</div>
                                 <div className={(sort === SortOptions.Updated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Updated)}>Updated</div>
+                                <div className={(sort === SortOptions.HighestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestRated)}>Highest Rated</div>
+                                <div className={(sort === SortOptions.LowestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestRated)}>Lowest Rated</div>
+                                <div className={(sort === SortOptions.HighestDownloads) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestDownloads)}>Highest Downloads</div>
+                                <div className={(sort === SortOptions.LowestDownloads) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestDownloads)}>Lowest Downloads</div>
                                 <div className={(sort === SortOptions.TitleAscending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.TitleAscending)}>Title Ascending</div>
                                 <div className={(sort === SortOptions.TitleDescending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.TitleDescending)}>Title Descending</div>
                                 <div className={(sort === SortOptions.CreatorAscending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.CreatorAscending)}>Creator Ascending</div>
                                 <div className={(sort === SortOptions.CreatorDescending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.CreatorDescending)}>Creator Descending</div>
-                                <div className={(sort === SortOptions.HighestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestRated)}>Highest Rated</div>
-                                <div className={(sort === SortOptions.LowestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestRated)}>Lowest Rated</div>
                                 {/* <div className="option" onClick={() => setSort(SortOptions.BestMatch)}>Best Match</div> */}
                             </div>
                         </div>
@@ -151,26 +153,16 @@ export default function SearchAndFilter({callback}: {callback: Function}) {
                             <button className="selected_option">Tags</button>
                             <div className={(tagsDropdown) ? `options active ${styles.wide}` : "options"}>
                                 <div>
-                                    <h4>Genre</h4>
-                                    <div className={styles.tags_list}>
-                                        {(tags) ? tags.genre.map((tag) => <Tag tag={tag} />): <></>}
-                                    </div>
-                                    <h4>Subgenre</h4>
-                                    <div className={styles.tags_list}>
-                                        {(tags) ? tags.subgenre.map((tag) => <Tag tag={tag} />): <></>}
-                                    </div>
-                                    <h4>Theme</h4>
-                                    <div className={styles.tags_list}>
-                                        {(tags) ? tags.theme.map((tag) => <Tag tag={tag} />): <></>}
-                                    </div>
-                                    <h4>Difficulty</h4>
-                                    <div className={styles.tags_list}>
-                                        {(tags) ? tags.difficulty.map((tag) => <Tag tag={tag} />): <></>}
-                                    </div>
-                                    <h4>Length</h4>
-                                    <div className={styles.tags_list}>
-                                        {(tags) ? tags.length.map((tag) => <Tag tag={tag} />): <></>}
-                                    </div>
+                                    {tags && Object.keys(tags).map((category, idx) => {
+                                        return (
+                                            <div key={idx}>
+                                                <h4>{category.charAt(0).toUpperCase() + category.substring(1)}</h4>
+                                                <div className={styles.tags_list}>
+                                                    {tags[category].map((tag,idx) => <Tag key={idx} tag={tag} />)}
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </div>
