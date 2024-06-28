@@ -1,0 +1,7 @@
+User-Agent: *
+Allow: /
+Disallow: /auth/
+Disallow: /admin_dashboard/
+Disallow: /dashboard/
+Disallow: /reset_password/
+Sitemap: https://acme.com/sitemap.xml
