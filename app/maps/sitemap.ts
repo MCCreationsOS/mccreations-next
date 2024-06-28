@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // console.log(`Generating sitemap for ${doc.slug}`)
         return {
             url: `https://next.mccreations.net/maps/${doc.slug}`,
-            lastModified: doc.updatedDate,
+            lastModified: new Date(doc.updatedDate || doc.createdDate).toISOString(),
             changeFrequency: 'weekly'
         }
     })
