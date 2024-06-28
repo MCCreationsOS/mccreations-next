@@ -1,7 +1,7 @@
 import '../../styles/mapPage.css'
-import { fetchMap, fetchMaps } from '../../api/content';
+import { fetchMap, fetchContent } from '../../api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
-import { ICreator, IFile, IMap } from '@/app/types';
+import { ICreator, IFile, IContentDoc, ContentTypes } from '@/app/types';
 import MapWrapper from '@/components/Content/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
@@ -14,7 +14,7 @@ parent: ResolvingMetadata
     const id = params.id
    
     // fetch data
-    const map: IMap = await fetchMap(params.slug)
+    const map: IContentDoc = await fetchMap(params.slug)
 
     if(!map || !map.images) return {
         title: "Map Not Found",
@@ -33,9 +33,9 @@ parent: ResolvingMetadata
     }
    
     return {
-      title: map.title + " on MCCreations",
+      title: `${map.title} Map for Minecraft ${map.files[0].minecraftVersion} on MCCreations`,
       openGraph: {
-        title: map.title + " on MCCreations",
+        title: `${map.title} Map for Minecraft ${map.files[0].minecraftVersion} on MCCreations`,
         description: map.shortDescription,
         images: [
           ...map.images
@@ -49,8 +49,8 @@ parent: ResolvingMetadata
 
 
 export async function generateStaticParams() {
-    const maps = (await fetchMaps({}, false)).documents
-    return maps.map((map: IMap) => ({
+    const maps = (await fetchContent({contentType: ContentTypes.Maps}, false)).documents
+    return maps.map((map: IContentDoc) => ({
         slug: map.slug
     }))
 }
