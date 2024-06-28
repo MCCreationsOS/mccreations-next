@@ -124,12 +124,14 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
                                 <div className={(sort === SortOptions.Newest) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Newest)}>Newest</div>
                                 <div className={(sort === SortOptions.Oldest) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Oldest)}>Oldest</div>
                                 <div className={(sort === SortOptions.Updated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Updated)}>Updated</div>
+                                <div className={(sort === SortOptions.HighestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestRated)}>Highest Rated</div>
+                                <div className={(sort === SortOptions.LowestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestRated)}>Lowest Rated</div>
+                                <div className={(sort === SortOptions.HighestDownloads) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestDownloads)}>Highest Downloads</div>
+                                <div className={(sort === SortOptions.LowestDownloads) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestDownloads)}>Lowest Downloads</div>
                                 <div className={(sort === SortOptions.TitleAscending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.TitleAscending)}>Title Ascending</div>
                                 <div className={(sort === SortOptions.TitleDescending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.TitleDescending)}>Title Descending</div>
                                 <div className={(sort === SortOptions.CreatorAscending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.CreatorAscending)}>Creator Ascending</div>
                                 <div className={(sort === SortOptions.CreatorDescending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.CreatorDescending)}>Creator Descending</div>
-                                <div className={(sort === SortOptions.HighestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestRated)}>Highest Rated</div>
-                                <div className={(sort === SortOptions.LowestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestRated)}>Lowest Rated</div>
                                 {/* <div className="option" onClick={() => setSort(SortOptions.BestMatch)}>Best Match</div> */}
                             </div>
                         </div>
@@ -151,12 +153,12 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
                             <button className="selected_option">Tags</button>
                             <div className={(tagsDropdown) ? `options active ${styles.wide}` : "options"}>
                                 <div>
-                                    {tags && Object.keys(tags).map((category) => {
+                                    {tags && Object.keys(tags).map((category, idx) => {
                                         return (
-                                            <div>
+                                            <div key={idx}>
                                                 <h4>{category.charAt(0).toUpperCase() + category.substring(1)}</h4>
                                                 <div className={styles.tags_list}>
-                                                    {tags[category].map((tag) => <Tag tag={tag} />)}
+                                                    {tags[category].map((tag,idx) => <Tag key={idx} tag={tag} />)}
                                                 </div>
                                             </div>
                                         )
