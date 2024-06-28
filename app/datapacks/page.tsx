@@ -123,7 +123,7 @@ export default function Datapacks() {
                     <h2>No Datapacks Found</h2>
                 </div>
             )}
-            { datapacks && datapacks.length > 20 &&  (<div className="navigator">
+            { datapacks && pages > 1 &&  (<div className="navigator">
                 {(page != 0) ? <Link href={goToPage(0)}><img src="/chevs-left.svg"></img></Link> : <></>}
                 {(page != 0) ? <Link href={goToPage(page - 1)}><img src="/chev-left.svg"></img></Link> : <></>}
                 {(page - 3 >= 0) ? (page < pages - 4) ? <Link href={goToPage(page - 3)}>{page - 2}</Link> : <Link className={page == pages-7 ? "current": ""} href={goToPage(pages-7)}>{pages - 6}</Link> : <Link className={page == 0 ? "current": ""} href={goToPage(0)}>{1}</Link>}
