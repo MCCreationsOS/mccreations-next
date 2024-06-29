@@ -1,6 +1,6 @@
 'use client'
 
-import { IFile } from "@/app/types"
+import { ContentTypes, IFile } from "@/app/types"
 import FormComponent from "@/components/Form/Form"
 import { useCallback, useEffect, useState } from "react"
 import styles from './FileDropzone.module.css'
@@ -11,7 +11,7 @@ import FileDropzone from "./FileUpload"
 import VersionUploader from "."
 import WarningButton from "@/components/Buttons/WarningButton"
 
-export default function VersionManager({onVersionsChanged, presetVersions}: {onVersionsChanged: (versions: string) => void, presetVersions?: string}) {
+export default function VersionManager({onVersionsChanged, contentType, presetVersions}: {onVersionsChanged: (versions: string) => void, contentType: ContentTypes, presetVersions?: string}) {
     const [versions, setVersions] = useState<IFile[]>([])
     const [collapsed, setCollapsed] = useState<boolean[]>([])
 
@@ -68,9 +68,9 @@ export default function VersionManager({onVersionsChanged, presetVersions}: {onV
                             }} > 
                                 <Text type="text" name="Version Number" value={version.contentVersion} />
                                 <Text type="text" name="Minecraft Version" value={version.minecraftVersion}/>
-                                <VersionUploader name="World" value={version.worldUrl} />
+                                {(contentType === ContentTypes.Maps) ? (<VersionUploader name="World" value={version.worldUrl} />): <></>}
+                                {(contentType === ContentTypes.Datapacks || contentType === ContentTypes.Maps) ? (<VersionUploader name="Datapack" value={version.dataUrl} />): <></>}
                                 <VersionUploader name="Resource Pack" value={version.resourceUrl} />
-                                <VersionUploader name="Datapack" value={version.dataUrl} />
                             </FormComponent>
                             <WarningButton onClick={() => {setVersions(versions.filter((v, i) => {return i !== idx}))}}>Delete</WarningButton>
                             <div className={`${styles.hide_version} ${(collapsed[idx]) ? styles.hide_reversed : ""}`} onClick={() => {let nc = [...collapsed]; nc[idx] = !nc[idx]; setCollapsed(nc)}}><ChevronDown /></div>

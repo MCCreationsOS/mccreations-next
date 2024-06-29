@@ -31,7 +31,8 @@ export default function DatapackComponent({datapack}: {datapack: IContentDoc}) {
         videoID = datapack.videoUrl.substring(datapack.videoUrl.lastIndexOf("/") + 1)
     }
 
-    const downloadButtonClicked = async (url: string) => {
+    const downloadButtonClicked = async (url?: string) => {
+        if(!url) return
         await downloadMap(datapack.slug)
         router.push(url)
     }
@@ -54,7 +55,7 @@ export default function DatapackComponent({datapack}: {datapack: IContentDoc}) {
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={datapack.rating} content={datapack} />
-                        {(datapack.files) ? <MainButton onClick={() => {downloadButtonClicked(datapack.files[0].worldUrl)}}>Download</MainButton>: <></>}
+                        {(datapack.files) ? <MainButton onClick={() => {downloadButtonClicked(datapack.files[0].dataUrl)}}>Download</MainButton>: <></>}
                         <Link title="Get a server for this datapack for 25% off" href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
                     </div>
                 </div>

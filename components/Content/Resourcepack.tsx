@@ -31,7 +31,8 @@ export default function ResourcepackComponent({resourcepack}: {resourcepack: ICo
         videoID = resourcepack.videoUrl.substring(resourcepack.videoUrl.lastIndexOf("/") + 1)
     }
 
-    const downloadButtonClicked = async (url: string) => {
+    const downloadButtonClicked = async (url?: string) => {
+        if(!url) return
         await downloadMap(resourcepack.slug)
         router.push(url)
     }
@@ -54,7 +55,7 @@ export default function ResourcepackComponent({resourcepack}: {resourcepack: ICo
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={resourcepack.rating} content={resourcepack} />
-                        {(resourcepack.files) ? <MainButton onClick={() => {downloadButtonClicked(resourcepack.files[0].worldUrl)}}>Download</MainButton>: <></>}
+                        {(resourcepack.files) ? <MainButton onClick={() => {downloadButtonClicked(resourcepack.files[0].resourceUrl)}}>Download</MainButton>: <></>}
                         <Link title="Play with this resourcepack on a server for 25% off" href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
                     </div>
                 </div>

@@ -200,7 +200,7 @@ export default function EditContentPage({params, contentType}) {
 
                     // Versions Tab
                     title: "Versions",
-                    content: <VersionManager presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
+                    content: <VersionManager contentType={contentType} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
                         let newMap = {
                             ...map
                         }
