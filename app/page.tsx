@@ -34,7 +34,7 @@ export default async function Page() {
         </Suspense>
         <h2 className="playlist_header">Recently Updated</h2>
         <Suspense fallback={<GridSkeleton amount={4} />}>
-            <ContentArea type="scroll" playlist="updated_content" options={{contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20}} />
+            <ContentArea type="scroll" playlist="updated_content" options={{contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20}} filterOptions={{contentType: "content", status: 2, sort: SortOptions.Newest, limit: 5}} />
         </Suspense>
         {/* <Suspense>
             <h2 className="playlist_header">Site Updates</h2>

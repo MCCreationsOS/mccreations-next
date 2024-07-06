@@ -61,10 +61,10 @@ function formatQueryOptions(queryOptions: QueryOptions) {
  * @returns `documents` An array of map documents
  * @returns `count` The count of maps found by the query
 */
-export async function fetchContent(queryOptions: QueryOptions, count: boolean, token?: string | null) {
+export async function fetchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
+        let p1 = fetch(`${process.env.DATA_URL}/content?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
             next:{
                 revalidate:3600
             },
@@ -73,7 +73,30 @@ export async function fetchContent(queryOptions: QueryOptions, count: boolean, t
                 authorization: token + ""
             }
         })
-        let data = await response.json();
+        let p2: Promise<Response> | undefined;
+        if(filterQuery) {
+            filterQuery = formatQueryOptions(filterQuery);
+            // console.log(filterQuery)
+            p2 = fetch(`${process.env.DATA_URL}/content?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}`, {
+                next:{
+                    revalidate:3600
+                },
+                method: 'GET',
+                headers: {
+                    authorization: token + ""
+                }
+            })
+        }
+        let responses = await Promise.all([p1, p2])
+        let data = await responses[0].json();
+        let filter = await responses[1]?.json();
+        if(filter?.documents) {
+            data.documents = data.documents.filter((doc: IContentDoc) => {
+                return !filter.documents.some((f: IContentDoc) => {
+                    return f._id === doc._id
+                })
+            })
+        }
         return data
 
     } catch(e) {
@@ -263,7 +286,7 @@ export async function updateContent(map: IContentDoc, token: string | null, type
     }
 }
 
-export async function deleteContent(id: any, token: string | null) {
+export async function deleteContent(id: any, token: string | null, contentType: ContentTypes) {
     try {
         await fetch(`${process.env.DATA_URL}/content`, {
             method: 'DELETE',
@@ -272,7 +295,8 @@ export async function deleteContent(id: any, token: string | null) {
                 'Authorization': token + ""
             },
             body: JSON.stringify({
-                id: id
+                id: id,
+                type: contentType
             })
         })
         return;

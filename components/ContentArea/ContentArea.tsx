@@ -11,8 +11,8 @@ import ContentSlideshow from "../ContentSlideshow/ContentSlideshow"
  * @param playlist The playlist identifier if the type is scroll
  * @param cards The number of cards to display if the type is grid
  */
-export default async function ContentArea({type, options, playlist, cards}: {type: string, options: QueryOptions, playlist?: string, cards?: string}) {
-    let content = (await fetchContent(options, false)).documents
+export default async function ContentArea({type, options, filterOptions, playlist, cards}: {type: string, options: QueryOptions, filterOptions?: QueryOptions, playlist?: string, cards?: string}) {
+    let content = (await fetchContent(options, false, filterOptions)).documents
     if(type === "grid") {
         if(!cards) cards = "four"
         return (
