@@ -32,17 +32,18 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
                 let users = await getCreators(token)
                 if(users && creators) {
                     setCreators([...creators, ...users]);
-                } else if(users) {
+                } else if(users && !value) {
                     setCreators(users)
+                } else {
+                    setCreators(value)
                 }
-            } else {
+            } else if(!value) {
                 setCreators([{username: "Guest", handle: ""}])
+            } else {
+                setCreators(value)
             }
         }
         getData();
-
-        if(value)
-            setCreators(value);
     }, [])
 
     const selectCreator = (idx: number) => {
