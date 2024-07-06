@@ -1,13 +1,15 @@
 import { ContentTypes, MinecraftVersion, SortOptions, StatusOptions, Tags } from "@/app/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Filter } from "react-feather";
+import { DownloadCloud, Filter } from "react-feather";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import styles from './index.module.css'
 import MainButton from "../Buttons/MainButton";
 import WarningButton from "../Buttons/WarningButton";
 import FormComponent from "../Form/Form";
 import { fetchTags } from "@/app/api/content";
+import IconButton from "../Buttons/IconButton";
+import BulkDownloadButton from "../Buttons/BulkDownloadButton";
 
 export default function SearchAndFilter({callback, contentType}: {callback: Function, contentType: ContentTypes}) {
     const searchParams = useSearchParams()
@@ -113,7 +115,8 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
             <div className={styles.fullscreen} style={{display: (popupOpen) ? "block": "none"}} onClick={() => {(popupOpen == true) ? closePopups(): false}}></div>
                 <div className="search_stack">
                     <input type="text" placeholder="Search title, creator, version, etc." className="search" defaultValue={(search) ? search : ""} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={(e) => (e.key === "Enter") ? performSearch() : false}></input>
-                    <SecondaryButton onClick={() => setFiltering(!filtering)}><Filter /></SecondaryButton>
+                    <IconButton className="secondary" onClick={() => setFiltering(!filtering)}><Filter /></IconButton>
+                    <BulkDownloadButton />
                 </div>
                 <div className="filters" style={{display: (filtering) ? "flex": "none"}}>
                     <div className="filter_option">

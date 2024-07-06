@@ -112,7 +112,7 @@ export default function Maps() {
     return (
         <div>
             <Menu selectedPage='maps'></Menu>
-            <SearchAndFilter callback={findMaps}  contentType={ContentTypes.Maps}/>
+            <SearchAndFilter callback={findMaps} contentType={ContentTypes.Maps}/>
             { maps && maps.length !== 0 && (
                 <div>
                 <ContentGrid content={maps}></ContentGrid>

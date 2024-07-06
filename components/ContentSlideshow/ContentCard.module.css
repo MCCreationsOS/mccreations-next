@@ -48,6 +48,23 @@
     width: 18px;
 }
 
+.quick_actions {
+    position: absolute;
+    bottom: 5%;
+    right: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    z-index: 3;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.content_card:hover .quick_actions {
+    opacity: 1;
+}
+
 .content_card:hover .description {
     opacity: 1;
 }
