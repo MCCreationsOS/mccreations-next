@@ -117,17 +117,37 @@
     line-height: 1.35;
     font-size: 1.05rem;
     display: flex;
+    width: 100%;
 }
 
 .map_description {
     flex: 50%;
+    width: 80%;
 }
+
+.map_description img {
+    width: 100%;
+    height: auto;
+}
+
+@media screen and (max-width: 1920px) {
+    .map_description {
+        width: 75%;
+    }
+  }
+  
+  @media screen and (max-width: 900px) {
+    .map_description {
+        width: 70%;
+    }
+  }
 
 .map_sidebar {
     width: 250px;
     padding: 10px;
     margin: 10px 0 0 5px;
     background-color: #272727;
+    height: fit-content;
 }
 
 .map_sidebar_section {
