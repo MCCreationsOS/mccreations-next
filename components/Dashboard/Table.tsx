@@ -87,7 +87,7 @@ export default function Table({contentType}: {contentType: ContentTypes}) {
                         <div className={styles.info_buttons}>
                             <Link href={`/${contentType.charAt(0).toLowerCase() + contentType.substring(1)}/${map.slug}`} title="Preview"><ImageIcon /></Link>
                             <Link href={`/${contentType.charAt(0).toLowerCase() + contentType.substring(1)}/${map.slug}/edit`} title="Edit"><Edit /></Link>
-                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, sessionStorage.getItem('jwt')); getOwnedContent(sessionStorage.getItem('jwt'))}}><Trash /></span>
+                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, sessionStorage.getItem('jwt'), contentType); getOwnedContent(sessionStorage.getItem('jwt'))}}><Trash /></span>
                         </div>
                     </div>
                     <div className={styles.content_item_item}>
