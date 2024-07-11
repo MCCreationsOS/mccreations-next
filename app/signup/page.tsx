@@ -68,6 +68,10 @@ export default function SignUp() {
                     router.push("/")
                 }
             }).catch(error => {
+                if(res.status === 200) {
+                    router.push("/")
+                    return;
+                }
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "There was an error creating your account"))
                 return;
             })
