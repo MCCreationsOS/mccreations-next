@@ -32,7 +32,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                 sessionStorage.setItem('temp_key', key.key)
             }
             if('slug' in key) {
-                router.push(`/${type}/${key.slug}/edit`)
+                router.push(`/${type}s/${key.slug}/edit`)
             }
             if('error' in key) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, key.error))
@@ -51,7 +51,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
             } else if(res.content) {
                 Popup.close()
-                router.push(`/${type}/${res.content}/edit`)
+                router.push(`/${type}s/${res.content}/edit`)
             }
         } else {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A link must be added to import content"))
