@@ -1,4 +1,4 @@
-import { DownloadCloud } from "react-feather";
+import { Download, DownloadCloud } from "react-feather";
 import IconButton from "./IconButton";
 
 export default function BulkDownloadButton() {
@@ -19,6 +19,6 @@ export default function BulkDownloadButton() {
     }
 
     return (
-        <IconButton className="secondary" onClick={bulkDownload}><svg viewBox="0 0 45 45"><text x="3" y="15" fontSize={15} fill="white">BULK</text><DownloadCloud x="10" y="20"/></svg></IconButton>
+        <IconButton className="secondary" onClick={bulkDownload}><svg viewBox="0 0 45 45"><text x="3" y="15" fontSize={15} fill="white">BULK</text><Download x="10" y="20"/></svg></IconButton>
     )
 }

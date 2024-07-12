@@ -80,7 +80,7 @@ export default function ContentCard(props: IContentCardProps) {
                     </div>
                 </div>
                 <div className={styles.quick_actions}>
-                    {(props.content.files[0].worldUrl || props.content.files[0].dataUrl || props.content.files[0].resourceUrl) ? <Link href={(props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!} title="Quick Download Latest Version"><IconButton><Download /></IconButton></Link> : <></>}
+                    {(props.content.files[0].worldUrl || props.content.files[0].dataUrl || props.content.files[0].resourceUrl) ? <Link target="_blank" href={(props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!} title="Quick Download Latest Version"><IconButton><Download /></IconButton></Link> : <></>}
                     {props.enableSelection && <IconButton className="secondary" onClick={selectContent}>{(selected) ? <CheckSquare/> : <Square/>}</IconButton>}
                 </div>
                 <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className={styles.logo} src={props.content.images[0]} width={1920} height={1080} sizes="25vw" alt={`The logo for ${props.content.title}, a Minecraft Map for ${(props.content.files && props.content.files.length > 0) ? props.content.files[0].minecraftVersion : ""} by ${props.content.creators[0].username}`}></Image>
