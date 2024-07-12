@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation"
 import Text from "../FormInputs/Text"
 import Select from "../FormInputs/Select"
 import { useI18n } from "@/locales/client"
+import LanguageSwitcher from "../LanguageSwitcher"
 
 /**
  * The navbar displayed when the user is on a desktop device
@@ -116,6 +117,9 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                         </li>
                         <li className='item'>
                             <UserOptions />
+                        </li>
+                        <li className="item">
+                            <LanguageSwitcher />
                         </li>
                     </ul>
                 </div>

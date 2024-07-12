@@ -181,12 +181,12 @@
     background-color: #373737;
   }
 
-  .user_menu .options .option.icon {
+  .options .option.icon {
     display: flex;
     align-items: center;
   }
 
-  .user_menu .options .option svg {
+  .options .option svg {
     margin-right: 10px;
   }
 
