@@ -138,7 +138,7 @@
     display: block;
   }
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 1080px) {
     .main_nav {
       display: none;
     }

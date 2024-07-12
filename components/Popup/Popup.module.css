@@ -52,8 +52,9 @@
     }
 }
   
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
     .popup {
         left: 2%;
+        width: 96%
     }
 }

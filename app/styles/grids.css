@@ -161,3 +161,11 @@
         justify-content: center;
     }
 }
+
+@media screen and (max-width: 450px) {
+    .navigator a {
+        font-size: 1.1rem;
+        min-width: 25px;
+        height: 30px;
+    }
+}
