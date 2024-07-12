@@ -1,10 +1,11 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { ICreator, IContentDoc, IUser } from "@/app/types"
+import { ICreator, IContentDoc, IUser } from "@/app/api/types"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import MessageComponent, { IMessage } from "../Message/Message"
+import { useI18n } from "@/locales/client"
 
 /**
  * Content warnings for the map creator(s)
@@ -12,6 +13,7 @@ import MessageComponent, { IMessage } from "../Message/Message"
  */
 export default function ContentWarnings({map}: {map: IContentDoc}) {
     const [user, setUser] = useState<IUser>()
+    const t = useI18n();
 
     // Get the user on load
     useEffect(() => {
@@ -37,47 +39,81 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
         if(!map.creators || !map.creators[0].handle) {
             messages.push({
                 type: 'Warning',
-                title: 'Not Linked to an Account',
-                message: `This map is not linked to an account on MCCreations. This means that your access to edit this content will expire in 24 hours. It is recommended to upload maps with an account so you can retain access to all features.`
+                title: t('content.warnings.not_linked.title'),
+                message: t('content.warnings.not_linked.description')
             })
         }
         if(!map.shortDescription || map.shortDescription.length < 20) {
             messages.push({
                 type: 'Error',
-                title: 'Short Description Too Short',
-                message: `Your short description needs to be at least 20 characters`
+                title: t('content.warnings.short_description.title'),
+                message: t('content.warnings.short_description.description')
             })
         }
         if(map.images.length === 0) {
             messages.push({
                 type: 'Error',
-                title: 'No Images',
-                message: `Content is required to have at least one image.`
+                title: t('content.warnings.no_images.title'),
+                message: t('content.warnings.no_images.description')
             })
         }
         if(map.description.length < 20) {
             messages.push({
                 type: 'Error',
-                title: 'Description Too Short',
-                message: `Your description needs to be at least 20 characters`
+                title: t('content.warnings.description_too_short.title'),
+                message: t('content.warnings.description_too_short.description')
             })
         }
         if(map.images.length <= 2) {
             messages.push({
                 type: 'Warning',
-                title: 'Very Few Images',
-                message: `More images help people get a better idea of what your content is about. It is recommended you upload at least 4 including your logo.`
+                title: t('content.warnings.few_images.title'),
+                message: t('content.warnings.few_images.description')
             })
         }
-        map.images.forEach(image => {
-            if(!image.includes('mccreations')) {
-                messages.push({
-                    type: 'Warning',
-                    title: "Images From External Sources",
-                    message: `The image ${image.substring(image.lastIndexOf('/') + 1)} is from an external source. This means that MCCreations cannot guarantee it will continue to work in the future, or will be accessible by all users. We highly recommend you upload this image instead.`
-                })
-            }
-        })
+        if(map.images.find(image => !image.includes('mccreations'))) {
+            messages.push({
+                type: 'Warning',
+                title: t('content.warnings.external_images.title'),
+                message: t('content.warnings.external_images.description')
+            })
+        }
+        if(map.creators.length === 0) {
+            messages.push({
+                type: 'Error',
+                title: t('content.warnings.no_creators.title'),
+                message: t('content.warnings.no_creators.description')
+            })
+        }
+        if(!map.files[0].minecraftVersion || map.files[0].minecraftVersion.length === 0) {
+            messages.push({
+                type: 'Error',
+                title: t('content.warnings.no_minecraft_version.title'),
+                message: t('content.warnings.no_minecraft_version.description')
+            })
+        }
+        if(!map.title || map.title.length === 0) {
+            messages.push({
+                type: 'Error',
+                title: t('content.warnings.no_title.title'),
+                message: t('content.warnings.no_title.description')
+            })
+        }
+        if(!map.tags || map.tags.length === 0) {
+            messages.push({
+                type: 'Error',
+                title: t('content.warnings.no_tags.title'),
+                message: t('content.warnings.no_tags.description')
+            })
+        }
+        if(map.files.length === 0) {
+            messages.push({
+                type: 'Error',
+                title: t('content.warnings.no_files.title'),
+                message: t('content.warnings.no_files.description')
+            })
+        }
+
         return (
             <MessageComponent messages={messages} />
         )

@@ -28,3 +28,9 @@
     font-size: 1.1rem;
     cursor: pointer;
 }
+
+.version_field {
+    margin: 0 10px 0 0;
+    border: 1px dashed gray;
+    padding: 0 5px;
+}

@@ -5,17 +5,19 @@ import Image from "next/image";
 import { Image as ImageIcon, Trash } from "react-feather";
 import { Edit } from "react-feather";
 import styles from './table.module.css'
-import { ContentTypes, IContentDoc, IUser } from "@/app/types";
+import { ContentTypes, IContentDoc, IUser } from "@/app/api/types";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUser } from "@/app/api/auth";
 import { deleteContent } from "@/app/api/content";
+import { useI18n } from "@/locales/client";
 
 export default function Table({contentType}: {contentType: ContentTypes}) {
     const [maps, setMaps] = useState<IContentDoc[]>([])
     const [user, setUser] = useState<IUser>()
     const router = useRouter();
     const jwt = useRef<string | null>(null);
+    const t = useI18n();
 
     useEffect(() => {
 
@@ -58,22 +60,22 @@ export default function Table({contentType}: {contentType: ContentTypes}) {
                     <div className={styles.content_item_item}>
                     </div>
                     <div className={styles.info_container}>
-                        <p>Info</p>
+                        <p>{t('dashboard.info')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>Status</p>
+                        <p>{t('dashboard.status')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>Created Date</p>
+                        <p>{t('dashboard.created_date')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>Views</p>
+                        <p>{t('dashboard.views')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>Downloads</p>
+                        <p>{t('dashboard.downloads')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>Rating</p>
+                        <p>{t('dashboard.rating')}</p>
                     </div>
                 </div>
             {maps && maps.map((map: IContentDoc, idx) => (
@@ -85,13 +87,13 @@ export default function Table({contentType}: {contentType: ContentTypes}) {
                         <p className={styles.content_title}>{map.title}</p>
                         <p className={styles.content_description}>{map.shortDescription}</p>
                         <div className={styles.info_buttons}>
-                            <Link href={`/${contentType.charAt(0).toLowerCase() + contentType.substring(1)}/${map.slug}`} title="Preview"><ImageIcon /></Link>
-                            <Link href={`/${contentType.charAt(0).toLowerCase() + contentType.substring(1)}/${map.slug}/edit`} title="Edit"><Edit /></Link>
+                            <Link href={`/${contentType.charAt(0).toLowerCase() + contentType.substring(1)}/${map.slug}`} title={t('dashboard.preview')}><ImageIcon /></Link>
+                            <Link href={`/${contentType.charAt(0).toLowerCase() + contentType.substring(1)}/${map.slug}/edit`} title={t('dashboard.edit')}><Edit /></Link>
                             <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, sessionStorage.getItem('jwt'), contentType); getOwnedContent(sessionStorage.getItem('jwt'))}}><Trash /></span>
                         </div>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{(map.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
+                        <p>{(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('status.Draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('content.edit.status.Unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('status.Approved')}</span>: <span style={{color:"#3154f4"}}>{t('status.Featured')}</span>}</p>
                     </div>
                     <div className={styles.content_item_item}>
                         <p>{map.createdDate && new Date(map.createdDate).toLocaleDateString()}</p>
@@ -103,7 +105,7 @@ export default function Table({contentType}: {contentType: ContentTypes}) {
                         <p>{map.downloads}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{map.rating.toFixed(2)}</p>
+                        <p>{(map.rating * 5).toFixed(2)}</p>
                     </div>
                 </div>
             ))}

@@ -1,5 +1,5 @@
 import { revalidateTag } from "next/cache";
-import { IContentDoc } from "../types";
+import { IContentDoc } from "@/app/api/types";
 
 /**
  * Rate a map

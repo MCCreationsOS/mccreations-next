@@ -1,4 +1,4 @@
-import { QueryOptions } from "@/app/types"
+import { QueryOptions } from "@/app/api/types"
 import ContentGrid from "../ContentGrid"
 import ContentScrollGrid from "../ContentScrollBackground/ContentScrollGrid"
 import { fetchContent } from "@/app/api/content"

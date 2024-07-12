@@ -21,13 +21,20 @@ export interface FormElement extends JSX.Element {
     key: string | null;
 }
 
+export interface FormOptions {
+    useSaveButton?: boolean
+    saveButtonContent?: React.ReactNode
+    saveButtonType?: 'primary' | 'secondary' | 'warning' | 'hollow' | 'icon'
+    extraButtons?: JSX.Element[]
+}
+
 /**
  * A form component that takes in FormElements as children and a function to call when the form is saved. The values of all of the FormElements is passed to the onSave function as a list of strings. Each form must have a unique id
  * @param id The id of the form - Must be unique on the page
  * @param children The FormElements that make up the form
  * @param onSave The function to call when the form is saved 
  */
-export default function FormComponent({id, children, onSave}: {id: string, children?: FormElement[] | FormElement, onSave: (inputs: string[]) => void}) {
+export default function FormComponent({id, children, onSave, options}: {id: string, children?: FormElement[] | FormElement, onSave: (inputs: string[]) => void, options?: FormOptions}) {
     const saveForm = () => {
         let inputs: string[] = []
         document.querySelector('#' + id)?.querySelectorAll('input').forEach((input) => {
@@ -47,7 +54,13 @@ export default function FormComponent({id, children, onSave}: {id: string, child
     return (
         <div id={id}>
             {children}
-            <MainButton onClick={saveForm}>Save</MainButton>
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'primary' || !options?.saveButtonType) && <MainButton onClick={saveForm}>{options?.saveButtonContent || 'Save'}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'secondary') && <MainButton onClick={saveForm}>{options.saveButtonContent || 'Save'}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'warning') && <MainButton onClick={saveForm}>{options.saveButtonContent || 'Save'}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'hollow') && <MainButton onClick={saveForm}>{options.saveButtonContent || 'Save'}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'icon') && <MainButton onClick={saveForm}>{options.saveButtonContent || 'Save'}</MainButton>}
+
+            {options?.extraButtons}
         </div>
     )
 }

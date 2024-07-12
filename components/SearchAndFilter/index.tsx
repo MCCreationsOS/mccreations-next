@@ -1,4 +1,4 @@
-import { ContentTypes, MinecraftVersion, SortOptions, StatusOptions, Tags } from "@/app/types";
+import { ContentTypes, MinecraftVersion, SortOptions, StatusOptions, StatusStrings, TagCategories, TagKeys, Tags } from "@/app/api/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DownloadCloud, Filter } from "react-feather";
@@ -10,6 +10,7 @@ import FormComponent from "../Form/Form";
 import { fetchTags } from "@/app/api/content";
 import IconButton from "../Buttons/IconButton";
 import BulkDownloadButton from "../Buttons/BulkDownloadButton";
+import { useI18n } from "@/locales/client";
 
 export default function SearchAndFilter({callback, contentType}: {callback: Function, contentType: ContentTypes}) {
     const searchParams = useSearchParams()
@@ -31,6 +32,7 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
     const [excludeTags, setExcludeTags] = useState<string[]>([])
 
     const router = useRouter();
+    const t = useI18n();
 
     useEffect(() => {
 
@@ -52,22 +54,19 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
 
     }, [])
 
-    const Tag = ({tag}: {tag: string}) => {
+    const Tag = ({tag, tagValue}: {tag: string, tagValue: string}) => {
         return (
-            <div className={`${styles.tag} ${(includeTags.includes(tag)) ? styles.include : ""} ${(excludeTags.includes(tag)) ? styles.exclude : ""}`} onClick={() => {
-                if(includeTags.includes(tag)) {
-                    console.log('excluding tag ' + tag)
-                    setIncludeTags(includeTags.filter((t) => t != tag))
-                    setExcludeTags([...excludeTags, tag])
-                } else if(excludeTags.includes(tag)) {
-                    console.log('removing tag ' + tag)
-                    setExcludeTags(excludeTags.filter((t) => t != tag))
+            <div className={`${styles.tag} ${(includeTags.includes(tagValue)) ? styles.include : ""} ${(excludeTags.includes(tagValue)) ? styles.exclude : ""}`} onClick={() => {
+                if(includeTags.includes(tagValue)) {
+                    setIncludeTags(includeTags.filter((t) => t != tagValue))
+                    setExcludeTags([...excludeTags, tagValue])
+                } else if(excludeTags.includes(tagValue)) {
+                    setExcludeTags(excludeTags.filter((t) => t != tagValue))
                 } else {
-                    console.log('including tag ' + tag)
-                    setIncludeTags([...includeTags, tag])
+                    setIncludeTags([...includeTags, tagValue])
                 }
             }}>
-                {tag.charAt(0).toUpperCase() + tag.substring(1)}
+                {tag}
             </div>
         )
     }
@@ -114,44 +113,43 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
         <div className="search_and_filter">
             <div className={styles.fullscreen} style={{display: (popupOpen) ? "block": "none"}} onClick={() => {(popupOpen == true) ? closePopups(): false}}></div>
                 <div className="search_stack">
-                    <input type="text" placeholder="Search title, creator, version, etc." className="search" defaultValue={(search) ? search : ""} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={(e) => (e.key === "Enter") ? performSearch() : false}></input>
+                    <input type="text" placeholder={t('search.placeholder')} className="search" defaultValue={(search) ? search : ""} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={(e) => (e.key === "Enter") ? performSearch() : false}></input>
                     <IconButton className="secondary" onClick={() => setFiltering(!filtering)}><Filter /></IconButton>
                     <BulkDownloadButton />
                 </div>
                 <div className="filters" style={{display: (filtering) ? "flex": "none"}}>
                     <div className="filter_option">
-                        Sort by 
+                        {t('search.sort_by')} 
                         <div className="select" onClick={() => {setSortDropdown(true); setPopupOpen(true)}}>
-                            <button className="selected_option">{(sort) ? sort.charAt(0).toUpperCase() + sort.replaceAll("_", " ").substring(1) : "Newest"}</button>
+                            <button className="selected_option">{(sort) ? t(`search.sort_by.${sort}`) : t('search.sort_by.newest')}</button>
                             <div className={(sortDropdown) ? "options active" : "options"}>
-                                <div className={(sort === SortOptions.Newest) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Newest)}>Newest</div>
-                                <div className={(sort === SortOptions.Oldest) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Oldest)}>Oldest</div>
-                                <div className={(sort === SortOptions.Updated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Updated)}>Updated</div>
-                                <div className={(sort === SortOptions.HighestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestRated)}>Highest Rated</div>
-                                <div className={(sort === SortOptions.LowestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestRated)}>Lowest Rated</div>
-                                <div className={(sort === SortOptions.HighestDownloads) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestDownloads)}>Highest Downloads</div>
-                                <div className={(sort === SortOptions.LowestDownloads) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestDownloads)}>Lowest Downloads</div>
-                                <div className={(sort === SortOptions.TitleAscending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.TitleAscending)}>Title Ascending</div>
-                                <div className={(sort === SortOptions.TitleDescending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.TitleDescending)}>Title Descending</div>
-                                <div className={(sort === SortOptions.CreatorAscending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.CreatorAscending)}>Creator Ascending</div>
-                                <div className={(sort === SortOptions.CreatorDescending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.CreatorDescending)}>Creator Descending</div>
-                                {/* <div className="option" onClick={() => setSort(SortOptions.BestMatch)}>Best Match</div> */}
+                                <div className={(sort === SortOptions.Newest) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Newest)}>{t('search.sort_by.newest')}</div>
+                                <div className={(sort === SortOptions.Oldest) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Oldest)}>{t('search.sort_by.oldest')}</div>
+                                <div className={(sort === SortOptions.Updated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.Updated)}>{t('search.sort_by.updated')}</div>
+                                <div className={(sort === SortOptions.HighestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestRated)}>{t('search.sort_by.highest_rated')}</div>
+                                <div className={(sort === SortOptions.LowestRated) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestRated)}>{t('search.sort_by.lowest_rated')}</div>
+                                <div className={(sort === SortOptions.HighestDownloads) ? "option selected": "option"} onClick={() => updateSort(SortOptions.HighestDownloads)}>{t('search.sort_by.highest_downloads')}</div>
+                                <div className={(sort === SortOptions.LowestDownloads) ? "option selected": "option"} onClick={() => updateSort(SortOptions.LowestDownloads)}>{t('search.sort_by.lowest_downloads')}</div>
+                                <div className={(sort === SortOptions.TitleAscending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.TitleAscending)}>{t('search.sort_by.title_ascending')}</div>
+                                <div className={(sort === SortOptions.TitleDescending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.TitleDescending)}>{t('search.sort_by.title_descending')}</div>
+                                <div className={(sort === SortOptions.CreatorAscending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.CreatorAscending)}>{t('search.sort_by.creator_ascending')}</div>
+                                <div className={(sort === SortOptions.CreatorDescending) ? "option selected": "option"} onClick={() => updateSort(SortOptions.CreatorDescending)}>{t('search.sort_by.creator_descending')}</div>
                             </div>
                         </div>
                     </div>
                     <div className="filter_option">
-                        Status
+                        {t('search.status')}
                         <div className="select" onClick={() => {setStatusDropdown(true); setPopupOpen(true)}}>
-                            <button className="selected_option">{StatusOptions[status]}</button>
+                            <button className="selected_option">{t(`status.${StatusOptions[status] as StatusStrings}`)}</button>
                             <div className={(statusDropdown) ? "options active" : "options"}>
-                                <div className={(status === StatusOptions.Unapproved) ? "option selected": "option"} onClick={() => updateStatus(StatusOptions.Unapproved)}>Unapproved</div>
-                                <div className={(status === StatusOptions.Approved) ? "option selected": "option"} onClick={() => updateStatus(StatusOptions.Approved)}>Approved</div>
-                                <div className={(status === StatusOptions.Featured) ? "option selected": "option"} onClick={() => updateStatus(StatusOptions.Featured)}>Featured</div>
+                                <div className={(status === StatusOptions.Unapproved) ? "option selected": "option"} onClick={() => updateStatus(StatusOptions.Unapproved)}>{t('status.Unapproved')}</div>
+                                <div className={(status === StatusOptions.Approved) ? "option selected": "option"} onClick={() => updateStatus(StatusOptions.Approved)}>{t('status.Approved')}</div>
+                                <div className={(status === StatusOptions.Featured) ? "option selected": "option"} onClick={() => updateStatus(StatusOptions.Featured)}>{t('status.Featured')}</div>
                             </div>
                         </div>
                     </div>
                     <div className="filter_option">
-                        Tags
+                        {t('search.tags')}
                         <div className="select" onClick={() => {setTagsDropdown(true); setPopupOpen(true)}}>
                             <button className="selected_option">Tags</button>
                             <div className={(tagsDropdown) ? `options active ${styles.wide}` : "options"}>
@@ -159,9 +157,9 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
                                     {tags && Object.keys(tags).map((category, idx) => {
                                         return (
                                             <div key={idx}>
-                                                <h4>{category.charAt(0).toUpperCase() + category.substring(1)}</h4>
+                                                <h4>{t(`tags.${category as TagCategories}`)}</h4>
                                                 <div className={styles.tags_list}>
-                                                    {tags[category].map((tag,idx) => <Tag key={idx} tag={tag} />)}
+                                                    {tags[category].map((tag,idx) => <Tag key={idx} tagValue={tag} tag={t(`tags.${category as TagCategories}.${tag as TagKeys}`)} />)}
                                                 </div>
                                             </div>
                                         )
@@ -172,8 +170,8 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
                     </div>
                 </div>
                 <div className={styles.search_buttons}>
-                    <MainButton className={`${styles.search_button}`} onClick={() => performSearch()}>Search</MainButton>
-                    <WarningButton onClick={() => {updateSearch(""); updateSort(SortOptions.Newest); updateStatus(2); setExcludeTags([]); setIncludeTags([])}}>Clear Filters</WarningButton>
+                    <MainButton className={`${styles.search_button}`} onClick={() => performSearch()}>{t('search.search')}</MainButton>
+                    <WarningButton onClick={() => {updateSearch(""); updateSort(SortOptions.Newest); updateStatus(2); setExcludeTags([]); setIncludeTags([])}}>{t('search.clear_filters')}</WarningButton>
                 </div>
             </div>
     )

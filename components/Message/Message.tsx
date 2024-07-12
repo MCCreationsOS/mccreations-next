@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react"
 import { ArrowLeft, ArrowRight, ChevronDown, ChevronUp, X } from "react-feather";
 import styles from './Message.module.css'
+import { useI18n } from "@/locales/client";
 
 export interface IMessage {
     type: 'Message' | 'Warning' | 'Error',
@@ -19,6 +20,7 @@ export interface IMessage {
 export default function MessageComponent({messages}: {messages: IMessage[]}) {
         const [message, setMessage] = useState(0);
         const [visible, setVisible] = useState(true);
+        const t = useI18n();
 
         if(visible && messages[message]) {
             return (
@@ -33,14 +35,14 @@ export default function MessageComponent({messages}: {messages: IMessage[]}) {
                         </div>
                     </div>
                     <p className={styles.message}>{messages[message].message}</p>
-                    {(messages[message].link) ? <Link href={messages[message].link!}>Fix it</Link> : <></>}
+                    {(messages[message].link) ? <Link href={messages[message].link!}>{t('content.messages.fix')}</Link> : <></>}
                 </div>
             )
         } else if( messages[message]) {
             return (
                 <div className={(messages[message].type === 'Message') ? styles.message_container : (messages[message].type === 'Warning') ? styles.warning_container : styles.error_container}>
                     <div className={styles.title_bar}>
-                        <h4 className={styles.title}>Messages: {messages.length}</h4>
+                        <h4 className={styles.title}>{t('content.messages.count')}{messages.length}</h4>
                         <div className={styles.option} onClick={() => {setVisible(true)}}><ChevronUp /></div>
                     </div>
                 </div>

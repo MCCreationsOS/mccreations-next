@@ -10,6 +10,7 @@ import { createNewContent, importContent } from "@/app/api/content"
 import { useRouter } from "next/navigation"
 import Text from "../FormInputs/Text"
 import Select from "../FormInputs/Select"
+import { useI18n } from "@/locales/client"
 
 /**
  * The navbar displayed when the user is on a desktop device
@@ -18,12 +19,13 @@ import Select from "../FormInputs/Select"
  */
 export default function DesktopNav({selectedPage}: {selectedPage: string}) {
     const router = useRouter();
+    const t = useI18n();
 
     // Because the Create button/Form Popup is attached to the Menu we need to define the functions here
     const onMapCreate = (title?: string, type?: string, shortDescription?: string) => {
-        if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A title must be included to save content"))
-        if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A type must be selected to save content"))
-        if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A short description must be included to save content"))
+        if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.create.missing_title')))
+        if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.create.missing_type')))
+        if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.create.missing_short_description')))
 
         let token  = sessionStorage.getItem('jwt')
         Popup.close()
@@ -42,11 +44,8 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
 
     const onMapImport = async (link?: string, type?: string) => {
         if(link && type) {
-            console.log('Got valid link')
             let token = sessionStorage.getItem('jwt')
             let res = await importContent(link, type, token)
-            console.log('response returned from API')
-            console.log(res)
             if(res.error) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
             } else if(res.content) {
@@ -54,7 +53,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                 router.push(`/${type}s/${res.content}/edit`)
             }
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "A link must be added to import content"))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.import.missing_link')))
         }
     }
 
@@ -64,20 +63,20 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                         <li className="item brand">
                             <Link href="/" className="brand">
                                 <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
-                                <p className="brand_name">MCCreations <Badge color="red">Beta</Badge></p>
+                                <p className="brand_name">{t('brand')} <Badge color="red">{t('nav.badge.beta')}</Badge></p>
                             </Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">Home</Link>
+                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('nav.item.home')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
+                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">{t('maps', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">Data Packs</Link>
+                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">{t('datapacks', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">Resource Packs</Link>
+                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepacks', {count: 2})}</Link>
                         </li>
                     </ul>
                     <ul className='action_list'>
@@ -85,34 +84,34 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                             <HollowButton onClick={() => {Popup.createPopup({
                                 content: <Tabs tabs={[
                                     {
-                                        title: "Create", 
+                                        title: t('content.create.form_title'), 
                                         content:
                                         <FormComponent id={"createForm"} onSave={(inputs) => {
                                             onMapCreate(inputs[0], inputs[1], inputs[2])
                                         }}>
-                                            <Text type="text" name="Title" placeholder="An Awesome Map" />
-                                            <Select name="Type" options={[{name: "Map", value: 'map'}, {name: "Data Pack", value: "datapack"}, {name: 'Resource pack', value: 'resourcepack'}]} />
-                                            <Text type="text" name="Short Description" />
+                                            <Text type="text" name={t('content.create.title')} placeholder={t('content.create.title_placeholder')} />
+                                            <Select name={t('content.create.type')} options={[{name: t('maps', { count: 1 }), value: 'map'}, {name: t('datapacks', {count: 1}), value: "datapack"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepack'}]} />
+                                            <Text type="text" name={t('content.create.short_description')} />
                                         </FormComponent>
                                     }, 
                                     {
-                                        title: "Import",
+                                        title: t('content.import.form_title'),
                                         content: <>
-                                            <p>Import your existing content from Planet Minecraft or MinecraftMaps.com below.</p>
+                                            <p>{t('content.import.description')}</p>
                                             <FormComponent id={"importForm"}
                                             onSave={(inputs) => {
                                                 onMapImport(inputs[1], inputs[0])
                                             }}>
-                                                <Select name="Type" options={[{name: "Map", value: 'Maps'}, {name: "Data Pack", value: "datapacks"}, {name: 'Resource pack', value: 'resourcepacks'}]} />
-                                                <Text type="text" name="Link" placeholder="https://planetminecraft.com/project/..." />
+                                                <Select name={t('content.import.type')} options={[{name: t('maps', { count: 1 }), value: 'map'}, {name: t('datapacks', {count: 1}), value: "datapack"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepack'}]} />
+                                                <Text type="text" name={t('content.import.link')} placeholder={t('content.import.link_placeholder')} />
                                             </FormComponent>
                                         </>
                                     }
                                 ]} />,
-                                title: "Create",
+                                title: t('content.create.form_title'),
                             }
                             )}}>
-                                Create
+                                {t('nav.item.create')}
                             </HollowButton>
                         </li>
                         <li className='item'>

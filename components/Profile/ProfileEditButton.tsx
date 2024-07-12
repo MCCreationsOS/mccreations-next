@@ -1,6 +1,6 @@
 'use client'
 
-import { IUser } from "@/app/types"
+import { IUser } from "@/app/api/types"
 import PopupComponent, { Popup } from "@/components/Popup/Popup";
 import FormComponent from "@/components/Form/Form";
 import { Edit } from "react-feather"
@@ -8,11 +8,13 @@ import styles from './ProfileStyle.module.css'
 import { updateProfile } from "@/app/api/auth";
 import ImageInput from "../FormInputs/ImageDropzone";
 import Text from "../FormInputs/Text";
+import { useI18n } from "@/locales/client";
 
 export default function ProfileEditButton({creator}: {creator: IUser}) {
     let token = sessionStorage.getItem('jwt')
     let storedCreatorStr = sessionStorage.getItem('creator')
     let storedCreator: IUser | undefined;
+    const t = useI18n();
     if(storedCreatorStr) {
         try {
             storedCreator = JSON.parse(storedCreatorStr);
@@ -31,11 +33,11 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
             <button className={styles.profile_edit} onClick={() => {
                 Popup.createPopup({
                     content: <FormComponent id="updateProfile" onSave={saveCreator}>
-                    <ImageInput name="Change Banner" value={creator.bannerURL} />
-                    <ImageInput name="Change Icon" value={creator.iconURL} />
-                    <Text name="About" value={creator.about} />    
+                    <ImageInput name={t('creator.update_profile.banner')} value={creator.bannerURL} />
+                    <ImageInput name={t('creator.update_profile.logo')} value={creator.iconURL} />
+                    <Text name={t('creator.update_profile.about')} value={creator.about} />    
                 </FormComponent>, 
-                title: "Update Profile"
+                title: t('creator.update_profile')
                 })}}>
                     <Edit />
             </button>

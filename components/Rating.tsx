@@ -2,11 +2,13 @@
 
 import { postRating } from "@/app/api/community";
 import { getCookie, setCookie } from "@/app/setCookies";
-import { IContentDoc } from "@/app/types";
+import { IContentDoc } from "@/app/api/types";
 import { useState, useEffect } from "react";
+import { useI18n } from "@/locales/client";
 
 export default function Rating(props: { value: number, content: IContentDoc}) {
     const [value, setValue] = useState(props.value);
+    const t = useI18n();
     let contentId = props.content.slug;
 
 
@@ -30,11 +32,11 @@ export default function Rating(props: { value: number, content: IContentDoc}) {
         <div>
             <ul className="rating" onMouseMove={(e) => {ratingHover(e)}} onMouseLeave={() => {setValue(props.value)}}>
                 <li className="current_rating" style={{width: value*100 + '%'}}></li>
-                <li><a id="one" href="#" title="1 out of 5 stars" onClick={() => {sendRating(0.2)}}></a></li>
-                <li><a id="two" href="#" title="2 out of 5 stars" onClick={() => {sendRating(0.4)}}></a></li>
-                <li><a id="three" href="#" title="3 out of 5 stars" onClick={() => {sendRating(0.6)}}></a></li>
-                <li><a id="four" href="#" title="4 out of 5 stars" onClick={() => {sendRating(0.8)}}></a></li>
-                <li><a id="five" href="#" title="5 out of 5 stars" onClick={() => {sendRating(1)}}></a></li>
+                <li><a id="one" href="#" title={t('content.rating.1')} onClick={() => {sendRating(0.2)}}></a></li>
+                <li><a id="two" href="#" title={t('content.rating.2')} onClick={() => {sendRating(0.4)}}></a></li>
+                <li><a id="three" href="#" title={t('content.rating.3')} onClick={() => {sendRating(0.6)}}></a></li>
+                <li><a id="four" href="#" title={t('content.rating.4')} onClick={() => {sendRating(0.8)}}></a></li>
+                <li><a id="five" href="#" title={t('content.rating.5')} onClick={() => {sendRating(1)}}></a></li>
             </ul>
         </div>
     )

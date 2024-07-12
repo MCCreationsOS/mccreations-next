@@ -2,7 +2,7 @@
 
 import { getUser } from "@/app/api/auth"
 import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent } from "@/app/api/content"
-import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, ContentTypes, UserTypes } from "@/app/types"
+import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, ContentTypes, UserTypes } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
@@ -15,6 +15,7 @@ import Text from "@/components/FormInputs/Text"
 import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import Tabs from "@/components/Tabs/Tabs"
+import { useI18n } from "@/locales/client"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useEffect, useRef, useState } from "react"
 import { ArrowLeft } from "react-feather"
@@ -24,9 +25,10 @@ export default function EditContentPage({params, contentType}) {
     const [map, setMap] = useState()
     const [tags, setTags] = useState()
     const token = useRef("")
+    const t = useI18n();
+
     useEffect(() => {
         token.current = sessionStorage?.getItem('jwt') + ""
-        console.log("Token is " + token.current)
         const getData = async () => {
             if(token && token.current.length > 0) {
 
@@ -92,9 +94,9 @@ export default function EditContentPage({params, contentType}) {
         return (
             <div className="centered_content">
                 <ContentWarnings map={map} />
-                <h1>Editing {map?.title}</h1>
-                <p>Status: {(map?.status === 0) ? <span style={{color: "#c73030"}}>Draft</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>Awaiting Approval</span> : (map?.status === 2) ? <span>Approved</span>: <span style={{color:"#3154f4"}}>Featured</span>}</p>
-                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>Request Approval</MainButton>)}
+                <h1>{t('content.edit.editing')} {map?.title}</h1>
+                <p>{t('content.edit.status')} {(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('status.Draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('content.edit.status.Unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('status.Approved')}</span>: <span style={{color:"#3154f4"}}>{t('status.Featured')}</span>}</p>
+                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>{t('content.edit.request_approval')}</MainButton>)}
                 <Tabs preselectedTab={1} tabs={[
                 {
                     title: <ArrowLeft />,
@@ -104,7 +106,7 @@ export default function EditContentPage({params, contentType}) {
                 {
                     
                     // General Tab
-                    title: "General",
+                    title: t('content.edit.general'),
                     content: <FormComponent id="general" onSave={(inputs) => {
                             let newMap = {
                                 ...map
@@ -113,28 +115,28 @@ export default function EditContentPage({params, contentType}) {
                             if(inputs[0]) {
                                 newMap.title = inputs[0]
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No title entered'))
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.title')))
                             }
         
                             if(inputs[1]) {
                                 newMap.slug = inputs[1]
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No slug entered'))
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
                             }
         
                             if(inputs[2]) {
                                 newMap.creators = JSON.parse(inputs[2])
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No creator entered'))
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
                             }
         
                             if(inputs[3]) {
                                 newMap.shortDescription = inputs[3]
                                 if(inputs[3].length < 20) {
-                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, "Short description needs to be longer than 20 characters"))
+                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
                                 }
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No short description entered'))
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.short_description')))
                             }
         
                             if(inputs[4]) {
@@ -144,7 +146,7 @@ export default function EditContentPage({params, contentType}) {
                             if(inputs[5]) {
                                 newMap.description = inputs[5]
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, "No description entered"))
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.description')))
                             }
 
                             if(inputs[6]) {
@@ -154,7 +156,7 @@ export default function EditContentPage({params, contentType}) {
                                     return newMap.tags.indexOf(tag) === index
                                 })
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, 'No tags entered'))
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
                             }
 
                             updateContent(newMap, token.current, contentType).then((error) => {
@@ -163,27 +165,27 @@ export default function EditContentPage({params, contentType}) {
                                     return;
                                 }
                                 setMap(newMap)
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Map info saved successfully'))
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.general.saved')))
                             }).catch((e) => {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                             })
                         }}> 
-                            <Text type="text" name="Title" value={map?.title} />
-                            <Text type="text" name="Slug" value={map?.slug}/>
+                            <Text type="text" name={t('content.edit.general.title')} value={map?.title} />
+                            <Text type="text" name={t('content.edit.general.slug')} value={map?.slug}/>
                             <CreatorSelector value={map.creators} />
-                            <Text type="text" name="Short Description" value={map?.shortDescription} />
-                            <Text type="text" name="Video URL" value={map?.videoUrl} />
-                            <RichTextInput name="Description" value={map?.description} />
+                            <Text type="text" name={t('content.edit.general.short_description')} value={map?.shortDescription} />
+                            <Text type="text" name={t('content.edit.general.video_url')} value={map?.videoUrl} />
+                            <RichTextInput name={t('content.edit.general.description')} value={map?.description} />
                             {tags && Object.keys(tags).map(category => {
-                                return <Select name={category.charAt(0).toUpperCase() + category.substring(1)} options={tags[category].map(tag => {
-                                    return {name: tag.charAt(0).toUpperCase() + tag.substring(1), value: tag}
+                                return <Select name={t(`tags.${category}`)} options={tags[category].map(tag => {
+                                    return {name: t(`tags.${category}.${tag}`), value: tag}
                                 })} multiSelect={true} value={map.tags?.join(',')}/>
                             }) || undefined}
                         </FormComponent>
                     },{
 
                     // Images Tbat
-                    title: "Images",
+                    title: t('content.edit.images'),
                     content: <MediaGallery onImagesUploaded={(files) => {
                         let newMap = {
                             ...map
@@ -191,7 +193,7 @@ export default function EditContentPage({params, contentType}) {
                         newMap.images = files.map(f => f.url)
                         updateContent(newMap, token.current, contentType).then(() => {
                             setMap(newMap)
-                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Images saved successfully'))
+                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.images.saved')))
                         }).catch((e) => {
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                         })
@@ -199,7 +201,7 @@ export default function EditContentPage({params, contentType}) {
                     }, {
 
                     // Versions Tab
-                    title: "Versions",
+                    title: t('content.edit.versions'),
                     content: <VersionManager contentType={contentType} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
                         let newMap = {
                             ...map
@@ -212,7 +214,7 @@ export default function EditContentPage({params, contentType}) {
 
                         updateContent(newMap, token.current, contentType).then(() => {
                             setMap(newMap)
-                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, 'Versions saved successfully'))
+                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.versions.saved')))
                         }).catch((e) => {
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                         })
@@ -223,7 +225,7 @@ export default function EditContentPage({params, contentType}) {
     }
     return (
         <>
-        {(map) ? <p>Error</p> : ""}
+        {(map) ? <p>{t('error')}</p> : ""}
         </>
     )
 }

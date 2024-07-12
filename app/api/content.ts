@@ -1,4 +1,4 @@
-import { ICreator, IContentDoc, QueryOptions, SortOptions, ContentTypes } from "../types"
+import { ICreator, IContentDoc, QueryOptions, SortOptions, ContentTypes } from "./types"
 
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
@@ -237,7 +237,6 @@ export async function createNewContent(title: string, type: string, summary: str
 
 export async function importContent(link: string, type: string, token?: string | null) {
     try {
-        console.log('Sending import request')
         let response = await fetch(`${process.env.DATA_URL}/content/import`, { 
             method: 'POST',
             headers: {
@@ -250,7 +249,6 @@ export async function importContent(link: string, type: string, token?: string |
             })
         })
         let data = await response.json();
-        console.log(data)
         return data;
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e)
@@ -276,7 +274,6 @@ export async function updateContent(map: IContentDoc, token: string | null, type
             })
         })
         let data = await response.json();
-        console.log(data)
         return data;
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e)

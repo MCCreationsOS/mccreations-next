@@ -1,6 +1,6 @@
 'use client'
 
-import { IContentDoc } from "@/app/types"
+import { IContentDoc } from "@/app/api/types"
 import Image from "next/image"
 import Link from "next/link"
 import { shimmer, toBase64 } from "../skeletons/imageShimmer"
@@ -10,6 +10,7 @@ import InContentAdUnit from "../AdUnits/InContent"
 import IconButton from "../Buttons/IconButton"
 import { Box, CheckSquare, Download, Square } from "react-feather"
 import { useEffect, useState } from "react"
+import { useI18n } from "@/locales/client"
 
 export interface IContentCardProps {
     content: IContentDoc
@@ -31,6 +32,7 @@ export interface IContentCardProps {
 export default function ContentCard(props: IContentCardProps) {
     const [selected, setSelected] = useState(false)
     const router = useRouter()
+    const t = useI18n();
 
     useEffect(() => {
         let selectedMaps = localStorage.getItem('selectedContent')
@@ -80,13 +82,13 @@ export default function ContentCard(props: IContentCardProps) {
                     </div>
                 </div>
                 <div className={styles.quick_actions}>
-                    {(props.content.files[0].worldUrl || props.content.files[0].dataUrl || props.content.files[0].resourceUrl) ? <Link target="_blank" href={(props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!} title="Quick Download Latest Version"><IconButton><Download /></IconButton></Link> : <></>}
+                    {(props.content.files[0].worldUrl || props.content.files[0].dataUrl || props.content.files[0].resourceUrl) ? <Link target="_blank" href={(props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!} title={t('content_card.quick_download')}><IconButton><Download /></IconButton></Link> : <></>}
                     {props.enableSelection && <IconButton className="secondary" onClick={selectContent}>{(selected) ? <CheckSquare/> : <Square/>}</IconButton>}
                 </div>
                 <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className={styles.logo} src={props.content.images[0]} width={1920} height={1080} sizes="25vw" alt={`The logo for ${props.content.title}, a Minecraft Map for ${(props.content.files && props.content.files.length > 0) ? props.content.files[0].minecraftVersion : ""} by ${props.content.creators[0].username}`}></Image>
             </div>
             <Link className={styles.title} href={`/${(props.linkTo) ? props.linkTo : "maps"}/${props.content.slug}`}>{props.content.title}</Link>
-            <p className={styles.author}>by <span className='cardAuthorLink'>{props.content.creators[0].username}</span></p>
+            <p className={styles.author}>{t('content_card.by')}<span className='cardAuthorLink'>{props.content.creators[0].username}</span></p>
         </div>
         {props.index === props.adPosition &&
             <InContentAdUnit />    }

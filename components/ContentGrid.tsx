@@ -1,4 +1,4 @@
-import { IContentDoc } from "@/app/types"
+import { IContentDoc } from "@/app/api/types"
 import ContentCard from "./ContentSlideshow/ContentCard"
 
 export default function ContentGrid({content, linkTo, cards}: {content: IContentDoc[], linkTo?: string, cards?: string}) {

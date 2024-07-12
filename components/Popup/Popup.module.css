@@ -1,7 +1,7 @@
 .popup {
-    position: absolute;
+    position: fixed;
     left: 40%;
-    top: 1%;
+    top: 10%;
     z-index: 12;
     background-color: #272727;
     width: 400px;
@@ -36,7 +36,7 @@
 }
 
 .background {
-    position: absolute;
+    position: fixed;
     z-index: 11;
     background-color: black;
     opacity: 0.5;

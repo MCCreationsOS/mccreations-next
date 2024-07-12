@@ -1,6 +1,6 @@
 'use client'
 
-import { ReactElement, useState } from "react"
+import { ReactElement, useEffect, useRef, useState } from "react"
 import { X } from "react-feather"
 import styles from './Popup.module.css'
 
@@ -51,6 +51,11 @@ export class Popup {
 
 export default function PopupComponent(props: PopupProps) {
     const [isOpen, setIsOpen] = useState(false)
+    const popup = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        popup.current?.scrollIntoView({behavior: "smooth", inline: "start", block: "center"})
+    }, [isOpen])
 
     if(props.children) {
         return (
@@ -76,7 +81,7 @@ export default function PopupComponent(props: PopupProps) {
         return (
             <>
                 <div className={styles.background} style={{display: (isOpen && Popup.useBackground) ? "block": "none"}}></div>
-                <div className={styles.popup} style={{display: (isOpen) ? "block": "none"}}>
+                <div ref={popup} className={styles.popup} style={{display: (isOpen) ? "block": "none"}}>
                     {(Popup.title || Popup.canClose) ? <div className={styles.titlebar}>
                         <h3 className={styles.title}>{Popup.title}</h3>
                         <div className={styles.close} onClick={() => {Popup.onClose()}}><X /></div>

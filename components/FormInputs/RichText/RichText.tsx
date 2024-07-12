@@ -14,6 +14,9 @@ import { AutoLinkNode, LinkNode } from '@lexical/link';
 import LinkPlugin from './LinkPlugin';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import DOMPurify from 'isomorphic-dompurify';
+import { ImageNode } from './nodes/ImageNode';
+import ImagesPlugin from './ImagePlugin';
+import { useI18n } from '@/locales/client';
 
 const theme = {
         code: 'editor-code',
@@ -108,8 +111,9 @@ export default function RichText({ sendOnChange, initialValue }: { sendOnChange:
         namespace: 'MyEditor',
         theme,
         onError,
-        nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode]
+        nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode]
     };
+    const t = useI18n();
 
     return (
         <LexicalComposer initialConfig={initialConfig}>
@@ -118,7 +122,7 @@ export default function RichText({ sendOnChange, initialValue }: { sendOnChange:
                 <div className='editor-inner'>
                     <RichTextPlugin
                         contentEditable={<ContentEditable className="editor-input" />}
-                        placeholder={<div className="editor-placeholder">Enter some text...</div>}
+                        placeholder={<div className="editor-placeholder">{t('form.rich_text.placeholder')}</div>}
                         ErrorBoundary={LexicalErrorBoundary}
                     />
                 </div>
@@ -129,6 +133,7 @@ export default function RichText({ sendOnChange, initialValue }: { sendOnChange:
             {/* <OnChangePlugin onChange={onChange} /> */}
             <LoadHTMLPlugin html={initialValue || ""} />
             <ExportHTMLPlugin setHTML={sendOnChange} />
+            <ImagesPlugin />
             <ListPlugin />
         </LexicalComposer>
     );

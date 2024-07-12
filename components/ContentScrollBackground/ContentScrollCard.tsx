@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IContentDoc } from "@/app/types";
+import { IContentDoc } from "@/app/api/types";
 import styles from './ContentScrollBackground.module.css'
 
 /**

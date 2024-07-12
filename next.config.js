@@ -37,9 +37,14 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'static.planetminecraft.com'
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.modrinth.com'
       }
     ],
-  }
+  },
+  reactStrictMode: false
 }
 
 module.exports = withMDX(nextConfig)

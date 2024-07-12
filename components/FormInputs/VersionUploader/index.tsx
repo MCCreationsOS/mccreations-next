@@ -16,7 +16,7 @@ export default function VersionUploader(props: VersionUploaderProps) {
     const [value, setValue] = useState<string>(props.value || "default")
 
     return (
-        <div className='field'>
+        <div className={'field ' + styles.version_field}>
             <h3 className="label">{props.name}</h3>
             <p className={styles.description}>{props.description}</p>
             <FileDropzone onFilesUploaded={(f) => {setValue(f)}} presetFile={props.value}/>

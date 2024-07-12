@@ -1,4 +1,4 @@
-import { IUser } from "../types";
+import { IUser } from "@/app/api/types";
 
 export async function getUser(id?: object, authorization?: string) {
     if(authorization) {
