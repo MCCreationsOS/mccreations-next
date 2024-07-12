@@ -17,6 +17,7 @@ import {
   DROP_COMMAND,
   LexicalCommand,
   LexicalEditor,
+  LexicalNode,
 } from 'lexical';
 import {useEffect, useRef, useState} from 'react';
 import * as React from 'react';

@@ -178,7 +178,7 @@ export default function EditContentPage({params, contentType}) {
                             <RichTextInput name={t('content.edit.general.description')} value={map?.description} />
                             {tags && Object.keys(tags).map(category => {
                                 return <Select name={t(`tags.${category}`)} options={tags[category].map(tag => {
-                                    return {name: t(`tags.${category}.${tag}`), value: tag}
+                                    return {name: t(`tags.${tag}`), value: tag}
                                 })} multiSelect={true} value={map.tags?.join(',')}/>
                             }) || undefined}
                         </FormComponent>

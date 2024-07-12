@@ -1,6 +1,6 @@
 import { MetadataRoute } from "next";
-import { fetchContent } from "../api/content";
-import { ContentTypes, IContentDoc, SortOptions } from "../../api/types";
+import { fetchContent } from "@/app/api/content";
+import { ContentTypes, IContentDoc, SortOptions } from "@/app/api/types";
 
 // export async function generateSitemaps() {
 //     return [{id: 0}]

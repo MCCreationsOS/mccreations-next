@@ -159,7 +159,7 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
                                             <div key={idx}>
                                                 <h4>{t(`tags.${category as TagCategories}`)}</h4>
                                                 <div className={styles.tags_list}>
-                                                    {tags[category].map((tag,idx) => <Tag key={idx} tagValue={tag} tag={t(`tags.${category as TagCategories}.${tag as TagKeys}`)} />)}
+                                                    {tags[category].map((tag,idx) => <Tag key={idx} tagValue={tag} tag={t(`tags.${tag as TagKeys}`)} />)}
                                                 </div>
                                             </div>
                                         )

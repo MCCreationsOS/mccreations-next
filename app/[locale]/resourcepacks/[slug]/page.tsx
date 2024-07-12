@@ -6,6 +6,7 @@ import MapWrapper, { DatapackWrapper, ResourcepackWrapper } from '@/components/C
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
 import { getI18n } from '@/locales/server';
+import Content from '@/components/Content/Content';
 
 export async function generateMetadata(
 { params }: {params: Params},
@@ -60,11 +61,15 @@ export default async function Page({params}: {params: Params}) {
     const map = await fetchResourcepack(params.slug)
     const t = await getI18n()
     
-    if(map) {
+    if(map && '_id' in map) {
+        return (
+            <Content content={map} contentType={ContentTypes.Resourcepacks}/>
+        )
+    } else if (map) {
         return (
             <ResourcepackWrapper resourcepack={map} slug={params.slug}/>
         )
-    } else {
+    }  else {
         sendLog("Resourcepack Page", "")
         return (
             <div>

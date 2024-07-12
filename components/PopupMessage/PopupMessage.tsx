@@ -24,7 +24,7 @@ export class PopupMessage {
     time: number = 4000
     endAction?: () => void
 
-    constructor(type: PopupMessageType, message: string, time?: number, endAction?: () => void) {
+    constructor(type: PopupMessageType, message: string, endAction?: () => void, time?: number) {
         this.type = type;
         this.message = message;
         this.time = time || 4000;

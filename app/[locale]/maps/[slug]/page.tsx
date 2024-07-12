@@ -6,6 +6,7 @@ import MapWrapper from '@/components/Content/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
 import { getI18n } from '@/locales/server';
+import Content from '@/components/Content/Content';
 
 export async function generateMetadata(
 { params }: {params: Params},
@@ -60,7 +61,11 @@ export default async function Page({params}: {params: Params}) {
     const map = await fetchMap(params.slug)
     const t = await getI18n()
     
-    if(map) {
+    if(map && '_id' in map) {
+        return (
+            <Content content={map} contentType={ContentTypes.Maps}/>
+        )
+    } else if (map) {
         return (
             <MapWrapper map={map} slug={params.slug}/>
         )
