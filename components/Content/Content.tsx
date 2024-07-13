@@ -1,4 +1,5 @@
-import { ICreator, IFile, IContentDoc, ContentTypes } from "@/app/api/types";
+'use client'
+import { ICreator, IFile, IContentDoc, ContentTypes, Locales } from "@/app/api/types";
 import Image from 'next/image'
 import Rating from "../Rating";
 import CreatorCard from "../Creator/CreatorCard";
@@ -13,9 +14,16 @@ import { downloadMap } from "@/app/api/content";
 import { useRouter } from "next/navigation";
 import MainButton from "../Buttons/MainButton";
 import IconButton from "../Buttons/IconButton";
-import { Server } from "react-feather";
+import { Flag, Globe, Server } from "react-feather";
 import Link from "next/link";
 import { useI18n } from "@/locales/client";
+import { getI18n } from "@/locales/server";
+import DownloadButton from "../Buttons/DownloadButton";
+import { Popup } from "../Popup/Popup";
+import FormComponent from "../Form/Form";
+import Select from "../FormInputs/Select";
+import Text from "../FormInputs/Text";
+import RichTextInput from "../FormInputs/RichText";
 
 /**
  * The map component represents all the information displayed on a map page
@@ -23,7 +31,6 @@ import { useI18n } from "@/locales/client";
  * @param privileged If the user is privileged to see the content
  */
 export default function Content({content, contentType}: {content: IContentDoc, contentType: ContentTypes}) {
-    const router = useRouter()
     const t = useI18n();
 
     let videoID = ""
@@ -33,10 +40,15 @@ export default function Content({content, contentType}: {content: IContentDoc, c
         videoID = content.videoUrl.substring(content.videoUrl.lastIndexOf("/") + 1)
     }
 
-    const downloadButtonClicked = async (url: string) => {
-        await downloadMap(content.slug)
-        router.push(url)
-    }
+    // const makeTranslation = () => {
+
+    //     Popup.createPopup({title: "Create a New Translation", canClose: true, content: <FormComponent id="makeTranslation" onSave={(data) => {console.log(data)}}>
+    //         <Select name="lang" options={Locales.map(l => {return {name: l}})}/>
+    //         <Text name="title" placeholder="Title"/>
+    //         <Text name="shortDescription" placeholder="Short Description"/>
+    //         <RichTextInput name="description"/>
+    //     </FormComponent>})
+    // }
 
     return (
         <>
@@ -56,7 +68,7 @@ export default function Content({content, contentType}: {content: IContentDoc, c
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={content.rating} content={content} />
-                        {(content.files) ? <MainButton onClick={() => {downloadButtonClicked((content.files[0].worldUrl) ? content.files[0].worldUrl: (content.files[0].dataUrl) ? content.files[0].dataUrl : content.files[0].resourceUrl!)}}>Download</MainButton>: <></>}
+                        {(content.files) ? <DownloadButton slug={content.slug} url={(content.files[0].worldUrl) ? content.files[0].worldUrl : (content.files[0].dataUrl) ? content.files[0].dataUrl : content.files[0].resourceUrl!} />: <></>}
                         <Link title={t(`content.affiliates.server.${contentType}`)} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
                     </div>
                 </div>
@@ -64,6 +76,10 @@ export default function Content({content, contentType}: {content: IContentDoc, c
                     <div className='map_description' dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(content.description)}}>       
                     </div>
                     <div className='map_sidebar'>
+                        <section className='map_sidebar_section'>
+                            {/* <IconButton className="secondary" onClick={() =>{}}><Flag /></IconButton> */}
+                            {/* <IconButton className="secondary" onClick={makeTranslation}><Globe /></IconButton> */}
+                        </section>
                         <section className='map_sidebar_section'>
                             <h4 className='header'>{t('content.sidebar.headers.creators')}</h4>
                             {content.creators && content.creators.map((creator: ICreator, idx: number) => <CreatorCard key={idx} creator={creator} />)}
@@ -78,7 +94,7 @@ export default function Content({content, contentType}: {content: IContentDoc, c
                         </section>
                         <section className='map_sidebar_section'>
                             <h4 className='header'>{t('content.sidebar.headers.files')}</h4>
-                            {content.files && content.files.slice(0, 3).map((file: IFile, idx: number) => <FileCard key={idx} file={file} download={downloadButtonClicked}/>)}
+                            {content.files && content.files.slice(0, 3).map((file: IFile, idx: number) => <FileCard key={idx} file={file} slug={content.slug}/>)}
                         </section>
                     </div>
                 </div>
