@@ -72,6 +72,7 @@ export default function SignUp() {
             }).catch(error => {
                 if(res.status === 200) {
                     router.push('/signin')
+                    return;
                 } else {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.error')))
                     return;

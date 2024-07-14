@@ -101,7 +101,7 @@ export default function EditContentPage({params, contentType}) {
                 <ContentWarnings map={map} />
                 <h1>{t('content.edit.editing')} {map?.title}</h1>
                 <p>{t('content.edit.status')} {(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('status.Draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('content.edit.status.Unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('status.Approved')}</span>: <span style={{color:"#3154f4"}}>{t('status.Featured')}</span>}</p>
-                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent"))})}}>{t('content.edit.request_approval')}</MainButton>)}
+                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent")); setMap({...map, status: 1})})}}>{t('content.edit.request_approval')}</MainButton>)}
                 <Tabs preselectedTab={1} tabs={[
                 {
                     title: <ArrowLeft />,
