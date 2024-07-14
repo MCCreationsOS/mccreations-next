@@ -1,4 +1,4 @@
-import { IContentDoc } from "@/app/types"
+import { IContentDoc } from "@/app/api/types"
 import Link from "next/link"
 import { useState } from "react"
 import { Plus } from "react-feather"

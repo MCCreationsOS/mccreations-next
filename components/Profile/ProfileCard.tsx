@@ -5,7 +5,7 @@ import Link from "next/link"
 import styles from './ProfileStyle.module.css'
 import { getCreator } from "@/app/api/community";
 import ProfileEditButton from './ProfileEditButton'
-import { IUser } from '@/app/types'
+import { IUser } from '@/app/api/types'
 
 export default async function ProfileCard({creator}: {creator: IUser}) {
     return (

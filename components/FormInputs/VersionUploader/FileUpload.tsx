@@ -1,6 +1,6 @@
 'use client'
 
-import { FilePreview, IFile, MinecraftVersion } from '@/app/types'
+import { FilePreview, IFile, MinecraftVersion } from '@/app/api/types'
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
@@ -10,22 +10,23 @@ import upload from '@/app/api/upload'
 import FormComponent from '../../Form/Form'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 import Text from '../Text'
+import { useI18n } from '@/locales/client'
 
 const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
     const [file, setFile] = useState<string>("")
     const [rejected, setRejected] = useState<FileRejection[]>([])
+    const t = useI18n();
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
-            console.log("Got a valid file")
             acceptedFiles.forEach(file => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploading ${file.name}`))
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${file.name}${t('form.versions.uploading')}`))
                 upload(file).then(url => {
                     if(url) {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploaded ${file.name}`))
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${file.name}${t('form.versions.uploaded')}`))
                         setFile(url)
                     } else {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `Uploading ${file.name} failed`))
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `${file.name}${t('form.versions.upload_failed')}`))
                     }
                 });
             })
@@ -34,15 +35,17 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
         if (rejectedFiles?.length) {
             setRejected(previousFiles => [...previousFiles, ...rejectedFiles])
             rejectedFiles.forEach(file => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `${file.file.name} is not a valid file`))
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `${file.file.name}${t('form.versions.invalid_file')}`))
             })
         }
     }, [])
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: {
-            'application/zip': ['.zip']
+            'application/zip': ['.zip'],
         },
+        maxFiles: 1,
+        maxSize: 1024 * 101024,
         onDrop
     })
 
@@ -75,7 +78,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 <div {...getRootProps()} className={styles.dnd}>
                     <input {...getInputProps({ name: 'file' })} />
                     <Plus />
-                    <p>Drag and Drop here or click to upload a new version</p>
+                    <p>{t('form.versions.drop_zone')}</p>
                 </div>
                 <p>Or...</p>
                 <div className={styles.dnd}>
@@ -84,7 +87,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                         if(url) {
                             setFile(url)
                         }
-                    }}>
+                    }} options={{useSaveButton: false}}>
                         <Text type="text" name="Link" placeholder="https://example.com/file.zip" value={file} />    
                     </FormComponent>
                 </div>

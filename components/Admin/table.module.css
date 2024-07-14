@@ -1,12 +1,13 @@
 .admin_table {
     width: 100vw;
+    min-width: 1080px;
     margin: 20px;
     overflow: auto;
 }
 
 .table_row {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     padding: 10px 0;
     border-bottom: 1px solid #d3d3d3;

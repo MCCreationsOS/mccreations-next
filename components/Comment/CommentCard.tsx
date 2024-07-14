@@ -2,10 +2,11 @@
 
 import Image from 'next/image';
 import { Heart } from 'react-feather';
-import { IComment } from '@/app/types';
+import { IComment } from '@/app/api/types';
 import { getCreator } from '@/app/api/community';
 import styles from './Comment.module.css';
 import { useEffect, useState } from 'react';
+import DOMPurify from 'dompurify';
 
 /**
  * A comment
@@ -35,7 +36,7 @@ export default function CommentCard({comment}: {comment: IComment}) {
                     <h4>{comment.username}</h4>
                     <p>{new Date(comment.date).toLocaleDateString()}</p>
                 </div>
-                <p>{comment.comment}</p>
+                <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.comment)}}></p>
                 {/* Likes and replies may eventually go here  */}
             </div>
         </div>

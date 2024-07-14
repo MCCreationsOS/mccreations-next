@@ -1,6 +1,6 @@
 'use client'
 
-import { FilePreview } from '@/app/types'
+import { FilePreview } from '@/app/api/types'
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
@@ -8,6 +8,7 @@ import { UploadCloud } from 'react-feather'
 import styles from './ImageDropzone.module.css'
 import upload from '@/app/api/upload'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
+import { useI18n } from '@/locales/client'
 
 /**
  * The representation of an uploaded image
@@ -30,13 +31,14 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     // Reject files are collected, although not technically displayed
     const [rejected, setRejected] = useState<FileRejection[]>([])
+    const t = useI18n();
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
             acceptedFiles.forEach(file => {
                 upload(file).then(url => {
                     if(url) {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `Uploaded ${file.name}`))
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${t('form.images.uploaded')}${file.name}`))
                         
                         if(allowMultiple) {
                             // Send uploaded files to the parent component, then update the internal state of images
@@ -72,7 +74,21 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
         if (rejectedFiles?.length) {
             setRejected(previousFiles => [...previousFiles, ...rejectedFiles])
             rejectedFiles.forEach(file => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `${file.file.name} is not a valid image`))
+                let message = file.file.name
+                file.errors.forEach(error => {
+                    switch (error.code) {
+                        case 'file-invalid-type':
+                            message += t('form.images.invalid');
+                            break;
+                        case 'file-too-large':
+                            message += t('form.images.too_large');
+                            break;
+                        default:
+                            message += t('form.images.unknown_error');
+                            break;
+                    }
+                })
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, message))
             })
         }
     }, [])
@@ -119,9 +135,9 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                         <div className={styles.image_overlay}>
                             <UploadCloud></UploadCloud>
                             {isDragActive ? (
-                                <span>Drop it!</span>
+                                <span>{t('form.images.hovering_drop')}</span>
                             ) : (
-                                <span>Drag & drop an image here, or click to select an image</span>
+                                <span>{t('form.images.drop_zone')}</span>
                             )}
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 .popup {
-    position: absolute;
+    position: fixed;
     left: 40%;
-    top: 1%;
+    top: 10%;
     z-index: 12;
     background-color: #272727;
     width: 400px;
@@ -23,6 +23,8 @@
     background-color: #171717;
     margin: -20px -20px 10px -20px;
     padding: 20px;
+    position: sticky;
+    top: -20px;
 }
 
 .popup .titlebar .title {
@@ -36,7 +38,7 @@
 }
 
 .background {
-    position: absolute;
+    position: fixed;
     z-index: 11;
     background-color: black;
     opacity: 0.5;
@@ -52,8 +54,27 @@
     }
 }
   
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
     .popup {
         left: 2%;
+        width: 96%
+    }
+}
+
+.visible {
+    display: block;
+    animation: popup 0.2s;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes popup {
+    from {
+        transform: translate(0, -50px);
+    }
+    to {
+        transform: translate(0, 0);
     }
 }

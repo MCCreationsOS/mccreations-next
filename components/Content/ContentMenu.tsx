@@ -1,7 +1,8 @@
-import { ICreator } from "@/app/types";
+import { ICreator } from "@/app/api/types";
 import Tabs from "../Tabs/Tabs";
 import styles from "./Content.module.css"
 import EditContentButton from "@/components/Buttons/EditContentButton";
+import { useI18n } from "@/locales/client";
 
 /**
  * The Tab and Edit Menu that appears on top of content pages
@@ -11,13 +12,13 @@ import EditContentButton from "@/components/Buttons/EditContentButton";
  * @returns 
  */
 export default function ContentMenu({slug, creators, status}: {slug: string, creators: ICreator[], status: number}) {
+    const t = useI18n();
     return (
         <div className={styles.content_submenu}>
             <div className={styles.content_tabs}>
                 <Tabs tabs={[
-                    {title: "Info", content: <></>, link: "/"},
-                    {title: "Files", content: <></>, link: "/files", disabled: true},
-                    {title: "Community", content: <></>, link: "/community", disabled: true}
+                    {title: t('content.info'), content: <></>, link: "/"},
+                    {title: t('content.files'), content: <></>, link: "/files", disabled: true}
                     ]} />
                 <EditContentButton slug={slug} creators={creators} status={status}/>
             </div>

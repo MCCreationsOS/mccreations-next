@@ -1,6 +1,6 @@
 'use client'
 
-import { IContentDoc } from "@/app/types";
+import { IContentDoc } from "@/app/api/types";
 import ContentCard from "./ContentCard";
 import styles from './ContentSlideshow.module.css'
 import { useEffect, useState } from "react";
@@ -15,7 +15,7 @@ export default function ContentSlideshow({content, playlist}: {content: IContent
     let location = 0
     const slideButtonClicked = (left: boolean) => {
         let elem
-        // This should be improve to be more dynamic ad support slideshows of any length
+        // This should be improve to be more dynamic and support slideshows of any length
         if(left) {
             if(location > 0) location -= 4
             elem = document.querySelector(`#${playlist}_${location}`)
@@ -23,7 +23,6 @@ export default function ContentSlideshow({content, playlist}: {content: IContent
             if(location < 16) location += 4
             elem = document.querySelector(`#${playlist}_${location}`)
         }
-        console.log(elem)
         elem?.scrollIntoView({behavior: "smooth", inline: "start", block: "center"})
         setTimeout(() => {window.scrollBy(0, 1)}, 1000)
     }

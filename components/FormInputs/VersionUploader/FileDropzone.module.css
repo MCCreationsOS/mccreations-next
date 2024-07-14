@@ -1,12 +1,12 @@
 .upload {
-    width: 100%;
     object-fit: cover;
     position: relative;
     margin: 3px 3px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
+    width: fit-content;
 }
 
 .upload p {
@@ -49,4 +49,11 @@
 
 .hide_reversed {
     transform: rotate(180deg);
+}
+
+.files {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 10px;
 }

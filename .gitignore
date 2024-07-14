@@ -33,3 +33,6 @@ yarn-error.log*
 # Local Netlify folder
 .netlify
 firebase/.env
+
+# Sentry Config File
+.env.sentry-build-plugin

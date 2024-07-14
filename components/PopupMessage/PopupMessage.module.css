@@ -38,6 +38,19 @@
     padding: 5px 15px;
 }
 
+.time {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    font-size: 0.8rem;
+    background-color: gray;
+    height: 4px;
+    display: block;
+    width: 100%;
+    transition: width 0.1s linear;
+    z-index: 501;
+}
+
 @keyframes popIn {
     0% {
         top: -10%;

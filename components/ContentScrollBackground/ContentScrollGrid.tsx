@@ -1,4 +1,4 @@
-import { IContentDoc } from "@/app/types"
+import { IContentDoc } from "@/app/api/types"
 import ContentScrollCard from "./ContentScrollCard"
 import styles from './ContentScrollBackground.module.css'
 

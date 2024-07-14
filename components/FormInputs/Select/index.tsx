@@ -8,7 +8,7 @@ export interface SelectProps {
     name: string,
     value?: string,
     options?: ISelectOptions[],
-    description?: string
+    description?: React.ReactNode
     onChange?: (value: string) => void,
     multiSelect?: boolean
 }
@@ -52,10 +52,8 @@ export default function Select(props: SelectProps): SelectElement {
         if(props.multiSelect) {
             let newValue = value.split(",")
             if (newValue.includes(option.value || option.name)) {
-                console.log("removing", option.value || option.name)
                 newValue = newValue.filter((val) =>  !(option.value && val === option.value) && val !== option.name)
             } else {
-                console.log("adding", option.value || option.name)
                 newValue.push(option.value || option.name)
             }
             setValue(newValue.join(","))

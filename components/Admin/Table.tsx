@@ -1,7 +1,7 @@
 'use client'
 
 import { approveContent, updateContent } from "@/app/api/content";
-import { ContentTypes, IContentDoc } from "@/app/types"
+import { ContentTypes, IContentDoc } from "@/app/api/types"
 import { FC, ReactElement, useEffect, useState } from "react";
 import MainButton from "../Buttons/MainButton";
 import styles from './table.module.css'
@@ -23,7 +23,6 @@ export default function AdminTable({contentType, jwt}: {contentType: ContentType
             }
         }).then((res) => {
             res.json().then((data) => {
-                console.log(data.documents)
                 setMaps(data.documents)
             })
         })

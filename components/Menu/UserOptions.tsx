@@ -1,13 +1,14 @@
 'use client'
 
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import Image from "next/image"
-import { IUser, UserTypes } from "@/app/types"
+import { IUser, UserTypes } from "@/app/api/types"
 import Link from "next/link"
 import { LogOut, Settings, Table, User } from "react-feather"
 import { useRouter } from "next/navigation"
 import { getUser } from "@/app/api/auth"
 import HollowButton from "../Buttons/HollowButton"
+import { useCurrentLocale, useI18n } from "@/locales/client"
 
 /**
  * The user options menu displayed on the far right of the menu
@@ -16,6 +17,7 @@ export default function UserOptions() {
     const [user, setUser] = useState({} as IUser)
     const [showOptions, setShowOptions] = useState(false)
     const router = useRouter();
+    let t = useI18n();
 
     useEffect(() => {
         const getData = async () => {
@@ -33,7 +35,7 @@ export default function UserOptions() {
     if(!user._id) {
         return (
             <div className="user_menu">
-                <Link href="/signin"><HollowButton>Sign In</HollowButton></Link>
+                <Link href="/signin"><HollowButton>{t('nav.item.user_options.sign_in')}</HollowButton></Link>
             </div>
         )
     }
@@ -48,19 +50,19 @@ export default function UserOptions() {
                 </div>
                 <hr></hr>
                 <div className="option icon" onClick={() => {router.push("/creator/"+user.handle)}}>
-                    <User />Profile
+                    <User /> {t('nav.item.user_options.profile')}
                 </div>
                 <div className="option icon" onClick={() => {router.push("/dashboard")}}>
-                    <Table />Dashboard
+                    <Table /> {t("nav.item.user_options.dashboard")}
                 </div>
                 {user.type === UserTypes.Admin && <div className="option icon" onClick={() => {router.push("/admin_dashboard")}}>
-                    <Table />Admin
+                    <Table /> {t("nav.item.user_options.admin")}
                 </div>}
                 <div className="option icon" onClick={() => {router.push("/account")}}>
-                    <Settings />Settings
+                    <Settings /> {t("nav.item.user_options.settings")}
                 </div>
                 <div className="option icon" onClick={() => {sessionStorage.clear(); location.reload()}}>
-                    <LogOut />Sign Out
+                    <LogOut /> {t("nav.item.user_options.sign_out")}
                 </div>
             </div>
         </div>

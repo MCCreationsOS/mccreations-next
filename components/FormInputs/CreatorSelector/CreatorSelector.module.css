@@ -24,3 +24,11 @@
     font-size: 1.1rem;
     margin-right: 10px;
 }
+
+.option_removing {
+    padding: 10px;
+    background-color: #2b1111;
+    border: 1px solid #f44336;
+    font-size: 1.1rem;
+    margin-right: 10px;
+}

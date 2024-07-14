@@ -28,3 +28,20 @@
     font-size: 1.1rem;
     cursor: pointer;
 }
+
+.version_field {
+    margin: 0 10px 0 0;
+    border: 1px dashed gray;
+    padding: 0 5px;
+}
+
+.checkbox_field {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0 0 10px -10px;
+}
+
+.checkbox_field h3 {
+    margin: 0 0 0 10px;
+}

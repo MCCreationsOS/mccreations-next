@@ -1,4 +1,4 @@
-import { ICreator, IContentDoc, QueryOptions, SortOptions, ContentTypes } from "../types"
+import { ICreator, IContentDoc, QueryOptions, SortOptions, ContentTypes } from "./types"
 
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
@@ -50,21 +50,29 @@ function formatQueryOptions(queryOptions: QueryOptions) {
         queryOptions.exclusiveStatus = false
     }
 
+    if(!queryOptions.contentType) {
+        queryOptions.contentType = ContentTypes.Maps
+    }
+
+    if(!queryOptions.creator) {
+        queryOptions.creator = ""
+    }
+
     return queryOptions
 }
 
 /**
- * Fetch an array of content from the API
+ * Search for content based on a query
  * @param queryOptions The query options to send to the API
  * @param count Return the count of maps found rather than the actual maps. Used for pagination. For performance reasons
  * when this parameter is set ONLY the count of maps is returned not the actual map objects
  * @returns `documents` An array of map documents
  * @returns `count` The count of maps found by the query
 */
-export async function fetchContent(queryOptions: QueryOptions, count: boolean, token?: string | null) {
+export async function searchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
+        let p1 = fetch(`${process.env.DATA_URL}/content?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
             next:{
                 revalidate:3600
             },
@@ -73,9 +81,54 @@ export async function fetchContent(queryOptions: QueryOptions, count: boolean, t
                 authorization: token + ""
             }
         })
-        let data = await response.json();
+        let p2: Promise<Response> | undefined;
+        if(filterQuery) {
+            filterQuery = formatQueryOptions(filterQuery);
+            // console.log(filterQuery)
+            p2 = fetch(`${process.env.DATA_URL}/content?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}`, {
+                next:{
+                    revalidate:3600
+                },
+                method: 'GET',
+                headers: {
+                    authorization: token + ""
+                }
+            })
+        }
+        let responses = await Promise.all([p1, p2])
+        let data = await responses[0].json();
+        let filter = await responses[1]?.json();
+        if(filter?.documents) {
+            data.documents = data.documents.filter((doc: IContentDoc) => {
+                return !filter.documents.some((f: IContentDoc) => {
+                    return f._id === doc._id
+                })
+            })
+        }
         return data
 
+    } catch(e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: queryOptions
+        }
+    }
+}
+
+export async function getContent(queryOptions: QueryOptions, token?: string | null) {
+    queryOptions = formatQueryOptions(queryOptions);
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/content-nosearch?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=false&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creator=${queryOptions.creator}`, {
+            next:{
+                revalidate:3600
+            },
+            headers: {
+                authorization: token + ""
+            }
+        })
+        let data = await response.json();
+        return data
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e);
         return {
@@ -214,7 +267,6 @@ export async function createNewContent(title: string, type: string, summary: str
 
 export async function importContent(link: string, type: string, token?: string | null) {
     try {
-        console.log('Sending import request')
         let response = await fetch(`${process.env.DATA_URL}/content/import`, { 
             method: 'POST',
             headers: {
@@ -227,7 +279,6 @@ export async function importContent(link: string, type: string, token?: string |
             })
         })
         let data = await response.json();
-        console.log(data)
         return data;
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e)
@@ -253,7 +304,6 @@ export async function updateContent(map: IContentDoc, token: string | null, type
             })
         })
         let data = await response.json();
-        console.log(data)
         return data;
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e)
@@ -263,7 +313,31 @@ export async function updateContent(map: IContentDoc, token: string | null, type
     }
 }
 
-export async function deleteContent(id: any, token: string | null) {
+export async function updateTranslation(slug: string, type: ContentTypes, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/content/update_translation`, { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token + ''
+            },
+            body: JSON.stringify({
+                slug: slug,
+                type: type,
+                translation: translation
+            })
+        })
+        let data = await response.json();
+        return data;
+    } catch(e) {
+        console.error("API fetch error! Is it running?: " + e)
+        return {
+            message: e
+        }
+    }
+}
+
+export async function deleteContent(id: any, token: string | null, contentType: ContentTypes) {
     try {
         await fetch(`${process.env.DATA_URL}/content`, {
             method: 'DELETE',
@@ -272,7 +346,8 @@ export async function deleteContent(id: any, token: string | null) {
                 'Authorization': token + ""
             },
             body: JSON.stringify({
-                id: id
+                id: id,
+                type: contentType
             })
         })
         return;

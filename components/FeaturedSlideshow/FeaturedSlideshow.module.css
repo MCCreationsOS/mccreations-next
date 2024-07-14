@@ -91,6 +91,7 @@
     bottom: 10%;
     left: 5%;
     max-width: 700px;
+    width: 90%;
     margin-top: 50px;
 }
 
@@ -169,13 +170,6 @@
 }
 
 @media screen and ((max-width: 700px) or (max-height: 700px)) {
-    .slideshow {
-        height: 60vh;
-    }
-
-    .slideshow .image_background{  
-        height: 60vh;
-    }
 
     .slideshow .information {
         top: 0%;
@@ -210,6 +204,16 @@
 
     .slideshow .information .stats {
         justify-content: center;
+    }
+}
+
+@media screen and ((max-width: 700px) and (min-height: 700px)) {
+    .slideshow {
+        height: 60vh;
+    }
+
+    .slideshow .image_background{  
+        height: 60vh;
     }
 }
 

@@ -3,14 +3,19 @@
 import { Suspense, useEffect, useState } from "react"
 import CommentCard from "./Comment/CommentCard"
 import { postComment } from "@/app/api/community";
-import { IComment, IUser } from "@/app/types";
+import { IComment, IUser } from "@/app/api/types";
 import { getUser } from "@/app/api/auth";
 import MainButton from "./Buttons/MainButton";
+import FormComponent from "./Form/Form";
+import Text from "./FormInputs/Text";
+import RichText from "./FormInputs/RichText";
+import { useI18n } from "@/locales/client";
 
 export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: string, content_type: string}) {
     const [username, setUsername] = useState("");
     const [comment, setComment] = useState("");
     const [user, setUser] = useState<IUser>()
+    const t = useI18n();
     let token;
 
     useEffect(() => {
@@ -28,7 +33,7 @@ export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: str
 
     const sendComment = async () => {
         if(user) {
-            postComment(slug, content_type, user.username, comment, user.handle);
+            postComment(slug, content_type, username, comment, user.handle);
         } else {
             postComment(slug, content_type, username, comment)
         }
@@ -36,20 +41,11 @@ export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: str
 
     return (
         <div className='centered_content'>
-                <form method="none">
-                    <h2>Leave a Comment</h2>
-                    {(user) ? <></> : 
-                        <div className='field'>
-                            <p className='label'>Username</p>
-                            <input className='input wide' type='text' name='username' placeholder='BeanMiner' onChange={(e) => {setUsername(e.target.value)}}></input>
-                        </div>
-                        }
-                    <div className='field'>
-                            <p className='label'>Comment</p>
-                            <textarea className='input wide' name='comment' placeholder='Cool project bro!'onChange={(e) => {setComment(e.target.value)}}></textarea>
-                    </div>
-                    <MainButton onClick={sendComment} >Send!</MainButton>
-                    </form>
+            <h2>{t('content.comments.title')}</h2>
+                <FormComponent id="commentForm" onSave={(inputs) => {}} options={{saveButtonContent: ""}}>
+                    <Text name={t('content.comments.username')} value={user?.username} onChange={(v) => setUsername(v)} />
+                    <RichText name={t('content.comments.comment')} value={comment} onChange={(v) => setComment(v)} />
+                </FormComponent>
         </div>
     )
 }

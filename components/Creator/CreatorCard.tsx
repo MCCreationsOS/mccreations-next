@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { ICreator } from '@/app/types';
+import { ICreator } from '@/app/api/types';
 import { getCreator } from '@/app/api/community';
 import Link from 'next/link';
 import styles from './CreatorCard.module.css';

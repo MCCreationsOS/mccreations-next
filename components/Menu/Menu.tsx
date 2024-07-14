@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import HollowButton from "../Buttons/HollowButton";
 import Badge from "../Badge";
 import DesktopNav from "./DesktopNav";
+import { I18nProviderClient, useI18n } from "@/locales/client";
 
 /**
  * The menu for the site
@@ -19,10 +20,11 @@ import DesktopNav from "./DesktopNav";
  */
 export default function Menu({selectedPage}: {selectedPage: string}) {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
-
+    const t = useI18n();
+    
     return (
         <>
-            <div className="beta_warning">MCCreations is currently in beta. Please leave any feedback or report any issues using <a href="https://forms.gle/J7HEX9KKbYhQXCii7">this form.</a></div>
+            <div className="beta_warning">{t('nav.beta_warning1')}<a href="https://forms.gle/J7HEX9KKbYhQXCii7">{t('nav.beta_warning2')}</a></div>
             <nav className="nav">
                 <DesktopNav selectedPage={selectedPage} />
                 <div className="mobile_nav">
@@ -30,21 +32,21 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         <img className="menu_icon" src='/menu.svg' alt="" onClick={() => {setMobileMenuActive(true)}}/>
                         <Link href="/" className="brand">
                             <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
-                            <p className="brand_name">MCCreations <Badge color="red">Beta</Badge></p>
+                            <p className="brand_name">{t('brand')}<Badge color="red">{t('nav.badge.beta')}</Badge></p>
                         </Link>
                     </div>
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">
-                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">Home</Link>
+                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('nav.item.home')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">Maps</Link>
+                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">{t('nav.item.maps')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">Data Packs</Link>
+                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">{t('nav.item.datapacks')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">Resource Packs</Link>
+                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('nav.item.resourcepacks')}</Link>
                         </li>
                         <li className='item'>
                             <UserOptions />

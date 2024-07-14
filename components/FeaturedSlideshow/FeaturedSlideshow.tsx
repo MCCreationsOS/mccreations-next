@@ -5,13 +5,15 @@ import Link from 'next/link'
 import Image from "next/image";
 import styles from './FeaturedSlideshow.module.css'
 import { shimmer, toBase64 } from "../skeletons/imageShimmer";
-import { IContentDoc } from "@/app/types";
+import { IContentDoc } from "@/app/api/types";
 import MainButton from "../Buttons/MainButton";
+import { useI18n } from "@/locales/client";
 
 
 export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
     const [index, setIndex] = useState(0)
     const [slideTime, setSlideTime] = useState(720);
+    const t = useI18n();
 
     const updateSlide = () => {
         if(slideTime > 0) {
@@ -73,7 +75,7 @@ export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
                                 <div className={styles.stat}><img className={styles.in_text_icon}  src='/map.svg'></img>{f.files[0].minecraftVersion}</div>
                             </div>
 
-                            <Link href={`/maps/${f.slug}`}><MainButton>See More!</MainButton></Link>
+                            <Link href={`/maps/${f.slug}`}><MainButton>{t('featured.see_more')}</MainButton></Link>
                             
                             <div>
                                 {
