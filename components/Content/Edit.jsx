@@ -1,8 +1,8 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent } from "@/app/api/content"
-import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, ContentTypes, UserTypes } from "@/app/api/types"
+import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
+import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, ContentTypes, UserTypes, Locales } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
@@ -19,6 +19,11 @@ import { useI18n } from "@/locales/client"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useEffect, useRef, useState } from "react"
 import { ArrowLeft } from "react-feather"
+import SecondaryButton from "../Buttons/SecondaryButton"
+import { Popup } from "../Popup/Popup"
+import WarningButton from "../Buttons/WarningButton"
+import Checkbox from "../FormInputs/Checkbox"
+import Link from "next/link";
 
 export default function EditContentPage({params, contentType}) {
     const [user, setUser] = useState()
@@ -219,6 +224,56 @@ export default function EditContentPage({params, contentType}) {
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                         })
                     }} />
+                    },
+                    {
+                        title: t('content.edit.translations'),
+                        content: <>
+                            <SecondaryButton onClick={() => {
+                                Popup.createPopup({title: t('content.edit.translations.add'), content: <FormComponent id="add_translation" onSave={(inputs) => {
+                                    let newMap = {
+                                        ...map
+                                    }
+                                    if(!newMap.translations) {
+                                        newMap.translations = {}
+                                    }
+                                    newMap.translations[inputs[0]] = {
+                                        title: "",
+                                        shortDescription: "",
+                                        description: ""
+                                    }
+                                    setMap(newMap)
+                                    Popup.close();
+                                }}>
+                                    <Select name={t('content.edit.translations.language')} options={Locales.map(lang => {return {name: lang}})} description={<Link href="https://github.com/BenMeie/mccreations-next/blob/main/docs/translating.md">{t('content.edit.translations.missing_language')}</Link>}/>
+                                </FormComponent>})
+                            }}>{t('content.edit.translations.add')}</SecondaryButton>
+                            {map.translations && Object.keys(map.translations).map((lang) => {
+                                return <FormComponent id={lang} onSave={(inputs) => {
+                                    let lang = inputs[0]
+                                    let translation = {
+                                    }
+                                    translation[lang] = {
+                                        title: inputs[1],
+                                        shortDescription: inputs[2],
+                                        description: inputs[3],
+                                        approved: (inputs[4] === "true") ? true : false
+                                    }
+                                    updateTranslation(map.slug, contentType, translation, sessionStorage.getItem('jwt'))
+                                }} options={{extraButtons: <WarningButton onClick={() => {
+                                    let newMap = {
+                                        ...map
+                                    }
+                                    delete newMap.translations[lang]
+                                    setMap(newMap)
+                                }}>Delete</WarningButton>}}>
+                                    <Select name={t('content.edit.translations.language')} options={[{name: lang}]}/>
+                                    <Text name={t('content.create.title')} value={map.translations[lang].title}/>
+                                    <Text name={t('content.create.short_description')} value={map.translations[lang].shortDescription}/>
+                                    <RichTextInput name={t('content.edit.general.description')} value={map.translations[lang].description}/>
+                                    <Checkbox name={t('content.edit.translations.approved')} value={map.translations[lang].approved}/>
+                                </FormComponent>
+                            })}
+                        </>
                     }]} />
             </div>
         )

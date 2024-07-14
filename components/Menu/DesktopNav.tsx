@@ -81,6 +81,9 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                         </li>
                     </ul>
                     <ul className='action_list'>
+                        <li className="item">
+                            <LanguageSwitcher />
+                        </li>
                         <li className='item'>
                             <HollowButton onClick={() => {Popup.createPopup({
                                 content: <Tabs tabs={[
@@ -117,9 +120,6 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                         </li>
                         <li className='item'>
                             <UserOptions />
-                        </li>
-                        <li className="item">
-                            <LanguageSwitcher />
                         </li>
                     </ul>
                 </div>

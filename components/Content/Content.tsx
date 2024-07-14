@@ -10,20 +10,12 @@ import PretechedCommentsList from "@/components/Comment/CommentsList";
 import DOMPurify from "isomorphic-dompurify";
 import ContentMenu from "./ContentMenu";
 import ContentWarnings from "./ContentWarnings";
-import { downloadMap } from "@/app/api/content";
-import { useRouter } from "next/navigation";
-import MainButton from "../Buttons/MainButton";
 import IconButton from "../Buttons/IconButton";
-import { Flag, Globe, Server } from "react-feather";
+import { Server } from "react-feather";
 import Link from "next/link";
-import { useI18n } from "@/locales/client";
-import { getI18n } from "@/locales/server";
+import { useCurrentLocale, useI18n } from "@/locales/client";
 import DownloadButton from "../Buttons/DownloadButton";
-import { Popup } from "../Popup/Popup";
-import FormComponent from "../Form/Form";
-import Select from "../FormInputs/Select";
-import Text from "../FormInputs/Text";
-import RichTextInput from "../FormInputs/RichText";
+import CreateTranslationForm from "../CreateTranslationForm";
 
 /**
  * The map component represents all the information displayed on a map page
@@ -32,6 +24,15 @@ import RichTextInput from "../FormInputs/RichText";
  */
 export default function Content({content, contentType}: {content: IContentDoc, contentType: ContentTypes}) {
     const t = useI18n();
+    const locale = useCurrentLocale();
+
+    let title = content.title
+    let description = content.description
+    
+    if(content.translations && content.translations[locale] && content.translations[locale].approved) {
+        title = content.translations[locale].title
+        description = content.translations[locale].description
+    }
 
     let videoID = ""
     if(content.videoUrl && content.videoUrl.includes("?v=")) {
@@ -39,16 +40,6 @@ export default function Content({content, contentType}: {content: IContentDoc, c
     } else if(content.videoUrl) {
         videoID = content.videoUrl.substring(content.videoUrl.lastIndexOf("/") + 1)
     }
-
-    // const makeTranslation = () => {
-
-    //     Popup.createPopup({title: "Create a New Translation", canClose: true, content: <FormComponent id="makeTranslation" onSave={(data) => {console.log(data)}}>
-    //         <Select name="lang" options={Locales.map(l => {return {name: l}})}/>
-    //         <Text name="title" placeholder="Title"/>
-    //         <Text name="shortDescription" placeholder="Short Description"/>
-    //         <RichTextInput name="description"/>
-    //     </FormComponent>})
-    // }
 
     return (
         <>
@@ -64,7 +55,7 @@ export default function Content({content, contentType}: {content: IContentDoc, c
             <div className='centered_content'>
                 <div className='map_title_bar'>
                     <div className="map_title_stack">
-                        <h1 className='map_title'>{content.title}</h1>
+                        <h1 className='map_title'>{title}</h1>
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={content.rating} content={content} />
@@ -73,12 +64,12 @@ export default function Content({content, contentType}: {content: IContentDoc, c
                     </div>
                 </div>
                 <div className='map_information'>
-                    <div className='map_description' dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(content.description)}}>       
+                    <div className='map_description' dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}}>       
                     </div>
                     <div className='map_sidebar'>
                         <section className='map_sidebar_section'>
                             {/* <IconButton className="secondary" onClick={() =>{}}><Flag /></IconButton> */}
-                            {/* <IconButton className="secondary" onClick={makeTranslation}><Globe /></IconButton> */}
+                            <CreateTranslationForm type={contentType} content={content} />
                         </section>
                         <section className='map_sidebar_section'>
                             <h4 className='header'>{t('content.sidebar.headers.creators')}</h4>
