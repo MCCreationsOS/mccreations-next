@@ -5,6 +5,7 @@ import CreatorSelector from "../FormInputs/CreatorSelector/CreatorSelector";
 import FileDropzone from "../FormInputs/VersionUploader/FileUpload";
 import RichText from "../FormInputs/RichText/RichText";
 import MainButton from "../Buttons/MainButton";
+import { useI18n } from "@/locales/client";
 
 /**
  * A FormElement is a JSX element that represents a form element. It must have a name prop and can have a value, description, and onChange prop. The onChange prop is a function that takes in the value of the input and the index of the input in the form.
@@ -15,7 +16,7 @@ export interface FormElement extends JSX.Element {
     props: {
         name: string,
         value?: string,
-        description?: string,
+        description?: React.ReactNode,
         onChange?: (value: string, index: number) => void
     }
     key: string | null;
@@ -35,6 +36,8 @@ export interface FormOptions {
  * @param onSave The function to call when the form is saved 
  */
 export default function FormComponent({id, children, onSave, options}: {id: string, children?: FormElement[] | FormElement, onSave: (inputs: string[]) => void, options?: FormOptions}) {
+    const t = useI18n();
+    
     const saveForm = () => {
         let inputs: string[] = []
         document.querySelector('#' + id)?.querySelectorAll('input').forEach((input) => {
@@ -54,11 +57,11 @@ export default function FormComponent({id, children, onSave, options}: {id: stri
     return (
         <div id={id}>
             {children}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'primary' || !options?.saveButtonType) && <MainButton onClick={saveForm}>{options?.saveButtonContent || 'Save'}</MainButton>}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'secondary') && <MainButton onClick={saveForm}>{options.saveButtonContent || 'Save'}</MainButton>}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'warning') && <MainButton onClick={saveForm}>{options.saveButtonContent || 'Save'}</MainButton>}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'hollow') && <MainButton onClick={saveForm}>{options.saveButtonContent || 'Save'}</MainButton>}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'icon') && <MainButton onClick={saveForm}>{options.saveButtonContent || 'Save'}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'primary' || !options?.saveButtonType) && <MainButton onClick={saveForm}>{options?.saveButtonContent || t('form.save')}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'secondary') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'warning') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'hollow') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
+            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'icon') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
 
             {options?.extraButtons}
         </div>
