@@ -8,7 +8,7 @@ import styles from './ContentCard.module.css'
 import { useRouter } from "next/navigation"
 import InContentAdUnit from "../AdUnits/InContent"
 import IconButton from "../Buttons/IconButton"
-import { Box, CheckSquare, Download, Square } from "react-feather"
+import { Archive, Box, CheckSquare, Download, Layers, Map, Package, Square } from "react-feather"
 import { useEffect, useState } from "react"
 import { useCurrentLocale, useI18n } from "@/locales/client"
 
@@ -87,7 +87,8 @@ export default function ContentCard(props: IContentCardProps) {
                     <div className={styles.stats}>
                         <div className={styles.stat}><img className={styles.in_text_icon} src='/download.svg'></img>{props.content.downloads}</div>
                         {(props.content.rating > 0) ? <div className={styles.stat}><img className={styles.in_text_icon} src='/star_white.svg'></img>{(Math.round(props.content.rating*100)/100) * 5}</div>: <></> }
-                        {(props.content.files && props.content.files.length > 0) ? <div className={styles.stat}><img className={styles.in_text_icon} src='/map.svg'></img>{props.content.files[0].minecraftVersion}</div>: <></> }
+                        {(props.content.files && props.content.files.length > 0) ? <div className={styles.stat}><Map className={styles.in_text_icon} />{props.content.files[0].minecraftVersion}</div>: <></> }
+                        <div className={styles.stat}>{(props.content.type) ? <><Archive className={styles.in_text_icon} />{t('maps', {count: 1})}</> : (props.content.type === 'datapack') ? <><Package className={styles.in_text_icon} />{t('datapacks', {count: 1})}</> : <><Layers className={styles.in_text_icon} />{t('resourcepacks', {count:1})}</>}</div>
                     </div>
                 </div>
                 <div className={styles.quick_actions}>
