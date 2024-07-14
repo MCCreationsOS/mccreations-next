@@ -22,12 +22,13 @@ export default function CreateTranslationForm({content, type}: {content: IConten
         Popup.createPopup({title: "Create a New Translation", canClose: true, content: <FormComponent id="makeTranslation" onSave={(data) => {
             console.log(data)
             let lang = data[0]
-            let translation: {[key: string]: {description: string, shortDescription: string, title: string}} = {
+            let translation: {[key: string]: {description: string, shortDescription: string, title: string, approved: boolean}} = {
             }
             translation[lang] = {
                 title: data[1],
                 shortDescription: data[2],
-                description: data[3]
+                description: data[3],
+                approved: false
             }
             updateTranslation(content.slug, type, translation, sessionStorage.getItem('jwt'))
             }}>
