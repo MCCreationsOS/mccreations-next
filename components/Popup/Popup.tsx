@@ -81,7 +81,7 @@ export default function PopupComponent(props: PopupProps) {
         return (
             <>
                 <div className={styles.background} style={{display: (isOpen && Popup.useBackground) ? "block": "none"}}></div>
-                <div ref={popup} className={styles.popup} style={{display: (isOpen) ? "block": "none"}}>
+                <div ref={popup} className={`${styles.popup} ${(isOpen) ? styles.visible : styles.hidden}`}>
                     {(Popup.title || Popup.canClose) ? <div className={styles.titlebar}>
                         <h3 className={styles.title}>{Popup.title}</h3>
                         <div className={styles.close} onClick={() => {Popup.onClose()}}><X /></div>

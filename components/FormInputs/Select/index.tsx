@@ -8,7 +8,7 @@ export interface SelectProps {
     name: string,
     value?: string,
     options?: ISelectOptions[],
-    description?: string
+    description?: React.ReactNode
     onChange?: (value: string) => void,
     multiSelect?: boolean
 }

@@ -23,6 +23,8 @@
     background-color: #171717;
     margin: -20px -20px 10px -20px;
     padding: 20px;
+    position: sticky;
+    top: -20px;
 }
 
 .popup .titlebar .title {
@@ -56,5 +58,23 @@
     .popup {
         left: 2%;
         width: 96%
+    }
+}
+
+.visible {
+    display: block;
+    animation: popup 0.2s;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes popup {
+    from {
+        transform: translate(0, -50px);
+    }
+    to {
+        transform: translate(0, 0);
     }
 }
