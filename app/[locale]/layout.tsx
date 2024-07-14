@@ -47,11 +47,11 @@ export default function RootLayout({params: { locale }, children}: {params: {loc
       <body id="view">
         <Provider locale={locale}>
           <PopupMessageComponent />
-          <PopupComponent />
           <Suspense fallback={<Loading />}>
               {children}
           </Suspense>
           <Footer></Footer>
+          <PopupComponent />
           <Analytics />
         </Provider>
     </body>

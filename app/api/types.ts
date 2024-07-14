@@ -54,7 +54,8 @@ export interface QueryOptions {
     includeTags?: string,
     excludeTags?: string,
     exclusiveStatus?: boolean,
-    contentType: ContentTypes | "content"
+    contentType: ContentTypes | "content",
+    creator?: string
 }
 
 export interface ErrorMessage {
@@ -107,7 +108,9 @@ export interface IContentDoc {
     updatedDate?: number,
     _id: any,
     tags: string[],
-    translations?: [key: string, IContentDoc]
+    translations?: {[key: string]: {description: string, shortDescription: string, title: string, author?: string, approved: boolean, date?: number}},
+    allowTranslations?: boolean,
+    type: 'map' | 'datapack' | 'resourcepack'
 }
 
 /**

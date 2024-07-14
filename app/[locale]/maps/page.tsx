@@ -4,7 +4,7 @@ import ContentCard from "@/components/ContentSlideshow/ContentCard"
 import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
-import { fetchContent } from "@/app/api/content"
+import { searchContent } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
@@ -88,7 +88,7 @@ export default function Maps() {
 
     const findMaps = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await fetchContent({contentType: ContentTypes.Maps, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await searchContent({contentType: ContentTypes.Maps, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
         setMaps(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
@@ -117,7 +117,7 @@ export default function Maps() {
             <SearchAndFilter callback={findMaps}  contentType={ContentTypes.Maps}/>
             { maps && maps.length !== 0 && (
                 <div>
-                <ContentGrid content={maps}></ContentGrid>
+                <ContentGrid content={maps} enableSelection={true}></ContentGrid>
             </div>
             )}
             { !maps || maps.length === 0 && (

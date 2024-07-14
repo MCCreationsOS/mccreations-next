@@ -1,5 +1,5 @@
 import '../../styles/mapPage.css'
-import { fetchMap, fetchContent } from '@/app/api/content';
+import { fetchMap, searchContent } from '@/app/api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IContentDoc, ContentTypes } from '@/app/api/types';
 import MapWrapper from '@/components/Content/ContentWrapper';
@@ -51,7 +51,7 @@ parent: ResolvingMetadata
 
 
 export async function generateStaticParams() {
-    const maps = (await fetchContent({contentType: ContentTypes.Maps}, false)).documents
+    const maps = (await searchContent({contentType: ContentTypes.Maps}, false)).documents
     return maps.map((map: IContentDoc) => ({
         slug: map.slug
     }))

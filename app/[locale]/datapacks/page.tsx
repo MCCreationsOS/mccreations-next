@@ -4,7 +4,7 @@ import ContentCard from "@/components/ContentSlideshow/ContentCard"
 import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link"
-import { fetchContent } from "@/app/api/content"
+import { searchContent } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
@@ -88,7 +88,7 @@ export default function Datapacks() {
 
     const findDatapacks = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await fetchContent({contentType: ContentTypes.Datapacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await searchContent({contentType: ContentTypes.Datapacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
         setDatapacks(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
@@ -117,7 +117,7 @@ export default function Datapacks() {
             <SearchAndFilter callback={findDatapacks} contentType={ContentTypes.Datapacks}/>
             { datapacks && datapacks.length !== 0 && (
                 <div>
-                <ContentGrid content={datapacks} linkTo="datapacks"></ContentGrid>
+                <ContentGrid content={datapacks} linkTo="datapacks" enableSelection={true}></ContentGrid>
             </div>
             )}
             { !datapacks || datapacks.length === 0 && (

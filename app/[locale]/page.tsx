@@ -2,7 +2,7 @@ import Menu from "@/components/Menu/Menu"
 import ContentGrid from "@/components/ContentGrid";
 import ContentCard from "@/components/ContentSlideshow/ContentCard";
 import FeaturedSlideshow from "@/components/FeaturedSlideshow/FeaturedSlideshow";
-import { fetchContent } from "@/app/api/content";
+import { searchContent } from "@/app/api/content";
 import Error from "@/components/Error";
 import ContentSlideshow from "@/components/ContentSlideshow/ContentSlideshow";
 import './styles/homepage.css'
@@ -21,8 +21,8 @@ export default async function Page({ params: { locale } }: { params: { locale: s
     setStaticParamsLocale(locale)
     const t = await getI18n()
     
-    const featured = (await fetchContent({contentType: "content", status: 3, limit: 5}, false)).documents
-    if(featured.error) {
+    const featured = (await searchContent({contentType: "content", status: 3, limit: 5}, false)).documents
+    if(!featured || featured.error) {
         let msgBase = "MCCreations API Error! Failed to fetch featured, newest or updated on the homepage. Query was "
         return (
             <>

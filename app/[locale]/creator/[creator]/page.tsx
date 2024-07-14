@@ -2,7 +2,6 @@ import { getCreator } from "@/app/api/community"
 import Menu from "@/components/Menu/Menu"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import styles from './CreatorPage.module.css'
-import PopupComponent, { Popup } from "@/components/Popup/Popup";
 import ContentArea from "@/components/ContentArea/ContentArea"
 import ProfileCard from "@/components/Profile/ProfileCard"
 import { IUser } from "@/app/api/types";
@@ -25,7 +24,7 @@ export default async function ProfilePage({params}: {params: Params}) {
         <Menu selectedPage="" />
         <div className={styles.profile_page}>
             <ProfileCard creator={c} />
-            <ContentArea cards="three" type="grid" options={{contentType: "content", search:c.username, limit: 20}} />
+            <ContentArea cards="three" type="grid" options={{contentType: "content", creator:c.handle, limit: 20}} no_search={true} enableSelection={false}/>
         </div>
         {/* <Image className={styles.banner_background} width={1920} height={1080} src={creator.bannerURL || ""} alt=""></Image>
                 <div className={styles.banner_foreground}>

@@ -9,7 +9,7 @@ import { useCallback } from "react"
 import { Filter } from "react-feather"
 import { ContentTypes, SortOptions, StatusOptions } from "../../api/types"
 import SearchAndFilter from "@/components/SearchAndFilter"
-import { fetchContent } from "@/app/api/content"
+import { searchContent } from "@/app/api/content"
 import { useI18n } from "@/locales/client"
 
 // const client = contentful.createClient({
@@ -88,7 +88,7 @@ export default function Resourcepacks() {
 
     const findResourcepacks = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await fetchContent({contentType: ContentTypes.Resourcepacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await searchContent({contentType: ContentTypes.Resourcepacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
         setResourcepacks(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
@@ -117,7 +117,7 @@ export default function Resourcepacks() {
             <SearchAndFilter callback={findResourcepacks}  contentType={ContentTypes.Resourcepacks}/>
             { resourcepacks && resourcepacks.length !== 0 && (
                 <div>
-                <ContentGrid content={resourcepacks} linkTo="resourcepacks"></ContentGrid>
+                <ContentGrid content={resourcepacks} linkTo="resourcepacks" enableSelection={true}></ContentGrid>
             </div>
             )}
             { !resourcepacks || resourcepacks.length === 0 && (

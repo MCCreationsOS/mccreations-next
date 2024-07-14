@@ -50,18 +50,26 @@ function formatQueryOptions(queryOptions: QueryOptions) {
         queryOptions.exclusiveStatus = false
     }
 
+    if(!queryOptions.contentType) {
+        queryOptions.contentType = ContentTypes.Maps
+    }
+
+    if(!queryOptions.creator) {
+        queryOptions.creator = ""
+    }
+
     return queryOptions
 }
 
 /**
- * Fetch an array of content from the API
+ * Search for content based on a query
  * @param queryOptions The query options to send to the API
  * @param count Return the count of maps found rather than the actual maps. Used for pagination. For performance reasons
  * when this parameter is set ONLY the count of maps is returned not the actual map objects
  * @returns `documents` An array of map documents
  * @returns `count` The count of maps found by the query
 */
-export async function fetchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null) {
+export async function searchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
         let p1 = fetch(`${process.env.DATA_URL}/content?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
@@ -99,6 +107,28 @@ export async function fetchContent(queryOptions: QueryOptions, count: boolean, f
         }
         return data
 
+    } catch(e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: queryOptions
+        }
+    }
+}
+
+export async function getContent(queryOptions: QueryOptions, token?: string | null) {
+    queryOptions = formatQueryOptions(queryOptions);
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/content-nosearch?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=false&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creator=${queryOptions.creator}`, {
+            next:{
+                revalidate:3600
+            },
+            headers: {
+                authorization: token + ""
+            }
+        })
+        let data = await response.json();
+        return data
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e);
         return {
@@ -271,6 +301,30 @@ export async function updateContent(map: IContentDoc, token: string | null, type
                 token: token,
                 dontUpdateDate: dontSendDate,
                 type: type
+            })
+        })
+        let data = await response.json();
+        return data;
+    } catch(e) {
+        console.error("API fetch error! Is it running?: " + e)
+        return {
+            message: e
+        }
+    }
+}
+
+export async function updateTranslation(slug: string, type: ContentTypes, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/content/update_translation`, { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token + ''
+            },
+            body: JSON.stringify({
+                slug: slug,
+                type: type,
+                translation: translation
             })
         })
         let data = await response.json();
