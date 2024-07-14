@@ -69,6 +69,7 @@ function onError(error: any) {
 function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     const [editor] = useLexicalComposerContext();
     editor.update(() => {
+      if(!editor.isEditable()) {
         const parser = new DOMParser();
         const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
       
@@ -78,7 +79,9 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
         $getRoot().select();
       
         $insertNodes(nodes);
-      });
+      }
+      editor.setEditable(true);
+    });
     return <></>;
 }
 
@@ -111,7 +114,8 @@ export default function RichText({ sendOnChange, initialValue }: { sendOnChange:
         namespace: 'MyEditor',
         theme,
         onError,
-        nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode]
+        nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode],
+        editable: false
     };
     const t = useI18n();
 
