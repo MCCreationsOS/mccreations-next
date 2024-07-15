@@ -61,7 +61,7 @@ export default function UserOptions() {
                 <div className="option icon" onClick={() => {router.push("/account")}}>
                     <Settings /> {t("nav.item.user_options.settings")}
                 </div>
-                <div className="option icon" onClick={() => {sessionStorage.clear(); location.reload()}}>
+                <div className="option icon" onClick={() => {sessionStorage.removeItem('jwt'); location.reload()}}>
                     <LogOut /> {t("nav.item.user_options.sign_out")}
                 </div>
             </div>

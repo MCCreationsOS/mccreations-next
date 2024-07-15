@@ -23,17 +23,17 @@ export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
 
         useEffect(() => {
             const getData = async (token: string) => {
-                setMap(await fetchMap(slug, token))
+                let map = await fetchMap(slug, token)
+                if(map && '_id' in map) {
+                    setMap(map)
+                } else if(map) {
+                    map = await fetchMap(slug, sessionStorage.getItem('temp_key') + "")
+                    setMap(map)
+                }
             }
-            let token = sessionStorage.getItem('jwt')
-            if(token) {
-                getData(token)
-            } else {
-                token = sessionStorage.getItem('temp_key')
-                if(token) getData(token)
-            }
+            let token = sessionStorage.getItem('jwt') + ""
+            getData(token)
         }, [])
-
 
         if(map && '_id' in map) {
            return (<Content content={map} contentType={ContentTypes.Maps} />)
@@ -59,15 +59,16 @@ export function DatapackWrapper({slug, datapack}: {slug: string, datapack?: any}
 
         useEffect(() => {
             const getData = async (token: string) => {
-                setDatapack(await fetchDatapack(slug, token))
+                let map = await fetchMap(slug, token)
+                if(map && '_id' in map) {
+                    setDatapack(map)
+                } else if(map) {
+                    map = await fetchMap(slug, sessionStorage.getItem('temp_key') + "")
+                    setDatapack(map)
+                }
             }
-            let token = sessionStorage.getItem('jwt')
-            if(token) {
-                getData(token)
-            } else {
-                token = sessionStorage.getItem('temp_key')
-                if(token) getData(token)
-            }
+            let token = sessionStorage.getItem('jwt') + ""
+            getData(token)
         }, [])
 
 
@@ -95,17 +96,17 @@ export function ResourcepackWrapper({slug, resourcepack}: {slug: string, resourc
 
         useEffect(() => {
             const getData = async (token: string) => {
-                setResourcepack(await fetchResourcepack(slug, token))
+                let map = await fetchMap(slug, token)
+                if(map && '_id' in map) {
+                    setResourcepack(map)
+                } else if(map) {
+                    map = await fetchMap(slug, sessionStorage.getItem('temp_key') + "")
+                    setResourcepack(map)
+                }
             }
-            let token = sessionStorage.getItem('jwt')
-            if(token) {
-                getData(token)
-            } else {
-                token = sessionStorage.getItem('temp_key')
-                if(token) getData(token)
-            }
+            let token = sessionStorage.getItem('jwt') + ""
+            getData(token)
         }, [])
-
 
         if(resourcepack && '_id' in resourcepack) {
            return (<Content content={resourcepack} contentType={ContentTypes.Resourcepacks} />)

@@ -40,6 +40,25 @@ export default function EditContentPage({params, contentType}) {
                 let u = await getUser(undefined, token.current)
                 setUser(u);
 
+                if(!u) {
+                    token.current = sessionStorage.getItem('temp_key') + ""
+                    console.log(token.current)
+                    switch(contentType) {
+                        case ContentTypes.Maps:
+                            setMap(await fetchMap(params.slug, token.current));
+                            break;
+                        case ContentTypes.Datapacks:
+                            setMap(await fetchDatapack(params.slug, token.current));
+                            break;
+                        case ContentTypes.Resourcepacks:
+                            setMap(await fetchResourcepack(params.slug, token.current));
+                            break;
+                        default:
+                            setMap(await fetchMap(params.slug, token.current));
+                    
+                    }
+                }
+
                 switch(contentType) {
                     case ContentTypes.Maps:
                         setMap(await fetchMap(params.slug, token.current));
@@ -57,6 +76,7 @@ export default function EditContentPage({params, contentType}) {
             } else {
                 
                 token.current = sessionStorage.getItem('temp_key') + ""
+                console.log(token.current)
                 switch(contentType) {
                     case ContentTypes.Maps:
                         setMap(await fetchMap(params.slug, token.current));
