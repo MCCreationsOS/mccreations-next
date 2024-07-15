@@ -97,6 +97,7 @@ export default {
     'content.edit.status': 'Status: ',
     'content.edit.translations': 'Translations',
     'content.edit.translations.add': 'Add Translation',
+    'content.edit.translations.approved': 'Approved',
     'content.edit.translations.language': 'Language',
     'content.edit.translations.missing_language': 'Is your language missing? Click here to add it.',
     'content.edit.translations.saved': 'Translations saved successfully',
