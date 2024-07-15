@@ -1,7 +1,11 @@
 import Link from 'next/link'
 import styles from './Footer.module.css'
 import MainButton from '../Buttons/MainButton'
-import { getI18n } from '@/locales/server'
+import { getI18n, getStaticParams } from '@/locales/server'
+
+export function generateStaticParams() {
+    return getStaticParams()
+  }
 
 /**
  * The footer
