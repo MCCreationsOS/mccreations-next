@@ -6,7 +6,7 @@ import { IComment } from '@/app/api/types';
 import { getCreator } from '@/app/api/community';
 import styles from './Comment.module.css';
 import { useEffect, useState } from 'react';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 
 /**
  * A comment
