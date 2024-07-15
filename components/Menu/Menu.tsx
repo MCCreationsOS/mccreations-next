@@ -13,6 +13,7 @@ import HollowButton from "../Buttons/HollowButton";
 import Badge from "../Badge";
 import DesktopNav from "./DesktopNav";
 import { I18nProviderClient, useI18n } from "@/locales/client";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 /**
  * The menu for the site
@@ -50,6 +51,9 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         </li>
                         <li className='item'>
                             <UserOptions />
+                        </li>
+                        <li className="item">
+                            <LanguageSwitcher />
                         </li>
                     </ul>
                     <img className={(mobileMenuActive) ? "menu_icon close_button active" : "menu_icon close_button"} src='/x.svg' alt="" onClick={() => {setMobileMenuActive(false)}} />

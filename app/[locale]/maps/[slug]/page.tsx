@@ -5,7 +5,7 @@ import { ICreator, IFile, IContentDoc, ContentTypes } from '@/app/api/types';
 import MapWrapper from '@/components/Content/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
-import { getI18n } from '@/locales/server';
+import { getI18n, getStaticParams } from '@/locales/server';
 import Content from '@/components/Content/Content';
 
 export async function generateMetadata(
@@ -51,6 +51,7 @@ parent: ResolvingMetadata
 
 
 export async function generateStaticParams() {
+    getStaticParams();
     const maps = (await searchContent({contentType: ContentTypes.Maps}, false)).documents
     return maps.map((map: IContentDoc) => ({
         slug: map.slug
