@@ -7,6 +7,7 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
 import { getI18n, getStaticParams } from '@/locales/server';
 import Content from '@/components/Content/Content';
+import { setStaticParamsLocale } from 'next-international/server';
 
 export async function generateMetadata(
 { params }: {params: Params},
@@ -50,14 +51,17 @@ parent: ResolvingMetadata
 
 
 export async function generateStaticParams() {
-    return getStaticParams();
+    let locale = getStaticParams();
     const maps = (await searchContent({contentType: ContentTypes.Datapacks}, false)).documents
-    return maps.map((map: IContentDoc) => ({
+    let mapParams =  maps.map((map: IContentDoc) => ({
         slug: map.slug
     }))
+    locale = locale.concat(mapParams)
+    return locale
 }
 
 export default async function Page({params}: {params: Params}) {
+    setStaticParamsLocale(params.locale);
     const map = await fetchDatapack(params.slug)
     const t = await getI18n()
     
