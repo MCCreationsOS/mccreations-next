@@ -12,6 +12,8 @@ Some examples:
 
 If you're confused, or don't know the code for your language just make one up! Just make sure to make it clear which language and which country you're trying to add once you're ready to PR.
 
+Also you totally do not have to translate the whole thing at once. Feel free to just make a couple of translations and upload them!
+
 Next, you need to create a fork of the `mccreations-next` repository. Don't worry, it may sound confusing but it's really easy. 
 1. Go the the `Code` tab above
 2. Find the `Fork` button on the top right
