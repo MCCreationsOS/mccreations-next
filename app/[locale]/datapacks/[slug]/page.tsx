@@ -50,7 +50,7 @@ parent: ResolvingMetadata
 
 
 export async function generateStaticParams() {
-    getStaticParams();
+    return getStaticParams();
     const maps = (await searchContent({contentType: ContentTypes.Datapacks}, false)).documents
     return maps.map((map: IContentDoc) => ({
         slug: map.slug
