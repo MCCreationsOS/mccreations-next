@@ -1,7 +1,7 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { ICreator, IContentDoc, IUser } from "@/app/api/types"
+import { ICreator, IContentDoc, IUser, UserTypes } from "@/app/api/types"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import MessageComponent, { IMessage } from "../Message/Message"
@@ -30,7 +30,7 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
     // Check if the user is a creator
     let match = false;
     map.creators && map.creators.forEach((creator) => {
-        if(creator.handle && user && user.handle && creator.handle === user?.handle) {
+        if(creator.handle && user && user.handle && (creator.handle === user?.handle || user.type === UserTypes.Admin)) {
             match = true
         }
     })
@@ -64,20 +64,6 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
                 message: t('content.warnings.description_too_short.description')
             })
         }
-        if(map.images.length <= 2) {
-            messages.push({
-                type: 'Warning',
-                title: t('content.warnings.few_images.title'),
-                message: t('content.warnings.few_images.description')
-            })
-        }
-        if(map.images.find(image => !image.includes('mccreations'))) {
-            messages.push({
-                type: 'Warning',
-                title: t('content.warnings.external_images.title'),
-                message: t('content.warnings.external_images.description')
-            })
-        }
         if(map.creators.length === 0) {
             messages.push({
                 type: 'Error',
@@ -85,7 +71,7 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
                 message: t('content.warnings.no_creators.description')
             })
         }
-        if(!map.files[0].minecraftVersion || map.files[0].minecraftVersion.length === 0) {
+        if(map.files && map.files[0] && (!map.files[0].minecraftVersion || map.files[0].minecraftVersion.length === 0)) {
             messages.push({
                 type: 'Error',
                 title: t('content.warnings.no_minecraft_version.title'),
@@ -106,11 +92,26 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
                 message: t('content.warnings.no_tags.description')
             })
         }
-        if(map.files.length === 0) {
+        if(!map.files || map.files.length === 0) {
             messages.push({
                 type: 'Error',
                 title: t('content.warnings.no_files.title'),
                 message: t('content.warnings.no_files.description')
+            })
+        }
+
+        if(map.images.length <= 2) {
+            messages.push({
+                type: 'Warning',
+                title: t('content.warnings.few_images.title'),
+                message: t('content.warnings.few_images.description')
+            })
+        }
+        if(map.images.find(image => !image.includes('mccreations'))) {
+            messages.push({
+                type: 'Warning',
+                title: t('content.warnings.external_images.title'),
+                message: t('content.warnings.external_images.description')
             })
         }
 

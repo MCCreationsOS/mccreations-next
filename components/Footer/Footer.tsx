@@ -5,7 +5,7 @@ import { getI18n, getStaticParams } from '@/locales/server'
 
 export function generateStaticParams() {
     return getStaticParams()
-  }
+}
 
 /**
  * The footer

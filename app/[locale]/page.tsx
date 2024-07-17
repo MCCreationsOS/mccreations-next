@@ -15,7 +15,7 @@ import { setStaticParamsLocale } from 'next-international/server'
 
 export function generateStaticParams() {
     return getStaticParams()
-  }
+}
 
 export default async function Page({ params: { locale } }: { params: { locale: string } }) {
     setStaticParamsLocale(locale)
