@@ -1,11 +1,9 @@
 'use client'
 import { IFile } from "@/app/api/types";
-import Link from "next/link";
-import { Archive, Box, Compass, Globe, Layers, Map, Package } from "react-feather";
+import { Archive, Layers, Package } from "react-feather";
 import styles from './FileCard.module.css';
 import IconButton from "../Buttons/IconButton";
 import { downloadMap } from "@/app/api/content";
-import router from "next/router";
 
 /**
  * A card that displays download options for a file
@@ -15,7 +13,12 @@ import router from "next/router";
 export default function FileCard({file, slug}: {file: IFile, slug: string}) {
     const download = async (url: string) => {
         await downloadMap(slug)
-        router.push(url)
+        let a = document.createElement('a')
+        a.href = url
+        a.download = url.split('/').pop()!
+        a.target = '_blank'
+        a.click()
+        a.remove()
     }
 
     return (

@@ -59,7 +59,7 @@ export default function Content({content, contentType}: {content: IContentDoc, c
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={content.rating} content={content} />
-                        {(content.files) ? <DownloadButton slug={content.slug} url={(content.files[0].worldUrl) ? content.files[0].worldUrl : (content.files[0].dataUrl) ? content.files[0].dataUrl : content.files[0].resourceUrl!} />: <></>}
+                        {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} types={[ContentTypes.Maps, ContentTypes.Resourcepacks, ContentTypes.Datapacks]}/>: <></>}
                         <Link title={t(`content.affiliates.server.${contentType}`)} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
                     </div>
                 </div>
