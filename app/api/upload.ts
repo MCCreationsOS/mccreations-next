@@ -22,7 +22,7 @@ export default async function upload(file: File) {
         await u.promise();
         return "https://mccreations.s3.us-west-1.amazonaws.com/" + name
     } catch (error) {
-        console.log(error)
+        console.error(error)
         return undefined;
     }
 }

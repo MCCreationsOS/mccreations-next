@@ -61,11 +61,11 @@ export async function getCreator(handle: string) {
             let json = await data.json()
             return json;
         } catch(e) {
-            console.log(e)
+            console.error(e)
         }
         return undefined
     } catch(e) {
-        console.log(e)
+        console.error(e)
     }
     return undefined;
 }

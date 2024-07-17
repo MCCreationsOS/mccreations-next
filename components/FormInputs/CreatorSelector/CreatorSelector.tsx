@@ -16,7 +16,7 @@ import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupM
  * @param onChange The function to call when the selected creators change
  */
 export default function CreatorSelector({value, onChange}: {value?: ICreator[], onChange?: (creators: ICreator[]) => void}) {
-    const [creators, setCreators] = useState<ICreator[]>()
+    const [creators, setCreators] = useState<ICreator[]>([])
     const [confirmRemove, setConfirmRemove] = useState(false)
     const loggedIn = useRef(false)
     const t = useI18n();
@@ -31,7 +31,7 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
                     setCreators([...creators, ...users]);
                 } else if(users && !value) {
                     setCreators(users)
-                } else {
+                } else if (value) {
                     setCreators(value)
                 }
             } else if(!value) {

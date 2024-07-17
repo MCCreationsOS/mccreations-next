@@ -11,7 +11,7 @@ export async function getUser(id?: object, authorization?: string) {
             let data = await res.json();
             return data.user as IUser;
         } catch(e) {
-            console.log(e)
+            console.error(e)
         }
     }
 }
@@ -30,7 +30,7 @@ export async function getCreators(authorization: string): Promise<IUser[] | unde
             return data.error
         }
     } catch(e) {
-        console.log(e)
+        console.error(e)
     }
 }
 
@@ -43,7 +43,7 @@ export async function deleteUser(authorization: string) {
             }
         })
     } catch(e) {
-        console.log(e)
+        console.error(e)
     }
 }
 
@@ -65,7 +65,7 @@ export async function updateProfile(authorization: string, banner?: string, icon
             })
         })
     } catch(e) {
-        console.log(e)
+        console.error(e)
     }
 }
 
@@ -79,7 +79,7 @@ export async function sendPasswordResetEmail(email: string) {
             body: JSON.stringify({email: email})
         })
     } catch(e) {
-        console.log(e)
+        console.error(e)
     }
 }
 
@@ -103,7 +103,7 @@ export async function resetPassword(token: string, password: string) {
             return undefined
         }
     } catch(e) {
-        console.log(e)
+        console.error(e)
         return e
     }
 }
