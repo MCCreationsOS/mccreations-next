@@ -27,7 +27,7 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
             acceptedFiles.forEach(file => {
-                upload(file).then(url => {
+                upload(file, "images").then(url => {
                     if(url) {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${t('form.images.uploaded')}${file.name}`))
                         setFiles(previousFiles => [

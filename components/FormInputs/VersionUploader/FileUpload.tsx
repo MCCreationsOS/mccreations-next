@@ -21,7 +21,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
         if (acceptedFiles?.length) {
             acceptedFiles.forEach(file => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${file.name}${t('form.versions.uploading')}`))
-                upload(file).then(url => {
+                upload(file, "files").then(url => {
                     if(url) {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${file.name}${t('form.versions.uploaded')}`))
                         setFile(url)
