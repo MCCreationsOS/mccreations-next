@@ -85,6 +85,7 @@ export default function PopupMessageComponent() {
         setTimeout(() => {
             setMessage("")
         }, 200)
+        setDisplayTime(0)
     }
 
     useEffect(() => {
@@ -95,7 +96,7 @@ export default function PopupMessageComponent() {
         if(display) {
             setTimeout(() => {
                 setDisplayTime(displayTime + 1)
-            }, 1)
+            }, 10)
         }
     }
 
@@ -103,7 +104,7 @@ export default function PopupMessageComponent() {
         <div className={styles.popup_container} style={{animationName: (display) ? styles.popIn: styles.popOut}}>
             <div className={(type === PopupMessageType.Alert) ? styles.popup_message_alert : (type === PopupMessageType.Warning) ? styles.popup_message_warning : styles.popup_message_error}>
                 <p>{message}</p>
-                <div className={styles.time} style={{width: `${displayTime/(PopupMessage.time!/1500)}%`}}></div>
+                <div className={styles.time} style={{width: `${displayTime/(PopupMessage.time!/1000)}%`}}></div>
             </div>
         </div>
         

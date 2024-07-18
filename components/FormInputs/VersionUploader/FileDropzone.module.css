@@ -5,8 +5,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    width: fit-content;
+    flex-direction: row;
+    width: 100%;
 }
 
 .upload p {
@@ -16,12 +16,11 @@
 }
 
 .dnd {
-    width: 100%;
+    width: 50%;
     height: 150px;
-    max-width: 500px;
     object-fit: cover;
     position: relative;
-    margin: 3px 3px;
+    margin: 3px 15px;
     background-color: #272727;
     display: flex;
     align-items: center;
@@ -29,16 +28,17 @@
     flex-direction: column;
 }
 
-.version {
+.versions {
     margin: 10px 0;
-    padding: 5px 10px;
-    background-color: #272727;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
 }
 
-.version.collapsed {
-    max-height: 100px;
-    overflow: hidden;
+.versions button {
+    margin-right: 10px
 }
 
 .hide_version {
