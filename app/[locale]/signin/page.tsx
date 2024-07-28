@@ -77,6 +77,12 @@ export default function SignIn() {
     }
 
     const signInWithDiscord = () => {
+        let discordParams = new URLSearchParams({
+            client_id: "882869275063386153",
+            redirect_uri: "https://next.mccreations.net/auth/oauth_handler?provider=discord",
+            response_type: "code",
+            scope: "identify email"
+        })
         router.push("https://discord.com/api/oauth2/authorize?client_id=882869275063386153&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Foauth_handler%3Fprovider%3Ddiscord&scope=identify+email")
     }
 
