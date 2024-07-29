@@ -27,17 +27,6 @@ export default function InContentAdUnit() {
     }, [])
     return (
         <>
-        {isClient && adUnit.length !== 0 && <div style={{position: "relative"}}>
-                <ins className="adsbygoogle"
-                    style={{display: 'block'}}
-                    data-ad-format="fluid"
-                    data-ad-layout-key="-7p+eu-10-1k+6x"
-                    data-ad-client="ca-pub-5425604215170333"
-                    data-ad-slot={adUnit}></ins>
-                <Script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </Script>
-            </div>}
         </>
     )
 }
