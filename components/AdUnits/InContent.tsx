@@ -11,18 +11,18 @@ export default function InContentAdUnit() {
  
     useEffect(() => {
         let foundAdUnit = false
-        adUnits.forEach(unit => {
-            if(!unit.inUse && adUnit.length === 0 && !foundAdUnit) {
-                console.log("Found ad unit not in use")
-                setAdUnit(unit.id)
-                unit.inUse = true
-                foundAdUnit = true
-            } else if (adUnit.length !== 0 && unit.id === adUnit) {
-                unit.inUse = false
-                setAdUnit("")
-            }
+        // adUnits.forEach(unit => {
+        //     if(!unit.inUse && adUnit.length === 0 && !foundAdUnit) {
+        //         console.log("Found ad unit not in use")
+        //         setAdUnit(unit.id)
+        //         unit.inUse = true
+        //         foundAdUnit = true
+        //     } else if (adUnit.length !== 0 && unit.id === adUnit) {
+        //         unit.inUse = false
+        //         setAdUnit("")
+        //     }
         
-        })
+        // })
         setIsClient(true)
     }, [])
     return (
