@@ -4,6 +4,22 @@
     align-items: flex-start;
     padding: 10px;
     margin: 5px;
+    max-height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+
+.comment.expanded {
+    max-height: none;
+}
+
+.expand {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    text-decoration: underline;
+    color: #344ec1;
+    cursor: pointer;
 }
 
 .comment .logo {

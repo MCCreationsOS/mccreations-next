@@ -24,7 +24,9 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
     }
 
     const saveCreator = (inputs: string[]) => {
-        updateProfile(token!, inputs[0], inputs[1], undefined, inputs[2])
+        const banner = JSON.parse(inputs[0])[0].url
+        const icon = JSON.parse(inputs[1])[0].url
+        updateProfile(token!, banner, icon, undefined, inputs[2])
     }
 
     if(token && storedCreator?.handle === creator.handle) {

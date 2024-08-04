@@ -16,7 +16,7 @@ export default function LanguageSwitcher() {
                     US English
                 </div>
                 <div className="option icon" style={{fontSize: "0.9rem"}}>
-                    <Link target="_blank" href={"https://github.com/BenMeie/mccreations-next/blob/main/docs/translating.md"}><Plus /></Link> <Link target="_blank" href={"https://github.com/BenMeie/mccreations-next/blob/main/docs/translating.md"}> Add A Language</Link>
+                    <Link target="_blank" href={"https://github.com/MCCreationsOS/mccreations-next/blob/main/docs/translating.md"}><Plus /></Link> <Link target="_blank" href={"https://github.com/BenMeie/mccreations-next/blob/main/docs/translating.md"}> Add A Language</Link>
                 </div>
             </div>
         </div>

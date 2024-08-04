@@ -5,8 +5,8 @@ import Rating from "../Rating";
 import CreatorCard from "../Creator/CreatorCard";
 import FileCard from "../File/FileCard";
 import MapImageSlideshow from "../MapImageSlideshow/MapImageSlideshow";
-import CommentForm from "../ComentForm";
-import PretechedCommentsList from "@/components/Comment/CommentsList";
+import CommentForm from "../Comment/ComentForm";
+import CommentsList from "@/components/Comment/CommentsList";
 import DOMPurify from "isomorphic-dompurify";
 import ContentMenu from "./ContentMenu";
 import ContentWarnings from "./ContentWarnings";
@@ -92,7 +92,7 @@ export default function Content({content, contentType}: {content: IContentDoc, c
             </div>
             <MapImageSlideshow images={content.images.slice(1)} />
             <CommentForm mapSlug={content.slug} content_type={contentType}></CommentForm>
-            <PretechedCommentsList mapSlug={content.slug} comments={content.comments}/>
+            <CommentsList mapSlug={content.slug} content_type={contentType}/>
         </div>
         </>
     )

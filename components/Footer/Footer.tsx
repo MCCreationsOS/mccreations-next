@@ -19,7 +19,7 @@ export default async function Footer() {
                     <div>
                         <h2><img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>{t('brand')}</h2>
                         <p>{t('footer.splash')}</p>
-                        <p>{t('footer.open_source1')}<Link href="https://github.com/BenMeie/mccreations-next">{t('footer.open_source2')}</Link>{t('footer.open_source3')}</p>
+                        <p>{t('footer.open_source1')}<Link href="https://github.com/MCCreationsOS">{t('footer.open_source2')}</Link>{t('footer.open_source3')}</p>
                         <Link href={'https://blog.mccreations.net'}><MainButton>{t('footer.updates')}</MainButton></Link>
                     </div>
                     <div>
