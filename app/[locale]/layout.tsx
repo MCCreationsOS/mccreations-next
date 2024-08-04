@@ -41,8 +41,8 @@ export default function RootLayout({params: { locale }, children}: {params: {loc
         <meta property="og:image:width" content="2500"></meta>
         <meta property="og:image:height" content="1408"></meta>
         <meta property="og:url" content="https://www.mccreations.net"></meta>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
-     crossOrigin="anonymous"></script>
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
+     crossOrigin="anonymous"></script> */}
       </head>
       <body id="view">
         <Provider locale={locale}>
