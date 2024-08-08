@@ -30,17 +30,9 @@ export default async function Footer() {
                         </ul>
                     </div>
                     <div>
-                        <h2>{t('footer.about_support')}</h2>
-                        <ul>
-                            <li><Link href="https://www.mccreations.net/about">{t('footer.about')}</Link></li>
-                        </ul>
-                    </div>
-                    <div>
                         <h2>{t('footer.legal_contact')}</h2>
                         <ul>
-                            <li><Link href="https://www.mccreations.net/request-data">{t('footer.request_data')}</Link></li>
-                            <li><Link href="https://www.mccreations.net/privacy">{t('footer.privacy')}</Link></li>
-                            <li><Link href="https://www.mccreations.net/contact">{t('footer.contact')}</Link></li>
+                            <li><Link href="/privacy_policy">{t('footer.privacy')}</Link></li>
                         </ul>
                     </div>
                 </div>
