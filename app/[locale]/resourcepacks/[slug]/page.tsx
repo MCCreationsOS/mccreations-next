@@ -26,12 +26,12 @@ parent: ResolvingMetadata
             description: "Resourcepack Not Found",
             images: [
             {
-                url: "https://next.mccreations.net/images/logo.png"
+                url: "https://mccreations.net/images/logo.png"
             }
             ],
             siteName: "MCCreations",
             type: "article",
-            url: "https://next.mccreations.net/resourcepacks/" + params.slug
+            url: "https://mccreations.net/resourcepacks/" + params.slug
         }
     }
    
@@ -45,7 +45,7 @@ parent: ResolvingMetadata
         ],
         siteName: "MCCreations",
         type: "article",
-        url: "https://next.mccreations.net/resourcepacks/" + resourcepack.slug
+        url: "https://mccreations.net/resourcepacks/" + resourcepack.slug
       }
     }
   }

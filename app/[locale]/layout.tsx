@@ -11,7 +11,7 @@ import { Provider } from '@/components/translateProvider'
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://next.mccreations.net'),
+  metadataBase: new URL('https://mccreations.net'),
   title: "MCCreations | The greatest Minecraft Maps from the Minecraft Community",
   description: "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
   twitter: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     ],
     siteName: "MCCreations",
     type: "website",
-    url: "https://next.mccreations.net"
+    url: "https://mccreations.net"
   }
 }
  

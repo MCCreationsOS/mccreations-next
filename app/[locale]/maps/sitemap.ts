@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return content.documents.map((doc: IContentDoc) => {
         // console.log(`Generating sitemap for ${doc.slug}`)
         return {
-            url: `https://next.mccreations.net/maps/${doc.slug}`,
+            url: `https://mccreations.net/maps/${doc.slug}`,
             lastModified: new Date((doc.updatedDate) ? doc.updatedDate! * 1000 : doc.createdDate * 1000).toISOString(),
             changeFrequency: 'weekly'
         }

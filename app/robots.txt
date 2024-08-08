@@ -4,4 +4,4 @@ Disallow: /auth/
 Disallow: /admin_dashboard/
 Disallow: /dashboard/
 Disallow: /reset_password/
-Sitemap: https://next.mccreations.net/sitemap.xml
+Sitemap: https://mccreations.net/sitemap.xml

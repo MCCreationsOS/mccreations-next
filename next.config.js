@@ -45,6 +45,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'next.mccreations.net'
+      },
+      {
+        protocol: 'https',
+        hostname: 'mccreations.net'
       }
     ],
   },
