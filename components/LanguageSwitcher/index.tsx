@@ -15,6 +15,9 @@ export default function LanguageSwitcher() {
                 <div className={(currentLocale === 'en-US') ? "option selected" : "option"} style={{fontSize: "0.9rem"}} onClick={() =>{changeLocale('en-US')}}>
                     US English
                 </div>
+                <div className={(currentLocale === 'zh-CN') ? "option selected" : "option"} style={{fontSize: "0.9rem"}} onClick={() =>{changeLocale('zh-CN')}}>
+                    简体中文
+                </div>
                 <div className="option icon" style={{fontSize: "0.9rem"}}>
                     <Link target="_blank" href={"https://github.com/MCCreationsOS/mccreations-next/blob/main/docs/translating.md"}><Plus /></Link> <Link target="_blank" href={"https://github.com/BenMeie/mccreations-next/blob/main/docs/translating.md"}> Add A Language</Link>
                 </div>
