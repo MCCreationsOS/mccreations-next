@@ -52,7 +52,7 @@ export default function SignIn() {
     const signUpWithGoogle = () => {
         let googleParams = new URLSearchParams({
             client_id: "92325017566-5lilo6v3qr4csbpnm3uvlub20e8va8ho.apps.googleusercontent.com",
-            redirect_uri: "https://next.mccreations.net/auth/oauth_handler?provider=google",
+            redirect_uri: "https://mccreations.net/auth/oauth_handler?provider=google",
             response_type: "token",
             scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
             state: "ILikeBigMoosAndICannotLie"
@@ -68,7 +68,7 @@ export default function SignIn() {
         let microsoftParams = new URLSearchParams({
             client_id: "f4c0f386-febc-4e8e-b0d5-20a99b4d0667",
             response_type: "code",
-            redirect_uri: "https://next.mccreations.net/auth/oauth_handler",
+            redirect_uri: "https://mccreations.net/auth/oauth_handler",
             scope: "openid email profile",
             response_mode: "query",
             state: "ShoutoutToMyBoyMicrosoft"
@@ -79,11 +79,11 @@ export default function SignIn() {
     const signInWithDiscord = () => {
         let discordParams = new URLSearchParams({
             client_id: "882869275063386153",
-            redirect_uri: "https://next.mccreations.net/auth/oauth_handler?provider=discord",
+            redirect_uri: "https://mccreations.net/auth/oauth_handler?provider=discord",
             response_type: "code",
             scope: "identify email"
         })
-        router.push("https://discord.com/api/oauth2/authorize?client_id=882869275063386153&response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Foauth_handler%3Fprovider%3Ddiscord&scope=identify+email")
+        router.push("https://discord.com/api/oauth2/authorize?" + discordParams.toString())
     }
 
     return (

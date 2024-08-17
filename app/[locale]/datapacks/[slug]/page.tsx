@@ -25,12 +25,12 @@ parent: ResolvingMetadata
             description: "Datapack Not Found",
             images: [
             {
-                url: "https://next.mccreations.net/images/logo.png"
+                url: "https://mccreations.net/images/logo.png"
             }
             ],
             siteName: "MCCreations",
             type: "article",
-            url: "https://next.mccreations.net/datapacks/" + params.slug
+            url: "https://mccreations.net/datapacks/" + params.slug
         }
     }
    
@@ -44,7 +44,7 @@ parent: ResolvingMetadata
         ],
         siteName: "MCCreations",
         type: "article",
-        url: "https://next.mccreations.net/datapacks/" + datapack.slug
+        url: "https://mccreations.net/datapacks/" + datapack.slug
       }
     }
   }

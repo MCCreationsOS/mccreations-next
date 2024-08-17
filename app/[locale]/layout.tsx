@@ -11,7 +11,7 @@ import { Provider } from '@/components/translateProvider'
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://next.mccreations.net'),
+  metadataBase: new URL('https://mccreations.net'),
   title: "MCCreations | The greatest Minecraft Maps from the Minecraft Community",
   description: "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
   twitter: {
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     ],
     siteName: "MCCreations",
     type: "website",
-    url: "https://next.mccreations.net"
+    url: "https://mccreations.net"
   }
 }
  
@@ -41,8 +41,8 @@ export default function RootLayout({params: { locale }, children}: {params: {loc
         <meta property="og:image:width" content="2500"></meta>
         <meta property="og:image:height" content="1408"></meta>
         <meta property="og:url" content="https://www.mccreations.net"></meta>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
-     crossOrigin="anonymous"></script>
+        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
+     crossOrigin="anonymous"></script> */}
       </head>
       <body id="view">
         <Provider locale={locale}>

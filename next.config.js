@@ -48,6 +48,10 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'mccreations.net'
+      },
+      {
+        protocol: 'https',
         hostname: 'mccreations-s3.s3.us-east-va.io.cloud.ovh.us'
       }
     ],

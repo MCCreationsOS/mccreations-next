@@ -1,5 +1,5 @@
 import { revalidateTag } from "next/cache";
-import { IContentDoc } from "@/app/api/types";
+import { ContentTypes, IContentDoc } from "@/app/api/types";
 
 /**
  * Rate a map
@@ -35,7 +35,7 @@ export async function postRating(rating: number, map: IContentDoc) {
  */
 export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string) {
     try {
-        fetch(`${process.env.DATA_URL}/maps/comment/${slug}`, {
+        fetch(`${process.env.DATA_URL}/content/comment/${slug}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -52,6 +52,22 @@ export async function postComment(slug: string, content_type: string, username: 
     catch(e) {
         console.error(e);
     }
+}
+
+export async function fetchComments(slug: string, content_type: ContentTypes) {
+    try {
+        let data = await fetch(`${process.env.DATA_URL}/content/comments/${slug}?content_type=${content_type}`)
+        try {
+            let json = await data.json()
+            return json;
+        } catch(e) {
+            console.error(e)
+        }
+        return undefined
+    } catch(e) {
+        console.error(e)
+    }
+    return undefined;
 }
 
 export async function getCreator(handle: string) {
