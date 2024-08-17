@@ -9,7 +9,7 @@ import { Plus, RefreshCw } from "react-feather";
 import IconButton from "../Buttons/IconButton";
 import ContentRow from "./ContentRow";
 
-export default function AdminTable({contentType, jwt}: {contentType: ContentTypes, jwt: string}) {
+export default function ContentAdminTable({contentType, jwt}: {contentType: ContentTypes, jwt: string}) {
     const [maps, setMaps] = useState<IContentDoc[]>([])
     const [page, setPage] = useState(0)
     const [pages, setPages] = useState(0)

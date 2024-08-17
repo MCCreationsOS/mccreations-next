@@ -1,5 +1,6 @@
 import { revalidateTag } from "next/cache";
-import { ContentTypes, IContentDoc } from "@/app/api/types";
+import { ContentTypes, IComment, IContentDoc, QueryOptions } from "@/app/api/types";
+import { formatQueryOptions } from "./content";
 
 /**
  * Rate a map
@@ -54,9 +55,10 @@ export async function postComment(slug: string, content_type: string, username: 
     }
 }
 
-export async function fetchComments(slug: string, content_type: ContentTypes) {
+export async function fetchComments(slug: string, options: QueryOptions) {
+    let opts = formatQueryOptions(options)
     try {
-        let data = await fetch(`${process.env.DATA_URL}/content/comments/${slug}?content_type=${content_type}`)
+        let data = await fetch(`${process.env.DATA_URL}/content/comments-nosearch?slug=${slug}&content_type=${opts.contentType}&limit=${opts.limit}&page=${opts.page}&sort=${opts.sort}&creator=${opts.creator}`, { next: { tags: ["comments"], revalidate: Infinity }})
         try {
             let json = await data.json()
             return json;
@@ -68,6 +70,39 @@ export async function fetchComments(slug: string, content_type: ContentTypes) {
         console.error(e)
     }
     return undefined;
+}
+
+export async function fetchComment(id: string) {
+    try {
+        let data = await fetch(`${process.env.DATA_URL}/content/comment/${id}`, { next: { tags: ["comment"], revalidate: Infinity }})
+        try {
+            let json = await data.json()
+            return json;
+        } catch(e) {
+            console.error(e)
+        }
+        return undefined
+    } catch(e) {
+        console.error(e)
+    }
+    return undefined;
+}
+
+export async function updateComment(comment: IComment, jwt: string = "") {
+    try {
+        fetch(`${process.env.DATA_URL}/content/comment/update`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': jwt
+            },
+            body: JSON.stringify(comment)
+        })
+        revalidateTag(comment.slug)
+    }
+    catch(e) {
+        console.error(e);
+    }
 }
 
 export async function getCreator(handle: string) {

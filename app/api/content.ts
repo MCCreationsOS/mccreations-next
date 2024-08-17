@@ -6,7 +6,7 @@ import { ICreator, IContentDoc, QueryOptions, SortOptions, ContentTypes } from "
  * @param queryOptions The query options to format
  * @returns The formatted queryOptions
 */
-function formatQueryOptions(queryOptions: QueryOptions) {
+export function formatQueryOptions(queryOptions: QueryOptions) {
    
     // Define a limit if there is none defined
     if(!queryOptions.limit) {

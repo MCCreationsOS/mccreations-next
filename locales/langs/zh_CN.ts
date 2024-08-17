@@ -55,6 +55,8 @@ export default {
     'auth.sign_up': '注册',
     'brand': 'MCCreations',
     'button.bulk_download': '批量',
+    "comments#one": "Comment",
+    "comments#other": "Comments",
     'content_card.by': '作者：',
     'content_card.deselect': '取消选择批量下载',
     'content_card.quick_download': '快速下载最新版本',
@@ -367,4 +369,10 @@ export default {
     'tags.sci-fi': '科幻',
     'tags.vanilla': '原版',
     'tags.theme': '主题',
+
+
+
+    'language.name': '简体中文',
+    'language.en_US': 'English',
+    'language.zh_CN': '简体中文',
 } as const

@@ -1,18 +1,20 @@
 'use client'
 
 import Image from 'next/image';
-import { Heart } from 'react-feather';
+import { Heart, Link } from 'react-feather';
 import { IComment } from '@/app/api/types';
 import { getCreator } from '@/app/api/community';
 import styles from './Comment.module.css';
 import { useEffect, useRef, useState } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
+import { useI18n } from '@/locales/client';
 
 /**
  * A comment
  * @param comment The comment to display 
  */
 export default function CommentCard({comment}: {comment: IComment}) {
+    const t = useI18n()
     const [image, setImage] = useState("/defaultLogo.png")
     const [expanded, setExpanded] = useState(false)
     const [canExpand, setCanExpand] = useState(false)
@@ -42,10 +44,13 @@ export default function CommentCard({comment}: {comment: IComment}) {
                     <h4>{comment.username}</h4>
                     <p>{new Date(comment.date).toLocaleDateString()}</p>
                 </div>
+                <div className={styles.right_header}>
+                    <Link aria-label={t('comment.permalink')} onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}/>
+                </div>
                 <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.comment)}}></p>
                 {/* Likes and replies may eventually go here  */}
             </div>
-            {canExpand && <div className={styles.expand} onClick={() => setExpanded(!expanded)}>{(expanded) ? "See Less" : "See More"}</div>}
+            {canExpand && <div className={styles.expand} onClick={() => setExpanded(!expanded)}>{(expanded) ? t('comment.collapse') : t('comment.expand')}</div>}
         </div>
     )
 }

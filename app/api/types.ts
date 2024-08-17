@@ -136,7 +136,10 @@ export interface IComment {
     handle?: string,
     comment: string,
     date: number,
-    approved: boolean
+    approved: boolean,
+    _id: string
+    slug: string,
+    content_type: ContentTypes
 }
 
 /**

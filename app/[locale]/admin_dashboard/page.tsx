@@ -4,9 +4,10 @@ import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Menu from "@/components/Menu/Menu";
 import Tabs from "@/components/Tabs/Tabs";
-import AdminTable from "@/components/Admin/Table";
+import ContentAdminTable from "@/components/Admin/ContentAdminTable";
 import { getUser } from "@/app/api/auth";
 import { useI18n } from "@/locales/client";
+import CommentsAdminTable from "@/components/Admin/CommentsAdminTable";
 
 export default function Page() {
     const [jwt, setJwt] = useState("")
@@ -38,16 +39,20 @@ export default function Page() {
         <Menu selectedPage="" />
         <Tabs tabs={[
             {
-                content: <AdminTable contentType={ContentTypes.Maps} jwt={jwt!} />,
+                content: <ContentAdminTable contentType={ContentTypes.Maps} jwt={jwt!} />,
                 title: t('maps', {count: 2})
             },
             {
-                content: <AdminTable contentType={ContentTypes.Datapacks} jwt={jwt!} />,
+                content: <ContentAdminTable contentType={ContentTypes.Datapacks} jwt={jwt!} />,
                 title: t('datapacks', {count: 2})
             },
             {
-                content: <AdminTable contentType={ContentTypes.Resourcepacks} jwt={jwt!} />,
+                content: <ContentAdminTable contentType={ContentTypes.Resourcepacks} jwt={jwt!} />,
                 title: t('resourcepacks', {count: 2})
+            },
+            {
+                content: <CommentsAdminTable jwt={jwt!} />,
+                title: t('comments', {count: 2})
             }
         ]} />
         </>

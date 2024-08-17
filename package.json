@@ -9,7 +9,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.614.0",
+    "@aws-sdk/client-s3": "^3.633.0",
     "@icons-pack/react-simple-icons": "^9.1.0",
     "@lexical/html": "^0.16.1",
     "@lexical/link": "^0.16.1",
@@ -22,7 +22,6 @@
     "@sentry/nextjs": "^8.17.0",
     "@types/mdx": "^2.0.10",
     "@vercel/analytics": "^1.2.2",
-    "axios": "^1.6.5",
     "dompurify": "^3.0.8",
     "gray-matter": "^4.0.3",
     "isomorphic-dompurify": "^2.13.0",

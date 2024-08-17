@@ -2,7 +2,7 @@
 
 import CommentCard from "./CommentCard"
 import { fetchComments, postComment } from "@/app/api/community";
-import { ContentTypes, IComment, IUser } from "@/app/api/types";
+import { ContentTypes, IComment, IUser, SortOptions } from "@/app/api/types";
 import { getUser } from "@/app/api/auth";
 import { useI18n } from "@/locales/client";
 import { useEffect, useState } from "react";
@@ -21,8 +21,8 @@ export default function CommentsList({mapSlug, content_type}: {mapSlug: string, 
     }, [])
 
     const getComments = () => {
-        fetchComments(mapSlug, content_type).then((comments) => {
-            setComments(comments)
+        fetchComments(mapSlug, {contentType: content_type, sort: SortOptions.Newest, limit: 20}).then((comments) => {
+            setComments(comments.documents)
         })
     }
 

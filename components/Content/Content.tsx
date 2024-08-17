@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useCurrentLocale, useI18n } from "@/locales/client";
 import DownloadButton from "../Buttons/DownloadButton";
 import CreateTranslationForm from "../CreateTranslationForm";
+import { Suspense } from "react";
 
 /**
  * The map component represents all the information displayed on a map page
@@ -92,7 +93,9 @@ export default function Content({content, contentType}: {content: IContentDoc, c
             </div>
             <MapImageSlideshow images={content.images.slice(1)} />
             <CommentForm mapSlug={content.slug} content_type={contentType}></CommentForm>
-            <CommentsList mapSlug={content.slug} content_type={contentType}/>
+            <Suspense fallback={<></>}>
+                <CommentsList mapSlug={content.slug} content_type={contentType}/>
+            </Suspense>
         </div>
         </>
     )

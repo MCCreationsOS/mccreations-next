@@ -20,6 +20,8 @@
     text-decoration: underline;
     color: #344ec1;
     cursor: pointer;
+    background-color: #191919aa;
+    padding: 5px;
 }
 
 .comment .logo {
@@ -53,6 +55,14 @@
     color: #aaa;
     margin-bottom: 5px;
     font-size: 0.8rem;
+}
+
+.comment .right_header {
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    scale: 0.8;
+    cursor: pointer;
 }
 
 .comment .actions {

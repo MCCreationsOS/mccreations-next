@@ -54,6 +54,11 @@ export default {
     'auth.sign_up': 'Sign Up',
     'brand': 'MCCreations',
     'button.bulk_download': 'BULK',
+    "comments#one": "Comment",
+    "comments#other": "Comments",
+    'comment.expand': 'See More',
+    'comment.collapse': 'See Less',
+    'comment.permalink': 'Copy comment permalink',
     'content_card.by': 'by ',
     'content_card.deselect': 'Deselect for Bulk Download',
     'content_card.quick_download': 'Quick Download Latest Version',
@@ -367,4 +372,8 @@ export default {
     'tags.sci-fi': 'Sci-Fi',
     'tags.vanilla': 'Vanilla',
     'tags.theme': 'Theme',
+
+    'language.name': 'English',
+    'language.en_US': 'English',
+    'language.zh_CN': '简体中文',
 } as const
