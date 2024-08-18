@@ -39,20 +39,25 @@ export class PopupMessage {
     }
 
     static playMessages() {
-        this.active = true
-        this.type = this.queue[0].type
-        this.message = this.queue[0].message
-        this.time = this.queue[0].time
-        if(this.queue[0].endAction) 
-            this.endAction = this.queue[0].endAction
-
-        this.onMessagePlay();
-        setTimeout(() => {
-            if(this.endAction) {
-                this.endAction();
-            }
+        try {
+            this.active = true
+            this.type = this.queue[0].type
+            this.message = this.queue[0].message
+            this.time = this.queue[0].time
+            if(this.queue[0].endAction) 
+                this.endAction = this.queue[0].endAction
+    
+            this.onMessagePlay();
+            setTimeout(() => {
+                if(this.endAction) {
+                    this.endAction();
+                }
+                this.clearMessage();
+            }, this.time)
+        } catch(e) {
+            console.error(e)
             this.clearMessage();
-        }, this.time)
+        }
     }
 
     static clearMessage() {
