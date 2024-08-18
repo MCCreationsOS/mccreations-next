@@ -1,6 +1,6 @@
 'use client'
 
-import { IContentDoc } from "@/app/api/types"
+import { ContentTypes, IContentDoc } from "@/app/api/types"
 import Image from "next/image"
 import Link from "next/link"
 import { shimmer, toBase64 } from "../skeletons/imageShimmer"
@@ -11,6 +11,7 @@ import IconButton from "../Buttons/IconButton"
 import { Archive, Box, CheckSquare, Download, Layers, Map, Package, Square } from "react-feather"
 import { useEffect, useState } from "react"
 import { useCurrentLocale, useI18n } from "@/locales/client"
+import { downloadMap } from "@/app/api/content"
 
 export interface IContentCardProps {
     content: IContentDoc
@@ -78,6 +79,34 @@ export default function ContentCard(props: IContentCardProps) {
         title = props.content.translations[locale].title
     }
 
+    const downloadButtonClicked = async () => {
+        await downloadMap(props.content.slug)
+        if(props.content.type === "map" && props.content.files[0].worldUrl) {
+            let a = document.createElement('a')
+            a.href = props.content.files[0].worldUrl
+            a.download = props.content.slug
+            a.target = '_blank'
+            a.click()
+            a.remove()
+        }
+        if(props.content.type === "resourcepack" && props.content.files[0].resourceUrl) {
+            let a = document.createElement('a')
+            a.href = props.content.files[0].worldUrl
+            a.download = props.content.slug
+            a.target = '_blank'
+            a.click()
+            a.remove()
+        }
+        if(props.content.type === "datapack" && props.content.files[0].dataUrl) {
+            let a = document.createElement('a')
+            a.href = props.content.files[0].worldUrl
+            a.download = props.content.slug
+            a.target = '_blank'
+            a.click()
+            a.remove()
+        }
+    }
+
     return (
         <>
         <div className={styles.content_card} id={props.playlist + "_" + props.index} >
@@ -92,7 +121,7 @@ export default function ContentCard(props: IContentCardProps) {
                     </div>
                 </div>
                 <div className={styles.quick_actions}>
-                    {(props.content.files[0].worldUrl || props.content.files[0].dataUrl || props.content.files[0].resourceUrl) ? <Link target="_blank" href={(props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!} title={t('content_card.quick_download')}><IconButton><Download /></IconButton></Link> : <></>}
+                    {(props.content.files[0].worldUrl || props.content.files[0].dataUrl || props.content.files[0].resourceUrl) ? <IconButton onClick={downloadButtonClicked}><Download/></IconButton> : <></>}
                     {props.enableSelection && <IconButton className="secondary" onClick={selectContent}>{(selected) ? <CheckSquare/> : <Square/>}</IconButton>}
                 </div>
                 <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className={styles.logo} src={props.content.images[0]} width={1920} height={1080} sizes="25vw" alt={`The logo for ${props.content.title}, a Minecraft Map for ${(props.content.files && props.content.files.length > 0) ? props.content.files[0].minecraftVersion : ""} by ${props.content.creators[0].username}`}></Image>
