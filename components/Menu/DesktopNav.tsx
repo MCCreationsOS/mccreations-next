@@ -50,6 +50,9 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
             if(res.error) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
             } else if(res.content) {
+                if(res.key) {
+                    sessionStorage.setItem('temp_key', res.key)
+                }
                 Popup.close()
                 router.push(`/${type.toLowerCase()}/${res.content}/edit`)
             }
