@@ -82,6 +82,9 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                         <li className="item">
                             <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepacks', {count: 2})}</Link>
                         </li>
+                        <li className="item">
+                            <Link className={(selectedPage === 'events') ? 'link selected' : 'link fancy'} href="/events/wix-is-over">{t('events')}</Link>
+                        </li>
                     </ul>
                     <ul className='action_list'>
                         <li className="item">

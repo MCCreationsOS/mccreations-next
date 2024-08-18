@@ -182,6 +182,7 @@ export default {
     'datapacks#one': '数据包',
     'datapacks#other': '数据包',
     'error': '错误',
+    'events': 'Events',
     'featured.see_more': '查看更多！',
     'footer.about_support': '关于与支持',
     'footer.about': '关于',

@@ -184,6 +184,7 @@ export default {
     'datapacks#one': 'Data Pack',
     'datapacks#other': 'Data Packs',
     'error': 'Error',
+    'events': 'Events',
     'featured.see_more': 'See More!',
     'footer.about_support': 'About And Support',
     'footer.about': 'About',

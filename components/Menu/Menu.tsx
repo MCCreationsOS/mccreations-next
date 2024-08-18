@@ -35,6 +35,9 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                             <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
                             <p className="brand_name">{t('brand')}<Badge color="red">{t('nav.badge.beta')}</Badge></p>
                         </Link>
+                        <Link href="/events/wix-is-over" className="link fancy">
+                            {t('events')}
+                        </Link>
                     </div>
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">
