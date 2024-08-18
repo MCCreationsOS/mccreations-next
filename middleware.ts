@@ -1,15 +1,9 @@
-import { createI18nMiddleware } from 'next-international/middleware'
-import { NextRequest } from 'next/server'
- 
-const I18nMiddleware = createI18nMiddleware({
-  locales: ['en-US', 'zh-CN'],
-  defaultLocale: 'en-US'
-})
- 
-export function middleware(request: NextRequest) {
-  return I18nMiddleware(request)
-}
- 
+import { chain } from "./middleware/chain"
+import { withI18nMiddleware } from "./middleware/localization"
+import { withRedirectMiddleware } from "./middleware/old_redirects"
+
+export default chain([withRedirectMiddleware,withI18nMiddleware])
+
 export const config = {
   matcher: ['/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt|monitoring).*)']
 }
