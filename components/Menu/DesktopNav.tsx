@@ -50,8 +50,11 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
             if(res.error) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
             } else if(res.content) {
+                if(res.key) {
+                    sessionStorage.setItem('temp_key', res.key)
+                }
                 Popup.close()
-                router.push(`/${type}s/${res.content}/edit`)
+                router.push(`/${type.toLowerCase()}/${res.content}/edit`)
             }
         } else {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.import.missing_link')))
@@ -106,7 +109,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                                             onSave={(inputs) => {
                                                 onMapImport(inputs[1], inputs[0])
                                             }}>
-                                                <Select name={t('content.import.type')} options={[{name: t('maps', { count: 1 }), value: 'map'}, {name: t('datapacks', {count: 1}), value: "datapack"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepack'}]} />
+                                                <Select name={t('content.import.type')} options={[{name: t('maps', { count: 1 }), value: 'Maps'}, {name: t('datapacks', {count: 1}), value: "datapacks"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepacks'}]} />
                                                 <Text type="text" name={t('content.import.link')} placeholder={t('content.import.link_placeholder')} />
                                             </FormComponent>
                                         </>
