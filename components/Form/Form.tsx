@@ -26,8 +26,10 @@ export interface FormOptions {
     useSaveButton?: boolean
     saveButtonContent?: React.ReactNode
     saveButtonType?: 'primary' | 'secondary' | 'warning' | 'hollow' | 'icon'
-    extraButtons?: JSX.Element[]
+    extraButtons?: React.ReactNode
 }
+
+export type FormNode = FormElement | Iterable<FormNode> | undefined
 
 /**
  * A form component that takes in FormElements as children and a function to call when the form is saved. The values of all of the FormElements is passed to the onSave function as a list of strings. Each form must have a unique id
@@ -35,7 +37,7 @@ export interface FormOptions {
  * @param children The FormElements that make up the form
  * @param onSave The function to call when the form is saved 
  */
-export default function FormComponent({id, children, onSave, options}: {id: string, children?: FormElement[] | FormElement, onSave: (inputs: string[]) => void, options?: FormOptions}) {
+export default function FormComponent({id, children, onSave, options}: {id: string, children?: FormNode, onSave: (inputs: string[]) => void, options?: FormOptions}) {
     const t = useI18n();
     
     const saveForm = () => {

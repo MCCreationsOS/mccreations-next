@@ -108,7 +108,7 @@ export interface IContentDoc {
     updatedDate?: number,
     _id: any,
     tags: string[],
-    translations?: {[key: string]: {description: string, shortDescription: string, title: string, author?: string, approved: boolean, date?: number}},
+    translations?: Translation,
     allowTranslations?: boolean,
     type: 'map' | 'datapack' | 'resourcepack'
 }
@@ -123,6 +123,8 @@ export interface ICreator {
     handle?: string,
     selected?: boolean,
 }
+
+export type Translation = {[key: string]: {description: string, shortDescription: string, title: string, author?: string, approved: boolean, date?: number}}
 
 /**
  * Represents the comment object returned by the database

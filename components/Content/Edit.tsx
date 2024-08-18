@@ -2,7 +2,7 @@
 
 import { getUser } from "@/app/api/auth"
 import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
-import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, ContentTypes, UserTypes, Locales } from "@/app/api/types"
+import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, ContentTypes, UserTypes, Locales, Translation, TagKeys, TagCategories } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
@@ -25,10 +25,10 @@ import WarningButton from "../Buttons/WarningButton"
 import Checkbox from "../FormInputs/Checkbox"
 import Link from "next/link";
 
-export default function EditContentPage({params, contentType}) {
-    const [user, setUser] = useState()
-    const [map, setMap] = useState()
-    const [tags, setTags] = useState()
+export default function EditContentPage({params, contentType}: {params: Params, contentType: ContentTypes}) {
+    const [user, setUser] = useState<IUser>()
+    const [map, setMap] = useState<IContentDoc>()
+    const [tags, setTags] = useState<Tags>()
     const token = useRef("")
     const t = useI18n();
 
@@ -115,7 +115,7 @@ export default function EditContentPage({params, contentType}) {
             match = true;
         }
     }
-    if(match) {
+    if(match && map) {
         return (
             <div className="centered_content">
                 <ContentWarnings map={map} />
@@ -202,10 +202,10 @@ export default function EditContentPage({params, contentType}) {
                             <Text type="text" name={t('content.edit.general.video_url')} value={map?.videoUrl} />
                             <RichTextInput name={t('content.edit.general.description')} value={map?.description} />
                             {tags && Object.keys(tags).map((category, idx) => {
-                                return <Select key={idx} name={t(`tags.${category}`)} options={tags[category].map(tag => {
-                                    return {name: t(`tags.${tag}`), value: tag}
+                                return <Select key={idx} name={t(`tags.${category as TagCategories}`)} options={tags[category].map(tag => {
+                                    return {name: t(`tags.${tag as TagKeys}`), value: tag}
                                 })} multiSelect={true} value={map.tags?.join(',')}/>
-                            }) || undefined}
+                            })}
                         </FormComponent>
                     },{
 
@@ -259,7 +259,8 @@ export default function EditContentPage({params, contentType}) {
                                     newMap.translations[inputs[0]] = {
                                         title: "",
                                         shortDescription: "",
-                                        description: ""
+                                        description: "",
+                                        approved: false
                                     }
                                     setMap(newMap)
                                     Popup.close();
@@ -270,7 +271,7 @@ export default function EditContentPage({params, contentType}) {
                             {map.translations && Object.keys(map.translations).map((lang) => {
                                 return <FormComponent id={lang} onSave={(inputs) => {
                                     let lang = inputs[0]
-                                    let translation = {
+                                    let translation: Translation = {
                                     }
                                     translation[lang] = {
                                         title: inputs[1],
@@ -279,18 +280,18 @@ export default function EditContentPage({params, contentType}) {
                                         approved: (inputs[4] === "true") ? true : false
                                     }
                                     updateTranslation(map.slug, contentType, translation, sessionStorage.getItem('jwt'))
-                                }} options={{extraButtons: <WarningButton onClick={() => {
+                                }} options={{extraButtons: (<WarningButton onClick={() => {
                                     let newMap = {
                                         ...map
                                     }
-                                    delete newMap.translations[lang]
+                                    delete newMap.translations![lang]
                                     setMap(newMap)
-                                }}>Delete</WarningButton>}}>
+                                }}>Delete</WarningButton>)}}>
                                     <Select name={t('content.edit.translations.language')} options={[{name: lang}]}/>
-                                    <Text name={t('content.create.title')} value={map.translations[lang].title}/>
-                                    <Text name={t('content.create.short_description')} value={map.translations[lang].shortDescription}/>
-                                    <RichTextInput name={t('content.edit.general.description')} value={map.translations[lang].description}/>
-                                    <Checkbox name={t('content.edit.translations.approved')} value={map.translations[lang].approved}/>
+                                    <Text name={t('content.create.title')} value={map.translations![lang].title}/>
+                                    <Text name={t('content.create.short_description')} value={map.translations![lang].shortDescription}/>
+                                    <RichTextInput name={t('content.edit.general.description')} value={map.translations![lang].description}/>
+                                    <Checkbox name={t('content.edit.translations.approved')} value={`${map.translations![lang].approved}`}/>
                                 </FormComponent>
                             })}
                         </>
