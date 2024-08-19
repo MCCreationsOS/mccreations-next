@@ -5,19 +5,19 @@ import { X } from "react-feather"
 import styles from './Popup.module.css'
 
 export interface PopupProps {
-    content?: ReactElement
+    content?: React.ReactNode
     title?: string
     canClose?: boolean,
     useBackground?: boolean,
-    children?: ReactElement | ReactElement[]
+    children?: React.ReactNode
 }
 
 export class Popup {
     static title?: string
     static canClose: boolean
     static onClose: () => void
-    static onCreate: () => void
-    static content: ReactElement
+    static onCreate: (p: PopupProps) => void
+    static content: React.ReactNode
     static useBackground: boolean
 
     static createPopup(props: PopupProps) {
@@ -41,23 +41,31 @@ export class Popup {
             Popup.useBackground = true;
         }
 
-        Popup.onCreate();
+        Popup.onCreate({
+            content: Popup.content,
+            title: Popup.title,
+            canClose: Popup.canClose,
+            useBackground: Popup.useBackground
+        });
     }
 
     static close() {
         Popup.onClose();
+        Popup.title = undefined;
+        Popup.content = undefined;
     }
 }
 
-export default function PopupComponent(props: PopupProps) {
+export default function PopupComponent() {
     const [isOpen, setIsOpen] = useState(false)
+    const [props, setProps] = useState<PopupProps>()
     const popup = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         popup.current?.scrollIntoView({behavior: "smooth", inline: "start", block: "center"})
     }, [isOpen])
 
-    if(props.children) {
+    if(props?.children) {
         return (
             <>
                 <div className={styles.background} style={{display: (isOpen && props.useBackground) ? "block": "none"}}></div>
@@ -70,11 +78,13 @@ export default function PopupComponent(props: PopupProps) {
             </>
         )
     } else {
-        Popup.onCreate = () => {
+        Popup.onCreate = (p: PopupProps) => {
+            setProps(p)
             setIsOpen(true)
         }
     
         Popup.onClose = () => {
+            setProps(undefined)
             setIsOpen(false)
         }
         
@@ -86,7 +96,7 @@ export default function PopupComponent(props: PopupProps) {
                         <h3 className={styles.title}>{Popup.title}</h3>
                         <div className={styles.close} onClick={() => {Popup.onClose()}}><X /></div>
                     </div>: <></>}
-                    {Popup.content}
+                    {props?.content}
                 </div>
             </>
         )
