@@ -33,8 +33,7 @@ export interface SelectElement extends FormElement {
  * @returns 
  */
 export default function Select(props: SelectProps): SelectElement {
-    const [value, setValue] = useState(props.value || props.options?.[0].value || props.options?.[0].name || "")
-
+    const [value, setValue] = useState(props.value ?? props.options?.[0].value ?? props.options?.[0].name ?? "")
     useEffect(() => {
         (props.onChange) ? props.onChange(value + "") : ""
     }, [value])

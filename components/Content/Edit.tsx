@@ -35,8 +35,13 @@ export default function EditContentPage({params, contentType}: {params: Params, 
     useEffect(() => {
         token.current = sessionStorage?.getItem('jwt') + ""
         const getData = async () => {
+            fetchTags(contentType).then((data) => {
+                if('genre' in data) {
+                    setTags(data)
+                }
+            })
             if(token && token.current.length > 0) {
-
+                
                 let u = await getUser(undefined, token.current)
                 setUser(u);
 
@@ -92,11 +97,6 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                         break;
                 }
             }
-            fetchTags(contentType).then((data) => {
-                if('genre' in data) {
-                    setTags(data)
-                }
-            })
         }
         getData();
     }, [])
@@ -204,7 +204,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                             {tags && Object.keys(tags).map((category, idx) => {
                                 return <Select key={idx} name={t(`tags.${category as TagCategories}`)} options={tags[category].map(tag => {
                                     return {name: t(`tags.${tag as TagKeys}`), value: tag}
-                                })} multiSelect={true} value={map.tags?.join(',')}/>
+                                })} multiSelect={true} value={map.tags?.filter(t => tags[category].includes(t)).join(',')}/>
                             })}
                         </FormComponent>
                     },{
