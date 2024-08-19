@@ -152,13 +152,14 @@
   }
 
   .user_menu {
-    margin: 0 40px 0 40px;
+    margin: 0 40px 0 0;
     position: relative;
   }
 
   .user_menu .icon {
     border-radius: 50%;
     object-fit: cover;
+    margin-left: 40px;
   }
 
   .user_menu .options {
@@ -187,6 +188,8 @@
   .options .option.icon {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    margin-left: 0;
   }
 
   .options .option svg {
