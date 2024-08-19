@@ -14,6 +14,10 @@ import Badge from "../Badge";
 import DesktopNav from "./DesktopNav";
 import { I18nProviderClient, useI18n } from "@/locales/client";
 import LanguageSwitcher from "../LanguageSwitcher";
+import SecondaryButton from "../Buttons/SecondaryButton";
+import IconButton from "../Buttons/IconButton";
+import { X } from "react-feather";
+import { createDonation } from "@/app/api/payments";
 
 /**
  * The menu for the site
@@ -22,6 +26,14 @@ import LanguageSwitcher from "../LanguageSwitcher";
 export default function Menu({selectedPage}: {selectedPage: string}) {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
     const t = useI18n();
+    const router = useRouter();
+
+    const onDonate = async (amount: number) => {
+        const url = (await createDonation(amount)).url;
+        if(url) {
+            router.push(url);
+        }
+    }
     
     return (
         <>
@@ -62,6 +74,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                     <img className={(mobileMenuActive) ? "menu_icon close_button active" : "menu_icon close_button"} src='/x.svg' alt="" onClick={() => {setMobileMenuActive(false)}} />
                 </div>
             </nav>
+            <div className="donate">MCCreations costs a lot of money to run, consider donating to keep us alive <SecondaryButton onClick={() => onDonate(5)}>$5</SecondaryButton> <SecondaryButton onClick={() => onDonate(10)}>$10</SecondaryButton> <SecondaryButton onClick={() => onDonate(15)}>$15</SecondaryButton></div>
         </>
     )
 }

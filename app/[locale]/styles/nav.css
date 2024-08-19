@@ -223,6 +223,12 @@
     color: white;
   }
 
+  .donate {
+    padding: 5px 0px;
+    font-size: 0.9rem;
+    text-align: center;
+  }
+
   .link.fancy::before {
     content: '';
     position: absolute;
