@@ -56,24 +56,24 @@ export class Popup {
     }
 }
 
-export default function PopupComponent() {
+export default function PopupComponent(props: PopupProps) {
     const [isOpen, setIsOpen] = useState(false)
-    const [props, setProps] = useState<PopupProps>()
+    const [classProps, setProps] = useState<PopupProps | undefined>(props)
     const popup = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
         popup.current?.scrollIntoView({behavior: "smooth", inline: "start", block: "center"})
     }, [isOpen])
 
-    if(props?.children) {
+    if(classProps?.children) {
         return (
             <>
-                <div className={styles.background} style={{display: (isOpen && props.useBackground) ? "block": "none"}}></div>
+                <div className={styles.background} style={{display: (isOpen && classProps.useBackground) ? "block": "none"}}></div>
                 <div className={`${styles.popup} ${styles.inline}`}>
-                    {(props.title || props.canClose) ? <div className={styles.titlebar}>
-                        <h3 className={styles.title}>{props.title}</h3>
+                    {(classProps.title || classProps.canClose) ? <div className={styles.titlebar}>
+                        <h3 className={styles.title}>{classProps.title}</h3>
                     </div> : <></>}
-                    {props.children}
+                    {classProps.children}
                 </div>
             </>
         )
@@ -96,7 +96,7 @@ export default function PopupComponent() {
                         <h3 className={styles.title}>{Popup.title}</h3>
                         <div className={styles.close} onClick={() => {Popup.onClose()}}><X /></div>
                     </div>: <></>}
-                    {props?.content}
+                    {classProps?.content}
                 </div>
             </>
         )
