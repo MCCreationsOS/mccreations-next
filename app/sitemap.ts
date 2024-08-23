@@ -3,32 +3,62 @@ import { MetadataRoute } from "next";
 export default function sitemap(): MetadataRoute.Sitemap {
     return [
         {
-            url: 'https://mccreations.net',
+            url: 'https://mccreations.net/en-US/',
             changeFrequency: 'weekly',
-            lastModified: new Date()
+            lastModified: new Date(),
+            alternates: {
+                languages: {
+                    "zh-CN": 'https://mccreations.net/zh_CN/',
+                }
+            }
         },
         {
-            url: 'https://mccreations.net/signin',
-            lastModified: new Date()
+            url: 'https://mccreations.net/en-US/signin',
+            lastModified: new Date(),
+            alternates: {
+                languages: {
+                    "zh-CN": 'https://mccreations.net/zh_CN/signin',
+                }
+            }
         },
         {
-            url: 'https://mccreations.net/signup',
-            lastModified: new Date()
+            url: 'https://mccreations.net/en-US/signup',
+            lastModified: new Date(),
+            alternates: {
+                languages: {
+                    "zh-CN": 'https://mccreations.net/zh_CN/signup',
+                }
+            }
         },
         {
-            url: 'https://mccreations.net/maps',
+            url: 'https://mccreations.net/en-US/maps',
             changeFrequency: 'weekly',
-            lastModified: new Date()
+            lastModified: new Date(),
+            alternates: {
+                languages: {
+                    "zh-CN": 'https://mccreations.net/zh_CN/maps',
+                }
+            }
         },
         {
-            url: 'https://mccreations.net/datapacks',
+            url: 'https://mccreations.net/en-US/datapacks',
             changeFrequency: 'weekly',
-            lastModified: new Date()
+            lastModified: new Date(),
+            alternates: {
+                languages: {
+                    "zh-CN": 'https://mccreations.net/zh_CN/datapacks',
+                }
+            }
         },
         {
-            url: 'https://mccreations.net/resourcepacks',
+            url: 'https://mccreations.net/en-US/resourcepacks',
             changeFrequency: 'weekly',
-            lastModified: new Date()
+            lastModified: new Date(),
+            alternates: {
+                languages: {
+                    "zh-CN": 'https://mccreations.net/zh_CN/resourcepacks',
+                }
+            }
         }
     ]
 }

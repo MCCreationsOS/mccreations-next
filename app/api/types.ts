@@ -110,7 +110,8 @@ export interface IContentDoc {
     tags: string[],
     translations?: Translation,
     allowTranslations?: boolean,
-    type: 'map' | 'datapack' | 'resourcepack'
+    type: 'map' | 'datapack' | 'resourcepack',
+    allowIndexing?: boolean
 }
 
 /**

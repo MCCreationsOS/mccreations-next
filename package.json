@@ -27,7 +27,7 @@
     "isomorphic-dompurify": "^2.13.0",
     "jsdom": "^22.1.0",
     "lexical": "^0.16.1",
-    "next": "^14.1.3",
+    "next": "^14.2.6",
     "next-international": "^1.2.4",
     "next-mdx-remote": "^4.4.1",
     "react": "^18.0.0",
