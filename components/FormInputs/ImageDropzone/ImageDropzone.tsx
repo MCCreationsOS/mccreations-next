@@ -36,6 +36,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
             acceptedFiles.forEach(file => {
+                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${t('form.images.uploading')}${file.name}`))
                 upload(file, "images").then(url => {
                     if(url) {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${t('form.images.uploaded')}${file.name}`))

@@ -24,6 +24,7 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
     }
 
     const saveCreator = (inputs: string[]) => {
+        console.log(inputs)
         const banner = JSON.parse(inputs[0])[0].url
         const icon = JSON.parse(inputs[1])[0].url
         updateProfile(token!, banner, icon, undefined, inputs[2])
@@ -35,8 +36,8 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
             <button className={styles.profile_edit} onClick={() => {
                 Popup.createPopup({
                     content: <FormComponent id="updateProfile" onSave={saveCreator}>
-                    <ImageInput name={t('creator.update_profile.banner')} value={creator.bannerURL} />
-                    <ImageInput name={t('creator.update_profile.logo')} value={creator.iconURL} />
+                    <ImageInput name={t('creator.update_profile.banner')} value={JSON.stringify([{url: creator.bannerURL}])} />
+                    <ImageInput name={t('creator.update_profile.logo')} value={JSON.stringify([{url: creator.bannerURL}])} />
                     <Text name={t('creator.update_profile.about')} value={creator.about} />    
                 </FormComponent>, 
                 title: t('creator.update_profile')
