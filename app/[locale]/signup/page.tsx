@@ -9,17 +9,17 @@ import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupM
 import MainButton from "@/components/Buttons/MainButton";
 import PopupComponent from "@/components/Popup/Popup";
 import { useI18n } from "@/locales/client";
+import FormComponent from "@/components/Form/Form";
+import Text from "@/components/FormInputs/Text";
 
 export default function SignUp() {
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
     const router = useRouter();
     const t = useI18n();
 
-    const signUpWithEmail = () => {
-
+    const signUpWithEmail = (inputs: string[]) => {
+        let username = inputs[0]
+        let email = inputs[1]
+        let password = inputs[2]
         if(username.length < 3) {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.username_too_short')))
             return;
@@ -121,7 +121,6 @@ export default function SignUp() {
                 <MapScroll />
             </Suspense>
             <PopupComponent useBackground={false} canClose={false}>
-                    {(message) ? <div className="errorBox"><p>{message}</p></div>: <></>}
                     <h2>{t('auth.sign_in.with')}</h2>
                     <div className="sign_in_providers">
                         <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('auth.sign_in.with_google')}</div>
@@ -130,21 +129,29 @@ export default function SignUp() {
                         <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('auth.sign_in.with_microsoft')}</div>
                     </div>
                     <h2>{t('auth.sign_up.title')}</h2>
-                    <form method="">
+                    <FormComponent id="signUpForm" onSave={signUpWithEmail} options={{saveButtonContent: t('auth.sign_up')}}>
+                        <Text type="text" placeholder={t('account.username_placeholder')} name={t('account.username')}/>
+                        <Text type="email" placeholder={t('account.email_placeholder')} name={t('account.email')}/>
+                        <Text type="password" placeholder={"password"} name={t('account.password')}/>
+                    </FormComponent>
+                    {/* <form method="">
                         <div className='field'>
                             <p className='label'>{t('account.username')}</p>
-                            <input className='input wide' type='text' autoComplete="username" name='username' placeholder={t('account.username_placeholder')} onChange={(e) => {setUsername(e.target.value)}}></input>
+                            <input className='input wide' type='text' autoComplete="username" name='username' placeholder={t('account.username_placeholder')} onChange={(e) => {
+                                console.log(e.target.value);
+                                setUsername(e.currentTarget.value)
+                            }}></input>
                         </div>
                         <div className='field'>
                             <p className='label'>{t('account.email')}</p>
-                            <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('account.email_placeholder')} onChange={(e) => {setEmail(e.target.value)}}></input>
+                            <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('account.email_placeholder')} onChange={(e) => {setEmail(e.currentTarget.value)}}></input>
                         </div>
                         <div className='field'>
                             <p className='label'>{t('account.password')}</p>
-                            <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}}></input>
+                            <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.currentTarget.value)}}></input>
                         </div>
                         <MainButton onClick={signUpWithEmail}>{t('auth.sign_up')}</MainButton>
-                    </form>
+                    </form> */}
                     <div className="sign_up_options">
                         <Link href="/signin">{t('auth.already_have_account')}</Link>
                         <Link href="/signin/reset" >{t('auth.forgot_password')}</Link>
