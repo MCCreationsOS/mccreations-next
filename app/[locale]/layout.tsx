@@ -19,14 +19,14 @@ export const metadata: Metadata = {
     description: "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
     card: "summary_large_image",
     images: [
-      "https://static.wixstatic.com/media/88050d_fae65a7c6b5d4aab94aa955684b7dedf~mv2.png"
+      "https://mccreations.net/defaultBanner.png"
     ]
   },
   openGraph: {
     title: "MCCreations | The greatest Minecraft Maps from the Minecraft Community",
     description: "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
     images: [
-      "https://static.wixstatic.com/media/88050d_fae65a7c6b5d4aab94aa955684b7dedf~mv2.png"
+      "https://mccreations.net/defaultBanner.png"
     ],
     siteName: "MCCreations",
     type: "website",
