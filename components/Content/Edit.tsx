@@ -171,7 +171,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                             if(inputs[5]) {
                                 newMap.description = inputs[5]
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.description')))
+                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
                             }
 
                             if(inputs[6]) {
