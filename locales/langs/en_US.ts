@@ -87,7 +87,7 @@ export default {
     'content.edit.general.error.short_description_length': 'Short Description must be at least 20 characters for approval',
     'content.edit.general.error.short_description': 'A short Description is required',
     'content.edit.general.error.slug': 'A slug is required',
-    'content.edit.general.error.tags': 'At least one tag is required',
+    'content.edit.general.error.tags': 'At least a Genre tag is required',
     'content.edit.general.error.title': 'A title is required',
     'content.edit.general.saved': 'Content info saved successfully',
     'content.edit.general.short_description': 'Short Description',
