@@ -186,7 +186,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
 
                             updateContent(newMap, token.current, contentType).then((error) => {
                                 if(error.message) {
-                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, error.message))
+                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, error.message.toString()))
                                     return;
                                 }
                                 setMap(newMap)
