@@ -114,7 +114,7 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
 
     return (
         <DragDropContext onDragEnd={onDragEnd}>
-            <MapImageSlideshow images={files.map(file => file.url)} />
+            <MapImageSlideshow images={(files.length > 0) ? files.map(file => file.url) : ["https://mccreations.net/defaultBanner.png"]} />
             <Droppable droppableId="droppable" direction="horizontal">
             {(provided, snapshot) => (
                     <div ref={provided.innerRef} className={styles.gallery} {...provided.droppableProps}>
