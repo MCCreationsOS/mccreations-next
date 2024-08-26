@@ -27,7 +27,7 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
             if(token) {
                 loggedIn.current = true;
                 let users = await getCreators(token)
-                if(users && creators) {
+                if(users && creators.length > 0) {
                     setCreators([...creators, ...users]);
                 } else if(users && !value) {
                     setCreators(users)
