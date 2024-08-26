@@ -126,7 +126,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                 {
                     title: <ArrowLeft />,
                     content: <></>,
-                    link: `/${contentType}/${map.slug}`
+                    link: `/${map.type}s/${map.slug}`
                 },
                 {
                     
@@ -175,7 +175,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                             }
 
                             if(inputs[6]) {
-                                newMap.tags = inputs[6].concat(inputs[7]).concat(inputs[8]).concat(inputs[9]).concat(inputs[10]).split(',')
+                                newMap.tags = inputs[6].concat("," + inputs[7]).concat("," + inputs[8]).concat("," + inputs[9]).concat("," + inputs[10]).split(',')
                                 newMap.tags = newMap.tags.filter((tag) => tag.length > 0)
                                 newMap.tags = newMap.tags.filter((tag, index) => {
                                     return newMap.tags.indexOf(tag) === index
@@ -184,9 +184,9 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
                             }
 
-                            updateContent(newMap, token.current, contentType).then((error) => {
-                                if(error.message) {
-                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, error.message.toString()))
+                            updateContent(newMap, token.current, contentType).then((result) => {
+                                if(result.error) {
+                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
                                     return;
                                 }
                                 setMap(newMap)
