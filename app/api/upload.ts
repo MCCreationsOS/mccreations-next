@@ -54,7 +54,7 @@ export default async function upload(file: File, location: string) {
         const response = await bucket.send(command)
         console.log(response)
         if(response.$metadata.httpStatusCode === 200) {
-            return `https://mccreations.s3.us-west-1.amazonaws.com//${location}/${name}`
+            return `https://mccreations.s3.us-west-1.amazonaws.com/${location}/${name}`
         } else {
             console.error(response)
             return
