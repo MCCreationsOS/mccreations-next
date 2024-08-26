@@ -114,10 +114,9 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
             <div className={styles.fullscreen} style={{display: (popupOpen) ? "block": "none"}} onClick={() => {(popupOpen == true) ? closePopups(): false}}></div>
                 <div className="search_stack">
                     <input type="text" placeholder={t('search.placeholder')} className="search" defaultValue={(search) ? search : ""} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={(e) => (e.key === "Enter") ? performSearch() : false}></input>
-                    <IconButton className="secondary" onClick={() => setFiltering(!filtering)}><Filter /></IconButton>
                     <BulkDownloadButton />
                 </div>
-                <div className="filters" style={{display: (filtering) ? "flex": "none"}}>
+                <div className="filters">
                     <div className="filter_option">
                         {t('search.sort_by')} 
                         <div className="select" onClick={() => {setSortDropdown(true); setPopupOpen(true)}}>
