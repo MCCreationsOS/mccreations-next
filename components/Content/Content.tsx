@@ -37,7 +37,7 @@ export default function Content({content, contentType}: {content: IContentDoc, c
 
     let videoID = ""
     if(content.videoUrl && content.videoUrl.includes("?v=")) {
-        videoID = content.videoUrl.substring(content.videoUrl.indexOf("?v=") + 3)
+        videoID = content.videoUrl.substring(content.videoUrl.indexOf("?v=") + 3, content.videoUrl.lastIndexOf("&"))
     } else if(content.videoUrl) {
         videoID = content.videoUrl.substring(content.videoUrl.lastIndexOf("/") + 1)
     }
