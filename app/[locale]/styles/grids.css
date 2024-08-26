@@ -140,7 +140,7 @@
 }
 
 .filters {
-    /* display: none; */
+    display: flex;
     /* margin-top: 10px; */
     padding: 5px;
     flex-wrap: wrap;

@@ -54,6 +54,7 @@ export default {
     'auth.sign_up': 'Sign Up',
     'brand': 'MCCreations',
     'button.bulk_download': 'BULK',
+    'button.bulk_download.no_selection': 'No content selected for download',
     "comments#one": "Comment",
     "comments#other": "Comments",
     'comment.expand': 'See More',

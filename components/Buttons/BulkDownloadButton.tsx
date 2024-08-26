@@ -1,6 +1,7 @@
 import { Download, DownloadCloud } from "react-feather";
 import IconButton from "./IconButton";
 import { useI18n } from "@/locales/client";
+import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 
 export default function BulkDownloadButton() {
     const t = useI18n();
@@ -16,6 +17,11 @@ export default function BulkDownloadButton() {
                 a.click()
                 a.remove()
             })
+            if(selected.length === 0) {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('button.bulk_download.no_selection')))
+            }
+        } else {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('button.bulk_download.no_selection')))
         }
     }
 
