@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import ImageDropzone, { UploadedImageRepresentation } from "../FormInputs/ImageDropzone/ImageDropzone";
 import styles from './Form.module.css'
@@ -26,10 +28,11 @@ export interface FormOptions {
     useSaveButton?: boolean
     saveButtonContent?: React.ReactNode
     saveButtonType?: 'primary' | 'secondary' | 'warning' | 'hollow' | 'icon'
-    extraButtons?: React.ReactNode
+    extraButtons?: React.ReactNode,
+    stickyButtons?: boolean
 }
 
-export type FormNode = FormElement | Iterable<FormNode> | undefined
+export type FormNode = FormElement | Iterable<FormNode> | undefined | React.ReactNode
 
 /**
  * A form component that takes in FormElements as children and a function to call when the form is saved. The values of all of the FormElements is passed to the onSave function as a list of strings. Each form must have a unique id
@@ -59,13 +62,15 @@ export default function FormComponent({id, children, onSave, options}: {id: stri
     return (
         <div id={id}>
             {children}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'primary' || !options?.saveButtonType) && <MainButton onClick={saveForm}>{options?.saveButtonContent || t('form.save')}</MainButton>}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'secondary') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'warning') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'hollow') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
-            {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'icon') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
+            <div className={(options?.stickyButtons) ? styles.sticky : ""}>
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'primary' || !options?.saveButtonType) && <MainButton onClick={saveForm}>{options?.saveButtonContent || t('form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'secondary') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'warning') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'hollow') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'icon') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
 
-            {options?.extraButtons}
+                {options?.extraButtons}
+            </div>
         </div>
     )
 }
