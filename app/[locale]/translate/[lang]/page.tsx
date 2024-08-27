@@ -3,6 +3,7 @@
 import FormComponent from '@/components/Form/Form'
 import Text from "@/components/FormInputs/Text";
 import Menu from '@/components/Menu/Menu'
+import { PopupMessage, PopupMessageType } from '@/components/PopupMessage/PopupMessage';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import Link from 'next/link'
 import { Suspense, useEffect, useState } from 'react';
@@ -39,6 +40,7 @@ export default function Page({params}: {params: Params}) {
             },
             body: JSON.stringify(lang)
         })
+        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Translation successfully sent"))
     }
 
     return (
