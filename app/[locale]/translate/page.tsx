@@ -20,7 +20,7 @@ export default function Page() {
                 <h1>Languages</h1>
                 {languages.map((lang) => (
                     <SecondaryButton key={lang} onClick={() => {
-                        window.location.href = `/${lang}/translate`
+                        window.location.href = `/translate/${lang}`
                     }}>{lang}</SecondaryButton>
                 ))}
                 <SecondaryButton onClick={() => {
