@@ -144,7 +144,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                             }
         
                             if(inputs[1]) {
-                                newMap.slug = inputs[1]
+                                newMap.slug = encodeURI(inputs[1])
                             } else {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
                             }
@@ -189,6 +189,11 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
                                     return;
                                 }
+
+                                if(newMap.slug !== map.slug) {
+                                    window.location.href = `/${newMap.type}s/${newMap.slug}/edit`
+                                }
+
                                 setMap(newMap)
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.general.saved')))
                             }).catch((e) => {
