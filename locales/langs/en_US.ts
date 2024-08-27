@@ -1,4 +1,7 @@
 export default {
+    'language.name': 'English',
+    'language.code': 'en_US',
+
     'account.change_email': 'Change Email',
     'account.change_handle': 'Change Handle',
     'account.change_password': 'Change Password',
@@ -373,9 +376,7 @@ export default {
     'tags.modern': 'Modern',
     'tags.sci-fi': 'Sci-Fi',
     'tags.vanilla': 'Vanilla',
-    'tags.theme': 'Theme',
-
-    'language.name': 'English',
+    'tags.theme': 'Theme',    
     'language.en_US': 'English',
     'language.zh_CN': '简体中文',
 } as const
