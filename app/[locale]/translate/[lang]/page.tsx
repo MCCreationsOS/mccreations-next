@@ -48,7 +48,7 @@ export default function Page({params}: {params: Params}) {
                 <Suspense>
                     <FormComponent id="add_language" onSave={saveLanguage} options={{stickyButtons: true, saveButtonContent: "Send"}}>
                         <p>Translations are not saved if you leave this page. When you're ready, click send to send the translation to our admins. It doesn't have to be complete, but try and avoid spamming the button.</p>
-                        <Link href="">For help, click here</Link>
+                        <Link href="https://youtu.be/rtxLdKN3WCM">For help, click here</Link>
                         <br></br>
                         <br></br>
                         {keys.map((key) => {
