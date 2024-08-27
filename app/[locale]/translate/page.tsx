@@ -9,8 +9,9 @@ import Link from "next/link";
 
 export default function Page() {
     const languages = [
-        "en-US",
-        "zh-CN",
+        "en_US",
+        "zh_CN",
+        'ru_RU'
     ]
 
     return (

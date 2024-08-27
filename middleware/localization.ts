@@ -3,7 +3,7 @@ import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 import { CustomMiddleware } from './chain'
  
 const I18nMiddleware = createI18nMiddleware({
-  locales: ['en-US', 'zh-CN'],
+  locales: ['en-US', 'zh-CN', 'ru-RU'],
   defaultLocale: 'en-US'
 })
 
