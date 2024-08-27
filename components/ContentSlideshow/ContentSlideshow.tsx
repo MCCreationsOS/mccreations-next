@@ -36,7 +36,7 @@ export default function ContentSlideshow({content, playlist}: {content: IContent
             <img className={`${styles.nav_arrow} ${styles.left}`}  src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
             <img className={`${styles.nav_arrow} ${styles.right}`} src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
             <div className={styles.scroll_window} id={playlist}>
-                {content.map((map: IContentDoc, idx: number) => <ContentCard key={idx} content={map} playlist={playlist} index={idx} priority={true} adPosition={Math.floor(Math.random() * 15) + 2}></ContentCard>)}
+                {content.map((map: IContentDoc, idx: number) => <ContentCard key={idx} content={map} playlist={playlist} index={idx} priority={true} adPosition={adPosition}></ContentCard>)}
             </div>
         </div>
     )

@@ -8,6 +8,7 @@ import PopupComponent from '@/components/Popup/Popup'
 import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import { Provider } from '@/components/translateProvider'
+import { GoogleAdSense } from 'next-google-adsense'
 
 
 export const metadata: Metadata = {
@@ -41,11 +42,10 @@ export default function RootLayout({params: { locale }, children}: {params: {loc
         <meta property="og:image:width" content="2500"></meta>
         <meta property="og:image:height" content="1408"></meta>
         <meta property="og:url" content="https://www.mccreations.net"></meta>
-        {/* <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333"
-     crossOrigin="anonymous"></script> */}
       </head>
       <body id="view">
         <Provider locale={locale}>
+          <GoogleAdSense publisherId='pub-5425604215170333' />
           <PopupMessageComponent />
           <Suspense fallback={<Loading />}>
               {children}
