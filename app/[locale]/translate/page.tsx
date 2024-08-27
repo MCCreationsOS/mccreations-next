@@ -18,6 +18,7 @@ export default function Page() {
             <Menu selectedPage="" />
             <div className="centered_content">
                 <h1>Languages</h1>
+                <Link href="https://youtu.be/rtxLdKN3WCM">For help, click here</Link>
                 {languages.map((lang) => (
                     <SecondaryButton key={lang} onClick={() => {
                         window.location.href = `/translate/${lang}`
