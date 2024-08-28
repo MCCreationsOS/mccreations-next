@@ -200,7 +200,7 @@ export interface Tags {
 export type TagCategories = "genre" | "subgenre" | "theme" | "difficulty" | "length" | "resolution"
 export type TagKeys ="adventure"|"parkour"|"survival"|"puzzle"|"game"|"build"|"tools"|"overhaul"|"creative"|"qol"|"realistic"|"simple"|"themed"|"utility"|"other"|"horror"|"PVE"|"PVP"|"episodic"|"challenge"|"CTM"|"RPG"|"trivia"|"escape"|"finding"|"maze"|"unfair"|"dropper"|"elytra"|"city"|"park"|"multiplayer"|"singleplayer"|"co-op"|"crafting"|"exploration"|"tweak"|"magic"|"tech"|"mobs"|"bosses"|"weapons"|"tools"|"cartoon"|"smooth"|"faithful"|"other"|"entities"|"items"|"blocks"|"GUI"|"font"|"sound"|"music"|"language"|"funny"|"cosmetic"|"models"|"shaders"|"skybox"|"chill"|"easy"|"normal"|"hard"|"hardcore"|"medieval"|"modern"|"fantasy"|"sci-fi"|"realistic"|"vanilla"|"anime"|"short"|"medium"|"long"|"8x"|"16x"|"32x"|"64x"|"128x"|"256x"|"512x"|"1024x +"
 
-export const Locales = ["en-US"]
+export const Locales = ["en-US", 'zh-CN', 'ru-RU']
 /**
  * An enum representing all existing Minecraft Versions.
  */

@@ -10,6 +10,7 @@ import { useState } from "react";
 import { updateTranslation } from "@/app/api/content";
 import { useI18n } from "@/locales/client";
 import Link from "next/link";
+import SecondaryButton from "../Buttons/SecondaryButton";
 
 export default function CreateTranslationForm({content, type}: {content: IContentDoc, type: ContentTypes}) {
     const [title, setTitle] = useState(content.title)
@@ -52,6 +53,6 @@ export default function CreateTranslationForm({content, type}: {content: IConten
 
     if(content.allowTranslations === false) return undefined
     return (
-        <IconButton className="secondary" onClick={makeTranslation}><Globe /></IconButton>
+        <SecondaryButton onClick={makeTranslation}>Translate {content.type.substring(0, 1).toUpperCase() + content.type.substring(1)} Page</SecondaryButton>
     )
 }
