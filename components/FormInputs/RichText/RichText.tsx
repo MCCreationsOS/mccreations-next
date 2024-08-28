@@ -70,7 +70,6 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     const [editor] = useLexicalComposerContext();
     editor.update(() => {
       if(html.length > 37) {
-        console.log(html)
         try {
           const parser = new DOMParser();
           const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
@@ -83,7 +82,7 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
         } catch(e) {
           console.error(e);
         }
-      } else {
+      } else if(document) {
         setTimeout(() => {document.querySelector('body')?.focus(); scrollTo(0, 0)}, 1)
       }
     });
