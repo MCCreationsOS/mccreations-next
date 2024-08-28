@@ -80,7 +80,6 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
       
         $insertNodes(nodes);
       }
-      editor.setEditable(true);
     });
     return <></>;
 }
@@ -115,7 +114,7 @@ export default function RichText({ sendOnChange, initialValue }: { sendOnChange:
         theme,
         onError,
         nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode],
-        editable: false
+        editable: true
     };
     const t = useI18n();
 

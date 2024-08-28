@@ -19,7 +19,7 @@ export default function RichTextInput(props: RichTextInputProps): FormElement {
         <div className='field'>
             <h3 className='label'>{props.name}</h3>
             <p className={styles.description}>{props.description}</p>
-            <RichText initialValue={props.value + `<p class="editor-paragraph" dir="ltr"><span style="white-space: pre-wrap;"></span></p>`} sendOnChange={(v) => {setValue(v); if(props.onChange) props.onChange(v);}}/>
+            <RichText initialValue={value} sendOnChange={(v) => {setValue(v); if(props.onChange) props.onChange(v);}}/>
             <input type='hidden' value={value} />
         </div>
     )

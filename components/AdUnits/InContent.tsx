@@ -29,10 +29,22 @@ export default function InContentAdUnit() {
     return (
         <div>
         {isClient && adUnit && <>
-            <AdUnit slotId={adUnit} layout="display" publisherId='pub-5425604215170333' />
+            <AdUnit slotId={"4342982066"} layout="custom" publisherId='ca-pub-5425604215170333' customLayout={InFeedAdUnit()}/>
         </>
         }
         <input type="hidden" value={adUnit + ""} />
         </div>
+    )
+}
+
+const InFeedAdUnit = () => {
+    return (
+        <ins className="adsbygoogle"
+            style={{display: "block"}}
+            data-ad-format="fluid"
+            data-ad-layout-key="-7p+f2-1p-4p+ez"
+            data-ad-client="ca-pub-5425604215170333"
+            data-ad-slot="4342982066"
+        />
     )
 }
