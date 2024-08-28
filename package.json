@@ -26,7 +26,6 @@
     "dompurify": "^3.0.8",
     "gray-matter": "^4.0.3",
     "isomorphic-dompurify": "^2.13.0",
-    "jsdom": "^22.1.0",
     "lexical": "^0.16.1",
     "next": "^14.2.6",
     "next-google-adsense": "github:BenMeie/next-google-adsense",

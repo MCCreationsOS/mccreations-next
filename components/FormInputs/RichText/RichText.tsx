@@ -1,6 +1,5 @@
 import { $getRoot, $getSelection, $insertNodes, EditorState } from 'lexical';
 import {$generateHtmlFromNodes, $generateNodesFromDOM} from '@lexical/html';
-import { JSDOM } from 'jsdom'
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
@@ -72,7 +71,6 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     editor.update(() => {
       if(!editor.isEditable()) {
         try {
-          new JSDOM()
           const parser = new DOMParser();
           const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
         
