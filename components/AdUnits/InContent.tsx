@@ -2,7 +2,7 @@
 
 import { adUnits } from "@/app/api/ads"
 import { useEffect, useState } from "react"
-import { AdUnit } from "next-google-adsense";
+import { AdUnit } from "next-google-adsense-betterer";
 import styles from './Ads.module.css'
 import Script from "next/script"
 
