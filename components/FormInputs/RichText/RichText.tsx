@@ -98,8 +98,12 @@ function ExportHTMLPlugin({ setHTML }: { setHTML: (html: string) => void }): JSX
     editor.registerUpdateListener(({editorState}) => {
       
         editorState.read(() => {
+          try {
             let html = $generateHtmlFromNodes(editor, null);
             setHTML(html);
+          } catch(e) {
+            console.error(e);
+          }
         });
       });
     return <></>;
