@@ -99,6 +99,7 @@ function ExportHTMLPlugin({ setHTML }: { setHTML: (html: string) => void }): JSX
       
         editorState.read(() => {
           try {
+            if(editorState.isEmpty()) return;
             let html = $generateHtmlFromNodes(editor, null);
             setHTML(html);
           } catch(e) {
