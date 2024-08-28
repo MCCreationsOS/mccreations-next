@@ -69,25 +69,22 @@ function onError(error: any) {
 function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     const [editor] = useLexicalComposerContext();
     editor.update(() => {
-      if(html.length > 0) {
+      if(html.length > 37) {
+        console.log(html)
         try {
           const parser = new DOMParser();
           const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
         
           const nodes = $generateNodesFromDOM(editor, dom);
-          const activeElement = document.activeElement;
         
           $getRoot().clear();
         
           $insertNodes(nodes);
-
-          if(activeElement) {
-            console.log("focus")
-            setTimeout(() => {document.querySelector('body')?.focus(); scrollTo(0, 0)}, 1)
-          }
         } catch(e) {
           console.error(e);
         }
+      } else {
+        setTimeout(() => {document.querySelector('body')?.focus(); scrollTo(0, 0)}, 1)
       }
     });
     return <></>;
