@@ -20,6 +20,7 @@
     "@mdx-js/react": "^3.0.0",
     "@next/mdx": "^14.0.2",
     "@sentry/nextjs": "^8.17.0",
+    "@types/jsdom": "^21.1.7",
     "@types/mdx": "^2.0.10",
     "@vercel/analytics": "^1.2.2",
     "dompurify": "^3.0.8",
