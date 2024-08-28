@@ -34,10 +34,10 @@ export default function MenuSkeleton() {
                             <Link className="link" href="/maps">Maps</Link>
                         </li>
                         <li className="item">
-                            <Link className="link" href="https://www.mccreations.net/resourcepacks">Resourcepacks</Link>
+                            <Link className="link" href="/datapacks">Data Packs</Link>
                         </li>
                         <li className="item">
-                            <Link className="link" href="https://www.mccreations.net/datapacks">Datapacks</Link>
+                            <Link className="link" href="/resourcepacks">Resource Packs</Link>
                         </li>
                     </ul>
                 </div>
