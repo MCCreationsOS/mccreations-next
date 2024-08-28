@@ -29,7 +29,7 @@
     "jsdom": "^25.0.0",
     "lexical": "^0.16.1",
     "next": "^14.2.6",
-    "next-google-adsense": "github:BenMeie/next-google-adsense",
+    "next-google-adsense-betterer": "github:BenMeie/next-google-adsense",
     "next-international": "^1.2.4",
     "next-mdx-remote": "^4.4.1",
     "react": "^18.0.0",

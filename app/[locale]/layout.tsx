@@ -8,7 +8,7 @@ import PopupComponent from '@/components/Popup/Popup'
 import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import { Provider } from '@/components/translateProvider'
-import { GoogleAdSense } from 'next-google-adsense'
+import { GoogleAdSense } from 'next-google-adsense-betterer'
 
 
 export const metadata: Metadata = {
