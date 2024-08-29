@@ -1,8 +1,8 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
-import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, ContentTypes, UserTypes, Locales, Translation, TagKeys, TagCategories } from "@/app/api/types"
+import { convertToCollection, fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
+import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, CollectionNames, UserTypes, Locales, Translation, TagKeys, TagCategories, ContentTypes } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
@@ -19,23 +19,27 @@ import { useI18n } from "@/locales/client"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useEffect, useRef, useState } from "react"
 import { ArrowLeft } from "react-feather"
-import SecondaryButton from "../Buttons/SecondaryButton"
-import { Popup } from "../Popup/Popup"
-import WarningButton from "../Buttons/WarningButton"
-import Checkbox from "../FormInputs/Checkbox"
 import Link from "next/link";
+import SecondaryButton from "@/components/Buttons/SecondaryButton"
+import { Popup } from "@/components/Popup/Popup"
+import WarningButton from "@/components/Buttons/WarningButton"
+import Checkbox from "@/components/FormInputs/Checkbox"
 
-export default function EditContentPage({params, contentType}: {params: Params, contentType: ContentTypes}) {
+export default function EditContentPage({params}: {params: Params}) {
     const [user, setUser] = useState<IUser>()
-    const [map, setMap] = useState<IContentDoc>()
+    const [map, setMap] = useState<IContentDoc | {error: string}>()
     const [tags, setTags] = useState<Tags>()
     const token = useRef("")
     const t = useI18n();
+    const contentType = params.contentType as ContentTypes
+    const collectionName = convertToCollection(contentType)
+    
 
     useEffect(() => {
         token.current = sessionStorage?.getItem('jwt') + ""
         const getData = async () => {
-            fetchTags(contentType).then((data) => {
+            
+            fetchTags(collectionName).then((data) => {
                 if('genre' in data) {
                     setTags(data)
                 }
@@ -100,22 +104,8 @@ export default function EditContentPage({params, contentType}: {params: Params, 
         }
         getData();
     }, [])
-
-    let match = false;
+    
     if(map && '_id' in map) {
-        map?.creators?.forEach((creator) => {
-            if(creator.handle && user && user.handle && creator.handle === user?.handle) {
-                match = true
-            }
-        })
-        if(map.status === 0) {
-            match = true;
-        }
-        if(user?.type === UserTypes.Admin) {
-            match = true;
-        }
-    }
-    if(match && map) {
         return (
             <div className="centered_content">
                 <ContentWarnings map={map} />
@@ -184,7 +174,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
                             }
 
-                            updateContent(newMap, token.current, contentType).then((result) => {
+                            updateContent(newMap, token.current, collectionName).then((result) => {
                                 if(result.error) {
                                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
                                     return;
@@ -221,28 +211,28 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                             ...map
                         }
                         newMap.images = files.map(f => f.url)
-                        updateContent(newMap, token.current, contentType).then(() => {
+                        updateContent(newMap, token.current, collectionName).then(() => {
                             setMap(newMap)
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.images.saved')))
                         }).catch((e) => {
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                         })
-                    }} presetFiles={JSON.stringify(map?.images.map(image => {return {url: image, name: image}}))}/>
+                    }} presetFiles={JSON.stringify(map?.images?.map(image => {return {url: image, name: image}}))}/>
                     }, {
 
                     // Versions Tab
                     title: t('content.edit.versions'),
-                    content: <VersionManager contentType={contentType} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
+                    content: <VersionManager contentType={collectionName} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
                         let newMap = {
                             ...map
                         }
                         newMap.files = JSON.parse(vString)
                         
                         newMap.files.sort((a, b) => {
-                            return parseFloat(b.contentVersion) - parseFloat(a.contentVersion)
+                            return parseFloat(b.contentVersion + "") - parseFloat(a.contentVersion + "")
                         })
 
-                        updateContent(newMap, token.current, contentType).then(() => {
+                        updateContent(newMap, token.current, collectionName).then(() => {
                             setMap(newMap)
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.versions.saved')))
                         }).catch((e) => {
@@ -284,7 +274,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                                         description: inputs[3],
                                         approved: (inputs[4] === "true") ? true : false
                                     }
-                                    updateTranslation(map.slug, contentType, translation, sessionStorage.getItem('jwt'))
+                                    updateTranslation(map.slug, collectionName, translation, sessionStorage.getItem('jwt'))
                                 }} options={{extraButtons: (<WarningButton onClick={() => {
                                     let newMap = {
                                         ...map
@@ -304,9 +294,17 @@ export default function EditContentPage({params, contentType}: {params: Params, 
             </div>
         )
     }
+    if(map && 'error' in map) {
+        return (
+            <div className="centered_content">
+                <h1>Something went wrong!</h1>
+                <p>{map?.error}</p>
+            </div>
+        )
+    }
     return (
-        <>
-        {(map) ? <p>{t('error')}</p> : ""}
-        </>
+        <div className="centered_content">
+            <h1>Loading...</h1>
+        </div>
     )
 }

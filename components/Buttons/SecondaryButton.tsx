@@ -5,8 +5,8 @@ import styles from './buttons.module.css'
  * @param onClick The function to call when the button is clicked
  * @param children The content of the button
  */
-export default function SecondaryButton({onClick, children }: {onClick?: () => void, children: React.ReactNode}) {
+export default function SecondaryButton({onClick, className, children }: {onClick?: () => void, className?: string, children: React.ReactNode}) {
     return (
-        <button onClick={onClick} className={styles.secondary_button}>{children}</button>
+        <button type='button' onClick={onClick} className={`${className} ${styles.secondary_button}`}>{children}</button>
     )
 }

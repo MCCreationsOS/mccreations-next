@@ -2,7 +2,7 @@
 
 import { getUser } from "@/app/api/auth";
 import { getCreator } from "@/app/api/community";
-import { ICreator, IUser } from "@/app/api/types";
+import { ContentTypes, ICreator, IUser } from "@/app/api/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import MainButton from "./MainButton";
@@ -14,7 +14,7 @@ import { useI18n } from "@/locales/client";
  * @param creators The creators of the content
  * @param status The status of the content 
  */
-export default function EditContentButton({slug, creators, status}: {slug: string, creators: ICreator[], status: number}) {
+export default function EditContentButton({slug, creators, status, contentType}: {slug: string, creators: ICreator[], status: number, contentType: ContentTypes}) {
     const [user, setUser] = useState<IUser>()
     const t = useI18n();
     useEffect(() => {
@@ -39,7 +39,7 @@ export default function EditContentButton({slug, creators, status}: {slug: strin
 
     if(match) {
         return (
-            <Link href={`./${slug}/edit`}><MainButton>{t('content.edit')}</MainButton></Link>
+            <Link href={`/edit/${contentType}/${slug}`}><MainButton>{t('content.edit')}</MainButton></Link>
         )
     }
     return (<></>)
