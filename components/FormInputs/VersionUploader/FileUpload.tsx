@@ -82,14 +82,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 </div>
                 <p>Or...</p>
                 <div className={styles.dnd}>
-                    <FormComponent id={"linkFile" + Math.floor(Math.random() * 1000)} onSave={(inputs) => {
-                        let url = inputs[0]
-                        if(url) {
-                            setFile(url)
-                        }
-                    }} options={{useSaveButton: false}}>
-                        <Text type="text" name="Link" placeholder="https://example.com/file.zip" value={file} />    
-                    </FormComponent>
+                    <Text type="text" name="Link" placeholder="https://example.com/file.zip" value={file} />
                 </div>
             </div>
         </>
