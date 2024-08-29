@@ -377,5 +377,21 @@ export default {
     "tags.vanilla": "Vanilla",
     "tags.theme": "Тема",
     "language.en_US": "Английский",
-    "language.zh_CN": "Китайский"
+    "language.zh_CN": "Китайский",
+
+    "VersionManager.title": "Version Manager",
+    "VersionManager.add_version": "Add Version",
+    "VersionManager.Versions.back_to_versions": "Back to Versions",
+    "VersionManager.Version.edit": "Edit Version",
+    "VersionManager.Version.version_number": "Version Number",
+    "VersionManager.Version.minecraft_version": "Minecraft Version",
+    "VersionManager.Version.MainFile.link": "Main File Link",
+    "VersionManager.Version.ExtraFiles.file_type": "File Type",
+    "VersionManager.Version.ExtraFiles.link": "Link",
+    "VersionManager.Version.ExtraFiles.required": "Required",
+    "VersionManager.Version.ExtraFiles.upload_file": "Upload File",
+    "VersionManager.Version.save": "Save Version",
+    "VersionManager.Version.cancel": "Cancel",
+    "VersionManager.Version.delete": "Delete",
+    "VersionManager.Version.add_file": "Add File",
 } as const

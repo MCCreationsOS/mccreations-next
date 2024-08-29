@@ -57,3 +57,13 @@
     justify-content: flex-start;
     margin-bottom: 10px;
 }
+
+.add_file_button {
+    margin: 5px 0 15px 0;
+}
+
+.button_icon_aligned {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
