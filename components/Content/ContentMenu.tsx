@@ -1,4 +1,4 @@
-import { ICreator } from "@/app/api/types";
+import { ContentTypes, ICreator } from "@/app/api/types";
 import Tabs from "../Tabs/Tabs";
 import styles from "./Content.module.css"
 import EditContentButton from "@/components/Buttons/EditContentButton";
@@ -11,7 +11,7 @@ import { useI18n } from "@/locales/client";
  * @param status The status of the content to be passed to the Edit Button 
  * @returns 
  */
-export default function ContentMenu({slug, creators, status}: {slug: string, creators: ICreator[], status: number}) {
+export default function ContentMenu({slug, creators, status, contentType}: {slug: string, creators: ICreator[], status: number, contentType: ContentTypes}) {
     const t = useI18n();
     return (
         <div className={styles.content_submenu}>
@@ -20,7 +20,7 @@ export default function ContentMenu({slug, creators, status}: {slug: string, cre
                     {title: t('content.info'), content: <></>, link: "/"},
                     {title: t('content.files'), content: <></>, link: "/files", disabled: true}
                     ]} />
-                <EditContentButton slug={slug} creators={creators} status={status}/>
+                <EditContentButton slug={slug} creators={creators} status={status} contentType={contentType}/>
             </div>
         </div>
     )

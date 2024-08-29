@@ -1,7 +1,7 @@
 import '../../styles/mapPage.css'
 import { searchContent, fetchDatapack, fetchResourcepack } from '@/app/api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
-import { ICreator, IFile, IContentDoc, ContentTypes } from '@/app/api/types';
+import { ICreator, IFile, IContentDoc, CollectionNames } from '@/app/api/types';
 import MapWrapper, { DatapackWrapper, ResourcepackWrapper } from '@/components/Content/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
@@ -53,7 +53,7 @@ parent: ResolvingMetadata
 
 export async function generateStaticParams() {
     let locale = getStaticParams();
-    const maps = (await searchContent({contentType: ContentTypes.Resourcepacks}, false)).documents
+    const maps = (await searchContent({contentType: CollectionNames.Resourcepacks}, false)).documents
     let mapParams =  maps.map((map: IContentDoc) => ({
         slug: map.slug
     }))
@@ -68,7 +68,7 @@ export default async function Page({params}: {params: Params}) {
     
     if(map && '_id' in map) {
         return (
-            <Content content={map} contentType={ContentTypes.Resourcepacks}/>
+            <Content content={map} collectionName={CollectionNames.Resourcepacks}/>
         )
     } else if (map) {
         return (

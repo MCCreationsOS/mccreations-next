@@ -1,6 +1,6 @@
 'use client'
 
-import { ContentTypes, IContentDoc } from "@/app/api/types"
+import { CollectionNames, IContentDoc } from "@/app/api/types"
 import Image from "next/image"
 import Link from "next/link"
 import { shimmer, toBase64 } from "../skeletons/imageShimmer"

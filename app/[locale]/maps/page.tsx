@@ -8,7 +8,7 @@ import { searchContent } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
-import { ContentTypes, SortOptions, StatusOptions } from "../../api/types"
+import { CollectionNames, SortOptions, StatusOptions } from "../../api/types"
 import SearchAndFilter from "@/components/SearchAndFilter"
 import { useI18n } from "@/locales/client"
 
@@ -88,7 +88,7 @@ export default function Maps() {
 
     const findMaps = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await searchContent({contentType: ContentTypes.Maps, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await searchContent({contentType: CollectionNames.Maps, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
         setMaps(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
@@ -114,7 +114,7 @@ export default function Maps() {
     return (
         <div>
             <Menu selectedPage='maps'></Menu>
-            <SearchAndFilter callback={findMaps}  contentType={ContentTypes.Maps}/>
+            <SearchAndFilter callback={findMaps}  contentType={CollectionNames.Maps}/>
             { maps && maps.length !== 0 && (
                 <div>
                 <ContentGrid content={maps} enableSelection={true}></ContentGrid>

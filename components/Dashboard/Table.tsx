@@ -5,19 +5,20 @@ import Image from "next/image";
 import { Image as ImageIcon, Trash } from "react-feather";
 import { Edit } from "react-feather";
 import styles from './table.module.css'
-import { ContentTypes, IContentDoc, IUser } from "@/app/api/types";
+import { CollectionNames, IContentDoc, IUser } from "@/app/api/types";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUser } from "@/app/api/auth";
-import { deleteContent } from "@/app/api/content";
+import { convertToType, deleteContent } from "@/app/api/content";
 import { useI18n } from "@/locales/client";
 
-export default function Table({contentType}: {contentType: ContentTypes}) {
+export default function Table({collectionName}: {collectionName: CollectionNames}) {
     const [maps, setMaps] = useState<IContentDoc[]>([])
     const [user, setUser] = useState<IUser>()
     const router = useRouter();
     const jwt = useRef<string | null>(null);
     const t = useI18n();
+    const contentType = convertToType(collectionName);
 
     useEffect(() => {
 
@@ -43,7 +44,7 @@ export default function Table({contentType}: {contentType: ContentTypes}) {
     }
 
     const getOwnedContent = async (jwt: any) => {
-        fetch(`${process.env.DATA_URL}/${contentType}-nosearch?status=0&limit=20&page=0&creator=${user?.handle}`, {
+        fetch(`${process.env.DATA_URL}/${collectionName}-nosearch?status=0&limit=20&page=0&creator=${user?.handle}`, {
             headers: {
                 authorization: jwt + ""
             }
@@ -87,9 +88,9 @@ export default function Table({contentType}: {contentType: ContentTypes}) {
                         <p className={styles.content_title}>{map.title}</p>
                         <p className={styles.content_description}>{map.shortDescription}</p>
                         <div className={styles.info_buttons}>
-                            <Link href={`/${contentType.charAt(0).toLowerCase() + contentType.substring(1)}/${map.slug}`} title={t('dashboard.preview')}><ImageIcon /></Link>
-                            <Link href={`/${contentType.charAt(0).toLowerCase() + contentType.substring(1)}/${map.slug}/edit`} title={t('dashboard.edit')}><Edit /></Link>
-                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, sessionStorage.getItem('jwt'), contentType); getOwnedContent(sessionStorage.getItem('jwt'))}}><Trash /></span>
+                            <Link href={`/${contentType}s/${map.slug}`} title={t('dashboard.preview')}><ImageIcon /></Link>
+                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('dashboard.edit')}><Edit /></Link>
+                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, sessionStorage.getItem('jwt'), collectionName); getOwnedContent(sessionStorage.getItem('jwt'))}}><Trash /></span>
                         </div>
                     </div>
                     <div className={styles.content_item_item}>

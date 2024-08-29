@@ -1,6 +1,6 @@
 import { Globe } from "react-feather";
 import IconButton from "../Buttons/IconButton";
-import { ContentTypes, IContentDoc, Locales } from "@/app/api/types";
+import { CollectionNames, IContentDoc, Locales } from "@/app/api/types";
 import {Popup} from "../Popup/Popup";
 import Select from "../FormInputs/Select";
 import FormComponent from "../Form/Form";
@@ -12,7 +12,7 @@ import { useI18n } from "@/locales/client";
 import Link from "next/link";
 import SecondaryButton from "../Buttons/SecondaryButton";
 
-export default function CreateTranslationForm({content, type}: {content: IContentDoc, type: ContentTypes}) {
+export default function CreateTranslationForm({content, type}: {content: IContentDoc, type: CollectionNames}) {
     const [title, setTitle] = useState(content.title)
     const [shortDescription, setShortDescription] = useState(content.shortDescription)
     const [description, setDescription] = useState(content.description)

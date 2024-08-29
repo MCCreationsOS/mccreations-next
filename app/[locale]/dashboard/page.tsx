@@ -1,6 +1,6 @@
 'use client'
 
-import { ContentTypes, IContentDoc, IUser } from "../../api/types";
+import { CollectionNames, IContentDoc, IUser } from "../../api/types";
 import Menu from "@/components/Menu/Menu";
 import Tabs from "@/components/Tabs/Tabs";
 import Table from "@/components/Dashboard/Table";
@@ -29,7 +29,7 @@ export default function Page() {
                 link: '/dashboard/resourcepacks'
             }
         ]} />
-        <Table contentType={ContentTypes.Maps} />
+        <Table collectionName={CollectionNames.Maps} />
         </>
     )
 }

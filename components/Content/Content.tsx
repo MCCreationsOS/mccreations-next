@@ -1,5 +1,5 @@
 'use client'
-import { ICreator, IFile, IContentDoc, ContentTypes, Locales } from "@/app/api/types";
+import { ICreator, IFile, IContentDoc, CollectionNames, Locales } from "@/app/api/types";
 import Image from 'next/image'
 import Rating from "../Rating";
 import CreatorCard from "../Creator/CreatorCard";
@@ -17,15 +17,17 @@ import { useCurrentLocale, useI18n } from "@/locales/client";
 import DownloadButton from "../Buttons/DownloadButton";
 import CreateTranslationForm from "../CreateTranslationForm";
 import { Suspense } from "react";
+import { convertToType } from "@/app/api/content";
 
 /**
  * The map component represents all the information displayed on a map page
  * @param map The map to display
  * @param privileged If the user is privileged to see the content
  */
-export default function Content({content, contentType}: {content: IContentDoc, contentType: ContentTypes}) {
+export default function Content({content, collectionName}: {content: IContentDoc, collectionName: CollectionNames}) {
     const t = useI18n();
     const locale = useCurrentLocale();
+    const contentType = convertToType(collectionName);
 
     let title = content.title
     let description = content.description
@@ -45,12 +47,12 @@ export default function Content({content, contentType}: {content: IContentDoc, c
     return (
         <>
         <ContentWarnings map={content} />
-        <ContentMenu slug={content.slug} creators={content.creators} status={content.status} />
+        <ContentMenu slug={content.slug} creators={content.creators} status={content.status} contentType={contentType}/>
         <div className='map_page'>
             <Image className='image_background' width={1920} height={1080} src={content.images[0]} alt=""></Image>
             <div className='map_logo_foreground'>
                 <div className='map_logo_container'>
-                    {(content.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image priority className='map_logo' width={1920} height={1080} src={(content.images) ? content.images[0] : "/defaultBanner.png"} alt={`${t('content.logo.alt1')}${content.title}${t('content.logo.alt2')}${contentType.substring(0, contentType.length - 1)}${t('content.logo.alt3')}${(content.files) ? content.files[0].minecraftVersion: ""}${t('content.logo.alt4')}${(content.creators) ? content.creators[0].username: ""}`}></Image>}
+                    {(content.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image priority className='map_logo' width={1920} height={1080} src={(content.images) ? content.images[0] : "/defaultBanner.png"} alt={`${t('content.logo.alt1')}${content.title}${t('content.logo.alt2')}${collectionName.substring(0, collectionName.length - 1)}${t('content.logo.alt3')}${(content.files) ? content.files[0].minecraftVersion: ""}${t('content.logo.alt4')}${(content.creators) ? content.creators[0].username: ""}`}></Image>}
                 </div>
             </div>
             <div className='centered_content'>
@@ -60,8 +62,8 @@ export default function Content({content, contentType}: {content: IContentDoc, c
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={content.rating} content={content} />
-                        {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} types={[ContentTypes.Maps, ContentTypes.Resourcepacks, ContentTypes.Datapacks]}/>: <></>}
-                        <Link title={t(`content.affiliates.server.${contentType}`)} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
+                        {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} types={[CollectionNames.Maps, CollectionNames.Resourcepacks, CollectionNames.Datapacks]}/>: <></>}
+                        <Link title={t(`content.affiliates.server.${collectionName}`)} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
                     </div>
                 </div>
                 <div className='map_information'>
@@ -70,7 +72,7 @@ export default function Content({content, contentType}: {content: IContentDoc, c
                     <div className='map_sidebar'>
                         <section className='map_sidebar_section'>
                             {/* <IconButton className="secondary" onClick={() =>{}}><Flag /></IconButton> */}
-                            <CreateTranslationForm type={contentType} content={content} />
+                            <CreateTranslationForm type={collectionName} content={content} />
                         </section>
                         <section className='map_sidebar_section'>
                             <h4 className='header'>{t('content.sidebar.headers.creators')}</h4>
@@ -92,9 +94,9 @@ export default function Content({content, contentType}: {content: IContentDoc, c
                 </div>
             </div>
             <MapImageSlideshow images={content.images.slice(1)} />
-            <CommentForm mapSlug={content.slug} content_type={contentType}></CommentForm>
+            <CommentForm mapSlug={content.slug} content_type={collectionName}></CommentForm>
             <Suspense fallback={<></>}>
-                <CommentsList mapSlug={content.slug} content_type={contentType}/>
+                <CommentsList mapSlug={content.slug} content_type={collectionName}/>
             </Suspense>
         </div>
         </>

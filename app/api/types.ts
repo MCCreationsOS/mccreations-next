@@ -54,7 +54,7 @@ export interface QueryOptions {
     includeTags?: string,
     excludeTags?: string,
     exclusiveStatus?: boolean,
-    contentType: ContentTypes | "content",
+    contentType: CollectionNames | "content",
     creator?: string
 }
 
@@ -63,10 +63,16 @@ export interface ErrorMessage {
     query: string | QueryOptions
 }
 
-export enum ContentTypes {
+export enum CollectionNames {
     Maps = "Maps",
     Datapacks = "datapacks",
     Resourcepacks = "resourcepacks"
+}
+
+export enum ContentTypes {
+    Maps = "map",
+    Datapacks = "datapack",
+    Resourcepacks = "resourcepack"
 }
 
 /**
@@ -142,7 +148,7 @@ export interface IComment {
     approved: boolean,
     _id: string
     slug: string,
-    content_type: ContentTypes
+    content_type: CollectionNames
 }
 
 /**
@@ -156,11 +162,20 @@ export interface IComment {
  */
 export interface IFile {
     type: string,
-    worldUrl: string,
+    url?: string,
+    worldUrl?: string,
     resourceUrl?: string,
     dataUrl?: string,
     minecraftVersion: string,
-    contentVersion: string
+    contentVersion?: string
+    changelog?: string,
+    extraFiles?: NewFile[]
+}
+
+export interface NewFile {
+    type: string,
+    url: string,
+    required: boolean,
 }
 
 export interface IUser {

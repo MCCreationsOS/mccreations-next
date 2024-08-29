@@ -8,7 +8,7 @@ import { searchContent } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
-import { ContentTypes, SortOptions, StatusOptions } from "../../api/types"
+import { CollectionNames, SortOptions, StatusOptions } from "../../api/types"
 import SearchAndFilter from "@/components/SearchAndFilter"
 import { useI18n } from "@/locales/client"
 
@@ -88,7 +88,7 @@ export default function Datapacks() {
 
     const findDatapacks = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await searchContent({contentType: ContentTypes.Datapacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await searchContent({contentType: CollectionNames.Datapacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
         setDatapacks(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
@@ -114,7 +114,7 @@ export default function Datapacks() {
     return (
         <div>
             <Menu selectedPage='datapacks'></Menu>
-            <SearchAndFilter callback={findDatapacks} contentType={ContentTypes.Datapacks}/>
+            <SearchAndFilter callback={findDatapacks} contentType={CollectionNames.Datapacks}/>
             { datapacks && datapacks.length !== 0 && (
                 <div>
                 <ContentGrid content={datapacks} linkTo="datapacks" enableSelection={true}></ContentGrid>

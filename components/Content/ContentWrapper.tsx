@@ -2,7 +2,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { fetchDatapack, fetchMap, fetchResourcepack } from "@/app/api/content";
-import { ContentTypes, IContentDoc } from "@/app/api/types";
+import { CollectionNames, IContentDoc } from "@/app/api/types";
 import { sendLog } from "@/app/api/logging";
 import Content from "./Content";
 import { useI18n } from "@/locales/client";
@@ -15,7 +15,7 @@ import { useI18n } from "@/locales/client";
 export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
     if('_id' in map) {
         return (
-            <Content content={map} contentType={ContentTypes.Maps} />
+            <Content content={map} collectionName={CollectionNames.Maps} />
         )
     } else {
         const [map, setMap] = useState<IContentDoc>()
@@ -36,7 +36,7 @@ export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
         }, [])
 
         if(map && '_id' in map) {
-           return (<Content content={map} contentType={ContentTypes.Maps} />)
+           return (<Content content={map} collectionName={CollectionNames.Maps} />)
         } else {
             sendLog("Content Wrapper", "Map Not Found")
             return (
@@ -51,7 +51,7 @@ export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
 export function DatapackWrapper({slug, datapack}: {slug: string, datapack?: any}) {
     if('_id' in datapack) {
         return (
-            <Content content={datapack} contentType={ContentTypes.Datapacks} />
+            <Content content={datapack} collectionName={CollectionNames.Datapacks} />
         )
     } else {
         const [datapack, setDatapack] = useState<IContentDoc>()
@@ -73,7 +73,7 @@ export function DatapackWrapper({slug, datapack}: {slug: string, datapack?: any}
 
 
         if(datapack && '_id' in datapack) {
-           return (<Content content={datapack} contentType={ContentTypes.Datapacks} />)
+           return (<Content content={datapack} collectionName={CollectionNames.Datapacks} />)
         } else {
             sendLog("Content Wrapper", "Datapack Not Found")
             return (
@@ -88,7 +88,7 @@ export function DatapackWrapper({slug, datapack}: {slug: string, datapack?: any}
 export function ResourcepackWrapper({slug, resourcepack}: {slug: string, resourcepack?: any}) {
     if('_id' in resourcepack) {
         return (
-            <Content content={resourcepack} contentType={ContentTypes.Resourcepacks} />
+            <Content content={resourcepack} collectionName={CollectionNames.Resourcepacks} />
         )
     } else {
         const [resourcepack, setResourcepack] = useState<IContentDoc>()
@@ -109,7 +109,7 @@ export function ResourcepackWrapper({slug, resourcepack}: {slug: string, resourc
         }, [])
 
         if(resourcepack && '_id' in resourcepack) {
-           return (<Content content={resourcepack} contentType={ContentTypes.Resourcepacks} />)
+           return (<Content content={resourcepack} collectionName={CollectionNames.Resourcepacks} />)
         } else {
             sendLog("Content Wrapper", "Resourcepack Not Found")
             return (

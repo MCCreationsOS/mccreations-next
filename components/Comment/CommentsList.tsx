@@ -2,7 +2,7 @@
 
 import CommentCard from "./CommentCard"
 import { fetchComments, postComment } from "@/app/api/community";
-import { ContentTypes, IComment, IUser, SortOptions } from "@/app/api/types";
+import { CollectionNames, IComment, IUser, SortOptions } from "@/app/api/types";
 import { getUser } from "@/app/api/auth";
 import { useI18n } from "@/locales/client";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
  * @param mapSlug The slug of the map - Not currently used
  * @param comments The comments to display 
  */
-export default function CommentsList({mapSlug, content_type}: {mapSlug: string, content_type: ContentTypes}) {
+export default function CommentsList({mapSlug, content_type}: {mapSlug: string, content_type: CollectionNames}) {
     const t = useI18n();
     const [comments, setComments] = useState<IComment[] | undefined>()
 

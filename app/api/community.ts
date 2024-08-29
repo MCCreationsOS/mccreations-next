@@ -1,5 +1,5 @@
 import { revalidateTag } from "next/cache";
-import { ContentTypes, IComment, IContentDoc, QueryOptions } from "@/app/api/types";
+import { CollectionNames, IComment, IContentDoc, QueryOptions } from "@/app/api/types";
 import { formatQueryOptions } from "./content";
 
 /**

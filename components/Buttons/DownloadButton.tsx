@@ -1,12 +1,12 @@
 'use client'
 import { downloadMap } from "@/app/api/content"
 import MainButton from "./MainButton"
-import { ContentTypes, IFile } from "@/app/api/types";
+import { CollectionNames, IFile } from "@/app/api/types";
 
-export default function DownloadButton({slug, file, types}: {slug: string, file: IFile, types: ContentTypes[]}) {
+export default function DownloadButton({slug, file, types}: {slug: string, file: IFile, types: CollectionNames[]}) {
     const downloadButtonClicked = async () => {
         await downloadMap(slug)
-        if(types.includes(ContentTypes.Maps) && file.worldUrl) {
+        if(types.includes(CollectionNames.Maps) && file.worldUrl) {
             let a = document.createElement('a')
             a.href = file.worldUrl
             a.download = slug
@@ -14,7 +14,7 @@ export default function DownloadButton({slug, file, types}: {slug: string, file:
             a.click()
             a.remove()
         }
-        if(types.includes(ContentTypes.Resourcepacks) && file.resourceUrl) {
+        if(types.includes(CollectionNames.Resourcepacks) && file.resourceUrl) {
             let a = document.createElement('a')
             a.href = file.resourceUrl
             a.download = slug
@@ -22,7 +22,7 @@ export default function DownloadButton({slug, file, types}: {slug: string, file:
             a.click()
             a.remove()
         }
-        if(types.includes(ContentTypes.Datapacks) && file.dataUrl) {
+        if(types.includes(CollectionNames.Datapacks) && file.dataUrl) {
             let a = document.createElement('a')
             a.href = file.dataUrl
             a.download = slug

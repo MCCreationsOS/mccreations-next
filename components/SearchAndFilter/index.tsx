@@ -1,4 +1,4 @@
-import { ContentTypes, MinecraftVersion, SortOptions, StatusOptions, StatusStrings, TagCategories, TagKeys, Tags } from "@/app/api/types";
+import { CollectionNames, MinecraftVersion, SortOptions, StatusOptions, StatusStrings, TagCategories, TagKeys, Tags } from "@/app/api/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DownloadCloud, Filter } from "react-feather";
@@ -12,7 +12,7 @@ import IconButton from "../Buttons/IconButton";
 import BulkDownloadButton from "../Buttons/BulkDownloadButton";
 import { useI18n } from "@/locales/client";
 
-export default function SearchAndFilter({callback, contentType}: {callback: Function, contentType: ContentTypes}) {
+export default function SearchAndFilter({callback, contentType}: {callback: Function, contentType: CollectionNames}) {
     const searchParams = useSearchParams()
     const [filtering, setFiltering] = useState(false);
     const [tags, setTags] = useState<{[key: string]: string[]}>()

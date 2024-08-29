@@ -1,4 +1,4 @@
-import { ICreator, IContentDoc, QueryOptions, SortOptions, ContentTypes } from "./types"
+import { ICreator, IContentDoc, QueryOptions, SortOptions, CollectionNames, ContentTypes } from "./types"
 
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
@@ -51,7 +51,7 @@ export function formatQueryOptions(queryOptions: QueryOptions) {
     }
 
     if(!queryOptions.contentType) {
-        queryOptions.contentType = ContentTypes.Maps
+        queryOptions.contentType = CollectionNames.Maps
     }
 
     if(!queryOptions.creator) {
@@ -210,7 +210,7 @@ export async function fetchResourcepack(slug: string, token?: string) {
     }
 }
 
-export async function fetchTags(type: ContentTypes) {
+export async function fetchTags(type: CollectionNames) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/tags/${type}`)
         let data = await response.json();
@@ -288,7 +288,7 @@ export async function importContent(link: string, type: string, token?: string |
     }
 }
 
-export async function updateContent(map: IContentDoc, token: string | null, type: ContentTypes, dontSendDate?: boolean) {
+export async function updateContent(map: IContentDoc, token: string | null, type: CollectionNames, dontSendDate?: boolean) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/content/update`, { 
             method: 'POST',
@@ -313,7 +313,7 @@ export async function updateContent(map: IContentDoc, token: string | null, type
     }
 }
 
-export async function updateTranslation(slug: string, type: ContentTypes, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
+export async function updateTranslation(slug: string, type: CollectionNames, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/content/update_translation`, { 
             method: 'POST',
@@ -337,7 +337,7 @@ export async function updateTranslation(slug: string, type: ContentTypes, transl
     }
 }
 
-export async function deleteContent(id: any, token: string | null, contentType: ContentTypes) {
+export async function deleteContent(id: any, token: string | null, contentType: CollectionNames) {
     try {
         await fetch(`${process.env.DATA_URL}/content`, {
             method: 'DELETE',
@@ -390,5 +390,31 @@ export async function approveContent(slug: string, token: string | null) {
         throw {
             error: e
         }
+    }
+}
+
+export function convertToCollection(type: ContentTypes) {
+    switch(type) {
+        case ContentTypes.Maps:
+            return CollectionNames.Maps
+        case ContentTypes.Datapacks:
+            return CollectionNames.Datapacks
+        case ContentTypes.Resourcepacks:
+            return CollectionNames.Resourcepacks
+        default:
+            return CollectionNames.Maps
+    }
+}
+
+export function convertToType(collection: CollectionNames) {
+    switch(collection) {
+        case CollectionNames.Maps:
+            return ContentTypes.Maps
+        case CollectionNames.Datapacks:
+            return ContentTypes.Datapacks
+        case CollectionNames.Resourcepacks:
+            return ContentTypes.Resourcepacks
+        default:
+            return ContentTypes.Maps
     }
 }

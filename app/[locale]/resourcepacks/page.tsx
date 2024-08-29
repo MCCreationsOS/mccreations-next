@@ -7,7 +7,7 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
-import { ContentTypes, SortOptions, StatusOptions } from "../../api/types"
+import { CollectionNames, SortOptions, StatusOptions } from "../../api/types"
 import SearchAndFilter from "@/components/SearchAndFilter"
 import { searchContent } from "@/app/api/content"
 import { useI18n } from "@/locales/client"
@@ -88,7 +88,7 @@ export default function Resourcepacks() {
 
     const findResourcepacks = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await searchContent({contentType: ContentTypes.Resourcepacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await searchContent({contentType: CollectionNames.Resourcepacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
         setResourcepacks(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
@@ -114,7 +114,7 @@ export default function Resourcepacks() {
     return (
         <div>
             <Menu selectedPage='resourcepacks'></Menu>
-            <SearchAndFilter callback={findResourcepacks}  contentType={ContentTypes.Resourcepacks}/>
+            <SearchAndFilter callback={findResourcepacks}  contentType={CollectionNames.Resourcepacks}/>
             { resourcepacks && resourcepacks.length !== 0 && (
                 <div>
                 <ContentGrid content={resourcepacks} linkTo="resourcepacks" enableSelection={true}></ContentGrid>

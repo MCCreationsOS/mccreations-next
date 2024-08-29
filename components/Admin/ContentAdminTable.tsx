@@ -1,7 +1,7 @@
 'use client'
 
 import { approveContent, updateContent } from "@/app/api/content";
-import { ContentTypes, IContentDoc } from "@/app/api/types"
+import { CollectionNames, IContentDoc } from "@/app/api/types"
 import { FC, ReactElement, useEffect, useState } from "react";
 import MainButton from "../Buttons/MainButton";
 import styles from './table.module.css'
@@ -9,7 +9,7 @@ import { Plus, RefreshCw } from "react-feather";
 import IconButton from "../Buttons/IconButton";
 import ContentRow from "./ContentRow";
 
-export default function ContentAdminTable({contentType, jwt}: {contentType: ContentTypes, jwt: string}) {
+export default function ContentAdminTable({contentType, jwt}: {contentType: CollectionNames, jwt: string}) {
     const [maps, setMaps] = useState<IContentDoc[]>([])
     const [page, setPage] = useState(0)
     const [pages, setPages] = useState(0)

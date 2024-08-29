@@ -1,5 +1,5 @@
 'use client'
-import { ContentTypes, UserTypes } from "../../api/types";
+import { CollectionNames, UserTypes } from "../../api/types";
 import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Menu from "@/components/Menu/Menu";
@@ -39,15 +39,15 @@ export default function Page() {
         <Menu selectedPage="" />
         <Tabs tabs={[
             {
-                content: <ContentAdminTable contentType={ContentTypes.Maps} jwt={jwt!} />,
+                content: <ContentAdminTable contentType={CollectionNames.Maps} jwt={jwt!} />,
                 title: t('maps', {count: 2})
             },
             {
-                content: <ContentAdminTable contentType={ContentTypes.Datapacks} jwt={jwt!} />,
+                content: <ContentAdminTable contentType={CollectionNames.Datapacks} jwt={jwt!} />,
                 title: t('datapacks', {count: 2})
             },
             {
-                content: <ContentAdminTable contentType={ContentTypes.Resourcepacks} jwt={jwt!} />,
+                content: <ContentAdminTable contentType={CollectionNames.Resourcepacks} jwt={jwt!} />,
                 title: t('resourcepacks', {count: 2})
             },
             {
