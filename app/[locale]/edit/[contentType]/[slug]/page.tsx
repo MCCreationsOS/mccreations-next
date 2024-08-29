@@ -222,7 +222,7 @@ export default function EditContentPage({params}: {params: Params}) {
 
                     // Versions Tab
                     title: t('content.edit.versions'),
-                    content: <VersionManager contentType={collectionName} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
+                    content: <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
                         let newMap = {
                             ...map
                         }

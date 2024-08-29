@@ -9,6 +9,6 @@ import styles from './buttons.module.css'
  */
 export default function IconButton({onClick, className, children }: {onClick?: MouseEventHandler, className?: string, children: React.ReactNode}) {
     return (
-        <button type='button' onClick={onClick} className={`${(className) ? styles[className] : ""} ${styles.icon_button}`}>{children}</button>
+        <button type='button' onClick={onClick} className={`${(className) ? (styles[className]) ? styles[className] : className : ""} ${styles.icon_button}`}>{children}</button>
     )
 }

@@ -1,35 +1,24 @@
 'use client'
 import { downloadMap } from "@/app/api/content"
 import MainButton from "./MainButton"
-import { CollectionNames, IFile } from "@/app/api/types";
+import { CollectionNames, IFile, NewFile } from "@/app/api/types";
 
-export default function DownloadButton({slug, file, types}: {slug: string, file: IFile, types: CollectionNames[]}) {
+export default function DownloadButton({slug, file}: {slug: string, file: IFile}) {
     const downloadButtonClicked = async () => {
         await downloadMap(slug)
-        if(types.includes(CollectionNames.Maps) && file.worldUrl) {
+
+        let files: NewFile[] = [{url: file.url ?? file.worldUrl ?? file.dataUrl ?? file.resourceUrl ?? "", required: true, type: file.type}]
+        file.extraFiles && files.push(...file.extraFiles)
+
+        files.forEach((file) => {
+            if(!file.required) return
             let a = document.createElement('a')
-            a.href = file.worldUrl
+            a.href = file.url
             a.download = slug
             a.target = '_blank'
             a.click()
             a.remove()
-        }
-        if(types.includes(CollectionNames.Resourcepacks) && file.resourceUrl) {
-            let a = document.createElement('a')
-            a.href = file.resourceUrl
-            a.download = slug
-            a.target = '_blank'
-            a.click()
-            a.remove()
-        }
-        if(types.includes(CollectionNames.Datapacks) && file.dataUrl) {
-            let a = document.createElement('a')
-            a.href = file.dataUrl
-            a.download = slug
-            a.target = '_blank'
-            a.click()
-            a.remove()
-        }
+        })
     }
 
     return (

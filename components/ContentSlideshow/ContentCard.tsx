@@ -1,6 +1,6 @@
 'use client'
 
-import { CollectionNames, IContentDoc } from "@/app/api/types"
+import { CollectionNames, IContentDoc, NewFile } from "@/app/api/types"
 import Image from "next/image"
 import Link from "next/link"
 import { shimmer, toBase64 } from "../skeletons/imageShimmer"
@@ -80,31 +80,20 @@ export default function ContentCard(props: IContentCardProps) {
     }
 
     const downloadButtonClicked = async () => {
+        let file = props.content.files[0]
         await downloadMap(props.content.slug)
-        if(props.content.type === "map" && props.content.files[0].worldUrl) {
+        let files: NewFile[] = [{url: file.url ?? file.worldUrl ?? file.dataUrl ?? file.resourceUrl ?? "", required: true, type: file.type}]
+        file.extraFiles && files.push(...file.extraFiles)
+
+        files.forEach((file) => {
+            if(!file.required) return
             let a = document.createElement('a')
-            a.href = props.content.files[0].worldUrl
+            a.href = file.url
             a.download = props.content.slug
             a.target = '_blank'
             a.click()
             a.remove()
-        }
-        if(props.content.type === "resourcepack" && props.content.files[0].resourceUrl) {
-            let a = document.createElement('a')
-            a.href = props.content.files[0].worldUrl
-            a.download = props.content.slug
-            a.target = '_blank'
-            a.click()
-            a.remove()
-        }
-        if(props.content.type === "datapack" && props.content.files[0].dataUrl) {
-            let a = document.createElement('a')
-            a.href = props.content.files[0].worldUrl
-            a.download = props.content.slug
-            a.target = '_blank'
-            a.click()
-            a.remove()
-        }
+        })
     }
 
     return (
