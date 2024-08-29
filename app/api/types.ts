@@ -169,7 +169,8 @@ export interface IFile {
     minecraftVersion: string,
     contentVersion?: string
     changelog?: string,
-    extraFiles?: NewFile[]
+    extraFiles?: NewFile[],
+    createdDate: number,
 }
 
 export interface NewFile {

@@ -229,7 +229,7 @@ export default function EditContentPage({params}: {params: Params}) {
                         newMap.files = JSON.parse(vString)
                         
                         newMap.files.sort((a, b) => {
-                            return parseFloat(b.contentVersion + "") - parseFloat(a.contentVersion + "")
+                            return b.createdDate - a.createdDate
                         })
 
                         updateContent(newMap, token.current, collectionName).then(() => {

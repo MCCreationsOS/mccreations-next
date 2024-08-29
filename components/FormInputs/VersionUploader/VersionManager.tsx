@@ -116,7 +116,10 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                         Popup.createPopup({
                             content: <FormComponent id={`version_${versions.length}`} onSave={(inputs) => {
                                 let newVersions = (versions) ? [...versions] : []
-                                newVersions.push({ type: convertToType(collectionName), contentVersion: "1.0.0", minecraftVersion: "", url: inputs[0], extraFiles: [] })
+                                newVersions.push({ type: convertToType(collectionName), contentVersion: "1.0.0", minecraftVersion: "", url: inputs[0], extraFiles: [], createdDate: Date.now() })
+                                newVersions.sort((a, b) => {
+                                    return b.createdDate - a.createdDate
+                                })
                                 setVersions(newVersions)
                                 Popup.close()
                             }}>
