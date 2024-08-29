@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { Suspense } from 'react'
-import './styles/globals.css'
 import Loading from './loading'
 import Footer from '@/components/Footer/Footer'
 import PopupMessageComponent from '@/components/PopupMessage/PopupMessage'
@@ -37,24 +36,16 @@ export const metadata: Metadata = {
  
 export default function RootLayout({params: { locale }, children}: {params: {locale: string}, children: React.ReactNode}) {
  return (
-    <html>
-      <head>
-        <meta property="og:image:width" content="2500"></meta>
-        <meta property="og:image:height" content="1408"></meta>
-        <meta property="og:url" content="https://www.mccreations.net"></meta>
-      </head>
-      <body id="view">
-        <Provider locale={locale}>
-          <GoogleAdSense publisherId='pub-5425604215170333' />
-          <PopupMessageComponent />
-          <Suspense fallback={<Loading />}>
-              {children}
-          </Suspense>
-          <Footer></Footer>
-          <PopupComponent />
-          <Analytics />
-        </Provider>
-    </body>
-    </html>
+    
+      <Provider locale={locale}>
+        <GoogleAdSense publisherId='pub-5425604215170333' />
+        <PopupMessageComponent />
+        <Suspense fallback={<Loading />}>
+            {children}
+        </Suspense>
+        <Footer></Footer>
+        <PopupComponent />
+        <Analytics />
+      </Provider>
   )
 }

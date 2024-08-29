@@ -11,7 +11,9 @@ export default function NotFound() {
     return (
         <>
             <MenuSkeleton />
-            <h1>Page not found</h1>
+            <div className="centered-content">
+                <h1>Page not found</h1>
+            </div>
         </>
     )
 }
