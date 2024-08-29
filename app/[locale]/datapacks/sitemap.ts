@@ -16,6 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             alternates: {
                 languages: {
                     "zh-CN": `https://mccreations.net/zh_CN/datapacks/${doc.slug}`,
+                    "ru-RU": `https://mccreations.net/ru_RU/datapacks/${doc.slug}`,
                 }
             }
         }
