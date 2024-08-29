@@ -59,11 +59,11 @@ export function DatapackWrapper({slug, datapack}: {slug: string, datapack?: any}
 
         useEffect(() => {
             const getData = async (token: string) => {
-                let map = await fetchMap(slug, token)
+                let map = await fetchDatapack(slug, token)
                 if(map && '_id' in map) {
                     setDatapack(map)
                 } else if(map) {
-                    map = await fetchMap(slug, sessionStorage.getItem('temp_key') + "")
+                    map = await fetchDatapack(slug, sessionStorage.getItem('temp_key') + "")
                     setDatapack(map)
                 }
             }
@@ -96,11 +96,11 @@ export function ResourcepackWrapper({slug, resourcepack}: {slug: string, resourc
 
         useEffect(() => {
             const getData = async (token: string) => {
-                let map = await fetchMap(slug, token)
+                let map = await fetchResourcepack(slug, token)
                 if(map && '_id' in map) {
                     setResourcepack(map)
                 } else if(map) {
-                    map = await fetchMap(slug, sessionStorage.getItem('temp_key') + "")
+                    map = await fetchResourcepack(slug, sessionStorage.getItem('temp_key') + "")
                     setResourcepack(map)
                 }
             }

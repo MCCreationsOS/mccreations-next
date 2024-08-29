@@ -76,7 +76,7 @@ export default async function Page({params}: {params: Params}) {
     }  else {
         sendLog("Datapack Page", "")
         return (
-            <div>
+            <div className='centered_content'>
                 <h1>{t('content.datapack_not_found')}</h1>
             </div>
         )
