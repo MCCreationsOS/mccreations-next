@@ -130,28 +130,28 @@ export default function EditContentPage({params}: {params: Params}) {
                             if(inputs[0]) {
                                 newMap.title = inputs[0]
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.title')))
+                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.title')))
                             }
         
                             if(inputs[1]) {
                                 newMap.slug = encodeURI(inputs[1])
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
+                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
                             }
         
                             if(inputs[2]) {
                                 newMap.creators = JSON.parse(inputs[2])
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
+                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
                             }
         
                             if(inputs[3]) {
                                 newMap.shortDescription = inputs[3]
                                 if(inputs[3].length < 20) {
-                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
+                                    // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
                                 }
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.short_description')))
+                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.short_description')))
                             }
         
                             if(inputs[4]) {
@@ -161,7 +161,7 @@ export default function EditContentPage({params}: {params: Params}) {
                             if(inputs[5]) {
                                 newMap.description = inputs[5]
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
+                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
                             }
 
                             if(inputs[6]) {
@@ -171,7 +171,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                     return newMap.tags.indexOf(tag) === index
                                 })
                             } else {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
+                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
                             }
 
                             updateContent(newMap, token.current, collectionName).then((result) => {

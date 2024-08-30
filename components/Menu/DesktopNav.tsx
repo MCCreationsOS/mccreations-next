@@ -35,7 +35,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                 sessionStorage.setItem('temp_key', key.key)
             }
             if('slug' in key) {
-                router.push(`/${type}s/${key.slug}/edit`)
+                router.push(`/edit/${type}s/${key.slug}`)
             }
             if('error' in key) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, key.error))
@@ -54,7 +54,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                     sessionStorage.setItem('temp_key', res.key)
                 }
                 Popup.close()
-                router.push(`/${type.toLowerCase()}/${res.content}/edit`)
+                router.push(`/edit/${type.toLowerCase()}/${res.content}`)
             }
         } else {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.import.missing_link')))
