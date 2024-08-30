@@ -29,7 +29,7 @@ export default function InContentAdUnit() {
     return (
         <div>
         {isClient && adUnit && <>
-            <AdUnit slotId={"4342982066"} layout="custom" publisherId='ca-pub-5425604215170333' customLayout={InFeedAdUnit()}/>
+            <AdsenseComponent adClient="pub-5425604215170333" adSlot={adUnit} adFormat="auto" />
         </>
         }
         <input type="hidden" value={adUnit + ""} />
@@ -43,8 +43,23 @@ const InFeedAdUnit = () => {
             style={{display: "block"}}
             data-ad-format="fluid"
             data-ad-layout-key="-7p+f2-1p-4p+ez"
-            data-ad-client="ca-pub-5425604215170333"
+            data-ad-client="pub-5425604215170333"
             data-ad-slot="4342982066"
         />
     )
 }
+
+
+const AdsenseComponent = ({ adClient, adSlot, adFormat }: {adClient: string, adSlot: string, adFormat: string}) => {
+  useEffect(() => {
+    (window.adsbygoogle = window.adsbygoogle || []).push({});
+  }, []);
+
+  return (
+    <ins className="adsbygoogle"
+         style={{ display: 'block' }}
+         data-ad-client={adClient}
+         data-ad-slot={adSlot}
+         data-ad-format={adFormat}></ins>
+  );
+};
