@@ -48,7 +48,7 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
 
   return (
     <ins className="adsbygoogle"
-         style={{ display: 'block', width: width, height: height}}
+         style={{ display: 'block', width: width, height: height, margin: '0 auto' }}
          data-ad-client={adClient}
          data-ad-slot={adSlot}
          data-ad-format={adFormat}
