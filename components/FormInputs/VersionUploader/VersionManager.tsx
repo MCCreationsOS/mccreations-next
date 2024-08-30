@@ -46,9 +46,9 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 console.log(inputs)
                 const contentVersion = inputs[0]
                 const minecraftVersion = inputs[1]
-                const url = inputs[2]
+                const url = inputs[3]
                 const extraFiles = []
-                for (let i = 3; i < inputs.length; i += 3) {
+                for (let i = 4; i < inputs.length; i += 3) {
                     if(!inputs[i + 1] || inputs[i + 1].length > 0) continue
                     extraFiles.push({ type: inputs[i], url: inputs[i + 1], required: JSON.parse(inputs[i + 2]) })
                 }
@@ -57,7 +57,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 v.minecraftVersion = minecraftVersion
                 v.url = url
                 v.extraFiles = extraFiles
-                console.log(v)
+                setRenderVersion(v)
                 let vs = [...versions]
                 vs[idx] = v
                 setVersions(vs)
@@ -83,6 +83,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                                 let vs = [...versions]
                                 vs[idx] = v
                                 setVersions(vs)
+                                setRenderVersion(v)
                             }}><X /></IconButton>
                         </div>
                     })}
@@ -98,6 +99,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                             let vs = [...versions]
                             vs[idx] = v
                             setVersions(vs)
+                            setRenderVersion(v)
                             Popup.close()
                         }} options={{ useSaveButton: true, saveButtonContent: t('VersionManager.Version.ExtraFiles.upload_file') }}>
                             <VersionUploader name="" />
