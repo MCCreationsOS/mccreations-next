@@ -7,7 +7,6 @@ import PopupComponent from '@/components/Popup/Popup'
 import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import { Provider } from '@/components/translateProvider'
-import { GoogleAdSense } from 'next-google-adsense-betterer'
 
 
 export const metadata: Metadata = {
@@ -38,7 +37,7 @@ export default function RootLayout({params: { locale }, children}: {params: {loc
  return (
     
       <Provider locale={locale}>
-        <GoogleAdSense publisherId='pub-5425604215170333' />
+        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333" crossOrigin="anonymous"></Script>
         <PopupMessageComponent />
         <Suspense fallback={<Loading />}>
             {children}
