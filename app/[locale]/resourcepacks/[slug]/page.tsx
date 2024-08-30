@@ -36,9 +36,9 @@ parent: ResolvingMetadata
     }
    
     return {
-      title: `${resourcepack.title} Resource Pack for Minecraft ${resourcepack.files[0].minecraftVersion} on MCCreations`,
+      title: `${resourcepack.title} Resource Pack for Minecraft ${(resourcepack.files[0]) ? resourcepack.files[0].minecraftVersion : ""} on MCCreations`,
       openGraph: {
-        title: `${resourcepack.title} Resource Pack for Minecraft ${resourcepack.files[0].minecraftVersion} on MCCreations`,
+        title: `${resourcepack.title} Resource Pack for Minecraft ${(resourcepack.files[0]) ? resourcepack.files[0].minecraftVersion : ""} on MCCreations`,
         description: resourcepack.shortDescription,
         images: [
           ...resourcepack.images

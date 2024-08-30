@@ -36,9 +36,9 @@ parent: ResolvingMetadata
     }
    
     return {
-      title: `${map.title} Map for Minecraft ${map.files[0].minecraftVersion} on MCCreations`,
+      title: `${map.title} Map for Minecraft ${(map.files[0]) ? map.files[0].minecraftVersion : ""} on MCCreations`,
       openGraph: {
-        title: `${map.title} Map for Minecraft ${map.files[0].minecraftVersion} on MCCreations`,
+        title: `${map.title} Map for Minecraft ${(map.files[0]) ? map.files[0].minecraftVersion: ""} on MCCreations`,
         description: map.shortDescription,
         images: [
           ...map.images
