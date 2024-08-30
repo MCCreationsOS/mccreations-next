@@ -50,7 +50,7 @@ const InFeedAdUnit = () => {
 }
 
 
-const AdsenseComponent = ({ adClient, adSlot, adFormat }: {adClient: string, adSlot: string, adFormat: string}) => {
+const AdsenseComponent = ({ adClient, adSlot, adFormat }) => {
   useEffect(() => {
     (window.adsbygoogle = window.adsbygoogle || []).push({});
   }, []);
