@@ -28,7 +28,7 @@ export default function InContentAdUnit() {
     return (
         <div>
         {isClient && adUnit && <>
-            <AdsenseComponent adSlot={adUnit} adFormat={"auto"} adClient='ca-pub-5425604215170333'/>
+            <AdsenseComponent adSlot={adUnit} adFormat={"fluid"} adClient='ca-pub-5425604215170333' adLayout="-7p+f2-1p-4p+ez" width="100%" height="100%"/>
         </>
         }
         <input type="hidden" value={adUnit + ""} />
@@ -37,17 +37,22 @@ export default function InContentAdUnit() {
 }
 
 
-export const AdsenseComponent = ({ adClient, adSlot, adFormat }) => {
+export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, height }) => {
   useEffect(() => {
-    (window.adsbygoogle = window.adsbygoogle || []).push({});
+    try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (err) {
+      console.log(err);
+    }
   }, []);
 
   return (
     <ins className="adsbygoogle"
-         style={{ display: 'block' }}
+         style={{ display: 'block', width: width, height: height}}
          data-ad-client={adClient}
          data-ad-slot={adSlot}
          data-ad-format={adFormat}
-         data-dull-width-responsive="true"></ins>
+         data-full-width-responsive="true"
+         data-ad-layout-key={adLayout}></ins>
   );
 };

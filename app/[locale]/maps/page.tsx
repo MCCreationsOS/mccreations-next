@@ -11,6 +11,7 @@ import { Filter } from "react-feather"
 import { CollectionNames, SortOptions, StatusOptions } from "../../api/types"
 import SearchAndFilter from "@/components/SearchAndFilter"
 import { useI18n } from "@/locales/client"
+import { AdsenseComponent } from "@/components/AdUnits/InContent"
 
 // const client = contentful.createClient({
 //     space: 'xfoauilnv892',
@@ -138,6 +139,7 @@ export default function Maps() {
                 {(pages > 1) ? (page != pages -1) ? <Link href={goToPage(page + 1)}><img src="/chev-right.svg"></img></Link> : <></>: <></>}
                 {(pages > 6) ? (page != pages -1) ? <Link href={goToPage(pages - 1)}><img src="/chevs-right.svg"></img></Link> : <></>: <></>}
             </div>) }
+            <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
         </div>
     )
 }
