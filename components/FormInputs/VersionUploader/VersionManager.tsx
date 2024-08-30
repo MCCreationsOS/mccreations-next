@@ -49,6 +49,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 const url = inputs[2]
                 const extraFiles = []
                 for (let i = 3; i < inputs.length; i += 3) {
+                    if(!inputs[i + 1] || inputs[i + 1].length > 0) continue
                     extraFiles.push({ type: inputs[i], url: inputs[i + 1], required: JSON.parse(inputs[i + 2]) })
                 }
                 let v: IFile = { ...renderVersion! };
@@ -68,13 +69,14 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
             }}>{t('VersionManager.Version.delete')}</WarningButton>] }}>
                 <Text type="text" name={t('VersionManager.Version.version_number')} value={renderVersion.contentVersion} />
                 <Text type="text" name={t('VersionManager.Version.minecraft_version')} value={renderVersion.minecraftVersion} />
+                <Checkbox name={t('VersionManager.Version.Bedrock')} value={isBedrockType(renderVersion.type).toString()} description={t('VersionManager.Version.Bedrock_description')} />
                 <Text type="text" name={t('VersionManager.Version.MainFile.link')} value={renderVersion?.worldUrl ?? renderVersion?.resourceUrl ?? renderVersion?.dataUrl ?? renderVersion?.url} />
                 <div className={styles.files}>
                     {renderVersion?.extraFiles && renderVersion?.extraFiles.map((file, i) => {
                         return <div className={styles.file}>
                             <Select name={t('VersionManager.Version.ExtraFiles.file_type')} options={[{ value: ContentTypes.Maps, name: t('maps', {count: 1}) }, { value: ContentTypes.Datapacks, name: t('datapacks', {count: 1}) }, { value: ContentTypes.Resourcepacks, name: t('resourcepacks', {count: 1}) }]} value={file.type} />
                             <Text type="text" name={t('VersionManager.Version.ExtraFiles.link')} value={file.url} />
-                            <Checkbox name={t('VersionManager.Version.ExtraFiles.required')} value={file.required.toString()} />
+                            <Checkbox name={t('VersionManager.Version.ExtraFiles.required')} value={(file.required) ? file.required.toString() : "false"} description={t('VersionManager.Version.ExtraFiles.required_description')}/>
                             <IconButton className={styles.remove_button} onClick={() => {
                                 let v: IFile = { ...renderVersion! };
                                 v!.extraFiles?.splice(i, 1)
@@ -116,7 +118,25 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                         Popup.createPopup({
                             content: <FormComponent id={`version_${versions.length}`} onSave={(inputs) => {
                                 let newVersions = (versions) ? [...versions] : []
-                                newVersions.push({ type: convertToType(collectionName), contentVersion: "1.0.0", minecraftVersion: "", url: inputs[0], extraFiles: [], createdDate: Date.now() })
+
+                                let type = convertToType(collectionName)
+
+                                switch(inputs[0].substring(inputs[0].lastIndexOf('.') + 1)) {
+                                    case 'mcpack':
+                                        type = ContentTypes.BedrockResourcepacks
+                                        break
+                                    case 'mcworld':
+                                        type = ContentTypes.BedrockMaps
+                                        break
+                                    case 'mctemplate':
+                                        type = ContentTypes.BedrockMaps
+                                        break
+                                    case 'mcaddon':
+                                        type = ContentTypes.Addons
+                                        break
+                                }
+
+                                newVersions.push({ type: type, contentVersion: "1.0.0", minecraftVersion: "", url: inputs[0], extraFiles: [], createdDate: Date.now() })
                                 newVersions.sort((a, b) => {
                                     return b.createdDate - a.createdDate
                                 })
@@ -141,4 +161,8 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
             </div>
         </div>
     )
+}
+
+export function isBedrockType(type: string) {
+    return type === "bedrock_map" || type === 'bedrock_resourcepack' || type === "addon" || type === "behavior_pack"
 }

@@ -378,9 +378,9 @@ export async function requestApproval(slug: string, token: string | null) {
     }
 }
 
-export async function approveContent(slug: string, token: string | null) {
+export async function approveContent(slug: string, collectioName: CollectionNames, token: string | null) {
     try {
-        await fetch(`${process.env.DATA_URL}/content/${slug}/approve`, {
+        await fetch(`${process.env.DATA_URL}/content/${slug}/approve?contentType=${collectioName}`, {
             headers: {
                 'Authorization': token + ""
             }

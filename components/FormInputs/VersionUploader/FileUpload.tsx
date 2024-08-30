@@ -42,7 +42,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: {
-            'application/zip': ['.zip'],
+            'application/zip': ['.zip', '.mcworld', '.mcpack', '.mctemplate', '.mcaddon'],
         },
         maxFiles: 1,
         maxSize: 1024 * 101024,

@@ -35,11 +35,11 @@ export default function Checkbox(props: CheckboxProps): CheckboxElement {
 
     return (
         <div className='field'>
+            <p className={styles.description}>{props.description}</p>
             <div className={styles.checkbox_field}>
                 <IconButton className="secondary" onClick={() => {(value === "true") ? setValue("false") : setValue("true")}}>{(value === "true") ? <CheckSquare/> : <Square/>}</IconButton>
                 <h3 className='label'>{props.name}</h3>
             </div>
-            <p className={styles.description}>{props.description}</p>
             <input type='hidden' value={value} />
         </div> 
     )

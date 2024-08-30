@@ -1,9 +1,9 @@
-import { IContentDoc } from "@/app/api/types"
+import { CollectionNames, IContentDoc } from "@/app/api/types"
 import Link from "next/link"
 import { useState } from "react"
 import { Plus } from "react-feather"
 import MainButton from "../Buttons/MainButton"
-import { approveContent } from "@/app/api/content"
+import { approveContent, convertToCollection } from "@/app/api/content"
 import styles from './table.module.css'
 
 export default function ContentRow({content, addToUpdateQueue}: {content: IContentDoc, addToUpdateQueue: (map: IContentDoc) => void}) {
@@ -12,6 +12,8 @@ export default function ContentRow({content, addToUpdateQueue}: {content: IConte
     const [tags, setTags] = useState(content.tags)
     const [shortDescription, setShortDescription] = useState(content.shortDescription)
     const [creators, setCreators] = useState(content.creators)
+
+    const type = (content.type === "map") ? "Maps" : (content.type === "resourcepack") ? "Resourcepacks" : "Datapacks"
 
     const updateCreator = (idx: number, username: string, handle?: string) => {
         let newCreators = creators
@@ -37,7 +39,7 @@ export default function ContentRow({content, addToUpdateQueue}: {content: IConte
                     creators
                 })
             }}><Plus /></button>
-            {(content.status === 1) ? <MainButton onClick={() => {approveContent(content.slug, sessionStorage.getItem('jwt'))}}>Approve</MainButton> : <></> }
+            {(content.status === 1) ? <MainButton onClick={() => {approveContent(content.slug, CollectionNames[type], sessionStorage.getItem('jwt'))}}>Approve</MainButton> : <></> }
         </div>
     )
 }

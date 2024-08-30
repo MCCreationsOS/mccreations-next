@@ -72,7 +72,10 @@ export enum CollectionNames {
 export enum ContentTypes {
     Maps = "map",
     Datapacks = "datapack",
-    Resourcepacks = "resourcepack"
+    Resourcepacks = "resourcepack",
+    BedrockMaps = "bedrock_map",
+    BedrockResourcepacks = "bedrock_resourcepack",
+    Addons = "addon"
 }
 
 /**

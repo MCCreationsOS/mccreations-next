@@ -2,6 +2,7 @@
 import { downloadMap } from "@/app/api/content"
 import MainButton from "./MainButton"
 import { CollectionNames, IFile, NewFile } from "@/app/api/types";
+import { isBedrockType } from "../FormInputs/VersionUploader/VersionManager";
 
 export default function DownloadButton({slug, file}: {slug: string, file: IFile}) {
     const downloadButtonClicked = async () => {
@@ -21,7 +22,12 @@ export default function DownloadButton({slug, file}: {slug: string, file: IFile}
         })
     }
 
+    let text = "Download"
+    if(isBedrockType(file.type)) {
+        text = "Bedrock Download"
+    }
+
     return (
-        <MainButton onClick={downloadButtonClicked}>Download</MainButton>
+        <MainButton onClick={downloadButtonClicked}>{text}</MainButton>
     )
 }
