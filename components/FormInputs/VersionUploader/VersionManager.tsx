@@ -20,18 +20,22 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
     const [versions, setVersions] = useState<IFile[]>([])
     const [renderVersion, setRenderVersion] = useState<IFile>()
     const [idx, setIdx] = useState(0)
+    const [loaded, setLoaded] = useState(false)
     const t = useI18n();
 
     useEffect(() => {
-        if (versions) {
+        if (versions && loaded && JSON.stringify(versions) !== presetVersions) {
+            console.log('Versions from UseEffect', versions)
             onVersionsChanged(JSON.stringify(versions))
         }
     }, [versions])
 
     useEffect(() => {
         if (presetVersions) {
+            console.log("preset version", presetVersions)
             setVersions(JSON.parse(presetVersions))
         }
+        setLoaded(true)
     }, [])
 
     useEffect(() => {
@@ -83,7 +87,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 <Text type="text" name={t('VersionManager.Version.MainFile.link')} value={renderVersion?.worldUrl ?? renderVersion?.resourceUrl ?? renderVersion?.dataUrl ?? renderVersion?.url} />
                 <div className={styles.files}>
                     {renderVersion?.extraFiles && renderVersion?.extraFiles.map((file, i) => {
-                        return <div className={styles.file}>
+                        return <div className={styles.file} key={`extraFile_${idx}`}>
                             <Select name={t('VersionManager.Version.ExtraFiles.file_type')} options={[{ value: ContentTypes.Maps, name: t('maps', {count: 1}) }, { value: ContentTypes.Datapacks, name: t('datapacks', {count: 1}) }, { value: ContentTypes.Resourcepacks, name: t('resourcepacks', {count: 1}) }]} value={file.type} />
                             <Text type="text" name={t('VersionManager.Version.ExtraFiles.link')} value={file.url} />
                             <Checkbox name={t('VersionManager.Version.ExtraFiles.required')} value={(file.required) ? file.required.toString() : "false"} description={t('VersionManager.Version.ExtraFiles.required_description')}/>
@@ -164,7 +168,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 <div className={styles.versions}>
                     {versions && versions.map((version, idx) => {
                         return (
-                            <SecondaryButton onClick={() => {
+                            <SecondaryButton key={`version_${idx}`} onClick={() => {
                                 setRenderVersion(version)
                             }}>{version.contentVersion}</SecondaryButton>
                         )
