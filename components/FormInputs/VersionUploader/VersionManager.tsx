@@ -46,6 +46,16 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 console.log(inputs)
                 const contentVersion = inputs[0]
                 const minecraftVersion = inputs[1]
+                if(JSON.parse(inputs[2])) {
+                    switch(renderVersion.type) {
+                        case ContentTypes.Maps:
+                            renderVersion.type = ContentTypes.BedrockMaps
+                            break
+                        case ContentTypes.Resourcepacks:
+                            renderVersion.type = ContentTypes.BedrockResourcepacks
+                            break
+                    }
+                }
                 const url = inputs[3]
                 const extraFiles = []
                 for (let i = 4; i < inputs.length; i += 3) {
