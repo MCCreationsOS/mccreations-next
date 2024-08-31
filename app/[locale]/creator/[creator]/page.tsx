@@ -6,6 +6,46 @@ import ContentArea from "@/components/ContentArea/ContentArea"
 import ProfileCard from "@/components/Profile/ProfileCard"
 import { IUser } from "@/app/api/types";
 import { getI18n } from "@/locales/server";
+import { Metadata, ResolvingMetadata } from "next"
+
+export async function generateMetadata({ params }: {params: Params}, parent: ResolvingMetadata): Promise<Metadata> {
+    const id = params.creator
+   
+    // fetch data
+    const creator: IUser = await getCreator(id)
+
+    if(!creator) return {
+        title: "Creator Not Found",
+        openGraph: {
+            title: "Creator Not Found",
+            description: "This creator does not have an account on MCCreations",
+            images: [
+            {
+                url: "https://mccreations.net/defaultBanner.png"
+            }
+            ],
+            siteName: "MCCreations",
+            type: "article",
+            url: "https://mccreations.net/creator/" + id
+        }
+    }
+   
+    return {
+      title: `${creator.username} on MCCreations`,
+      description: `View ${creator.username}'s Minecraft Maps, Data Packs, Resource Packs, and more on MCCreations`,
+      openGraph: {
+        title: `${creator.username} on MCCreations`,
+        description: `View ${creator.username}'s Minecraft Maps, Data Packs, Resource Packs, and more on MCCreations`,
+        images: [
+          (creator.iconURL) ? creator.iconURL : "https://mccreations.net/defaultBanner.png"
+        ],
+        siteName: "MCCreations",
+        type: "article",
+        url: "https://mccreations.net/creator/" + creator.handle
+      }
+    }
+}
+
 
 export default async function ProfilePage({params}: {params: Params}) {
     let c = await getCreator(params.creator) as IUser

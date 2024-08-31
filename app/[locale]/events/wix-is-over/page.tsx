@@ -1,6 +1,31 @@
 import Menu from "@/components/Menu/Menu";
+import { Metadata } from "next";
 import Image from 'next/image'
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    metadataBase: new URL('https://mccreations.net'),
+    title: "Wix is Over Giveaway | MCCreations",
+    description: "Submit your Minecraft Map, Data Pack or Resource Pack for a chance to win up to $1000 throughout the month of September! There are also another $1000 in bonus prizes. MCCreations Wix is Over Giveaway.",
+    twitter: {
+      title: "Wix is Over Giveaway | MCCreations",
+      description: "Submit your Minecraft Map, Data Pack or Resource Pack for a chance to win up to $1000 throughout the month of September!",
+      card: "summary_large_image",
+      images: [
+        "https://mccreations.net/wix-is-over.jpg"
+      ]
+    },
+    openGraph: {
+      title: "Wix is Over Giveaway | MCCreations",
+      description: "Submit your Minecraft Map, Data Pack or Resource Pack for a chance to win up to $1000 throughout the month of September!",
+      images: [
+        "https://mccreations.net/wix-is-over.jpg"
+      ],
+      siteName: "MCCreations",
+      type: "website",
+      url: "https://mccreations.net/events/wix-is-over"
+    }
+  }
 
 export default function Page() {
     return (
