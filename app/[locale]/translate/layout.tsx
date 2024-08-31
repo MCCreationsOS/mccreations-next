@@ -20,7 +20,7 @@ export const metadata: Metadata = {
       ],
       siteName: "MCCreations",
       type: "website",
-      url: "https://mccreations.net/translate"
+      url: "/translate"
     }
   }
 

@@ -44,7 +44,7 @@ export default function CreateTranslationForm({content, type}: {content: IConten
                     setShortDescription(content.shortDescription)
                     setDescription(content.description)
                 }
-            }} description={<Link href="https://github.com/BenMeie/mccreations-next/blob/main/docs/translating.md">{t('content.edit.translations.missing_language')}</Link>} />
+            }} description={<Link href="/translate">{t('content.edit.translations.missing_language')}</Link>} />
             <Text name={t('content.create.title')} value={title}/>
             <Text name={t('content.create.short_description')} value={shortDescription}/>
             <RichTextInput name={t('content.edit.general.description')} value={description}/>
