@@ -3,7 +3,7 @@
 import RichText from "./RichText"
 import styles from '../Input.module.css'
 import { FormElement } from "@/components/Form/Form"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 export interface RichTextInputProps {
     name: string,
@@ -13,7 +13,11 @@ export interface RichTextInputProps {
 }
 
 export default function RichTextInput(props: RichTextInputProps): FormElement {
-    const [value, setValue] = useState(props.value || "")
+    const [value, setValue] = useState<string>()
+
+    useEffect(() => {
+        setValue(props.value)
+    }, [])
 
     return (
         <div className='field'>
