@@ -28,6 +28,7 @@ export default function FileCard({file, slug}: {file: IFile, slug: string}) {
                     <p>{(file.contentVersion) ? file.contentVersion : "1.0"}</p>
                     <IconButton onClick={() => {download(file.url!)}}>{(file.type === "map") ? <Archive /> : (file.type === 'resourcepack') ? <Layers /> : <Package />} </IconButton>
                     {file.extraFiles && file.extraFiles.map((extraFile, idx) => {
+                        if(idx > 2) return <></>
                         return <IconButton key={idx} onClick={() => {download(extraFile.url)}}>{(extraFile.type === "map") ? <Archive /> : (extraFile.type === 'resourcepack') ? <Layers /> : <Package /> }</IconButton>
                     })}
                 </div>

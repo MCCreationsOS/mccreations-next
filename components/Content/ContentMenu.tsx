@@ -11,15 +11,15 @@ import { useI18n } from "@/locales/client";
  * @param status The status of the content to be passed to the Edit Button 
  * @returns 
  */
-export default function ContentMenu({slug, creators, status, contentType}: {slug: string, creators: ICreator[], status: number, contentType: ContentTypes}) {
+export default function ContentMenu({slug, creators, status, contentType, selectedTab}: {slug: string, creators: ICreator[], status: number, contentType: ContentTypes, selectedTab?: number}) {
     const t = useI18n();
     return (
         <div className={styles.content_submenu}>
             <div className={styles.content_tabs}>
                 <Tabs tabs={[
-                    {title: t('content.info'), content: <></>, link: "/"},
-                    {title: t('content.files'), content: <></>, link: "/files", disabled: true}
-                    ]} />
+                    {title: t('content.info'), content: <></>, link: `../${slug}`},
+                    {title: t('content.files'), content: <></>, link: `./${slug}/files`},
+                    ]} preselectedTab={selectedTab}/>
                 <EditContentButton slug={slug} creators={creators} status={status} contentType={contentType}/>
             </div>
         </div>

@@ -406,7 +406,7 @@ export function convertToCollection(type: ContentTypes) {
     }
 }
 
-export function convertToType(collection: CollectionNames) {
+export function convertToType(collection?: CollectionNames) {
     switch(collection) {
         case CollectionNames.Maps:
             return ContentTypes.Maps
