@@ -396,4 +396,9 @@ export default {
     "VersionManager.Version.cancel": "Cancel",
     "VersionManager.Version.delete": "Delete",
     "VersionManager.Version.add_file": "Add File",
+
+    "Content.Files.name": "Name",
+    "Content.Files.date": "Date",
+    "Content.Files.minecraft_version": "Minecraft Version",
+    "Content.Files.download": "Download",
 } as const
