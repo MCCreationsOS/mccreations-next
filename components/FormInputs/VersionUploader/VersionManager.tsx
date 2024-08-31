@@ -63,7 +63,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 const url = inputs[3]
                 const extraFiles = []
                 for (let i = 4; i < inputs.length; i += 3) {
-                    if(!inputs[i + 1] || inputs[i + 1].length > 0) continue
+                    if(!inputs[i + 1] || inputs[i + 1].length < 0) continue
                     extraFiles.push({ type: inputs[i], url: inputs[i + 1], required: JSON.parse(inputs[i + 2]) })
                 }
                 let v: IFile = { ...renderVersion! };
