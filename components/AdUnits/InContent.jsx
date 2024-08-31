@@ -50,6 +50,11 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
 
     useEffect(() => {
         if(render) {
+            try {
+                (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (err) {
+                console.log(err);
+            }
             setTimeout(() => {
                 setRender(false)
             }, 30000)
