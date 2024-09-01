@@ -132,7 +132,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 <div>
                     <SecondaryButton onClick={() => {
                         Popup.createPopup({
-                            content: <FormComponent id={`version_${versions.length}`} onSave={(inputs) => {
+                            content: <FormComponent id={`version_${(versions) ? versions.length : 1}`} onSave={(inputs) => {
                                 let newVersions = (versions) ? [...versions] : []
 
                                 let type = convertToType(collectionName)
