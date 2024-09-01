@@ -10,9 +10,9 @@ import FormComponent from "../Form/Form";
 import Text from "../FormInputs/Text";
 import RichText from "../FormInputs/RichText";
 import { useI18n } from "@/locales/client";
+import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 
 export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: string, content_type: string}) {
-    const [username, setUsername] = useState("");
     const [comment, setComment] = useState("");
     const [user, setUser] = useState<IUser>()
     const t = useI18n();
@@ -33,18 +33,22 @@ export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: str
 
     const sendComment = async (inputs: string[]) => {
         if(user) {
-            postComment(slug, content_type, username, comment, user.handle);
+            postComment(slug, content_type, inputs[0], inputs[1], user.handle);
         } else {
-            postComment(slug, content_type, username, comment)
+            postComment(slug, content_type, inputs[0], inputs[1]);
         }
+
+        setComment("");
+
+        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.CommentForm.sent')))
     }
 
     return (
         <div className='centered_content'>
             <h2>{t('content.comments.title')}</h2>
                 <FormComponent id="commentForm" onSave={sendComment} options={{saveButtonContent: "Send"}}>
-                    <Text name={t('content.comments.username')} value={user?.username} onChange={(v) => setUsername(v)} />
-                    <RichText name={t('content.comments.comment')} value={comment} onChange={(v) => setComment(v)} />
+                    <Text name={t('content.comments.username')} value={user?.username} />
+                    <RichText name={t('content.comments.comment')} value={comment} />
                 </FormComponent>
         </div>
     )

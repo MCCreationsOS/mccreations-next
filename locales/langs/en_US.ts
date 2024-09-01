@@ -403,4 +403,6 @@ export default {
     "Content.Files.date": "Date",
     "Content.Files.minecraft_version": "Minecraft Version",
     "Content.Files.download": "Download",
+
+    "Content.CommentForm.sent": "Comment sent",
 } as const

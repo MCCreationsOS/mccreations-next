@@ -59,9 +59,7 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
                 setRender(false)
             }, 30000)
         } else {
-            setTimeout(() => {
-                setRender(true)
-            }, 1)
+            setRender(true)
         }
     }, [render])
 

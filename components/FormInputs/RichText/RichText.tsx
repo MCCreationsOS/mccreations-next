@@ -17,6 +17,7 @@ import DOMPurify from 'isomorphic-dompurify';
 import { ImageNode } from './nodes/ImageNode';
 import ImagesPlugin from './ImagePlugin';
 import { useI18n } from '@/locales/client';
+import { useState } from 'react';
 
 const theme = {
         code: 'editor-code',
@@ -82,8 +83,6 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
         } catch(e) {
           console.error(e);
         }
-      } else if(document) {
-        setTimeout(() => {document.querySelector('body')?.focus(); scrollTo(0, 0)}, 1)
       }
     });
     return <></>;
