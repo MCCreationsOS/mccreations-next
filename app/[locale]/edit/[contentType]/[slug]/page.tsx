@@ -31,7 +31,7 @@ export default function EditContentPage({params}: {params: Params}) {
     const [tags, setTags] = useState<Tags>()
     const token = useRef("")
     const t = useI18n();
-    const contentType = params.contentType as ContentTypes
+    const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
     const collectionName = convertToCollection(contentType)
     
 
