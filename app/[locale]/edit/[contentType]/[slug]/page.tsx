@@ -24,6 +24,7 @@ import SecondaryButton from "@/components/Buttons/SecondaryButton"
 import { Popup } from "@/components/Popup/Popup"
 import WarningButton from "@/components/Buttons/WarningButton"
 import Checkbox from "@/components/FormInputs/Checkbox"
+import styles from './edit.module.css'
 
 export default function EditContentPage({params}: {params: Params}) {
     const [user, setUser] = useState<IUser>()
@@ -263,18 +264,32 @@ export default function EditContentPage({params}: {params: Params}) {
                                     <Select name={t('content.edit.translations.language')} options={Locales.map(lang => {return {name: lang}})} description={<Link href="/translate">{t('content.edit.translations.missing_language')}</Link>}/>
                                 </FormComponent>})
                             }}>{t('content.edit.translations.add')}</SecondaryButton>
+                            <div className={styles.translations}>
                             {map.translations && Object.keys(map.translations).map((lang) => {
-                                return <FormComponent id={lang} onSave={(inputs) => {
-                                    let lang = inputs[0]
+                                return <div className={styles.translation}><FormComponent id={lang} onSave={(inputs) => {
                                     let translation: Translation = {
                                     }
                                     translation[lang] = {
-                                        title: inputs[1],
-                                        shortDescription: inputs[2],
-                                        description: inputs[3],
-                                        approved: (inputs[4] === "true") ? true : false
+                                        title: inputs[0],
+                                        shortDescription: inputs[1],
+                                        description: inputs[2],
+                                        approved: (inputs[3] === "true") ? true : false
                                     }
-                                    updateTranslation(map.slug, collectionName, translation, sessionStorage.getItem('jwt'))
+                                    updateTranslation(map.slug, collectionName, translation, sessionStorage.getItem('jwt')).then((d) => {
+                                        if('error' in d) {
+                                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, d.error))
+                                        } else {
+                                            let newMap = {
+                                                ...map
+                                            }
+                                            if(!newMap.translations) {
+                                                newMap.translations = {}
+                                            }
+                                            newMap.translations[lang] = translation[lang]
+                                            setMap(newMap)
+                                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.translations.saved')))
+                                        }
+                                    })
                                 }} options={{extraButtons: (<WarningButton onClick={() => {
                                     let newMap = {
                                         ...map
@@ -282,13 +297,14 @@ export default function EditContentPage({params}: {params: Params}) {
                                     delete newMap.translations![lang]
                                     setMap(newMap)
                                 }}>Delete</WarningButton>)}}>
-                                    <Select name={t('content.edit.translations.language')} options={[{name: lang}]}/>
+                                    <h2>{lang}</h2>
                                     <Text name={t('content.create.title')} value={map.translations![lang].title}/>
                                     <Text name={t('content.create.short_description')} value={map.translations![lang].shortDescription}/>
                                     <RichTextInput name={t('content.edit.general.description')} value={map.translations![lang].description}/>
                                     <Checkbox name={t('content.edit.translations.approved')} value={`${map.translations![lang].approved}`}/>
-                                </FormComponent>
+                                </FormComponent></div>
                             })}
+                            </div>
                         </>
                     }]} />
             </div>
