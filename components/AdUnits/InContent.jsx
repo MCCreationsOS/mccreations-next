@@ -50,6 +50,8 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
 
     useEffect(() => {
         if(render) {
+            let unFilledIns = document.querySelectorAll('ins.adsbygoogle[data-adsbygoogle-status="done"]');
+            if(unFilledIns.length == 0) return;
             try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             } catch (err) {
