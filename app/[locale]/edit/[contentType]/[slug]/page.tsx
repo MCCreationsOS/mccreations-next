@@ -191,14 +191,14 @@ export default function EditContentPage({params}: {params: Params}) {
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
                             })
                         }}> 
-                            <Text type="text" name={t('content.edit.general.title')} value={map?.title} />
-                            <Text type="text" name={t('content.edit.general.slug')} value={map?.slug}/>
+                            <Text type="text" name={t('content.edit.general.title')} description={t('Content.Edit.title_description')} value={map?.title} />
+                            <Text type="text" name={t('content.edit.general.slug')}  description={t('Content.Edit.slug_description')} value={map?.slug}/>
                             <CreatorSelector value={map.creators} />
-                            <Text type="text" name={t('content.edit.general.short_description')} value={map?.shortDescription} />
-                            <Text type="text" name={t('content.edit.general.video_url')} value={map?.videoUrl} />
-                            <RichTextInput name={t('content.edit.general.description')} value={map?.description} />
+                            <Text type="text" name={t('content.edit.general.short_description')} description={t('Content.Edit.short_description_description')} value={map?.shortDescription} />
+                            <Text type="text" name={t('content.edit.general.video_url')} description={t('Content.Edit.video_url_description')} value={map?.videoUrl} />
+                            <RichTextInput name={t('content.edit.general.description')} description={t('Content.Edit.description_description')} value={map?.description} />
                             {tags && Object.keys(tags).map((category, idx) => {
-                                return <Select key={idx} name={t(`tags.${category as TagCategories}`)} options={tags[category].map(tag => {
+                                return <Select key={idx} name={t(`tags.${category as TagCategories}`)} description={t(`Content.Edit.tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
                                     return {name: t(`tags.${tag as TagKeys}`), value: tag}
                                 })} multiSelect={true} value={map.tags?.filter(t => tags[category].includes(t)).join(',')}/>
                             })}

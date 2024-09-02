@@ -404,5 +404,17 @@ export default {
     "Content.Files.minecraft_version": "Minecraft Version",
     "Content.Files.download": "Download",
 
+    "Content.Edit.title_description": "The primary name of your creation. Should be short and sweet!",
+    "Content.Edit.slug_description": "The unique identifier for your creation. This will be used in the URL, like mccreations.net/maps/your-slug",
+    "Content.Edit.short_description_description": "A short description of your creation. This will be used in search results and previews.",
+    "Content.Edit.description_description": "A longer description of your creation. This will be used on the main page of your creation.",
+    "Content.Edit.video_url_description": "A link to a video of your creation. This will replace your logo on the creation page with an embedded video.",
+    "Content.Edit.tags.genre_description": "The primary category of your creation. This gives users a very general idea of how your creation plays.",
+    "Content.Edit.tags.subgenre_description": "The secondary category of your creation. This gives users a more specific idea of the contents of your creation.",
+    "Content.Edit.tags.difficulty_description": "The difficulty of your creation.",
+    "Content.Edit.tags.length_description": "The length of your creation.",
+    "Content.Edit.tags.resolution_description": "The resolution of your resourcepack.",
+    "Content.Edit.tags.theme_description": "The theme of your creation.",
+
     "Content.CommentForm.sent": "Comment sent",
 } as const
