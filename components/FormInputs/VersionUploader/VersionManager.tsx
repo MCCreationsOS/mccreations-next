@@ -88,7 +88,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 <div className={styles.files}>
                     {renderVersion?.extraFiles && renderVersion?.extraFiles.map((file, i) => {
                         return <div className={styles.file} key={`extraFile_${idx}`}>
-                            <Select name={t('VersionManager.Version.ExtraFiles.file_type')} options={[{ value: ContentTypes.Maps, name: t('maps', {count: 1}) }, { value: ContentTypes.Datapacks, name: t('datapacks', {count: 1}) }, { value: ContentTypes.Resourcepacks, name: t('resourcepacks', {count: 1}) }]} value={file.type} />
+                            <Select defaultValue="resourcepacks" name={t('VersionManager.Version.ExtraFiles.file_type')} options={[{ value: ContentTypes.Maps, name: t('maps', {count: 1}) }, { value: ContentTypes.Datapacks, name: t('datapacks', {count: 1}) }, { value: ContentTypes.Resourcepacks, name: t('resourcepacks', {count: 1}) }]} value={file.type} />
                             <Text type="text" name={t('VersionManager.Version.ExtraFiles.link')} value={file.url} />
                             <Checkbox name={t('VersionManager.Version.ExtraFiles.required')} value={(file.required) ? file.required.toString() : "false"} description={t('VersionManager.Version.ExtraFiles.required_description')}/>
                             <IconButton className={styles.remove_button} onClick={() => {
