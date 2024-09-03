@@ -1,0 +1,11 @@
+.translations {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.translation {
+    margin: 10px 10px 0 0;
+    padding: 0 10px 10px 10px;
+    background-color: #272727;
+}

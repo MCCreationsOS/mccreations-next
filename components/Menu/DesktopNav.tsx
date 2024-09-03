@@ -100,7 +100,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                                             onMapCreate(inputs[0], inputs[1], inputs[2])
                                         }}>
                                             <Text type="text" name={t('content.create.title')} placeholder={t('content.create.title_placeholder')} />
-                                            <Select name={t('content.create.type')} options={[{name: t('maps', { count: 1 }), value: 'map'}, {name: t('datapacks', {count: 1}), value: "datapack"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepack'}]} />
+                                            <Select name={t('content.create.type')} defaultValue="map" options={[{name: t('maps', { count: 1 }), value: 'map'}, {name: t('datapacks', {count: 1}), value: "datapack"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepack'}]} />
                                             <Text type="text" name={t('content.create.short_description')} />
                                         </FormComponent>
                                     }, 
@@ -112,7 +112,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                                             onSave={(inputs) => {
                                                 onMapImport(inputs[1], inputs[0])
                                             }}>
-                                                <Select name={t('content.import.type')} options={[{name: t('maps', { count: 1 }), value: 'Maps'}, {name: t('datapacks', {count: 1}), value: "datapacks"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepacks'}]} />
+                                                <Select name={t('content.import.type')} defaultValue="Maps" options={[{name: t('maps', { count: 1 }), value: 'Maps'}, {name: t('datapacks', {count: 1}), value: "datapacks"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepacks'}]} />
                                                 <Text type="text" name={t('content.import.link')} placeholder={t('content.import.link_placeholder')} />
                                             </FormComponent>
                                         </>

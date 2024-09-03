@@ -35,10 +35,10 @@ parent: ResolvingMetadata
     }
    
     return {
-      title: `${datapack.title} Data Pack for Minecraft ${(datapack.files[0]) ? datapack.files[0].minecraftVersion : ""} on MCCreations`,
+      title: `${datapack.title} Data Pack for Minecraft ${(datapack.files && datapack.files[0]) ? datapack.files[0].minecraftVersion : ""} on MCCreations`,
       description: datapack.shortDescription,
       openGraph: {
-        title: `${datapack.title} Data Pack for Minecraft ${(datapack.files[0]) ? datapack.files[0].minecraftVersion : ""} on MCCreations`,
+        title: `${datapack.title} Data Pack for Minecraft ${(datapack.files && datapack.files[0]) ? datapack.files[0].minecraftVersion : ""} on MCCreations`,
         description: datapack.shortDescription,
         images: [
           ...datapack.images

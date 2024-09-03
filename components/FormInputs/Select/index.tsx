@@ -10,7 +10,8 @@ export interface SelectProps {
     options?: ISelectOptions[],
     description?: React.ReactNode
     onChange?: (value: string) => void,
-    multiSelect?: boolean
+    multiSelect?: boolean,
+    defaultValue?: string
 }
 
 export interface ISelectOptions {
@@ -33,7 +34,16 @@ export interface SelectElement extends FormElement {
  * @returns 
  */
 export default function Select(props: SelectProps): SelectElement {
-    const [value, setValue] = useState(props.value ?? props.options?.[0].value ?? props.options?.[0].name ?? "")
+    const [value, setValue] = useState<string>("")
+
+    useEffect(() => {
+        if (props.value) {
+            setValue(props.value)
+        } else if(props.defaultValue) {
+            setValue(props.defaultValue)
+        }
+    }, [])
+
     useEffect(() => {
         (props.onChange) ? props.onChange(value + "") : ""
     }, [value])
