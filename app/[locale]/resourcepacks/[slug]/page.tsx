@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     // fetch data
     const map: IContentDoc = await fetchResourcepack(params.slug)
 
-    if (!('_id' in map)) return {
+    if (!map || !('_id' in map)) return {
         title: "Resourcepack Not Found",
         openGraph: {
             title: "Resourcepack Not Found",
@@ -28,6 +28,8 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
             url: "https://mccreations.net/resourcepacks/" + params.slug
         }
     }
+
+    if(!map.tags) map.tags = []
 
     return {
         title: `${map.title} Resourcepack for Minecraft ${(map.files && map.files[0]) ? map.files[0].minecraftVersion : ""} on MCCreations`,

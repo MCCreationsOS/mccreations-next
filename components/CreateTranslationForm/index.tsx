@@ -33,7 +33,7 @@ export default function CreateTranslationForm({content, type}: {content: IConten
             }
             updateTranslation(content.slug, type, translation, sessionStorage.getItem('jwt'))
             }}>
-            <Select name="Language" options={availableLocales.map(lang => {return {name: lang}})} onChange={(v: string) => {
+            <Select name="Language" options={availableLocales.map(lang => {return {name: lang, value: lang}})} onChange={(v: string) => {
                 if(content.translations && Object.keys(content.translations).includes(v)) {
                     let translation = content.translations[v]
                     setTitle(translation.title)
@@ -51,8 +51,8 @@ export default function CreateTranslationForm({content, type}: {content: IConten
         </FormComponent>})
     }
 
-    if(content.allowTranslations === false) return undefined
+    if(content.extraFeatures?.translations === false) return undefined
     return (
-        <SecondaryButton onClick={makeTranslation}>Translate {content.type.substring(0, 1).toUpperCase() + content.type.substring(1)} Page</SecondaryButton>
+        <SecondaryButton onClick={makeTranslation}>Translate {(content.type) ? content.type.substring(0, 1).toUpperCase() + content.type.substring(1): ""} Page</SecondaryButton>
     )
 }
