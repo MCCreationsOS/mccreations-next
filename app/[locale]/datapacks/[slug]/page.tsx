@@ -9,56 +9,68 @@ import { getI18n, getStaticParams } from '@/locales/server';
 import Content from '@/components/Content/Content';
 import { setStaticParamsLocale } from 'next-international/server';
 
-export async function generateMetadata(
-{ params }: {params: Params},
-parent: ResolvingMetadata
-): Promise<Metadata> {
-    // read route params
-    const id = params.id
+export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
     // fetch data
-    const datapack: IContentDoc = await fetchDatapack(params.slug)
+    const map: IContentDoc = await fetchDatapack(params.slug)
 
-    if(!datapack || !datapack.images) return {
+    if (!('_id' in map)) return {
         title: "Datapack Not Found",
         openGraph: {
             title: "Datapack Not Found",
             description: "Datapack Not Found",
             images: [
-            {
-                url: "https://mccreations.net/images/logo.png"
-            }
+                {
+                    url: "https://mccreations.net/images/logo.png"
+                }
             ],
             siteName: "MCCreations",
             type: "article",
             url: "https://mccreations.net/datapacks/" + params.slug
         }
     }
-   
+
     return {
-      title: `${datapack.title} Data Pack for Minecraft ${(datapack.files && datapack.files[0]) ? datapack.files[0].minecraftVersion : ""} on MCCreations`,
-      description: datapack.shortDescription,
-      openGraph: {
-        title: `${datapack.title} Data Pack for Minecraft ${(datapack.files && datapack.files[0]) ? datapack.files[0].minecraftVersion : ""} on MCCreations`,
-        description: datapack.shortDescription,
-        images: [
-          ...datapack.images
-        ],
-        siteName: "MCCreations",
-        type: "article",
-        url: "https://mccreations.net/datapacks/" + datapack.slug
-      }
+        title: `${map.title} Datapack for Minecraft ${(map.files && map.files[0]) ? map.files[0].minecraftVersion : ""} on MCCreations`,
+        description: map.shortDescription,
+        authors: map.creators.map((creator: ICreator) => { return { name: creator.username } }),
+        generator: "MCCreations",
+        keywords: map.tags.concat(["Minecraft", "Datapacks", "games", "gaming", "Minecraft Datapacks", "Minecraft Creations", "Minecraft " + map.files[0].minecraftVersion]),
+        publisher: "MCCreations",
+        openGraph: {
+            title: `${map.title} Datapack for Minecraft ${(map.files && map.files[0]) ? map.files[0].minecraftVersion : ""} on MCCreations`,
+            description: map.shortDescription,
+            images: map.images,
+            siteName: "MCCreations",
+            type: "article",
+            url: "https://mccreations.net/datapacks/" + map.slug,
+            alternateLocale: (map.translations) ? Object.keys(map.translations): [],
+            authors: map.creators.map((creator: ICreator) => { return creator.username }),
+            publishedTime: new Date(map.createdDate).toString(),
+            modifiedTime: new Date(map.updatedDate + "").toString(),
+            tags: map.tags.concat(["Minecraft", "Datapacks", "games", "gaming", "Minecraft Datapacks", "Minecraft Creations", "Minecraft " + map.files[0].minecraftVersion]),
+            videos: (map.videoUrl) ? [{ url: map.videoUrl }] : []
+        }
     }
-  }
+}
 
 
 export async function generateStaticParams() {
-    let locale = getStaticParams();
-    const maps = (await searchContent({contentType: CollectionNames.Datapacks}, false)).documents
-    let mapParams =  maps.map((map: IContentDoc) => ({
+    let locales = getStaticParams();
+    const maps = (await searchContent({ contentType: CollectionNames.Datapacks, limit: 300 }, false)).documents
+    let mapParams = maps.map((map: IContentDoc) => ({
         slug: map.slug
     }))
-    locale = locale.concat(mapParams)
-    return locale
+    let params = []
+    for (let locale of locales) {
+        for (let map of mapParams) {
+            params.push({
+                locale: locale.locale,
+                slug: map.slug
+            })
+        }
+    }
+    // console.log(params)
+    return params
 }
 
 export default async function Page({params}: {params: Params}) {

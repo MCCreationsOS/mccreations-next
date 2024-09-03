@@ -9,71 +9,82 @@ import { getI18n, getStaticParams } from '@/locales/server';
 import Content from '@/components/Content/Content';
 import { setStaticParamsLocale } from 'next-international/server';
 
-export async function generateMetadata(
-{ params }: {params: Params},
-parent: ResolvingMetadata
-): Promise<Metadata> {
-    // read route params
-    const id = params.id
-   
+export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
     // fetch data
     const map: IContentDoc = await fetchMap(params.slug)
 
-    if(!map || !map.images) return {
+    if (!('_id' in map)) return {
         title: "Map Not Found",
         openGraph: {
             title: "Map Not Found",
             description: "Map Not Found",
             images: [
-            {
-                url: "https://mccreations.net/images/logo.png"
-            }
+                {
+                    url: "https://mccreations.net/images/logo.png"
+                }
             ],
             siteName: "MCCreations",
             type: "article",
             url: "https://mccreations.net/maps/" + params.slug
         }
     }
-   
+
     return {
-      title: `${map.title} Map for Minecraft ${(map.files && map.files[0]) ? map.files[0].minecraftVersion : ""} on MCCreations`,
-      description: map.shortDescription,
-      openGraph: {
-        title: `${map.title} Map for Minecraft ${(map.files && map.files[0]) ? map.files[0].minecraftVersion: ""} on MCCreations`,
+        title: `${map.title} Map for Minecraft ${(map.files && map.files[0]) ? map.files[0].minecraftVersion : ""} on MCCreations`,
         description: map.shortDescription,
-        images: [
-          ...map.images
-        ],
-        siteName: "MCCreations",
-        type: "article",
-        url: "https://mccreations.net/maps/" + map.slug
-      }
+        authors: map.creators.map((creator: ICreator) => { return { name: creator.username } }),
+        generator: "MCCreations",
+        keywords: map.tags.concat(["Minecraft", "Maps", "games", "gaming", "Minecraft Maps", "Minecraft Creations", "Minecraft " + map.files[0].minecraftVersion]),
+        publisher: "MCCreations",
+        openGraph: {
+            title: `${map.title} Map for Minecraft ${(map.files && map.files[0]) ? map.files[0].minecraftVersion : ""} on MCCreations`,
+            description: map.shortDescription,
+            images: map.images,
+            siteName: "MCCreations",
+            type: "article",
+            url: "https://mccreations.net/maps/" + map.slug,
+            alternateLocale: (map.translations) ? Object.keys(map.translations): [],
+            authors: map.creators.map((creator: ICreator) => { return creator.username }),
+            publishedTime: new Date(map.createdDate).toString(),
+            modifiedTime: new Date(map.updatedDate + "").toString(),
+            tags: map.tags.concat(["Minecraft", "Maps", "games", "gaming", "Minecraft Maps", "Minecraft Creations", "Minecraft " + map.files[0].minecraftVersion]),
+            videos: (map.videoUrl) ? [{ url: map.videoUrl }] : []
+        }
     }
-  }
+}
 
 
 export async function generateStaticParams() {
-    let locale = getStaticParams();
-    const maps = (await searchContent({contentType: CollectionNames.Maps}, false)).documents
-    let mapParams =  maps.map((map: IContentDoc) => ({
+    let locales = getStaticParams();
+    const maps = (await searchContent({ contentType: CollectionNames.Maps, limit: 300 }, false)).documents
+    let mapParams = maps.map((map: IContentDoc) => ({
         slug: map.slug
     }))
-    locale = locale.concat(mapParams)
-    return locale
+    let params = []
+    for (let locale of locales) {
+        for (let map of mapParams) {
+            params.push({
+                locale: locale.locale,
+                slug: map.slug
+            })
+        }
+    }
+    // console.log(params)
+    return params
 }
 
-export default async function Page({params}: {params: Params}) {
+export default async function Page({ params }: { params: Params }) {
     setStaticParamsLocale(params.locale);
     const map = await fetchMap(params.slug)
     const t = await getI18n()
-    
-    if(map && '_id' in map) {
+
+    if (map && '_id' in map) {
         return (
-            <Content content={map} collectionName={CollectionNames.Maps}/>
+            <Content content={map} collectionName={CollectionNames.Maps} />
         )
     } else if (map) {
         return (
-            <MapWrapper map={map} slug={params.slug}/>
+            <MapWrapper map={map} slug={params.slug} />
         )
     } else {
         sendLog("Map Page", "")
