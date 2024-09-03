@@ -261,7 +261,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                     setMap(newMap)
                                     Popup.close();
                                 }}>
-                                    <Select name={t('content.edit.translations.language')} options={Locales.map(lang => {return {name: lang}})} description={<Link href="/translate">{t('content.edit.translations.missing_language')}</Link>}/>
+                                    <Select name={t('content.edit.translations.language')} options={Locales.map(lang => {return {name: lang, value: lang}})} description={<Link href="/translate">{t('content.edit.translations.missing_language')}</Link>}/>
                                 </FormComponent>})
                             }}>{t('content.edit.translations.add')}</SecondaryButton>
                             <div className={styles.translations}>
