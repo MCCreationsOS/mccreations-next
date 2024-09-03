@@ -15,6 +15,7 @@ import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: string, content_type: string}) {
     const [comment, setComment] = useState("");
     const [user, setUser] = useState<IUser>()
+    const [render, setRender] = useState(false);
     const t = useI18n();
     let token;
 
@@ -29,6 +30,10 @@ export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: str
             }
         }
         getData();
+
+        if(!navigator.webdriver) {
+            setRender(true);
+        }
     }, [])
 
     const sendComment = async (inputs: string[]) => {
@@ -42,6 +47,8 @@ export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: str
 
         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.CommentForm.sent')))
     }
+
+    if(!render) return;
 
     return (
         <div className='centered_content'>
