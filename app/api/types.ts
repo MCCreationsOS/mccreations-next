@@ -118,9 +118,14 @@ export interface IContentDoc {
     _id: any,
     tags: string[],
     translations?: Translation,
-    allowTranslations?: boolean,
     type: 'map' | 'datapack' | 'resourcepack',
-    allowIndexing?: boolean
+    extraFeatures?: {[key in "leaderboards" | "translations" | "indexing"]: boolean | LeaderboardFeature},
+}
+
+export interface LeaderboardFeature {
+    use: boolean,
+    message: string,
+    messageFormatting: string,
 }
 
 /**
@@ -196,6 +201,13 @@ export interface IUser {
         link: string,
         name: string
     }]
+}
+
+export interface Leaderboard {
+    _id: string,
+    type: CollectionNames,
+    slug: string,
+    scores: [{score: number, date: number, username: string, handle: string, device: "Mac" | "Windows", location: string}],
 }
 
 export enum UserTypes {
