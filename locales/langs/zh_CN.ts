@@ -413,5 +413,19 @@ export default {
     "Content.Files.date": "更新日期",
     "Content.Files.minecraft_version": "Minecraft 版本",
     "Content.Files.download": "下载",
-    "Content.CommentForm.sent": "Comment Sent"
+    "Content.CommentForm.sent": "Comment Sent",
+    "Content.Edit.extra_features": "Extra Features",
+    "Content.Edit.ExtraFeatures.Leaderboards.title": "Leaderboards",
+    "Content.Edit.ExtraFeatures.Leaderboards.message_text": "Message Text",
+    "Content.Edit.ExtraFeatures.Leaderboards.message_text_description": "Text to display to tell players to submit their score. This is sent in game when your creation ends.",
+    "Content.Edit.ExtraFeatures.Leaderboards.message_format": "Extra Formatting",
+    "Content.Edit.ExtraFeatures.Leaderboards.message_format_description": "Extra formatting to add to the tellraw message. Should be formatted like \"color\":\"green\", \"bold\": true",
+
+    "Profile.ProfileEditButton.saved": "Profile saved",
+
+    "Playlist.Parkour": "Parkour: Jump to Victory!",
+    "Playlist.Adventure": "Adventure: Explore the Unknown",
+    "Playlist.Puzzle": "Puzzle: Use your Brain",
+    "Playlist.HighlyRated": "Highly Rated",
+    "Playlist.Popular": "Popular",
 } as const
