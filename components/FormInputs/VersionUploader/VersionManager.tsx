@@ -102,6 +102,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                         </div>
                     })}
                 </div>
+                <p className={styles.extra_files_explainer}>{t('VersionManager.Version.add_file_description')}</p>
                 <SecondaryButton className={styles.add_file_button} onClick={() => {
                     Popup.createPopup({
                         content: <FormComponent id={`file${renderVersion?.extraFiles?.length}`} onSave={(inputs) => {

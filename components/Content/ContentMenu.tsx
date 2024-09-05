@@ -19,6 +19,7 @@ export default function ContentMenu({slug, creators, status, contentType, select
                 <Tabs tabs={[
                     {title: t('content.info'), content: <></>, link: `../${slug}`},
                     {title: t('content.files'), content: <></>, link: `./${slug}/files`},
+                    {title: t('Content.Leaderboards'), content: <></>, link: `/leaderboards/${contentType}s/${slug}`}
                     ]} preselectedTab={selectedTab}/>
                 <EditContentButton slug={slug} creators={creators} status={status} contentType={contentType}/>
             </div>

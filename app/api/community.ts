@@ -1,6 +1,6 @@
 import { revalidateTag } from "next/cache";
-import { CollectionNames, IComment, IContentDoc, QueryOptions } from "@/app/api/types";
-import { formatQueryOptions } from "./content";
+import { CollectionNames, ContentTypes, IComment, IContentDoc, Leaderboard, QueryOptions } from "@/app/api/types";
+import { convertToCollection, formatQueryOptions } from "./content";
 
 /**
  * Rate a map
@@ -48,7 +48,6 @@ export async function postComment(slug: string, content_type: string, username: 
                 content_type: content_type
             })
         })
-        revalidateTag(slug)
     }
     catch(e) {
         console.error(e);
@@ -98,7 +97,6 @@ export async function updateComment(comment: IComment, jwt: string = "") {
             },
             body: JSON.stringify(comment)
         })
-        revalidateTag(comment.slug)
     }
     catch(e) {
         console.error(e);
@@ -119,4 +117,39 @@ export async function getCreator(handle: string) {
         console.error(e)
     }
     return undefined;
+}
+
+export async function getLeaderboard(contentType: ContentTypes, slug: string) {
+    try {
+        let data = await fetch(`${process.env.DATA_URL}/leaderboards/${convertToCollection(contentType)}/${slug}`)
+        try {
+            let json = await data.json()
+            return json as Leaderboard;
+        } catch(e) {
+            console.error(e)
+        }
+        return undefined
+    } catch(e) {
+        console.error(e)
+    }
+    return undefined;
+}
+
+export async function submitLeaderboard(contentType: ContentTypes, slug: string, score: number, username: string, jwt: string = "") {
+    try {
+        fetch(`${process.env.DATA_URL}/leaderboards/${convertToCollection(contentType)}/${slug}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': jwt
+            },
+            body: JSON.stringify({
+                score: score,
+                username: username
+            })
+        })
+    }
+    catch(e) {
+        console.error(e);
+    }
 }

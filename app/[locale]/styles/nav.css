@@ -30,6 +30,7 @@
 .nav .brand_icon {
   width: 50px;
   image-rendering: pixelated;
+  margin-right: 5px;
 }
   
 .nav .brand_name {
@@ -51,6 +52,8 @@
     transition: 0.2s ease;
     font-size: 17px;
     position: relative;
+    display: inline-flex;
+    align-items: center;
 }
 
 .nav .link:visited {
@@ -240,6 +243,22 @@
     transform-origin: right;
     transform: scaleX(0);
     animation: fancy_anim 5s ease-out infinite;
+  }
+
+  .select_icon_text {
+    margin: 0;
+    margin-top: 3px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .select_icon {
+    margin: 0;
+    margin-right: 5px;
+    padding: 0;
+    width: 32px;
+    height: 32px;
   }
 
   @keyframes fancy_anim {

@@ -9,6 +9,7 @@ import { updateProfile } from "@/app/api/auth";
 import ImageInput from "../FormInputs/ImageDropzone";
 import Text from "../FormInputs/Text";
 import { useI18n } from "@/locales/client";
+import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 
 export default function ProfileEditButton({creator}: {creator: IUser}) {
     let token = sessionStorage.getItem('jwt')
@@ -28,6 +29,8 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
         const banner = JSON.parse(inputs[0])[0].url
         const icon = JSON.parse(inputs[1])[0].url
         updateProfile(token!, banner, icon, undefined, inputs[2])
+        Popup.close();
+        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Profile.ProfileEditButton.saved')))
     }
 
     if(token && storedCreator?.handle === creator.handle) {

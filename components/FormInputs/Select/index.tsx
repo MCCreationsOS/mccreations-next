@@ -15,8 +15,8 @@ export interface SelectProps {
 }
 
 export interface ISelectOptions {
-    name: string,
-    value?: string
+    name: React.ReactNode,
+    value: string
 }
 
 export interface SelectElement extends FormElement {
@@ -51,23 +51,23 @@ export default function Select(props: SelectProps): SelectElement {
     const isOptionSelected = (option: ISelectOptions) => {
         if (props.multiSelect) {
             let newValue = value.split(",")
-            return (newValue.includes(option.value || option.name)) ? styles.option_selected : styles.option
+            return (newValue.includes(option.value)) ? styles.option_selected : styles.option
         } else {
-            return (option.value === value || option.name === value) ? styles.option_selected : styles.option
+            return (option.value === value) ? styles.option_selected : styles.option
         }
     }
 
     const selectOption = (option: ISelectOptions) => {
         if(props.multiSelect) {
             let newValue = value.split(",")
-            if (newValue.includes(option.value || option.name)) {
+            if (newValue.includes(option.value)) {
                 newValue = newValue.filter((val) =>  !(option.value && val === option.value) && val !== option.name)
             } else {
-                newValue.push(option.value || option.name)
+                newValue.push(option.value)
             }
             setValue(newValue.join(","))
         } else {
-            setValue((option.value) ? option.value : option.name)
+            setValue(option.value)
         }
     }
 

@@ -52,6 +52,7 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
         if(onChange) {
             onChange(newCreators)
         }
+        Popup.close()
     }
 
     const removeCreator = (idx: number) => {

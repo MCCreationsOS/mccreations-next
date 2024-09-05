@@ -80,9 +80,9 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
     }, [])
 
     useEffect(() => {
-        // Revoke the data uris to avoid memory leaks
-        if(files.length > 0)
+        if(files.length > 0 && (!presetFiles || JSON.stringify(files) !== presetFiles)) {
             onImagesUploaded(files)
+        }
     }, [files])
 
     const removeFile = (name: string) => {
@@ -112,9 +112,9 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
         })
     }
 
-    return (
+    return (<>
+        {/* <MapImageSlideshow images={(files.length > 0) ? files.map(file => file.url) : ["https://mccreations.net/defaultBanner.png"]} /> */}
         <DragDropContext onDragEnd={onDragEnd}>
-            <MapImageSlideshow images={(files.length > 0) ? files.map(file => file.url) : ["https://mccreations.net/defaultBanner.png"]} />
             <Droppable droppableId="droppable" direction="horizontal">
             {(provided, snapshot) => (
                     <div ref={provided.innerRef} className={styles.gallery} {...provided.droppableProps}>
@@ -140,7 +140,7 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
             </Droppable>
             <input type='hidden' name='files' value={JSON.stringify(files)} />
         </DragDropContext>
-        
+        </>
     )
 }
 

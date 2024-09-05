@@ -2,7 +2,7 @@
 
 import { getUser } from "@/app/api/auth"
 import { convertToCollection, fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
-import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, CollectionNames, UserTypes, Locales, Translation, TagKeys, TagCategories, ContentTypes } from "@/app/api/types"
+import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, CollectionNames, UserTypes, Locales, Translation, TagKeys, TagCategories, ContentTypes, LeaderboardFeature } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
@@ -105,6 +105,146 @@ export default function EditContentPage({params}: {params: Params}) {
         }
         getData();
     }, [])
+
+    const saveGeneralForm = (inputs: string[]) => {
+        if(!map || 'error' in map) return;
+
+        let newMap = {
+            ...map
+        }
+        
+        if(inputs[0]) {
+            newMap.title = inputs[0]
+        } else {
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.title')))
+        }
+
+        if(inputs[1]) {
+            newMap.slug = encodeURI(inputs[1])
+        } else {
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
+        }
+
+        if(inputs[2]) {
+            newMap.creators = JSON.parse(inputs[2])
+        } else {
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
+        }
+
+        if(inputs[3]) {
+            newMap.shortDescription = inputs[3]
+            if(inputs[3].length < 20) {
+                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
+            }
+        } else {
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.short_description')))
+        }
+
+        if(inputs[4]) {
+            newMap.videoUrl = inputs[4]
+        }
+
+        if(inputs[5]) {
+            newMap.description = inputs[5]
+        } else {
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
+        }
+
+        if(inputs[6]) {
+            newMap.tags = inputs[6].concat("," + inputs[7]).concat("," + inputs[8]).concat("," + inputs[9]).concat("," + inputs[10]).split(',')
+            newMap.tags = newMap.tags.filter((tag) => tag.length > 0)
+            newMap.tags = newMap.tags.filter((tag, index) => {
+                return newMap.tags.indexOf(tag) === index
+            })
+        } else {
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
+        }
+
+        if(inputs[11]) {
+            if(inputs[11].includes("leaderboards")) {
+                newMap.extraFeatures = {
+                        leaderboards: {
+                            use: true,
+                            message: inputs[12],
+                            messageFormatting: inputs[13]
+                        },
+                        translations: false,
+                        indexing: false
+                    }
+            } else {
+                newMap.extraFeatures = {
+                    leaderboards: {
+                        use: false,
+                        message: "",
+                        messageFormatting: ""
+                    },
+                    translations: false,
+                    indexing: false
+                }
+            }
+        } else {
+            newMap.extraFeatures = {
+                leaderboards: {
+                    use: false,
+                    message: "",
+                    messageFormatting: ""
+                },
+                translations: false,
+                indexing: false
+            }
+        }
+
+        updateContent(newMap, token.current, collectionName).then((result) => {
+            if(result.error) {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
+                return;
+            }
+
+            if(newMap.slug !== map.slug) {
+                window.location.href = `/${newMap.type}s/${newMap.slug}/edit`
+            }
+
+            setMap(newMap)
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.general.saved')))
+        }).catch((e) => {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
+        })
+    }
+
+    const saveImagesForm = (files: UploadedImageRepresentation[]) => {
+        if(!map || 'error' in map) return;
+
+        let newMap = {
+            ...map
+        }
+        newMap.images = files.map(f => f.url)
+        updateContent(newMap, token.current, collectionName).then(() => {
+            setMap(newMap)
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.images.saved')))
+        }).catch((e) => {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
+        })
+    }
+
+    const saveVersionsForm = (versions: string) => {
+        if(!map || 'error' in map) return;
+
+        let newMap = {
+            ...map
+        }
+        newMap.files = JSON.parse(versions)
+        
+        newMap.files.sort((a, b) => {
+            return b.createdDate - a.createdDate
+        })
+
+        updateContent(newMap, token.current, collectionName).then(() => {
+            setMap(newMap)
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.versions.saved')))
+        }).catch((e) => {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
+        })
+    }
     
     if(map && '_id' in map) {
         return (
@@ -113,7 +253,16 @@ export default function EditContentPage({params}: {params: Params}) {
                 <h1>{t('content.edit.editing')} {map?.title}</h1>
                 <p>{t('content.edit.status')} {(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('status.Draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('content.edit.status.Unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('status.Approved')}</span>: <span style={{color:"#3154f4"}}>{t('status.Featured')}</span>}</p>
                 {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent")); setMap({...map, status: 1})})}}>{t('content.edit.request_approval')}</MainButton>)}
-                <Tabs preselectedTab={1} tabs={[
+                <Tabs preselectedTab={1} onChangeTabs={(to, from) => {
+                    if(from === 1) {
+                        let inputs: string[] = []
+                        document.querySelector('#general')?.querySelectorAll('input').forEach((input) => {
+                            if(input.getAttribute('name') === 'file') return;
+                            inputs.push(input.value)
+                        })
+                        saveGeneralForm(inputs)
+                    }
+                }} tabs={[
                 {
                     title: <ArrowLeft />,
                     content: <></>,
@@ -123,74 +272,7 @@ export default function EditContentPage({params}: {params: Params}) {
                     
                     // General Tab
                     title: t('content.edit.general'),
-                    content: <FormComponent id="general" onSave={(inputs) => {
-                            let newMap = {
-                                ...map
-                            }
-                            
-                            if(inputs[0]) {
-                                newMap.title = inputs[0]
-                            } else {
-                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.title')))
-                            }
-        
-                            if(inputs[1]) {
-                                newMap.slug = encodeURI(inputs[1])
-                            } else {
-                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
-                            }
-        
-                            if(inputs[2]) {
-                                newMap.creators = JSON.parse(inputs[2])
-                            } else {
-                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
-                            }
-        
-                            if(inputs[3]) {
-                                newMap.shortDescription = inputs[3]
-                                if(inputs[3].length < 20) {
-                                    // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
-                                }
-                            } else {
-                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.short_description')))
-                            }
-        
-                            if(inputs[4]) {
-                                newMap.videoUrl = inputs[4]
-                            }
-        
-                            if(inputs[5]) {
-                                newMap.description = inputs[5]
-                            } else {
-                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
-                            }
-
-                            if(inputs[6]) {
-                                newMap.tags = inputs[6].concat("," + inputs[7]).concat("," + inputs[8]).concat("," + inputs[9]).concat("," + inputs[10]).split(',')
-                                newMap.tags = newMap.tags.filter((tag) => tag.length > 0)
-                                newMap.tags = newMap.tags.filter((tag, index) => {
-                                    return newMap.tags.indexOf(tag) === index
-                                })
-                            } else {
-                                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
-                            }
-
-                            updateContent(newMap, token.current, collectionName).then((result) => {
-                                if(result.error) {
-                                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
-                                    return;
-                                }
-
-                                if(newMap.slug !== map.slug) {
-                                    window.location.href = `/${newMap.type}s/${newMap.slug}/edit`
-                                }
-
-                                setMap(newMap)
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.general.saved')))
-                            }).catch((e) => {
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
-                            })
-                        }}> 
+                    content: <FormComponent id="general" onSave={saveGeneralForm}> 
                             <Text type="text" name={t('content.edit.general.title')} description={t('Content.Edit.title_description')} value={map?.title} />
                             <Text type="text" name={t('content.edit.general.slug')}  description={t('Content.Edit.slug_description')} value={map?.slug}/>
                             <CreatorSelector value={map.creators} />
@@ -202,44 +284,26 @@ export default function EditContentPage({params}: {params: Params}) {
                                     return {name: t(`tags.${tag as TagKeys}`), value: tag}
                                 })} multiSelect={true} value={map.tags?.filter(t => tags[category].includes(t)).join(',')}/>
                             })}
+                            <Select name={t('Content.Edit.extra_features')} options={[{name: t("Content.Edit.ExtraFeatures.Leaderboards.title"), value: "leaderboards"}]} value={(map.extraFeatures) ? Object.keys(map.extraFeatures).join(",") : ""} multiSelect/>
+                            {((map.extraFeatures?.leaderboards as LeaderboardFeature)?.use !== false && (!map.files || map.files[0].url?.includes("mccreations.s3"))) && <>
+                                <p>Learn how to setup MCCreations Leaderboards <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">here</Link>. Note that leaderboards are only available for Java Edition at this time.</p>
+                                <Text name={t('Content.Edit.ExtraFeatures.Leaderboards.message_text')} value={(map.extraFeatures?.leaderboards as LeaderboardFeature).message} description={t('Content.Edit.ExtraFeatures.Leaderboards.message_text_description')}/>
+                                <Text name={t('Content.Edit.ExtraFeatures.Leaderboards.message_format')} value={(map.extraFeatures?.leaderboards as LeaderboardFeature).messageFormatting} description={t('Content.Edit.ExtraFeatures.Leaderboards.message_format_description')}/>
+                            </>}
+                            {((map.extraFeatures?.leaderboards as LeaderboardFeature)?.use !== false && (map.files && !map.files[0].url?.includes("mccreations.s3"))) && <>
+                                <p>Learn how to setup MCCreations Leaderboards <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">here</Link>. Note that leaderboards are only available for Java Edition at this time.</p>
+                            </>}
                         </FormComponent>
                     },{
 
                     // Images Tbat
                     title: t('content.edit.images'),
-                    content: <MediaGallery onImagesUploaded={(files) => {
-                        let newMap = {
-                            ...map
-                        }
-                        newMap.images = files.map(f => f.url)
-                        updateContent(newMap, token.current, collectionName).then(() => {
-                            setMap(newMap)
-                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.images.saved')))
-                        }).catch((e) => {
-                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
-                        })
-                    }} presetFiles={JSON.stringify(map?.images?.map(image => {return {url: image, name: image}}))}/>
+                    content: <MediaGallery onImagesUploaded={saveImagesForm} presetFiles={JSON.stringify(map?.images?.map(image => {return {url: image, name: image}}))}/>
                     }, {
 
                     // Versions Tab
                     title: t('content.edit.versions'),
-                    content: <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={(vString) => {
-                        let newMap = {
-                            ...map
-                        }
-                        newMap.files = JSON.parse(vString)
-                        
-                        newMap.files.sort((a, b) => {
-                            return b.createdDate - a.createdDate
-                        })
-
-                        updateContent(newMap, token.current, collectionName).then(() => {
-                            setMap(newMap)
-                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.versions.saved')))
-                        }).catch((e) => {
-                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
-                        })
-                    }} />
+                    content: <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={saveVersionsForm} />
                     },
                     {
                         title: t('content.edit.translations'),

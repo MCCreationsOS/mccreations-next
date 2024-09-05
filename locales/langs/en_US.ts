@@ -398,6 +398,9 @@ export default {
     "VersionManager.Version.cancel": "Cancel",
     "VersionManager.Version.delete": "Delete",
     "VersionManager.Version.add_file": "Add File",
+    "VersionManager.Version.add_file_description": "Add any extra files required for this creation, like resourcepacks",
+
+    "Content.Leaderboards": "Leaderboards",
 
     "Content.Files.name": "Name",
     "Content.Files.date": "Date",
@@ -417,4 +420,20 @@ export default {
     "Content.Edit.tags.theme_description": "The theme of your creation.",
 
     "Content.CommentForm.sent": "Comment sent",
+    
+    "Content.Edit.extra_features": "Extra Features",
+    "Content.Edit.ExtraFeatures.Leaderboards.title": "Leaderboards",
+    "Content.Edit.ExtraFeatures.Leaderboards.message_text": "Message Text",
+    "Content.Edit.ExtraFeatures.Leaderboards.message_text_description": "Text to display to tell players to submit their score. This is sent in game when your creation ends.",
+    "Content.Edit.ExtraFeatures.Leaderboards.message_format": "Extra Formatting",
+    "Content.Edit.ExtraFeatures.Leaderboards.message_format_description": "Extra formatting to add to the tellraw message. Should be formatted like \"color\":\"green\", \"bold\": true",
+
+    "Profile.ProfileEditButton.saved": "Profile saved",
+
+    "Playlist.Parkour": "Parkour: Jump to Victory!",
+    "Playlist.Adventure": "Adventure: Explore the Unknown",
+    "Playlist.Puzzle": "Puzzle: Use your Brain",
+    "Playlist.HighlyRated": "Highly Rated",
+    "Playlist.Popular": "Popular",
+
 } as const

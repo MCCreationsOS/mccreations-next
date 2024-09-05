@@ -47,6 +47,10 @@
     margin: 0 5px 0 0px !important;
     width: 18px;
 }
+.stats .stat img.in_text_icon {
+    width: 24px;
+    image-rendering: pixelated;
+}
 
 .quick_actions {
     position: absolute;
