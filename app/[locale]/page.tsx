@@ -21,20 +21,25 @@ export function generateStaticParams() {
 export default async function Page({ params: { locale } }: { params: { locale: string } }) {
     setStaticParamsLocale(locale)
     const t = await getI18n()
-    let dynamicPlaylists: { name: string, options: QueryOptions }[] = [{
+    let dynamicPlaylists: { name: string, id: string, options: QueryOptions }[] = [{
         name: t('Playlist.Parkour'),
+        id: "parkour",
         options: { contentType: "content", status: 2, sort: SortOptions.Newest, limit: 20, search: "parkour" }
     }, {
         name: t('Playlist.Adventure'),
+        id: "adventure",
         options: { contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20, search: "adventure" }
     }, {
         name: t('Playlist.Puzzle'),
+        id: "puzzle",
         options: { contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20, search: "puzzle" }
     }, {
         name: t('Playlist.HighlyRated'), 
+        id: "highly_rated",
         options: { contentType: 'content', status: 2, sort: SortOptions.HighestRated, limit: 20 }
     }, {
         name: t('Playlist.Popular'), 
+        id: "popular",
         options: { contentType: 'content', status: 2, sort: SortOptions.HighestDownloads, limit: 20 }
     }]
     dynamicPlaylists.sort(() => Math.random() - 0.5)
@@ -67,7 +72,7 @@ export default async function Page({ params: { locale } }: { params: { locale: s
                     <div key={index}>
                         <h2 className="playlist_header">{playlist.name}</h2>
                         <Suspense fallback={<GridSkeleton amount={4} />}>
-                            <ContentArea type="scroll" playlist={playlist.name} options={playlist.options} filterOptions={{ contentType: "content", status: 2, sort: SortOptions.Newest, limit: 5 }}/>
+                            <ContentArea type="scroll" playlist={playlist.id} options={playlist.options} filterOptions={{ contentType: "content", status: 2, sort: SortOptions.Newest, limit: 5 }}/>
                         </Suspense>
                     </div>
                 )
