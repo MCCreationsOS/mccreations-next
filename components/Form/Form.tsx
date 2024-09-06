@@ -7,7 +7,7 @@ import CreatorSelector from "../FormInputs/CreatorSelector/CreatorSelector";
 import FileDropzone from "../FormInputs/VersionUploader/FileUpload";
 import RichText from "../FormInputs/RichText/RichText";
 import MainButton from "../Buttons/MainButton";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 /**
  * A FormElement is a JSX element that represents a form element. It must have a name prop and can have a value, description, and onChange prop. The onChange prop is a function that takes in the value of the input and the index of the input in the form.
@@ -41,7 +41,7 @@ export type FormNode = FormElement | Iterable<FormNode> | undefined | React.Reac
  * @param onSave The function to call when the form is saved 
  */
 export default function FormComponent({id, children, onSave, options}: {id: string, children?: FormNode, onSave: (inputs: string[]) => void, options?: FormOptions}) {
-    const t = useI18n();
+    const t = useTranslations()
     
     const saveForm = () => {
         let inputs: string[] = []

@@ -35,7 +35,7 @@ import Text from '../Text';
 import ImageDropzone from '../ImageDropzone/ImageDropzone';
 import PopupComponent, { Popup } from '@/components/Popup/Popup';
 import SecondaryButton from '@/components/Buttons/SecondaryButton';
-import { useI18n } from '@/locales/client';
+import {useTranslations} from 'next-intl';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 
@@ -52,7 +52,7 @@ export function InsertImageUriDialogBody({
 }) {
   const [src, setSrc] = useState('');
   const [altText, setAltText] = useState('');
-  const t = useI18n();
+  const t = useTranslations()
 
   const isDisabled = src === '';
 
@@ -73,7 +73,7 @@ export function InsertImageUploadedDialogBody({
 }) {
   const [src, setSrc] = useState('');
   const [altText, setAltText] = useState('');
-  const t = useI18n();
+  const t = useTranslations()
 
   const isDisabled = src === '';
 
@@ -107,7 +107,7 @@ export function InsertImageDialog({
 }): JSX.Element {
   const [mode, setMode] = useState<null | 'url' | 'file'>(null);
   const hasModifier = useRef(false);
-  const t = useI18n();
+  const t = useTranslations()
 
   useEffect(() => {
     hasModifier.current = false;

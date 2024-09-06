@@ -3,10 +3,10 @@
 import { getUser } from "@/app/api/auth";
 import { getCreator } from "@/app/api/community";
 import { ContentTypes, ICreator, IUser } from "@/app/api/types";
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 import { useEffect, useState } from "react";
 import MainButton from "./MainButton";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 /**
  * The Edit Content button, which displays if the user is a creator of the content
@@ -16,7 +16,7 @@ import { useI18n } from "@/locales/client";
  */
 export default function EditContentButton({slug, creators, status, contentType}: {slug: string, creators: ICreator[], status: number, contentType: ContentTypes}) {
     const [user, setUser] = useState<IUser>()
-    const t = useI18n();
+    const t = useTranslations()
     useEffect(() => {
         let token = sessionStorage?.getItem('jwt')
         const getData = async () => {

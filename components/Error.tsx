@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@/app/api/navigation";
 
 export default function Error({message}: {message: string}) {
     return (

@@ -9,14 +9,14 @@ import MainButton from "../Buttons/MainButton";
 import FormComponent from "../Form/Form";
 import Text from "../FormInputs/Text";
 import RichText from "../FormInputs/RichText";
-import { useI18n } from "@/locales/client";
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
+import {useTranslations} from 'next-intl';
 
 export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: string, content_type: string}) {
     const [comment, setComment] = useState("");
     const [user, setUser] = useState<IUser>()
     const [render, setRender] = useState(false);
-    const t = useI18n();
+    const t = useTranslations()
     let token;
 
     useEffect(() => {

@@ -15,23 +15,24 @@ import Text from "@/components/FormInputs/Text"
 import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import Tabs from "@/components/Tabs/Tabs"
-import { useI18n } from "@/locales/client"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useEffect, useRef, useState } from "react"
 import { ArrowLeft } from "react-feather"
-import Link from "next/link";
+
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
 import { Popup } from "@/components/Popup/Popup"
 import WarningButton from "@/components/Buttons/WarningButton"
 import Checkbox from "@/components/FormInputs/Checkbox"
 import styles from './edit.module.css'
+import { useTranslations } from "next-intl"
+import { Link } from "@/app/api/navigation"
 
 export default function EditContentPage({params}: {params: Params}) {
     const [user, setUser] = useState<IUser>()
     const [map, setMap] = useState<IContentDoc | {error: string}>()
     const [tags, setTags] = useState<Tags>()
     const token = useRef("")
-    const t = useI18n();
+    const t = useTranslations();
     const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
     const collectionName = convertToCollection(contentType)
     

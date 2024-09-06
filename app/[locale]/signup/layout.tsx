@@ -1,4 +1,3 @@
-import { I18nProviderClient } from "@/locales/client";
 import Menu from "@/components/Menu/Menu";
 import { Metadata } from "next";
 
@@ -28,9 +27,9 @@ export const metadata: Metadata = {
 
 export default function SignUpLayout({ params: { locale }, children }: { params: { locale: string }, children: React.ReactNode}) {
     return (
-        <I18nProviderClient locale={locale}>
+        <>
         <Menu selectedPage="/" />
             {children}
-        </I18nProviderClient>
+        </>
     )
 }

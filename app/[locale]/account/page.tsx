@@ -11,7 +11,7 @@ import FormComponent, { FormElement } from "@/components/Form/Form";
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
 import WarningButton from "@/components/Buttons/WarningButton"
 import Text from "@/components/FormInputs/Text"
-import { useI18n } from "@/locales/client"
+import {useTranslations} from 'next-intl';
 
 export default function AccountPage() {
     const [email, setEmail] = useState("")
@@ -20,7 +20,7 @@ export default function AccountPage() {
     const [triedDeleteAccount, setTriedDeleteAccount] = useState(false)
     const [user, setUser] = useState({} as IUser)
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations()
     let token: string | null;
 
     useEffect(() => {
@@ -51,12 +51,12 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('account.popup.handle_updated') + inputs[0], () => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.handle_updated') + inputs[0], () => {
                     setUser({_id: user._id, username: user.username, handle: inputs[0], email: user.email, type: user.type})
                 })) 
             })
         }).catch(e => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('account.popup.error'))) 
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
             console.log(e)
         })
     }
@@ -74,12 +74,12 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('account.popup.username_updated') + inputs[0], () => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.username_updated') + inputs[0], () => {
                     setUser({_id: user._id, username: inputs[0], handle: user.handle, email: user.email, type: user.type})
                 })) 
             })
         }).catch(e => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('account.popup.error'))) 
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
             console.log(e)
         })
     }
@@ -97,12 +97,12 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('account.popup.email_updated') + inputs[0], () => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.email_updated') + inputs[0], () => {
                     setUser({_id: user._id, username: user.username, handle: user.handle, email: inputs[0]!, type: user.type})
                 })) 
             })
         }).catch(e => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('account.popup.error'))) 
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
         })
     }
 
@@ -120,11 +120,11 @@ export default function AccountPage() {
                 res.json().then(data => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
                 }).catch(e => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('account.popup.password_updated')))
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.password_updated')))
                 })
             })
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('account.popup.passwords_not_match')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.passwords_not_match')))
         }
         
     }
@@ -133,11 +133,11 @@ export default function AccountPage() {
         token = sessionStorage.getItem('jwt')
         if(!triedDeleteAccount) {
             setTriedDeleteAccount(true)
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('account.popup.delete_account_warning'))) 
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('Account.PopupMessage.delete_account_warning'))) 
         } else if(!token) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('account.popup.delete_account_auth_error'))) 
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.delete_account_auth_error'))) 
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('account.popup.delete_account_success')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.delete_account_success')))
             deleteUser(token!)
             router.push("/")
         }
@@ -146,48 +146,48 @@ export default function AccountPage() {
     return (
         <div className="popup_page">
             <div className="centered_content small">
-                <h2>{t('account.settings')}</h2>
+                <h2>{t('Account.settings')}</h2>
                 <div className="settings_option">
                     <div className="text">
-                        <h3>{t('account.username')}</h3>
+                        <h3>{t('Account.username')}</h3>
                         <p>{user.username}</p>
                     </div>
                     <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeUsername"} onSave={updateUsername}>
-                        <Text name={t('account.username')} placeholder={user.username} />
-                    </FormComponent>, title: t('account.change_username')})}}>{t('account.change_username')}</SecondaryButton>
+                        <Text name={t('Account.Popup.new_username')} placeholder={user.username} />
+                    </FormComponent>, title: t('Account.Popup.change_username')})}}>{t('Account.Popup.change_username')}</SecondaryButton>
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <h3>{t('account.handle')}</h3>
+                        <h3>{t('Account.handle')}</h3>
                         <p>{user.handle}</p>
                     </div>
                     <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeHandle"} onSave={updateHandle}>
-                        <Text name={t('account.handle')} placeholder={user.handle} />
-                    </FormComponent>, title: t('account.change_handle')})}}>{t('account.change_handle')}</SecondaryButton>
+                        <Text name={t('Account.Popup.new_handle')} placeholder={user.handle} />
+                    </FormComponent>, title: t('Account.Popup.change_handle')})}}>{t('Account.Popup.change_handle')}</SecondaryButton>
                 </div>
                     <div className="settings_option">
                     <div className="text">
-                        <h3>{t('account.email')}</h3>
+                        <h3>{t('Account.email')}</h3>
                         <p>{user.email}</p>
                     </div>
                     <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeEmail"} onSave={updateEmail}>
-                        <Text name={t('account.email')} placeholder={user.email} />    
-                    </FormComponent>, title: t('account.change_email')})}}>{t('account.change_email')}</SecondaryButton>
+                        <Text name={t('Account.Popup.new_email')} placeholder={user.email} />    
+                    </FormComponent>, title: t('Account.Popup.change_email')})}}>{t('Account.Popup.change_email')}</SecondaryButton>
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <h3>{t('account.password')}</h3>   
+                        <h3>{t('Account.password')}</h3>   
                     </div>
                     <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id="changePassword" onSave={updatePassword}>
-                        <Text name={t('account.password')} type="password" />
-                        <Text name={t('account.confirm_password')} type="password" />    
-                    </FormComponent>, title: t('account.change_password')})}}>{t('account.change_password')}</SecondaryButton>
+                        <Text name={t('Account.Popup.new_password')} type="password" />
+                        <Text name={t('Account.Popup.confirm_password')} type="password" />    
+                    </FormComponent>, title: t('Account.Popup.change_password')})}}>{t('Account.Popup.change_password')}</SecondaryButton>
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <h3>{t('account.delete_account')}</h3>
+                        <h3>{t('Account.delete_account')}</h3>
                     </div>
-                    <WarningButton onClick={deleteAccount}>{t('account.delete_account')}</WarningButton>
+                    <WarningButton onClick={deleteAccount}>{t('Account.delete_account')}</WarningButton>
                 </div>
             </div>
         </div>

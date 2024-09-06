@@ -1,19 +1,19 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import Link from 'next/link'
+import { Link } from "@/app/api/navigation";
 import Image from "next/image";
 import styles from './FeaturedSlideshow.module.css'
 import { shimmer, toBase64 } from "../skeletons/imageShimmer";
 import { IContentDoc } from "@/app/api/types";
 import MainButton from "../Buttons/MainButton";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 
 export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
     const [index, setIndex] = useState(0)
     const [slideTime, setSlideTime] = useState(720);
-    const t = useI18n();
+    const t = useTranslations()
 
     const updateSlide = () => {
         if(slideTime > 0) {

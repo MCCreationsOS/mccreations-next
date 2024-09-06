@@ -2,14 +2,14 @@
 
 import { sendPasswordResetEmail } from "@/app/api/auth"
 import MainButton from "@/components/Buttons/MainButton"
-import { useI18n } from "@/locales/client"
+import {useTranslations} from 'next-intl';
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 
 export default function ResetPage() {
     const [email, setEmail] = useState("")
     const router = useRouter()
-    const t = useI18n();
+    const t = useTranslations()
     
     const resetPassword = () => {
         sendPasswordResetEmail(email).then((data) => {

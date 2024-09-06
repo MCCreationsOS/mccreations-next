@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 import Footer from '@/components/Footer/Footer'
 import { Metadata } from 'next'
-import { I18nProviderClient } from '@/locales/client'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mccreations.net'),
@@ -29,10 +28,10 @@ export const metadata: Metadata = {
  
 export default function ResourcepacksLayout({ params: { locale }, children }: { params: { locale: string }, children: React.ReactNode}) {
  return (
-    <I18nProviderClient locale={locale}>
+    <>
           <Suspense>
               {children}
           </Suspense>
-    </I18nProviderClient>
+    </>
   )
 }

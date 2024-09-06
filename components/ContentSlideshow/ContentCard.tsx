@@ -2,7 +2,7 @@
 
 import { CollectionNames, IContentDoc, NewFile } from "@/app/api/types"
 import Image from "next/image"
-import Link from "next/link"
+import { Link } from "@/app/api/navigation";
 import { shimmer, toBase64 } from "../skeletons/imageShimmer"
 import styles from './ContentCard.module.css'
 import { useRouter } from "next/navigation"
@@ -10,8 +10,8 @@ import InContentAdUnit from "../AdUnits/InContent"
 import IconButton from "../Buttons/IconButton"
 import { Archive, Box, CheckSquare, Download, Layers, Map, Package, Square } from "react-feather"
 import { useEffect, useState } from "react"
-import { useCurrentLocale, useI18n } from "@/locales/client"
 import { downloadMap } from "@/app/api/content"
+import { useLocale, useTranslations } from "use-intl";
 
 export interface IContentCardProps {
     content: IContentDoc
@@ -33,8 +33,8 @@ export interface IContentCardProps {
 export default function ContentCard(props: IContentCardProps) {
     const [selected, setSelected] = useState(false)
     const router = useRouter()
-    const t = useI18n();
-    const locale = useCurrentLocale();
+    const t = useTranslations()
+    const locale = useLocale();
 
     useEffect(() => {
         let selectedMaps = localStorage.getItem('selectedContent')

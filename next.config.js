@@ -1,9 +1,11 @@
-const withMDX = require('@next/mdx')()
+const createNextIntlPlugin = require('next-intl/plugin')
+
+const withNextIntl = createNextIntlPlugin('./locales/i18n.ts');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    DATA_URL: 'https://api.mccreations.net',
+    DATA_URL: 'http://localhost:8080',
     LOGGING_URL: 'https://api.mccreations.net/bamboo/v1'
   },
   images: {
@@ -59,7 +61,7 @@ const nextConfig = {
   reactStrictMode: false
 }
 
-module.exports = withMDX(nextConfig)
+module.exports = withNextIntl(nextConfig)
 
 // Injected content via Sentry wizard below
 

@@ -9,7 +9,7 @@ import { ArrowLeft, X } from "react-feather"
 import Text from "../Text"
 import VersionUploader from "."
 import WarningButton from "@/components/Buttons/WarningButton"
-import { useI18n } from "@/locales/client"
+import {useTranslations} from 'next-intl';
 import { Popup } from "@/components/Popup/Popup"
 import Select from "../Select"
 import Checkbox from "../Checkbox"
@@ -21,7 +21,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
     const [renderVersion, setRenderVersion] = useState<IFile>()
     const [idx, setIdx] = useState(0)
     const [loaded, setLoaded] = useState(false)
-    const t = useI18n();
+    const t = useTranslations()
 
     useEffect(() => {
         if (versions && loaded && JSON.stringify(versions) !== presetVersions) {
@@ -45,7 +45,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
     if (renderVersion) {
         return (<div>
             <h2>{t('VersionManager.Version.edit')}</h2>
-            <SecondaryButton className={styles.button_icon_aligned} onClick={() => {setRenderVersion(undefined)}}><ArrowLeft />{t('VersionManager.Versions.back_to_versions')}</SecondaryButton>
+            <SecondaryButton className={styles.button_icon_aligned} onClick={() => {setRenderVersion(undefined)}}><ArrowLeft />{t('VersionManager.Version.back_to_versions')}</SecondaryButton>
             <FormComponent id={`version_${idx}`} onSave={(inputs) => {
                 console.log(inputs)
                 const contentVersion = inputs[0]

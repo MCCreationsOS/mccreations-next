@@ -1,5 +1,5 @@
 import Menu from "@/components/Menu/Menu";
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 
 export default function Page() {
     return (<>

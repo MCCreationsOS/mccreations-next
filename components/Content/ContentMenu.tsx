@@ -2,7 +2,7 @@ import { ContentTypes, ICreator } from "@/app/api/types";
 import Tabs from "../Tabs/Tabs";
 import styles from "./Content.module.css"
 import EditContentButton from "@/components/Buttons/EditContentButton";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 /**
  * The Tab and Edit Menu that appears on top of content pages
@@ -12,7 +12,7 @@ import { useI18n } from "@/locales/client";
  * @returns 
  */
 export default function ContentMenu({slug, creators, status, contentType, selectedTab}: {slug: string, creators: ICreator[], status: number, contentType: ContentTypes, selectedTab?: number}) {
-    const t = useI18n();
+    const t = useTranslations()
     return (
         <div className={styles.content_submenu}>
             <div className={styles.content_tabs}>

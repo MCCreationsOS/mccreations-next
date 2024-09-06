@@ -10,7 +10,7 @@ import FormComponent from "../Form/Form";
 import { fetchTags } from "@/app/api/content";
 import IconButton from "../Buttons/IconButton";
 import BulkDownloadButton from "../Buttons/BulkDownloadButton";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 export default function SearchAndFilter({callback, contentType}: {callback: Function, contentType: CollectionNames}) {
     const searchParams = useSearchParams()
@@ -32,7 +32,7 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
     const [excludeTags, setExcludeTags] = useState<string[]>([])
 
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations()
 
     useEffect(() => {
 

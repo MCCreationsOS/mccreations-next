@@ -3,15 +3,16 @@ import ContentGrid from "@/components/ContentGrid"
 import ContentCard from "@/components/ContentSlideshow/ContentCard"
 import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
-import Link from "next/link"
+import { Link } from "@/app/api/navigation";
 import { searchContent } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"
 import { CollectionNames, SortOptions, StatusOptions } from "../../api/types"
 import SearchAndFilter from "@/components/SearchAndFilter"
-import { useI18n } from "@/locales/client"
+import {useTranslations} from 'next-intl';
 import { AdsenseComponent } from "@/components/AdUnits/InContent"
+
 
 // const client = contentful.createClient({
 //     space: 'xfoauilnv892',
@@ -33,7 +34,7 @@ export default function Datapacks() {
     const [datapacks, setDatapacks] = useState([])
     const [pages, setPages] = useState(0)
     const [loading, setLoading] = useState(false)
-    const t = useI18n();
+    const t = useTranslations()
     let page = 0
     if(searchParams.get("page") != null) {
        page = (Number.parseInt(searchParams.get("page")!));

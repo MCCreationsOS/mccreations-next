@@ -5,20 +5,22 @@ import styles from './CreatorPage.module.css'
 import ContentArea from "@/components/ContentArea/ContentArea"
 import ProfileCard from "@/components/Profile/ProfileCard"
 import { IUser } from "@/app/api/types";
-import { getI18n } from "@/locales/server";
+import {useTranslations} from 'next-intl';
 import { Metadata, ResolvingMetadata } from "next"
+import { getTranslations } from "next-intl/server"
 
 export async function generateMetadata({ params }: {params: Params}, parent: ResolvingMetadata): Promise<Metadata> {
     const id = params.creator
+    const t = await getTranslations();
    
     // fetch data
     const creator: IUser = await getCreator(id)
 
     if(!creator) return {
-        title: "Creator Not Found",
+        title: t('Creator.Metadata.not_found_title'),
         openGraph: {
-            title: "Creator Not Found",
-            description: "This creator does not have an account on MCCreations",
+            title: t('Creator.Metadata.not_found_title'),
+            description: t('Creator.Metadata.not_found_description'),
             images: [
             {
                 url: "https://mccreations.net/defaultBanner.png"
@@ -31,11 +33,11 @@ export async function generateMetadata({ params }: {params: Params}, parent: Res
     }
    
     return {
-      title: `${creator.username} on MCCreations`,
-      description: `View ${creator.username}'s Minecraft Maps, Data Packs, Resource Packs, and more on MCCreations`,
+      title: t('Creator.Metadata.title', {username: creator.username}),
+      description: t('Creator.Metadata.description', {username: creator.username}),
       openGraph: {
-        title: `${creator.username} on MCCreations`,
-        description: `View ${creator.username}'s Minecraft Maps, Data Packs, Resource Packs, and more on MCCreations`,
+        title: t('Creator.Metadata.title', {username: creator.username}),
+        description: t('Creator.Metadata.description', {username: creator.username}),
         images: [
           (creator.iconURL) ? creator.iconURL : "https://mccreations.net/defaultBanner.png"
         ],
@@ -49,7 +51,7 @@ export async function generateMetadata({ params }: {params: Params}, parent: Res
 
 export default async function ProfilePage({params}: {params: Params}) {
     let c = await getCreator(params.creator) as IUser
-    let t = await getI18n();
+    let t = await getTranslations();
 
     if(!c) {
         return (

@@ -12,8 +12,8 @@ import ContentMenu from "./ContentMenu";
 import ContentWarnings from "./ContentWarnings";
 import IconButton from "../Buttons/IconButton";
 import { Server } from "react-feather";
-import Link from "next/link";
-import { useCurrentLocale, useI18n } from "@/locales/client";
+import { Link } from "@/app/api/navigation";
+import {useLocale, useTranslations} from 'next-intl';
 import DownloadButton from "../Buttons/DownloadButton";
 import CreateTranslationForm from "../CreateTranslationForm";
 import { Suspense } from "react";
@@ -26,8 +26,8 @@ import { AdsenseComponent } from "../AdUnits/InContent";
  * @param privileged If the user is privileged to see the content
  */
 export default function Content({content, collectionName}: {content: IContentDoc, collectionName: CollectionNames}) {
-    const t = useI18n();
-    const locale = useCurrentLocale();
+    const t = useTranslations()
+    const locale = useLocale();
     const contentType = convertToType(collectionName);
 
     let title = content.title

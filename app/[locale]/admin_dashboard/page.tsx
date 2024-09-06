@@ -6,13 +6,13 @@ import Menu from "@/components/Menu/Menu";
 import Tabs from "@/components/Tabs/Tabs";
 import ContentAdminTable from "@/components/Admin/ContentAdminTable";
 import { getUser } from "@/app/api/auth";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 import CommentsAdminTable from "@/components/Admin/CommentsAdminTable";
 
 export default function Page() {
     const [jwt, setJwt] = useState("")
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations()
 
     useEffect(() => {
         try {
@@ -40,19 +40,19 @@ export default function Page() {
         <Tabs tabs={[
             {
                 content: <ContentAdminTable contentType={CollectionNames.Maps} jwt={jwt!} />,
-                title: t('maps', {count: 2})
+                title: t('map', {count: 2})
             },
             {
                 content: <ContentAdminTable contentType={CollectionNames.Datapacks} jwt={jwt!} />,
-                title: t('datapacks', {count: 2})
+                title: t('datapack', {count: 2})
             },
             {
                 content: <ContentAdminTable contentType={CollectionNames.Resourcepacks} jwt={jwt!} />,
-                title: t('resourcepacks', {count: 2})
+                title: t('resourcepack', {count: 2})
             },
             {
                 content: <CommentsAdminTable jwt={jwt!} />,
-                title: t('comments', {count: 2})
+                title: t('comment', {count: 2})
             }
         ]} />
         </>

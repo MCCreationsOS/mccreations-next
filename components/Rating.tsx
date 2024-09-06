@@ -4,11 +4,11 @@ import { postRating } from "@/app/api/community";
 import { getCookie, setCookie } from "@/app/setCookies";
 import { IContentDoc } from "@/app/api/types";
 import { useState, useEffect } from "react";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 export default function Rating(props: { value: number, content: IContentDoc}) {
     const [value, setValue] = useState(props.value);
-    const t = useI18n();
+    const t = useTranslations()
     let contentId = props.content.slug;
 
 

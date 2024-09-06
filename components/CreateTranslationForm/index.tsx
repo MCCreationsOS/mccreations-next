@@ -8,15 +8,15 @@ import Text from "../FormInputs/Text";
 import RichTextInput from "../FormInputs/RichText";
 import { useState } from "react";
 import { updateTranslation } from "@/app/api/content";
-import { useI18n } from "@/locales/client";
-import Link from "next/link";
+import {useTranslations} from 'next-intl';
+import { Link } from "@/app/api/navigation";
 import SecondaryButton from "../Buttons/SecondaryButton";
 
 export default function CreateTranslationForm({content, type}: {content: IContentDoc, type: CollectionNames}) {
     const [title, setTitle] = useState(content.title)
     const [shortDescription, setShortDescription] = useState(content.shortDescription)
     const [description, setDescription] = useState(content.description)
-    const t = useI18n();
+    const t = useTranslations()
 
     const makeTranslation = () => {
         const availableLocales = Locales

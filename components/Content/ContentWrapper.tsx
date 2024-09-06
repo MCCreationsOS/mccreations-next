@@ -5,7 +5,7 @@ import { fetchDatapack, fetchMap, fetchResourcepack } from "@/app/api/content";
 import { CollectionNames, IContentDoc } from "@/app/api/types";
 import { sendLog } from "@/app/api/logging";
 import Content from "./Content";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 /**
  * Wrapper for the map component that checks whether a user should be able to view the current content

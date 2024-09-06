@@ -1,10 +1,10 @@
 import { Download, DownloadCloud } from "react-feather";
 import IconButton from "./IconButton";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 
 export default function BulkDownloadButton() {
-    const t = useI18n();
+    const t = useTranslations()
     const bulkDownload = async () => {
         let content = localStorage.getItem('selectedContent')
         if(content) {

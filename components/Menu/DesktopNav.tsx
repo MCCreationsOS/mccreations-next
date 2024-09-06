@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Link } from "@/app/api/navigation";
 import Badge from "../Badge"
 import HollowButton from "../Buttons/HollowButton"
 import FormComponent from "../Form/Form"
@@ -10,8 +10,9 @@ import { createNewContent, importContent } from "@/app/api/content"
 import { useRouter } from "next/navigation"
 import Text from "../FormInputs/Text"
 import Select from "../FormInputs/Select"
-import { useI18n } from "@/locales/client"
+import {useTranslations} from 'next-intl';
 import LanguageSwitcher from "../LanguageSwitcher"
+import { useRef } from "react"
 
 /**
  * The navbar displayed when the user is on a desktop device
@@ -20,7 +21,8 @@ import LanguageSwitcher from "../LanguageSwitcher"
  */
 export default function DesktopNav({selectedPage}: {selectedPage: string}) {
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations()
+    const uploading = useRef(false)
 
     // Because the Create button/Form Popup is attached to the Menu we need to define the functions here
     const onMapCreate = (title?: string, type?: string, shortDescription?: string) => {
@@ -44,8 +46,9 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
     }
 
     const onMapImport = async (link?: string, type?: string) => {
-        if(link && type) {
+        if(link && type && !uploading.current) {
             let token = sessionStorage.getItem('jwt')
+            uploading.current = true
             let res = await importContent(link, type, token)
             if(res.error) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))

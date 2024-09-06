@@ -2,20 +2,20 @@
 import { useRouter } from "next/navigation";
 import { Suspense, useState } from "react";
 import { SiDiscord, SiGithub, SiGoogle, SiMicrosoft } from "@icons-pack/react-simple-icons";
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 import MapScroll from "@/components/ContentScrollBackground/MapScroll";
 import { UserTypes } from "../../api/types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import MainButton from "@/components/Buttons/MainButton";
 import { sendLog } from "@/app/api/logging";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations()
 
     const signInWithEmail = () => {
         fetch(`${process.env.DATA_URL}/auth/signInWithEmail`, {

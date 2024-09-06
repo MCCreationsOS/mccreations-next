@@ -16,8 +16,7 @@ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext
 import DOMPurify from 'isomorphic-dompurify';
 import { ImageNode } from './nodes/ImageNode';
 import ImagesPlugin from './ImagePlugin';
-import { useI18n } from '@/locales/client';
-import { useState } from 'react';
+import {useTranslations} from 'next-intl';
 
 const theme = {
         code: 'editor-code',
@@ -125,7 +124,7 @@ export default function RichText({ sendOnChange, initialValue }: { sendOnChange:
         nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode],
         editable: true
     };
-    const t = useI18n();
+    const t = useTranslations()
 
     return (
         <LexicalComposer initialConfig={initialConfig}>

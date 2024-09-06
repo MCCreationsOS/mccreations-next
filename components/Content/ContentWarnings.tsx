@@ -2,10 +2,10 @@
 
 import { getUser } from "@/app/api/auth"
 import { ICreator, IContentDoc, IUser, UserTypes } from "@/app/api/types"
-import Link from "next/link"
+import { Link } from "@/app/api/navigation";
 import { useEffect, useState } from "react"
 import MessageComponent, { IMessage } from "../Message/Message"
-import { useI18n } from "@/locales/client"
+import {useTranslations} from 'next-intl';
 
 /**
  * Content warnings for the map creator(s)
@@ -13,7 +13,7 @@ import { useI18n } from "@/locales/client"
  */
 export default function ContentWarnings({map}: {map: IContentDoc}) {
     const [user, setUser] = useState<IUser>()
-    const t = useI18n();
+    const t = useTranslations()
 
     // Get the user on load
     useEffect(() => {

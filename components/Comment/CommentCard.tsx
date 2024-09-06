@@ -7,7 +7,7 @@ import { getCreator } from '@/app/api/community';
 import styles from './Comment.module.css';
 import { useEffect, useRef, useState } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
-import { useI18n } from '@/locales/client';
+import {useTranslations} from 'next-intl';
 
 /**
  * A comment

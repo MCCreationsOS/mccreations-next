@@ -1,6 +1,6 @@
 'use client'
 
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 import { Suspense, useState } from "react";
 import UserOptions from "./UserOptions";
 import PopupComponent, { Popup } from "../Popup/Popup";
@@ -12,12 +12,12 @@ import { useRouter } from "next/navigation";
 import HollowButton from "../Buttons/HollowButton";
 import Badge from "../Badge";
 import DesktopNav from "./DesktopNav";
-import { I18nProviderClient, useI18n } from "@/locales/client";
 import LanguageSwitcher from "../LanguageSwitcher";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import IconButton from "../Buttons/IconButton";
 import { X } from "react-feather";
 import { createDonation } from "@/app/api/payments";
+import { useTranslations } from "next-intl";
 
 /**
  * The menu for the site
@@ -25,7 +25,7 @@ import { createDonation } from "@/app/api/payments";
  */
 export default function Menu({selectedPage}: {selectedPage: string}) {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
-    const t = useI18n();
+    const t = useTranslations()
     const router = useRouter();
 
     const onDonate = async (amount: number) => {

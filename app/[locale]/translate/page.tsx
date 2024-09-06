@@ -5,7 +5,7 @@ import FormComponent from "@/components/Form/Form";
 import Text from "@/components/FormInputs/Text";
 import Menu from "@/components/Menu/Menu";
 import { Popup } from "@/components/Popup/Popup";
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 
 
 export default function Page() {

@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import { Link } from "@/app/api/navigation";
 import Image from "next/image";
 import download from 'public/download.svg'
 import heart from 'public/heart.svg';

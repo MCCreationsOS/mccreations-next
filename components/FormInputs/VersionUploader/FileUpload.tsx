@@ -10,12 +10,12 @@ import upload from '@/app/api/upload'
 import FormComponent from '../../Form/Form'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 import Text from '../Text'
-import { useI18n } from '@/locales/client'
+import { useTranslations } from 'next-intl'
 
 const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
     const [file, setFile] = useState<string>("")
     const [rejected, setRejected] = useState<FileRejection[]>([])
-    const t = useI18n();
+    const t = useTranslations()
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {

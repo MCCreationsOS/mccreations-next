@@ -1,6 +1,6 @@
 'use client'
 
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 import Image from "next/image";
 import { Image as ImageIcon, Trash } from "react-feather";
 import { Edit } from "react-feather";
@@ -10,15 +10,15 @@ import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getUser } from "@/app/api/auth";
 import { convertToType, deleteContent } from "@/app/api/content";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 export default function Table({collectionName}: {collectionName: CollectionNames}) {
     const [maps, setMaps] = useState<IContentDoc[]>([])
     const [user, setUser] = useState<IUser>()
     const router = useRouter();
     const jwt = useRef<string | null>(null);
-    const t = useI18n();
     const contentType = convertToType(collectionName);
+    const t = useTranslations()
 
     useEffect(() => {
 

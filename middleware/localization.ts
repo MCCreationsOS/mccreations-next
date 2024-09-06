@@ -1,9 +1,10 @@
-import { createI18nMiddleware } from 'next-international/middleware'
+import createMiddleware from 'next-intl/middleware';
 import { NextFetchEvent, NextRequest, NextResponse } from 'next/server'
 import { CustomMiddleware } from './chain'
+import { Locales } from "@/app/api/types"
  
-const I18nMiddleware = createI18nMiddleware({
-  locales: ['en-US', 'zh-CN', 'ru-RU'],
+const I18nMiddleware = createMiddleware({
+  locales: Locales,
   defaultLocale: 'en-US'
 })
 

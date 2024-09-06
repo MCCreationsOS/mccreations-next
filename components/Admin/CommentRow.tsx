@@ -1,5 +1,5 @@
 import { IComment, IContentDoc } from "@/app/api/types"
-import Link from "next/link"
+import { Link } from "@/app/api/navigation";
 import { useState } from "react"
 import styles from './table.module.css'
 import RichText from "../FormInputs/RichText/RichText"

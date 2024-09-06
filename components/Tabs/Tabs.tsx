@@ -1,6 +1,6 @@
 'use client'
 
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 import { ReactElement, useState } from "react";
 import styles from "./Tabs.module.css"
 import { useRouter } from "next/navigation";

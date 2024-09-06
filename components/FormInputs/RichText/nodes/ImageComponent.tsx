@@ -47,7 +47,7 @@ import type {
   import {$isImageNode} from './ImageNode';
   import {useSharedHistoryContext} from '../HistoryContext';
 import ImageResizer from './ImageResizer';
-import { useI18n } from '@/locales/client';
+import {useTranslations} from 'next-intl';
   
   const imageCache = new Set();
   
@@ -376,7 +376,7 @@ import { useI18n } from '@/locales/client';
   
     const draggable = isSelected && $isNodeSelection(selection) && !isResizing;
     const isFocused = isSelected || isResizing;
-    const t = useI18n();
+    const t = useTranslations()
     return (
       <Suspense fallback={null}>
         <>

@@ -1,10 +1,10 @@
 'use client'
 
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 import { useState } from "react"
 import { ArrowLeft, ArrowRight, ChevronDown, ChevronUp, X } from "react-feather";
 import styles from './Message.module.css'
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 export interface IMessage {
     type: 'Message' | 'Warning' | 'Error',
@@ -20,7 +20,7 @@ export interface IMessage {
 export default function MessageComponent({messages}: {messages: IMessage[]}) {
         const [message, setMessage] = useState(0);
         const [visible, setVisible] = useState(true);
-        const t = useI18n();
+        const t = useTranslations()
 
         if(visible && messages[message]) {
             return (

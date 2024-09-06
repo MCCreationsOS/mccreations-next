@@ -1,6 +1,6 @@
 'use client'
 
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 import { Suspense, useState } from "react";
 import PopupComponent, { Popup } from "../Popup/Popup";
 import FormComponent from "../Form/Form";

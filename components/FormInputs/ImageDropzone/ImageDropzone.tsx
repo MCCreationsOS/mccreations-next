@@ -8,7 +8,7 @@ import { UploadCloud } from 'react-feather'
 import styles from './ImageDropzone.module.css'
 import upload from '@/app/api/upload'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
-import { useI18n } from '@/locales/client'
+import { useTranslations } from 'next-intl'
 
 /**
  * The representation of an uploaded image
@@ -31,7 +31,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     // Reject files are collected, although not technically displayed
     const [rejected, setRejected] = useState<FileRejection[]>([])
-    const t = useI18n();
+    const t = useTranslations()
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {

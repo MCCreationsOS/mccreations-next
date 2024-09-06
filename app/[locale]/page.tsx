@@ -10,17 +10,12 @@ import { IContentDoc, QueryOptions, SortOptions } from "../api/types";
 import ContentArea from "@/components/ContentArea/ContentArea";
 import { Suspense } from "react";
 import GridSkeleton from "@/components/skeletons/GridSkeleton";
-import { getCurrentLocale, getI18n, getStaticParams } from "@/locales/server";
-import { setStaticParamsLocale } from 'next-international/server'
 import { AdsenseComponent } from "@/components/AdUnits/InContent";
+import { getTranslations } from "next-intl/server";
 
-export function generateStaticParams() {
-    return getStaticParams()
-}
 
 export default async function Page({ params: { locale } }: { params: { locale: string } }) {
-    setStaticParamsLocale(locale)
-    const t = await getI18n()
+    const t = await getTranslations();
     let dynamicPlaylists: { name: string, id: string, options: QueryOptions }[] = [{
         name: t('Playlist.Parkour'),
         id: "parkour",

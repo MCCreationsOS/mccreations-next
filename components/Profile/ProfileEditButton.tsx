@@ -8,14 +8,14 @@ import styles from './ProfileStyle.module.css'
 import { updateProfile } from "@/app/api/auth";
 import ImageInput from "../FormInputs/ImageDropzone";
 import Text from "../FormInputs/Text";
-import { useI18n } from "@/locales/client";
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
+import {useTranslations} from 'next-intl';
 
 export default function ProfileEditButton({creator}: {creator: IUser}) {
     let token = sessionStorage.getItem('jwt')
     let storedCreatorStr = sessionStorage.getItem('creator')
     let storedCreator: IUser | undefined;
-    const t = useI18n();
+    const t = useTranslations()
     if(storedCreatorStr) {
         try {
             storedCreator = JSON.parse(storedCreatorStr);

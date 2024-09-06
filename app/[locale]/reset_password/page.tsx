@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { resetPassword } from "@/app/api/auth";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import MainButton from "@/components/Buttons/MainButton";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 export default function Page() {
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
     const params = useSearchParams()
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations()
 
     let token: string | null
     

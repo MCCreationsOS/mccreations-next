@@ -10,9 +10,9 @@ import upload from '@/app/api/upload'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 import { UploadedImageRepresentation } from '../ImageDropzone/ImageDropzone'
 import GalleryImage from './GalleryImage'
-import { useI18n } from '@/locales/client'
 import MapImageSlideshow from '@/components/MapImageSlideshow/MapImageSlideshow'
 import { DragDropContext, Draggable, DragUpdate, Droppable, DropResult, ResponderProvided } from 'react-beautiful-dnd'
+import { useTranslations } from 'next-intl'
 
 /**
  * A gallery of images that can be uploaded
@@ -22,7 +22,7 @@ import { DragDropContext, Draggable, DragUpdate, Droppable, DropResult, Responde
 const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(files: UploadedImageRepresentation[]) : void, presetFiles?: string }) => {
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     const [rejected, setRejected] = useState<FileRejection[]>([])
-    const t = useI18n();
+    const t = useTranslations()
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {

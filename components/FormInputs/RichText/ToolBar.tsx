@@ -16,7 +16,7 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 import * as React from 'react';
 import { InsertImageDialog } from './ImagePlugin';
 import { Popup } from '@/components/Popup/Popup';
-import { useI18n } from '@/locales/client';
+import {useTranslations} from 'next-intl';
 
 const LowPriority = 1;
 
@@ -35,7 +35,7 @@ export default function ToolbarPlugin() {
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isImageCaption, setIsImageCaption] = useState(false);
-  const t = useI18n();
+  const t = useTranslations()
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();

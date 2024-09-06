@@ -1,17 +1,13 @@
-import Link from 'next/link'
+import { Link } from "@/app/api/navigation";
 import styles from './Footer.module.css'
 import MainButton from '../Buttons/MainButton'
-import { getI18n, getStaticParams } from '@/locales/server'
-
-export function generateStaticParams() {
-    return getStaticParams()
-}
+import { getTranslations } from "next-intl/server";
 
 /**
  * The footer
  */
 export default async function Footer() {
-    const t = await getI18n()
+    const t = await getTranslations()
     return (
         <>
             <footer className={styles.footer}>

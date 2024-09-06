@@ -5,7 +5,7 @@ import Text from "@/components/FormInputs/Text";
 import Menu from '@/components/Menu/Menu'
 import { PopupMessage, PopupMessageType } from '@/components/PopupMessage/PopupMessage';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
-import Link from 'next/link'
+import { Link } from "@/app/api/navigation";
 import { Suspense, useEffect, useState } from 'react';
 
 export default function Page({params}: {params: Params}) {

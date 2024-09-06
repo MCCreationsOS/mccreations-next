@@ -1,13 +1,12 @@
 import '../../styles/mapPage.css'
 import { fetchMap, searchContent } from '@/app/api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
-import { ICreator, IFile, IContentDoc, CollectionNames } from '@/app/api/types';
+import { ICreator, IFile, IContentDoc, CollectionNames, Locales } from '@/app/api/types';
 import MapWrapper from '@/components/Content/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
-import { getI18n, getStaticParams } from '@/locales/server';
 import Content from '@/components/Content/Content';
-import { setStaticParamsLocale } from 'next-international/server';
+import { getTranslations } from 'next-intl/server';
 
 export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
     // fetch data
@@ -55,16 +54,15 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
 
 
 export async function generateStaticParams() {
-    let locales = getStaticParams();
     const maps = (await searchContent({ contentType: CollectionNames.Maps, limit: 300 }, false)).documents
     let mapParams = maps.map((map: IContentDoc) => ({
         slug: map.slug
     }))
     let params = []
-    for (let locale of locales) {
+    for (let locale of Locales) {
         for (let map of mapParams) {
             params.push({
-                locale: locale.locale,
+                locale: locale,
                 slug: map.slug
             })
         }
@@ -74,9 +72,8 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: { params: Params }) {
-    setStaticParamsLocale(params.locale);
     const map = await fetchMap(params.slug)
-    const t = await getI18n()
+    const t = await getTranslations()
 
     if (map && '_id' in map) {
         return (

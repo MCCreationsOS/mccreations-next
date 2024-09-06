@@ -3,12 +3,12 @@
 import { use, useEffect, useState } from "react"
 import Image from "next/image"
 import { IUser, UserTypes } from "@/app/api/types"
-import Link from "next/link"
+import { Link } from "@/app/api/navigation";
 import { LogOut, Settings, Table, User } from "react-feather"
 import { useRouter } from "next/navigation"
 import { getUser } from "@/app/api/auth"
 import HollowButton from "../Buttons/HollowButton"
-import { useCurrentLocale, useI18n } from "@/locales/client"
+import { useTranslations } from "next-intl";
 
 /**
  * The user options menu displayed on the far right of the menu
@@ -17,7 +17,7 @@ export default function UserOptions() {
     const [user, setUser] = useState({} as IUser)
     const [showOptions, setShowOptions] = useState(false)
     const router = useRouter();
-    let t = useI18n();
+    let t = useTranslations();
 
     useEffect(() => {
         const getData = async () => {

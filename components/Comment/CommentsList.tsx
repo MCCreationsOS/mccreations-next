@@ -4,7 +4,7 @@ import CommentCard from "./CommentCard"
 import { fetchComments, postComment } from "@/app/api/community";
 import { CollectionNames, IComment, IUser, SortOptions } from "@/app/api/types";
 import { getUser } from "@/app/api/auth";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 import { useEffect, useState } from "react";
 
 /**
@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
  * @param comments The comments to display 
  */
 export default function CommentsList({mapSlug, content_type}: {mapSlug: string, content_type: CollectionNames}) {
-    const t = useI18n();
+    const t = useTranslations()
     const [comments, setComments] = useState<IComment[] | undefined>()
 
     useEffect(() => {

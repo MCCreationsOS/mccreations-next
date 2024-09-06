@@ -3,7 +3,7 @@ import type {LexicalEditor} from 'lexical';
 import {calculateZoomLevel} from '@lexical/utils';
 import * as React from 'react';
 import {useRef} from 'react';
-import { useI18n } from '@/locales/client';
+import {useTranslations} from 'next-intl';
 
 function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
@@ -77,7 +77,7 @@ export default function ImageResizer({
 
   const minWidth = 100;
   const minHeight = 100;
-  const t = useI18n();
+  const t = useTranslations()
 
   const setStartCursor = (direction: number) => {
     const ew = direction === Direction.east || direction === Direction.west;

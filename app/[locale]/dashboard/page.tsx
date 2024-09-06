@@ -4,10 +4,10 @@ import { CollectionNames, IContentDoc, IUser } from "../../api/types";
 import Menu from "@/components/Menu/Menu";
 import Tabs from "@/components/Tabs/Tabs";
 import Table from "@/components/Dashboard/Table";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 
 export default function Page() {
-    const t = useI18n();
+    const t = useTranslations()
     return (
         <>
         <Menu selectedPage="" />

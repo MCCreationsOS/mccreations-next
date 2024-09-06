@@ -1,5 +1,5 @@
 import { CollectionNames, IContentDoc } from "@/app/api/types"
-import Link from "next/link"
+import { Link } from "@/app/api/navigation";
 import { useState } from "react"
 import { Plus } from "react-feather"
 import MainButton from "../Buttons/MainButton"

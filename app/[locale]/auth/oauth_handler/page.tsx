@@ -2,7 +2,7 @@
 
 import Menu from "@/components/Menu/Menu";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
@@ -10,7 +10,7 @@ export default function OauthHandlerPage() {
     const [sentRequest, setSentRequest] = useState(false)
     const params = useSearchParams()
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations()
 
     useEffect(() => {
         if(!sessionStorage.getItem("rqGh")) {
@@ -37,7 +37,7 @@ export default function OauthHandlerPage() {
                         });
                     }).catch(error => {
                         sessionStorage.removeItem('rqGh')
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.oauth.error'), () => {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                             router.push("/")
                         }))
                     })
@@ -65,7 +65,7 @@ export default function OauthHandlerPage() {
                         });
                     }).catch(error => {
                         sessionStorage.removeItem('rqGh')
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.oauth.error'), () => {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                             router.push("/")
                         }))
                     })
@@ -98,7 +98,7 @@ export default function OauthHandlerPage() {
                         })
                     }).catch(e => {
                         sessionStorage.removeItem('rqGh')
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.oauth.error'), () => {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                             router.push("/")
                         }))
                     })
@@ -127,7 +127,7 @@ export default function OauthHandlerPage() {
                         });
                     }).catch(error => {
                         sessionStorage.removeItem('rqGh')
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.oauth.error'), () => {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                             router.push("/")
                         }))
                     })
@@ -146,7 +146,7 @@ export default function OauthHandlerPage() {
             {/* <Menu selectedPage="" /> */}
             <div className="popup_page">
                 <div className="popup centered_content small">
-                    {t('auth.oauth.loading')}
+                    {t('Auth.OAuth.loading')}
                 </div>
             </div>
         </>

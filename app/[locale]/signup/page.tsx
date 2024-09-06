@@ -2,19 +2,19 @@
 import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SiDiscord, SiFacebook, SiGithub, SiGoogle, SiMicrosoft } from '@icons-pack/react-simple-icons'
-import Link from "next/link";
+import { Link } from "@/app/api/navigation";
 import MapScroll from "@/components/ContentScrollBackground/MapScroll";
 import { UserTypes } from "@/app/api/types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import MainButton from "@/components/Buttons/MainButton";
 import PopupComponent from "@/components/Popup/Popup";
-import { useI18n } from "@/locales/client";
+import {useTranslations} from 'next-intl';
 import FormComponent from "@/components/Form/Form";
 import Text from "@/components/FormInputs/Text";
 
 export default function SignUp() {
     const router = useRouter();
-    const t = useI18n();
+    const t = useTranslations()
 
     const signUpWithEmail = (inputs: string[]) => {
         let username = inputs[0]

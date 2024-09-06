@@ -7,7 +7,7 @@ import { Popup } from "../../Popup/Popup"
 import FormComponent from "../../Form/Form"
 import Text from "../Text"
 import ImageInput from "../ImageDropzone"
-import { useI18n } from "@/locales/client"
+import {useTranslations} from 'next-intl';
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 
 /**
@@ -19,7 +19,7 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
     const [creators, setCreators] = useState<ICreator[]>([])
     const [confirmRemove, setConfirmRemove] = useState(false)
     const loggedIn = useRef(false)
-    const t = useI18n();
+    const t = useTranslations()
 
     useEffect(() => {
         const getData = async () => {
