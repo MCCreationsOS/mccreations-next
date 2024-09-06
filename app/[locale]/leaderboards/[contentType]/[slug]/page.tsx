@@ -88,7 +88,10 @@ export default async function Page({params}: {params: Params}) {
                             </tr>
                         </thead>
                         <tbody>
-                            {leaderboard.scores.sort((a, b) => a.score - b.score).map((entry, index) => (
+                            {leaderboard.scores.sort((a, b) => {
+                                    if(a.score_type !== "highest_score") return a.score - b.score
+                                    return b.score - a.score
+                                }).map((entry, index) => (
                                 <tr key={index}>
                                     <td className={styles.leaderboard_table_data}>{index + 1}</td>
                                     <td className={styles.leaderboard_table_data}>{entry.username}</td>

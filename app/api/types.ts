@@ -207,7 +207,7 @@ export interface Leaderboard {
     _id: string,
     type: CollectionNames,
     slug: string,
-    scores: [{score: number, date: number, username: string, handle: string, device: "Mac" | "Windows", location: string}],
+    scores: [{score: number, score_type: "time" | "highest_score" | "lowest_score", date: number, username: string, handle: string, device: "Mac" | "Windows", location: string}],
 }
 
 export enum UserTypes {
