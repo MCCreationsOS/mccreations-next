@@ -56,7 +56,7 @@ export default async function ProfilePage({params}: {params: Params}) {
     if(!c) {
         return (
             <div>
-                {t('creator.does_not_exist')}
+                {t('Creator.not_found')}
             </div>
         )
     }

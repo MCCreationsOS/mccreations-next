@@ -11,21 +11,21 @@ export default function Page() {
     return (
         <>
         <Menu selectedPage="" />
-        <h1 style={{marginLeft: "20px"}}>{t('dashboard.title')}</h1>
+        <h1 style={{marginLeft: "20px"}}>{t('Dashboard.title')}</h1>
         <Tabs tabs={[
             {
                 content: <></>,
-                title: t('maps', {count:2}),
+                title: t('map', {count:2}),
                 link: '/dashboard/maps'
             },
             {
                 content: <></>,
-                title: t('datapacks', {count:2}),
+                title: t('datapack', {count:2}),
                 link: '/dashboard/datapacks'
             },
             {
                 content: <></>,
-                title: t('resourcepacks', {count:2}),
+                title: t('resourcepack', {count:2}),
                 link: '/dashboard/resourcepacks'
             }
         ]} />

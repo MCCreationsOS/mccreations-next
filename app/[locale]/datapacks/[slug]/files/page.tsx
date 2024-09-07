@@ -7,16 +7,17 @@ import IconButton from "@/components/Buttons/IconButton";
 import ContentMenu from "@/components/Content/ContentMenu";
 import ContentWarnings from "@/components/Content/ContentWarnings";
 import Rating from "@/components/Rating";
-import { useI18n } from "@/locales/client";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Archive, Layers, Package, Server } from "react-feather";
 import styles from './table.module.css'
+import { useLocale, useTranslations } from "next-intl";
 
 export default function Page({ params }: { params: Params }) {
     const [content, setContent] = useState<IContentDoc | null>(null)
-    const t = useI18n();
+    const t = useTranslations();
+    const locale = useLocale()
 
     useEffect(() => {
         fetchDatapack(params.slug).then(setContent)
@@ -45,8 +46,15 @@ export default function Page({ params }: { params: Params }) {
         a.remove()
     }
 
+    
     if (!content) return <div className="centered_content">Loading...</div>
 
+    let title = content.title
+    
+    if(content.translations && content.translations[locale] && content.translations[locale].approved) {
+        title = content.translations[locale].title
+    }
+    
     return (
         <>
             <ContentWarnings map={content} />
@@ -55,7 +63,7 @@ export default function Page({ params }: { params: Params }) {
                 <div className="centered_content">
                     <div className='map_title_bar'>
                         <div className="map_title_stack">
-                            <h1 className='map_title'>{content.title}</h1>
+                            <h1 className='map_title'>{title}</h1>
                         </div>
                         <div className='map_download_stack'>
                             <Rating value={content.rating} content={content} />

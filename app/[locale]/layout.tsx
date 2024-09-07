@@ -7,7 +7,7 @@ import PopupComponent from '@/components/Popup/Popup'
 import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import {NextIntlClientProvider} from 'next-intl';
-import { getMessages } from 'next-intl/server'
+import { getLocale, getMessages } from 'next-intl/server'
 
 
 export const metadata: Metadata = {
@@ -36,17 +36,27 @@ export const metadata: Metadata = {
  
 export default async function RootLayout({params: { locale }, children}: {params: {locale: string}, children: React.ReactNode}) {
   const messages = await getMessages();
+  const l = await getLocale();
  return (
-    
-      <NextIntlClientProvider messages={messages}>
-        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333" crossOrigin="anonymous"></Script>
-        <PopupMessageComponent />
-        <Suspense fallback={<Loading />}>
-            {children}
-        </Suspense>
-        <Footer></Footer>
-        <PopupComponent />
-        <Analytics />
-      </NextIntlClientProvider>
+
+  <html lang={l}>
+      <head>
+        <meta property="og:image:width" content="2500"></meta>
+        <meta property="og:image:height" content="1408"></meta>
+        <meta property="og:url" content="https://www.mccreations.net"></meta>
+      </head>
+      <body id="view">
+        <NextIntlClientProvider messages={messages}>
+          <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333" crossOrigin="anonymous"></Script>
+          <PopupMessageComponent />
+          <Suspense fallback={<Loading />}>
+              {children}
+          </Suspense>
+          <Footer></Footer>
+          <PopupComponent />
+          <Analytics />
+        </NextIntlClientProvider>
+      </body>
+      </html>
   )
 }

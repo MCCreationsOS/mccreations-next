@@ -65,6 +65,10 @@
 
     },
 
+    "Dashboard": {
+        "title": "Dashboard"
+    },
+
     "account.change_email": "Change Email",
     "account.change_handle": "Change Handle",
     "account.change_password": "Change Password",
@@ -471,53 +475,69 @@
         }
     },
 
-    "VersionManager.title": "Version Manager",
-    "VersionManager.add_version": "Add Version",
-    "VersionManager.Versions.back_to_versions": "Back to Versions",
-    "VersionManager.Version.edit": "Edit Version",
-    "VersionManager.Version.version_number": "Version Number",
-    "VersionManager.Version.minecraft_version": "Minecraft Version",
-    "VersionManager.Version.Bedrock": "Bedrock",
-    "VersionManager.Version.Bedrock_description": "Is this file for the Bedrock Edition",
-    "VersionManager.Version.MainFile.link": "Main File Link",
-    "VersionManager.Version.ExtraFiles.file_type": "File Type",
-    "VersionManager.Version.ExtraFiles.link": "Link",
-    "VersionManager.Version.ExtraFiles.required": "Required",
-    "VersionManager.Version.ExtraFiles.required_description": "Causes this file to be automatically downloaded with the main file",
-    "VersionManager.Version.ExtraFiles.upload_file": "Upload File",
-    "VersionManager.Version.save": "Save Version",
-    "VersionManager.Version.cancel": "Cancel",
-    "VersionManager.Version.delete": "Delete",
-    "VersionManager.Version.add_file": "Add File",
-    "VersionManager.Version.add_file_description": "Add any extra files required for this creation, like resourcepacks",
+    "Content": {
+        "Leaderboards": "Leaderboards",
+        "Files": {
+            "name": "Name",
+            "date": "Date",
+            "minecraft_version": "Minecraft Version",
+            "download": "Download"
+        },
+        "Edit": {
+            "title_description": "The primary name of your creation. Should be short and sweet!",
+            "slug_description": "The unique identifier for your creation. This will be used in the URL, like mccreations.net/maps/your-slug",
+            "short_description_description": "A short description of your creation. This will be used in search results and previews.",
+            "description_description": "A longer description of your creation. This will be used on the main page of your creation.",
+            "video_url_description": "A link to a video of your creation. This will replace your logo on the creation page with an embedded video.",
+            "tags": {
+                "genre_description": "The primary category of your creation. This gives users a very general idea of how your creation plays.",
+                "subgenre_description": "The secondary category of your creation. This gives users a more specific idea of the contents of your creation.",
+                "difficulty_description": "The difficulty of your creation.",
+                "length_description": "The length of your creation.",
+                "resolution_description": "The resolution of your resourcepack.",
+                "theme_description": "The theme of your creation."
+            },
+            "extra_features": "Extra Features",
+            "ExtraFeatures": {
+                "Leaderboards": {
+                    "title": "Leaderboards",
+                    "message_text": "Message Text",
+                    "message_text_description": "Text to display to tell players to submit their score. This is sent in game when your creation ends.",
+                    "message_format": "Extra Formatting",
+                    "message_format_description": "Extra formatting to add to the tellraw message. Should be formatted like \"color\":\"green\", \"bold\": true"
+                }
+            }
+        },
+        "CommentForm": {
+            "sent": "Comment sent"
+        },
+        "Metadata": {
+            "title_not_found": "{content_type} Not Found",
+            "description_not_found": "This {content_type} does not exist on MCCreations",
+            "title": "{title} {content_type} for Minecraft {minecraft_version} by {creator} on MCCreations",
+            "Tags": {
+                "minecraft": "Minecraft",
+                "games": "games",
+                "gaming": "gaming",
+                "minecraft_creations": "Minecraft Creations",
+                "minecraft_versions": "Minecraft {minecraft_version}",
+                "minecraft_datapack": "Minecraft Data Pack",
+                "mods": "Mods",
+                "minecraft_mods": "Minecraft Mods",
+                "minecraft_but": "Minecraft but",
+                "minecraft_survival": "Minecraft Survival"
+            }
+        },
+        "datapack_not_found": "Datapack Not Found",
+        "datapack_not_found_description": "This datapack does not exist or you do not have permission to view it"
+    },
 
-    "Content.Leaderboards": "Leaderboards",
-
-    "Content.Files.name": "Name",
-    "Content.Files.date": "Date",
-    "Content.Files.minecraft_version": "Minecraft Version",
-    "Content.Files.download": "Download",
-
-    "Content.Edit.title_description": "The primary name of your creation. Should be short and sweet!",
-    "Content.Edit.slug_description": "The unique identifier for your creation. This will be used in the URL, like mccreations.net/maps/your-slug",
-    "Content.Edit.short_description_description": "A short description of your creation. This will be used in search results and previews.",
-    "Content.Edit.description_description": "A longer description of your creation. This will be used on the main page of your creation.",
-    "Content.Edit.video_url_description": "A link to a video of your creation. This will replace your logo on the creation page with an embedded video.",
-    "Content.Edit.tags.genre_description": "The primary category of your creation. This gives users a very general idea of how your creation plays.",
-    "Content.Edit.tags.subgenre_description": "The secondary category of your creation. This gives users a more specific idea of the contents of your creation.",
-    "Content.Edit.tags.difficulty_description": "The difficulty of your creation.",
-    "Content.Edit.tags.length_description": "The length of your creation.",
-    "Content.Edit.tags.resolution_description": "The resolution of your resourcepack.",
-    "Content.Edit.tags.theme_description": "The theme of your creation.",
-
-    "Content.CommentForm.sent": "Comment sent",
-    
-    "Content.Edit.extra_features": "Extra Features",
-    "Content.Edit.ExtraFeatures.Leaderboards.title": "Leaderboards",
-    "Content.Edit.ExtraFeatures.Leaderboards.message_text": "Message Text",
-    "Content.Edit.ExtraFeatures.Leaderboards.message_text_description": "Text to display to tell players to submit their score. This is sent in game when your creation ends.",
-    "Content.Edit.ExtraFeatures.Leaderboards.message_format": "Extra Formatting",
-    "Content.Edit.ExtraFeatures.Leaderboards.message_format_description": "Extra formatting to add to the tellraw message. Should be formatted like \"color\":\"green\", \"bold\": true",
+    "Datapacks": {
+        "Metadata": {
+            "title": "Download Data Packs | MCCreations",
+            "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
+        }
+    },
 
     "Profile.ProfileEditButton.saved": "Profile saved",
 

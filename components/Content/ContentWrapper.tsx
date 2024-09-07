@@ -13,13 +13,13 @@ import {useTranslations} from 'next-intl';
  * @param map The map object
  */
 export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
-    if('_id' in map) {
+    if(typeof map === "object" && '_id' in map) {
         return (
             <Content content={map} collectionName={CollectionNames.Maps} />
         )
     } else {
         const [map, setMap] = useState<IContentDoc>()
-        const t = useI18n()
+        const t = useTranslations()
 
         useEffect(() => {
             const getData = async (token: string) => {
@@ -48,19 +48,19 @@ export default function MapWrapper({slug, map}: {slug: string, map?: any}) {
     }
 }
 
-export function DatapackWrapper({slug, datapack}: {slug: string, datapack?: any}) {
-    if('_id' in datapack) {
+export function DatapackWrapper({slug, response}: {slug: string, response?: any}) {
+    if(typeof response === "object" && '_id' in response) {
         return (
-            <Content content={datapack} collectionName={CollectionNames.Datapacks} />
+            <Content content={response} collectionName={CollectionNames.Datapacks} />
         )
     } else {
         const [datapack, setDatapack] = useState<IContentDoc>()
-        const t = useI18n()
+        const t = useTranslations()
 
         useEffect(() => {
             const getData = async (token: string) => {
                 let map = await fetchDatapack(slug, token)
-                if(map && '_id' in map) {
+                if(map && typeof map === "object" && '_id' in map) {
                     setDatapack(map)
                 } else if(map) {
                     map = await fetchDatapack(slug, sessionStorage.getItem('temp_key') + "")
@@ -72,13 +72,30 @@ export function DatapackWrapper({slug, datapack}: {slug: string, datapack?: any}
         }, [])
 
 
-        if(datapack && '_id' in datapack) {
+        if(datapack && typeof datapack === "object" && '_id' in datapack) {
            return (<Content content={datapack} collectionName={CollectionNames.Datapacks} />)
         } else {
             sendLog("Content Wrapper", "Datapack Not Found")
+
+            let error = ""
+            try {
+                error = JSON.parse(response).error
+            } catch(e) {}
+
+            if(error.length > 0) {
+                return (
+                    <div className='centered_content'>
+                        <h1>{t('Content.datapack_not_found')}</h1>
+                        <p>{error}</p>
+                    </div>
+                )
+            }
+
             return (
-                <div>
-                    <h1>{t('content.datapack_not_found')}</h1>
+                <div className='centered_content'>
+    
+                    <h1>{t('Content.datapack_not_found')}</h1>
+                    <p>{t('Content.datapack_not_found_description')}</p>
                 </div>
             )
         }
@@ -86,13 +103,13 @@ export function DatapackWrapper({slug, datapack}: {slug: string, datapack?: any}
 }
 
 export function ResourcepackWrapper({slug, resourcepack}: {slug: string, resourcepack?: any}) {
-    if('_id' in resourcepack) {
+    if(typeof resourcepack === "object" && '_id' in resourcepack) {
         return (
             <Content content={resourcepack} collectionName={CollectionNames.Resourcepacks} />
         )
     } else {
         const [resourcepack, setResourcepack] = useState<IContentDoc>()
-        const t = useI18n()
+        const t = useTranslations()
 
         useEffect(() => {
             const getData = async (token: string) => {

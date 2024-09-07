@@ -177,12 +177,12 @@ export async function fetchDatapack(slug: string, token?: string) {
         })
         let data = await response.json();
         return data
-    } catch (e) {
+    } catch (e: any) {
         console.error("API fetch error! Is it running?: " + e);
-        return {
-            error: e,
+        return JSON.stringify({
+            error: e.toString(),
             query: slug
-        }
+        })
     }
 }
 
