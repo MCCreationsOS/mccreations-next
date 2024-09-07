@@ -50,7 +50,7 @@ export default function Page({ params }: { params: Params }) {
     return (
         <>
             <ContentWarnings map={content} />
-            <ContentMenu slug={content.slug} creators={content.creators} status={content.status} contentType={ContentTypes.Datapacks} selectedTab={1} />
+            <ContentMenu content={content} selectedTab={1} />
             <div className='map_page'>
                 <div className="centered_content">
                     <div className='map_title_bar'>

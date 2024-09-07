@@ -51,7 +51,7 @@ export default function CreateTranslationForm({content, type}: {content: IConten
         </FormComponent>})
     }
 
-    if(content.extraFeatures?.translations === false) return undefined
+    if(content.extraFeatures?.translations.use === false) return undefined
     return (
         <SecondaryButton onClick={makeTranslation}>Translate {(content.type) ? content.type.substring(0, 1).toUpperCase() + content.type.substring(1): ""} Page</SecondaryButton>
     )
