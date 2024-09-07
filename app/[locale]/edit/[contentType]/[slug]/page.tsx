@@ -168,8 +168,8 @@ export default function EditContentPage({params}: {params: Params}) {
                             message: inputs[12],
                             messageFormatting: inputs[13]
                         },
-                        translations: false,
-                        indexing: false
+                        translations: true,
+                        indexing: true
                     }
             } else {
                 newMap.extraFeatures = {
@@ -178,8 +178,8 @@ export default function EditContentPage({params}: {params: Params}) {
                         message: "",
                         messageFormatting: ""
                     },
-                    translations: false,
-                    indexing: false
+                    translations: true,
+                    indexing: true
                 }
             }
         } else {
@@ -189,8 +189,8 @@ export default function EditContentPage({params}: {params: Params}) {
                     message: "",
                     messageFormatting: ""
                 },
-                translations: false,
-                indexing: false
+                translations: true,
+                indexing: true
             }
         }
 
