@@ -89,7 +89,7 @@ export default function Resourcepacks() {
 
     const findResourcepacks = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await searchContent({contentType: CollectionNames.Resourcepacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await searchContent({contentType: CollectionNames.Resourcepacks, sort: sort, limit: 19, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
         setResourcepacks(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))

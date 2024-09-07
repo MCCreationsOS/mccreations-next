@@ -26,10 +26,11 @@ export default function InContentAdUnit() {
         setIsClient(true)
     }, [])
     return (
-        <div>
-            {isClient && adUnit && <>
+        <div className={styles.in_content_ad}>
+            <div className={styles.background}>Ads help keep MCCreations creating cool things!</div>
+            {isClient && adUnit && <div>
                 <AdsenseComponent adSlot={adUnit} adFormat={"fluid"} adClient='ca-pub-5425604215170333' adLayout="-7p+f2-1p-4p+ez" width="100%" height="100%" />
-            </>
+            </div>
             }
             <input type="hidden" value={adUnit + ""} />
         </div>
