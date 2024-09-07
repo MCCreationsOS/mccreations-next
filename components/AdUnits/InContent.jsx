@@ -27,7 +27,6 @@ export default function InContentAdUnit() {
     }, [])
     return (
         <div className={styles.in_content_ad}>
-            <div className={styles.background}>Ads help keep MCCreations creating cool things!</div>
             {isClient && adUnit && <div>
                 <AdsenseComponent adSlot={adUnit} adFormat={"fluid"} adClient='ca-pub-5425604215170333' adLayout="-7p+f2-1p-4p+ez" width="100%" height="100%" />
             </div>
@@ -68,12 +67,15 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
 
     if (!render) return null;
     return (
-        <ins className="adsbygoogle"
-            style={{ display: 'block', width: width, height: height, margin: '0 auto' }}
-            data-ad-client={adClient}
-            data-ad-slot={adSlot}
-            data-ad-format={adFormat}
-            data-full-width-responsive="true"
-            data-ad-layout-key={adLayout}></ins>
+        <div className={styles.in_content_ad}>
+            <div className={styles.background}>Ads help keep MCCreations creating cool things!</div>
+            <ins className="adsbygoogle"
+                style={{ display: 'block', width: width, height: height, margin: '0 auto' }}
+                data-ad-client={adClient}
+                data-ad-slot={adSlot}
+                data-ad-format={adFormat}
+                data-full-width-responsive="true"
+                data-ad-layout-key={adLayout}></ins>
+        </div>
     );
 };
