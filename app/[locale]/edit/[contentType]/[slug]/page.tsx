@@ -9,7 +9,7 @@ import FormComponent from "@/components/Form/Form"
 import CreatorSelector from "@/components/FormInputs/CreatorSelector/CreatorSelector"
 import { UploadedImageRepresentation } from "@/components/FormInputs/ImageDropzone/ImageDropzone"
 import MediaGallery from "@/components/FormInputs/MediaGallery/MediaGallery"
-import RichTextInput from "@/components/FormInputs/RichText"
+import RichTextInput, { RichTextManager } from "@/components/FormInputs/RichText"
 import Select from "@/components/FormInputs/Select"
 import Text from "@/components/FormInputs/Text"
 import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager"
@@ -144,8 +144,8 @@ export default function EditContentPage({params}: {params: Params}) {
             newMap.videoUrl = inputs[4]
         }
 
-        if(inputs[5]) {
-            newMap.description = inputs[5]
+        if(RichTextManager.getRichText("edit_general")?.getValue()) {
+            newMap.description = RichTextManager.getRichText("edit_general")?.getValue() + ""
         } else {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
         }
@@ -278,7 +278,7 @@ export default function EditContentPage({params}: {params: Params}) {
                             <CreatorSelector value={map.creators} />
                             <Text type="text" name={t('content.edit.general.short_description')} description={t('Content.Edit.short_description_description')} value={map?.shortDescription} />
                             <Text type="text" name={t('content.edit.general.video_url')} description={t('Content.Edit.video_url_description')} value={map?.videoUrl} />
-                            <RichTextInput name={t('content.edit.general.description')} description={t('Content.Edit.description_description')} value={map?.description} />
+                            <RichTextInput id="edit_general" name={t('content.edit.general.description')} description={t('Content.Edit.description_description')} value={map?.description} />
                             {tags && Object.keys(tags).map((category, idx) => {
                                 return <Select key={idx} name={t(`tags.${category as TagCategories}`)} description={t(`Content.Edit.tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
                                     return {name: t(`tags.${tag as TagKeys}`), value: tag}
@@ -336,7 +336,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                     translation[lang] = {
                                         title: inputs[0],
                                         shortDescription: inputs[1],
-                                        description: inputs[2],
+                                        description: RichTextManager.getRichText(`edit_translation_${lang}`)?.getValue() + "",
                                         approved: (inputs[3] === "true") ? true : false
                                     }
                                     updateTranslation(map.slug, collectionName, translation, sessionStorage.getItem('jwt')).then((d) => {
@@ -364,7 +364,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                     <h2>{lang}</h2>
                                     <Text name={t('content.create.title')} value={map.translations![lang].title}/>
                                     <Text name={t('content.create.short_description')} value={map.translations![lang].shortDescription}/>
-                                    <RichTextInput name={t('content.edit.general.description')} value={map.translations![lang].description}/>
+                                    <RichTextInput id={`edit_translation_${lang}`} name={t('content.edit.general.description')} value={map.translations![lang].description}/>
                                     <Checkbox name={t('content.edit.translations.approved')} value={`${map.translations![lang].approved}`}/>
                                 </FormComponent></div>
                             })}

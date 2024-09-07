@@ -5,7 +5,7 @@ import {Popup} from "../Popup/Popup";
 import Select from "../FormInputs/Select";
 import FormComponent from "../Form/Form";
 import Text from "../FormInputs/Text";
-import RichTextInput from "../FormInputs/RichText";
+import RichTextInput, { RichTextManager } from "../FormInputs/RichText";
 import { useState } from "react";
 import { updateTranslation } from "@/app/api/content";
 import { useI18n } from "@/locales/client";
@@ -28,7 +28,7 @@ export default function CreateTranslationForm({content, type}: {content: IConten
             translation[lang] = {
                 title: data[1],
                 shortDescription: data[2],
-                description: data[3],
+                description: RichTextManager.getRichText('translate_map_desc')?.getValue() + "",
                 approved: false
             }
             updateTranslation(content.slug, type, translation, sessionStorage.getItem('jwt'))
@@ -47,7 +47,7 @@ export default function CreateTranslationForm({content, type}: {content: IConten
             }} description={<Link href="/translate">{t('content.edit.translations.missing_language')}</Link>} />
             <Text name={t('content.create.title')} value={title}/>
             <Text name={t('content.create.short_description')} value={shortDescription}/>
-            <RichTextInput name={t('content.edit.general.description')} value={description}/>
+            <RichTextInput id="translate_map_desc" name={t('content.edit.general.description')} value={description}/>
         </FormComponent>})
     }
 
