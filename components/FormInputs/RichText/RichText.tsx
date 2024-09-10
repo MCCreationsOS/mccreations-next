@@ -73,11 +73,11 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
         try {
           const parser = new DOMParser();
           const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
-        
+          
           const nodes = $generateNodesFromDOM(editor, dom);
-        
+          
           $getRoot().clear();
-        
+          
           $insertNodes(nodes);
         } catch(e) {
           console.error(e);

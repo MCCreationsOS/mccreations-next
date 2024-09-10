@@ -48,7 +48,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
     return (
         <>
         <ContentWarnings map={content} />
-        <ContentMenu slug={content.slug} creators={content.creators} status={content.status} contentType={contentType}/>
+        <ContentMenu content={content} />
         <div className='map_page'>
             <Image className='image_background' width={1920} height={1080} src={content.images[0]} alt=""></Image>
             <div className='map_logo_foreground'>
@@ -71,6 +71,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
                     <div className='map_description' dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}}>       
                     </div>
                     <div className='map_sidebar'>
+                        {/* <AdsenseComponent adSlot={"9473945275"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"300px"} height={"300px"}/> */}
                         <section className='map_sidebar_section'>
                             {/* <IconButton className="secondary" onClick={() =>{}}><Flag /></IconButton> */}
                             <CreateTranslationForm type={collectionName} content={content} />

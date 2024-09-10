@@ -135,7 +135,7 @@ export async function getLeaderboard(contentType: ContentTypes, slug: string) {
     return undefined;
 }
 
-export async function submitLeaderboard(contentType: ContentTypes, slug: string, score: number, username: string, jwt: string = "") {
+export async function submitLeaderboard(contentType: ContentTypes, slug: string, score: number, score_type: string, username: string, jwt: string = "") {
     try {
         fetch(`${process.env.DATA_URL}/leaderboards/${convertToCollection(contentType)}/${slug}`, {
             method: "POST",
@@ -145,7 +145,8 @@ export async function submitLeaderboard(contentType: ContentTypes, slug: string,
             },
             body: JSON.stringify({
                 score: score,
-                username: username
+                username: username,
+                score_type: score_type
             })
         })
     }
