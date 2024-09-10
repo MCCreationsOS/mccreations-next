@@ -47,7 +47,7 @@ export default function Page({ params }: { params: Params }) {
     }
 
     
-    if (!content) return <div className="centered_content">Loading...</div>
+    if (!content) return <div className="centered_content">{t('Content.Files.loading')}</div>
 
     let title = content.title
     
