@@ -5,7 +5,7 @@ const withNextIntl = createNextIntlPlugin('./locales/i18n.ts');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
-    DATA_URL: 'http://localhost:8080',
+    DATA_URL: 'https://api.mccreations.net',
     LOGGING_URL: 'https://api.mccreations.net/bamboo/v1'
   },
   images: {

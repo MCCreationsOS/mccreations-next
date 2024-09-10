@@ -218,7 +218,7 @@ export default function EditContentPage({params}: {params: Params}) {
             }
 
             setMap(newMap)
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.general.saved')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.general_saved')))
         }).catch((e) => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
         })
@@ -233,7 +233,7 @@ export default function EditContentPage({params}: {params: Params}) {
         newMap.images = files.map(f => f.url)
         updateContent(newMap, token.current, collectionName).then(() => {
             setMap(newMap)
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.images.saved')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.images_saved')))
         }).catch((e) => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
         })
@@ -253,7 +253,7 @@ export default function EditContentPage({params}: {params: Params}) {
 
         updateContent(newMap, token.current, collectionName).then(() => {
             setMap(newMap)
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.versions.saved')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.versions_saved')))
         }).catch((e) => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
         })
@@ -263,9 +263,9 @@ export default function EditContentPage({params}: {params: Params}) {
         return (
             <div className="centered_content">
                 <ContentWarnings map={map} />
-                <h1>{t('content.edit.editing')} {map?.title}</h1>
-                <p>{t('content.edit.status')} {(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('status.Draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('content.edit.status.Unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('status.Approved')}</span>: <span style={{color:"#3154f4"}}>{t('status.Featured')}</span>}</p>
-                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Request Sent")); setMap({...map, status: 1})})}}>{t('content.edit.request_approval')}</MainButton>)}
+                <h1>{t('Content.Edit.editing', {title: map?.title})}</h1>
+                <p>{t('Content.Edit.status')} {(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('Status.draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('Status.unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('Status.approved')}</span>: <span style={{color:"#3154f4"}}>{t('Status.featured')}</span>}</p>
+                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.requested_approval'))); setMap({...map, status: 1})})}}>{t('Content.Edit.request_approval')}</MainButton>)}
                 <Tabs preselectedTab={1} onChangeTabs={(to, from) => {
                     if(from === 1) {
                         let inputs: string[] = []
@@ -284,45 +284,45 @@ export default function EditContentPage({params}: {params: Params}) {
                 {
                     
                     // General Tab
-                    title: t('content.edit.general'),
+                    title: t('Content.Edit.general'),
                     content: <FormComponent id="general" onSave={saveGeneralForm}> 
-                            <Text type="text" name={t('content.edit.general.title')} description={t('Content.Edit.title_description')} value={map?.title} />
-                            <Text type="text" name={t('content.edit.general.slug')}  description={t('Content.Edit.slug_description')} value={map?.slug}/>
+                            <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} value={map?.title} />
+                            <Text type="text" name={t('Content.Edit.slug')}  description={t('Content.Edit.slug_description')} value={map?.slug}/>
                             <CreatorSelector value={map.creators} />
-                            <Text type="text" name={t('content.edit.general.short_description')} description={t('Content.Edit.short_description_description')} value={map?.shortDescription} />
-                            <Text type="text" name={t('content.edit.general.video_url')} description={t('Content.Edit.video_url_description')} value={map?.videoUrl} />
-                            <RichTextInput id="edit_general" name={t('content.edit.general.description')} description={t('Content.Edit.description_description')} value={map?.description} />
+                            <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')} value={map?.shortDescription} />
+                            <Text type="text" name={t('Content.Edit.video_url')} description={t('Content.Edit.video_url_description')} value={map?.videoUrl} />
+                            <RichTextInput id="edit_general" name={t('Content.Edit.description')} description={t('Content.Edit.description_description')} value={map?.description} />
                             {tags && Object.keys(tags).map((category, idx) => {
-                                return <Select key={idx} name={t(`tags.${category as TagCategories}`)} description={t(`Content.Edit.tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
-                                    return {name: t(`tags.${tag as TagKeys}`), value: tag}
+                                return <Select key={idx} name={t(`Content.Tags.${category as TagCategories}`)} description={t(`Content.Edit.Tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
+                                    return {name: t(`Content.Tags.${tag as TagKeys}`), value: tag}
                                 })} multiSelect={true} value={map.tags?.filter(t => tags[category].includes(t)).join(',')}/>
                             })}
                             <Select name={t('Content.Edit.extra_features')} options={[{name: t("Content.Edit.ExtraFeatures.Leaderboards.title"), value: "leaderboards"}]} value={(map.extraFeatures) ? Object.keys(map.extraFeatures).join(",") : ""} multiSelect/>
                             {((map.extraFeatures?.leaderboards as LeaderboardFeature)?.use !== false && (!map.files || map.files[0].url?.includes("mccreations.s3"))) && <>
-                                <p>Learn how to setup MCCreations Leaderboards <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">here</Link>. Note that leaderboards are only available for Java Edition at this time.</p>
+                                <p>{t.rich('Content.Edit.ExtraFeatures.Leaderboards.help', {link: (chunks) => <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">{chunks}</Link>})}</p>
                                 <Text name={t('Content.Edit.ExtraFeatures.Leaderboards.message_text')} value={(map.extraFeatures && map.extraFeatures.leaderboards) ? (map.extraFeatures?.leaderboards as LeaderboardFeature).message : ""} description={t('Content.Edit.ExtraFeatures.Leaderboards.message_text_description')}/>
                                 <Text name={t('Content.Edit.ExtraFeatures.Leaderboards.message_format')} value={(map.extraFeatures && map.extraFeatures.leaderboards) ? (map.extraFeatures?.leaderboards as LeaderboardFeature).messageFormatting : ""} description={t('Content.Edit.ExtraFeatures.Leaderboards.message_format_description')}/>
                             </>}
                             {((map.extraFeatures?.leaderboards as LeaderboardFeature)?.use !== false && (map.files && !map.files[0].url?.includes("mccreations.s3"))) && <>
-                                <p>Learn how to setup MCCreations Leaderboards <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">here</Link>. Note that leaderboards are only available for Java Edition at this time.</p>
+                                <p>{t.rich('Content.Edit.ExtraFeatures.Leaderboards.help', {link: (chunks) => <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">{chunks}</Link>})}</p>
                             </>}
                         </FormComponent>
                     },{
 
                     // Images Tbat
-                    title: t('content.edit.images'),
+                    title: t('Content.Edit.images'),
                     content: <MediaGallery onImagesUploaded={saveImagesForm} presetFiles={JSON.stringify(map?.images?.map(image => {return {url: image, name: image}}))}/>
                     }, {
 
                     // Versions Tab
-                    title: t('content.edit.versions'),
+                    title: t('Content.Edit.versions'),
                     content: <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(map?.files)} onVersionsChanged={saveVersionsForm} />
                     },
                     {
-                        title: t('content.edit.translations'),
+                        title: t('Content.Edit.translations'),
                         content: <>
                             <SecondaryButton onClick={() => {
-                                Popup.createPopup({title: t('content.edit.translations.add'), content: <FormComponent id="add_translation" onSave={(inputs) => {
+                                Popup.createPopup({title: t('Content.Edit.add_translation'), content: <FormComponent id="add_translation" onSave={(inputs) => {
                                     let newMap = {
                                         ...map
                                     }
@@ -338,9 +338,9 @@ export default function EditContentPage({params}: {params: Params}) {
                                     setMap(newMap)
                                     Popup.close();
                                 }}>
-                                    <Select name={t('content.edit.translations.language')} options={Locales.map(lang => {return {name: lang, value: lang}})} description={<Link href="/translate">{t('content.edit.translations.missing_language')}</Link>}/>
+                                    <Select name={t('Content.Edit.translation_languages')} options={Locales.map(lang => {return {name: lang, value: lang}})} description={<Link href="/translate">{t('Content.Edit.translation_languages_description')}</Link>}/>
                                 </FormComponent>})
-                            }}>{t('content.edit.translations.add')}</SecondaryButton>
+                            }}>{t('Content.Edit.add_translation')}</SecondaryButton>
                             <div className={styles.translations}>
                             {map.translations && Object.keys(map.translations).map((lang) => {
                                 return <div className={styles.translation}><FormComponent id={lang} onSave={(inputs) => {
@@ -364,7 +364,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                             }
                                             newMap.translations[lang] = translation[lang]
                                             setMap(newMap)
-                                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('content.edit.translations.saved')))
+                                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.translation_saved')))
                                         }
                                     })
                                 }} options={{extraButtons: (<WarningButton onClick={() => {
@@ -373,12 +373,12 @@ export default function EditContentPage({params}: {params: Params}) {
                                     }
                                     delete newMap.translations![lang]
                                     setMap(newMap)
-                                }}>Delete</WarningButton>)}}>
+                                }}>{t('Content.Edit.delete_translation')}</WarningButton>)}}>
                                     <h2>{lang}</h2>
-                                    <Text name={t('content.create.title')} value={map.translations![lang].title}/>
-                                    <Text name={t('content.create.short_description')} value={map.translations![lang].shortDescription}/>
-                                    <RichTextInput id={`edit_translation_${lang}`} name={t('content.edit.general.description')} value={map.translations![lang].description}/>
-                                    <Checkbox name={t('content.edit.translations.approved')} value={`${map.translations![lang].approved}`}/>
+                                    <Text name={t('Content.Edit.title')} value={map.translations![lang].title}/>
+                                    <Text name={t('Content.Edit.short_description')} value={map.translations![lang].shortDescription}/>
+                                    <RichTextInput id={`edit_translation_${lang}`} name={t('Content.Edit.description')} value={map.translations![lang].description}/>
+                                    <Checkbox name={t('Content.Edit.translation_approved')} value={`${map.translations![lang].approved}`}/>
                                 </FormComponent></div>
                             })}
                             </div>

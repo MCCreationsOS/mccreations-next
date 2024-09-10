@@ -6,8 +6,11 @@ import styles from '../../leaderboard.module.css'
 import Rating from "@/components/Rating"
 import DownloadButton from "@/components/Buttons/DownloadButton"
 import Link from "next/link"
+import { getFormatter, getTranslations } from "next-intl/server"
 
 export default async function Page({params}: {params: Params}) {
+    const t = await getTranslations();
+    const formatter = await getFormatter();
     let leaderboard = await getLeaderboard(params.contentType, params.slug)
     let creation = undefined
     let title = ""
@@ -54,7 +57,7 @@ export default async function Page({params}: {params: Params}) {
                     </div>
                 </div>
                 <div>
-                    <h3 className={styles.title}>Leaderboard not found</h3>
+                    <h3 className={styles.title}>{t('Leaderboards.not_found')}</h3>
                 </div>
             </div>
 
@@ -79,12 +82,12 @@ export default async function Page({params}: {params: Params}) {
                     <table className={styles.leaderboard_table}>
                         <thead>
                             <tr>
-                                <th className={styles.leaderboard_table_data}>Rank</th>
-                                <th className={styles.leaderboard_table_data}>Player</th>
-                                <th className={styles.leaderboard_table_data}>Time</th>
-                                <th className={styles.leaderboard_table_data}>Date</th>
-                                <th className={styles.leaderboard_table_data}>Device</th>
-                                <th className={styles.leaderboard_table_data}>Location</th>
+                                <th className={styles.leaderboard_table_data}>{t('Leadearboards.rank')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.player')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.time')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.Date')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.device')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.location')}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -96,7 +99,10 @@ export default async function Page({params}: {params: Params}) {
                                     <td className={styles.leaderboard_table_data}>{index + 1}</td>
                                     <td className={styles.leaderboard_table_data}>{entry.username}</td>
                                     <td className={styles.leaderboard_table_data}>{formatTime(entry.score)}</td>
-                                    <td className={styles.leaderboard_table_data}>{new Date(entry.date).toLocaleDateString()}</td>
+                                    <td className={styles.leaderboard_table_data}>{formatter.dateTime(new Date(entry.date), {
+                                        timeStyle: "short",
+                                        dateStyle: "medium"
+                                    })}</td>
                                     <td className={styles.leaderboard_table_data}>{entry.device}</td>
                                     <td className={styles.leaderboard_table_data}>{entry.location}</td>
                                 </tr>
