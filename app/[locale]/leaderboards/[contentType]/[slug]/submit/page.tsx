@@ -6,7 +6,7 @@ import FormComponent from "@/components/Form/Form"
 import Text from "@/components/FormInputs/Text"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useSearchParams } from "next/navigation"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 export default function Page({params}: { params: Params}) {
     const query = useSearchParams()
