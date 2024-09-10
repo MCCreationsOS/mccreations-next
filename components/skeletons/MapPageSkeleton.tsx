@@ -7,7 +7,7 @@ import { ContentTypes } from '@/app/api/types';
 export default async function MapPageSkeleton() {
         return (
             <>
-            <ContentMenu contentType={ContentTypes.Maps} status={0} slug="" creators={[]} />
+            {/* <ContentMenu content={undefined} /> */}
             <div className='map_page'>
                 <Image className='image_background' width={1920} height={1080} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>
                 <div className='map_logo_foreground'>
