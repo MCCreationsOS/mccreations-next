@@ -669,7 +669,12 @@
         "score": "Score",
         "date": "Date",
         "device": "Device",
-        "location": "Location"
+        "location": "Location",
+        "submit_time": "Submit Your Time",
+        "submit_score": "Submit Your Score",
+        "submit_time_description": "Your time was {hours} hours, {minutes} minutes, {seconds} seconds and {ticks} ticks",
+        "submit_score_description": "Your score was {score}",
+        "submit": "Submit"
     },
 
     "Profile.ProfileEditButton.saved": "Profile saved",

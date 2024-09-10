@@ -82,10 +82,10 @@ export default async function Page({params}: {params: Params}) {
                     <table className={styles.leaderboard_table}>
                         <thead>
                             <tr>
-                                <th className={styles.leaderboard_table_data}>{t('Leadearboards.rank')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.rank')}</th>
                                 <th className={styles.leaderboard_table_data}>{t('Leaderboards.player')}</th>
                                 <th className={styles.leaderboard_table_data}>{t('Leaderboards.time')}</th>
-                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.Date')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.date')}</th>
                                 <th className={styles.leaderboard_table_data}>{t('Leaderboards.device')}</th>
                                 <th className={styles.leaderboard_table_data}>{t('Leaderboards.location')}</th>
                             </tr>

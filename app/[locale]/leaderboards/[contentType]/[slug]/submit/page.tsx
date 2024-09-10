@@ -4,11 +4,13 @@ import { submitLeaderboard } from "@/app/api/community"
 import { ContentTypes } from "@/app/api/types"
 import FormComponent from "@/components/Form/Form"
 import Text from "@/components/FormInputs/Text"
+import { useTranslations } from "next-intl"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useSearchParams } from "next/navigation"
-import { useRouter } from "next/router"
+import { useRouter } from "next/navigation"
 
 export default function Page({params}: { params: Params}) {
+    const t = useTranslations()
     const query = useSearchParams()
     const score = parseInt(query.get("time") ?? "0")
     const score_type = query.get("score_type") ?? "time"
@@ -24,11 +26,12 @@ export default function Page({params}: { params: Params}) {
 
     return (
         <div className="centered_content">
-            <h2>Submit Your Time</h2>
-            {score_type === "time" && <p>Your time was {Math.floor(score / 60 / 60 / 20)} hours, {Math.floor((score / 60 / 20) % 60)} minutes, {Math.floor((score / 20) % 60)} seconds and {Math.floor(score % 20)} ticks</p>}
-            {score_type !== "time" && <p>Your score was {score}</p>}
-            <FormComponent id="submitScore" options={{saveButtonContent: "Submit"}} onSave={sendScore}>
-                <Text name="Username" />
+            {score_type === "time" && <h2>{t('Leaderboards.submit_time')}</h2>}
+            {score_type !== "time" && <h2>{t('Leaderboards.submit_score')}</h2>}
+            {score_type === "time" && <p>{t('Leaderboards.submit_time_description', {hours: Math.floor(score / 60 / 60 / 20), minutes: Math.floor((score / 60 / 20) % 60), seconds: Math.floor((score / 20) % 60), ticks: Math.floor(score % 20)})}</p>}
+            {score_type !== "time" && <p>{t('Leaderboards.submit_score_description', {score: score})}</p>}
+            <FormComponent id="submitScore" options={{saveButtonContent: t('Leaderboards.submit')}} onSave={sendScore}>
+                <Text name={t('Leaderboards.username')} />
             </FormComponent>
         </div>
     )

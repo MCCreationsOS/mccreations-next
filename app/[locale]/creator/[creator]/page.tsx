@@ -5,7 +5,6 @@ import styles from './CreatorPage.module.css'
 import ContentArea from "@/components/ContentArea/ContentArea"
 import ProfileCard from "@/components/Profile/ProfileCard"
 import { IUser } from "@/app/api/types";
-import {useTranslations} from 'next-intl';
 import { Metadata, ResolvingMetadata } from "next"
 import { getTranslations } from "next-intl/server"
 
