@@ -1,7 +1,7 @@
 'use client'
 
 import { getUser } from "@/app/api/auth"
-import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
+import { convertToCollection, fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
 import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, ContentTypes, UserTypes, Locales, Translation, TagKeys, TagCategories } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
@@ -31,11 +31,12 @@ export default function EditContentPage({params, contentType}: {params: Params, 
     const [tags, setTags] = useState<Tags>()
     const token = useRef("")
     const t = useTranslations()
+    const collection = convertToCollection(contentType)
 
     useEffect(() => {
         token.current = sessionStorage?.getItem('jwt') + ""
         const getData = async () => {
-            fetchTags(contentType).then((data) => {
+            fetchTags(collection).then((data) => {
                 if('genre' in data) {
                     setTags(data)
                 }
@@ -184,7 +185,7 @@ export default function EditContentPage({params, contentType}: {params: Params, 
                                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
                             }
 
-                            updateContent(newMap, token.current, contentType).then((result) => {
+                            updateContent(newMap, token.current, collection).then((result) => {
                                 if(result.error) {
                                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
                                     return;

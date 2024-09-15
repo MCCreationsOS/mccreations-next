@@ -39,7 +39,7 @@ export default function EditContentButton({slug, creators, status, contentType}:
 
     if(match) {
         return (
-            <Link href={`/edit/${contentType}/${slug}`}><MainButton>{t('content.edit')}</MainButton></Link>
+            <Link href={`/edit/${contentType}/${slug}`}><MainButton>{t('Buttons.edit')}</MainButton></Link>
         )
     }
     return (<></>)

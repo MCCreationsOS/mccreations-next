@@ -14,7 +14,7 @@ import {useTranslations} from 'next-intl';
  * @param comment The comment to display 
  */
 export default function CommentCard({comment}: {comment: IComment}) {
-    const t = useI18n()
+    const t = useTranslations()
     const [image, setImage] = useState("/defaultLogo.png")
     const [expanded, setExpanded] = useState(false)
     const [canExpand, setCanExpand] = useState(false)
@@ -30,7 +30,7 @@ export default function CommentCard({comment}: {comment: IComment}) {
             })
         }
         if(container.current) {
-            setCanExpand(container.current.scrollHeight > 100)
+            setCanExpand(container.current.scrollHeight > 300)
         }
     }, [])
 
@@ -38,19 +38,19 @@ export default function CommentCard({comment}: {comment: IComment}) {
 
     return (
         <div className={`${styles.comment} ${(expanded) ? styles.expanded : ""}`} ref={container}>
-            <Image src={image} width={45} height={45} className={styles.logo} alt={`${comment.username}'s logo`}></Image>
+            <Image src={image} width={45} height={45} className={styles.logo} alt={t('Comment.icon', {username: comment.username})}></Image>
             <div className={styles.body}>
                 <div className={styles.header}>
                     <h4>{comment.username}</h4>
                     <p>{new Date(comment.date).toLocaleDateString()}</p>
                 </div>
                 <div className={styles.right_header}>
-                    <Link aria-label={t('comment.permalink')} onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}/>
+                    <Link aria-label={t('Comment.permalink')} onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}/>
                 </div>
                 <p dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.comment)}}></p>
                 {/* Likes and replies may eventually go here  */}
             </div>
-            {canExpand && <div className={styles.expand} onClick={() => setExpanded(!expanded)}>{(expanded) ? t('comment.collapse') : t('comment.expand')}</div>}
+            {canExpand && <div className={styles.expand} onClick={() => setExpanded(!expanded)}>{(expanded) ? t('Comment.collapse') : t('Comment.expand')}</div>}
         </div>
     )
 }

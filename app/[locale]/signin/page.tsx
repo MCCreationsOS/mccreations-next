@@ -39,12 +39,12 @@ export default function SignIn() {
                         return;
                     }
                 }).catch(e => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_in.error')))
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignIn.error')))
                     return;
                 })
             }).catch(error => {
                 sendLog("Sign in with email", error)
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.oauth.error')))
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignIn.error')))
                 return;
             })
     }
@@ -93,28 +93,28 @@ export default function SignIn() {
             </Suspense> */}
         <div className="centered_content small popup">
             {(message) ? <div className="errorBox"><p>{message}</p></div>: <></>}
-            <h2>{t('auth.sign_in.with')}</h2>
+            <h2>{t('Account.Shared.providers')}</h2>
             <div className="sign_in_providers">
-                <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('auth.sign_in.with_google')}</div>
-                <div className="provider" onClick={signInWithDiscord}><SiDiscord />{t('auth.sign_in.with_discord')}</div>
-                <div className="provider" onClick={signUpWithGithub}><SiGithub />{t('auth.sign_in.with_github')}</div>
-                <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('auth.sign_in.with_microsoft')}</div>
+                <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('Account.Shared.Providers.Google')}</div>
+                <div className="provider" onClick={signInWithDiscord}><SiDiscord />{t('Account.Shared.Providers.Discord')}</div>
+                <div className="provider" onClick={signUpWithGithub}><SiGithub />{t('Account.Shared.Providers.Github')}</div>
+                <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('Account.Shared.Providers.Microsoft')}</div>
             </div>
-            <h2>{t('auth.sign_in.with_email')}</h2>
+            <h2>{t('SignIn.email_title')}</h2>
             <form method="">
                 <div className='field'>
-                    <p className='label'>{t('account.email')}</p>
-                    <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('account.email_placeholder')} onChange={(e) => {setEmail(e.target.value)}}></input>
+                    <p className='label'>{t('Account.Shared.email')}</p>
+                    <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('Account.Shared.email_placeholder')} onChange={(e) => {setEmail(e.target.value)}}></input>
                 </div>
                 <div className='field'>
-                    <p className='label'>{t('account.password')}</p>
+                    <p className='label'>{t('Account.Shared.password')}</p>
                     <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}}></input>
                 </div>
-                <MainButton onClick={signInWithEmail}>{t('auth.sign_in')}</MainButton>
+                <MainButton onClick={signInWithEmail}>{t('SignIn.button')}</MainButton>
             </form>
             <div className="sign_up_options">
-                <Link href="/signup">{t('auth.no_account')}</Link>
-                <Link href="/signin/reset" >{t('auth.forgot_password')}</Link>
+                <Link href="/signup">{t('SignIn.no_account')}</Link>
+                <Link href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
             </div>
         </div>
         </div>

@@ -21,7 +21,7 @@ export default function SignUp() {
         let email = inputs[1]
         let password = inputs[2]
         if(username.length < 3) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.username_too_short')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.username_too_short')))
             return;
         }
 
@@ -29,24 +29,24 @@ export default function SignUp() {
         m = regex.exec(username)
         console.log()
         if(!m || m[0] !== m.input) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.username_invalid_characters')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.username_invalid_characters')))
             return;
         }
 
         if(!(email.includes('@') && email.includes('.'))) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.email_invalid')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.email_invalid')))
             return;
         }
 
         if(!password || password.length < 9) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.password_too_short')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.password_too_short')))
             return;
         }
 
         regex = /[0-9]/g;
         m = regex.exec(password)
         if(!m) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.password_no_number')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.password_no_number')))
             return;
         }
 
@@ -74,12 +74,12 @@ export default function SignUp() {
                     router.push('/signin')
                     return;
                 } else {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.error')))
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.error')))
                     return;
                 }
             })
         }).catch(error => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('auth.sign_up.error')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.error')))
             return;
         })
     }
@@ -121,18 +121,18 @@ export default function SignUp() {
                 <MapScroll />
             </Suspense>
             <PopupComponent useBackground={false} canClose={false}>
-                    <h2>{t('auth.sign_in.with')}</h2>
+                    <h2>{t('Account.Shared.providers')}</h2>
                     <div className="sign_in_providers">
-                        <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('auth.sign_in.with_google')}</div>
-                        <div className="provider" onClick={signInWithDiscord}><SiDiscord />{t('auth.sign_in.with_discord')}</div>
-                        <div className="provider" onClick={signUpWithGithub}><SiGithub />{t('auth.sign_in.with_github')}</div>
-                        <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('auth.sign_in.with_microsoft')}</div>
+                        <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('Account.Shared.Providers.google')}</div>
+                        <div className="provider" onClick={signInWithDiscord}><SiDiscord />{t('Account.Shared.Providers.discord')}</div>
+                        <div className="provider" onClick={signUpWithGithub}><SiGithub />{t('Account.Shared.Providers.github')}</div>
+                        <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('Account.Shared.Providers.microsoft')}</div>
                     </div>
-                    <h2>{t('auth.sign_up.title')}</h2>
-                    <FormComponent id="signUpForm" onSave={signUpWithEmail} options={{saveButtonContent: t('auth.sign_up')}}>
-                        <Text type="text" placeholder={t('account.username_placeholder')} name={t('account.username')}/>
-                        <Text type="email" placeholder={t('account.email_placeholder')} name={t('account.email')}/>
-                        <Text type="password" placeholder={"password"} name={t('account.password')}/>
+                    <h2>{t('SignUp.title')}</h2>
+                    <FormComponent id="signUpForm" onSave={signUpWithEmail} options={{saveButtonContent: t('SignUp.button')}}>
+                        <Text type="text" placeholder={t('Account.Shared.username_placeholder')} name={t('Account.Shared.username')}/>
+                        <Text type="email" placeholder={t('Account.Shared.email_placeholder')} name={t('Account.Shared.email')}/>
+                        <Text type="password" placeholder={"password"} name={t('Account.Shared.password')}/>
                     </FormComponent>
                     {/* <form method="">
                         <div className='field'>
@@ -153,8 +153,8 @@ export default function SignUp() {
                         <MainButton onClick={signUpWithEmail}>{t('auth.sign_up')}</MainButton>
                     </form> */}
                     <div className="sign_up_options">
-                        <Link href="/signin">{t('auth.already_have_account')}</Link>
-                        <Link href="/signin/reset" >{t('auth.forgot_password')}</Link>
+                        <Link href="/signin">{t('SignUp.already_have_account')}</Link>
+                        <Link href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
                     </div>
             </PopupComponent>
         </div>

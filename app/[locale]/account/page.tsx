@@ -51,7 +51,7 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.handle_updated') + inputs[0], () => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.handle_updated', {handle: inputs[0]}), () => {
                     setUser({_id: user._id, username: user.username, handle: inputs[0], email: user.email, type: user.type})
                 })) 
             })
@@ -74,7 +74,7 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.username_updated') + inputs[0], () => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.username_updated', {username: inputs[0]}), () => {
                     setUser({_id: user._id, username: inputs[0], handle: user.handle, email: user.email, type: user.type})
                 })) 
             })
@@ -97,7 +97,7 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.email_updated') + inputs[0], () => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.email_updated', {email: inputs[0]}), () => {
                     setUser({_id: user._id, username: user.username, handle: user.handle, email: inputs[0]!, type: user.type})
                 })) 
             })
@@ -149,7 +149,7 @@ export default function AccountPage() {
                 <h2>{t('Account.settings')}</h2>
                 <div className="settings_option">
                     <div className="text">
-                        <h3>{t('Account.username')}</h3>
+                        <h3>{t('Account.Shared.username')}</h3>
                         <p>{user.username}</p>
                     </div>
                     <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeUsername"} onSave={updateUsername}>
@@ -158,7 +158,7 @@ export default function AccountPage() {
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <h3>{t('Account.handle')}</h3>
+                        <h3>{t('Account.Shared.handle')}</h3>
                         <p>{user.handle}</p>
                     </div>
                     <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeHandle"} onSave={updateHandle}>
@@ -167,7 +167,7 @@ export default function AccountPage() {
                 </div>
                     <div className="settings_option">
                     <div className="text">
-                        <h3>{t('Account.email')}</h3>
+                        <h3>{t('Account.Shared.email')}</h3>
                         <p>{user.email}</p>
                     </div>
                     <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeEmail"} onSave={updateEmail}>
@@ -176,7 +176,7 @@ export default function AccountPage() {
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <h3>{t('Account.password')}</h3>   
+                        <h3>{t('Account.Shared.password')}</h3>   
                     </div>
                     <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id="changePassword" onSave={updatePassword}>
                         <Text name={t('Account.Popup.new_password')} type="password" />

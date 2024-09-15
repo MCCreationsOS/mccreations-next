@@ -18,14 +18,14 @@ export default function BulkDownloadButton() {
                 a.remove()
             })
             if(selected.length === 0) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('button.bulk_download.no_selection')))
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Buttons.BulkDownload.no_selection')))
             }
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('button.bulk_download.no_selection')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Buttons.BulkDownload.no_selection')))
         }
     }
 
     return (
-        <IconButton className="secondary" onClick={bulkDownload}><svg viewBox="0 0 45 45"><text x="3" y="15" fontSize={15} fill="white">{t('button.bulk_download')}</text><Download x="10" y="20"/></svg></IconButton>
+        <IconButton className="secondary" onClick={bulkDownload}><svg viewBox="0 0 45 45"><text x="3" y="15" fontSize={15} fill="white">{t('Buttons.BulkDownload.text')}</text><Download x="10" y="20"/></svg></IconButton>
     )
 }

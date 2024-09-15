@@ -3,8 +3,11 @@ import { downloadMap } from "@/app/api/content"
 import MainButton from "./MainButton"
 import { CollectionNames, IFile, NewFile } from "@/app/api/types";
 import { isBedrockType } from "../FormInputs/VersionUploader/VersionManager";
+import { useTranslations } from "next-intl";
 
 export default function DownloadButton({slug, file}: {slug: string, file: IFile}) {
+    const t = useTranslations()
+
     const downloadButtonClicked = async () => {
         await downloadMap(slug)
 
@@ -22,9 +25,9 @@ export default function DownloadButton({slug, file}: {slug: string, file: IFile}
         })
     }
 
-    let text = "Download"
+    let text = t('Buttons.download')
     if(isBedrockType(file.type)) {
-        text = "Bedrock Download"
+        text = t('Buttons.download_bedrock')
     }
 
     return (

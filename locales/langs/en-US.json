@@ -16,10 +16,6 @@
 
     "Account": {
         "settings": "Account Settings",
-        "username": "Username",
-        "handle": "Handle",
-        "email": "Email",
-        "password": "Password",
         "delete_account": "Delete Account",
 
         "Popup": {
@@ -35,9 +31,9 @@
         },
 
         "PopupMessage": {
-            "email_updated": "Email updated successfully to ",
-            "handle_updated": "Handle updated successfully to ",
-            "username_updated": "Username updated successfully to ",
+            "email_updated": "Email updated successfully to {email}",
+            "handle_updated": "Handle updated successfully to {handle}",
+            "username_updated": "Username updated successfully to {username}",
             "password_updated": "Password updated successfully",
             "passwords_not_match": "Passwords do not match",
             "delete_account_warning": "Click again to delete your account. This is permanent!",
@@ -45,6 +41,24 @@
             "delete_account_error": "There was an error deleting your account. Please report this issue using the link above",
             "delete_account_success": "Account successfully deleted",
             "error": "There was an error. Please report this issue using the link above"
+        },
+
+        "Shared": {
+            "username": "Username",
+            "username_placeholder": "Steve",
+            "handle": "Handle",
+            "handle_placeholder": "steve",
+            "email": "Email",
+            "email_placeholder": "steve@minecraft.net",
+            "password": "Password",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            },
+            "forgot_password": "Forgot your password?",
+            "providers": "Sign in with..."
         }
     },
 
@@ -74,6 +88,106 @@
 
     "Dashboard": {
         "title": "Dashboard"
+    },
+
+    "ResetPassword": {
+        "token_error": "No token found, returning to previous page",
+        "new_password": "New Password",
+        "retype_password": "Retype Password",
+        "password_length": "Password must be 10 or more characters",
+        "password_number": "Password must include at least one number",
+        "passwords_not_same": "Passwords are not the same",
+        "reset": "Reset",
+        "title": "Reset Password"
+    },
+
+    "SignIn": {
+        "Reset": {
+            "title": "Reset Password",
+            "send_reset_email": "Send Reset Email"
+        },
+        "PopupMessage": {
+            "error": "There was an error. Please report this issue using the link above."
+        },
+        "email_title": "Sign in with email",
+        "button": "Sign In",
+        "no_account": "Don't have an account?"
+    },
+
+    "SignUp": {
+        "title": "Sign Up",
+        "email_invalid": "Email is not a valid email address",
+        "password_no_number": "Password must include at least one number",
+        "password_too_short": "Password must be 10 or more characters",
+        "username_invalid_characters": "Username can only include letters, numbers and _",
+        "username_too_short": "Username must be at least 3 characters",
+        "button": "Sign Up",
+        "already_have_account": "Already have an account?",
+        "error": "There was an error creating your account. Please report this issue using the link above."
+    },
+
+    "Translate": {
+        "title": "Translate",
+        "help": "<link>For help, click here</link>",
+        "AddLanguage": {
+            "title": "Add A Language",
+            "language": "Language",
+            "language_placeholder": "en-US",
+            "language_description": "An <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct."
+        },
+        "language": "Language"
+    },
+
+    "Error": {
+        "title": "Something went wrong!",
+        "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
+        "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
+    },
+
+    "Home": {
+        "Playlists": {
+            "new_content": "New Content",
+            "updated_content": "Recently Updated",
+            "parkour": "Parkour: Jump to Victory!",
+            "adventure": "Adventure: Explore the Unknown",
+            "puzzle": "Puzzle: Use your Brain",
+            "highly_rated": "Highly Rated",
+            "popular": "Popular"
+        }
+    },
+
+    "Ads": {
+        "behind_text": "Ads help keep MCCreations creating cool things! Please consider disabling your ad blocker for this site :)"
+    },
+
+    "Buttons": {
+        "BulkDownload": {
+            "text": "BULK",
+            "no_selection": "No content selected for download"
+        },
+        "download": "Download",
+        "download_bedrock": "Download for Bedrock",
+        "edit": "Edit"
+    },
+
+    "CommentForm": {
+        "sent": "Comment sent",
+        "title": "Leave a Comment",
+        "comment": "Comment",
+        "send": "Send"
+    },
+
+    "Comment": {
+        "icon": "{username}'s logo",
+        "permalink": "Copy comment permalink",
+        "expand": "See More",
+        "collapse": "See Less"
+    },
+
+    "CommentsList": {
+        "title": "Comments",
+        "no_comments": "Be the first to comment!",
+        "none_yet": "None Yet!"
     },
 
     "account.change_email": "Change Email",
@@ -483,12 +597,81 @@
     },
 
     "Content": {
-        "Leaderboards": "Leaderboards",
+        "affiliate": "Get a server for this {type} for 25% off",
+        "leaderboards": "Leaderboards",
+        "files": "Files",
+        "info": "Info",
+        "logo_alt": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
+        "Sidebar": {
+            "creators": "Creators",
+            "stats": "Stats",
+            "created_date": "Created Date",
+            "updated_date": "Updated Date",
+            "downloads": "Downloads",
+            "ratings": "Ratings",
+            "minecraft_version": "Minecraft Version",
+            "files": "Files"
+        },
         "Files": {
             "name": "Name",
             "date": "Date",
             "minecraft_version": "Minecraft Version",
-            "download": "Download"
+            "download": "Download",
+            "loading": "Loading..."
+        },
+        "Warnings": {
+            "no_title": {
+                "title": "No Title",
+                "description": "Content must have a title"
+            },
+            "no_description": {
+                "title": "No Description",
+                "description": "A description is required"
+            },
+            "no_short_description": {
+                "title": "No Short Description",
+                "description": "A short Description is required"
+            },
+            "no_tags": {
+                "title": "No Tags",
+                "description": "Content must have at least one tag"
+            },
+            "no_minecraft_version": {
+                "title": "No Minecraft Version",
+                "description": "Content must have a Minecraft version"
+            },
+            "no_creators": {
+                "title": "No Creators",
+                "description": "Content must have at least one creator"
+            },
+            "no_files": {
+                "title": "No Files",
+                "description": "Content must have at least one file"
+            },
+            "no_images": {
+                "title": "No Images",
+                "description": "Content is required to have at least one image."
+            },
+            "short_description_too_short": {
+                "title": "Short Description Too Short",
+                "description": "Your short description needs to be at least 20 characters"
+            },
+            "description_too_short": {
+                "title": "Description Too Short",
+                "description": "Your description needs to be at least 20 characters"
+            },
+            "external_images": {
+                "title": "Images From External Sources",
+                "description": "You have images that are from external sources. This means that MCCreations cannot guarantee they will continue to work in the future, or will be accessible by all users. We highly recommend you upload these images instead."
+            },
+            "few_images": {
+                "title": "Very Few Images",
+                "description": "More images help people get a better idea of what your content is about. It is recommended you upload at least 4 including your logo."
+            },
+            "not_linked": {
+                "title": "Not Linked to an Account",
+                "description": "This content is not linked to an account on MCCreations. This means that your access to edit this content will expire in 24 hours. It is recommended to upload content with an account so you can retain access to all features."
+            }
         },
         "Edit": {
             "editing": "Editing {title}",
@@ -540,9 +723,6 @@
                 "requested_approval": "Content has been requested for approval"
             }
         },
-        "CommentForm": {
-            "sent": "Comment sent"
-        },
         "Metadata": {
             "title_not_found": "{content_type} Not Found",
             "description_not_found": "This {content_type} does not exist on MCCreations",
@@ -554,6 +734,8 @@
                 "minecraft_creations": "Minecraft Creations",
                 "minecraft_versions": "Minecraft {minecraft_version}",
                 "minecraft_datapack": "Minecraft Data Pack",
+                "minecraft_map": "Minecraft Map",
+                "minecraft_resourcepack": "Minecraft Resource Pack",
                 "mods": "Mods",
                 "minecraft_mods": "Minecraft Mods",
                 "minecraft_but": "Minecraft but",
@@ -563,6 +745,12 @@
         "datapack_not_found": "Datapack Not Found",
         "datapack_not_found_description": "This datapack does not exist or you do not have permission to view it",
         "datapacks_not_found": "No Datapacks Found",
+        "maps_not_found": "No Maps Found",
+        "map_not_found": "Map Not Found",
+        "map_not_found_description": "This map does not exist or you do not have permission to view it",
+        "resourcepack_not_found": "Resourcepack Not Found",
+        "resourcepack_not_found_description": "This resourcepack does not exist or you do not have permission to view it",
+        "resourcepacks_not_found": "No Resourcepacks Found",
         "Tags": {
             "genre": "Genre",
             "subgenre": "Subgenre",

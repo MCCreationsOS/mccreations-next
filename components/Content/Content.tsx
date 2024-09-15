@@ -53,7 +53,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
             <Image className='image_background' width={1920} height={1080} src={content.images[0]} alt=""></Image>
             <div className='map_logo_foreground'>
                 <div className='map_logo_container'>
-                    {(content.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image priority className='map_logo' width={1920} height={1080} src={(content.images) ? content.images[0] : "/defaultBanner.png"} alt={`${t('content.logo.alt1')}${content.title}${t('content.logo.alt2')}${collectionName.substring(0, collectionName.length - 1)}${t('content.logo.alt3')}${(content.files) ? content.files[0].minecraftVersion: ""}${t('content.logo.alt4')}${(content.creators) ? content.creators[0].username: ""}`}></Image>}
+                    {(content.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image priority className='map_logo' width={1920} height={1080} src={(content.images) ? content.images[0] : "/defaultBanner.png"} alt={t('Content.logo_alt', {title: content.title, type: content.type, minecraft_version: content.files[0].minecraftVersion, creator: content.creators[0].username})}></Image>}
                 </div>
             </div>
             <div className='centered_content'>
@@ -64,7 +64,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
                     <div className='map_download_stack'>
                         <Rating value={content.rating} content={content} />
                         {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} />: <></>}
-                        <Link title={t(`content.affiliates.server.${collectionName}`)} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
+                        <Link title={t('Content.affiliate', {type: content.type})} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
                     </div>
                 </div>
                 <div className='map_information'>
@@ -77,19 +77,19 @@ export default function Content({content, collectionName}: {content: IContentDoc
                             <CreateTranslationForm type={collectionName} content={content} />
                         </section>
                         <section className='map_sidebar_section'>
-                            <h4 className='header'>{t('content.sidebar.headers.creators')}</h4>
+                            <h4 className='header'>{t('Content.Sidebar.creators')}</h4>
                             {content.creators && content.creators.map((creator: ICreator, idx: number) => <CreatorCard key={idx} creator={creator} />)}
                         </section>
                         <section className='map_sidebar_section stats'>
-                            <h4 className='header'>{t('content.sidebar.headers.stats')}</h4>
-                            <p className='stat_header'>{t('content.sidebar.stats.downloads')} <span className='stat'>{content.downloads}</span></p>
-                            <p className='stat_header'>{t('content.sidebar.stats.ratings')} <span className='stat'>{(content.ratings) ? content.ratings.length : 0}</span></p>
-                            {(content.files) ? <p className='stat_header'>{t('content.sidebar.stats.minecraft_version')} <span className='stat'>{content.files[0].minecraftVersion}</span></p> : <></> }
-                            <p className='stat_header'>{t('content.sidebar.stats.created_date')} <span className='stat'>{new Date(content.createdDate).toLocaleDateString()}</span></p>
-                            {(content.updatedDate) ? <p className='stat_header'>{t('content.sidebar.stats.updated_date')} <span className='stat'>{new Date(content.updatedDate).toLocaleDateString()}</span></p> : <></>}
+                            <h4 className='header'>{t('Content.Sidebar.stats')}</h4>
+                            <p className='stat_header'>{t('Content.Sidebar.downloads')} <span className='stat'>{content.downloads}</span></p>
+                            <p className='stat_header'>{t('Content.Sidebar.ratings')} <span className='stat'>{(content.ratings) ? content.ratings.length : 0}</span></p>
+                            {(content.files) ? <p className='stat_header'>{t('Content.Sidebar.minecraft_version')} <span className='stat'>{content.files[0].minecraftVersion}</span></p> : <></> }
+                            <p className='stat_header'>{t('Content.Sidebar.created_date')} <span className='stat'>{new Date(content.createdDate).toLocaleDateString()}</span></p>
+                            {(content.updatedDate) ? <p className='stat_header'>{t('Content.Sidebar.updated_date')} <span className='stat'>{new Date(content.updatedDate).toLocaleDateString()}</span></p> : <></>}
                         </section>
                         <section className='map_sidebar_section'>
-                            <h4 className='header'>{t('content.sidebar.headers.files')}</h4>
+                            <h4 className='header'>{t('Content.Sidebar.files')}</h4>
                             {content.files && content.files.slice(0, 3).map((file: IFile, idx: number) => <FileCard key={idx} file={file} slug={content.slug}/>)}
                         </section>
                     </div>

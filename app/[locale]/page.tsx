@@ -17,47 +17,38 @@ import { getTranslations } from "next-intl/server";
 export default async function Page({ params: { locale } }: { params: { locale: string } }) {
     const t = await getTranslations();
     let dynamicPlaylists: { name: string, id: string, options: QueryOptions }[] = [{
-        name: t('Playlist.Parkour'),
+        name: t('Home.Playlists.parkour'),
         id: "parkour",
         options: { contentType: "content", status: 2, sort: SortOptions.Newest, limit: 20, search: "parkour" }
     }, {
-        name: t('Playlist.Adventure'),
+        name: t('Home.Playlists.adventure'),
         id: "adventure",
         options: { contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20, search: "adventure" }
     }, {
-        name: t('Playlist.Puzzle'),
+        name: t('Home.Playlists.puzzle'),
         id: "puzzle",
         options: { contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20, search: "puzzle" }
     }, {
-        name: t('Playlist.HighlyRated'), 
+        name: t('Home.Playlists.highly_rated'), 
         id: "highly_rated",
         options: { contentType: 'content', status: 2, sort: SortOptions.HighestRated, limit: 20 }
     }, {
-        name: t('Playlist.Popular'), 
+        name: t('Home.Playlists.popular'), 
         id: "popular",
         options: { contentType: 'content', status: 2, sort: SortOptions.HighestDownloads, limit: 20 }
     }]
     dynamicPlaylists.sort(() => Math.random() - 0.5)
 
     const featured = (await searchContent({ contentType: "content", status: 3, limit: 5 }, false)).documents
-    if (!featured || featured.error) {
-        let msgBase = "MCCreations API Error! Failed to fetch featured, newest or updated on the homepage. Query was "
-        return (
-            <>
-                <Menu selectedPage='home'></Menu>
-                <Error message={msgBase + JSON.stringify(featured.query)}></Error>
-            </>
-        )
-    }
     return (
         <>
             <Menu selectedPage='home'></Menu>
             {(featured) ? (<FeaturedSlideshow content={featured} />) : "MCCreations API Error"}
-            <h2 className="playlist_header">{t('playlist.new_content')}</h2>
+            <h2 className="playlist_header">{t('Home.Playlists.new_content')}</h2>
             <Suspense fallback={<GridSkeleton amount={4} />}>
                 <ContentArea type="scroll" playlist="new_content" options={{ contentType: "content", status: 2, sort: SortOptions.Newest, limit: 20 }} />
             </Suspense>
-            <h2 className="playlist_header">{t('playlist.updated_content')}</h2>
+            <h2 className="playlist_header">{t('Home.Playlists.updated_content')}</h2>
             <Suspense fallback={<GridSkeleton amount={4} />}>
                 <ContentArea type="scroll" playlist="updated_content" options={{ contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20 }} filterOptions={{ contentType: "content", status: 2, sort: SortOptions.Newest, limit: 5 }} />
             </Suspense>

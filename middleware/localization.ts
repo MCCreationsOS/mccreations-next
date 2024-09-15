@@ -10,7 +10,7 @@ const I18nMiddleware = createMiddleware({
 
  
 export const config = {
-  matcher: ['/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt|monitoring).*)']
+  matcher: ['/((?!api|static|.*\\..*|_next|favicon.ico|robots.txt|monitoring|not-found).*)']
 }
 
 export function withI18nMiddleware(middleware: CustomMiddleware) {

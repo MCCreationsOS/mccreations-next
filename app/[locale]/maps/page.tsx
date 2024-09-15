@@ -124,7 +124,7 @@ export default function Maps() {
             )}
             { !maps || maps.length === 0 && (
                 <div className="no_comments">
-                    <h2>{t('content.no_maps_found')}</h2>
+                    <h2>{t('Content.no_maps_found')}</h2>
                 </div>
             )}
             { maps && pages > 1 &&  (<div className="navigator">

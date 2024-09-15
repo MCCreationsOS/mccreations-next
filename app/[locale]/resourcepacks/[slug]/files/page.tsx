@@ -7,16 +7,16 @@ import IconButton from "@/components/Buttons/IconButton";
 import ContentMenu from "@/components/Content/ContentMenu";
 import ContentWarnings from "@/components/Content/ContentWarnings";
 import Rating from "@/components/Rating";
-import { useI18n } from "@/locales/client";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Archive, Layers, Package, Server } from "react-feather";
 import styles from './table.module.css'
+import { useTranslations } from "next-intl";
 
 export default function Page({ params }: { params: Params }) {
     const [content, setContent] = useState<IContentDoc | null>(null)
-    const t = useI18n();
+    const t = useTranslations();
 
     useEffect(() => {
         fetchResourcepack(params.slug).then(setContent)
@@ -60,7 +60,7 @@ export default function Page({ params }: { params: Params }) {
                         <div className='map_download_stack'>
                             <Rating value={content.rating} content={content} />
                             {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} /> : <></>}
-                            <Link title={t(`content.affiliates.server.${"Maps"}`)} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server /></IconButton></Link>
+                            <Link title={t(`Content.affiliate`, {type: t('resourcepack', {count: 2})})} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server /></IconButton></Link>
                         </div>
                     </div>
                     <div className={styles.content_item}>

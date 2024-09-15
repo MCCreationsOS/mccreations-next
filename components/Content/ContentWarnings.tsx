@@ -39,79 +39,79 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
         if(!map.creators || !map.creators[0].handle) {
             messages.push({
                 type: 'Warning',
-                title: t('content.warnings.not_linked.title'),
-                message: t('content.warnings.not_linked.description')
+                title: t('Content.Warnings.not_linked.title'),
+                message: t('Content.Warnings.not_linked.description')
             })
         }
         if(!map.shortDescription || map.shortDescription.length < 20) {
             messages.push({
                 type: 'Error',
-                title: t('content.warnings.short_description.title'),
-                message: t('content.warnings.short_description.description')
+                title: t('Content.Warnings.short_description.title'),
+                message: t('Content.Warnings.short_description.description')
             })
         }
         if(map.images.length === 0) {
             messages.push({
                 type: 'Error',
-                title: t('content.warnings.no_images.title'),
-                message: t('content.warnings.no_images.description')
+                title: t('Content.Warnings.no_images.title'),
+                message: t('Content.Warnings.no_images.description')
             })
         }
         if(map.description.length < 20) {
             messages.push({
                 type: 'Error',
-                title: t('content.warnings.description_too_short.title'),
-                message: t('content.warnings.description_too_short.description')
+                title: t('Content.Warnings.description_too_short.title'),
+                message: t('Content.Warnings.description_too_short.description')
             })
         }
         if(map.creators.length === 0) {
             messages.push({
                 type: 'Error',
-                title: t('content.warnings.no_creators.title'),
-                message: t('content.warnings.no_creators.description')
+                title: t('Content.Warnings.no_creators.title'),
+                message: t('Content.Warnings.no_creators.description')
             })
         }
         if(map.files && map.files[0] && (!map.files[0].minecraftVersion || map.files[0].minecraftVersion.length === 0)) {
             messages.push({
                 type: 'Error',
-                title: t('content.warnings.no_minecraft_version.title'),
-                message: t('content.warnings.no_minecraft_version.description')
+                title: t('Content.Warnings.no_minecraft_version.title'),
+                message: t('Content.Warnings.no_minecraft_version.description')
             })
         }
         if(!map.title || map.title.length === 0) {
             messages.push({
                 type: 'Error',
-                title: t('content.warnings.no_title.title'),
-                message: t('content.warnings.no_title.description')
+                title: t('Content.Warnings.no_title.title'),
+                message: t('Content.Warnings.no_title.description')
             })
         }
         if(!map.tags || map.tags.length === 0) {
             messages.push({
                 type: 'Error',
-                title: t('content.warnings.no_tags.title'),
-                message: t('content.warnings.no_tags.description')
+                title: t('Content.Warnings.no_tags.title'),
+                message: t('Content.Warnings.no_tags.description')
             })
         }
         if(!map.files || map.files.length === 0) {
             messages.push({
                 type: 'Error',
-                title: t('content.warnings.no_files.title'),
-                message: t('content.warnings.no_files.description')
+                title: t('Content.Warnings.no_files.title'),
+                message: t('Content.Warnings.no_files.description')
             })
         }
 
         if(map.images.length <= 2) {
             messages.push({
                 type: 'Warning',
-                title: t('content.warnings.few_images.title'),
-                message: t('content.warnings.few_images.description')
+                title: t('Content.Warnings.few_images.title'),
+                message: t('Content.Warnings.few_images.description')
             })
         }
         if(map.images.find(image => !image.includes('mccreations'))) {
             messages.push({
                 type: 'Warning',
-                title: t('content.warnings.external_images.title'),
-                message: t('content.warnings.external_images.description')
+                title: t('Content.Warnings.external_images.title'),
+                message: t('Content.Warnings.external_images.description')
             })
         }
 

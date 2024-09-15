@@ -46,17 +46,17 @@ export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: str
 
         setComment("");
 
-        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.CommentForm.sent')))
+        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('CommentForm.sent')))
     }
 
     if(!render) return;
 
     return (
         <div className='centered_content'>
-            <h2>{t('content.comments.title')}</h2>
-                <FormComponent id="commentForm" onSave={sendComment} options={{saveButtonContent: "Send"}}>
-                    <Text name={t('content.comments.username')} value={user?.username} />
-                    <RichTextInput id="comment" name={t('content.comments.comment')} value={comment} />
+            <h2>{t('CommentForm.title')}</h2>
+                <FormComponent id="commentForm" onSave={sendComment} options={{saveButtonContent: t('CommentForm.send')}}>
+                    <Text name={t('Account.Shared.username')} placeholder={t('Account.Shared.username_placeholder')} value={user?.username} />
+                    <RichTextInput id="comment" name={t('CommentForm.comment')} value={comment}/>
                 </FormComponent>
         </div>
     )

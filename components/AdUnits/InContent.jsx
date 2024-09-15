@@ -4,6 +4,7 @@ import { adUnits } from "@/app/api/ads"
 import { useEffect, useState } from "react"
 import styles from './Ads.module.css'
 import Script from "next/script"
+import { useTranslations } from "next-intl"
 
 export default function InContentAdUnit() {
     const [isClient, setIsClient] = useState(false)
@@ -39,6 +40,7 @@ export default function InContentAdUnit() {
 
 export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, height }) => {
     const [render, setRender] = useState(true);
+    const t = useTranslations();
 
     useEffect(() => {
         try {
@@ -68,7 +70,7 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
     if (!render) return null;
     return (
         <div className={styles.in_content_ad}>
-            <div className={styles.background}>Ads help keep MCCreations creating cool things!</div>
+            <div className={styles.background}>{t('Ads.behind_text')}</div>
             <ins className="adsbygoogle"
                 style={{ display: 'block', width: width, height: height, margin: '0 auto' }}
                 data-ad-client={adClient}

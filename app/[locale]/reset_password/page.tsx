@@ -5,6 +5,7 @@ import { resetPassword } from "@/app/api/auth";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import MainButton from "@/components/Buttons/MainButton";
 import {useTranslations} from 'next-intl';
+import PopupComponent from "@/components/Popup/Popup";
 
 export default function Page() {
     const [password, setPassword] = useState("")
@@ -18,7 +19,7 @@ export default function Page() {
     useEffect(() => {
         token = params.get('token')
         if(!token) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('account.reset_password.token_error'), () => {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('ResetPassword.token_error'), () => {
                 router.back()
             }))
             return;
@@ -28,7 +29,7 @@ export default function Page() {
     const updatePassword = async () => {
         token = params.get('token')
         if(!token) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('account.reset_password.token_error'), () => {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('ResetPassword.token_error'), () => {
                 router.back()
             }))
             return;
@@ -36,14 +37,14 @@ export default function Page() {
         if(password === password2) {
 
             if(!password || password.length < 9) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('account.reset_password.password_length')))
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('ResetPassword.password_length')))
                 return;
             }
     
             let regex = /[0-9]/g, m;
             m = regex.exec(password)
             if(!m) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('account.reset_password.password_number')))
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('ResetPassword.password_number')))
                 return;
             }
 
@@ -53,27 +54,43 @@ export default function Page() {
             }
             router.push("/signin")
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('account.reset_password.passwords_not_same')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('ResetPassword.passwords_not_same')))
             return;
         }
     }
 
     return (
         <div className="popup_page">
-            <div className="centered_content small popup">
-                <h2>{t('account.reset_password')}</h2>
+            <PopupComponent>
+                <h2>{t('ResetPassword.title')}</h2>
                 <form>
                     <div className='field'>
-                        <p className='label'>{t('account.reset_password.new_password')}</p>
-                        <input className='input wide' type='password' autoComplete="password" name='password' placeholder={t('account.reset_password.new_password')} onChange={(e) => {setPassword(e.target.value)}}></input>
+                        <p className='label'>{t('ResetPassword.new_password')}</p>
+                        <input className='input wide' type='password' autoComplete="password" name='password' placeholder={t('ResetPassword.new_password')} onChange={(e) => {setPassword(e.target.value)}}></input>
                     </div>
                     <div className='field'>
-                        <p className='label'>{t('account.reset_password.retype_password')}</p>
-                        <input className='input wide' type='password' autoComplete="password" name='password' placeholder={t('account.reset_password.new_password')} onChange={(e) => {setPassword2(e.target.value)}}></input>
+                        <p className='label'>{t('ResetPassword.retype_password')}</p>
+                        <input className='input wide' type='password' autoComplete="password" name='password' placeholder={t('ResetPassword.new_password')} onChange={(e) => {setPassword2(e.target.value)}}></input>
                     </div>
-                    <MainButton onClick={updatePassword}>{t('account.reset_password.reset')}</MainButton>
+                    <MainButton onClick={updatePassword}>{t('ResetPassword.reset')}</MainButton>
                 </form>
-            </div>
+            </PopupComponent>
         </div>
+        // <div className="popup_page">
+        //     <div className="centered_content small popup">
+        //         <h2>{t('ResetPassword.title')}</h2>
+        //         <form>
+        //             <div className='field'>
+        //                 <p className='label'>{t('ResetPassword.new_password')}</p>
+        //                 <input className='input wide' type='password' autoComplete="password" name='password' placeholder={t('ResetPassword.new_password')} onChange={(e) => {setPassword(e.target.value)}}></input>
+        //             </div>
+        //             <div className='field'>
+        //                 <p className='label'>{t('ResetPassword.retype_password')}</p>
+        //                 <input className='input wide' type='password' autoComplete="password" name='password' placeholder={t('ResetPassword.new_password')} onChange={(e) => {setPassword2(e.target.value)}}></input>
+        //             </div>
+        //             <MainButton onClick={updatePassword}>{t('ResetPassword.reset')}</MainButton>
+        //         </form>
+        //     </div>
+        // </div>
     )
 }

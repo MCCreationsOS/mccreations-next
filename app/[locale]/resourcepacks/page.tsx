@@ -123,7 +123,7 @@ export default function Resourcepacks() {
             )}
             { !resourcepacks || resourcepacks.length === 0 && (
                 <div className="no_comments">
-                    <h2>{t('content.no_resourcepacks_found')}</h2>
+                    <h2>{t('Content.resourcepacks_not_found')}</h2>
                 </div>
             )}
             { resourcepacks && pages > 1  &&  (<div className="navigator">

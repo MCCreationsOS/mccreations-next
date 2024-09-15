@@ -15,8 +15,8 @@ export default function ContentMenu({content, selectedTab}: {content: IContentDo
     const t = useTranslations();
 
     let tabs = [
-        {title: t('content.info'), content: <></>, link: `../${content.slug}`},
-        {title: t('content.files'), content: <></>, link: `./${content.slug}/files`}
+        {title: t('Content.info'), content: <></>, link: `../${content.slug}`},
+        {title: t('Content.files'), content: <></>, link: `./${content.slug}/files`}
     ]
 
     if(content.type === ContentTypes.Maps && content.extraFeatures && content.extraFeatures.leaderboards.use) {
