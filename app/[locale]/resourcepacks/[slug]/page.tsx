@@ -6,7 +6,7 @@ import MapWrapper, { ResourcepackWrapper } from '@/components/Content/ContentWra
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
 import Content from '@/components/Content/Content';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
     // fetch data
@@ -56,27 +56,9 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     }
 }
 
-
-export async function generateStaticParams() {
-    const maps = (await searchContent({ contentType: CollectionNames.Resourcepacks, limit: 300 }, false)).documents
-    let mapParams = maps.map((map: IContentDoc) => ({
-        slug: map.slug
-    }))
-    let params = []
-    for (let locale of Locales) {
-        for (let map of mapParams) {
-            params.push({
-                locale: locale,
-                slug: map.slug
-            })
-        }
-    }
-    // console.log(params)
-    return params
-}
-
 export default async function Page({params}: {params: Params}) {
     const map = await fetchResourcepack(params.slug)
+    unstable_setRequestLocale(params.locale)
     const t = await getTranslations()
     
     if(map && '_id' in map) {

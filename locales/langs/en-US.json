@@ -512,7 +512,7 @@
                 "games": "games",
                 "gaming": "gaming",
                 "minecraft_creations": "Minecraft Creations",
-                "minecraft_versions": "Minecraft {minecraft_version}",
+                "minecraft_version": "Minecraft {minecraft_version}",
                 "minecraft_datapack": "Minecraft Data Pack",
                 "minecraft_map": "Minecraft Map",
                 "minecraft_resourcepack": "Minecraft Resource Pack",

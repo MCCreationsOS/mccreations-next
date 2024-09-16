@@ -1,73 +1,73 @@
 {
-    "language_name": "English",
-    "language_code": "en_US",
+    "language_name": "简体中文",
+    "language_code": "zh-CN",
 
-    "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
-    "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
-    "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
-    "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
+    "map": "{count, plural, =0 {地图} =1 {地图} other {地图}}",
+    "datapack": "{count, plural, =0 {数据包} =1 {数据包} other {数据包}}",
+    "resourcepack": "{count, plural, =0 {资源包} =1 {资源包} other {资源包}}",
+    "comment": "{count, plural, =0 {评论} =1 {评论} other {评论}}",
 
     "Status": {
-        "approved": "Approved",
-        "draft": "Draft",
-        "featured": "Featured",
-        "unapproved": "Unapproved"
+        "approved": "已批准",
+        "draft": "未完成",
+        "featured": "精选",
+        "unapproved": "待批准"
     },
 
     "Account": {
-        "settings": "Account Settings",
-        "delete_account": "Delete Account",
+        "settings": "账户设置",
+        "delete_account": "删除账户",
 
         "Popup": {
             "new_username": "New Username",
-            "change_username": "Change Username",
+            "change_username": "更改昵称",
             "new_handle": "New Handle",
-            "change_handle": "Change Handle",
+            "change_handle": "更改用户名",
             "new_email": "New Email",
-            "change_email": "Change Email",
-            "new_password": "New Password",
-            "confirm_password": "Confirm Password",
-            "change_password": "Change Password"
+            "change_email": "更改邮箱",
+            "new_password": "新的密码",
+            "confirm_password": "再次确认密码",
+            "change_password": "更改密码"
         },
 
         "PopupMessage": {
             "email_updated": "Email updated successfully to {email}",
             "handle_updated": "Handle updated successfully to {handle}",
             "username_updated": "Username updated successfully to {username}",
-            "password_updated": "Password updated successfully",
-            "passwords_not_match": "Passwords do not match",
-            "delete_account_warning": "Click again to delete your account. This is permanent!",
-            "delete_account_auth_error": "Authorization Error. Please sign in again",
+            "password_updated": "密码已成功更新",
+            "passwords_not_match": "密码不匹配",
+            "delete_account_warning": "再次点击以删除您的账户。这是永久的！",
+            "delete_account_auth_error": "授权错误。请重新登录",
             "delete_account_error": "There was an error deleting your account. Please report this issue using the link above",
-            "delete_account_success": "Account successfully deleted",
-            "error": "There was an error. Please report this issue using the link above"
+            "delete_account_success": "已成功删除账户",
+            "error": "发生一处错误。请通过以上链接报告问题"
         },
 
         "Shared": {
-            "username": "Username",
+            "username": "昵称",
             "username_placeholder": "Steve",
-            "handle": "Handle",
+            "handle": "用户名",
             "handle_placeholder": "steve",
-            "email": "Email",
+            "email": "邮箱",
             "email_placeholder": "steve@minecraft.net",
-            "password": "Password",
+            "password": "密码",
             "Providers": {
                 "discord": "Discord",
                 "github": "Github",
                 "google": "Google",
                 "microsoft": "Microsoft"
             },
-            "forgot_password": "Forgot your password?",
-            "providers": "Sign in with..."
+            "forgot_password": "忘记密码？",
+            "providers": "以……登录"
         }
     },
 
     "Auth": {
         "OAuth": {
             "PopupMessage": {
-                "error": "There was an error communicating with our API. Please report this with the link above"
+                "error": "与我们的 API 通信时发生一处错误。请通过上方链接中报告"
             },
-            "loading": "Signing you in!"
+            "loading": "你已登录！"
         }
     },
 
@@ -83,10 +83,10 @@
             "description": "View {username}'s Minecraft Maps, Data Packs, Resource Packs, and more on MCCreations"
         },
         "Edit": {
-            "about": "About",
-            "banner": "Change Banner",
-            "logo": "Change Icon",
-            "title": "Update Profile",
+            "about": "关于",
+            "banner": "更换横幅",
+            "logo": "更换图标",
+            "title": "更新个人资料",
             "saved": "Profile saved successfully"
         },
         "not_found": "Creator Not Found",
@@ -94,51 +94,51 @@
     },
 
     "Dashboard": {
-        "title": "Dashboard",
-        "info": "Info",
-        "status": "Status",
-        "created_date": "Created Date",
+        "title": "您的内容",
+        "info": "信息",
+        "status": "状态",
+        "created_date": "创建日期",
         "updated_date": "Updated Date",
-        "downloads": "Downloads",
-        "rating": "Rating",
+        "downloads": "下载次数",
+        "rating": "评分",
         "view": "View Content",
-        "edit": "Edit",
+        "edit": "编辑",
         "delete": "Delete"
     },
 
     "ResetPassword": {
-        "token_error": "No token found, returning to previous page",
+        "token_error": "未找到 token ，返回上一页",
         "new_password": "New Password",
-        "retype_password": "Retype Password",
-        "password_length": "Password must be 10 or more characters",
-        "password_number": "Password must include at least one number",
-        "passwords_not_same": "Passwords are not the same",
-        "reset": "Reset",
-        "title": "Reset Password"
+        "retype_password": "重新输入密码",
+        "password_length": "密码需要至少十个字符",
+        "password_number": "密码需要至少一个数字",
+        "passwords_not_same": "前后密码不能相同",
+        "reset": "重置",
+        "title": "重置密码"
     },
 
     "SignIn": {
         "Reset": {
             "title": "Reset Password",
-            "send_reset_email": "Send Reset Email"
+            "send_reset_email": "发送重置邮件"
         },
         "PopupMessage": {
             "error": "There was an error. Please report this issue using the link above."
         },
-        "email_title": "Sign in with email",
-        "button": "Sign In",
-        "no_account": "Don't have an account?"
+        "email_title": "以邮箱登录",
+        "button": "登录",
+        "no_account": "没有账户？"
     },
 
     "SignUp": {
-        "title": "Sign Up",
-        "email_invalid": "Email is not a valid email address",
-        "password_no_number": "Password must include at least one number",
-        "password_too_short": "Password must be 10 or more characters",
-        "username_invalid_characters": "Username can only include letters, numbers and _",
-        "username_too_short": "Username must be at least 3 characters",
-        "button": "Sign Up",
-        "already_have_account": "Already have an account?",
+        "title": "或注册",
+        "email_invalid": "邮箱地址无效",
+        "password_no_number": "密码需要至少包含一个数字",
+        "password_too_short": "密码需要至少十个字符",
+        "username_invalid_characters": "昵称中只能包含字母，数字及下划线",
+        "username_too_short": "昵称需要至少三个字符",
+        "button": "注册",
+        "already_have_account": "已有账户？",
         "error": "There was an error creating your account. Please report this issue using the link above."
     },
 
@@ -150,8 +150,8 @@
             "language_placeholder": "en-US",
             "language_description": "An <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct."
         },
-        "language": "Language",
-        "language_missing": "Is your language missing? Click here to add it."
+        "language": "语言",
+        "language_missing": "缺少您的语言？点击这里添加。"
     },
 
     "Error": {
@@ -162,8 +162,8 @@
 
     "Home": {
         "Playlists": {
-            "new_content": "New Content",
-            "updated_content": "Recently Updated",
+            "new_content": "新内容",
+            "updated_content": "最近更新",
             "parkour": "Parkour: Jump to Victory!",
             "adventure": "Adventure: Explore the Unknown",
             "puzzle": "Puzzle: Use your Brain",
@@ -178,8 +178,8 @@
 
     "Buttons": {
         "BulkDownload": {
-            "text": "BULK",
-            "no_selection": "No content selected for download"
+            "text": "批量",
+            "no_selection": "未选择供下载的内容"
         },
         "download": "Download",
         "download_bedrock": "Download for Bedrock",
@@ -189,7 +189,6 @@
     "CommentForm": {
         "sent": "Comment sent",
         "title": "Leave a Comment",
-        "comment": "Comment",
         "send": "Send"
     },
 
@@ -198,11 +197,12 @@
         "expand": "See More",
         "collapse": "See Less"
     },
-
+    
     "CommentsList": {
-        "title": "Comments",
-        "no_comments": "Be the first to comment!",
-        "none_yet": "None Yet!"
+        "title": "评论",
+        "no_comments": "成为第一个评论的人！",
+        "none_yet": "尚无评论！",
+        "comment": "评论"
     },
 
     "FeaturedSlideshow": {
@@ -210,19 +210,19 @@
     },
 
     "Footer": {
-        "about": "About",
-        "contact": "Contact",
+        "about": "关于",
+        "contact": "联系",
         "discord": "Discord",
-        "join_community": "Join the Community",
-        "legal_contact": "Legal and Contact",
-        "privacy": "Privacy Policy",
-        "request_data": "Request Data",
+        "join_community": "加入社区",
+        "legal_contact": "法律与联系",
+        "privacy": "隐私政策",
+        "request_data": "请求数据",
         "twitter": "Twitter",
         "bluesky": "Bluesky",
         "youtube": "Youtube",
-        "updates": "Updates",
+        "updates": "更新",
         "Splashes": {
-            "1": "Gone Global!",
+            "1": "走向全球！",
             "2": "It's a website!",
             "3": "Things are broken.",
             "4": "I'm a footer!",
@@ -233,17 +233,17 @@
             "9": "Contribute on Github!",
             "10": "Did you know that this is random?"
         },
-        "mojang_disclamer": "NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.",
+        "mojang_disclamer": "不是官方 Minecraft 产品。未获得Mojang 的批准或与 Mojang 相关。",
         "open_source": "MCCreations is <link>open source</link>. Contribute today!",
         "copyright": "© Ben Meier/CrazyCowMM"
     },
 
     "Form": {
-        "save": "Save",
+        "save": "保存",
         "CreatorSelector": {
-            "title": "Creators",
-            "add_creator": "Add Creator",
-            "confirm_remove": "Click again to remove this creator",
+            "title": "创作者",
+            "add_creator": "添加创作者",
+            "confirm_remove": "再次点击以移除此创作者",
             "username_description": "The name to display on MCCreations.",
             "handle_description": "If the creator has an account on MCCreations, enter their handle here to have their profile linked."
         },
@@ -253,11 +253,11 @@
             "upload_failed": " Failed to upload {file}"
         },
         "Images": {
-            "drop_zone": "Drag and Drop an image here, or click to select one.",
-            "hovering_drop": "Drop here!",
-            "invalid": " Failed to upload because the file is not a valid image.",
-            "too_large": " Failed to upload because the file is too large.",
-            "unknown_error": " Failed to upload because of an unknown error."
+            "drop_zone": "拖拽图片到这里，或点击选择。",
+            "hovering_drop": "放下它！",
+            "invalid": "上传失败，因为文件不是有效的图片。",
+            "too_large": "上传失败，因为文件过大。",
+            "unknown_error": " 上传失败，因为发生了未知错误。"
         },
         "Files": {
             "drop_zone": "Drag and Drop a file here, or click to select one.",
@@ -265,108 +265,108 @@
         },
         "RichText": {
             "ImagePopup": {
-                "alt_text": "Alt Text",
-                "image_url": "Image URL",
-                "insert_file": "Insert Image File",
-                "insert_url": "Insert Image URL"
+                "alt_text": "Alt 文本",
+                "image_url": "图片 URL",
+                "insert_file": "插入图片文件",
+                "insert_url": "插入图片 URL"
             },
             "placeholder": "Start writing!",
-            "undo": "Undo",
-            "redo": "Redo",
-            "bold": "Bold",
-            "italic": "Italic",
-            "underline": "Underline",
-            "strikethrough": "Strikethrough",
-            "bullet_list": "Add Unordered List",
-            "justify_align": "Justify Align",
-            "left_align": "Left Align",
-            "center_align": "Center Align",
-            "right_align": "Right Align",
-            "image": "Insert Image",
-            "add_caption": "Add Caption"
+            "undo": "撤销",
+            "redo": "恢复。",
+            "bold": "粗体",
+            "italic": "斜体",
+            "underline": "下划线",
+            "strikethrough": "删除线",
+            "bullet_list": "添加无序列表",
+            "justify_align": "两端对齐",
+            "left_align": "左对齐",
+            "center_align": "居中对齐",
+            "right_align": "右对齐",
+            "image": "插入图片",
+            "add_caption": "添加标题"
         }
     },
 
     "Navigation": {
         "CreateForm": {
-            "title": "Create",
-            "missing_title": "A title must be included to save content",
-            "missing_short_description": "A short description must be included to save content",
-            "missing_type": "A type must be selected to save content",
-            "type": "Type"
+            "title": "创建",
+            "missing_title": "必须包含标题才能保存内容",
+            "missing_short_description": "必须包含简短描述才能保存内容",
+            "missing_type": "必须选择类型才能保存内容",
+            "type": "类型"
         },
         "ImportForm": {
-            "title": "Import",
-            "description": "Import your existing content from Planet Minecraft, MinecraftMaps.com or Modrinth below.",
-            "link": "Link",
+            "title": "导入",
+            "description": "从 Planet Minecraft，MinecraftMaps.com 或 Modrinth 导入您的现有内容。",
+            "link": "链接",
             "link_placeholder": "https://planetminecraft.com/project/...",
-            "missing_link": "A link must be added to import content",
-            "type": "Type"
+            "missing_link": "必须添加链接才能导入内容",
+            "type": "类型"
         },
         "UserOptions": {
-            "sign_in": "Sign In",
-            "sign_out": "Sign Out",
-            "dashboard": "Dashboard",
-            "profile": "Profile",
-            "settings": "Settings",
-            "admin": "Admin"
+            "sign_in": "登录",
+            "sign_out": "退出",
+            "dashboard": "仪表盘",
+            "profile": "个人资料",
+            "settings": "设置",
+            "admin": "管理员"
         },
-        "badge": "Beta",
+        "badge": "测试版",
         "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
         "home": "Home"
     },
 
     "SearchAndFilter": {
-        "search": "Search",
-        "clear_filters": "Clear Filters",
-        "sort_by": "Sort By",
+        "search": "搜索",
+        "clear_filters": "清除筛选",
+        "sort_by": "排序方式",
         "Sort": {
-            "title_ascending": "Title Ascending",
-            "title_descending": "Title Descending",
-            "creator_ascending": "Creator Ascending",
-            "creator_descending": "Creator Descending",
-            "newest": "Newest",
-            "oldest": "Oldest",
-            "highest_rated": "Highest Rated",
-            "lowest_rated": "Lowest Rated",
-            "highest_downloads": "Most Downloads",
-            "lowest_downloads": "Least Downloads",
-            "updated": "Recently Updated"
+            "title_ascending": "标题升序",
+            "title_descending": "标题降序",
+            "creator_ascending": "创作者升序",
+            "creator_descending": "创作者降序",
+            "newest": "最新",
+            "oldest": "最旧",
+            "highest_rated": "评分最高",
+            "lowest_rated": "评分最低",
+            "highest_downloads": "下载最多",
+            "lowest_downloads": "下载最少",
+            "updated": "最近更新"
         },
-        "status": "Status",
-        "tags": "Tags",
-        "search_placeholder": "Search title, creator, version, etc."
+        "status": "状态",
+        "tags": "标签",
+        "search_placeholder": "搜索标题、创作者、版本等"
     },
 
     
     "brand": "MCCreations",
-    "error": "Error",
-    "events": "Events",
+    "error": "错误",
+    "events": "事件",
 
     "VersionManager": {
-        "title": "Version Manager",
-        "add_version": "Add Version",
+        "title": "版本管理",
+        "add_version": "添加版本",
         "Version": {
             "back_to_versions": "Back to Versions",
-            "edit": "Edit Version",
-            "version_number": "Version Number",
-            "minecraft_version": "Minecraft Version",
-            "Bedrock": "Bedrock",
-            "Bedrock_description": "Is this file for the Bedrock Edition",
+            "edit": "编辑版本",
+            "version_number": "版本号",
+            "minecraft_version": "Minecraft 版本",
+            "Bedrock": "基岩版",
+            "Bedrock_description": "该文件供基岩版使用",
             "MainFile": {
-                "link": "Main File Link"
+                "link": "主文件链接"
             },
             "ExtraFiles": {
-                "file_type": "File Type",
-                "link": "Link",
-                "required": "Required",
-                "required_description": "Causes this file to be automatically downloaded with the main file",
-                "upload_file": "Upload File"
+                "file_type": "文件类型",
+                "link": "链接",
+                "required": "必需",
+                "required_description": "使该文件与主文件共同被下载",
+                "upload_file": "上传文件"
             },
-            "save": "Save Version",
-            "cancel": "Cancel",
-            "delete": "Delete",
-            "add_file": "Add File",
+            "save": "保存版本",
+            "cancel": "关闭",
+            "delete": "删除",
+            "add_file": "添加文件",
             "add_file_description": "Add any extra files required for this creation, like resourcepacks"
         }
     },
@@ -374,33 +374,33 @@
     "Content": {
         "affiliate": "Get a server for this {type} for 25% off",
         "leaderboards": "Leaderboards",
-        "files": "Files",
-        "info": "Info",
+        "files": "文件",
+        "info": "信息",
         "logo_alt": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
         "by": "by {creator}",
         "by_joiner": ", ",
         "Sidebar": {
-            "creators": "Creators",
-            "stats": "Stats",
-            "created_date": "Created Date",
-            "updated_date": "Updated Date",
-            "downloads": "Downloads",
-            "ratings": "Ratings",
-            "minecraft_version": "Minecraft Version",
-            "files": "Files"
+            "creators": "创作者",
+            "stats": "统计",
+            "created_date": "创建日期",
+            "updated_date": "更新日期",
+            "downloads": "下载次数",
+            "ratings": "评分",
+            "minecraft_version": "Minecraft 版本",
+            "files": "文件"
         },
         "Files": {
-            "name": "Name",
-            "date": "Date",
-            "minecraft_version": "Minecraft Version",
-            "download": "Download",
+            "name": "名称",
+            "date": "更新日期",
+            "minecraft_version": "Minecraft 版本",
+            "download": "下载",
             "loading": "Loading..."
         },
         "Warnings": {
-            "count": "Messages: ",
+            "count": "消息： ",
             "no_title": {
-                "title": "No Title",
-                "description": "Content must have a title"
+                "title": "无标题",
+                "description": "内容必须有一个标题"
             },
             "no_description": {
                 "title": "No Description",
@@ -411,60 +411,60 @@
                 "description": "A short Description is required"
             },
             "no_tags": {
-                "title": "No Tags",
-                "description": "Content must have at least one tag"
+                "title": "无标签",
+                "description": "内容必须至少有一个标签"
             },
             "no_minecraft_version": {
-                "title": "No Minecraft Version",
-                "description": "Content must have a Minecraft version"
+                "title": "无 Minecraft 版本",
+                "description": "内容必须有 Minecraft 版本"
             },
             "no_creators": {
-                "title": "No Creators",
-                "description": "Content must have at least one creator"
+                "title": "无创作者",
+                "description": "内容必须至少有一个创作者"
             },
             "no_files": {
-                "title": "No Files",
-                "description": "Content must have at least one file"
+                "title": "无文件",
+                "description": "内容必须至少有一个文件"
             },
             "no_images": {
-                "title": "No Images",
-                "description": "Content is required to have at least one image."
+                "title": "无图片",
+                "description": "内容必须至少有一张图片。"
             },
             "short_description_too_short": {
-                "title": "Short Description Too Short",
-                "description": "Your short description needs to be at least 20 characters"
+                "title": "简短描述过短",
+                "description": "您的简短描述需要至少 20 个字符"
             },
             "description_too_short": {
-                "title": "Description Too Short",
-                "description": "Your description needs to be at least 20 characters"
+                "title": "描述过短",
+                "description": "您的描述需要至少 20 个字符"
             },
             "external_images": {
-                "title": "Images From External Sources",
-                "description": "You have images that are from external sources. This means that MCCreations cannot guarantee they will continue to work in the future, or will be accessible by all users. We highly recommend you upload these images instead."
+                "title": "来自外部来源的图片",
+                "description": "您有来自外部来源的图片。这意味着 MCCreations 无法保证这些图片未来仍有效，或所有用户都仍能访问。我们强烈建议您将这些图片上传。"
             },
             "few_images": {
-                "title": "Very Few Images",
-                "description": "More images help people get a better idea of what your content is about. It is recommended you upload at least 4 including your logo."
+                "title": "图片过少",
+                "description": "更多的图片可以帮助人们更好地了解您的内容。建议您上传至少 4 张图片，包括您的 logo。"
             },
             "not_linked": {
-                "title": "Not Linked to an Account",
-                "description": "This content is not linked to an account on MCCreations. This means that your access to edit this content will expire in 24 hours. It is recommended to upload content with an account so you can retain access to all features."
+                "title": "未绑定至账户",
+                "description": "该内容未链接到 MCCreations 上的账户。这意味着您编辑该内容的权限将在24小时内过期。建议您使用账户上传内容，以便保留所有功能访问权限。"
             }
         },
         "Edit": {
             "editing": "Editing {title}",
-            "status": "Status:",
-            "request_approval": "Request Approval",
-            "general": "General",
-            "title": "Title",
+            "status": "状态：",
+            "request_approval": "请求批准",
+            "general": "常规",
+            "title": "标题",
             "title_description": "The primary name of your creation. Should be short and sweet!",
             "slug": "Slug",
             "slug_description": "The unique identifier for your creation. This will be used in the URL, like mccreations.net/maps/your-slug",
-            "short_description": "Short Description",
+            "short_description": "简短描述",
             "short_description_description": "A short summary of your creation. This will be used in search results and previews.",
-            "video_url": "Video URL",
+            "video_url": "视频 URL",
             "video_url_description": "A link to a video of your creation. This will replace your logo on the creation page with an embedded video.",
-            "description": "Description",
+            "description": "描述",
             "description_description": "A longer description of your creation. This will be used on the main page of your creation.",
             "Tags": {
                 "genre_description": "The primary category of your creation. This gives users a very general idea of how your creation plays.",
@@ -485,19 +485,19 @@
                     "message_format_description": "Extra formatting to add to the tellraw message. Should be formatted like \"color\":\"green\", \"bold\": true"
                 }
             },
-            "images": "Images",
-            "versions": "Versions",
-            "translations": "Translations",
-            "add_translation": "Add Translation",
+            "images": "图片",
+            "versions": "版本",
+            "translations": "翻译",
+            "add_translation": "添加翻译",
             "translation_languages": "Languages",
             "translation_languages_description": "Is your language missing? Click here to add it.",
             "delete_translation": "Delete",
-            "translation_approved": "Approved",
+            "translation_approved": "已批准",
             "PopupMessage": {
-                "general_saved": "Content info saved successfully",
-                "images_saved": "Images saved successfully",
-                "translations_saved": "Translations saved successfully",
-                "versions_saved": "Versions saved successfully",
+                "general_saved": "内容信息保存成功",
+                "images_saved": "图片保存成功",
+                "translations_saved": "翻译保存成功",
+                "versions_saved": "版本保存成功",
                 "requested_approval": "Content has been requested for approval"
             }
         },
@@ -512,7 +512,7 @@
                 "games": "games",
                 "gaming": "gaming",
                 "minecraft_creations": "Minecraft Creations",
-                "minecraft_versions": "Minecraft {minecraft_version}",
+                "minecraft_version": "Minecraft {minecraft_version}",
                 "minecraft_datapack": "Minecraft Data Pack",
                 "minecraft_map": "Minecraft Map",
                 "minecraft_resourcepack": "Minecraft Resource Pack",
@@ -522,50 +522,50 @@
                 "minecraft_survival": "Minecraft Survival"
             }
         },
-        "datapack_not_found": "Datapack Not Found",
+        "datapack_not_found": "数据包未找到",
         "datapack_not_found_description": "This datapack does not exist or you do not have permission to view it",
-        "datapacks_not_found": "No Datapacks Found",
-        "maps_not_found": "No Maps Found",
-        "map_not_found": "Map Not Found",
+        "datapacks_not_found": "未找到数据包",
+        "maps_not_found": "未找到地图",
+        "map_not_found": "地图未找到",
         "map_not_found_description": "This map does not exist or you do not have permission to view it",
-        "resourcepack_not_found": "Resourcepack Not Found",
+        "resourcepack_not_found": "资源包未找到",
         "resourcepack_not_found_description": "This resourcepack does not exist or you do not have permission to view it",
-        "resourcepacks_not_found": "No Resourcepacks Found",
+        "resourcepacks_not_found": "未找到资源包",
         "Rating": {
-            "1": "1 out of 5 stars",
-            "2": "2 out of 5 stars",
-            "3": "3 out of 5 stars",
-            "4": "4 out of 5 stars",
-            "5": "5 out of 5 stars"
+            "1": "1 星（满分5星）",
+            "2": "2 星（满分5星）",
+            "3": "3 星（满分5星）",
+            "4": "4 星（满分5星）",
+            "5": "5 星（满分5星）"
         },
         "Tags": {
-            "genre": "Genre",
-            "subgenre": "Subgenre",
-            "difficulty": "Difficulty",
-            "length": "Length",
-            "resolution": "Resolution",
-            "theme": "Theme",
-            "chill": "Chill",
-            "easy": "Easy",
-            "hard": "Hard",
-            "hardcore": "Hardcore",
-            "normal": "Normal",
-            "adventure": "Adventure",
-            "build": "Build",
-            "creative": "Creative",
-            "game": "Game",
-            "other": "Other",
-            "overhaul": "Overhaul",
-            "parkour": "Parkour",
-            "puzzle": "Puzzle",
+            "genre": "类型",
+            "subgenre": "子类",
+            "difficulty": "难度",
+            "length": "长度",
+            "resolution": "分辨率",
+            "theme": "主题",
+            "chill": "休闲",
+            "easy": "简单",
+            "hard": "困难",
+            "hardcore": "硬核",
+            "normal": "普通",
+            "adventure": "冒险",
+            "build": "建造",
+            "creative": "创造",
+            "game": "游戏",
+            "other": "其他",
+            "overhaul": "改革",
+            "parkour": "跑酷",
+            "puzzle": "解密",
             "qol": "Quality of Life",
-            "realistic": "Realistic",
-            "simple": "Simple",
-            "survival": "Survival",
-            "themed": "Themed",
-            "tool": "Tool",
-            "utility": "Utility",
-            "long": "Long",
+            "realistic": "现实",
+            "simple": "简单",
+            "survival": "生存",
+            "themed": "主题",
+            "tool": "工具",
+            "utility": "实用",
+            "long": "长",
             "medium": "Medium",
             "short": "Short",
             "1024x +": "1024x +",
@@ -576,56 +576,56 @@
             "512x": "512x",
             "64x": "64x",
             "8x": "8x",
-            "blocks": "Blocks",
-            "bosses": "Bosses",
-            "cartoon": "Cartoon",
-            "challenge": "Challenge",
-            "city": "City",
-            "co-op": "Co-op",
-            "cosmetic": "Cosmetic",
-            "crafting": "Crafting",
+            "blocks": "方块",
+            "bosses": "Boss",
+            "cartoon": "卡通",
+            "challenge": "挑战",
+            "city": "城市",
+            "co-op": "合作",
+            "cosmetic": "外观",
+            "crafting": "合成",
             "CTM": "CTM",
-            "dropper": "Dropper",
-            "elytra": "Elytra",
-            "entities": "Entities",
-            "episodic": "Episodic",
-            "escape": "Escape",
-            "exploration": "Exploration",
+            "dropper": "下降",
+            "elytra": "鞘翅",
+            "entities": "实体",
+            "episodic": "系列",
+            "escape": "逃脱",
+            "exploration": "探索",
             "faithful": "Faithful",
-            "finding": "Finding",
-            "font": "Font",
-            "funny": "Funny",
+            "finding": "搜寻",
+            "font": "字体",
+            "funny": "搞笑",
             "GUI": "GUI",
-            "horror": "Horror",
-            "items": "Items",
-            "language": "Language",
-            "magic": "Magic",
-            "maze": "Maze",
-            "mobs": "Mobs",
-            "models": "Models",
-            "multiplayer": "Multiplayer",
-            "music": "Music",
-            "park": "Park",
+            "horror": "恐怖",
+            "items": "物品",
+            "language": "语言",
+            "magic": "魔法",
+            "maze": "迷宫",
+            "mobs": "生物",
+            "models": "模型",
+            "multiplayer": "多人游戏",
+            "music": "音乐",
+            "park": "公园",
             "PVE": "PvE",
             "PVP": "PvP",
             "RPG": "RPG",
-            "shaders": "Shaders",
-            "singleplayer": "Singleplayer",
-            "skybox": "Skybox",
-            "smooth": "Smooth",
-            "sound": "Sound",
-            "tech": "Tech",
-            "tools": "Tools",
-            "trivia": "Trivia",
-            "tweak": "Tweak",
-            "unfair": "Unfair",
-            "weapons": "Weapons",
-            "anime": "Anime",
-            "fantasy": "Fantasy",
-            "medieval": "Medieval",
-            "modern": "Modern",
-            "sci-fi": "Sci-Fi",
-            "vanilla": "Vanilla"
+            "shaders": "着色器",
+            "singleplayer": "单人游戏",
+            "skybox": "天空盒",
+            "smooth": "平滑",
+            "sound": "声音",
+            "tech": "科技",
+            "tools": "工具",
+            "trivia": "问答",
+            "tweak": "微调",
+            "unfair": "非对称",
+            "weapons": "武器",
+            "anime": "动漫",
+            "fantasy": "幻想",
+            "medieval": "中世纪",
+            "modern": "现代",
+            "sci-fi": "科幻",
+            "vanilla": "原版"
         }
     },
 

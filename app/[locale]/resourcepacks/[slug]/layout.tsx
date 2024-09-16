@@ -1,9 +1,32 @@
 import { Suspense } from 'react'
 import { Metadata } from 'next'
 import Menu from '@/components/Menu/Menu'
+import { unstable_setRequestLocale } from 'next-intl/server'
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
+import { searchContent } from '@/app/api/content'
+import { CollectionNames, IContentDoc, Locales } from '@/app/api/types'
 
+export async function generateStaticParams() {
+  const maps = (await searchContent({ contentType: CollectionNames.Resourcepacks, limit: 300 }, false)).documents
+  let mapParams = maps.map((map: IContentDoc) => ({
+      slug: map.slug
+  }))
+  let params = []
+  for (let locale of Locales) {
+      for (let map of mapParams) {
+          params.push({
+              locale: locale,
+              slug: map.slug
+          })
+      }
+  }
+  // console.log(params)
+  return params
+}
  
-export default function ResourcepackPageLayout({ children }: {children: React.ReactNode}) {
+export default function ResourcepackPageLayout({ children, params }: {children: React.ReactNode, params: Params}) {
+ unstable_setRequestLocale(params.locale)
+
  return (
         <Suspense>
           <Menu selectedPage={"resourcepacks"}></Menu>
