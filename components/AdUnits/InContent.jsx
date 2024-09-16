@@ -27,8 +27,8 @@ export default function InContentAdUnit() {
     }, [])
     return (
         <div className={styles.in_content_ad}>
-            {isClient && adUnit && <div>
-                <AdsenseComponent adSlot={adUnit} adFormat={"fluid"} adClient='ca-pub-5425604215170333' adLayout="-7p+f2-1p-4p+ez" width="100%" height="100%" />
+            {isClient && <div>
+                <AdsenseComponent adSlot={7972645086} adFormat={"fluid"} adClient='ca-pub-5425604215170333' adLayout="-7p+f2-1p-4p+ez" width="100%" height="100%" />
             </div>
             }
             <input type="hidden" value={adUnit + ""} />
