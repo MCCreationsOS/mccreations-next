@@ -13,8 +13,10 @@ import { useEffect, useState } from "react";
 import { Archive, Layers, Package, Server } from "react-feather";
 import styles from './table.module.css'
 import { useLocale, useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 export default function Page({ params }: { params: Params }) {
+    unstable_setRequestLocale(params.locale)
     const [content, setContent] = useState<IContentDoc | null>(null)
     const t = useTranslations();
     const locale = useLocale()
