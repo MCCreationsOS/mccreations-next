@@ -63,11 +63,11 @@ export default function FormComponent({id, children, onSave, options}: {id: stri
         <div id={id}>
             {children}
             <div className={(options?.stickyButtons) ? styles.sticky : ""}>
-                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'primary' || !options?.saveButtonType) && <MainButton onClick={saveForm}>{options?.saveButtonContent || t('form.save')}</MainButton>}
-                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'secondary') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
-                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'warning') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
-                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'hollow') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
-                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'icon') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'primary' || !options?.saveButtonType) && <MainButton onClick={saveForm}>{options?.saveButtonContent || t('Form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'secondary') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('Form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'warning') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('Form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'hollow') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('Form.save')}</MainButton>}
+                {(options?.useSaveButton === undefined || options.useSaveButton) && (options?.saveButtonType === 'icon') && <MainButton onClick={saveForm}>{options.saveButtonContent || t('Form.save')}</MainButton>}
 
                 {options?.extraButtons}
             </div>

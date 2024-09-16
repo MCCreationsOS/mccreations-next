@@ -11,7 +11,8 @@ import Text from "../FormInputs/Text";
 import RichText from "../FormInputs/RichText";
 import {useTranslations} from 'next-intl';
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
-import RichTextInput, { RichTextManager } from "../FormInputs/RichText";
+import RichTextInput from "../FormInputs/RichText";
+import { FormInput } from "../FormInputs";
 
 export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: string, content_type: string}) {
     const [comment, setComment] = useState("");
@@ -39,9 +40,9 @@ export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: str
 
     const sendComment = async (inputs: string[]) => {
         if(user) {
-            postComment(slug, content_type, inputs[0], RichTextManager.getRichText("comment")?.getValue() + "", user.handle);
+            postComment(slug, content_type, inputs[0], FormInput.getFormInput<string>("comment")?.submit() + "", user.handle);
         } else {
-            postComment(slug, content_type, inputs[0], RichTextManager.getRichText("comment")?.getValue() + "");
+            postComment(slug, content_type, inputs[0], FormInput.getFormInput<string>("comment")?.submit() + "");
         }
 
         setComment("");

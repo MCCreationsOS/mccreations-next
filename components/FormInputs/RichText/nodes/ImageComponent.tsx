@@ -417,7 +417,7 @@ import {useTranslations} from 'next-intl';
                 <HistoryPlugin externalHistoryState={historyState} />
                 <RichTextPlugin
                   contentEditable={<ContentEditable className="editor-input" />}
-                  placeholder={<div className="editor-placeholder">{t('form.rich_text.placeholder')}</div>}
+                  placeholder={<div className="editor-placeholder">{t('Form.RichText.placeholder')}</div>}
                   ErrorBoundary={LexicalErrorBoundary}
                 />
               </LexicalNestedComposer>

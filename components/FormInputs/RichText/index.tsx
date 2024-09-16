@@ -5,6 +5,7 @@ import styles from '../Input.module.css'
 import { FormElement } from "@/components/Form/Form"
 import { useEffect, useRef, useState } from "react"
 import { on } from "events"
+import { FormInput } from ".."
 
 export interface RichTextInputProps {
     name: string,
@@ -14,66 +15,21 @@ export interface RichTextInputProps {
     onChange?: (value: string) => void
 }
 
-export class RichTextManager {
-    static richTexts: RichTextClass[] = []
-
-    static registerRichText(richText: RichTextClass) {
-        this.richTexts.push(richText)
-    }
-
-    static unregisterRichText(richText: RichTextClass) {
-        this.richTexts = this.richTexts.filter(r => r !== richText)
-    }
-
-    static getRichTexts() {
-        return this.richTexts
-    }
-
-    static getRichText(id: string) {
-        return this.richTexts.find(r => r.id === id)
-    }
-}
-
-export class RichTextClass {
-    private value: string
-    id: string
-    onSubmits: ((value: string) => void)[] = []
-
-    constructor(value: string, id: string) {
-        this.value = value
-        this.id = id
-    }
-
-    setValue(value: string) {
-        this.value = value
-    }
-
-    getValue() {
-        this.onSubmits.forEach(cb => cb(this.value))
-        return this.value
-    }
-
-    onSubmit(callback: (value: string) => void) {
-        this.onSubmits.push(callback)
-        return this
-    }
-}
-
 export default function RichTextInput(props: RichTextInputProps): FormElement {
     const [initialValue, setInitialValue] = useState<string>(props.value ?? "")
-    const richText = useRef<RichTextClass | null>(null)
+    const richText = useRef<FormInput<string> | null>(null)
 
     useEffect(() => {
         if(richText.current) {
             richText.current.setValue(initialValue + "")
         } else {
-            richText.current = new RichTextClass(initialValue + "", props.id).onSubmit((value) => {
+            richText.current = new FormInput<string>(props.id, initialValue + "").onSubmit((value) => {
                 setInitialValue(value)
             })
         }
-        RichTextManager.registerRichText(richText.current)
+        FormInput.registerFormInput(richText.current)
         return () => {
-            RichTextManager.unregisterRichText(richText.current!)
+            FormInput.unregisterFormInput(richText.current!)
         }
     }, [initialValue])
 

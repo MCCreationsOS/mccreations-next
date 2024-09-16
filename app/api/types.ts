@@ -32,7 +32,7 @@ export enum StatusOptions {
     Featured
 }
 
-export type StatusStrings = "Draft" | "Unapproved" | "Approved" | "Featured"
+export type StatusStrings = "draft" | "unapproved" | "approved" | "featured"
 
 /**
  * Options to send to the API when doing a query

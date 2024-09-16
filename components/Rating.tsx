@@ -32,11 +32,11 @@ export default function Rating(props: { value: number, content: IContentDoc}) {
         <div>
             <ul className="rating" onMouseMove={(e) => {ratingHover(e)}} onMouseLeave={() => {setValue(props.value)}}>
                 <li className="current_rating" style={{width: value*100 + '%'}}></li>
-                <li><a id="one" href="#" title={t('content.rating.1')} onClick={() => {sendRating(0.2)}}></a></li>
-                <li><a id="two" href="#" title={t('content.rating.2')} onClick={() => {sendRating(0.4)}}></a></li>
-                <li><a id="three" href="#" title={t('content.rating.3')} onClick={() => {sendRating(0.6)}}></a></li>
-                <li><a id="four" href="#" title={t('content.rating.4')} onClick={() => {sendRating(0.8)}}></a></li>
-                <li><a id="five" href="#" title={t('content.rating.5')} onClick={() => {sendRating(1)}}></a></li>
+                <li><a id="one" href="#" title={t('Content.Rating.1')} onClick={() => {sendRating(0.2)}}></a></li>
+                <li><a id="two" href="#" title={t('Content.Rating.2')} onClick={() => {sendRating(0.4)}}></a></li>
+                <li><a id="three" href="#" title={t('Content.Rating.3')} onClick={() => {sendRating(0.6)}}></a></li>
+                <li><a id="four" href="#" title={t('Content.Rating.4')} onClick={() => {sendRating(0.8)}}></a></li>
+                <li><a id="five" href="#" title={t('Content.Rating.5')} onClick={() => {sendRating(1)}}></a></li>
             </ul>
         </div>
     )

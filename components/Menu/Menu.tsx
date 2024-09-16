@@ -37,7 +37,11 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
     
     return (
         <>
-            <div className="beta_warning">{t('nav.beta_warning1')}<a href="https://forms.gle/J7HEX9KKbYhQXCii7">{t('nav.beta_warning2')}</a></div>
+            <div className="beta_warning">{t.rich('Navigation.beta_warning', {
+                form: (chunks) => <Link href="https://forms.gle/J7HEX9KKbYhQXCii7">{chunks}</Link>,
+                link: (chunks) => <Link href="https://discord.com/invite/HQSnKGf">{chunks}</Link>,
+                github: (chunks) => <Link href="https://github.com/MCCreationsOS">{chunks}</Link>
+                })}</div>
             <nav className="nav">
                 <DesktopNav selectedPage={selectedPage} />
                 <div className="mobile_nav">
@@ -45,7 +49,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         <img className="menu_icon" src='/menu.svg' alt="" onClick={() => {setMobileMenuActive(true)}}/>
                         <Link href="/" className="brand">
                             <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
-                            <p className="brand_name">{t('brand')}<Badge color="red">{t('nav.badge.beta')}</Badge></p>
+                            <p className="brand_name">{t('brand')}<Badge color="red">{t('Navigation.badge')}</Badge></p>
                         </Link>
                         <Link href="/events/wix-is-over" className="link fancy">
                             {t('events')}
@@ -53,16 +57,16 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                     </div>
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">
-                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('nav.item.home')}</Link>
+                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('Navigation.home')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">{t('nav.item.maps')}</Link>
+                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">{t('map', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">{t('nav.item.datapacks')}</Link>
+                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('nav.item.resourcepacks')}</Link>
+                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
                         </li>
                         <li className='item'>
                             <UserOptions />

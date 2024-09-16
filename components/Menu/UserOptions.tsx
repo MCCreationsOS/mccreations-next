@@ -35,7 +35,7 @@ export default function UserOptions() {
     if(!user._id) {
         return (
             <div className="user_menu">
-                <Link href="/signin"><HollowButton>{t('nav.item.user_options.sign_in')}</HollowButton></Link>
+                <Link href="/signin"><HollowButton>{t('Navigation.UserOptions.sign_in')}</HollowButton></Link>
             </div>
         )
     }
@@ -50,19 +50,19 @@ export default function UserOptions() {
                 </div>
                 <hr></hr>
                 <div className="option icon" onClick={() => {router.push("/creator/"+user.handle)}}>
-                    <User /> {t('nav.item.user_options.profile')}
+                    <User /> {t('Navigation.UserOptions.profile')}
                 </div>
                 <div className="option icon" onClick={() => {router.push("/dashboard")}}>
-                    <Table /> {t("nav.item.user_options.dashboard")}
+                    <Table /> {t("Navigation.UserOptions.dashboard")}
                 </div>
                 {user.type === UserTypes.Admin && <div className="option icon" onClick={() => {router.push("/admin_dashboard")}}>
-                    <Table /> {t("nav.item.user_options.admin")}
+                    <Table /> {t("Navigation.UserOptions.admin")}
                 </div>}
                 <div className="option icon" onClick={() => {router.push("/account")}}>
-                    <Settings /> {t("nav.item.user_options.settings")}
+                    <Settings /> {t("Navigation.UserOptions.settings")}
                 </div>
                 <div className="option icon" onClick={() => {sessionStorage.removeItem('jwt'); location.reload()}}>
-                    <LogOut /> {t("nav.item.user_options.sign_out")}
+                    <LogOut /> {t("Navigation.UserOptions.sign_out")}
                 </div>
             </div>
         </div>

@@ -26,9 +26,9 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
 
     // Because the Create button/Form Popup is attached to the Menu we need to define the functions here
     const onMapCreate = (title?: string, type?: string, shortDescription?: string) => {
-        if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.create.missing_title')))
-        if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.create.missing_type')))
-        if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.create.missing_short_description')))
+        if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_title')))
+        if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_type')))
+        if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_short_description')))
 
         let token  = sessionStorage.getItem('jwt')
         Popup.close()
@@ -60,7 +60,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                 router.push(`/edit/${type.toLowerCase()}/${res.content}`)
             }
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.import.missing_link')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.ImportForm.missing_link')))
         }
     }
 
@@ -70,20 +70,20 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                         <li className="item brand">
                             <Link href="/" className="brand">
                                 <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
-                                <p className="brand_name">{t('brand')} <Badge color="red">{t('nav.badge.beta')}</Badge></p>
+                                <p className="brand_name">{t('brand')} <Badge color="red">{t('Navigation.badge')}</Badge></p>
                             </Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('nav.item.home')}</Link>
+                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('Navigation.home')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">{t('maps', {count: 2})}</Link>
+                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">{t('map', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">{t('datapacks', {count: 2})}</Link>
+                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepacks', {count: 2})}</Link>
+                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
                         </li>
                         <li className="item">
                             <Link className={(selectedPage === 'events') ? 'link selected' : 'link fancy'} href="/events/wix-is-over">{t('events')}</Link>
@@ -97,34 +97,34 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                             <HollowButton onClick={() => {Popup.createPopup({
                                 content: <Tabs tabs={[
                                     {
-                                        title: t('content.create.form_title'), 
+                                        title: t('Navigation.CreateForm.title'), 
                                         content:
                                         <FormComponent id={"createForm"} onSave={(inputs) => {
                                             onMapCreate(inputs[0], inputs[1], inputs[2])
                                         }}>
-                                            <Text type="text" name={t('content.create.title')} placeholder={t('content.create.title_placeholder')} />
-                                            <Select name={t('content.create.type')} defaultValue="map" options={[{name: t('maps', { count: 1 }), value: 'map'}, {name: t('datapacks', {count: 1}), value: "datapack"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepack'}]} />
-                                            <Text type="text" name={t('content.create.short_description')} />
+                                            <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} />
+                                            <Select name={t('Navigation.CreateForm.type')} defaultValue="map" options={[{name: t('map', { count: 1 }), value: 'map'}, {name: t('datapack', {count: 1}), value: "datapack"}, {name: t('resourcepack', {count: 1}), value: 'resourcepack'}]} />
+                                            <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')}/>
                                         </FormComponent>
                                     }, 
                                     {
-                                        title: t('content.import.form_title'),
+                                        title: t('Navigation.ImportForm.title'),
                                         content: <>
-                                            <p>{t('content.import.description')}</p>
+                                            <p>{t('Navigation.ImportForm.description')}</p>
                                             <FormComponent id={"importForm"}
                                             onSave={(inputs) => {
                                                 onMapImport(inputs[1], inputs[0])
                                             }}>
-                                                <Select name={t('content.import.type')} defaultValue="Maps" options={[{name: t('maps', { count: 1 }), value: 'Maps'}, {name: t('datapacks', {count: 1}), value: "datapacks"}, {name: t('resourcepacks', {count: 1}), value: 'resourcepacks'}]} />
-                                                <Text type="text" name={t('content.import.link')} placeholder={t('content.import.link_placeholder')} />
+                                                <Select name={t('Navigation.ImportForm.type')} defaultValue="Maps" options={[{name: t('map', { count: 1 }), value: 'Maps'}, {name: t('datapack', {count: 1}), value: "datapacks"}, {name: t('resourcepack', {count: 1}), value: 'resourcepacks'}]} />
+                                                <Text type="text" name={t('Navigation.ImportForm.link')} placeholder={t('Navigation.ImportForm.link_placeholder')} />
                                             </FormComponent>
                                         </>
                                     }
                                 ]} />,
-                                title: t('content.create.form_title'),
+                                title: t('Navigation.CreateForm.title'),
                             }
                             )}}>
-                                {t('nav.item.create')}
+                                {t('Navigation.CreateForm.title')}
                             </HollowButton>
                         </li>
                         <li className='item'>

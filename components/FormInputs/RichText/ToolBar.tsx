@@ -101,7 +101,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(UNDO_COMMAND, undefined);
         }}
         className="toolbar-item spaced"
-        aria-label={t('form.rich_text.undo')}>
+        aria-label={t('Form.RichText.undo')}>
         <i className="format undo" />
       </button>
       <button
@@ -110,7 +110,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(REDO_COMMAND, undefined);
         }}
         className="toolbar-item"
-        aria-label={t('form.rich_text.redo')}>
+        aria-label={t('Form.RichText.redo')}>
         <i className="format redo" />
       </button>
       <Divider />
@@ -119,7 +119,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold');
         }}
         className={'toolbar-item spaced ' + (isBold ? 'active' : '')}
-        aria-label={t('form.rich_text.bold')}>
+        aria-label={t('Form.RichText.bold')}>
         <i className="format bold" />
       </button>
       <button
@@ -127,7 +127,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic');
         }}
         className={'toolbar-item spaced ' + (isItalic ? 'active' : '')}
-        aria-label={t('form.rich_text.italic')}>
+        aria-label={t('Form.RichText.italic')}>
         <i className="format italic" />
       </button>
       <button
@@ -135,7 +135,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline');
         }}
         className={'toolbar-item spaced ' + (isUnderline ? 'active' : '')}
-        aria-label={t('form.rich_text.underline')}>
+        aria-label={t('Form.RichText.underline')}>
         <i className="format underline" />
       </button>
       <button
@@ -143,7 +143,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough');
         }}
         className={'toolbar-item spaced ' + (isStrikethrough ? 'active' : '')}
-        aria-label={t('form.rich_text.strikethrough')}>
+        aria-label={t('Form.RichText.strikethrough')}>
         <i className="format strikethrough" />
       </button>
       <button
@@ -151,7 +151,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(INSERT_UNORDERED_LIST_COMMAND, undefined);
         }}
         className={'toolbar-item spaced'}
-        aria-label={t('form.rich_text.bullet_list')}>
+        aria-label={t('Form.RichText.bullet_list')}>
         <i className="format bullet-list" />
       </button>
       <Divider />
@@ -160,7 +160,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
         }}
         className="toolbar-item spaced"
-        aria-label={t('form.rich_text.left_align')}>
+        aria-label={t('Form.RichText.left_align')}>
         <i className="format left-align" />
       </button>
       <button
@@ -168,7 +168,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'center');
         }}
         className="toolbar-item spaced"
-        aria-label={t('form.rich_text.center_align')}>
+        aria-label={t('Form.RichText.center_align')}>
         <i className="format center-align" />
       </button>
       <button
@@ -176,7 +176,7 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'right');
         }}
         className="toolbar-item spaced"
-        aria-label={t('form.rich_text.left_align')}>
+        aria-label={t('Form.RichText.left_align')}>
         <i className="format right-align" />
       </button>
       <button
@@ -184,16 +184,16 @@ export default function ToolbarPlugin() {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'justify');
         }}
         className="toolbar-item"
-        aria-label={t('form.rich_text.justify_align')}>
+        aria-label={t('Form.RichText.justify_align')}>
         <i className="format justify-align" />
       </button>
       <button
           onClick={() => {
             Popup.createPopup({content: <InsertImageDialog
               activeEditor={editor}
-            />, title: t('form.rich_text.image')});
+            />, title: t('Form.RichText.image')});
           }}
-          aria-label={t('form.rich_text.image')}
+          aria-label={t('Form.RichText.image')}
           className="toolbar-item spaced">
           <i className="format image" />
         </button>

@@ -20,13 +20,13 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
             acceptedFiles.forEach(file => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${file.name}${t('form.versions.uploading')}`))
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploading', { file: file.name })))
                 upload(file, "files").then(url => {
                     if(url) {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${file.name}${t('form.versions.uploaded')}`))
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', { file: file.name })))
                         setFile(url)
                     } else {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `${file.name}${t('form.versions.upload_failed')}`))
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Form.Shared.upload_failed', { file: file.name })))
                     }
                 });
             })
@@ -35,7 +35,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
         if (rejectedFiles?.length) {
             setRejected(previousFiles => [...previousFiles, ...rejectedFiles])
             rejectedFiles.forEach(file => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `${file.file.name}${t('form.versions.invalid_file')}`))
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `${file.file.name}${t('Form.Files.invalid_file')}`))
             })
         }
     }, [])
@@ -78,7 +78,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 <div {...getRootProps()} className={styles.dnd}>
                     <input {...getInputProps({ name: 'file' })} />
                     <Plus />
-                    <p>{t('form.versions.drop_zone')}</p>
+                    <p>{t('Form.Files.drop_zone')}</p>
                 </div>
                 <p>Or...</p>
                 <div className={styles.dnd}>

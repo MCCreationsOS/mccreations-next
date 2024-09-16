@@ -1,12 +1,13 @@
 
 import { Link, useRouter } from "@/app/api/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
 import { Globe, Plus } from "react-feather";
 
 export default function LanguageSwitcher() {
     const router = useRouter();
     const currentLocale = useLocale();
+    const t = useTranslations();
     const [open, setOpen] = useState(false);
 
 
@@ -26,7 +27,7 @@ export default function LanguageSwitcher() {
                     Русский (Россия)
                 </div>
                 <div className="option icon" style={{fontSize: "0.9rem"}}>
-                    <Link href="/translate"><Plus /></Link> <Link href={"/translate"}> Add A Language</Link>
+                    <Link href="/translate"><Plus /></Link> <Link href={"/translate"}> {t('Translate.AddLanguage.title')}</Link>
                 </div>
             </div>
         </div>

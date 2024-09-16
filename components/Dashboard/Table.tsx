@@ -61,22 +61,22 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                     <div className={styles.content_item_item}>
                     </div>
                     <div className={styles.info_container}>
-                        <p>{t('dashboard.info')}</p>
+                        <p>{t('Dashboard.info')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{t('dashboard.status')}</p>
+                        <p>{t('Dashboard.status')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{t('dashboard.created_date')}</p>
+                        <p>{t('Dashboard.created_date')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{t('dashboard.views')}</p>
+                        <p>{t('Dashboard.updated_date')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{t('dashboard.downloads')}</p>
+                        <p>{t('Dashboard.downloads')}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{t('dashboard.rating')}</p>
+                        <p>{t('Dashboard.rating')}</p>
                     </div>
                 </div>
             {maps && maps.map((map: IContentDoc, idx) => (
@@ -88,19 +88,19 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                         <p className={styles.content_title}>{map.title}</p>
                         <p className={styles.content_description}>{map.shortDescription}</p>
                         <div className={styles.info_buttons}>
-                            <Link href={`/${contentType}s/${map.slug}`} title={t('dashboard.preview')}><ImageIcon /></Link>
-                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('dashboard.edit')}><Edit /></Link>
+                            <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><ImageIcon /></Link>
+                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')}><Edit /></Link>
                             <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, sessionStorage.getItem('jwt'), collectionName); getOwnedContent(sessionStorage.getItem('jwt'))}}><Trash /></span>
                         </div>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('status.Draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('content.edit.status.Unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('status.Approved')}</span>: <span style={{color:"#3154f4"}}>{t('status.Featured')}</span>}</p>
+                        <p>{(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('Status.draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('Status.unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('Status.approved')}</span>: <span style={{color:"#3154f4"}}>{t('Status.featured')}</span>}</p>
                     </div>
                     <div className={styles.content_item_item}>
                         <p>{map.createdDate && new Date(map.createdDate).toLocaleDateString()}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{map.views}</p>
+                        <p>{map.updatedDate && new Date(map.updatedDate).toLocaleDateString()}</p>
                     </div>
                     <div className={styles.content_item_item}>
                         <p>{map.downloads}</p>

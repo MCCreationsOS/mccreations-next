@@ -20,7 +20,7 @@ export default function ContentMenu({content, selectedTab}: {content: IContentDo
     ]
 
     if(content.type === ContentTypes.Maps && content.extraFeatures && content.extraFeatures.leaderboards.use) {
-        tabs.push({title: t('Content.Leaderboards'), content: <></>, link: `/leaderboards/maps/${content.slug}`})
+        tabs.push({title: t('Content.leaderboards'), content: <></>, link: `/leaderboards/maps/${content.slug}`})
     }
     
 

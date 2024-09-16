@@ -59,8 +59,8 @@ export function InsertImageUriDialogBody({
   return (
     <>
     <FormComponent id='insertImageUrl' onSave={() => {onClick({altText, src})}}>
-        <Text name={t('form.rich_text.image_popup.image_url')} onChange={setSrc} value={src}/>
-        <Text name={t('form.rich_text.image_popup.alt_text')} onChange={setAltText} value={altText}/>
+        <Text name={t('Form.RichText.ImagePopup.image_url')} onChange={setSrc} value={src}/>
+        <Text name={t('Form.RichText.ImagePopup.alt_text')} onChange={setAltText} value={altText}/>
     </FormComponent>
     </>
   );
@@ -77,24 +77,11 @@ export function InsertImageUploadedDialogBody({
 
   const isDisabled = src === '';
 
-  const loadImage = (files: FileList | null) => {
-    const reader = new FileReader();
-    reader.onload = function () {
-      if (typeof reader.result === 'string') {
-        setSrc(reader.result);
-      }
-      return '';
-    };
-    if (files !== null) {
-      reader.readAsDataURL(files[0]);
-    }
-  };
-
   return (
     <>
     <FormComponent id='insertImageFile' onSave={() => {onClick({altText, src})}}>
         <ImageDropzone onImagesUploaded={(f) => {setSrc(f[0].url)}} allowMultiple={false}/>
-        <Text name={t('form.rich_text.image_popup.alt_text')} onChange={setAltText} value={altText}/>
+        <Text name={t('Form.RichText.ImagePopup.alt_text')} onChange={setAltText} value={altText}/>
     </FormComponent>
     </>
   );
@@ -129,8 +116,8 @@ export function InsertImageDialog({
     <>
       {!mode && (
         <>
-            <SecondaryButton onClick={() => setMode('url')}>{t('form.rich_text.image_popup.insert_url')}</SecondaryButton>
-            <SecondaryButton onClick={() => setMode('file')}>{t('form.rich_text.image_popup.insert_file')}</SecondaryButton>
+            <SecondaryButton onClick={() => setMode('url')}>{t('Form.RichText.ImagePopup.insert_url')}</SecondaryButton>
+            <SecondaryButton onClick={() => setMode('file')}>{t('Form.RichText.ImagePopup.insert_file')}</SecondaryButton>
         </>
       )}
       {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} />}

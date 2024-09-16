@@ -38,7 +38,7 @@ export default function CommentCard({comment}: {comment: IComment}) {
 
     return (
         <div className={`${styles.comment} ${(expanded) ? styles.expanded : ""}`} ref={container}>
-            <Image src={image} width={45} height={45} className={styles.logo} alt={t('Comment.icon', {username: comment.username})}></Image>
+            <Image src={image} width={45} height={45} className={styles.logo} alt={t('Creator.logo_alt', {username: comment.username})}></Image>
             <div className={styles.body}>
                 <div className={styles.header}>
                     <h4>{comment.username}</h4>

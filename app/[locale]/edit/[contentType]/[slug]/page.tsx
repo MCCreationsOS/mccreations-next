@@ -2,14 +2,14 @@
 
 import { getUser } from "@/app/api/auth"
 import { convertToCollection, fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
-import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, CollectionNames, UserTypes, Locales, Translation, TagKeys, TagCategories, ContentTypes, LeaderboardFeature } from "@/app/api/types"
+import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, CollectionNames, UserTypes, Locales, Translation, TagKeys, TagCategories, ContentTypes, LeaderboardFeature, ICreator } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
 import CreatorSelector from "@/components/FormInputs/CreatorSelector/CreatorSelector"
 import { UploadedImageRepresentation } from "@/components/FormInputs/ImageDropzone/ImageDropzone"
 import MediaGallery from "@/components/FormInputs/MediaGallery/MediaGallery"
-import RichTextInput, { RichTextManager } from "@/components/FormInputs/RichText"
+import RichTextInput from "@/components/FormInputs/RichText"
 import Select from "@/components/FormInputs/Select"
 import Text from "@/components/FormInputs/Text"
 import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager"
@@ -26,6 +26,7 @@ import Checkbox from "@/components/FormInputs/Checkbox"
 import styles from './edit.module.css'
 import { useTranslations } from "next-intl"
 import { Link } from "@/app/api/navigation"
+import { FormInput } from "@/components/FormInputs"
 
 export default function EditContentPage({params}: {params: Params}) {
     const [user, setUser] = useState<IUser>()
@@ -126,8 +127,8 @@ export default function EditContentPage({params}: {params: Params}) {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
         }
 
-        if(inputs[2]) {
-            newMap.creators = JSON.parse(inputs[2])
+        if(FormInput.getFormInput("creators")?.getValue()) {
+            newMap.creators = FormInput.getFormInput<ICreator[]>("creators")?.submit()
         } else {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
         }
@@ -145,8 +146,8 @@ export default function EditContentPage({params}: {params: Params}) {
             newMap.videoUrl = inputs[4]
         }
 
-        if(RichTextManager.getRichText("edit_general")?.getValue()) {
-            newMap.description = RichTextManager.getRichText("edit_general")?.getValue() + ""
+        if(FormInput.getFormInput("edit_general")?.getValue()) {
+            newMap.description = FormInput.getFormInput("edit_general")?.submit() + ""
         } else {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
         }
@@ -349,7 +350,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                     translation[lang] = {
                                         title: inputs[0],
                                         shortDescription: inputs[1],
-                                        description: RichTextManager.getRichText(`edit_translation_${lang}`)?.getValue() + "",
+                                        description: FormInput.getFormInput(`edit_translation_${lang}`)?.submit() + "",
                                         approved: (inputs[3] === "true") ? true : false
                                     }
                                     updateTranslation(map.slug, collectionName, translation, sessionStorage.getItem('jwt')).then((d) => {

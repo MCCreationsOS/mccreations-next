@@ -9,6 +9,7 @@ import Text from "../Text"
 import ImageInput from "../ImageDropzone"
 import {useTranslations} from 'next-intl';
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
+import { FormInput } from ".."
 
 /**
  * A selector for creators. Also allows adding new creators
@@ -18,6 +19,7 @@ import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupM
 export default function CreatorSelector({value, onChange}: {value?: ICreator[], onChange?: (creators: ICreator[]) => void}) {
     const [creators, setCreators] = useState<ICreator[]>([])
     const [confirmRemove, setConfirmRemove] = useState(false)
+    const input = useRef<FormInput<ICreator[]> | null>(null)
     const loggedIn = useRef(false)
     const t = useTranslations()
 
@@ -35,19 +37,42 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
                     setCreators(value)
                 }
             } else if(!value) {
-                setCreators([{username: t('form.creators.placeholder_username'), handle: t('form.creators.placeholder_handle')}])
+                setCreators([{username: t('Account.Shared.username_placeholder'), handle: t('Account.Shared.handle_placeholder')}])
             } else {
                 setCreators(value)
             }
         }
         getData();
+        if(!input.current) {
+            input.current = new FormInput<ICreator[]>("creators", creators, onChange).onSubmit((value) => {
+                setCreators(value)
+            })
+            FormInput.registerFormInput(input.current)
+        }
+
+        return () => {
+            FormInput.unregisterFormInput(input.current!)
+        }
     }, [])
+
+    useEffect(() => {
+        if(!input.current) {
+            input.current = new FormInput<ICreator[]>("creators", creators, onChange).onSubmit((value) => {
+                setCreators(value)
+            })
+            FormInput.registerFormInput(input.current)
+        } else {
+            input.current.setValue(creators)
+        }
+    }, [creators])
 
     const saveNewCreator = (inputs: string[]) => {
         let newCreators: ICreator[] = []
         if(creators)
             newCreators = [...creators]
         newCreators.push({username: inputs[0]!, handle: (inputs[1]) ? inputs[1]: ""})
+        input.current?.setValue(newCreators)
+        console.log(input.current?.value)
         setCreators(newCreators)
         if(onChange) {
             onChange(newCreators)
@@ -60,11 +85,12 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
             let newCreators = [...creators!]
             newCreators.splice(idx, 1)
             setCreators(newCreators)
+            input.current?.setValue(newCreators)
             if(onChange) {
                 onChange(newCreators)
             }
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('form.creators.confirm_remove')))
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Form.CreatorSelector.confirm_remove')))
             setConfirmRemove(true)
             setTimeout(() => {
                 setConfirmRemove(false)
@@ -74,19 +100,18 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
 
     return (
         <div className='field'>
-            <h3 className='label'>{t('form.creators.title')}</h3>
+            <h3 className='label'>{t('Form.CreatorSelector.title')}</h3>
             <div className={styles.options}>
                 {creators && creators.map((creator, idx) => {return (
                     <div key={idx} className={(confirmRemove) ? styles.option_removing : styles.option} onClick={() => {removeCreator(idx)}}>{creator.username}</div>
                 )})}
                 <div className={styles.option} onClick={() => Popup.createPopup({content: <FormComponent id="newCreator" onSave={saveNewCreator}>
-                        <Text name={t('account.username')} placeholder={t('form.creators.placeholder_username')} />
-                        <Text name={t('account.handle')} placeholder={t('form.creators.placeholder_handle')} />
-                     </FormComponent>, title: t('form.creators.add_creator')})}>
+                        <Text name={t('Account.Shared.username')} placeholder={t('Account.Shared.username_placeholder')} description={t('Form.CreatorSelector.username_description')}/>
+                        <Text name={t('Account.Shared.handle')} placeholder={t('Account.Shared.handle_placeholder')} description={t('Form.CreatorSelector.handle_description')} />
+                     </FormComponent>, title: t('Form.CreatorSelector.add_creator')})}>
                     <Plus />
                 </div>
             </div>
-            <input type='hidden' name='creators' value={JSON.stringify(creators)}></input>
         </div>
     )
 }

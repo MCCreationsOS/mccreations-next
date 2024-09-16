@@ -63,11 +63,11 @@ export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
                         <img className={`${styles.nav_arrow} ${styles.right}`} src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
 
                         <div className={styles.information}>
-                            <Image placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} priority={true} className={styles.image} src={f.images[0]} width={1920} height={1080} alt={`The logo for ${f.title}, a Minecraft Map for ${f.files[0].minecraftVersion} by ${f.creators[0].username}`}></Image>
+                            <Image placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} priority={true} className={styles.image} src={f.images[0]} width={1920} height={1080} alt={t('Content.logo_alt', {title: f.title, type: f.type, minecraft_version: f.files[0].minecraftVersion, creator: f.creators[0].username})}></Image>
 
                             <h2 className={styles.title}>{f.title}</h2>
                             <p className={styles.description}>{f.shortDescription}</p>
-                            <p className={styles.author}>by {f.creators[0].username}</p>
+                            <p className={styles.author}>{t('Content.by', {creator: f.creators.slice(0, 5).map(c => c.username).join(t('Content.by_joiner'))})}</p>
 
                             <div className={styles.stats}>
                                 <div className={styles.stat}><img className={styles.in_text_icon} src='/download.svg'></img>{f.downloads}</div>
@@ -75,7 +75,7 @@ export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
                                 <div className={styles.stat}><img className={styles.in_text_icon}  src='/map.svg'></img>{f.files[0].minecraftVersion}</div>
                             </div>
 
-                            <Link href={`/maps/${f.slug}`}><MainButton>{t('featured.see_more')}</MainButton></Link>
+                            <Link href={`/${f.type}s/${f.slug}`}><MainButton>{t('FeaturedSlideshow.see_more')}</MainButton></Link>
                             
                             <div>
                                 {

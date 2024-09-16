@@ -30,7 +30,7 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
         const icon = JSON.parse(inputs[1])[0].url
         updateProfile(token!, banner, icon, undefined, inputs[2])
         Popup.close();
-        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Profile.ProfileEditButton.saved')))
+        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Creator.Edit.saved')))
     }
 
     if(token && storedCreator?.handle === creator.handle) {
@@ -39,11 +39,11 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
             <button className={styles.profile_edit} onClick={() => {
                 Popup.createPopup({
                     content: <FormComponent id="updateProfile" onSave={saveCreator}>
-                    <ImageInput name={t('creator.update_profile.banner')} value={JSON.stringify([{url: creator.bannerURL}])} />
-                    <ImageInput name={t('creator.update_profile.logo')} value={JSON.stringify([{url: creator.bannerURL}])} />
-                    <Text name={t('creator.update_profile.about')} value={creator.about} />    
+                    <ImageInput name={t('Creator.Edit.banner')} value={JSON.stringify([{url: creator.bannerURL}])} />
+                    <ImageInput name={t('Creator.Edit.logo')} value={JSON.stringify([{url: creator.bannerURL}])} />
+                    <Text name={t('Creator.Edit.about')} value={creator.about} />    
                 </FormComponent>, 
-                title: t('creator.update_profile')
+                title: t('Creator.Edit.title')
                 })}}>
                     <Edit />
             </button>

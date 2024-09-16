@@ -9,7 +9,7 @@ import styles from './ContentScrollBackground.module.css'
 export default function ContentScrollGrid({content}: {content: IContentDoc[]}) {
     return (
         <div className={styles.content_scroll_grid}>
-            {content.map((map: IContentDoc, idx: number) => <ContentScrollCard key={idx} map={map} priority={false} id={""}></ContentScrollCard>)}
+            {content.map((content: IContentDoc, idx: number) => <ContentScrollCard key={idx} content={content} priority={false} id={""}></ContentScrollCard>)}
         </div>
     )
 }

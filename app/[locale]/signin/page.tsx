@@ -95,10 +95,10 @@ export default function SignIn() {
             {(message) ? <div className="errorBox"><p>{message}</p></div>: <></>}
             <h2>{t('Account.Shared.providers')}</h2>
             <div className="sign_in_providers">
-                <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('Account.Shared.Providers.Google')}</div>
-                <div className="provider" onClick={signInWithDiscord}><SiDiscord />{t('Account.Shared.Providers.Discord')}</div>
-                <div className="provider" onClick={signUpWithGithub}><SiGithub />{t('Account.Shared.Providers.Github')}</div>
-                <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('Account.Shared.Providers.Microsoft')}</div>
+                <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('Account.Shared.Providers.google')}</div>
+                <div className="provider" onClick={signInWithDiscord}><SiDiscord />{t('Account.Shared.Providers.discord')}</div>
+                <div className="provider" onClick={signUpWithGithub}><SiGithub />{t('Account.Shared.Providers.github')}</div>
+                <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('Account.Shared.Providers.microsoft')}</div>
             </div>
             <h2>{t('SignIn.email_title')}</h2>
             <form method="">

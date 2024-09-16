@@ -39,7 +39,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                 // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${t('form.images.uploading')}${file.name}`))
                 upload(file, "images").then(url => {
                     if(url) {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${t('form.images.uploaded')}${file.name}`))
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', {file: file.name})))
                         
                         if(allowMultiple) {
                             // Send uploaded files to the parent component, then update the internal state of images
@@ -79,13 +79,13 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                 file.errors.forEach(error => {
                     switch (error.code) {
                         case 'file-invalid-type':
-                            message += t('form.images.invalid');
+                            message += t('Form.Images.invalid');
                             break;
                         case 'file-too-large':
-                            message += t('form.images.too_large');
+                            message += t('Form.Images.too_large');
                             break;
                         default:
-                            message += t('form.images.unknown_error');
+                            message += t('Form.Images.unknown_error');
                             break;
                     }
                 })
@@ -136,9 +136,9 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                         <div className={styles.image_overlay}>
                             <UploadCloud></UploadCloud>
                             {isDragActive ? (
-                                <span>{t('form.images.hovering_drop')}</span>
+                                <span>{t('Form.Images.hovering_drop')}</span>
                             ) : (
-                                <span>{t('form.images.drop_zone')}</span>
+                                <span>{t('Form.Images.drop_zone')}</span>
                             )}
                         </div>
                     </div>

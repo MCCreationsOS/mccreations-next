@@ -35,14 +35,14 @@ export default function MessageComponent({messages}: {messages: IMessage[]}) {
                         </div>
                     </div>
                     <p className={styles.message}>{messages[message].message}</p>
-                    {(messages[message].link) ? <Link href={messages[message].link!}>{t('content.messages.fix')}</Link> : <></>}
+                    {/* {(messages[message].link) ? <Link href={messages[message].link!}>{t('content.messages.fix')}</Link> : <></>} */}
                 </div>
             )
         } else if( messages[message]) {
             return (
                 <div className={(messages[message].type === 'Message') ? styles.message_container : (messages[message].type === 'Warning') ? styles.warning_container : styles.error_container}>
                     <div className={styles.title_bar}>
-                        <h4 className={styles.title}>{t('content.messages.count')}{messages.length}</h4>
+                        <h4 className={styles.title}>{t('Content.Warnings.count')}{messages.length}</h4>
                         <div className={styles.option} onClick={() => {setVisible(true)}}><ChevronUp /></div>
                     </div>
                 </div>

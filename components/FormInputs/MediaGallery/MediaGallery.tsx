@@ -29,7 +29,7 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
             acceptedFiles.forEach(file => {
                 upload(file, "images").then(url => {
                     if(url) {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${t('form.images.uploaded')}${file.name}`))
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', {file: file.name})))
                         setFiles(previousFiles => [
                             ...previousFiles,
                             { url: url, name: file.name }
@@ -46,13 +46,13 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
                 file.errors.forEach(error => {
                     switch (error.code) {
                         case 'file-invalid-type':
-                            message += t('form.images.invalid');
+                            message += t('Form.Images.invalid');
                             break;
                         case 'file-too-large':
-                            message += t('form.images.too_large');
+                            message += t('Form.Images.too_large');
                             break;
                         default:
-                            message += t('form.images.unknown_error');
+                            message += t('Form.Images.unknown_error');
                             break;
                     }
                 })
@@ -133,7 +133,7 @@ const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(file
                         <div {...getRootProps()} className={styles.upload}>
                             <input {...getInputProps({ name: 'file' })} />
                             <Plus />
-                            <p>{t('form.images.drop_zone')}</p>
+                            <p>{t('Form.Images.drop_zone')}</p>
                         </div>
                     </div>
                 )}
