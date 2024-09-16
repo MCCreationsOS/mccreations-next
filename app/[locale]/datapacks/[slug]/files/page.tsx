@@ -68,7 +68,7 @@ export default function Page({ params }: { params: Params }) {
                         <div className='map_download_stack'>
                             <Rating value={content.rating} content={content} />
                             {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} /> : <></>}
-                            <Link title={t(`Content.affiliate`, {type: t('datapack', {count: 2})})} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server /></IconButton></Link>
+                            <Link title={t(`Content.affiliate`, {type: t('datapack', {count: 1})})} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server /></IconButton></Link>
                         </div>
                     </div>
                     <div className={styles.content_item}>

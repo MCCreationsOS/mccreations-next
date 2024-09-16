@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
         description: map.shortDescription,
         authors: map.creators.map((creator: ICreator) => { return { name: creator.username } }),
         generator: "MCCreations",
-        keywords: map.tags.concat([t('Content.Metadata.Tags.minecraft'), t('datapack', {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_datapacks'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}), t('Content.Metadata.Tags.mods'), t('Content.Metadata.Tags.minecraft_mods'), t('Content.Metadata.Tags.minecraft_but'), t('Content.Metadata.Tags.minecraft_survival')]),
+        keywords: map.tags.concat([t('Content.Metadata.Tags.minecraft'), t('datapack', {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_datapack'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}), t('Content.Metadata.Tags.mods'), t('Content.Metadata.Tags.minecraft_mods'), t('Content.Metadata.Tags.minecraft_but'), t('Content.Metadata.Tags.minecraft_survival')]),
         publisher: "MCCreations",
         openGraph: {
             title: t('Content.Metadata.title', {title: map.title, content_type: t('datapack', {count: 1}), creator: map.creators[0].username, minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}),
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
             authors: map.creators.map((creator: ICreator) => { return creator.username }),
             publishedTime: new Date(map.createdDate).toString(),
             modifiedTime: new Date(map.updatedDate + "").toString(),
-            tags: map.tags.concat([t('Content.Metadata.Tags.minecraft'), t('datapack', {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_datapacks'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}), t('Content.Metadata.Tags.mods'), t('Content.Metadata.Tags.minecraft_mods'), t('Content.Metadata.Tags.minecraft_but'), t('Content.Metadata.Tags.minecraft_survival')]),
+            tags: map.tags.concat([t('Content.Metadata.Tags.minecraft'), t('datapack', {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_datapack'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}), t('Content.Metadata.Tags.mods'), t('Content.Metadata.Tags.minecraft_mods'), t('Content.Metadata.Tags.minecraft_but'), t('Content.Metadata.Tags.minecraft_survival')]),
             videos: (map.videoUrl) ? [{ url: map.videoUrl }] : []
         }
     }
