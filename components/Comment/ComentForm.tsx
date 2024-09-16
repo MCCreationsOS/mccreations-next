@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react"
 import CommentCard from "./CommentCard"
 import { postComment } from "@/app/api/community";
 import { IComment, IUser } from "@/app/api/types";
-import { getUser } from "@/app/api/auth";
+import { getUser, useUserStore } from "@/app/api/auth";
 import MainButton from "../Buttons/MainButton";
 import FormComponent from "../Form/Form";
 import Text from "../FormInputs/Text";
@@ -16,22 +16,18 @@ import { FormInput } from "../FormInputs";
 
 export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: string, content_type: string}) {
     const [comment, setComment] = useState("");
-    const [user, setUser] = useState<IUser>()
+    const user = useUserStore() as IUser
+    const setUser = useUserStore((state) => state.setUser)
     const [render, setRender] = useState(false);
     const t = useTranslations()
     let token;
 
     useEffect(() => {
-        const getData = async () => {
-            let token = sessionStorage.getItem('jwt')
-            if(token) {
-                let user = await getUser(undefined, token)
-                if(user) {
-                    setUser(user);
-                }
-            }
+        if(!user._id) {
+            getUser(localStorage.getItem('jwt') + "").then((u) => {
+                if(u) setUser(u)
+            })
         }
-        getData();
 
         if(!navigator.webdriver) {
             setRender(true);

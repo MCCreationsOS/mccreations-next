@@ -1,6 +1,6 @@
 'use client'
 
-import { getUser } from "@/app/api/auth"
+import { getUser, useUserStore } from "@/app/api/auth"
 import { convertToCollection, fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
 import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, CollectionNames, UserTypes, Locales, Translation, TagKeys, TagCategories, ContentTypes, LeaderboardFeature, ICreator } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
@@ -29,7 +29,6 @@ import { Link } from "@/app/api/navigation"
 import { FormInput } from "@/components/FormInputs"
 
 export default function EditContentPage({params}: {params: Params}) {
-    const [user, setUser] = useState<IUser>()
     const [map, setMap] = useState<IContentDoc | {error: string}>()
     const [tags, setTags] = useState<Tags>()
     const token = useRef("")
@@ -39,7 +38,7 @@ export default function EditContentPage({params}: {params: Params}) {
     
 
     useEffect(() => {
-        token.current = sessionStorage?.getItem('jwt') + ""
+        token.current = localStorage?.getItem('jwt') + ""
         const getData = async () => {
             
             fetchTags(collectionName).then((data) => {
@@ -49,8 +48,7 @@ export default function EditContentPage({params}: {params: Params}) {
             })
             if(token && token.current.length > 0) {
                 
-                let u = await getUser(undefined, token.current)
-                setUser(u);
+                let u = await getUser(token.current)
 
                 if(!u) {
                     token.current = sessionStorage.getItem('temp_key') + ""
@@ -353,7 +351,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                         description: FormInput.getFormInput(`edit_translation_${lang}`)?.submit() + "",
                                         approved: (inputs[3] === "true") ? true : false
                                     }
-                                    updateTranslation(map.slug, collectionName, translation, sessionStorage.getItem('jwt')).then((d) => {
+                                    updateTranslation(map.slug, collectionName, translation, localStorage.getItem('jwt')).then((d) => {
                                         if('error' in d) {
                                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, d.error))
                                         } else {

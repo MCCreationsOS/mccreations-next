@@ -31,7 +31,7 @@ export default function MapWrapper({slug, response}: {slug: string, response?: a
                     setMap(map)
                 }
             }
-            let token = sessionStorage.getItem('jwt') + ""
+            let token = localStorage.getItem('jwt') + ""
             getData(token)
         }, [])
 
@@ -84,7 +84,7 @@ export function DatapackWrapper({slug, response}: {slug: string, response?: any}
                     setDatapack(map)
                 }
             }
-            let token = sessionStorage.getItem('jwt') + ""
+            let token = localStorage.getItem('jwt') + ""
             getData(token)
         }, [])
 
@@ -138,7 +138,7 @@ export function ResourcepackWrapper({slug, response}: {slug: string, response?: 
                     setResourcepack(map)
                 }
             }
-            let token = sessionStorage.getItem('jwt') + ""
+            let token = localStorage.getItem('jwt') + ""
             getData(token)
         }, [])
 

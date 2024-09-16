@@ -1,6 +1,6 @@
 'use client'
 
-import { getUser } from "@/app/api/auth"
+import { getUser, useUserStore } from "@/app/api/auth"
 import { ICreator, IContentDoc, IUser, UserTypes } from "@/app/api/types"
 import { Link } from "@/app/api/navigation";
 import { useEffect, useState } from "react"
@@ -12,19 +12,17 @@ import {useTranslations} from 'next-intl';
  * @param map The map to check
  */
 export default function ContentWarnings({map}: {map: IContentDoc}) {
-    const [user, setUser] = useState<IUser>()
+    const user = useUserStore() as IUser
+    const setUser = useUserStore((state) => state.setUser)
     const t = useTranslations()
 
     // Get the user on load
     useEffect(() => {
-        let token = sessionStorage?.getItem('jwt')
-        const getData = async () => {
-            if(token) {
-                let u = await getUser(undefined, token)
-                setUser(u);
-            }
+        if(!user._id) {
+            getUser(localStorage.getItem('jwt') + "").then((u) => {
+                if(u) setUser(u)
+            })
         }
-        getData();
     }, [])
 
     // Check if the user is a creator

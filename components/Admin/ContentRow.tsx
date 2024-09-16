@@ -39,7 +39,7 @@ export default function ContentRow({content, addToUpdateQueue}: {content: IConte
                     creators
                 })
             }}><Plus /></button>
-            {(content.status === 1) ? <MainButton onClick={() => {approveContent(content.slug, CollectionNames[type], sessionStorage.getItem('jwt'))}}>Approve</MainButton> : <></> }
+            {(content.status === 1) ? <MainButton onClick={() => {approveContent(content.slug, CollectionNames[type], localStorage.getItem('jwt'))}}>Approve</MainButton> : <></> }
         </div>
     )
 }

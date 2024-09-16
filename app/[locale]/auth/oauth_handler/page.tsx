@@ -1,5 +1,6 @@
 'use client'
 
+import { useUserStore } from "@/app/api/auth";
 import Menu from "@/components/Menu/Menu";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
@@ -8,6 +9,7 @@ import { useEffect, useState } from "react"
 
 export default function OauthHandlerPage() {
     const [sentRequest, setSentRequest] = useState(false)
+    const setUser = useUserStore((state) => state.setUser)
     const params = useSearchParams()
     const router = useRouter();
     const t = useTranslations()
@@ -30,9 +32,10 @@ export default function OauthHandlerPage() {
                                 sessionStorage.removeItem('rqGh')
                                 return;
                             }
-                            sessionStorage.setItem('jwt', data.token);
-                            sessionStorage.setItem('creator', data.creator)
+                            localStorage.setItem('jwt', data.token);
+                            localStorage.setItem('user', JSON.stringify(data.creator))
                             sessionStorage.removeItem('rqGh')
+                            setUser(data.creator)
                             router.push('/')
                         });
                     }).catch(error => {
@@ -58,9 +61,10 @@ export default function OauthHandlerPage() {
                                 sessionStorage.removeItem('rqGh')
                                 return;
                             }
-                            sessionStorage.setItem('jwt', data.token);
-                            sessionStorage.setItem('creator', data.creator)
+                            localStorage.setItem('jwt', data.token);
+                            localStorage.setItem('user', JSON.stringify(data.creator))
                             sessionStorage.removeItem('rqGh')
+                            setUser(data.creator)
                             router.push('/')
                         });
                     }).catch(error => {
@@ -91,9 +95,10 @@ export default function OauthHandlerPage() {
                                 sessionStorage.removeItem('rqGh')
                                 return;
                             }
-                            sessionStorage.setItem('jwt', data.token)
-                            sessionStorage.setItem('creator', data.creator)
+                            localStorage.setItem('jwt', data.token)
+                            localStorage.setItem('user', JSON.stringify(data.creator))
                             sessionStorage.removeItem('rqGh')
+                            setUser(data.creator)
                             router.push('/')
                         })
                     }).catch(e => {
@@ -120,9 +125,10 @@ export default function OauthHandlerPage() {
                                 sessionStorage.removeItem('rqGh')
                                 return;
                             }
-                            sessionStorage.setItem('jwt', data.token);
-                            sessionStorage.setItem('creator', JSON.stringify(data.creator))
+                            localStorage.setItem('jwt', data.token);
+                            localStorage.setItem('user', JSON.stringify(data.creator))
                             sessionStorage.removeItem('rqGh')
+                            setUser(data.creator)
                             router.push('/')
                         });
                     }).catch(error => {

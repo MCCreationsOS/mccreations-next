@@ -9,11 +9,13 @@ import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupM
 import MainButton from "@/components/Buttons/MainButton";
 import { sendLog } from "@/app/api/logging";
 import {useTranslations} from 'next-intl';
+import { useUserStore } from "@/app/api/auth";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
+    const setUser = useUserStore((state) => state.setUser)
     const router = useRouter();
     const t = useTranslations()
 
@@ -31,8 +33,9 @@ export default function SignIn() {
             }).then(res => {
                 res.json().then(data => {
                     if(data.token) {
-                        sessionStorage.setItem('jwt', data.token);
-                        sessionStorage.setItem('creator', JSON.stringify(data.creator))
+                        localStorage.setItem('jwt', data.token);
+                        localStorage.setItem('user', JSON.stringify(data.creator))
+                        setUser(data.creator)
                         router.push('/')
                     } else {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))

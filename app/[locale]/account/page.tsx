@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { IUser } from "../../api/types"
 import { useRouter } from "next/navigation"
 import { X } from "react-feather"
-import { deleteUser, getUser } from "@/app/api/auth"
+import { deleteUser, getUser, useUserStore } from "@/app/api/auth"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import PopupComponent, { Popup } from "@/components/Popup/Popup";
 import FormComponent, { FormElement } from "@/components/Form/Form";
@@ -18,28 +18,34 @@ export default function AccountPage() {
     const [password, setPassword] = useState("")
     const [password2, setPassword2] = useState("")
     const [triedDeleteAccount, setTriedDeleteAccount] = useState(false)
-    const [user, setUser] = useState({} as IUser)
+    const user = useUserStore() as IUser
+    const setUser = useUserStore((state) => state.setUser)
     const router = useRouter();
     const t = useTranslations()
     let token: string | null;
 
     useEffect(() => {
-        const getData = async () => {
-            token = sessionStorage.getItem('jwt')
-            if(token) {
-                let user = await getUser(undefined, token)
-                if(user) {
-                    setUser(user);
-                }
+        if(!user._id) {
+            const storedUser = localStorage.getItem('user')
+            if(storedUser) {
+                let user = JSON.parse(storedUser) as IUser
+                setUser(user)
             } else {
-                router.push('/signin')
+                getUser(localStorage.getItem('jwt') + "").then((user) => {
+                    if(user) {
+                        setUser(user)
+                        localStorage.setItem('user', JSON.stringify(user))
+                    } else {
+                        localStorage.removeItem('jwt')
+                        localStorage.removeItem('user')
+                    }
+                })
             }
         }
-        getData();
     }, [])
 
     const updateHandle = (inputs: string[]) => {
-        token = sessionStorage.getItem('jwt')
+        token = localStorage.getItem('jwt')
         fetch(`${process.env.DATA_URL}/auth/user/updateHandle`, {
             method: 'POST',
             headers: {
@@ -51,9 +57,9 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.handle_updated', {handle: inputs[0]}), () => {
-                    setUser({_id: user._id, username: user.username, handle: inputs[0], email: user.email, type: user.type})
-                })) 
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.handle_updated', {handle: inputs[0]}))) 
+                setUser({...user, handle: inputs[0]})
+                localStorage.setItem('user', JSON.stringify({...user, handle: inputs[0]}))
             })
         }).catch(e => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
@@ -62,7 +68,7 @@ export default function AccountPage() {
     }
 
     const updateUsername = (inputs: string[]) => {
-        token = sessionStorage.getItem('jwt')
+        token = localStorage.getItem('jwt')
         fetch(`${process.env.DATA_URL}/auth/user/updateProfile`, {
             method: 'POST',
             headers: {
@@ -74,9 +80,9 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.username_updated', {username: inputs[0]}), () => {
-                    setUser({_id: user._id, username: inputs[0], handle: user.handle, email: user.email, type: user.type})
-                })) 
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.username_updated', {username: inputs[0]}))) 
+                setUser({...user, username: inputs[0]})
+                localStorage.setItem('user', JSON.stringify({...user, username: inputs[0]}))
             })
         }).catch(e => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
@@ -85,7 +91,7 @@ export default function AccountPage() {
     }
 
     const updateEmail = (inputs: string[]) => {
-        token = sessionStorage.getItem('jwt')
+        token = localStorage.getItem('jwt')
         fetch(`${process.env.DATA_URL}/auth/user/updateEmail`, {
             method: 'POST',
             headers: {
@@ -97,9 +103,9 @@ export default function AccountPage() {
             res.json().then(data => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.email_updated', {email: inputs[0]}), () => {
-                    setUser({_id: user._id, username: user.username, handle: user.handle, email: inputs[0]!, type: user.type})
-                })) 
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.email_updated', {email: inputs[0]}))) 
+                setUser({...user, email: inputs[0]})
+                localStorage.setItem('user', JSON.stringify({...user, email: inputs[0]}))
             })
         }).catch(e => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
@@ -108,7 +114,7 @@ export default function AccountPage() {
 
     const updatePassword = (inputs: string[]) => {
         if(inputs[0] === inputs[1] && inputs[0]) {
-            token = sessionStorage.getItem('jwt')
+            token = localStorage.getItem('jwt')
             fetch(`${process.env.DATA_URL}/auth/user/updatePassword`, {
                 method: 'POST',
                 headers: {
@@ -130,7 +136,7 @@ export default function AccountPage() {
     }
 
     const deleteAccount = () => {
-        token = sessionStorage.getItem('jwt')
+        token = localStorage.getItem('jwt')
         if(!triedDeleteAccount) {
             setTriedDeleteAccount(true)
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('Account.PopupMessage.delete_account_warning'))) 

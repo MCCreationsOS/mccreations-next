@@ -6,7 +6,7 @@ import { IUser, UserTypes } from "@/app/api/types"
 import { Link } from "@/app/api/navigation";
 import { LogOut, Settings, Table, User } from "react-feather"
 import { useRouter } from "next/navigation"
-import { getUser } from "@/app/api/auth"
+import { getUser, useUserStore } from "@/app/api/auth"
 import HollowButton from "../Buttons/HollowButton"
 import { useTranslations } from "next-intl";
 
@@ -14,22 +14,31 @@ import { useTranslations } from "next-intl";
  * The user options menu displayed on the far right of the menu
  */
 export default function UserOptions() {
-    const [user, setUser] = useState({} as IUser)
+    const user = useUserStore() as IUser
+    const setUser = useUserStore((state) => state.setUser)
+    const logout = useUserStore((state) => state.logout)
     const [showOptions, setShowOptions] = useState(false)
     const router = useRouter();
     let t = useTranslations();
 
     useEffect(() => {
-        const getData = async () => {
-            let token = sessionStorage.getItem('jwt')
-            if(token) {
-                let user = await getUser(undefined, token)
-                if(user) {
-                    setUser(user);
-                }
+        if(!user._id) {
+            const storedUser = localStorage.getItem('user')
+            if(storedUser) {
+                let user = JSON.parse(storedUser) as IUser
+                setUser(user)
+            } else {
+                getUser(localStorage.getItem('jwt') + "").then((user) => {
+                    if(user) {
+                        setUser(user)
+                        localStorage.setItem('user', JSON.stringify(user))
+                    } else {
+                        localStorage.removeItem('jwt')
+                        localStorage.removeItem('user')
+                    }
+                })
             }
         }
-        getData();
     }, [])
 
     if(!user._id) {
@@ -61,7 +70,7 @@ export default function UserOptions() {
                 <div className="option icon" onClick={() => {router.push("/account")}}>
                     <Settings /> {t("Navigation.UserOptions.settings")}
                 </div>
-                <div className="option icon" onClick={() => {sessionStorage.removeItem('jwt'); location.reload()}}>
+                <div className="option icon" onClick={() => {localStorage.removeItem('jwt'); localStorage.removeItem('user'); logout()}}>
                     <LogOut /> {t("Navigation.UserOptions.sign_out")}
                 </div>
             </div>

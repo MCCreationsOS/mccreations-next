@@ -16,12 +16,12 @@ export default function Page() {
 
     useEffect(() => {
         try {
-            let jwt = sessionStorage.getItem('jwt')
+            let jwt = localStorage.getItem('jwt')
             if(!jwt) {
                 router.push('/signin')
                 return;
             }
-            getUser(undefined, jwt).then((user) => {
+            getUser(jwt).then((user) => {
                 if(!user || user.type !== UserTypes.Admin) {
                     router.push('/')
                     return;

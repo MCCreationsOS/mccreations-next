@@ -25,7 +25,7 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
 
     useEffect(() => {
         const getData = async () => {
-            let token = sessionStorage.getItem('jwt')
+            let token = localStorage.getItem('jwt')
             if(token) {
                 loggedIn.current = true;
                 let users = await getCreators(token)

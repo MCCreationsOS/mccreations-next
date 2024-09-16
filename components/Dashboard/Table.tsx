@@ -8,40 +8,33 @@ import styles from './table.module.css'
 import { CollectionNames, IContentDoc, IUser } from "@/app/api/types";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { getUser } from "@/app/api/auth";
+import { getUser, useUserStore } from "@/app/api/auth";
 import { convertToType, deleteContent } from "@/app/api/content";
 import {useTranslations} from 'next-intl';
 
 export default function Table({collectionName}: {collectionName: CollectionNames}) {
     const [maps, setMaps] = useState<IContentDoc[]>([])
-    const [user, setUser] = useState<IUser>()
+    const user = useUserStore() as IUser
+    const setUser = useUserStore((state) => state.setUser)
     const router = useRouter();
-    const jwt = useRef<string | null>(null);
     const contentType = convertToType(collectionName);
     const t = useTranslations()
 
     useEffect(() => {
-
-        jwt.current = sessionStorage.getItem('jwt')
-        if(!jwt) {
-            router.push('/signin')
-            return;
+        if(!user._id) {
+            getUser(localStorage.getItem('jwt') + "").then((u) => {
+                if(u) {
+                    setUser(u)
+                }
+            })
         }
-        getUserLocal(jwt.current + "")
-    
     }, [])
 
     useEffect(() => {
-        getOwnedContent(jwt.current)
-    }, [user])
-
-    const getUserLocal = async (jwt: string | undefined) => {
-        let u = await getUser(undefined, jwt)
-        if(!u) {
-            router.push('/signin')
+        if(user._id) {
+            getOwnedContent(localStorage.getItem('jwt') + "")
         }
-        setUser(u)
-    }
+    }, [user])
 
     const getOwnedContent = async (jwt: any) => {
         fetch(`${process.env.DATA_URL}/${collectionName}-nosearch?status=0&limit=20&page=0&creator=${user?.handle}`, {
@@ -90,7 +83,7 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                         <div className={styles.info_buttons}>
                             <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><ImageIcon /></Link>
                             <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')}><Edit /></Link>
-                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, sessionStorage.getItem('jwt'), collectionName); getOwnedContent(sessionStorage.getItem('jwt'))}}><Trash /></span>
+                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, localStorage.getItem('jwt'), collectionName); getOwnedContent(localStorage.getItem('jwt'))}}><Trash /></span>
                         </div>
                     </div>
                     <div className={styles.content_item_item}>

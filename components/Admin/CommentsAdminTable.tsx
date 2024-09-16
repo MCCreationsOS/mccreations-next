@@ -32,7 +32,7 @@ export default function ContentAdminTable({jwt}: {jwt: string}) {
     }, [])
 
     useEffect(() => {
-        let jwt = sessionStorage.getItem('jwt')
+        let jwt = localStorage.getItem('jwt')
         fetch(`${process.env.DATA_URL}/content/comments-nosearch?limit=20&page=${page}`, {
             headers: {
                 authorization: jwt + ""
@@ -47,13 +47,13 @@ export default function ContentAdminTable({jwt}: {jwt: string}) {
 
     const update = async () => {
         updateQueue.forEach((comment) => {
-            updateComment(comment, sessionStorage.getItem('jwt') + "")
+            updateComment(comment, localStorage.getItem('jwt') + "")
         })
         setUpdateQueue([])
     }
 
     const refresh = () => {
-        let jwt = sessionStorage.getItem('jwt')
+        let jwt = localStorage.getItem('jwt')
         fetch(`${process.env.DATA_URL}/content/comments-nosearch?limit=20&page=${page}`, {
             headers: {
                 authorization: jwt + ""

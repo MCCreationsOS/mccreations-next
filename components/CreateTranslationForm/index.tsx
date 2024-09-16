@@ -32,7 +32,7 @@ export default function CreateTranslationForm({content, type}: {content: IConten
                 description: FormInput.getFormInput<string>('translate_map_desc')?.submit() + "",
                 approved: false
             }
-            updateTranslation(content.slug, type, translation, sessionStorage.getItem('jwt'))
+            updateTranslation(content.slug, type, translation, localStorage.getItem('jwt'))
             }}>
             <Select name="Language" options={availableLocales.map(lang => {return {name: lang, value: lang}})} onChange={(v: string) => {
                 if(content.translations && Object.keys(content.translations).includes(v)) {

@@ -1,6 +1,68 @@
-import { IUser } from "@/app/api/types";
+import { IUser, UserTypes } from "@/app/api/types";
+import { create } from "zustand";
 
-export async function getUser(id?: object, authorization?: string) {
+type UserStore = {
+    username: string
+    type: UserTypes
+    email: string
+    handle: string
+    _id: string
+    iconURL: string
+    bannerURL: string
+    about: string,
+    setUser: (user: IUser) => void
+    setIcon: (iconURL: string) => void
+    setBanner: (bannerURL: string) => void
+    setAbout: (about: string) => void
+    logout: () => void
+}
+
+export const useUserStore = create<UserStore>(set => ({
+    username: "",
+    type: UserTypes.Account,
+    email: "",
+    handle: "",
+    _id: "",
+    iconURL: "",
+    bannerURL: "",
+    about: "",
+    setUser: (user: IUser) => {
+        set({
+            username: user.username,
+            type: user.type,
+            email: user.email,
+            handle: user.handle,
+            _id: user._id,
+            iconURL: user.iconURL,
+            bannerURL: user.bannerURL,
+            about: user.about
+        })
+    },
+    setIcon: (iconURL: string) => {
+        set({iconURL: iconURL})
+    },
+    setBanner: (bannerURL: string) => {
+        set({bannerURL: bannerURL})
+    },
+    setAbout: (about: string) => {
+        set({about: about})
+    },
+    logout: () => {
+        set({
+            username: "",
+            type: UserTypes.Account,
+            email: "",
+            handle: "",
+            _id: "",
+            iconURL: "",
+            bannerURL: "",
+            about: "",
+        })
+    }
+}))
+
+
+export async function getUser(authorization?: string) {
     if(authorization) {
         try {
             let res = await fetch(`${process.env.DATA_URL}/auth/user`, {
@@ -9,7 +71,9 @@ export async function getUser(id?: object, authorization?: string) {
                 }
             })
             let data = await res.json();
-            return data.user as IUser;
+            if(data.user) {
+                return data.user as IUser;
+            }
         } catch(e) {
             console.error(e)
         }

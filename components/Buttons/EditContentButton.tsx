@@ -1,6 +1,6 @@
 'use client'
 
-import { getUser } from "@/app/api/auth";
+import { getUser, useUserStore } from "@/app/api/auth";
 import { getCreator } from "@/app/api/community";
 import { ContentTypes, ICreator, IUser } from "@/app/api/types";
 import { Link } from "@/app/api/navigation";
@@ -15,17 +15,15 @@ import {useTranslations} from 'next-intl';
  * @param status The status of the content 
  */
 export default function EditContentButton({slug, creators, status, contentType}: {slug: string, creators: ICreator[], status: number, contentType: ContentTypes}) {
-    const [user, setUser] = useState<IUser>()
+    const user = useUserStore() as IUser
+    const setUser = useUserStore((state) => state.setUser)
     const t = useTranslations()
     useEffect(() => {
-        let token = sessionStorage?.getItem('jwt')
-        const getData = async () => {
-            if(token) {
-                let u = await getUser(undefined, token)
-                setUser(u);
-            }
+        if(!user._id) {
+            getUser(localStorage.getItem('jwt') + "").then((u) => {
+                if(u) setUser(u)
+            })
         }
-        getData();
     }, [])
 
     let match = false;
