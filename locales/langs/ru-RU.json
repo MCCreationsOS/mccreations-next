@@ -1,23 +1,19 @@
 {
     "language_name": "Русский (Россия)",
     "language_code": "ru_RU",
-
     "map": "{count, plural, =0 {Карты} =1 {Карта} other {Карты}}",
     "datapack": "{count, plural, =0 {Датапаки} =1 {Датапак} other {Датапаки}}",
     "resourcepack": "{count, plural, =0 {Ресурспаки} =1 {Ресурспак} other {Ресурспаки}}",
     "comment": "{count, plural, =0 {Комментарии} =1 {Комментарий} other {Комментарии}}",
-
     "Status": {
         "approved": "Approved",
         "draft": "Draft",
         "featured": "Featured",
         "unapproved": "Unapproved"
     },
-
     "Account": {
         "settings": "Настройки аккаунта",
         "delete_account": "Удалить аккаунт",
-
         "Popup": {
             "new_username": "New Username",
             "change_username": "Поменять название аккаунта",
@@ -29,7 +25,6 @@
             "confirm_password": "Подвердить пароль",
             "change_password": "Поменять пароль"
         },
-
         "PopupMessage": {
             "email_updated": "Email updated successfully to {email}",
             "handle_updated": "Handle updated successfully to {handle}",
@@ -42,7 +37,6 @@
             "delete_account_success": "Account successfully deleted",
             "error": "There was an error. Please report this issue using the link above"
         },
-
         "Shared": {
             "username": "Username",
             "username_placeholder": "Steve",
@@ -61,7 +55,6 @@
             "providers": "Sign in with..."
         }
     },
-
     "Auth": {
         "OAuth": {
             "PopupMessage": {
@@ -70,14 +63,12 @@
             "loading": "Signing you in!"
         }
     },
-
     "Comments": {
-        "loading": "Loading Comment..."
+        "loading": "Загрузка комментария..."
     },
-
     "Creator": {
         "Metadata": {
-            "not_found_title": "Creator Not Found",
+            "not_found_title": "Создатель не найден",
             "not_found_description": "This creator does not exist on MCCreations",
             "title": "{username} on MCCreations",
             "description": "View {username}'s Minecraft Maps, Data Packs, Resource Packs, and more on MCCreations"
@@ -92,7 +83,6 @@
         "not_found": "Creator Not Found",
         "logo_alt": "{username}'s logo"
     },
-
     "Dashboard": {
         "title": "Ваш контент",
         "info": "Информация",
@@ -103,12 +93,11 @@
         "rating": "Рейтинг",
         "view": "View Content",
         "edit": "Изменить",
-        "delete": "Delete"
+        "delete": "Удалить"
     },
-
     "ResetPassword": {
         "token_error": "No token found, returning to previous page",
-        "new_password": "New Password",
+        "new_password": "Новый пароль",
         "retype_password": "Retype Password",
         "password_length": "Password must be 10 or more characters",
         "password_number": "Password must include at least one number",
@@ -116,7 +105,6 @@
         "reset": "Reset",
         "title": "Reset Password"
     },
-
     "SignIn": {
         "Reset": {
             "title": "Reset Password",
@@ -129,7 +117,6 @@
         "button": "Sign In",
         "no_account": "Не имеете аккаунт?"
     },
-
     "SignUp": {
         "title": "Sign Up",
         "email_invalid": "Email is not a valid email address",
@@ -141,25 +128,22 @@
         "already_have_account": "Уже есть аккаунт?",
         "error": "There was an error creating your account. Please report this issue using the link above."
     },
-
     "Translate": {
-        "title": "Translate",
+        "title": "Перевести",
         "help": "<link>For help, click here</link>",
         "AddLanguage": {
-            "title": "Add A Language",
+            "title": "Добавить язык",
             "language_placeholder": "en-US",
             "language_description": "An <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct."
         },
         "language": "Язык",
-        "language_missing": "Нет твоего языка? Нажми сюда, чтобы добавить."
+        "language_missing": "Нет вашего языка? Нажмите сюда, чтобы добавить."
     },
-
     "Error": {
         "title": "Something went wrong!",
         "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
         "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
     },
-
     "Home": {
         "Playlists": {
             "new_content": "Новый контент",
@@ -171,11 +155,9 @@
             "popular": "Популярный контент"
         }
     },
-
     "Ads": {
-        "behind_text": "Ads help keep MCCreations creating cool things! Please consider disabling your ad blocker for this site :)"
+        "behind_text": "Рекламы помогают продолжать MCCreations создавать крутые штуки! Пожалуйста рассмотрите возможность выключения блокировщика рекламы для этого сайта :)"
     },
-
     "Buttons": {
         "BulkDownload": {
             "text": "BULK",
@@ -185,30 +167,25 @@
         "download_bedrock": "Download for Bedrock",
         "edit": "Edit"
     },
-
     "CommentForm": {
         "sent": "Комментарий отправлен",
         "title": "Оставить комментарий",
         "comment": "Комментарий",
         "send": "Send"
     },
-
     "Comment": {
         "permalink": "Copy comment permalink",
         "expand": "Видеть больше",
         "collapse": "Видеть меньше"
     },
-
     "CommentsList": {
         "title": "Комметарии",
         "no_comments": "Будьте первым комментатором!",
         "none_yet": "Ещё нет!"
     },
-
     "FeaturedSlideshow": {
         "see_more": "Download"
     },
-
     "Footer": {
         "about": "About",
         "contact": "Contact",
@@ -223,12 +200,12 @@
         "updates": "Обновления",
         "Splashes": {
             "1": "Gone Global!",
-            "2": "It's a website!",
+            "2": "Это сайт!",
             "3": "Things are broken.",
             "4": "I'm a footer!",
-            "5": "Minecraft is pretty cool huh.",
+            "5": "Minecraft довольно крутой, не так ли?",
             "6": "Creativity for the win!",
-            "7": "Who reads these?",
+            "7": "Кто это вообще читает?",
             "8": "Anyone got a sandwich?",
             "9": "Contribute on Github!",
             "10": "Did you know that this is random?"
@@ -237,7 +214,6 @@
         "open_source": "MCCreations is <link>open source</link>. Contribute today!",
         "copyright": "© Ben Meier/CrazyCowMM"
     },
-
     "Form": {
         "save": "Сохранить",
         "CreatorSelector": {
@@ -286,7 +262,6 @@
             "add_caption": "Add Caption"
         }
     },
-
     "Navigation": {
         "CreateForm": {
             "title": "Создать",
@@ -315,7 +290,6 @@
         "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
         "home": "Главная"
     },
-
     "SearchAndFilter": {
         "search": "Искать",
         "clear_filters": "Очистить фильтры",
@@ -337,12 +311,9 @@
         "tags": "Тэги",
         "search_placeholder": "Ищите название, создателя, версию и так далее."
     },
-
-    
     "brand": "MCCreations",
     "error": "Ошибка",
     "events": "События",
-
     "VersionManager": {
         "title": "Менеджер версий",
         "add_version": "Добавить версию",
@@ -370,7 +341,6 @@
             "add_file_description": "Add any extra files required for this creation, like resourcepacks"
         }
     },
-
     "Content": {
         "affiliate": "Получите сервер для этого {type} со скидкой 25%",
         "leaderboards": "Таблица лидеров",
@@ -394,7 +364,7 @@
             "date": "Дата",
             "minecraft_version": "Версия Minecraft",
             "download": "Скачать",
-            "loading": "Loading..."
+            "loading": "Загрузка..."
         },
         "Warnings": {
             "count": "Сообщения: ",
@@ -403,8 +373,8 @@
                 "description": "Контент обязан иметь название"
             },
             "no_description": {
-                "title": "No Description",
-                "description": "A description is required"
+                "title": "Нет описания",
+                "description": "Описание обязательно"
             },
             "no_short_description": {
                 "title": "No Short Description",
@@ -489,8 +459,8 @@
             "versions": "Версии",
             "translations": "Переводы",
             "add_translation": "Добавить перевод",
-            "translation_languages": "Languages",
-            "translation_languages_description": "Is your language missing? Click here to add it.",
+            "translation_languages": "Языки",
+            "translation_languages_description": "Нет вашего языка? Нажмите сюда, что добавить.",
             "delete_translation": "Delete",
             "translation_approved": "Approved",
             "PopupMessage": {
@@ -502,7 +472,7 @@
             }
         },
         "translate": "Translate {title}",
-        "translate_button": "Translate {type} Page",
+        "translate_button": "Перевести страницу {type}",
         "Metadata": {
             "title_not_found": "{content_type} Not Found",
             "description_not_found": "This {content_type} does not exist on MCCreations",
@@ -517,9 +487,9 @@
                 "minecraft_map": "Minecraft Map",
                 "minecraft_resourcepack": "Minecraft Resource Pack",
                 "mods": "Mods",
-                "minecraft_mods": "Minecraft Mods",
-                "minecraft_but": "Minecraft but",
-                "minecraft_survival": "Minecraft Survival"
+                "minecraft_mods": "Minecraft моды",
+                "minecraft_but": "Minecraft, но",
+                "minecraft_survival": "Minecraft выживание"
             }
         },
         "datapack_not_found": "Датапак не найден",
@@ -628,14 +598,12 @@
             "vanilla": "Vanilla"
         }
     },
-
     "Datapacks": {
         "Metadata": {
             "title": "Download Data Packs | MCCreations",
             "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
         }
     },
-
     "Leaderboards": {
         "not_found": "Leaderboard Not Found",
         "rank": "Rank",
