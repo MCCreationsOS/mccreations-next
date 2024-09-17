@@ -18,7 +18,7 @@ export default function Page() {
             <Menu selectedPage="" />
             <div className="centered_content">
                 <h1>{t('Translate.title')}</h1>
-                <p>{t.rich('Translate.help', { link: (chunks) => <Link href="https://youtu.be/rtxLdKN3WCM">{chunks}</Link>})}</p>
+                <p>{t.rich('Translate.help', { link: (chunks) => <Link href="https://youtu.be/lhZTkbkuORI">{chunks}</Link>})}</p>
                 {Locales.map((lang) => (
                     <SecondaryButton key={lang} onClick={() => {
                         window.location.href = `/translate/${lang}`
