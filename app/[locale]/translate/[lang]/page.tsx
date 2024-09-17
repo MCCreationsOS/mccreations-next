@@ -64,7 +64,7 @@ export default function Page({params}: {params: Params}) {
             }
         }
         getLanguage();
-    })
+    }, [])
 
     const saveLanguage = (inputs: string[]) => {
         let lang = Object.assign({}, currentLanguage)
@@ -77,7 +77,7 @@ export default function Page({params}: {params: Params}) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(expandLanguage)
+            body: JSON.stringify(expandedLanguage)
         })
         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Translation successfully sent"))
     }
