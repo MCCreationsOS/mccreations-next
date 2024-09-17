@@ -9,7 +9,7 @@ export const generateStaticParams = async () => {
 }
 
 export default function NotFound({ params }: { params: Params}) {
-    unstable_setRequestLocale(params.locale);
+    unstable_setRequestLocale(params?.locale  ?? "en-US");
     return (
         <>
             <MenuSkeleton />
