@@ -124,7 +124,7 @@ export default function Datapacks() {
             )}
             { !datapacks || datapacks.length === 0 && (
                 <div className="no_comments">
-                    <h2>{t('content.no_datapacks_found')}</h2>
+                    <h2>{t('Content.datapacks_not_found')}</h2>
                 </div>
             )}
             { datapacks && pages > 1 &&  (<div className="navigator">
