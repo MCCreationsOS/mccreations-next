@@ -194,9 +194,9 @@
     },
 
     "Comment": {
-        "permalink": "Copy comment permalink",
-        "expand": "See More",
-        "collapse": "See Less"
+        "permalink": "复制永久评论链接",
+        "expand": "展开",
+        "collapse": "折叠"
     },
     
     "CommentsList": {
@@ -206,7 +206,7 @@
     },
 
     "FeaturedSlideshow": {
-        "see_more": "Download"
+        "see_more": "下载"
     },
 
     "Footer": {
@@ -233,8 +233,8 @@
             "9": "Contribute on Github!",
             "10": "Did you know that this is random?"
         },
-        "mojang_disclamer": "不是官方 Minecraft 产品。未获得Mojang 的批准或与 Mojang 相关。",
-        "open_source": "MCCreations is <link>open source</link>. Contribute today!",
+        "mojang_disclamer": "不是官方 Minecraft 产品。未获得Mojang 的批准，与 Mojang 无关。",
+        "open_source": "MCCreations 是<link>开源的</link>。欢迎贡献！",
         "copyright": "© Ben Meier/CrazyCowMM"
     },
 
@@ -244,24 +244,24 @@
             "title": "创作者",
             "add_creator": "添加创作者",
             "confirm_remove": "再次点击以移除此创作者",
-            "username_description": "The name to display on MCCreations.",
-            "handle_description": "If the creator has an account on MCCreations, enter their handle here to have their profile linked."
+            "username_description": "展示在 MCCreations 上的名称。",
+            "handle_description": "如果创作者已有 MCCreations 账户，请在此处输入用户名以链接至个人资料。"
         },
         "Shared": {
-            "uploaded": "Uploaded {file}",
-            "uploading": " Started Uploading {file}",
-            "upload_failed": " Failed to upload {file}"
+            "uploaded": "已上传 {file}",
+            "uploading": " 开始上传 {file}",
+            "upload_failed": " 上传 {file} 失败"
         },
         "Images": {
-            "drop_zone": "拖拽图片到这里，或点击选择。",
-            "hovering_drop": "放下它！",
+            "drop_zone": "拖放图片到此处，或点击选择图片。",
+            "hovering_drop": "松开它！",
             "invalid": "上传失败，因为文件不是有效的图片。",
             "too_large": "上传失败，因为文件过大。",
             "unknown_error": " 上传失败，因为发生了未知错误。"
         },
         "Files": {
-            "drop_zone": "Drag and Drop a file here, or click to select one.",
-            "invalid_file": " Failed to upload because the file is not a valid zip archive."
+            "drop_zone": "拖放文件到此处，或点击选择文件。",
+            "invalid_file": " 上传失败，因为文件不是有效的压缩包。"
         },
         "RichText": {
             "ImagePopup": {
@@ -270,7 +270,7 @@
                 "insert_file": "插入图片文件",
                 "insert_url": "插入图片 URL"
             },
-            "placeholder": "Start writing!",
+            "placeholder": "开始编写！",
             "undo": "撤销",
             "redo": "恢复。",
             "bold": "粗体",
@@ -312,8 +312,8 @@
             "admin": "管理员"
         },
         "badge": "测试版",
-        "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
-        "home": "Home"
+        "beta_warning": "MCCreations 目前仍处于 beta 版。请使用该<form>表格</form>，<github>通过我们的 Github page</github>，或<link>加入我们的 Discord</link>以留下反馈或报告问题。",
+        "home": "首页"
     },
 
     "SearchAndFilter": {
@@ -347,7 +347,7 @@
         "title": "版本管理",
         "add_version": "添加版本",
         "Version": {
-            "back_to_versions": "Back to Versions",
+            "back_to_versions": "上个版本",
             "edit": "编辑版本",
             "version_number": "版本号",
             "minecraft_version": "Minecraft 版本",
@@ -367,17 +367,17 @@
             "cancel": "关闭",
             "delete": "删除",
             "add_file": "添加文件",
-            "add_file_description": "Add any extra files required for this creation, like resourcepacks"
+            "add_file_description": "添加该作品所需的额外文件，如资源包"
         }
     },
 
     "Content": {
-        "affiliate": "Get a server for this {type} for 25% off",
+        "affiliate": "以25%的折扣购买{type}服务器",
         "leaderboards": "Leaderboards",
         "files": "文件",
         "info": "信息",
-        "logo_alt": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
-        "by": "by {creator}",
+        "logo_alt": "{title} 的 logo ，一张 Minecraft {minecraft_version}的 Minecraft {type}，由 {creator} 创作，发布于 MCCreations。",
+        "by": "{creator} 创作",
         "by_joiner": ", ",
         "Sidebar": {
             "creators": "创作者",
@@ -394,7 +394,7 @@
             "date": "更新日期",
             "minecraft_version": "Minecraft 版本",
             "download": "下载",
-            "loading": "Loading..."
+            "loading": "加载中……"
         },
         "Warnings": {
             "count": "消息： ",
@@ -403,12 +403,12 @@
                 "description": "内容必须有一个标题"
             },
             "no_description": {
-                "title": "No Description",
-                "description": "A description is required"
+                "title": "无描述",
+                "description": "需要一个描述"
             },
             "no_short_description": {
-                "title": "No Short Description",
-                "description": "A short Description is required"
+                "title": "无简短描述",
+                "description": "需要一个简短描述"
             },
             "no_tags": {
                 "title": "无标签",
@@ -452,7 +452,7 @@
             }
         },
         "Edit": {
-            "editing": "Editing {title}",
+            "editing": "编辑 {title} 中",
             "status": "状态：",
             "request_approval": "请求批准",
             "general": "常规",
@@ -491,7 +491,7 @@
             "add_translation": "添加翻译",
             "translation_languages": "Languages",
             "translation_languages_description": "Is your language missing? Click here to add it.",
-            "delete_translation": "Delete",
+            "delete_translation": "删除",
             "translation_approved": "已批准",
             "PopupMessage": {
                 "general_saved": "内容信息保存成功",
@@ -558,7 +558,7 @@
             "overhaul": "改革",
             "parkour": "跑酷",
             "puzzle": "解密",
-            "qol": "Quality of Life",
+            "qol": "QOL",
             "realistic": "现实",
             "simple": "简单",
             "survival": "生存",
@@ -566,8 +566,8 @@
             "tool": "工具",
             "utility": "实用",
             "long": "长",
-            "medium": "Medium",
-            "short": "Short",
+            "medium": "中",
+            "short": "短",
             "1024x +": "1024x +",
             "128x": "128x",
             "16x": "16x",
@@ -631,7 +631,7 @@
 
     "Datapacks": {
         "Metadata": {
-            "title": "Download Data Packs | MCCreations",
+            "title": "下载数据包 | MCCreations",
             "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
         }
     },
