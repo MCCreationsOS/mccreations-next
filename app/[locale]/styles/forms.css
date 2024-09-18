@@ -47,6 +47,11 @@ input {
     width: 200px;
 }
 
+.select.language {
+    margin: 0 auto;
+    width: 60px;
+}
+
 .select .selected_option {
     display: inline;
     padding: 8px 15px;
@@ -79,6 +84,16 @@ input {
 
 .select .options.active {
     display: block;
+}
+
+.select .options.language {
+    margin: 0 aut0;
+}
+
+@media screen and (max-width: 1095px) {
+    .select .options.language {
+        left: 20%
+    }
 }
 
 .select .options .option {

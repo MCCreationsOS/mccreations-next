@@ -95,10 +95,21 @@ a:active {
 
 @media screen and (max-width: 900px) {
   .centered_content {
-      width: 90%;
+      width: 95%;
   }
   .centered_content.small {
-    width: 95%;
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .centered_content {
+    margin: 0 5px;
+    width: 98%;
+  }
+  .centered_content.small {
+    margin: 0 5px;
+    width: 98%;
   }
 }
 

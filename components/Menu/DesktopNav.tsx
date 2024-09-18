@@ -13,37 +13,42 @@ import Select from "../FormInputs/Select"
 import {useTranslations} from 'next-intl';
 import LanguageSwitcher from "../LanguageSwitcher"
 import { useRef } from "react"
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+
+
+const onMapCreate = (router: AppRouterInstance, title?: string, type?: string, shortDescription?: string) => {
+    const t = useTranslations()
+    if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_title')))
+    if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_type')))
+    if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_short_description')))
+
+    let token  = localStorage.getItem('jwt')
+    Popup.close()
+    createNewContent(title!, type!, shortDescription!, token).then((key) => {
+        if(key && 'key' in key) {
+            sessionStorage.setItem('temp_key', key.key)
+        }
+        if('slug' in key) {
+            router.push(`/edit/${type}s/${key.slug}`)
+        }
+        if('error' in key) {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, key.error))
+        }
+    })
+}
 
 /**
  * The navbar displayed when the user is on a desktop device
  * @param selectedPage The currently selected page for menu highlighting 
  * @returns 
  */
+
 export default function DesktopNav({selectedPage}: {selectedPage: string}) {
     const router = useRouter();
     const t = useTranslations()
     const uploading = useRef(false)
 
     // Because the Create button/Form Popup is attached to the Menu we need to define the functions here
-    const onMapCreate = (title?: string, type?: string, shortDescription?: string) => {
-        if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_title')))
-        if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_type')))
-        if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_short_description')))
-
-        let token  = localStorage.getItem('jwt')
-        Popup.close()
-        createNewContent(title!, type!, shortDescription!, token).then((key) => {
-            if(key && 'key' in key) {
-                sessionStorage.setItem('temp_key', key.key)
-            }
-            if('slug' in key) {
-                router.push(`/edit/${type}s/${key.slug}`)
-            }
-            if('error' in key) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, key.error))
-            }
-        })
-    }
 
     const onMapImport = async (link?: string, type?: string) => {
         if(link && type && !uploading.current) {
@@ -100,7 +105,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
                                         title: t('Navigation.CreateForm.title'), 
                                         content:
                                         <FormComponent id={"createForm"} onSave={(inputs) => {
-                                            onMapCreate(inputs[0], inputs[1], inputs[2])
+                                            onMapCreate(router, inputs[0], inputs[1], inputs[2])
                                         }}>
                                             <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} />
                                             <Select name={t('Navigation.CreateForm.type')} defaultValue="map" options={[{name: t('map', { count: 1 }), value: 'map'}, {name: t('datapack', {count: 1}), value: "datapack"}, {name: t('resourcepack', {count: 1}), value: 'resourcepack'}]} />

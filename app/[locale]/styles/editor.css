@@ -363,6 +363,7 @@
     padding: 4px;
     vertical-align: middle;
     color: white;
+    flex-wrap: wrap;
   }
   
   .toolbar button.toolbar-item {

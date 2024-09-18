@@ -111,7 +111,7 @@ export default function SignIn() {
                 </div>
                 <div className='field'>
                     <p className='label'>{t('Account.Shared.password')}</p>
-                    <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}}></input>
+                    <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}} onKeyDown={(e) => {if(e.key === 'Enter') signInWithEmail()}}></input>
                 </div>
                 <MainButton onClick={signInWithEmail}>{t('SignIn.button')}</MainButton>
             </form>

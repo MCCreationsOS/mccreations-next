@@ -61,6 +61,15 @@
     background-position: 0 center;
 }
 
+.affiliate_button {
+    display: none;
+}
+
+@media screen and (min-width: 450px) {
+    .affiliate_button {
+        display: block;
+    }
+}
 .current_rating {
     background: url(/star.svg) left -1000px repeat-x;
     background-position: 0 center;
@@ -139,6 +148,12 @@
   @media screen and (max-width: 900px) {
     .map_description {
         width: 70%;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .map_description {
+        width: 100%;
     }
   }
 

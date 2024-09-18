@@ -9,6 +9,12 @@
     width: 100%;
 }
 
+@media screen and (max-width: 1000px) {
+    .upload {
+        flex-direction: column;
+    }
+}
+
 .upload p {
     font-size: 0.8rem;
     color: gray;

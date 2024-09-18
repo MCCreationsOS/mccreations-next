@@ -14,9 +14,9 @@ export default function LanguageSwitcher() {
     const saveNewLanguage = (inputs: string[]) => {}
 
     return (
-        <div className="select" style={{width:"100%", margin: 0}} onClick={() => {setOpen(!open)}}>
+        <div className="select language" onClick={() => {setOpen(!open)}}>
             <button className="selected_option" style={{padding: "0px 8px"}}><Globe /></button>
-            <div className="options" style={{display: (open) ? "block": "none", left: "-320%"}}>
+            <div className="options language" style={{display: (open) ? "block": "none"}}>
                 <div className={(currentLocale === 'en-US') ? "option selected" : "option"} style={{fontSize: "0.9rem"}} onClick={() =>{router.replace("/", {locale: 'en-US'})}}>
                     US English
                 </div>

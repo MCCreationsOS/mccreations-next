@@ -38,6 +38,12 @@
     font-weight: 700;
     font-size: 20px;
 }
+
+@media screen and (max-width: 400px) {
+    .nav .brand_name {
+        display: none;
+    }
+}
   
 .nav .item {
     display: inline;
@@ -157,6 +163,12 @@
   .user_menu {
     margin: 0 40px 0 0;
     position: relative;
+  }
+
+  @media screen and (max-width: 1095px) {
+    .user_menu {
+      margin: 0;
+    }
   }
 
   .user_menu .icon {

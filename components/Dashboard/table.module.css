@@ -26,6 +26,7 @@
     flex: 1;
     overflow: hidden;
     margin-left: 10px;
+    min-width: 150px;
 }
 
 .info_buttons {
