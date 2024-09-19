@@ -26,6 +26,15 @@ export default function UserOptions() {
             const storedUser = localStorage.getItem('user')
             if(storedUser) {
                 let user = JSON.parse(storedUser) as IUser
+                getUser(localStorage.getItem('jwt') + "").then((user) => {
+                    if(user) {
+                        setUser(user)
+                        localStorage.setItem('user', JSON.stringify(user))
+                    } else {
+                        localStorage.removeItem('jwt')
+                        localStorage.removeItem('user')
+                    }
+                })
                 setUser(user)
             } else {
                 getUser(localStorage.getItem('jwt') + "").then((user) => {
