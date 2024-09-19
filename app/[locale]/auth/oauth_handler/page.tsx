@@ -220,7 +220,7 @@ export default function OauthHandlerPage() {
             let provider = params.get('provider')
             if(provider === "discord") {
                 let code = params.get('code')
-                if(user._id === "") {
+                if(!user || user._id === "") {
                     signInWithDiscord(code).then(data => {
                         router.push('/')
                     }).catch(error => {
@@ -241,7 +241,7 @@ export default function OauthHandlerPage() {
                 }
             } else if(provider === 'github') {
                 let code = params.get('code')
-                if(user._id === "") {
+                if(!user || user._id === "") {
                     signInWithGithub(code + "").then(data => {
                         router.push('/')
                     }).catch(error => {
@@ -269,7 +269,7 @@ export default function OauthHandlerPage() {
                 }
                 if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie" && params.access_token) {
                     sessionStorage.setItem('rqGh', "true")
-                    if(user._id === "") {
+                    if(!user || user._id === "") {
                         signInWithGoogle(params.access_token).then(data => {
                             router.push('/')
                         }).catch(error => {
@@ -293,7 +293,7 @@ export default function OauthHandlerPage() {
                 }
             } else if(params.get('state') === "ShoutoutToMyBoyMicrosoft") {
                 let code = params.get('code')
-                if(user._id === "") {
+                if(!user || user._id === "") {
                     signInWithMicrosoft(code).then(data => {
                         router.push('/')
                     }).catch(error => {
