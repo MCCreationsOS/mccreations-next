@@ -189,7 +189,7 @@ function addMicrosoftProvider(code: string | null): Promise<any> {
         fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
             method: 'POST',
             headers: {
-                'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+                'Authorization': `${localStorage.getItem('jwt')}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
