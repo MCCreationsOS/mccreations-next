@@ -12,30 +12,35 @@ function signInWithDiscord(code: string | null): Promise<any> {
     const setUser = useUserStore((state) => state.setUser)
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/signInWithDiscord?code=${code}`, {
-            'method': 'POST'
-        }).then(res => {
-            res.json().then(data => {
-                if(data.error) {
-                    reject(data.error)
-                    return;
-                }
-                localStorage.setItem('jwt', data.token);
-                localStorage.setItem('user', JSON.stringify(data.creator))
-                sessionStorage.removeItem('rqGh')
-                setUser(data.creator)
-                resolve(data)
+        try {
+            fetch(`${process.env.DATA_URL}/auth/signInWithDiscord?code=${code}`, {
+                'method': 'POST'
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.error) {
+                        reject(data.error)
+                        return;
+                    }
+                    localStorage.setItem('jwt', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.creator))
+                    sessionStorage.removeItem('rqGh')
+                    setUser(data.creator)
+                    resolve(data)
+                })
+            }).catch(error => {
+                reject(error)
             })
-        }).catch(error => {
+        } catch(error) {
             reject(error)
-        })
+        }
     })
 }
 
 function addDiscordProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
+        try {
+            fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
             method: 'POST',
             headers: {
                 'Authorization': `${localStorage.getItem('jwt')}`,
@@ -44,17 +49,20 @@ function addDiscordProvider(code: string | null): Promise<any> {
             body: JSON.stringify({
                 provider: 'discord'
             })
-        }).then(res => {
-            res.json().then(data => {
-                if(data.error) {    
-                    reject(data.error)
-                    return;
-                }
-                resolve(data)
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.error) {    
+                        reject(data.error)
+                        return;
+                    }
+                    resolve(data)
+                })
+            }).catch(error => {
+                reject(error)
             })
-        }).catch(error => {
+        } catch(error) {
             reject(error)
-        })
+        }
     })
 }
 
@@ -62,49 +70,53 @@ function signInWithGithub(code: string | null): Promise<any> {
     const setUser = useUserStore((state) => state.setUser)
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/signInWithGithub?code=${code}`, {
-            'method': 'POST'
-        }).then(res => {
-            res.json().then(data => {
-                if(data.error) {
-                    reject(data.error)
-                    return;
-                }
-                localStorage.setItem('jwt', data.token);
-                localStorage.setItem('user', JSON.stringify(data.creator))
-                sessionStorage.removeItem('rqGh')
-                setUser(data.creator)
-                resolve(data)
-            })
-        }).catch(error => {
+        try {
+            fetch(`${process.env.DATA_URL}/auth/signInWithGithub?code=${code}`, {
+                'method': 'POST'
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.error) {
+                        reject(data.error)
+                        return;
+                    }
+                    localStorage.setItem('jwt', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.creator))
+                    sessionStorage.removeItem('rqGh')
+                    setUser(data.creator)
+                    resolve(data)
+                }).catch(error => reject(error))
+            }).catch(error => reject(error))
+        } catch(error) {
             reject(error)
-        })
+        }
     })
 }
 
 function addGithubProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                provider: 'github'
-            })
-        }).then(res => {
-            res.json().then(data => {
-                if(data.error) {
-                    reject(data.error)
-                    return;
-                }
-                resolve(data)
-            })
-        }).catch(error => {
+        try {
+            fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${localStorage.getItem('jwt')}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    provider: 'github'
+                })
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.error) {
+                        reject(data.error)
+                        return;
+                    }
+                    resolve(data)
+                }).catch(error => reject(error))
+            }).catch(error => reject(error))
+        } catch(error) {
             reject(error)
-        })
+        }
     })
 }
 
@@ -112,100 +124,107 @@ function signInWithGoogle(code: string | null): Promise<any> {
     const setUser = useUserStore((state) => state.setUser)
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/signInWithGoogle?access_token=${code}`, {
-            method: 'POST'
-        }).then(res => {
-            res.json().then(data => {
-                if(data.error) {
-                    reject(data.error)
-                    return;
-                }
-                localStorage.setItem('jwt', data.token);
-                localStorage.setItem('user', JSON.stringify(data.creator))
-                sessionStorage.removeItem('rqGh')
-                setUser(data.creator)
-                resolve(data)
-            })
-        }).catch(error => {
+        try {
+            fetch(`${process.env.DATA_URL}/auth/signInWithGoogle?access_token=${code}`, {
+                method: 'POST'
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.error) {
+                        reject(data.error)
+                        return;
+                    }
+                    localStorage.setItem('jwt', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.creator))
+                    sessionStorage.removeItem('rqGh')
+                    setUser(data.creator)
+                    resolve(data)
+                }).catch(error => reject(error))
+            }).catch(error => reject(error))
+        } catch(error) {
             reject(error)
-        })
+        }
     })
 }
 
 function addGoogleProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                provider: 'google'
-            })
-        }).then(res => {
-            res.json().then(data => {
-                if(data.error) {
-                    reject(data.error)
-                    return;
-                }
-                resolve(data)
-            })
-        }).catch(error => {
+        try {
+            fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${localStorage.getItem('jwt')}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    provider: 'google'
+                })
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.error) {
+                        reject(data.error)
+                        return;
+                    }
+                    resolve(data)
+                }).catch(error => reject(error))
+            }).catch(error => reject(error))
+        } catch(error) {
             reject(error)
-        })
+        }
     })
 }
-
 
 function signInWithMicrosoft(code: string | null): Promise<any> {
     const setUser = useUserStore((state) => state.setUser)
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/signInWithMicrosoft?code=${code}`, {
-            method: 'POST'
-        }).then(res => {
-            res.json().then(data => {
-                if(data.error) {
-                    reject(data.error)
-                    return;
-                }
-                localStorage.setItem('jwt', data.token);
-                localStorage.setItem('user', JSON.stringify(data.creator))
-                sessionStorage.removeItem('rqGh')
-                setUser(data.creator)
-                resolve(data)
-            })
-        }).catch(error => {
+        try {
+            fetch(`${process.env.DATA_URL}/auth/signInWithMicrosoft?code=${code}`, {
+                method: 'POST'
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.error) {
+                        reject(data.error)
+                        return;
+                    }
+                    localStorage.setItem('jwt', data.token);
+                    localStorage.setItem('user', JSON.stringify(data.creator))
+                    sessionStorage.removeItem('rqGh')
+                    setUser(data.creator)
+                    resolve(data)
+                }).catch(error => reject(error))
+            }).catch(error => reject(error))
+        } catch(error) {
             reject(error)
-        })
+        }
     })
 }
 
 function addMicrosoftProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `${localStorage.getItem('jwt')}`,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                provider: 'microsoft'
-            })
-        }).then(res => {
-            res.json().then(data => {
-                if(data.error) {
-                    reject(data.error)
-                    return;
-                }
-                resolve(data)
-            })
-        }).catch(error => {
+        try {
+            fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `${localStorage.getItem('jwt')}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    provider: 'microsoft'
+                })
+            }).then(res => {
+                res.json().then(data => {
+                    if(data.error) {
+                        reject(data.error)
+                        return;
+                    }
+                    resolve(data)
+                }).catch(error => reject(error))
+            }).catch(error => reject(error))
+        } catch(error) {
             reject(error)
-        })
+        }
     })
 }
 
