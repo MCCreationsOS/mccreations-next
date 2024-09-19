@@ -131,8 +131,8 @@ export default function EditContentPage({params}: {params: Params}) {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
         }
 
-        if(inputs[3]) {
-            newMap.shortDescription = inputs[3]
+        if(inputs[2]) {
+            newMap.shortDescription = inputs[2]
             if(inputs[3].length < 20) {
                 // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
             }
@@ -140,8 +140,8 @@ export default function EditContentPage({params}: {params: Params}) {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.short_description')))
         }
 
-        if(inputs[4]) {
-            newMap.videoUrl = inputs[4]
+        if(inputs[3]) {
+            newMap.videoUrl = inputs[3]
         }
 
         if(FormInput.getFormInput("edit_general")?.getValue()) {
@@ -150,8 +150,8 @@ export default function EditContentPage({params}: {params: Params}) {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
         }
 
-        if(inputs[6]) {
-            newMap.tags = inputs[6].concat("," + inputs[7]).concat("," + inputs[8]).concat("," + inputs[9]).concat("," + inputs[10]).split(',')
+        if(inputs[4]) {
+            newMap.tags = inputs[5].concat("," + inputs[6]).concat("," + inputs[7]).concat("," + inputs[8]).concat("," + inputs[9]).split(',')
             newMap.tags = newMap.tags.filter((tag) => tag.length > 0)
             newMap.tags = newMap.tags.filter((tag, index) => {
                 return newMap.tags.indexOf(tag) === index
@@ -160,13 +160,13 @@ export default function EditContentPage({params}: {params: Params}) {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
         }
 
-        if(inputs[11]) {
-            if(inputs[11].includes("leaderboards")) {
+        if(inputs[10]) {
+            if(inputs[10].includes("leaderboards")) {
                 newMap.extraFeatures = {
                         leaderboards: {
                             use: true,
-                            message: inputs[12],
-                            messageFormatting: inputs[13]
+                            message: inputs[11],
+                            messageFormatting: inputs[12]
                         },
                         translations: {
                             use: true
