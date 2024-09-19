@@ -8,8 +8,7 @@ import {useTranslations} from 'next-intl';
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect, useState } from "react"
 
-function signInWithDiscord(code: string | null): Promise<any> {
-    const setUser = useUserStore((state) => state.setUser)
+function signInWithDiscord(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
         try {
@@ -66,8 +65,7 @@ function addDiscordProvider(code: string | null): Promise<any> {
     })
 }
 
-function signInWithGithub(code: string | null): Promise<any> {
-    const setUser = useUserStore((state) => state.setUser)
+function signInWithGithub(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
         try {
@@ -120,8 +118,7 @@ function addGithubProvider(code: string | null): Promise<any> {
     })
 }
 
-function signInWithGoogle(code: string | null): Promise<any> {
-    const setUser = useUserStore((state) => state.setUser)
+function signInWithGoogle(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
         try {
@@ -174,8 +171,7 @@ function addGoogleProvider(code: string | null): Promise<any> {
     })
 }
 
-function signInWithMicrosoft(code: string | null): Promise<any> {
-    const setUser = useUserStore((state) => state.setUser)
+function signInWithMicrosoft(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
         try {
@@ -230,6 +226,7 @@ function addMicrosoftProvider(code: string | null): Promise<any> {
 
 export default function OauthHandlerPage() {
     const user = useUserStore()
+    const setUser = useUserStore((state) => state.setUser)
     const params = useSearchParams()
     const router = useRouter();
     const t = useTranslations()
@@ -240,7 +237,7 @@ export default function OauthHandlerPage() {
             if(provider === "discord") {
                 let code = params.get('code')
                 if(!user || user._id === "") {
-                    signInWithDiscord(code).then(data => {
+                    signInWithDiscord(code, setUser).then(data => {
                         router.push('/')
                     }).catch(error => {
                         sessionStorage.removeItem('rqGh')
@@ -261,7 +258,7 @@ export default function OauthHandlerPage() {
             } else if(provider === 'github') {
                 let code = params.get('code')
                 if(!user || user._id === "") {
-                    signInWithGithub(code + "").then(data => {
+                    signInWithGithub(code + "", setUser).then(data => {
                         router.push('/')
                     }).catch(error => {
                         sessionStorage.removeItem('rqGh')
@@ -289,7 +286,7 @@ export default function OauthHandlerPage() {
                 if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie" && params.access_token) {
                     sessionStorage.setItem('rqGh', "true")
                     if(!user || user._id === "") {
-                        signInWithGoogle(params.access_token).then(data => {
+                        signInWithGoogle(params.access_token, setUser).then(data => {
                             router.push('/')
                         }).catch(error => {
                             sessionStorage.removeItem('rqGh')
@@ -313,7 +310,7 @@ export default function OauthHandlerPage() {
             } else if(params.get('state') === "ShoutoutToMyBoyMicrosoft") {
                 let code = params.get('code')
                 if(!user || user._id === "") {
-                    signInWithMicrosoft(code).then(data => {
+                    signInWithMicrosoft(code, setUser).then(data => {
                         router.push('/')
                     }).catch(error => {
                         sessionStorage.removeItem('rqGh')
