@@ -53,7 +53,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
             <Image className='image_background' width={1920} height={1080} src={content.images[0]} alt=""></Image>
             <div className='map_logo_foreground'>
                 <div className='map_logo_container'>
-                    {(content.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image priority className='map_logo' width={1920} height={1080} src={(content.images) ? content.images[0] : "/defaultBanner.png"} alt={t('Content.logo_alt', {title: content.title, type: content.type, minecraft_version: content.files[0].minecraftVersion, creator: content.creators[0].username})}></Image>}
+                    {(content.videoUrl) ?  <div className='map_video'><iframe width="100%" height="100%" style={{aspectRatio: 16/9}} src={`https://www.youtube-nocookie.com/embed/${videoID}`} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe></div>: <Image priority className='map_logo' width={1920} height={1080} src={(content.images) ? content.images[0] : "/defaultBanner.png"} alt={t('Content.logo_alt', {title: content.title, type: content.type, minecraft_version: (content.files && content.files[0]) ? content.files[0].minecraftVersion : "", creator: (content.creators && content.creators.length > 0) ? content.creators[0].username : ""})}></Image>}
                 </div>
             </div>
             <div className='centered_content'>
@@ -84,7 +84,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
                             <h4 className='header'>{t('Content.Sidebar.stats')}</h4>
                             <p className='stat_header'>{t('Content.Sidebar.downloads')} <span className='stat'>{content.downloads}</span></p>
                             <p className='stat_header'>{t('Content.Sidebar.ratings')} <span className='stat'>{(content.ratings) ? content.ratings.length : 0}</span></p>
-                            {(content.files) ? <p className='stat_header'>{t('Content.Sidebar.minecraft_version')} <span className='stat'>{content.files[0].minecraftVersion}</span></p> : <></> }
+                            {(content.files) ? <p className='stat_header'>{t('Content.Sidebar.minecraft_version')} <span className='stat'>{(content.files && content.files[0]) ? content.files[0].minecraftVersion : ""}</span></p> : <></> }
                             <p className='stat_header'>{t('Content.Sidebar.created_date')} <span className='stat'>{new Date(content.createdDate).toLocaleDateString()}</span></p>
                             {(content.updatedDate) ? <p className='stat_header'>{t('Content.Sidebar.updated_date')} <span className='stat'>{new Date(content.updatedDate).toLocaleDateString()}</span></p> : <></>}
                         </section>
