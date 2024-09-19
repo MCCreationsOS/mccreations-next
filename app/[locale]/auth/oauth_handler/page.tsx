@@ -35,7 +35,7 @@ function signInWithDiscord(code: string | null): Promise<any> {
 function addDiscordProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/addProvider?code=${code}`, {
+        fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -85,7 +85,7 @@ function signInWithGithub(code: string | null): Promise<any> {
 function addGithubProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/addProvider?code=${code}`, {
+        fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -135,7 +135,7 @@ function signInWithGoogle(code: string | null): Promise<any> {
 function addGoogleProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/addProvider?code=${code}`, {
+        fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
@@ -186,7 +186,7 @@ function signInWithMicrosoft(code: string | null): Promise<any> {
 function addMicrosoftProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
         sessionStorage.setItem('rqGh', "true")
-        fetch(`${process.env.DATA_URL}/auth/addProvider?code=${code}`, {
+        fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
