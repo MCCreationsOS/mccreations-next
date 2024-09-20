@@ -24,10 +24,14 @@ export default function RichTextInput(props: RichTextInputProps): FormElement {
             richText.current.setValue(initialValue + "")
         } else {
             richText.current = new FormInput<string>(props.id, initialValue + "").onSubmit((value) => {
-                setInitialValue(value)
+                if(value) setInitialValue(value)
+            }).onClear(() => {
+                setInitialValue("<span></span>")
             })
         }
+
         FormInput.registerFormInput(richText.current)
+
         return () => {
             FormInput.unregisterFormInput(richText.current!)
         }

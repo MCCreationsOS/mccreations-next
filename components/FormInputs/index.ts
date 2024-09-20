@@ -20,17 +20,19 @@ export class FormInput<FormValues> {
     }
 
     id: string
-    value: FormValues
-    onChange: ((value: FormValues) => void) | undefined
-    onSubmits: ((value: FormValues) => void)[] = []
+    value: FormValues | undefined
+    onChange: ((value?: FormValues) => void) | undefined
+    onSubmits: ((value?: FormValues) => void)[] = []
+    onClears: (() => void)[] = []
 
-    constructor(id: string, value: FormValues, onChange?: (value: FormValues) => void) {
+    constructor(id: string, value: FormValues, onChange?: (value?: FormValues) => void) {
+
         this.id = id
         this.value = value
         this.onChange = onChange ?? undefined
     }
 
-    setValue(value: FormValues) {
+    setValue(value?: FormValues) {
         this.value = value
         if(this.onChange) this.onChange(value)
     }
@@ -39,13 +41,26 @@ export class FormInput<FormValues> {
         return this.value
     }
 
-    onSubmit(callback: (value: FormValues) => void) {
+    onSubmit(callback: (value?: FormValues) => void) {
         this.onSubmits.push(callback)
         return this
     }
 
+    onClear(callback: () => void) {
+        this.onClears.push(callback)
+        return this
+    }
+
+
     submit() {
+
         this.onSubmits.forEach(cb => cb(this.value))
         return this.getValue();
     }
+
+    clear() {
+        this.setValue(undefined)
+        this.onClears.forEach(cb => cb())
+    }
+
 }

@@ -69,19 +69,17 @@ function onError(error: any) {
 function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     const [editor] = useLexicalComposerContext();
     editor.update(() => {
-      if(html.length > 37) {
-        try {
-          const parser = new DOMParser();
-          const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
-          
-          const nodes = $generateNodesFromDOM(editor, dom);
-          
-          $getRoot().clear();
-          
-          $insertNodes(nodes);
-        } catch(e) {
-          console.error(e);
-        }
+      try {
+        const parser = new DOMParser();
+        const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
+        
+        const nodes = $generateNodesFromDOM(editor, dom);
+        
+        $getRoot().clear();
+        
+        $insertNodes(nodes);
+      } catch(e) {
+        console.error(e);
       }
     });
     return <></>;

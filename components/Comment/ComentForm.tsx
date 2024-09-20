@@ -41,6 +41,8 @@ export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: str
             postComment(slug, content_type, inputs[0], FormInput.getFormInput<string>("comment")?.submit() + "");
         }
 
+        FormInput.getFormInput<string>("comment")?.clear()
+
         setComment("");
 
         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('CommentForm.sent')))
