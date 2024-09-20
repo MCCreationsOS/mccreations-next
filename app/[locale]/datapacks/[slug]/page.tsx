@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     return {
         title: t('Content.Metadata.title', {title: map.title, content_type: t('datapack', {count: 1}), creator: map.creators[0].username, minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}),
         description: map.shortDescription,
-        authors: map.creators.map((creator: ICreator) => { return { name: creator.username } }),
+        authors: (map.creators) ? map.creators.map((creator: ICreator) => { return { name: creator.username } }) : [],
         generator: "MCCreations",
         keywords: map.tags.concat([t('Content.Metadata.Tags.minecraft'), t('datapack', {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_datapack'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}), t('Content.Metadata.Tags.mods'), t('Content.Metadata.Tags.minecraft_mods'), t('Content.Metadata.Tags.minecraft_but'), t('Content.Metadata.Tags.minecraft_survival')]),
         publisher: "MCCreations",
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
             type: "article",
             url: `https://mccreations.net/${locale}/datapacks/${map.slug}`,
             alternateLocale: (map.translations) ? Object.keys(map.translations): [],
-            authors: map.creators.map((creator: ICreator) => { return creator.username }),
+            authors: (map.creators) ? map.creators.map((creator: ICreator) => { return creator.username }) : [],
             publishedTime: new Date(map.createdDate).toString(),
             modifiedTime: new Date(map.updatedDate + "").toString(),
             tags: map.tags.concat([t('Content.Metadata.Tags.minecraft'), t('datapack', {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_datapack'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}), t('Content.Metadata.Tags.mods'), t('Content.Metadata.Tags.minecraft_mods'), t('Content.Metadata.Tags.minecraft_but'), t('Content.Metadata.Tags.minecraft_survival')]),
