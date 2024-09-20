@@ -16,7 +16,7 @@ import { FormInput } from ".."
  * @param value The creators that are selected
  * @param onChange The function to call when the selected creators change
  */
-export default function CreatorSelector({value, onChange}: {value?: ICreator[], onChange?: (creators: ICreator[]) => void}) {
+export default function CreatorSelector({value, onChange}: {value?: ICreator[], onChange?: (creators: ICreator[] | undefined) => void}) {
     const [creators, setCreators] = useState<ICreator[]>([])
     const [confirmRemove, setConfirmRemove] = useState(false)
     const input = useRef<FormInput<ICreator[]> | null>(null)
@@ -45,7 +45,7 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
         getData();
         if(!input.current) {
             input.current = new FormInput<ICreator[]>("creators", creators, onChange).onSubmit((value) => {
-                setCreators(value)
+                if(value) setCreators(value)
             })
             FormInput.registerFormInput(input.current)
         }
@@ -58,7 +58,7 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
     useEffect(() => {
         if(!input.current) {
             input.current = new FormInput<ICreator[]>("creators", creators, onChange).onSubmit((value) => {
-                setCreators(value)
+                if(value) setCreators(value)
             })
             FormInput.registerFormInput(input.current)
         } else {

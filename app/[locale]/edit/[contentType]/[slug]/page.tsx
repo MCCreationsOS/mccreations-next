@@ -29,6 +29,7 @@ import { Link } from "@/app/api/navigation"
 import { FormInput } from "@/components/FormInputs"
 
 export default function EditContentPage({params}: {params: Params}) {
+    const user = useUserStore()
     const [map, setMap] = useState<IContentDoc | {error: string}>()
     const [tags, setTags] = useState<Tags>()
     const token = useRef("")
@@ -106,6 +107,29 @@ export default function EditContentPage({params}: {params: Params}) {
         getData();
     }, [])
 
+    useEffect(() => {
+        if(map && '_id' in map) {
+            let allowedToEdit = false;
+            if(map.creators) {
+                map.creators.forEach((creator) => {
+                    if(creator.handle === user.handle && user.handle.length > 0) {
+                        allowedToEdit = true;
+                    }
+                })
+            } else if (sessionStorage.getItem('temp_key')) {
+                allowedToEdit = true;
+            }
+
+            if(user.type === UserTypes.Admin) {
+                allowedToEdit = true;
+            }
+
+            if(!allowedToEdit) {
+                window.location.href = `/${map.type}s/${map.slug}`
+            }
+        }
+    }, [map])
+
     const saveGeneralForm = (inputs: string[]) => {
         if(!map || 'error' in map) return;
 
@@ -126,7 +150,7 @@ export default function EditContentPage({params}: {params: Params}) {
         }
 
         if(FormInput.getFormInput("creators")?.getValue()) {
-            newMap.creators = FormInput.getFormInput<ICreator[]>("creators")?.submit()
+            newMap.creators = FormInput.getFormInput<ICreator[]>("creators")?.submit()!
         } else {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
         }
