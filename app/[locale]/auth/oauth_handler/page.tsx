@@ -1,6 +1,6 @@
 'use client'
 
-import { useUserStore } from "@/app/api/auth";
+import { getUser, useUserStore } from "@/app/api/auth";
 import { IUser } from "@/app/api/types";
 import Menu from "@/components/Menu/Menu";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
@@ -10,7 +10,6 @@ import { useEffect, useState } from "react"
 
 function signInWithDiscord(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
-        sessionStorage.setItem('rqGh', "true")
         try {
             fetch(`${process.env.DATA_URL}/auth/signInWithDiscord?code=${code}`, {
                 'method': 'POST'
@@ -22,7 +21,6 @@ function signInWithDiscord(code: string | null, setUser: (user: IUser) => void):
                     }
                     localStorage.setItem('jwt', data.token);
                     localStorage.setItem('user', JSON.stringify(data.creator))
-                    sessionStorage.removeItem('rqGh')
                     setUser(data.creator)
                     resolve(data)
                 })
@@ -37,7 +35,6 @@ function signInWithDiscord(code: string | null, setUser: (user: IUser) => void):
 
 function addDiscordProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
-        sessionStorage.setItem('rqGh', "true")
         try {
             fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
             method: 'POST',
@@ -67,7 +64,6 @@ function addDiscordProvider(code: string | null): Promise<any> {
 
 function signInWithGithub(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
-        sessionStorage.setItem('rqGh', "true")
         try {
             fetch(`${process.env.DATA_URL}/auth/signInWithGithub?code=${code}`, {
                 'method': 'POST'
@@ -79,7 +75,6 @@ function signInWithGithub(code: string | null, setUser: (user: IUser) => void): 
                     }
                     localStorage.setItem('jwt', data.token);
                     localStorage.setItem('user', JSON.stringify(data.creator))
-                    sessionStorage.removeItem('rqGh')
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -92,7 +87,6 @@ function signInWithGithub(code: string | null, setUser: (user: IUser) => void): 
 
 function addGithubProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
-        sessionStorage.setItem('rqGh', "true")
         try {
             fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
                 method: 'POST',
@@ -120,7 +114,6 @@ function addGithubProvider(code: string | null): Promise<any> {
 
 function signInWithGoogle(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
-        sessionStorage.setItem('rqGh', "true")
         try {
             fetch(`${process.env.DATA_URL}/auth/signInWithGoogle?access_token=${code}`, {
                 method: 'POST'
@@ -132,7 +125,6 @@ function signInWithGoogle(code: string | null, setUser: (user: IUser) => void): 
                     }
                     localStorage.setItem('jwt', data.token);
                     localStorage.setItem('user', JSON.stringify(data.creator))
-                    sessionStorage.removeItem('rqGh')
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -145,7 +137,6 @@ function signInWithGoogle(code: string | null, setUser: (user: IUser) => void): 
 
 function addGoogleProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
-        sessionStorage.setItem('rqGh', "true")
         try {
             fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
                 method: 'POST',
@@ -173,7 +164,6 @@ function addGoogleProvider(code: string | null): Promise<any> {
 
 function signInWithMicrosoft(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
-        sessionStorage.setItem('rqGh', "true")
         try {
             fetch(`${process.env.DATA_URL}/auth/signInWithMicrosoft?code=${code}`, {
                 method: 'POST'
@@ -185,7 +175,6 @@ function signInWithMicrosoft(code: string | null, setUser: (user: IUser) => void
                     }
                     localStorage.setItem('jwt', data.token);
                     localStorage.setItem('user', JSON.stringify(data.creator))
-                    sessionStorage.removeItem('rqGh')
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -198,7 +187,6 @@ function signInWithMicrosoft(code: string | null, setUser: (user: IUser) => void
 
 function addMicrosoftProvider(code: string | null): Promise<any> {
     return new Promise((resolve, reject) => {
-        sessionStorage.setItem('rqGh', "true")
         try {
             fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
                 method: 'POST',
@@ -232,26 +220,31 @@ export default function OauthHandlerPage() {
     const t = useTranslations()
 
     useEffect(() => {
-        if(!sessionStorage.getItem("rqGh")) {
-            let provider = params.get('provider')
+        let provider = params.get('provider')
+        const handleSignIn = async () => {
+            const token = localStorage.getItem('jwt')
+            if(token) {
+                let u = await getUser(token)
+                if(u) {
+                    setUser(u)
+                }
+            }
             if(provider === "discord") {
                 let code = params.get('code')
                 if(!user || user._id === "") {
                     signInWithDiscord(code, setUser).then(data => {
                         router.push('/')
                     }).catch(error => {
-                        sessionStorage.removeItem('rqGh')
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                            router.push("/")
-                            }))
+                            router.push('/')
+                        }))
                     });
                 } else {
                     addDiscordProvider(code).then(data => {
                         router.push('/')
                     }).catch(error => {
-                        sessionStorage.removeItem('rqGh')
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                            router.push("/")
+                            router.push('/')
                         }))
                     });
                 }
@@ -261,7 +254,6 @@ export default function OauthHandlerPage() {
                     signInWithGithub(code + "", setUser).then(data => {
                         router.push('/')
                     }).catch(error => {
-                        sessionStorage.removeItem('rqGh')
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                             router.push("/")
                         }))
@@ -270,7 +262,6 @@ export default function OauthHandlerPage() {
                     addGithubProvider(code + "").then(data => {
                         router.push('/')
                     }).catch(error => {
-                        sessionStorage.removeItem('rqGh')
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                             router.push("/")
                         }))
@@ -284,12 +275,10 @@ export default function OauthHandlerPage() {
                     params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
                 }
                 if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie" && params.access_token) {
-                    sessionStorage.setItem('rqGh', "true")
                     if(!user || user._id === "") {
                         signInWithGoogle(params.access_token, setUser).then(data => {
                             router.push('/')
                         }).catch(error => {
-                            sessionStorage.removeItem('rqGh')
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                                 router.push("/")
                             }))
@@ -298,7 +287,6 @@ export default function OauthHandlerPage() {
                         addGoogleProvider(params.access_token).then(data => {
                             router.push('/')
                         }).catch(error => {
-                            sessionStorage.removeItem('rqGh')
                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                                 router.push("/")
                             }))
@@ -313,7 +301,6 @@ export default function OauthHandlerPage() {
                     signInWithMicrosoft(code, setUser).then(data => {
                         router.push('/')
                     }).catch(error => {
-                        sessionStorage.removeItem('rqGh')
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                             router.push("/")
                         }))
@@ -322,7 +309,6 @@ export default function OauthHandlerPage() {
                     addMicrosoftProvider(code).then(data => {
                         router.push('/')
                     }).catch(error => {
-                        sessionStorage.removeItem('rqGh')
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                             router.push("/")
                         }))
@@ -332,13 +318,14 @@ export default function OauthHandlerPage() {
                 router.push('/')
             }
         }
+        handleSignIn()
     }, [])
 
     
 
     return (
         <>
-            {/* <Menu selectedPage="" /> */}
+            <Menu selectedPage="" />
             <div className="popup_page">
                 <div className="popup centered_content small">
                     {t('Auth.OAuth.loading')}
