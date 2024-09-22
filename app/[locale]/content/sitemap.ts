@@ -1,8 +1,8 @@
-import { AllTags, CollectionNames, Locales, MinecraftVersions, SortOptions, StatusOptions } from "@/app/api/types"
+import { AllTags, CollectionNames, ContentTypes, Locales, MinecraftVersions, SortOptions, StatusOptions } from "@/app/api/types"
 import { MetadataRoute } from "next"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const contentTypes = [CollectionNames.Maps, CollectionNames.Resourcepacks, CollectionNames.Datapacks]
+    const contentTypes = [ContentTypes.Maps, ContentTypes.Resourcepacks, ContentTypes.Datapacks]
     const options = [SortOptions.Newest, SortOptions.Updated, SortOptions.HighestDownloads, SortOptions.HighestRated, `verified`, `published`, `featured`, ...MinecraftVersions, ...AllTags]
     
     let sitemap: MetadataRoute.Sitemap = []

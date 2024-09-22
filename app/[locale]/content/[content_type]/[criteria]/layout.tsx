@@ -36,52 +36,70 @@ export async function generateMetadata({params}: {params: Params}) {
     if (MinecraftVersions.includes(criteria)) {
         return {
             title: `Minecraft ${criteria} ${t(content_type, {count: 2})} | MCCreations`,
-            description: `Browse ${t(content_type, {count: 2})} for Minecraft ${criteria} on MCCreations`
+            description: `Browse ${t(content_type, {count: 2})} for Minecraft ${criteria} on MCCreations`,
+            keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: criteria})],
+            publisher: "MCCreations",
         }
     }
 
     if (AllTags.includes(criteria)) {
         return {
             title: `${t(`Content.Tags.${criteria}`)} ${t(content_type, {count: 2})} | MCCreations`,
-            description: `Browse ${criteria} ${t(content_type, {count: 2})}s on MCCreations`
+            description: `Browse ${criteria} ${t(content_type, {count: 2})}s on MCCreations`,
+            keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), t(`Content.Tags.${criteria}`)],
+            publisher: "MCCreations",
         }
     }
     
     switch (criteria) {
         case "newest":
             return {
-                title: `Newest ${t(content_type, {count: 2})} | MCCreations`,
-                description: `Browse the newest ${t(content_type, {count: 2})} on MCCreations`
+                title: `Newest ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
+                description: `Browse the newest ${t(content_type, {count: 2})} on MCCreations`,
+                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                publisher: "MCCreations",
             }
         case "updated":
             return {
-                title: `Updated ${t(content_type, {count: 2})} | MCCreations`,
-                description: `Browse recently updated ${t(content_type, {count: 2})} on MCCreations`
+                title: `Updated ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
+                description: `Browse recently updated ${t(content_type, {count: 2})} on MCCreations`,
+                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                publisher: "MCCreations",
             }
         case "highest_downloads":
             return {
-                title: `Highest Downloads ${t(content_type, {count: 2})} | MCCreations`,
-                description: `Browse ${t(content_type, {count: 2})} with the most downloads on MCCreations`
+                title: `Most Downloaded ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
+                description: `Browse ${t(content_type, {count: 2})} with the most downloads on MCCreations`,
+                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                publisher: "MCCreations",
             }
         case "highest_rated":
             return {
-                title: `Highest Rated ${t(content_type, {count: 2})} | MCCreations`,
-                description: `Browse ${t(content_type, {count: 2})} with the highest ratings on MCCreations`
+                title: `Highest Rated ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
+                description: `Browse ${t(content_type, {count: 2})} with the highest ratings on MCCreations`,
+                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                publisher: "MCCreations",
             }
         case 1:
             return {
-                title: `Published ${t(content_type, {count: 2})} | MCCreations`,
-                description: `Browse published ${t(content_type, {count: 2})} on MCCreations`
+                title: `Published ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
+                description: `Browse published ${t(content_type, {count: 2})} on MCCreations`,
+                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                publisher: "MCCreations",
             }
         case 2:
             return {
-                title: `Verified ${t(content_type, {count: 2})} | MCCreations`,
-                description: `Browse verified ${t(content_type, {count: 2})} on MCCreations`
+                title: `Verified ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
+                description: `Browse verified ${t(content_type, {count: 2})} on MCCreations`,
+                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                publisher: "MCCreations",
             }
         case 3:
             return {
-                title: `Featured ${t(content_type, {count: 2})} | MCCreations`,
-                description: `Browse featured ${t(content_type, {count: 2})} on MCCreations`
+                title: `Featured ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
+                description: `Browse featured ${t(content_type, {count: 2})} on MCCreations`,
+                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                publisher: "MCCreations",
             }
     }
 }
