@@ -16,23 +16,58 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
     const searchParams = useSearchParams()
     const [filtering, setFiltering] = useState(false);
     const [tags, setTags] = useState<{[key: string]: string[]}>()
-
+    
     const [search, setSearch] = useState("")
-
+    
     const [popupOpen, setPopupOpen] = useState(false)
-
+    
     const [sortDropdown, setSortDropdown] = useState(false)
-    const [sort, setSort] = useState<SortOptions>();
-
+    const [sort, setSort] = useState<SortOptions>(SortOptions.Newest);
+    
     const [statusDropdown, setStatusDropdown] = useState(false)
     const [status, setStatus] = useState(StatusOptions.Approved)
-
-    const [tagsDropdown, setTagsDropdown] = useState(false)
+    
+    const [openDropdowns, setOpenDropdowns] = useState<boolean[]>([])
     const [includeTags, setIncludeTags] = useState<string[]>([])
     const [excludeTags, setExcludeTags] = useState<string[]>([])
-
+    
     const router = useRouter();
     const t = useTranslations()
+
+    let tag_dropdown_names: {[key: string]: string} = {
+        genre: "Any",
+        subgenre: "Any",
+        difficulty: "Any",
+        length: "Any",
+        theme: "Any",
+        resolution: "Any",
+    }
+
+    if((includeTags.length > 0 || excludeTags.length > 0) && tags) {
+        Object.keys(tags).forEach((category) => {
+            tags[category].forEach((tag) => {
+                if(includeTags.includes(tag)) {
+                    if(tag_dropdown_names[category] == "Any") {
+                        tag_dropdown_names[category] = `Include ${t(`Content.Tags.${tag as TagKeys}`)}`
+                    } else {
+                        tag_dropdown_names[category] += ` & ${t(`Content.Tags.${tag as TagKeys}`)}`
+                    }
+                }
+            })
+
+            tags[category].forEach((tag) => {
+                if(excludeTags.includes(tag)) {
+                    if(tag_dropdown_names[category] == "Any") {
+                        tag_dropdown_names[category] = `Exclude ${t(`Content.Tags.${tag as TagKeys}`)}`
+                    } else if(tag_dropdown_names[category].includes("Include") && !tag_dropdown_names[category].includes("exclude")) {
+                        tag_dropdown_names[category] += ` and exclude ${t(`Content.Tags.${tag as TagKeys}`)}`
+                    } else {
+                        tag_dropdown_names[category] += ` & ${t(`Content.Tags.${tag as TagKeys}`)}`
+                    }
+                }
+            })
+        })
+    }
 
     useEffect(() => {
 
@@ -45,7 +80,7 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
         if(searchParams.get("search") && searchParams.get("search") != search) {
             setSearch(searchParams.get("search") + "")
         }
-        if(searchParams.get("sort") && searchParams.get("sort") != sort) {
+        if(searchParams.get("sort") && searchParams.get("sort") != sort && (searchParams.get("sort") != "" || searchParams.get("sort") != null || searchParams.get("sort") != "undefined")) {
             setSort(searchParams.get("sort")! as SortOptions)
         }
         if(searchParams.get("status")&& Number.parseInt(searchParams.get("status")!) != status) {
@@ -74,7 +109,7 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
     const closePopups = () => {
         setSortDropdown(false);
         setStatusDropdown(false);
-        setTagsDropdown(false);
+        setOpenDropdowns([])
         setPopupOpen(false)
     }
 
@@ -84,28 +119,22 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
 
     const updateSearch = (search: string) => {
         setSearch(search);
-        router.push(`?search=${search}&sort=${sort}&status=${status}&include=${includeTags.join(",")}&exclude=${excludeTags.join(",")}`)
     }
-
+    
     const updateSort = (sort: SortOptions) => {
-        router.push(`?search=${search}&sort=${sort}&status=${status}&include=${includeTags.join(",")}&exclude=${excludeTags.join(",")}`)
         setSort(sort);
     }
-
+    
     const updateStatus = (status: StatusOptions) => {
-        router.push(`?search=${search}&sort=${sort}&status=${status}&include=${includeTags.join(",")}&exclude=${excludeTags.join(",")}`)
         setStatus(status);
     }
 
-    const updateTags = () => {
-        router.push(`?search=${search}&sort=${sort}&status=${status}&include=${includeTags.join(",")}&exclude=${excludeTags.join(",")}`)
-    }
-
+    
     const performSearch = () => {
         updateSearch(search);
         updateSort(sort!);
         updateStatus(status!);
-        updateTags();
+        router.push(`?search=${search}&sort=${sort}&status=${status}&include=${includeTags.join(",")}&exclude=${excludeTags.join(",")}`)
         callback(search, sort, status, includeTags, excludeTags);
     }
 
@@ -147,31 +176,30 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
                             </div>
                         </div>
                     </div>
-                    <div className="filter_option">
-                        {t('SearchAndFilter.tags')}
-                        <div className="select" onClick={() => {setTagsDropdown(true); setPopupOpen(true)}}>
-                            <button className="selected_option">{t('SearchAndFilter.tags')}</button>
-                            <div className={(tagsDropdown) ? `options active ${styles.wide}` : "options"}>
-                                <div>
-                                    {tags && Object.keys(tags).map((category, idx) => {
-                                        return (
-                                            <div key={idx}>
-                                                <h4>{t(`Content.Tags.${category as TagCategories}`)}</h4>
-                                                <div className={styles.tags_list}>
-                                                    {tags[category].map((tag,idx) => <Tag key={idx} tagValue={tag} tag={t(`Content.Tags.${tag as TagKeys}`)} />)}
-                                                </div>
+                        {tags && Object.keys(tags).map((category, idx) => {
+                            return (
+                                <div className="filter_option">
+                                    {t(`Content.Tags.${category as TagCategories}`)}
+                                    <div key={idx} className="select" onClick={() => {
+                                        let newOpenDropdowns = [...openDropdowns]
+                                        newOpenDropdowns[idx] = true
+                                        setOpenDropdowns(newOpenDropdowns)
+                                        setPopupOpen(true)}}>
+                                        <button className="selected_option">{(tag_dropdown_names[category])}</button>
+                                        <div className={(openDropdowns[idx]) ? `options active` : "options"}>
+                                            <div className={styles.tags_list}>
+                                                {tags[category].map((tag,idx) => <Tag key={idx} tagValue={tag} tag={t(`Content.Tags.${tag as TagKeys}`)} />)}
                                             </div>
-                                        )
-                                    })}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        )
+                    })}
                 </div>
                 <div className={styles.search_buttons}>
                     <MainButton className={`${styles.search_button}`} onClick={() => performSearch()}>{t('SearchAndFilter.search')}</MainButton>
                     <WarningButton onClick={() => {updateSearch(""); updateSort(SortOptions.Newest); updateStatus(2); setExcludeTags([]); setIncludeTags([])}}>{t('SearchAndFilter.clear_filters')}</WarningButton>
                 </div>
-            </div>
+        </div>
     )
 }
