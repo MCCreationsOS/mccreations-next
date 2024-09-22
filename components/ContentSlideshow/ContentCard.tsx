@@ -40,8 +40,10 @@ export default function ContentCard(props: IContentCardProps) {
         let selectedMaps = localStorage.getItem('selectedContent')
         if(selectedMaps) {
             let maps = JSON.parse(selectedMaps)
-            if(maps.includes((props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!)) {
-                setSelected(true)
+            if(props.content.files && props.content.files.length > 0) {
+                if(maps.includes((props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!)) {
+                    setSelected(true)
+                }
             }
         }
     }, [])
@@ -110,10 +112,10 @@ export default function ContentCard(props: IContentCardProps) {
                     </div>
                 </div>
                 <div className={styles.quick_actions}>
-                    {(props.content.files[0].worldUrl || props.content.files[0].dataUrl || props.content.files[0].resourceUrl || props.content.files[0].url) ? <IconButton onClick={downloadButtonClicked}><Download/></IconButton> : <></>}
+                    {(props.content.files && props.content.files.length > 0 && (props.content.files[0].worldUrl || props.content.files[0].dataUrl || props.content.files[0].resourceUrl || props.content.files[0].url)) ? <IconButton onClick={downloadButtonClicked}><Download/></IconButton> : <></>}
                     {props.enableSelection && <IconButton className="secondary" onClick={selectContent}>{(selected) ? <CheckSquare/> : <Square/>}</IconButton>}
                 </div>
-                <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className={styles.logo} src={props.content.images[0]} width={1920} height={1080} sizes="25vw" alt={t('Content.logo_alt', {title: props.content.title, type: props.content.type, minecraft_version: props.content.files[0].minecraftVersion, creator: props.content.creators[0].username})}></Image>
+                <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className={styles.logo} src={props.content.images[0]} width={1920} height={1080} sizes="25vw" alt={t('Content.logo_alt', {title: props.content.title, type: props.content.type, minecraft_version: (props.content.files && props.content.files.length > 0) ? props.content.files[0].minecraftVersion : "", creator: props.content.creators[0].username})}></Image>
             </div>
             <Link className={styles.title} href={`/${(props.linkTo) ? props.linkTo : props.content.type + "s"}/${props.content.slug}`}>{title}</Link>
             <p className={styles.author}>{t('Content.by', {creator: props.content.creators.slice(0, 3).map(c => c.username).join(t('Content.by_joiner'))})}</p>

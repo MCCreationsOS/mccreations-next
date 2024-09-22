@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 
 export default function DownloadButton({slug, file}: {slug: string, file: IFile}) {
     const t = useTranslations()
+    if(!file) return <></>
 
     const downloadButtonClicked = async () => {
         await downloadMap(slug)
