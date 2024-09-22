@@ -118,7 +118,7 @@ export default function Resourcepacks() {
             <SearchAndFilter callback={findResourcepacks}  contentType={CollectionNames.Resourcepacks}/>
             { resourcepacks && resourcepacks.length !== 0 && (
                 <div>
-                <ContentGrid content={resourcepacks} linkTo="resourcepacks" enableSelection={true}></ContentGrid>
+                <ContentGrid content={resourcepacks} linkTo="resourcepacks" enableSelection={true} enableAds={true}></ContentGrid>
             </div>
             )}
             { !resourcepacks || resourcepacks.length === 0 && (

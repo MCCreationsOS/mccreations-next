@@ -119,7 +119,7 @@ export default function Maps() {
             <SearchAndFilter callback={findMaps}  contentType={CollectionNames.Maps}/>
             { maps && maps.length !== 0 && (
                 <div>
-                <ContentGrid content={maps} enableSelection={true}></ContentGrid>
+                <ContentGrid content={maps} enableSelection={true} enableAds={true}></ContentGrid>
             </div>
             )}
             { !maps || maps.length === 0 && (

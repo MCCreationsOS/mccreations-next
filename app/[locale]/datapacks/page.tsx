@@ -119,7 +119,7 @@ export default function Datapacks() {
             <SearchAndFilter callback={findDatapacks} contentType={CollectionNames.Datapacks}/>
             { datapacks && datapacks.length !== 0 && (
                 <div>
-                <ContentGrid content={datapacks} linkTo="datapacks" enableSelection={true}></ContentGrid>
+                <ContentGrid content={datapacks} linkTo="datapacks" enableSelection={true} enableAds={true}></ContentGrid>
             </div>
             )}
             { !datapacks || datapacks.length === 0 && (
