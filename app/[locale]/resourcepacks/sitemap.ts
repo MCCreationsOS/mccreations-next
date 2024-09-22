@@ -11,13 +11,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // content.documents = content.documents.filter((doc: IContentDoc) => doc.allowIndexing === false)
     return content.documents.map((doc: IContentDoc) => {
         return {
-            url: `https://mccreations.net/en_US/resourcepacks/${doc.slug}`,
+            url: `https://mccreations.net/en-US/resourcepacks/${doc.slug}`,
             lastModified: new Date((doc.updatedDate) ? doc.updatedDate! * 1000 : doc.createdDate * 1000).toISOString(),
             changeFrequency: 'weekly',
             alternates: {
                 languages: {
-                    "zh-CN": `https://mccreations.net/zh_CN/resourcepacks/${doc.slug}`,
-                    "ru-RU": `https://mccreations.net/ru_RU/resourcepacks/${doc.slug}`,
+                    "zh-CN": `https://mccreations.net/zh-CN/resourcepacks/${doc.slug}`,
+                    "ru-RU": `https://mccreations.net/ru-RU/resourcepacks/${doc.slug}`,
                 }
             }
         }

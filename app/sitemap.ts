@@ -8,7 +8,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
-                    "zh-CN": 'https://mccreations.net/zh_CN/',
+                    "zh-CN": 'https://mccreations.net/zh-CN/',
+                    "ru-RU": 'https://mccreations.net/ru-RU/',
                 }
             }
         },
@@ -17,7 +18,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
-                    "zh-CN": 'https://mccreations.net/zh_CN/signin',
+                    "zh-CN": 'https://mccreations.net/zh-CN/signin',
+                    "ru-RU": 'https://mccreations.net/ru-RU/signin',
                 }
             }
         },
@@ -26,7 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
-                    "zh-CN": 'https://mccreations.net/zh_CN/signup',
+                    "zh-CN": 'https://mccreations.net/zh-CN/signup',
+                    "ru-RU": 'https://mccreations.net/ru-RU/signup',
                 }
             }
         },
@@ -36,7 +39,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
-                    "zh-CN": 'https://mccreations.net/zh_CN/maps',
+                    "zh-CN": 'https://mccreations.net/zh-CN/maps',
+                    "ru-RU": 'https://mccreations.net/ru-RU/maps',
                 }
             }
         },
@@ -46,7 +50,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
-                    "zh-CN": 'https://mccreations.net/zh_CN/datapacks',
+                    "zh-CN": 'https://mccreations.net/zh-CN/datapacks',
+                    "ru-RU": 'https://mccreations.net/ru-RU/datapacks',
                 }
             }
         },
@@ -56,7 +61,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
-                    "zh-CN": 'https://mccreations.net/zh_CN/resourcepacks',
+                    "zh-CN": 'https://mccreations.net/zh-CN/resourcepacks',
+                    "ru-RU": 'https://mccreations.net/ru-RU/resourcepacks',
                 }
             }
         }

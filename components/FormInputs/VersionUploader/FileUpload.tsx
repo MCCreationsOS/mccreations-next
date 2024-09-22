@@ -1,13 +1,10 @@
 'use client'
 
-import { FilePreview, IFile, MinecraftVersion } from '@/app/api/types'
-import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import { Plus, UploadCloud, X } from 'react-feather'
 import styles from './FileDropzone.module.css'
 import upload from '@/app/api/upload'
-import FormComponent from '../../Form/Form'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 import Text from '../Text'
 import { useTranslations } from 'next-intl'
