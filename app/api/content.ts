@@ -328,8 +328,16 @@ export function errorCheckContent(content: IContentDoc) {
         errors.push({error: "Content.Warnings.no_short_description.description", field: "shortDescription"})
     }
 
+    if(content.shortDescription.length < 40) {
+        errors.push({error: "Content.Warnings.short_description_too_short.description", field: "shortDescription"})
+    }
+
     if(!content.description) {
         errors.push({error: "Content.Warnings.no_description.description", field: "description"})
+    }
+
+    if(content.description.length < 100) {
+        errors.push({error: "Content.Warnings.description_too_short.description", field: "description"})
     }
 
     if(!content.files || content.files.length === 0) {
