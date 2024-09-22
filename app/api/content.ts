@@ -1,5 +1,5 @@
-import { ICreator, IContentDoc, QueryOptions, SortOptions, CollectionNames, ContentTypes } from "./types"
 
+import { ICreator, IContentDoc, QueryOptions, SortOptions, CollectionNames, ContentTypes } from "./types"
 /** 
  * Format query options for a fetch request. This should be run before any request to the API to avoid
  * sending undefined values
@@ -311,6 +311,50 @@ export async function updateContent(map: IContentDoc, token: string | null, type
             message: e
         }
     }
+}
+
+export function errorCheckContent(content: IContentDoc) {
+    let errors: {error: string, field: string}[] = []
+
+    if(!content.title) {
+        errors.push({error: "Content.Warnings.no_title.description", field: "title"})
+    }
+
+    if(content.creators.length === 0) {
+        errors.push({error: "Content.Warnings.no_creators.description", field: "creators"})
+    }
+
+    if(!content.shortDescription) {
+        errors.push({error: "Content.Warnings.no_short_description.description", field: "shortDescription"})
+    }
+
+    if(!content.description) {
+        errors.push({error: "Content.Warnings.no_description.description", field: "description"})
+    }
+
+    if(!content.files || content.files.length === 0) {
+        errors.push({error: "Content.Warnings.no_files.description", field: "files"})
+    }
+
+    if(content.tags.length === 0) {
+        errors.push({error: "Content.Warnings.no_tags.description", field: "tags"})
+    }
+
+    if(content.images.length === 0) {
+        errors.push({error: "Content.Warnings.no_images.description", field: "images"})
+    }
+
+    if(content.files.length > 0) {
+        if(!content.files[0].minecraftVersion) {
+            errors.push({error: "Content.Warnings.no_minecraft_version.description", field: "files.minecraftVersion"})
+        }
+
+        if(!content.files[0].worldUrl && !content.files[0].dataUrl && !content.files[0].resourceUrl && !content.files[0].url) {
+            errors.push({error: "Content.Warnings.no_download_link.description", field: "files.download"})
+        }
+    }
+
+    return errors
 }
 
 export async function updateTranslation(slug: string, type: CollectionNames, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {

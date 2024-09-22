@@ -1,8 +1,8 @@
 'use client'
 
 import { getUser, useUserStore } from "@/app/api/auth"
-import { convertToCollection, fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
-import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, CollectionNames, UserTypes, Locales, Translation, TagKeys, TagCategories, ContentTypes, LeaderboardFeature, ICreator } from "@/app/api/types"
+import { convertToCollection, errorCheckContent, fetchDatapack, fetchMap, fetchResourcepack, fetchTags, requestApproval, updateContent, updateTranslation } from "@/app/api/content"
+import { FilePreview, IFile, IContentDoc, IUser, MinecraftVersion, Tags, CollectionNames, UserTypes, Locales, Translation, TagKeys, TagCategories, ContentTypes, LeaderboardFeature, ICreator, ExtraFeatureKeys } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
 import ContentWarnings from "@/components/Content/ContentWarnings"
 import FormComponent from "@/components/Form/Form"
@@ -124,6 +124,10 @@ export default function EditContentPage({params}: {params: Params}) {
                 allowedToEdit = true;
             }
 
+            if(map.owner && map.owner.length > 0 && map.owner === user.handle) {
+                allowedToEdit = true;
+            }
+
             if(!allowedToEdit) {
                 window.location.href = `/${map.type}s/${map.slug}`
             }
@@ -132,6 +136,10 @@ export default function EditContentPage({params}: {params: Params}) {
 
     const saveGeneralForm = (inputs: string[]) => {
         if(!map || 'error' in map) return;
+        if(inputs[1].length < 2) {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Content.Warnings.slug_too_short.description')))
+            return;
+        }
 
         let newMap = {
             ...map
@@ -237,7 +245,7 @@ export default function EditContentPage({params}: {params: Params}) {
             }
 
             if(newMap.slug !== map.slug) {
-                window.location.href = `/${newMap.type}s/${newMap.slug}/edit`
+                window.location.href = `/edit/${newMap.type}s/${newMap.slug}`
             }
 
             setMap(newMap)
@@ -281,6 +289,22 @@ export default function EditContentPage({params}: {params: Params}) {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
         })
     }
+
+    const publishContent = () => {
+        if(!map || 'error' in map) return;
+
+        let errors = errorCheckContent(map)
+        if(errors.length > 0) {
+            errors.forEach((error) => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t(error.error)))
+            })
+        } else {
+            requestApproval(map.slug, token.current).then(() => {
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.requested_approval')))
+                setMap({...map, status: 1})
+            })
+        }
+    }
     
     if(map && '_id' in map) {
         return (
@@ -288,7 +312,7 @@ export default function EditContentPage({params}: {params: Params}) {
                 <ContentWarnings map={map} />
                 <h1>{t('Content.Edit.editing', {title: map?.title})}</h1>
                 <p>{t('Content.Edit.status')} {(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('Status.draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('Status.unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('Status.approved')}</span>: <span style={{color:"#3154f4"}}>{t('Status.featured')}</span>}</p>
-                {map?.status === 0 && (<MainButton onClick={() => {requestApproval(map.slug, token.current).then(() => {PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.requested_approval'))); setMap({...map, status: 1})})}}>{t('Content.Edit.request_approval')}</MainButton>)}
+                {map?.status === 0 && (<MainButton onClick={publishContent}>{t('Content.Edit.request_approval')}</MainButton>)}
                 <Tabs preselectedTab={1} onChangeTabs={(to, from) => {
                     if(from === 1) {
                         let inputs: string[] = []
@@ -308,7 +332,7 @@ export default function EditContentPage({params}: {params: Params}) {
                     
                     // General Tab
                     title: t('Content.Edit.general'),
-                    content: <FormComponent id="general" onSave={saveGeneralForm}> 
+                    content: <FormComponent id="general" onSave={saveGeneralForm} options={{stickyButtons: true}}> 
                             <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} value={map?.title} />
                             <Text type="text" name={t('Content.Edit.slug')}  description={t('Content.Edit.slug_description')} value={map?.slug}/>
                             <CreatorSelector value={map.creators} />
@@ -320,7 +344,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                     return {name: t(`Content.Tags.${tag as TagKeys}`), value: tag}
                                 })} multiSelect={true} value={map.tags?.filter(t => tags[category].includes(t)).join(',')}/>
                             })}
-                            <Select name={t('Content.Edit.extra_features')} options={[{name: t("Content.Edit.ExtraFeatures.Leaderboards.title"), value: "leaderboards"}]} value={(map.extraFeatures) ? Object.keys(map.extraFeatures).join(",") : ""} multiSelect/>
+                            <Select name={t('Content.Edit.extra_features')} options={[{name: t("Content.Edit.ExtraFeatures.Leaderboards.title"), value: "leaderboards"}]} value={(map.extraFeatures) ? Object.keys(map.extraFeatures).filter(key => map.extraFeatures![key as ExtraFeatureKeys].use !== false).join(",") : ""} multiSelect/>
                             {((map.extraFeatures?.leaderboards as LeaderboardFeature)?.use !== false && (!map.files || map.files[0].url?.includes("mccreations.s3"))) && <>
                                 <p>{t.rich('Content.Edit.ExtraFeatures.Leaderboards.help', {link: (chunks) => <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">{chunks}</Link>})}</p>
                                 <Text name={t('Content.Edit.ExtraFeatures.Leaderboards.message_text')} value={(map.extraFeatures && map.extraFeatures.leaderboards) ? (map.extraFeatures?.leaderboards as LeaderboardFeature).message : ""} description={t('Content.Edit.ExtraFeatures.Leaderboards.message_text_description')}/>

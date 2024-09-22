@@ -34,7 +34,13 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
     })
     if(match) {
         let messages: IMessage[] = []
-        if(!map.creators || !map.creators[0].handle) {
+        let hasOwner = map.owner && map.owner.length > 0
+        map.creators.forEach((creator) => {
+            if(creator.handle && user && user.handle && (creator.handle === user?.handle || user.type === UserTypes.Admin)) {
+                hasOwner = true
+            }
+        })
+        if(!hasOwner) {
             messages.push({
                 type: 'Warning',
                 title: t('Content.Warnings.not_linked.title'),

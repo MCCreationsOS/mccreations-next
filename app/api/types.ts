@@ -120,7 +120,10 @@ export interface IContentDoc {
     translations?: Translation,
     type: ContentTypes,
     extraFeatures?: {[key in "leaderboards" | "translations" | "indexing"]: ExtraFeature},
+    owner?: string
 }
+
+export type ExtraFeatureKeys = "leaderboards" | "translations" | "indexing"
 
 export interface ExtraFeature {
     use: boolean

@@ -8,10 +8,10 @@
     "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
 
     "Status": {
-        "approved": "Approved",
+        "approved": "Verified",
         "draft": "Draft",
         "featured": "Featured",
-        "unapproved": "Unapproved"
+        "unapproved": "Published"
     },
 
     "Account": {
@@ -449,12 +449,20 @@
             "not_linked": {
                 "title": "Not Linked to an Account",
                 "description": "This content is not linked to an account on MCCreations. This means that your access to edit this content will expire in 24 hours. It is recommended to upload content with an account so you can retain access to all features."
+            },
+            "no_download_link": {
+                "title": "No Download Link",
+                "description": "At least one download link is required"
+            },
+            "slug_too_short": {
+                "title": "Slug Too Short",
+                "description": "Your slug needs to be at least 2 characters"
             }
         },
         "Edit": {
             "editing": "Editing {title}",
             "status": "Status:",
-            "request_approval": "Request Approval",
+            "request_approval": "Publish",
             "general": "General",
             "title": "Title",
             "title_description": "The primary name of your creation. Should be short and sweet!",
