@@ -8,10 +8,10 @@
     "comment": "{count, plural, =0 {评论} =1 {评论} other {评论}}",
 
     "Status": {
-        "approved": "已批准",
+        "approved": "Verified",
         "draft": "未完成",
         "featured": "精选",
-        "unapproved": "待批准"
+        "unapproved": "Published"
     },
 
     "Account": {
@@ -432,11 +432,11 @@
             },
             "short_description_too_short": {
                 "title": "简短描述过短",
-                "description": "您的简短描述需要至少 20 个字符"
+                "description": "您的简短描述需要至少 40 个字符"
             },
             "description_too_short": {
                 "title": "描述过短",
-                "description": "您的描述需要至少 20 个字符"
+                "description": "您的描述需要至少 100 个字符"
             },
             "external_images": {
                 "title": "来自外部来源的图片",
@@ -449,12 +449,20 @@
             "not_linked": {
                 "title": "未绑定至账户",
                 "description": "该内容未链接到 MCCreations 上的账户。这意味着您编辑该内容的权限将在24小时内过期。建议您使用账户上传内容，以便保留所有功能访问权限。"
+            },
+            "no_download_link": {
+                "title": "No Download Link",
+                "description": "At least one download link is required"
+            },
+            "slug_too_short": {
+                "title": "Slug Too Short",
+                "description": "Your slug needs to be at least 2 characters"
             }
         },
         "Edit": {
             "editing": "Editing {title}",
             "status": "状态：",
-            "request_approval": "请求批准",
+            "request_approval": "Publish",
             "general": "常规",
             "title": "标题",
             "title_description": "The primary name of your creation. Should be short and sweet!",

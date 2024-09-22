@@ -432,11 +432,11 @@
             },
             "short_description_too_short": {
                 "title": "Short Description Too Short",
-                "description": "Your short description needs to be at least 20 characters"
+                "description": "Your short description needs to be at least 40 characters"
             },
             "description_too_short": {
                 "title": "Description Too Short",
-                "description": "Your description needs to be at least 20 characters"
+                "description": "Your description needs to be at least 100 characters"
             },
             "external_images": {
                 "title": "Images From External Sources",

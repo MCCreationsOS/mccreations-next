@@ -6,10 +6,10 @@
     "resourcepack": "{count, plural, =0 {Ресурспаки} =1 {Ресурспак} other {Ресурспаки}}",
     "comment": "{count, plural, =0 {Комментарии} =1 {Комментарий} other {Комментарии}}",
     "Status": {
-        "approved": "Approved",
+        "approved": "Verified",
         "draft": "Draft",
         "featured": "Featured",
-        "unapproved": "Unapproved"
+        "unapproved": "Published"
     },
     "Account": {
         "settings": "Настройки аккаунта",
@@ -382,7 +382,7 @@
             },
             "no_tags": {
                 "title": "No Genre Tag",
-                "description": "Content must have at least one a genre tag"
+                "description": "Content must have at least one a tag"
             },
             "no_minecraft_version": {
                 "title": "Нет Minecraft версии",
@@ -402,11 +402,11 @@
             },
             "short_description_too_short": {
                 "title": "Описание слишком которкое",
-                "description": "Ваше описание должно содержать как минимум 20 символов"
+                "description": "Ваше описание должно содержать как минимум 40 символов"
             },
             "description_too_short": {
                 "title": "Description Too Short",
-                "description": "Your description needs to be at least 20 characters"
+                "description": "Your description needs to be at least 100 characters"
             },
             "external_images": {
                 "title": "Images From External Sources",
@@ -419,12 +419,20 @@
             "not_linked": {
                 "title": "Not Linked to an Account",
                 "description": "This content is not linked to an account on MCCreations. This means that your access to edit this content will expire in 24 hours. It is recommended to upload content with an account so you can retain access to all features."
+            },
+            "no_download_link": {
+                "title": "No Download Link",
+                "description": "At least one download link is required"
+            },
+            "slug_too_short": {
+                "title": "Slug Too Short",
+                "description": "Your slug needs to be at least 2 characters"
             }
         },
         "Edit": {
             "editing": "Editing {title}",
             "status": "Статус:",
-            "request_approval": "Request Approval",
+            "request_approval": "Publish",
             "general": "Главное",
             "title": "Название",
             "title_description": "The primary name of your creation. Should be short and sweet!",
