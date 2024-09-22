@@ -159,6 +159,11 @@
 
     .filters {
         justify-content: center;
+        display: none;
+    }
+
+    .filters.filtering {
+        display: flex;
     }
 }
 

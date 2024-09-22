@@ -111,3 +111,26 @@
 .icon_button.secondary:hover {
     background-color: #474747;
 }
+
+.icon_button.warning {
+    background-color: #c73030;
+}
+
+.icon_button.warning:hover {
+    background-color: #9b2424;
+}
+
+.icon_button.filter {
+    background-color: #272727;
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .icon_button.filter {
+        display: block;
+    }
+}
+
+.icon_button.filter:hover {
+    background-color: #474747;
+}
