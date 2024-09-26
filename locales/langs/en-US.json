@@ -506,7 +506,7 @@
                 "images_saved": "Images saved successfully",
                 "translations_saved": "Translations saved successfully",
                 "versions_saved": "Versions saved successfully",
-                "requested_approval": "Content has been requested for approval"
+                "requested_approval": "Content has been published and is pending verification"
             }
         },
         "translate": "Translate {title}",

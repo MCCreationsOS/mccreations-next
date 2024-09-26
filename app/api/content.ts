@@ -410,7 +410,7 @@ export async function deleteContent(id: any, token: string | null, contentType: 
     }
 }
 
-export async function requestApproval(slug: string, token: string | null) {
+export async function requestApproval(slug: string, collectionName: CollectionNames, token: string | null) {
     try {
         await fetch(`${process.env.DATA_URL}/content/request_approval`, {
             method: 'POST',
@@ -419,7 +419,8 @@ export async function requestApproval(slug: string, token: string | null) {
                 'Authorization': token + ""
             },
             body: JSON.stringify({
-                slug: slug
+                slug: slug,
+                contentType: collectionName
             })
         })
         return;

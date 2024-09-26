@@ -309,7 +309,7 @@ export default function EditContentPage({params}: {params: Params}) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t(error.error)))
             })
         } else {
-            requestApproval(map.slug, token.current).then(() => {
+            requestApproval(map.slug, collectionName, token.current).then(() => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.requested_approval')))
                 setMap({...map, status: 1})
             })
