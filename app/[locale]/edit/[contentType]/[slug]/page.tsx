@@ -135,7 +135,8 @@ export default function EditContentPage({params}: {params: Params}) {
     }, [map])
 
     const saveGeneralForm = (inputs: string[]) => {
-        if(!map || 'error' in map) return;
+        return new Promise<void>((resolve, reject) => {
+            if(!map || 'error' in map) return;
         if(inputs[1].length < 2) {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Content.Warnings.slug_too_short.description')))
             return;
@@ -250,8 +251,11 @@ export default function EditContentPage({params}: {params: Params}) {
 
             setMap(newMap)
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.general_saved')))
+            resolve()
         }).catch((e) => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
+            reject()
+        })
         })
     }
 
@@ -290,14 +294,14 @@ export default function EditContentPage({params}: {params: Params}) {
         })
     }
 
-    const publishContent = () => {
+    const publishContent = async () => {
         if(!map || 'error' in map) return;
         let inputs: string[] = []
         document.querySelector('#general')?.querySelectorAll('input').forEach((input) => {
             if(input.getAttribute('name') === 'file') return;
             inputs.push(input.value)
         })
-        saveGeneralForm(inputs)
+        await saveGeneralForm(inputs)
 
         let errors = errorCheckContent(map)
         if(errors.length > 0) {
