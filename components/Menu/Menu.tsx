@@ -155,9 +155,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                             <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
                             <p className="brand_name">{t('brand')}<Badge color="red">{t('Navigation.badge')}</Badge></p>
                         </Link>
-                        <Link href="/events/wix-is-over" className="link fancy">
-                            {t('events')}
-                        </Link>
+                        <LanguageSwitcher />
                     </div>
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">
@@ -171,6 +169,11 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         </li>
                         <li className="item">
                             <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
+                        </li>
+                        <li className="item">
+                            <Link href="/events/wix-is-over" className="link fancy">
+                                {t('events')}
+                            </Link>
                         </li>
                         <li className='item'>
                             <HollowButton onClick={() => {Popup.createPopup({
@@ -209,9 +212,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         <li className='item'>
                             <UserOptions />
                         </li>
-                        <li className="item">
-                            <LanguageSwitcher />
-                        </li>
+                        
                     </ul>
                     <img className={(mobileMenuActive) ? "menu_icon close_button active" : "menu_icon close_button"} src='/x.svg' alt="" onClick={() => {setMobileMenuActive(false)}} />
                 </div>

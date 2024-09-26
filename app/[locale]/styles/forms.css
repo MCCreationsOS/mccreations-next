@@ -87,12 +87,12 @@ input {
 }
 
 .select .options.language {
-    margin: 0 aut0;
+    margin: 0 auto;
 }
 
 @media screen and (max-width: 1095px) {
     .select .options.language {
-        left: 20%
+        left: -175px
     }
 }
 
