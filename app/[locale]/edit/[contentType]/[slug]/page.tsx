@@ -166,7 +166,7 @@ export default function EditContentPage({params}: {params: Params}) {
 
         if(inputs[2]) {
             newMap.shortDescription = inputs[2]
-            if(inputs[3].length < 20) {
+            if(inputs[2].length < 20) {
                 // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
             }
         } else {
@@ -184,7 +184,7 @@ export default function EditContentPage({params}: {params: Params}) {
         }
 
         if(inputs[4]) {
-            newMap.tags = inputs[5].concat("," + inputs[6]).concat("," + inputs[7]).concat("," + inputs[8]).concat("," + inputs[9]).split(',')
+            newMap.tags = inputs[4].concat("," + inputs[5]).concat("," + inputs[6]).concat("," + inputs[7]).concat("," + inputs[8]).split(',')
             newMap.tags = newMap.tags.filter((tag) => tag.length > 0)
             newMap.tags = newMap.tags.filter((tag, index) => {
                 return newMap.tags.indexOf(tag) === index
@@ -193,13 +193,13 @@ export default function EditContentPage({params}: {params: Params}) {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
         }
 
-        if(inputs[10]) {
-            if(inputs[10].includes("leaderboards")) {
+        if(inputs[9]) {
+            if(inputs[9].includes("leaderboards")) {
                 newMap.extraFeatures = {
                         leaderboards: {
                             use: true,
-                            message: inputs[11],
-                            messageFormatting: inputs[12]
+                            message: inputs[10],
+                            messageFormatting: inputs[11]
                         },
                         translations: {
                             use: true
