@@ -1,6 +1,6 @@
 {
     "language_name": "简体中文",
-    "language_code": "zh-CN",
+    "language_code": "zh_CN",
 
     "map": "{count, plural, =0 {地图} =1 {地图} other {地图}}",
     "datapack": "{count, plural, =0 {数据包} =1 {数据包} other {数据包}}",
@@ -19,26 +19,26 @@
         "delete_account": "删除账户",
 
         "Popup": {
-            "new_username": "New Username",
+            "new_username": "新昵称",
             "change_username": "更改昵称",
-            "new_handle": "New Handle",
+            "new_handle": "新用户名",
             "change_handle": "更改用户名",
-            "new_email": "New Email",
+            "new_email": "新邮箱",
             "change_email": "更改邮箱",
-            "new_password": "新的密码",
+            "new_password": "新密码",
             "confirm_password": "再次确认密码",
             "change_password": "更改密码"
         },
 
         "PopupMessage": {
-            "email_updated": "Email updated successfully to {email}",
-            "handle_updated": "Handle updated successfully to {handle}",
-            "username_updated": "Username updated successfully to {username}",
+            "email_updated": "邮箱已成功更新为 {email}",
+            "handle_updated": "用户名已成功更新为 {handle}",
+            "username_updated": "昵称已成功更新为 {username}",
             "password_updated": "密码已成功更新",
             "passwords_not_match": "密码不匹配",
             "delete_account_warning": "再次点击以删除您的账户。这是永久的！",
             "delete_account_auth_error": "授权错误。请重新登录",
-            "delete_account_error": "There was an error deleting your account. Please report this issue using the link above",
+            "delete_account_error": "删除帐户时出现错误。请通过以上链接报告问题",
             "delete_account_success": "已成功删除账户",
             "error": "发生一处错误。请通过以上链接报告问题"
         },
@@ -72,25 +72,25 @@
     },
 
     "Comments": {
-        "loading": "Loading Comment..."
+        "loading": "加载评论中……"
     },
 
     "Creator": {
         "Metadata": {
-            "not_found_title": "Creator Not Found",
-            "not_found_description": "This creator does not exist on MCCreations",
-            "title": "{username} on MCCreations",
-            "description": "View {username}'s Minecraft Maps, Data Packs, Resource Packs, and more on MCCreations"
+            "not_found_title": "未找到创作者",
+            "not_found_description": "MCCreations 中不存在该创作者",
+            "title": "MCCreations 中的 {username}",
+            "description": "展示 {username} 的 Minecraft 地图，数据包，资源包，以及更多 MCCreations 上的资源"
         },
         "Edit": {
             "about": "关于",
             "banner": "更换横幅",
             "logo": "更换图标",
             "title": "更新个人资料",
-            "saved": "Profile saved successfully"
+            "saved": "已成功保存个人资料"
         },
-        "not_found": "Creator Not Found",
-        "logo_alt": "{username}'s logo"
+        "not_found": "未找到创作者",
+        "logo_alt": "{username} 的 logo"
     },
 
     "Dashboard": {
@@ -98,17 +98,17 @@
         "info": "信息",
         "status": "状态",
         "created_date": "创建日期",
-        "updated_date": "Updated Date",
+        "updated_date": "更新日期",
         "downloads": "下载次数",
         "rating": "评分",
-        "view": "View Content",
+        "view": "展示内容",
         "edit": "编辑",
-        "delete": "Delete"
+        "delete": "删除"
     },
 
     "ResetPassword": {
         "token_error": "未找到 token ，返回上一页",
-        "new_password": "New Password",
+        "new_password": "新密码",
         "retype_password": "重新输入密码",
         "password_length": "密码需要至少十个字符",
         "password_number": "密码需要至少一个数字",
@@ -119,11 +119,11 @@
 
     "SignIn": {
         "Reset": {
-            "title": "Reset Password",
+            "title": "重置密码",
             "send_reset_email": "发送重置邮件"
         },
         "PopupMessage": {
-            "error": "There was an error. Please report this issue using the link above."
+            "error": "出现错误。请使用上面的链接报告此问题。"
         },
         "email_title": "以邮箱登录",
         "button": "登录",
@@ -131,7 +131,7 @@
     },
 
     "SignUp": {
-        "title": "或注册",
+        "title": "注册",
         "email_invalid": "邮箱地址无效",
         "password_no_number": "密码需要至少包含一个数字",
         "password_too_short": "密码需要至少十个字符",
@@ -139,41 +139,41 @@
         "username_too_short": "昵称需要至少三个字符",
         "button": "注册",
         "already_have_account": "已有账户？",
-        "error": "There was an error creating your account. Please report this issue using the link above."
+        "error": "创建账户时出现错误。请通过以上链接报告问题。"
     },
 
     "Translate": {
-        "title": "Translate",
-        "help": "<link>For help, click here</link>",
+        "title": "翻译",
+        "help": "<link>想获得帮助？点这</link>",
         "AddLanguage": {
-            "title": "Add A Language",
+            "title": "添加语言",
             "language_placeholder": "en-US",
-            "language_description": "An <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct."
+            "language_description": "<link>ISO 639 代码</link>后接 <link2>ISO 3166 代码</link2>。如果你没有找到你的语言，可以自己编！是否严格正确并不重要。"
         },
         "language": "语言",
-        "language_missing": "缺少您的语言？点击这里添加。"
+        "language_missing": "缺少你的语言？点击这里以添加。"
     },
 
     "Error": {
-        "title": "Something went wrong!",
-        "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
-        "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
+        "title": "发生错误！",
+        "description": "看来我们的电路里可能染了一些灰尘！请使用下方链接以报告问题，并稍后再试。",
+        "report": "使用<form>此表格</form>报告问题，<github>通过我们的 Github 页面<github>或<link>加入我们的 Discord</link> 以报告该问题。"
     },
 
     "Home": {
         "Playlists": {
             "new_content": "新内容",
             "updated_content": "最近更新",
-            "parkour": "Parkour: Jump to Victory!",
-            "adventure": "Adventure: Explore the Unknown",
-            "puzzle": "Puzzle: Use your Brain",
-            "highly_rated": "Highly Rated",
-            "popular": "Popular"
+            "parkour": "跑酷：跳向胜利！",
+            "adventure": "冒险：探索未知",
+            "puzzle": "解密：开发大脑",
+            "highly_rated": "评分较高",
+            "popular": "流行"
         }
     },
 
     "Ads": {
-        "behind_text": "Ads help keep MCCreations creating cool things! Please consider disabling your ad blocker for this site :)"
+        "behind_text": "广告能帮助 MCCreations 继续创造超酷的内容！请考虑在本网站禁用广告拦截器 :)"
     },
 
     "Buttons": {
@@ -181,32 +181,32 @@
             "text": "批量",
             "no_selection": "未选择供下载的内容"
         },
-        "download": "Download",
-        "download_bedrock": "Download for Bedrock",
-        "edit": "Edit"
+        "download": "下载",
+        "download_bedrock": "供基岩版下载",
+        "edit": "编辑"
     },
 
     "CommentForm": {
-        "sent": "Comment sent",
-        "title": "Leave a Comment",
-        "send": "Send"
+        "sent": "评论已发送",
+        "title": "发表评论",
+        "comment": "评论",
+        "send": "发送"
     },
 
     "Comment": {
-        "permalink": "Copy comment permalink",
-        "expand": "See More",
-        "collapse": "See Less"
+        "permalink": "复制永久评论链接",
+        "expand": "展开",
+        "collapse": "折叠"
     },
     
     "CommentsList": {
         "title": "评论",
         "no_comments": "成为第一个评论的人！",
-        "none_yet": "尚无评论！",
-        "comment": "评论"
+        "none_yet": "尚无评论！"
     },
 
     "FeaturedSlideshow": {
-        "see_more": "Download"
+        "see_more": "下载"
     },
 
     "Footer": {
@@ -233,8 +233,8 @@
             "9": "Contribute on Github!",
             "10": "Did you know that this is random?"
         },
-        "mojang_disclamer": "不是官方 Minecraft 产品。未获得Mojang 的批准或与 Mojang 相关。",
-        "open_source": "MCCreations is <link>open source</link>. Contribute today!",
+        "mojang_disclamer": "不是官方 Minecraft 产品。未获得Mojang 的批准，与 Mojang 无关。",
+        "open_source": "MCCreations 是<link>开源的</link>。欢迎贡献！",
         "copyright": "© Ben Meier/CrazyCowMM"
     },
 
@@ -244,24 +244,24 @@
             "title": "创作者",
             "add_creator": "添加创作者",
             "confirm_remove": "再次点击以移除此创作者",
-            "username_description": "The name to display on MCCreations.",
-            "handle_description": "If the creator has an account on MCCreations, enter their handle here to have their profile linked."
+            "username_description": "展示在 MCCreations 上的名称。",
+            "handle_description": "如果创作者已有 MCCreations 账户，请在此处输入用户名以链接至个人资料。"
         },
         "Shared": {
-            "uploaded": "Uploaded {file}",
-            "uploading": " Started Uploading {file}",
-            "upload_failed": " Failed to upload {file}"
+            "uploaded": "已上传 {file}",
+            "uploading": " 开始上传 {file}",
+            "upload_failed": " 上传 {file} 失败"
         },
         "Images": {
-            "drop_zone": "拖拽图片到这里，或点击选择。",
-            "hovering_drop": "放下它！",
+            "drop_zone": "拖放图片到此处，或点击选择图片。",
+            "hovering_drop": "松开它！",
             "invalid": "上传失败，因为文件不是有效的图片。",
             "too_large": "上传失败，因为文件过大。",
             "unknown_error": " 上传失败，因为发生了未知错误。"
         },
         "Files": {
-            "drop_zone": "Drag and Drop a file here, or click to select one.",
-            "invalid_file": " Failed to upload because the file is not a valid zip archive."
+            "drop_zone": "拖放文件到此处，或点击选择文件。",
+            "invalid_file": " 上传失败，因为文件不是有效的压缩包。"
         },
         "RichText": {
             "ImagePopup": {
@@ -270,7 +270,7 @@
                 "insert_file": "插入图片文件",
                 "insert_url": "插入图片 URL"
             },
-            "placeholder": "Start writing!",
+            "placeholder": "开始编写！",
             "undo": "撤销",
             "redo": "恢复。",
             "bold": "粗体",
@@ -312,8 +312,8 @@
             "admin": "管理员"
         },
         "badge": "测试版",
-        "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
-        "home": "Home"
+        "beta_warning": "MCCreations 目前仍处于 beta 版。请使用该<form>表格</form>，<github>通过我们的 Github page</github>，或<link>加入我们的 Discord</link>以留下反馈或报告问题。",
+        "home": "首页"
     },
 
     "SearchAndFilter": {
@@ -347,7 +347,7 @@
         "title": "版本管理",
         "add_version": "添加版本",
         "Version": {
-            "back_to_versions": "Back to Versions",
+            "back_to_versions": "上个版本",
             "edit": "编辑版本",
             "version_number": "版本号",
             "minecraft_version": "Minecraft 版本",
@@ -367,17 +367,17 @@
             "cancel": "关闭",
             "delete": "删除",
             "add_file": "添加文件",
-            "add_file_description": "Add any extra files required for this creation, like resourcepacks"
+            "add_file_description": "添加该作品所需的额外文件，如资源包"
         }
     },
 
     "Content": {
-        "affiliate": "Get a server for this {type} for 25% off",
+        "affiliate": "以25%的折扣购买{type}服务器",
         "leaderboards": "Leaderboards",
         "files": "文件",
         "info": "信息",
-        "logo_alt": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
-        "by": "by {creator}",
+        "logo_alt": "{title} 的 logo ，一张 Minecraft {minecraft_version}的 Minecraft {type}，由 {creator} 创作，发布于 MCCreations。",
+        "by": "{creator} 创作",
         "by_joiner": ", ",
         "Sidebar": {
             "creators": "创作者",
@@ -394,7 +394,7 @@
             "date": "更新日期",
             "minecraft_version": "Minecraft 版本",
             "download": "下载",
-            "loading": "Loading..."
+            "loading": "加载中……"
         },
         "Warnings": {
             "count": "消息： ",
@@ -403,12 +403,12 @@
                 "description": "内容必须有一个标题"
             },
             "no_description": {
-                "title": "No Description",
-                "description": "A description is required"
+                "title": "无描述",
+                "description": "需要一个描述"
             },
             "no_short_description": {
-                "title": "No Short Description",
-                "description": "A short Description is required"
+                "title": "无简短描述",
+                "description": "需要一个简短描述"
             },
             "no_tags": {
                 "title": "无标签",
@@ -460,7 +460,7 @@
             }
         },
         "Edit": {
-            "editing": "Editing {title}",
+            "editing": "编辑 {title} 中",
             "status": "状态：",
             "request_approval": "Publish",
             "general": "常规",
@@ -499,7 +499,7 @@
             "add_translation": "添加翻译",
             "translation_languages": "Languages",
             "translation_languages_description": "Is your language missing? Click here to add it.",
-            "delete_translation": "Delete",
+            "delete_translation": "删除",
             "translation_approved": "已批准",
             "PopupMessage": {
                 "general_saved": "内容信息保存成功",
@@ -566,7 +566,7 @@
             "overhaul": "改革",
             "parkour": "跑酷",
             "puzzle": "解密",
-            "qol": "Quality of Life",
+            "qol": "QOL",
             "realistic": "现实",
             "simple": "简单",
             "survival": "生存",
@@ -574,8 +574,8 @@
             "tool": "工具",
             "utility": "实用",
             "long": "长",
-            "medium": "Medium",
-            "short": "Short",
+            "medium": "中",
+            "short": "短",
             "1024x +": "1024x +",
             "128x": "128x",
             "16x": "16x",
@@ -639,7 +639,7 @@
 
     "Datapacks": {
         "Metadata": {
-            "title": "Download Data Packs | MCCreations",
+            "title": "下载数据包 | MCCreations",
             "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
         }
     },
