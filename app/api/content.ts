@@ -320,7 +320,7 @@ export function errorCheckContent(content: IContentDoc) {
         errors.push({error: "Content.Warnings.no_title.description", field: "title"})
     }
 
-    if(content.creators.length === 0) {
+    if(!content.creators || content.creators.length === 0) {
         errors.push({error: "Content.Warnings.no_creators.description", field: "creators"})
     }
 
@@ -328,7 +328,7 @@ export function errorCheckContent(content: IContentDoc) {
         errors.push({error: "Content.Warnings.no_short_description.description", field: "shortDescription"})
     }
 
-    if(content.shortDescription.length < 40) {
+    if(content.shortDescription && content.shortDescription.length < 40) {
         errors.push({error: "Content.Warnings.short_description_too_short.description", field: "shortDescription"})
     }
 
@@ -336,7 +336,7 @@ export function errorCheckContent(content: IContentDoc) {
         errors.push({error: "Content.Warnings.no_description.description", field: "description"})
     }
 
-    if(content.description.length < 100) {
+    if(content.description && content.description.length < 100) {
         errors.push({error: "Content.Warnings.description_too_short.description", field: "description"})
     }
 
@@ -344,20 +344,20 @@ export function errorCheckContent(content: IContentDoc) {
         errors.push({error: "Content.Warnings.no_files.description", field: "files"})
     }
 
-    if(content.tags.length === 0) {
+    if(!content.tags || content.tags.length === 0) {
         errors.push({error: "Content.Warnings.no_tags.description", field: "tags"})
     }
 
-    if(content.images.length === 0) {
+    if(!content.images || content.images.length === 0) {
         errors.push({error: "Content.Warnings.no_images.description", field: "images"})
     }
 
-    if(content.files.length > 0) {
-        if(!content.files[0].minecraftVersion) {
+    if(!content.files || content.files.length > 0) {
+        if(!content.files || !content.files[0].minecraftVersion) {
             errors.push({error: "Content.Warnings.no_minecraft_version.description", field: "files.minecraftVersion"})
         }
 
-        if(!content.files[0].worldUrl && !content.files[0].dataUrl && !content.files[0].resourceUrl && !content.files[0].url) {
+        if(!content.files || (!content.files[0].worldUrl && !content.files[0].dataUrl && !content.files[0].resourceUrl && !content.files[0].url)) {
             errors.push({error: "Content.Warnings.no_download_link.description", field: "files.download"})
         }
     }
@@ -420,7 +420,7 @@ export async function requestApproval(slug: string, collectionName: CollectionNa
             },
             body: JSON.stringify({
                 slug: slug,
-                contentType: collectionName
+                type: collectionName
             })
         })
         return;
