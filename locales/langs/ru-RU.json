@@ -479,7 +479,7 @@
                 "requested_approval": "Content has been requested for approval"
             }
         },
-        "translate": "Translate {title}",
+        "translate": "Перевести {title}",
         "translate_button": "Перевести страницу {type}",
         "Metadata": {
             "title_not_found": "{content_type} Not Found",
@@ -489,12 +489,12 @@
                 "minecraft": "Minecraft",
                 "games": "games",
                 "gaming": "gaming",
-                "minecraft_creations": "Minecraft Creations",
+                "minecraft_creations": "Minecraft создания",
                 "minecraft_version": "Minecraft {minecraft_version}",
-                "minecraft_datapack": "Minecraft Data Pack",
-                "minecraft_map": "Minecraft Map",
-                "minecraft_resourcepack": "Minecraft Resource Pack",
-                "mods": "Mods",
+                "minecraft_datapack": "Minecraft датапак",
+                "minecraft_map": "Minecraft карта",
+                "minecraft_resourcepack": "Minecraft ресурспак",
+                "mods": "Моды",
                 "minecraft_mods": "Minecraft моды",
                 "minecraft_but": "Minecraft, но",
                 "minecraft_survival": "Minecraft выживание"
@@ -608,17 +608,17 @@
     },
     "Datapacks": {
         "Metadata": {
-            "title": "Download Data Packs | MCCreations",
+            "title": "Скачать датапаки | MCCreations",
             "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
         }
     },
     "Leaderboards": {
-        "not_found": "Leaderboard Not Found",
-        "rank": "Rank",
-        "player": "Player",
+        "not_found": "Таблица лидеров не найдена",
+        "rank": "Ранк",
+        "player": "Игрок",
         "time": "Time",
         "score": "Score",
-        "date": "Date",
+        "date": "Дата",
         "device": "Device",
         "location": "Location",
         "submit_time": "Submit Your Time",
