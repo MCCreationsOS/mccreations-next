@@ -101,9 +101,6 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         <li className="item">
                             <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
                         </li>
-                        <li className="item">
-                            <Link className={(selectedPage === 'events') ? 'link selected' : 'link fancy'} href="/events/wix-is-over">{t('events')}</Link>
-                        </li>
                     </ul>
                     <ul className='action_list'>
                         <li className="item">
@@ -169,11 +166,6 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                         </li>
                         <li className="item">
                             <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
-                        </li>
-                        <li className="item">
-                            <Link href="/events/wix-is-over" className="link fancy">
-                                {t('events')}
-                            </Link>
                         </li>
                         <li className='item'>
                             <HollowButton onClick={() => {Popup.createPopup({
