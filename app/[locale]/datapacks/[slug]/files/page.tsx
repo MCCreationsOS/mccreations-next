@@ -38,7 +38,7 @@ export default function Page({ params }: { params: Params }) {
     }
 
     const download = async (url: string) => {
-        await downloadMap(content!.slug)
+        await downloadMap(content!.slug, content!.type)
         let a = document.createElement('a')
         a.href = url
         a.download = url.split('/').pop()!
@@ -68,7 +68,7 @@ export default function Page({ params }: { params: Params }) {
                         </div>
                         <div className='map_download_stack'>
                             <Rating value={content.rating} content={content} />
-                            {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} /> : <></>}
+                            {(content.files) ? <DownloadButton contentType={content.type} slug={content.slug} file={content.files[0]} /> : <></>}
                             <Link className="affiliate_button" title={t(`Content.affiliate`, {type: t('datapack', {count: 1})})} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server /></IconButton></Link>
                         </div>
                     </div>
