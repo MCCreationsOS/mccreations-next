@@ -27,14 +27,14 @@
 }
 
 .nav .brand_icon {
-  width: 50px;
+  width: 30px;
   image-rendering: pixelated;
 }
   
 .nav .brand_name {
     display: inline;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 18px;
 }
   
 .nav .item {

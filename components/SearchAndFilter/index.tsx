@@ -1,7 +1,7 @@
 import { CollectionNames, SortOptions, StatusOptions, StatusStrings, TagCategories, TagKeys, Tags } from "@/app/api/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { DownloadCloud, Filter } from "react-feather";
+import { DownloadCloud, Filter, Search } from "react-feather";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import styles from './index.module.css'
 import MainButton from "../Buttons/MainButton";
@@ -143,8 +143,9 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
             <div className={styles.fullscreen} style={{display: (popupOpen) ? "block": "none"}} onClick={() => {(popupOpen == true) ? closePopups(): false}}></div>
                 <div className="search_stack">
                     <input type="text" placeholder={t('SearchAndFilter.search_placeholder')} className="search" defaultValue={(search) ? search : ""} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={(e) => (e.key === "Enter") ? performSearch() : false}></input>
+                    <IconButton onClick={()=>{performSearch()}}><Search /></IconButton>
                     <IconButton className="filter" onClick={() => {setFiltering(!filtering)}}><Filter /></IconButton>
-                    <BulkDownloadButton />
+                    <div className="bulk_dl"><BulkDownloadButton /></div>
                 </div>
                 <div className={`filters ${filtering ? "filtering" : ""}`}>
                     <div className="filter_option">
@@ -196,9 +197,6 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
                             </div>
                         )
                     })}
-                </div>
-                <div className={styles.search_buttons}>
-                    <MainButton className={`${styles.search_button}`} onClick={() => performSearch()}>{t('SearchAndFilter.search')}</MainButton>
                     <WarningButton onClick={() => {updateSearch(""); updateSort(SortOptions.Newest); updateStatus(2); setExcludeTags([]); setIncludeTags([])}}>{t('SearchAndFilter.clear_filters')}</WarningButton>
                 </div>
         </div>

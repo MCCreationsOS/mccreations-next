@@ -223,9 +223,9 @@ export async function fetchTags(type: CollectionNames) {
     }
 }
 
-export async function downloadMap(slug: string) {
+export async function downloadMap(slug: string, contentType: ContentTypes) {
     try {
-        await fetch(`${process.env.DATA_URL}/maps/${slug}/download`)
+        await fetch(`${process.env.DATA_URL}/${contentType}s/${slug}/download`)
         return;
     } catch (e) {
         console.error("API fetch error! Is it running?: " + e);

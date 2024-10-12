@@ -1,32 +1,16 @@
 'use client'
 import ContentGrid from "@/components/ContentGrid"
-import ContentCard from "@/components/ContentSlideshow/ContentCard"
 import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link";
 import { searchContent } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
-import { Filter } from "react-feather"
 import { CollectionNames, SortOptions, StatusOptions } from "../../api/types"
 import SearchAndFilter from "@/components/SearchAndFilter"
 import {useTranslations} from 'next-intl';
 import { AdsenseComponent } from "@/components/AdUnits/InContent"
-
-
-// const client = contentful.createClient({
-//     space: 'xfoauilnv892',
-//     accessToken:  process.env.CONTENTFUL_ACCESS_KEY
-// })
-
-// async function getMaps() {
-//     const res = await client.getEntries({
-//         content_type: 'content',
-//         'fields.state': 1
-//     })
-
-//     return res.items;
-// }
+import SidebarFilters from "@/components/SearchAndFilter/SidebarFilters"
 
 export default function Maps() {
     const pathname = usePathname()
@@ -118,9 +102,10 @@ export default function Maps() {
             <Menu selectedPage='maps'></Menu>
             <SearchAndFilter callback={findMaps}  contentType={CollectionNames.Maps}/>
             { maps && maps.length !== 0 && (
-                <div>
-                <ContentGrid content={maps} enableSelection={true} enableAds={true}></ContentGrid>
-            </div>
+                <div className="page_with_sidebar">
+                    <SidebarFilters callback={findMaps} contentType={CollectionNames.Maps} />
+                    <ContentGrid content={maps} enableSelection={true} enableAds={true}></ContentGrid>
+                </div>
             )}
             { !maps || maps.length === 0 && (
                 <div className="no_comments">

@@ -1,16 +1,16 @@
 'use client'
 import { downloadMap } from "@/app/api/content"
 import MainButton from "./MainButton"
-import { CollectionNames, IFile, NewFile } from "@/app/api/types";
+import { ContentTypes, IFile, NewFile } from "@/app/api/types";
 import { isBedrockType } from "../FormInputs/VersionUploader/VersionManager";
 import { useTranslations } from "next-intl";
 
-export default function DownloadButton({slug, file}: {slug: string, file: IFile}) {
+export default function DownloadButton({slug, file, contentType}: {slug: string, file: IFile, contentType: ContentTypes}) {
     const t = useTranslations()
     if(!file) return <></>
 
     const downloadButtonClicked = async () => {
-        await downloadMap(slug)
+        await downloadMap(slug, contentType)
 
         let files: NewFile[] = [{url: file.url ?? file.worldUrl ?? file.dataUrl ?? file.resourceUrl ?? "", required: true, type: file.type}]
         file.extraFiles && files.push(...file.extraFiles)

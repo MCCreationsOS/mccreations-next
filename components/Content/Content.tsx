@@ -63,7 +63,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
                     </div>
                     <div className='map_download_stack'>
                         <Rating value={content.rating} content={content} />
-                        {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} />: <></>}
+                        {(content.files) ? <DownloadButton contentType={contentType} slug={content.slug} file={content.files[0]} />: <></>}
                         <Link className="affiliate_button" title={t('Content.affiliate', {type: t(content.type, {count: 1})})} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server/></IconButton></Link>
                     </div>
                 </div>

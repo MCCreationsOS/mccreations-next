@@ -12,6 +12,7 @@ import { CollectionNames, SortOptions, StatusOptions } from "../../api/types"
 import SearchAndFilter from "@/components/SearchAndFilter"
 import {useTranslations} from 'next-intl';
 import { AdsenseComponent } from "@/components/AdUnits/InContent"
+import SidebarFilters from "@/components/SearchAndFilter/SidebarFilters"
 
 
 // const client = contentful.createClient({
@@ -118,9 +119,10 @@ export default function Datapacks() {
             <Menu selectedPage='datapacks'></Menu>
             <SearchAndFilter callback={findDatapacks} contentType={CollectionNames.Datapacks}/>
             { datapacks && datapacks.length !== 0 && (
-                <div>
-                <ContentGrid content={datapacks} linkTo="datapacks" enableSelection={true} enableAds={true}></ContentGrid>
-            </div>
+                <div className="page_with_sidebar">
+                    <SidebarFilters callback={findDatapacks} contentType={CollectionNames.Datapacks} />
+                    <ContentGrid content={datapacks} enableSelection={true} enableAds={true}></ContentGrid>
+                </div>
             )}
             { !datapacks || datapacks.length === 0 && (
                 <div className="no_comments">

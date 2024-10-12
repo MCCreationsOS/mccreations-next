@@ -12,6 +12,7 @@ import SearchAndFilter from "@/components/SearchAndFilter"
 import { searchContent } from "@/app/api/content"
 import { AdsenseComponent } from "@/components/AdUnits/InContent"
 import {useTranslations} from 'next-intl';
+import SidebarFilters from "@/components/SearchAndFilter/SidebarFilters"
 
 // const client = contentful.createClient({
 //     space: 'xfoauilnv892',
@@ -117,9 +118,10 @@ export default function Resourcepacks() {
             <Menu selectedPage='resourcepacks'></Menu>
             <SearchAndFilter callback={findResourcepacks}  contentType={CollectionNames.Resourcepacks}/>
             { resourcepacks && resourcepacks.length !== 0 && (
-                <div>
-                <ContentGrid content={resourcepacks} linkTo="resourcepacks" enableSelection={true} enableAds={true}></ContentGrid>
-            </div>
+                <div className="page_with_sidebar">
+                    <SidebarFilters callback={findResourcepacks} contentType={CollectionNames.Resourcepacks} />
+                    <ContentGrid content={resourcepacks} enableSelection={true} enableAds={true}></ContentGrid>
+                </div>
             )}
             { !resourcepacks || resourcepacks.length === 0 && (
                 <div className="no_comments">

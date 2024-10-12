@@ -12,7 +12,7 @@
 }
 
 .nav_list {
-    margin: 5px 0 5px -15px;
+    margin: 0 0 0 -15px;
     font-family: 'Lato', sans-serif;
     flex: 50%;
     display: flex;
@@ -28,7 +28,7 @@
 }
 
 .nav .brand_icon {
-  width: 50px;
+  width: 40px;
   image-rendering: pixelated;
   margin-right: 5px;
 }
@@ -36,7 +36,7 @@
 .nav .brand_name {
     display: inline;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 @media screen and (max-width: 400px) {
@@ -78,7 +78,7 @@
   }
 
   .action_list {
-    margin: 20px 0 20px -15px;
+    margin: 0 0 0 -15px;
     font-family: 'Lato', sans-serif;
     display: inline-flex;
     align-items: center;
