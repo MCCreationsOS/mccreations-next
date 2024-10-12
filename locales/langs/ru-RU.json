@@ -9,7 +9,7 @@
         "approved": "Verified",
         "draft": "Draft",
         "featured": "Featured",
-        "unapproved": "Published"
+        "unapproved": "Опубликовано"
     },
     "Account": {
         "settings": "Настройки аккаунта",
@@ -19,7 +19,7 @@
             "change_username": "Поменять название аккаунта",
             "new_handle": "New Handle",
             "change_handle": "Change Handle",
-            "new_email": "New Email",
+            "new_email": "Новая почта",
             "change_email": "Поменять почту",
             "new_password": "Новый пароль",
             "confirm_password": "Подвердить пароль",
