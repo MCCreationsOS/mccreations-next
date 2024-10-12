@@ -1,22 +1,22 @@
 import { Link } from "@/app/api/navigation";
 import Image from "next/image";
 import { shimmer, toBase64 } from "./imageShimmer";
+import styles from "../ContentSlideshow/ContentCard.module.css"
 
 export default function CardSkeleton() {
     return (
-        <div className='content_card' >
-            <div className="information">
-                <div className='description'>
-                    <div className='stats'>
-                        <div className="stat"><img className="in_text_icon" src='/download.svg'></img></div>
-                        <div className="stat"><img className="in_text_icon" src='/star_white.svg'></img></div>
-                        <div className='stat'><img className="in_text_icon" src='/map.svg'></img></div>
+        <div className={styles.content_card} >
+            <div className={styles.information}>
+                <div className={styles.description}>
+                    <div className={styles.stats}>
                     </div>
                 </div>
-                <Image src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className='logo' width={1920} height={1080} sizes="25vw" alt={""}></Image>
+                <div className={styles.quick_actions}>
+                </div>
+                <Image src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} className={styles.logo} width={1920} height={1080} sizes="25vw" alt=""></Image>
             </div>
-            <p className='title'></p>
-            <p className='author'>by</p>
+            <Link className={styles.title} href=""></Link>
+            <p className={styles.author}></p>
         </div>
     )
 }

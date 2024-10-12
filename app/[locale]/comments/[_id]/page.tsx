@@ -17,7 +17,7 @@ export default function CommentPage({params: {locale, _id}}: {params: {locale: s
     if(!comment) return <div>Loading...</div>
     return (
         <div>
-            <CommentCard comment={comment}/>
+            <CommentCard comment={comment} contentType="wall" handle={comment.slug} canReply={true} />
         </div>
     )
 

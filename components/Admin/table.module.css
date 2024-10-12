@@ -1,5 +1,5 @@
 .admin_table {
-    width: 100vw;
+    width: 98vw;
     min-width: 1080px;
     margin: 20px;
     overflow: auto;
@@ -8,15 +8,21 @@
 .table_row {
     display: flex;
     justify-content: flex-start;
-    align-items: center;
+    align-items: top;
     padding: 10px 0;
     border-bottom: 1px solid #d3d3d3;
     text-align: left;
+    height: 75px;
+    overflow: auto;
 }
 
 .table_item {
     overflow: auto;
+    margin: 0 5px;
+}
+
+.table_input {
+    margin: 0;
     width: 200px;
     height: 50px;
-    margin: 0 10px;
 }

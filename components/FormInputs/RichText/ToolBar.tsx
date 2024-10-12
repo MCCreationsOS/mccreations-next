@@ -1,6 +1,7 @@
 import { INSERT_UNORDERED_LIST_COMMAND } from '@lexical/list';
 import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
 import {$isEditorIsNestedEditor, mergeRegister} from '@lexical/utils';
+import {$getSelectionStyleValueForProperty, $patchStyleText} from '@lexical/selection';
 import {
   $getSelection,
   $isRangeSelection,
@@ -17,6 +18,9 @@ import * as React from 'react';
 import { InsertImageDialog } from './ImagePlugin';
 import { Popup } from '@/components/Popup/Popup';
 import {useTranslations} from 'next-intl';
+import { Minus, Plus } from 'react-feather';
+import { INSERT_COLLAPSIBLE_COMMAND } from './SpoilerPlugin';
+import DropdownColorPicker from './DropdownColorPicker';
 
 const LowPriority = 1;
 
@@ -35,16 +39,22 @@ export default function ToolbarPlugin() {
   const [isUnderline, setIsUnderline] = useState(false);
   const [isStrikethrough, setIsStrikethrough] = useState(false);
   const [isImageCaption, setIsImageCaption] = useState(false);
+  const [fontSize, setFontSize] = useState(16)
+  const [fontColor, setFontColor] = useState("#ffffff")
+  const [bgColor, setBgColor] = useState("#ffffffff")
   const t = useTranslations()
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
+    setFontColor($getSelectionStyleValueForProperty(selection, 'color', '#000000'))
+    setBgColor($getSelectionStyleValueForProperty(selection, 'background-color', '#ffffff'))
     if ($isRangeSelection(selection)) {
       // Update text format
       setIsBold(selection.hasFormat('bold'));
       setIsItalic(selection.hasFormat('italic'));
       setIsUnderline(selection.hasFormat('underline'));
       setIsStrikethrough(selection.hasFormat('strikethrough'));
+      setFontSize(parseInt($getSelectionStyleValueForProperty(selection, 'font-size', '16px')))
       if (activeEditor !== editor && $isEditorIsNestedEditor(activeEditor)) {
         const rootElement = activeEditor.getRootElement();
         setIsImageCaption(
@@ -92,6 +102,23 @@ export default function ToolbarPlugin() {
       ),
     );
   }, [editor, updateToolbar]);
+
+  const applyStyleText = useCallback((style: Record<string, string>) => {
+    activeEditor.update(() => {
+      const selection = $getSelection()
+      if(selection) {
+        $patchStyleText(selection, style)
+      }
+    })
+  }, [activeEditor])
+
+  const onFontColorSelect = useCallback((color: string) => {
+    applyStyleText({color: color})
+  }, [applyStyleText])
+
+  const onBgColorSelect = useCallback((color: string) => {
+    applyStyleText({'background-color': color})
+  }, [applyStyleText])
 
   return (
     <div className="toolbar" ref={toolbarRef}>
@@ -155,6 +182,54 @@ export default function ToolbarPlugin() {
         <i className="format bullet-list" />
       </button>
       <Divider />
+      <button onClick={() => {
+        editor.update(() => {
+          const selection = $getSelection()
+          if(selection) {
+            $patchStyleText(selection, {
+              'font-size': `${fontSize + 2}px`
+            })
+          }
+        })
+        setFontSize(fontSize + 2)
+      }}
+      className="toolbar-item spaced"
+      aria-label={t('Form.RichText.font_size')}>
+        <i className="format plus"></i>
+      </button>
+      <button className="toolbar-item spaced"><i className="format">{fontSize}</i></button>
+      <button onClick={() => {
+        editor.update(() => {
+          const selection = $getSelection()
+          if(selection) {
+            $patchStyleText(selection, {
+              'font-size': `${fontSize - 2}px`
+            })
+          }
+        })
+        setFontSize(fontSize - 2)
+      }}
+      className="toolbar-item spaced"
+      aria-label={t('Form.RichText.font_size')}>
+        <i className="format minus"></i>
+      </button>
+      <DropdownColorPicker
+            buttonClassName="toolbar-item color-picker"
+            buttonAriaLabel="Formatting text color"
+            buttonIconClassName="icon font-color"
+            color={fontColor}
+            onChange={onFontColorSelect}
+            title="text color"
+          />
+          <DropdownColorPicker
+            buttonClassName="toolbar-item color-picker"
+            buttonAriaLabel="Formatting background color"
+            buttonIconClassName="icon bg-color"
+            color={bgColor}
+            onChange={onBgColorSelect}
+            title="bg color"
+          />
+      <Divider />
       <button
         onClick={() => {
           editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, 'left');
@@ -196,6 +271,14 @@ export default function ToolbarPlugin() {
           aria-label={t('Form.RichText.image')}
           className="toolbar-item spaced">
           <i className="format image" />
+        </button>
+        <button 
+          onClick={() => {
+            editor.dispatchCommand(INSERT_COLLAPSIBLE_COMMAND, undefined);
+          }}
+          aria-label={t('Form.RichText.spoiler')}
+          className="toolbar-item spaced">
+          <i className="format spoiler" />
         </button>
       {' '}
     </div>

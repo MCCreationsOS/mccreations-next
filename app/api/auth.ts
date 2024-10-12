@@ -1,4 +1,5 @@
 import { IUser, UserTypes } from "@/app/api/types";
+import { ProfileLayout } from "@/components/Profile/CustomizableProfileArea";
 import { create } from "zustand";
 
 type UserStore = {
@@ -10,10 +11,20 @@ type UserStore = {
     iconURL: string
     bannerURL: string
     about: string,
+    socialLinks?: [{
+        link: string,
+        name: string
+    }]
+    profileLayout?: ProfileLayout
     setUser: (user: IUser) => void
     setIcon: (iconURL: string) => void
     setBanner: (bannerURL: string) => void
     setAbout: (about: string) => void
+    setSocialLinks: (socialLinks: [{
+        link: string,
+        name: string
+    }]) => void
+    setProfileLayout: (profileLayout: ProfileLayout) => void
     logout: () => void
 }
 
@@ -26,6 +37,8 @@ export const useUserStore = create<UserStore>(set => ({
     iconURL: "",
     bannerURL: "",
     about: "",
+    socialLinks: undefined,
+    profileLayout: undefined,
     setUser: (user: IUser) => {
         set({
             username: user.username,
@@ -35,7 +48,9 @@ export const useUserStore = create<UserStore>(set => ({
             _id: user._id,
             iconURL: user.iconURL,
             bannerURL: user.bannerURL,
-            about: user.about
+            about: user.about,
+            socialLinks: user.socialLinks,
+            profileLayout: user.profileLayout
         })
     },
     setIcon: (iconURL: string) => {
@@ -47,6 +62,15 @@ export const useUserStore = create<UserStore>(set => ({
     setAbout: (about: string) => {
         set({about: about})
     },
+    setSocialLinks: (socialLinks: [{
+        link: string,
+        name: string
+    }]) => {
+        set({socialLinks: socialLinks})
+    },
+    setProfileLayout: (profileLayout: ProfileLayout) => {
+        set({profileLayout: profileLayout})
+    },
     logout: () => {
         set({
             username: "",
@@ -57,6 +81,8 @@ export const useUserStore = create<UserStore>(set => ({
             iconURL: "",
             bannerURL: "",
             about: "",
+            socialLinks: undefined,
+            profileLayout: undefined
         })
     }
 }))
@@ -127,6 +153,21 @@ export async function updateProfile(authorization: string, banner?: string, icon
                 username: username,
                 about: about
             })
+        })
+    } catch(e) {
+        console.error(e)
+    }
+}
+
+export async function updateProfileLayout(authorization: string, layout: ProfileLayout) {
+    try {
+        fetch(`${process.env.DATA_URL}/auth/user/updateProfileLayout`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authorization
+            },
+            body: JSON.stringify({profileLayout: layout})
         })
     } catch(e) {
         console.error(e)

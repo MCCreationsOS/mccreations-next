@@ -13,9 +13,10 @@ export interface RichTextInputProps {
     value?: string,
     description?: string
     onChange?: (value: string) => void
+    className?: string
 }
 
-export default function RichTextInput(props: RichTextInputProps): FormElement {
+export default function RichTextInput(props: RichTextInputProps) {
     const [initialValue, setInitialValue] = useState<string>(props.value ?? "")
     const richText = useRef<FormInput<string> | null>(null)
 
@@ -38,10 +39,10 @@ export default function RichTextInput(props: RichTextInputProps): FormElement {
     }, [initialValue])
 
     return (
-        <div className='field'>
-            <h3 className='label'>{props.name}</h3>
+        <div className={`field ${props.className}`}>
+            <h3 className={`label ${props.className}`}>{props.name}</h3>
             <p className={styles.description}>{props.description}</p>
-            <RichText initialValue={initialValue} sendOnChange={(v) => {if (richText.current) richText.current.setValue(v);if(props.onChange) props.onChange(v);}}/>
+            <RichText className={props.className} initialValue={initialValue} sendOnChange={(v) => {if (richText.current) richText.current.setValue(v);if(props.onChange) props.onChange(v);}}/>
         </div>
     )
 }

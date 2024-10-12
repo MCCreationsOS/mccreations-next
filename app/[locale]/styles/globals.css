@@ -13,6 +13,7 @@ body {
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
     background-color: #171717;
     color: white;
+    scrollbar-track-color: #202020;
 }
 
 * {
@@ -120,3 +121,8 @@ a:active {
 .footer_margin {
   margin: 20px auto 0 auto;
 }
+
+.react-resizable-handle {
+  color: white;
+}
+

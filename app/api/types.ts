@@ -1,3 +1,5 @@
+import { ProfileLayout } from "@/components/Profile/CustomizableProfileArea";
+
 /** 
  * All sort options supported by the API
  * @Newest Sort by created date descending
@@ -161,9 +163,11 @@ export interface IComment {
     comment: string,
     date: number,
     approved: boolean,
-    _id: string
+    _id?: string
     slug: string,
-    content_type: CollectionNames
+    content_type: CollectionNames | "wall",
+    replies?: IComment[],
+    likes?: number
 }
 
 /**
@@ -208,6 +212,7 @@ export interface IUser {
         link: string,
         name: string
     }]
+    profileLayout?: ProfileLayout
 }
 
 export interface Leaderboard {

@@ -196,7 +196,8 @@
     "Comment": {
         "permalink": "Copy comment permalink",
         "expand": "See More",
-        "collapse": "See Less"
+        "collapse": "See Less",
+        "reply": "Reply"
     },
 
     "CommentsList": {
@@ -255,13 +256,13 @@
         "Images": {
             "drop_zone": "Drag and Drop an image here, or click to select one.",
             "hovering_drop": "Drop here!",
-            "invalid": " Failed to upload because the file is not a valid image.",
-            "too_large": " Failed to upload because the file is too large.",
-            "unknown_error": " Failed to upload because of an unknown error."
+            "invalid": " failed to upload because the file is not a valid image.",
+            "too_large": " failed to upload because the file is bigger than 2MB.",
+            "unknown_error": " failed to upload because of an unknown error."
         },
         "Files": {
             "drop_zone": "Drag and Drop a file here, or click to select one.",
-            "invalid_file": " Failed to upload because the file is not a valid zip archive."
+            "invalid_file": " failed to upload because the file is not a valid zip archive."
         },
         "RichText": {
             "ImagePopup": {
@@ -659,5 +660,55 @@
         "submit_score_description": "Your score was {score}",
         "submit": "Submit",
         "username": "Username"
+    },
+
+    "Profile": {
+        "Widgets": {
+            "Discord": {
+                "title": "Discord",
+                "edit_title": "Edit Discord Widget",
+                "server_id": "Server ID"
+            },
+            "FeaturedCreation": {
+                "title": "Featured Creation",
+                "edit_title": "Edit Featured Creation Widget",
+                "type": "Type",
+                "slug": "Slug"
+            },
+            "Image": {
+                "edit_title": "Edit Image Widget",
+                "image": "Image",
+                "title": "Title"
+            },
+            "Showcase": {
+                "title": "Creations",
+                "edit_title": "Edit Showcase Widget",
+                "type": "Type"
+            },
+            "SupportSite": {
+                "title": "Support Site",
+                "edit_title": "Edit Support Site Widget"
+            },
+            "Text": {
+                "edit_title": "Edit Text Widget",
+                "text": "Text",
+                "title": "Title"
+            },
+            "Twitch": {
+                "title": "Twitch",
+                "edit_title": "Edit Twitch Widget",
+                "handle": "Twitch Username"
+            },
+            "Wall": {
+                "title": "Wall",
+                "edit_title": "Edit Wall Widget"
+            },
+            "Youtube": {
+                "title": "YouTube",
+                "edit_title": "Edit YouTube Widget",
+                "handle": "YouTube Handle"
+            },
+            "delete_widget": "Delete Widget"
+        }
     }
 }

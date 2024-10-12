@@ -4,12 +4,17 @@
     align-items: flex-start;
     padding: 10px;
     margin: 5px;
-    max-height: 300px;
-    overflow: hidden;
     position: relative;
 }
 
-.comment.expanded {
+.comment_text {
+    max-height: 300px;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+    margin-bottom: 10px;
+}
+
+.comment_text.expanded {
     max-height: none;
 }
 
@@ -33,25 +38,29 @@
 }
 
 .comment .body {
-    margin-left: 20px;
+    margin-left: 10px;
+    width: 100%;
 }
 
 .comment .body p {
+    margin-top: 5px;
     color: #aaa
 }
 
 .comment .header {
     display: flex;
     align-items: center;
+    margin-top: 0
 }
 
 .comment .header h4 {
-    margin-top: 12px;
+    margin-top: 0;
     margin-bottom: 5px;
 }
 
 .comment .header p {
     margin-left: 10px;
+    margin-top: 0;
     color: #aaa;
     margin-bottom: 5px;
     font-size: 0.8rem;
@@ -65,10 +74,18 @@
     cursor: pointer;
 }
 
-.comment .actions {
+.comment .reactions {
     display: flex;
+    gap: 10px;
 }
 
-.comment .actions p {
-    font-size: 0.8rem;
+.comment .like {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.comment .replies {
+    margin-left: 5px;
+    width: 100%;
 }

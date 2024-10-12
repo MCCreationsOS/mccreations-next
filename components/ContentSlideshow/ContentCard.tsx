@@ -106,7 +106,7 @@ export default function ContentCard(props: IContentCardProps) {
                     {shortDescription}
                     <div className={styles.stats}>
                         <div className={styles.stat}><img className={styles.in_text_icon} src='/download.svg'></img>{props.content.downloads}</div>
-                        {(props.content.rating > 0) ? <div className={styles.stat}><img className={styles.in_text_icon} src='/star_white.svg'></img>{(Math.round(props.content.rating*100)/100) * 5}</div>: <></> }
+                        {(props.content.rating > 0) ? <div className={styles.stat}><img className={styles.in_text_icon} src='/star_white.svg'></img>{((Math.round(props.content.rating*100)/100) * 5).toFixed(2)}</div>: <></> }
                         {(props.content.files && props.content.files.length > 0) ? <div className={styles.stat}><Map className={styles.in_text_icon} />{props.content.files[0].minecraftVersion}</div>: <></> }
                         <div className={styles.stat}>{(props.content.type === "map") ? <><Archive className={styles.in_text_icon} />{t('map', {count: 1})}</> : (props.content.type === 'datapack') ? <><Package className={styles.in_text_icon} />{t('datapack', {count: 1})}</> : <><Layers className={styles.in_text_icon} />{t('resourcepack', {count:1})}</>}</div>
                     </div>

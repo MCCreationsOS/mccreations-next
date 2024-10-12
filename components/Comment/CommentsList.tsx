@@ -29,7 +29,7 @@ export default function CommentsList({mapSlug, content_type}: {mapSlug: string, 
     return (
         <div className='centered_content'>
             <h2>{t('CommentsList.title')}</h2>
-            {(comments && comments.length > 0 && comments[0].comment) ? comments.map((comment: IComment, idx: number) => <CommentCard key={idx} comment={comment} />) : <><div className="no_comments"><h3>{t('CommentsList.none_yet')}</h3><p>{t('CommentsList.no_comments')}</p></div></>}
+            {(comments && comments.length > 0 && comments[0].comment) ? comments.map((comment: IComment, idx: number) => <CommentCard key={idx} comment={comment} contentType={content_type} handle={mapSlug} canReply={true}/>) : <><div className="no_comments"><h3>{t('CommentsList.none_yet')}</h3><p>{t('CommentsList.no_comments')}</p></div></>}
         </div>
     )
 }

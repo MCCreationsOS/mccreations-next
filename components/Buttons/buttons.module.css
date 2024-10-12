@@ -54,7 +54,10 @@
     cursor: pointer;
     text-decoration: none;
     opacity: 1;
-    height: fit-content
+    height: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .secondary_button:hover {

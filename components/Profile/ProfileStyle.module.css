@@ -124,7 +124,7 @@
 }
 
 .profile_content {
-    margin-top: 70px;
+    margin-top: 40px;
     padding: 20px;
 }
 
@@ -137,4 +137,10 @@
     .profile_card {
         margin-bottom: 20px;
     }
+}
+
+.add_widget_button {
+    position: absolute;
+    bottom: 9%;
+    right: 2%;
 }

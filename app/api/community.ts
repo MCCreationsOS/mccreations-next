@@ -54,6 +54,44 @@ export async function postComment(slug: string, content_type: string, username: 
     }
 }
 
+export async function postReply(comment_id: string, username: string, reply: string, handle: string) {
+    try {
+        fetch(`${process.env.DATA_URL}/content/comment_reply`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                comment_id: comment_id,
+                username: username,
+                reply: reply,
+                handle: handle
+            })
+        })
+    }
+    catch(e) {
+        console.error(e);
+    }
+}
+
+export async function likeComment(comment_id: string, jwt: string = "") {
+    try {
+        let response =await fetch(`${process.env.DATA_URL}/content/comment_like`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': jwt
+            },
+            body: JSON.stringify({comment_id: comment_id})
+        })
+        return response.status === 200
+    }
+    catch(e) {
+        console.error(e);
+    }
+    return false
+}
+
 export async function fetchComments(slug: string, options: QueryOptions) {
     let opts = formatQueryOptions(options)
     try {

@@ -7,6 +7,7 @@ import ProfileCard from "@/components/Profile/ProfileCard"
 import { IUser } from "@/app/api/types";
 import { Metadata, ResolvingMetadata } from "next"
 import { getTranslations } from "next-intl/server"
+import CustomizableProfileArea from "@/components/Profile/CustomizableProfileArea"
 
 export async function generateMetadata({ params }: {params: Params}, parent: ResolvingMetadata): Promise<Metadata> {
     const id = params.creator
@@ -65,7 +66,7 @@ export default async function ProfilePage({params}: {params: Params}) {
         <Menu selectedPage="" />
         <div className={styles.profile_page}>
             <ProfileCard creator={c} />
-            <ContentArea cards="three" type="grid" options={{contentType: "content", creator:c.handle, limit: 20}} no_search={true} enableSelection={false}/>
+            <CustomizableProfileArea creator={c} />
         </div>
         {/* <Image className={styles.banner_background} width={1920} height={1080} src={creator.bannerURL || ""} alt=""></Image>
                 <div className={styles.banner_foreground}>

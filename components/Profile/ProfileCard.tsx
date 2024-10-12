@@ -6,6 +6,10 @@ import styles from './ProfileStyle.module.css'
 import { getCreator } from "@/app/api/community";
 import ProfileEditButton from './ProfileEditButton'
 import { IUser } from '@/app/api/types'
+import IconButton from '../Buttons/IconButton';
+import { Plus } from 'react-feather';
+import SecondaryButton from '../Buttons/SecondaryButton';
+import AddWidgetButton from './AddWidgetButton';
 
 export default async function ProfileCard({creator}: {creator: IUser}) {
     return (
@@ -25,16 +29,7 @@ export default async function ProfileCard({creator}: {creator: IUser}) {
                 </foreignObject>
             </svg>
             <div className={styles.profile_content}>
-                <div className={styles.profile_section}>
-                    {creator.about}
-                </div>
-                {((creator.socialLinks && Object.keys(creator.socialLinks).length > 0))? 
-                <div className={styles.profile_section}>
-                    {creator.socialLinks.map((link: any) => {
-                        return <Link href="link.link">{link.name}</Link>
-                    })}
-                </div> : 
-                <></>}
+                <AddWidgetButton creator={creator} />
             </div>
         </div>
     )

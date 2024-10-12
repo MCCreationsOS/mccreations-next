@@ -17,6 +17,10 @@ import DOMPurify from 'isomorphic-dompurify';
 import { ImageNode } from './nodes/ImageNode';
 import ImagesPlugin from './ImagePlugin';
 import {useTranslations} from 'next-intl';
+import SpoilerPlugin from './SpoilerPlugin';
+import { CollapsibleContainerNode } from './SpoilerPlugin/SpoilerContainerNode';
+import { CollapsibleContentNode } from './SpoilerPlugin/SpoilerContentNode';
+import { CollapsibleTitleNode } from './SpoilerPlugin/SpoilerTitleNode';
 
 const theme = {
         code: 'editor-code',
@@ -113,24 +117,24 @@ function ExportHTMLPlugin({ setHTML }: { setHTML: (html: string) => void }): JSX
  * @param initialValue The initial value of the editor
  * @returns 
  */
-export default function RichText({ sendOnChange, initialValue }: { sendOnChange: (state: string) => void, initialValue?: string }) {
+export default function RichText({ sendOnChange, initialValue, className }: { sendOnChange: (state: string) => void, initialValue?: string, className?: string }) {
 
     const initialConfig = {
         namespace: 'MyEditor',
         theme,
         onError,
-        nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode],
+        nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode, CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode],
         editable: true
     };
     const t = useTranslations()
 
     return (
         <LexicalComposer initialConfig={initialConfig}>
-            <div className='editor-container'>
+            <div className={`editor-container ${className}`}>
                 <ToolbarPlugin />
-                <div className='editor-inner'>
+                <div className={`editor-inner ${className}`}>
                     <RichTextPlugin
-                        contentEditable={<ContentEditable className="editor-input" />}
+                        contentEditable={<ContentEditable className={`editor-input ${className}`} />}
                         placeholder={<div className="editor-placeholder">{t('Form.RichText.placeholder')}</div>}
                         ErrorBoundary={LexicalErrorBoundary}
                     />
@@ -142,8 +146,9 @@ export default function RichText({ sendOnChange, initialValue }: { sendOnChange:
             {/* <OnChangePlugin onChange={onChange} /> */}
             <LoadHTMLPlugin html={initialValue || ""} />
             <ExportHTMLPlugin setHTML={sendOnChange} />
-            <ImagesPlugin />
+            <ImagesPlugin />  
             <ListPlugin />
+            <SpoilerPlugin />
         </LexicalComposer>
     );
 }

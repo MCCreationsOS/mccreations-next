@@ -2,9 +2,17 @@
     padding: 10px 0;
 }
 
+.field.compact {
+    padding: 0
+}
+
 .label {
     margin: 0 0 5px 0;
     color: #eee;
+}
+
+.label.compact {
+    display: none;
 }
 
 input {

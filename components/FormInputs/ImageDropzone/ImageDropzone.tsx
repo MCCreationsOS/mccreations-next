@@ -98,7 +98,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
         accept: {
             'image/*': []
         },
-        maxSize: 1024 * 1000,
+        maxSize: 1024 * 2000,
         maxFiles: (allowMultiple) ? 10 : 1,
         onDrop
     })

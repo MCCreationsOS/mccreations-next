@@ -1,9 +1,6 @@
 
 .profile_page {
-    display: grid;
-    grid-template: auto auto 1fr/25rem 1fr;
-    margin: 30px;
-    gap: 15px
+    display: block;
 }
 
 @media screen and (max-width: 800px) {

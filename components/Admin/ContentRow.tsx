@@ -5,6 +5,7 @@ import { Plus } from "react-feather"
 import MainButton from "../Buttons/MainButton"
 import { approveContent, convertToCollection } from "@/app/api/content"
 import styles from './table.module.css'
+import SecondaryButton from "../Buttons/SecondaryButton";
 
 export default function ContentRow({content, addToUpdateQueue}: {content: IContentDoc, addToUpdateQueue: (map: IContentDoc) => void}) {
     const [title, setTitle] = useState(content.title)
@@ -23,13 +24,12 @@ export default function ContentRow({content, addToUpdateQueue}: {content: IConte
     
     return (
         <div key={content.slug} className={styles.table_row}>
-            <Link href={`/maps/${content.slug}`}>View</Link>
-            <input type="text" className={styles.table_item} defaultValue={content.title} onChange={(e) => {setTitle(e.currentTarget.value)}}></input>
-            <input type="text" className={styles.table_item} defaultValue={content.slug} onChange={(e) => {setTitle(e.currentTarget.value)}}></input>
-            <input type="text" className={styles.table_item} defaultValue={content.tags} onChange={(e) => {setTitle(e.currentTarget.value)}}></input>
-            <textarea className={styles.table_item} defaultValue={content.shortDescription} onChange={(e) => {setTitle(e.currentTarget.value)}}></textarea>
-            <div>{content.creators.map((c, idx) => (<div><input type="text" className={styles.table_item} defaultValue={c.username} onChange={(e) => {updateCreator(idx, e.currentTarget.value, c.handle)}}></input><input type="text" className={styles.table_item} defaultValue={c.handle} onChange={(e) => {updateCreator(idx, c.username, e.currentTarget.value)}}></input></div>))}</div>
-            <button onClick={() => {
+            <Link className={styles.table_item} href={`/${content.type}s/${content.slug}`}>View</Link>
+            <input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={content.title} onChange={(e) => {setTitle(e.currentTarget.value)}}></input>
+            <input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={content.slug} onChange={(e) => {setSlug(e.currentTarget.value)}}></input>
+            <input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={content.tags} onChange={(e) => {setTags(e.currentTarget.value.split(","))}}></input>
+            <textarea className={`${styles.table_item} ${styles.table_input}`} defaultValue={content.shortDescription} onChange={(e) => {setShortDescription(e.currentTarget.value)}}></textarea>
+            <button className={styles.table_item} onClick={() => {
                 addToUpdateQueue({
                     ...content,
                     title,
@@ -39,7 +39,9 @@ export default function ContentRow({content, addToUpdateQueue}: {content: IConte
                     creators
                 })
             }}><Plus /></button>
-            {(content.status === 1) ? <MainButton onClick={() => {approveContent(content.slug, CollectionNames[type], localStorage.getItem('jwt'))}}>Approve</MainButton> : <></> }
+            <Link target="_blank" className={styles.table_item} href={(content.files && content.files[0]) ? content.files[0].url ?? "" : ""}><SecondaryButton>Download {(content.files && content.files[0]) ? content.files[0].minecraftVersion : ""}</SecondaryButton></Link>
+            {(content.status === 1) ? <MainButton className={styles.table_item} onClick={() => {approveContent(content.slug, CollectionNames[type], localStorage.getItem('jwt')); content.status = 2}}>Approve</MainButton> : <></> }
+            <div>{content.creators.map((c, idx) => (<div className={styles.creator_group}><input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={c.username} onChange={(e) => {updateCreator(idx, e.currentTarget.value, c.handle)}}></input><input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={c.handle} onChange={(e) => {updateCreator(idx, c.username, e.currentTarget.value)}}></input></div>))}</div>
         </div>
     )
 }

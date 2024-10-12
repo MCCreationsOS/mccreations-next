@@ -295,6 +295,7 @@ export default function EditContentPage({params}: {params: Params}) {
     }
 
     const publishContent = async () => {
+        console.log(map)
         if(!map || 'error' in map) return;
 
         let errors = errorCheckContent(map)
@@ -349,11 +350,6 @@ export default function EditContentPage({params}: {params: Params}) {
                                 })} multiSelect={true} value={map.tags?.filter(t => tags[category].includes(t)).join(',')}/>
                             })}
                             <Select name={t('Content.Edit.extra_features')} options={[{name: t("Content.Edit.ExtraFeatures.Leaderboards.title"), value: "leaderboards"}]} value={(map.extraFeatures) ? Object.keys(map.extraFeatures).filter(key => map.extraFeatures![key as ExtraFeatureKeys].use !== false).join(",") : ""} multiSelect/>
-                            {((map.extraFeatures?.leaderboards as LeaderboardFeature)?.use !== false && (!map.files || map.files[0].url?.includes("mccreations.s3"))) && <>
-                                <p>{t.rich('Content.Edit.ExtraFeatures.Leaderboards.help', {link: (chunks) => <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">{chunks}</Link>})}</p>
-                                <Text name={t('Content.Edit.ExtraFeatures.Leaderboards.message_text')} value={(map.extraFeatures && map.extraFeatures.leaderboards) ? (map.extraFeatures?.leaderboards as LeaderboardFeature).message : ""} description={t('Content.Edit.ExtraFeatures.Leaderboards.message_text_description')}/>
-                                <Text name={t('Content.Edit.ExtraFeatures.Leaderboards.message_format')} value={(map.extraFeatures && map.extraFeatures.leaderboards) ? (map.extraFeatures?.leaderboards as LeaderboardFeature).messageFormatting : ""} description={t('Content.Edit.ExtraFeatures.Leaderboards.message_format_description')}/>
-                            </>}
                             {((map.extraFeatures?.leaderboards as LeaderboardFeature)?.use !== false && (map.files && !map.files[0].url?.includes("mccreations.s3"))) && <>
                                 <p>{t.rich('Content.Edit.ExtraFeatures.Leaderboards.help', {link: (chunks) => <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">{chunks}</Link>})}</p>
                             </>}

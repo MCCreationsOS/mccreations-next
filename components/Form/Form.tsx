@@ -40,7 +40,7 @@ export type FormNode = FormElement | Iterable<FormNode> | undefined | React.Reac
  * @param children The FormElements that make up the form
  * @param onSave The function to call when the form is saved 
  */
-export default function FormComponent({id, children, onSave, options}: {id: string, children?: FormNode, onSave: (inputs: string[]) => void, options?: FormOptions}) {
+export default function FormComponent({id, children, onSave, options}: {id: string, children?: FormNode, onSave?: (inputs: string[]) => void, options?: FormOptions}) {
     const t = useTranslations()
     
     const saveForm = () => {
@@ -49,7 +49,7 @@ export default function FormComponent({id, children, onSave, options}: {id: stri
             if(input.getAttribute('name') === 'file') return;
             inputs.push(input.value)
         })
-        onSave(inputs)
+        if(onSave) onSave(inputs)
     }
 
     useEffect(() => {
