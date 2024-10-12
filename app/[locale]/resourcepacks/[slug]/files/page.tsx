@@ -1,6 +1,6 @@
 'use client'
 
-import { convertToCollection, downloadMap, fetchMap, fetchResourcepack } from "@/app/api/content";
+import { convertToCollection, downloadCreation, fetchMap, fetchResourcepack } from "@/app/api/content";
 import { ContentTypes, IContentDoc, IFile } from "@/app/api/types";
 import DownloadButton from "@/components/Buttons/DownloadButton";
 import IconButton from "@/components/Buttons/IconButton";
@@ -37,7 +37,7 @@ export default function Page({ params }: { params: Params }) {
     }
 
     const download = async (url: string) => {
-        await downloadMap(content!.slug)
+        await downloadCreation(content!.slug, content!.type)
         let a = document.createElement('a')
         a.href = url
         a.download = url.split('/').pop()!
@@ -60,7 +60,7 @@ export default function Page({ params }: { params: Params }) {
                         </div>
                         <div className='map_download_stack'>
                             <Rating value={content.rating} content={content} />
-                            {(content.files) ? <DownloadButton slug={content.slug} file={content.files[0]} /> : <></>}
+                            {(content.files) ? <DownloadButton contentType={content.type} slug={content.slug} file={content.files[0]} /> : <></>}
                             <Link className="affiliate_button" title={t(`Content.affiliate`, {type: t('resourcepack', {count: 1})})} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server /></IconButton></Link>
                         </div>
                     </div>

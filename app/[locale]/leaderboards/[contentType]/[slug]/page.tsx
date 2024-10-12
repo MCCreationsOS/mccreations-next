@@ -51,7 +51,7 @@ export default async function Page({params}: {params: Params}) {
                     <div>
                         <h1 className={styles.title}>{creation?.title ?? title}</h1>
                         <div className='map_download_stack'>
-                            {(creation?.files) ? <DownloadButton slug={creation.slug} file={creation.files[0]} />: <></>}
+                            {(creation?.files) ? <DownloadButton contentType={creation.type} slug={creation.slug} file={creation.files[0]} />: <></>}
                             {creation && <Rating value={creation.rating} content={creation} />}
                         </div>
                     </div>
@@ -74,7 +74,7 @@ export default async function Page({params}: {params: Params}) {
                         <div>
                         <Link href={(creation) ? `/${creation.type}s/${creation.slug}` : ""}><h1 className={styles.title}>{creation?.title ?? title}</h1></Link>
                             <div className='map_download_stack'>
-                                {(creation?.files) ? <DownloadButton slug={creation.slug} file={creation.files[0]} />: <></>}
+                                {(creation?.files) ? <DownloadButton contentType={creation.type} slug={creation.slug} file={creation.files[0]} />: <></>}
                                 {creation && <Rating value={creation.rating} content={creation} />}
                             </div>
                         </div>
