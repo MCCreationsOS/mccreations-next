@@ -37,7 +37,7 @@ export default function AddWidgetButton({creator}: {creator: IUser}) {
                 content = <Select name="Type" options={[{name: "All Creations", value: "content"}, {name: "Maps", value: "Maps"}, {name: "Data Packs", value: "datapacks"}, {name: "Resource Packs", value: "resourcepacks"}]} />
                 break
             case "FeaturedCreation":
-                content = <><Select name="Type" options={[{name: "Maps", value: "Maps"}, {name: "Data Packs", value: "datapacks"}, {name: "Resource Packs", value: "resourcepacks"}]} />
+                content = <><Select name="Type" options={[{name: "Maps", value: "map"}, {name: "Data Packs", value: "datapack"}, {name: "Resource Packs", value: "resourcepack"}]} />
                 <Text name="Slug" /></>
                 break
             case "Wall":

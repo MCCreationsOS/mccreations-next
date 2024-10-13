@@ -61,7 +61,11 @@ export default function FeaturedCreation({type, slug, canEdit, id}: {type: Conte
     }, [])
     
     if (!content) {
-        return <div>No content found</div>
+        return <div className={styles.widget_container}>
+            <h3 className={styles.draggable_handle}>{t('Profile.Widgets.FeaturedCreation.title')}</h3>
+            {canEdit && <IconButton className={`${styles.options}`} onClick={editWidget} ><MoreVertical/></IconButton>}
+            No content found
+        </div>
     }
     return (
         <div className={styles.widget_container}>
