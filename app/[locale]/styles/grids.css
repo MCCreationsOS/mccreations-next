@@ -138,6 +138,7 @@
     border-radius: 5px;
     padding: 5px 0 5px 0;
     background-color: #303030;
+    border: none;
 }
 
 .options_dropdown_button {
@@ -155,6 +156,17 @@
     display: flex;
     align-items: center;
     gap: 10px;
+}
+
+.options_dropdown_button.language {
+    display: inline;
+    padding: 5px 15px;
+    background-color: #11111100;
+    color: white;
+    font-size: 1rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .option_button {

@@ -1,9 +1,9 @@
-@import 'grids.css';
 @import 'nav.css';
 @import 'forms.css';
 @import 'mapPage.css';
 @import 'popupPage.css';
 @import 'editor.css';
+@import 'grids.css';
 
 html,
 body {

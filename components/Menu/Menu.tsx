@@ -81,7 +81,7 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                 github: (chunks) => <Link href="https://github.com/MCCreationsOS">{chunks}</Link>
                 })}</div>
             <nav className="nav">
-            <div className="main_nav">
+                <div className="main_nav">
                     <ul className="nav_list">
                         <li className="item brand">
                             <Link href="/" className="brand">
@@ -152,8 +152,15 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                             <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
                             <p className="brand_name">{t('brand')}<Badge color="red">{t('Navigation.badge')}</Badge></p>
                         </Link>
-                        <LanguageSwitcher />
                     </div>
+                    <ul className="action_list">
+                        <li className="action_item">
+                            <LanguageSwitcher />
+                        </li>
+                        <li className="action_item">
+                            <UserOptions />
+                        </li>
+                    </ul>
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">
                             <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('Navigation.home')}</Link>
@@ -200,9 +207,6 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                             )}}>
                                 {t('Navigation.CreateForm.title')}
                             </HollowButton>
-                        </li>
-                        <li className='item'>
-                            <UserOptions />
                         </li>
                         
                     </ul>

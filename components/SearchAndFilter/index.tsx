@@ -119,14 +119,17 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
 
     const updateSearch = (search: string) => {
         setSearch(search);
+        closePopups()
     }
     
     const updateSort = (sort: SortOptions) => {
         setSort(sort);
+        closePopups()
     }
     
     const updateStatus = (status: StatusOptions) => {
         setStatus(status);
+        closePopups()
     }
 
     
@@ -136,6 +139,7 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
         updateStatus(status!);
         router.push(`?search=${search}&sort=${sort}&status=${status}&include=${includeTags.join(",")}&exclude=${excludeTags.join(",")}`)
         callback(search, sort, status, includeTags, excludeTags);
+        setFiltering(false)
     }
 
     return (
