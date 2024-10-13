@@ -66,7 +66,7 @@ export default function SidebarFilters({callback, contentType}: {callback: Funct
     
     return (
         <div className="sidebar_filters">
-            <h3>Sort</h3>
+            <h3>{t('SearchAndFilter.sort_by')}</h3>
             <DropDown buttonClassName="options_dropdown_button" buttonLabel={t(`SearchAndFilter.Sort.${sort}`)}>
                 <div className="option_dropdown">
                     <button onClick={() => setSort(SortOptions.Newest)} className="option_button">{t('SearchAndFilter.Sort.newest')}</button>
@@ -82,7 +82,7 @@ export default function SidebarFilters({callback, contentType}: {callback: Funct
                     <button onClick={() => setSort(SortOptions.CreatorDescending)} className="option_button">{t('SearchAndFilter.Sort.creator_descending')}</button>
                 </div>
             </DropDown>
-            <h3>Status</h3>
+            <h3>{t('SearchAndFilter.status')}</h3>
             <DropDown buttonClassName="options_dropdown_button" buttonLabel={t(`Status.${(StatusOptions[status] === "Unapproved") ? "unapproved" : (StatusOptions[status] === "Approved") ? "approved" : "featured"}`)}>
                 <div className="option_dropdown">
                     <button onClick={() => {setStatus(StatusOptions.Unapproved)}} className="option_button">{t('Status.unapproved')}</button>
@@ -91,7 +91,7 @@ export default function SidebarFilters({callback, contentType}: {callback: Funct
                 </div>
             </DropDown>
             <div>
-            <h3>Tags</h3>
+            <h3>{t('SearchAndFilter.tags')}</h3>
             <div className={styles.tags_list}>
                 {tags && Object.keys(tags).map((category, idx) => {
                     return (

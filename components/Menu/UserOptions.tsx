@@ -4,7 +4,7 @@ import { use, useEffect, useState } from "react"
 import Image from "next/image"
 import { IUser, UserTypes } from "@/app/api/types"
 import { Link } from "@/app/api/navigation";
-import { LogOut, Settings, Table, User } from "react-feather"
+import { LogOut, Settings, Table, User, UserPlus } from "react-feather"
 import { useRouter } from "next/navigation"
 import { getUser, useUserStore } from "@/app/api/auth"
 import HollowButton from "../Buttons/HollowButton"
@@ -53,7 +53,8 @@ export default function UserOptions() {
     if(!user._id) {
         return (
             <div className="user_menu">
-                <Link href="/signin"><HollowButton>{t('Navigation.UserOptions.sign_in')}</HollowButton></Link>
+                <Link className="sign_in_button" href="/signin"><HollowButton>{t('Navigation.UserOptions.sign_in')}</HollowButton></Link>
+                <Link className="sign_in_icon" href="/signup"><UserPlus /></Link>
             </div>
         )
     }
