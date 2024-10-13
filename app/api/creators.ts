@@ -18,9 +18,9 @@ export const useProfileLayoutStore = create<ProfileLayoutStore>(set => ({
             {type: "SupportSite", id: "2", data: {}},
         ],
         layout: [
-            {i: "0", x: 0, y: 0, w: 12, h: 6},
-            {i: "1", x: 0, y: 5, w: 6, h: 6},
-            {i: "2", x: 6, y: 5, w: 6, h: 6}
+            {i: "0", x: 0, y: 0, w: 24, h: 6},
+            {i: "1", x: 0, y: 5, w: 12, h: 6},
+            {i: "2", x: 12, y: 5, w: 12, h: 6}
         ]
     },
     setProfileLayout: (profileLayout: ProfileLayout) => {
