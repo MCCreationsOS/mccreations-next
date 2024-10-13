@@ -1,6 +1,6 @@
 'use client'
 
-import { convertToCollection, downloadMap, fetchMap } from "@/app/api/content";
+import { convertToCollection, downloadCreation, fetchMap } from "@/app/api/content";
 import { ContentTypes, IContentDoc, IFile } from "@/app/api/types";
 import DownloadButton from "@/components/Buttons/DownloadButton";
 import IconButton from "@/components/Buttons/IconButton";
@@ -37,7 +37,7 @@ export default function Page({ params }: { params: Params }) {
     }
 
     const download = async (url: string) => {
-        await downloadMap(content!.slug, content!.type)
+        await downloadCreation(content!.slug, content!.type)
         let a = document.createElement('a')
         a.href = url
         a.download = url.split('/').pop()!

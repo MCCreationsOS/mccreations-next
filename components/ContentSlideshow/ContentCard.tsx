@@ -10,7 +10,7 @@ import InContentAdUnit from "../AdUnits/InContent"
 import IconButton from "../Buttons/IconButton"
 import { Archive, Box, CheckSquare, Download, Layers, Map, Package, Square } from "react-feather"
 import { useEffect, useState } from "react"
-import { downloadMap } from "@/app/api/content"
+import { downloadCreation } from "@/app/api/content"
 import { useLocale, useTranslations } from "use-intl";
 
 export interface IContentCardProps {
@@ -83,7 +83,7 @@ export default function ContentCard(props: IContentCardProps) {
 
     const downloadButtonClicked = async () => {
         let file = props.content.files[0]
-        await downloadMap(props.content.slug)
+        await downloadCreation(props.content.slug, props.content.type)
         let files: NewFile[] = [{url: file.url ?? file.worldUrl ?? file.dataUrl ?? file.resourceUrl ?? "", required: true, type: file.type}]
         file.extraFiles && files.push(...file.extraFiles)
 

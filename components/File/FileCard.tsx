@@ -1,18 +1,18 @@
 'use client'
-import { IFile } from "@/app/api/types";
+import { ContentTypes, IFile } from "@/app/api/types";
 import { Archive, Layers, Package } from "react-feather";
 import styles from './FileCard.module.css';
 import IconButton from "../Buttons/IconButton";
-import { downloadMap } from "@/app/api/content";
+import { downloadCreation } from "@/app/api/content";
 
 /**
  * A card that displays download options for a file
  * @param file The file to display
  * @param download The function to call when a download button is clicked
  */
-export default function FileCard({file, slug}: {file: IFile, slug: string}) {
+export default function FileCard({file, slug, contentType}: {file: IFile, slug: string, contentType: ContentTypes   }) {
     const download = async (url: string) => {
-        await downloadMap(slug)
+        await downloadCreation(slug, contentType)
         let a = document.createElement('a')
         a.href = url
         a.download = url.split('/').pop()!

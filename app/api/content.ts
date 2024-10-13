@@ -223,7 +223,7 @@ export async function fetchTags(type: CollectionNames) {
     }
 }
 
-export async function downloadMap(slug: string, contentType: ContentTypes) {
+export async function downloadCreation(slug: string, contentType: ContentTypes) {
     try {
         await fetch(`${process.env.DATA_URL}/${contentType}s/${slug}/download`)
         return;
