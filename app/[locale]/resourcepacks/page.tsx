@@ -3,7 +3,7 @@ import ContentGrid from "@/components/ContentGrid"
 import ContentCard from "@/components/ContentSlideshow/ContentCard"
 import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
-import { Link } from "@/app/api/navigation";
+import Link from "next/link";
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
 import { Filter } from "react-feather"

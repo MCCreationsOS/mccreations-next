@@ -3,7 +3,7 @@ import ContentGrid from "@/components/ContentGrid"
 import ContentCard from "@/components/ContentSlideshow/ContentCard"
 import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
-import { Link } from "@/app/api/navigation";
+import Link from "next/link";
 import { searchContent } from "@/app/api/content"
 import { useEffect, useState } from "react"
 import { useCallback } from "react"
@@ -91,8 +91,9 @@ export default function Datapacks() {
 
     const findDatapacks = async (search: string, sort: SortOptions, status: StatusOptions, includeTags: string, excludeTags: string) => {
         setLoading(true)
-        let m = await searchContent({contentType: CollectionNames.Datapacks, sort: sort, limit: 20, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
+        let m = await searchContent({contentType: CollectionNames.Datapacks, sort: sort, limit: 19, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
         setLoading(false);
+        console.log(m.documents)
         setDatapacks(m.documents);
         setPages(Math.ceil(m.totalCount / 20.0))
     }
