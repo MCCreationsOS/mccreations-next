@@ -627,5 +627,55 @@
         "submit_score_description": "Your score was {score}",
         "submit": "Submit",
         "username": "Username"
+    },
+
+    "Profile": {
+        "Widgets": {
+            "Discord": {
+                "title": "Discord",
+                "edit_title": "Edit Discord Widget",
+                "server_id": "ID сервера"
+            },
+            "FeaturedCreation": {
+                "title": "Featured Creation",
+                "edit_title": "Edit Featured Creation Widget",
+                "type": "Тип",
+                "slug": "Slug"
+            },
+            "Image": {
+                "edit_title": "Edit Image Widget",
+                "image": "Image",
+                "title": "Название"
+            },
+            "Showcase": {
+                "title": "Создания",
+                "edit_title": "Edit Showcase Widget",
+                "type": "Тип"
+            },
+            "SupportSite": {
+                "title": "Поддержать сайт",
+                "edit_title": "Edit Support Site Widget"
+            },
+            "Text": {
+                "edit_title": "Edit Text Widget",
+                "text": "Текст",
+                "title": "Название"
+            },
+            "Twitch": {
+                "title": "Twitch",
+                "edit_title": "Edit Twitch Widget",
+                "handle": "Twitch Username"
+            },
+            "Wall": {
+                "title": "Стена",
+                "edit_title": "Edit Wall Widget"
+            },
+            "Youtube": {
+                "title": "YouTube",
+                "edit_title": "Edit YouTube Widget",
+                "handle": "YouTube Handle"
+            },
+            "delete_widget": "Delete Widget"
+        }
     }
 }
