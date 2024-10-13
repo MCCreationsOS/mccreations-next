@@ -35,7 +35,7 @@ export default function SupportSite({canEdit, id}: {canEdit: boolean, id: string
         <div className={styles.widget_container}>
             <h3 className={styles.draggable_handle}>{t('Profile.Widgets.SupportSite.title')}</h3>
             {canEdit && <IconButton className={`${styles.options}`} onClick={editWidget} ><MoreVertical/></IconButton>}
-            <AdsenseComponent adSlot={7972645086} adFormat={"fluid"} adClient='ca-pub-5425604215170333' adLayout={undefined} width="100%" height="100%" />
+            <AdsenseComponent adSlot={9704091120} adFormat={"fluid"} adClient='ca-pub-5425604215170333' adLayout={undefined} width="100%" height="100%" />
         </div>
     )
 }
