@@ -201,7 +201,9 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
                             </div>
                         )
                     })}
-                    <WarningButton onClick={() => {updateSearch(""); updateSort(SortOptions.Newest); updateStatus(2); setExcludeTags([]); setIncludeTags([])}}>{t('SearchAndFilter.clear_filters')}</WarningButton>
+                    <div className="clear_filters">
+                        <WarningButton onClick={() => {updateSearch(""); updateSort(SortOptions.Newest); updateStatus(2); setExcludeTags([]); setIncludeTags([])}}>{t('SearchAndFilter.clear_filters')}</WarningButton>
+                    </div>
                 </div>
         </div>
     )
