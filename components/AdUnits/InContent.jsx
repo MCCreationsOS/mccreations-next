@@ -46,7 +46,6 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
         try {
             (window.adsbygoogle = window.adsbygoogle || []).push({});
         } catch (err) {
-            console.log(err);
         }
     }, []);
 
@@ -57,7 +56,6 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
             try {
                 (window.adsbygoogle = window.adsbygoogle || []).push({});
             } catch (err) {
-                console.log(err);
             }
             setTimeout(() => {
                 setRender(false)
