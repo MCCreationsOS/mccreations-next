@@ -201,51 +201,33 @@
     }
   }
 
+
+  .user_menu {
+    background: none;
+    border: none;
+  }
+
   .user_menu .icon {
     border-radius: 50%;
     object-fit: cover;
     margin-left: 40px;
   }
 
-  .user_menu .options {
-    position: absolute;
-    top: 100%;
-    right: 0%;
-    background-color: #272727;
-    padding: 10px 15px;
-    border: 1px solid #474747;
-    box-shadow: 3px 3px 10px #000000;
-    border-radius: 5px;
-    width: 250px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .user_menu .options .option {
+  .user_menu .option_button {
     padding: 8px;
     border-radius: 5px;
+    margin: 0 10px;
   }
 
-  .user_menu .options .option:hover {
-    background-color: #373737;
+  .user_menu .option_button svg {
+    margin-right: 5px;
   }
 
-  .options .option.icon {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    margin-left: 0;
-  }
-
-  .options .option svg {
-    margin-right: 10px;
-  }
-
-  .options .option .display_name {
+  .user_menu .option_button .display_name {
     margin: 0 0 5px 0;
   }
 
-  .options .option .email {
+  .user_menu .option_button .email {
     color: #888;
     font-size: 0.9rem;
     margin: 0;

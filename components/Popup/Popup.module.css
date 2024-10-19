@@ -46,6 +46,7 @@
     width: 100vw;
     height: 100vh;
     top: 0%;
+    display: none;
 }
 
 @media screen and (max-width: 1920px) {
@@ -62,9 +63,18 @@
     }
 }
 
+.popup.visible {
+    opacity: 1;
+    animation: popup 0.2s;
+}
+
+.background.visible {
+    display: block;
+    animation: background 0.2s;
+}
+
 .visible {
     display: block;
-    animation: popup 0.2s;
 }
 
 .hidden {
@@ -73,9 +83,20 @@
 
 @keyframes popup {
     from {
-        transform: translate(0, -50px);
+        transform: translate(0, -50px) scale(0.9);
+        opacity: 0;
     }
     to {
-        transform: translate(0, 0);
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes background {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.5;
     }
 }

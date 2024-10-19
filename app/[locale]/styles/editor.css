@@ -531,11 +531,11 @@
     z-index: 100;
     display: block;
     position: fixed;
-    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    box-shadow: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     min-height: 40px;
     background-color: #171717;
+    animation: popUp 0.2s ease;
   }
   
   .dropdown .item {
@@ -605,4 +605,15 @@
     background-color: #eee;
     margin: 4px 8px;
     height: 1px;
+  }
+
+  @keyframes popUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(10px) scale(0.9); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0px) scale(1); 
+    }
   }
