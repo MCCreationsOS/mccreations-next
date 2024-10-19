@@ -1,3 +1,5 @@
+"use client"
+
 import { CollectionNames, SortOptions, StatusOptions, TagCategories, TagKeys } from "@/app/api/types";
 import DropDown from "../FormInputs/RichText/DropDown";
 import { useEffect, useState } from "react";
@@ -6,7 +8,7 @@ import styles from './index.module.css'
 import { fetchTags } from "@/app/api/content";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function SidebarFilters({callback, contentType}: {callback: Function, contentType: CollectionNames}) {
+export default function SidebarFilters({contentType}: {contentType: CollectionNames}) {
     const t = useTranslations()
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -37,12 +39,12 @@ export default function SidebarFilters({callback, contentType}: {callback: Funct
         return (
             <div className={`${styles.tag} ${(includeTags.includes(tagValue)) ? styles.include : ""} ${(excludeTags.includes(tagValue)) ? styles.exclude : ""}`} onClick={() => {
                 if(includeTags.includes(tagValue)) {
-                    setIncludeTags(includeTags.filter((t) => t != tagValue))
-                    setExcludeTags([...excludeTags, tagValue])
+                    setIncludeTags(prev => prev.filter((t) => t != tagValue))
+                    setExcludeTags(prev => [...prev, tagValue])
                 } else if(excludeTags.includes(tagValue)) {
-                    setExcludeTags(excludeTags.filter((t) => t != tagValue))
+                    setExcludeTags(prev => prev.filter((t) => t != tagValue))
                 } else {
-                    setIncludeTags([...includeTags, tagValue])
+                    setIncludeTags(prev => [...prev, tagValue])
                 }
             }}>
                 {tag}
@@ -61,7 +63,7 @@ export default function SidebarFilters({callback, contentType}: {callback: Funct
         params.set("includeTags", includeTags.join(","))
         params.set("excludeTags", excludeTags.join(","))
         router.push(`?${params.toString()}`);
-        callback(params.get('search'), sort, status, includeTags, excludeTags);
+        // router.refresh()
     }
     
     return (

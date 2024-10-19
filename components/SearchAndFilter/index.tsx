@@ -1,21 +1,19 @@
+"use client"
+
 import { CollectionNames, SortOptions, StatusOptions, StatusStrings, TagCategories, TagKeys, Tags } from "@/app/api/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { DownloadCloud, Filter, Search } from "react-feather";
-import SecondaryButton from "../Buttons/SecondaryButton";
+import { Filter, Search } from "react-feather";
 import styles from './index.module.css'
-import MainButton from "../Buttons/MainButton";
 import WarningButton from "../Buttons/WarningButton";
-import FormComponent from "../Form/Form";
 import { fetchTags } from "@/app/api/content";
 import IconButton from "../Buttons/IconButton";
 import BulkDownloadButton from "../Buttons/BulkDownloadButton";
 import {useTranslations} from 'next-intl';
 
-export default function SearchAndFilter({callback, contentType}: {callback: Function, contentType: CollectionNames}) {
+export default function SearchAndFilter({contentType, tags}: {contentType: CollectionNames, tags: {[key: string]: string[]}}) {
     const searchParams = useSearchParams()
     const [filtering, setFiltering] = useState(false);
-    const [tags, setTags] = useState<{[key: string]: string[]}>()
     
     const [search, setSearch] = useState("")
     
@@ -71,12 +69,6 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
 
     useEffect(() => {
 
-        fetchTags(contentType).then((data) => {
-            if('genre' in data) {
-                setTags(data)
-            }
-        })
-
         if(searchParams.get("search") && searchParams.get("search") != search) {
             setSearch(searchParams.get("search") + "")
         }
@@ -93,12 +85,12 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
         return (
             <div className={`${styles.tag} ${(includeTags.includes(tagValue)) ? styles.include : ""} ${(excludeTags.includes(tagValue)) ? styles.exclude : ""}`} onClick={() => {
                 if(includeTags.includes(tagValue)) {
-                    setIncludeTags(includeTags.filter((t) => t != tagValue))
-                    setExcludeTags([...excludeTags, tagValue])
+                    setIncludeTags(prev => prev.filter((t) => t != tagValue))
+                    setExcludeTags(prev => [...prev, tagValue])
                 } else if(excludeTags.includes(tagValue)) {
-                    setExcludeTags(excludeTags.filter((t) => t != tagValue))
+                    setExcludeTags(prev => prev.filter((t) => t != tagValue))
                 } else {
-                    setIncludeTags([...includeTags, tagValue])
+                    setIncludeTags(prev => [...prev, tagValue])
                 }
             }}>
                 {tag}
@@ -134,12 +126,14 @@ export default function SearchAndFilter({callback, contentType}: {callback: Func
 
     
     const performSearch = () => {
-        updateSearch(search);
-        updateSort(sort!);
-        updateStatus(status!);
-        router.push(`?search=${search}&sort=${sort}&status=${status}&include=${includeTags.join(",")}&exclude=${excludeTags.join(",")}`)
-        callback(search, sort, status, includeTags, excludeTags);
-        setFiltering(false)
+        const params = new URLSearchParams(searchParams)
+        params.set("search", search)
+        params.set("sort", sort)
+        params.set("status", status.toString())
+        params.set("includeTags", includeTags.join(","))
+        params.set("excludeTags", excludeTags.join(","))
+        router.push(`?${params.toString()}`)
+        // router.refresh()
     }
 
     return (
