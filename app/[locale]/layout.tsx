@@ -9,6 +9,10 @@ import Script from 'next/script'
 import {NextIntlClientProvider} from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server'
 
+import "/node_modules/react-grid-layout/css/styles.css"
+import "/node_modules/react-resizable/css/styles.css"
+import './styles/globals.css'
+
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mccreations.net'),
