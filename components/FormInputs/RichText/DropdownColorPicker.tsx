@@ -34,7 +34,8 @@ export default function DropdownColorPicker({
     <DropDown
       {...rest}
       disabled={disabled}
-      stopCloseOnClickSelf={stopCloseOnClickSelf}>
+      stopCloseOnClickSelf={stopCloseOnClickSelf}
+      useButtonWidth={false}>
       <ColorPicker color={color} onChange={onChange} />
     </DropDown>
   );
