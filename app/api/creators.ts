@@ -10,19 +10,21 @@ type ProfileLayoutStore = {
     updateProfileLayout: (profileLayout: ProfileLayout) => void
 }
 
+export const defaultProfileLayout: ProfileLayout = {
+    widgets: [
+        {type: "Showcase", id: "0", data: {type: "content"}},
+        {type: "Wall", id: "1", data: {}},
+        {type: "SupportSite", id: "2", data: {}},
+    ],
+    layout: [
+        {i: "0", x: 0, y: 0, w: 24, h: 6},
+        {i: "1", x: 0, y: 5, w: 12, h: 6},
+        {i: "2", x: 12, y: 5, w: 12, h: 6}
+    ]
+}
+
 export const useProfileLayoutStore = create<ProfileLayoutStore>(set => ({
-    profileLayout: {
-        widgets: [
-            {type: "Showcase", id: "0", data: {type: "content"}},
-            {type: "Wall", id: "1", data: {}},
-            {type: "SupportSite", id: "2", data: {}},
-        ],
-        layout: [
-            {i: "0", x: 0, y: 0, w: 24, h: 6},
-            {i: "1", x: 0, y: 5, w: 12, h: 6},
-            {i: "2", x: 12, y: 5, w: 12, h: 6}
-        ]
-    },
+    profileLayout: defaultProfileLayout,
     setProfileLayout: (profileLayout: ProfileLayout) => {
         set({profileLayout})
     },

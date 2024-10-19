@@ -8,7 +8,7 @@ import widgetStyles from './Widgets/ProfileWidget.module.css'
 import { updateProfileLayout, useUserStore } from "@/app/api/auth"
 import { IUser } from "@/app/api/types"
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage"
-import { useProfileLayoutStore } from "@/app/api/creators"
+import { defaultProfileLayout, useProfileLayoutStore } from "@/app/api/creators"
 import { getCreator } from "@/app/api/community"
 const GridLayout = WidthProvider(Responsive)
 
@@ -34,6 +34,8 @@ export default function CustomizableProfileArea({creator}: {creator: IUser}) {
         getCreator(creator.handle + "").then((c) => {
             if(c.profileLayout) {
                 setProfileLayout(c.profileLayout)
+            } else {
+                setProfileLayout(defaultProfileLayout)
             }
             setWindowWidth(window.innerWidth)
         })
