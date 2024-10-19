@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import Footer from '@/components/Footer/Footer'
 import { Metadata } from 'next'
+import Loading from './loading'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://mccreations.net'),
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
 export default function DatapacksLayout({ params: { locale }, children }: { params: { locale: string }, children: React.ReactNode}) {
   return (
      <>
-           <Suspense>
+           <Suspense fallback={<Loading />}>
                {children}
            </Suspense>
      </>

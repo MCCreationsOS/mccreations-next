@@ -39,7 +39,6 @@ export default async function Page({ params: { locale } }: { params: { locale: s
     const featured = (await searchContent({ contentType: "content", status: 3, limit: 5 }, false)).documents
     return (
         <>
-            <Menu selectedPage='home'></Menu>
             {(featured) ? (<FeaturedSlideshow content={featured} />) : "MCCreations API Error"}
             <h2 className="playlist_header">{t('Home.Playlists.new_content')}</h2>
             <Suspense fallback={<GridSkeleton amount={4} />}>

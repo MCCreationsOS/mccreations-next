@@ -84,7 +84,6 @@ export default function Page({params}: {params: Params}) {
 
     return (
         <>
-            <Menu selectedPage="" />
             <div className='centered_content'>
                 <Suspense>
                     <FormComponent id="add_language" onSave={saveLanguage} options={{stickyButtons: true, saveButtonContent: "Send"}}>

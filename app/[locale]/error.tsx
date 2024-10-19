@@ -16,7 +16,6 @@ export default function Error({ error, reset, }: { error: Error & { digest?: str
 
     return (
         <>
-            <MenuSkeleton />
             <div className='centered_content'>
                 <h1>{t('Error.title')}</h1>
                 <p>{t('Error.description')}</p>

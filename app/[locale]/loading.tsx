@@ -1,9 +1,11 @@
-import MenuSkeleton from "@/components/skeletons/MenuSkeleton";
+import FeaturedSkeleton from "@/components/skeletons/FeaturedSkeleton";
+import GridSkeleton from "@/components/skeletons/GridSkeleton";
 
 export default function Loading() {
     return (
         <>
-        <MenuSkeleton></MenuSkeleton>
+            <FeaturedSkeleton />
+            <GridSkeleton amount={20} />
         </>
     )
 }

@@ -10,7 +10,6 @@ export default function Page() {
     const t = useTranslations()
     return (
         <>
-        <Menu selectedPage="" />
         <h1 style={{marginLeft: "20px"}}>{t('Dashboard.title')}</h1>
         <Tabs tabs={[
             {

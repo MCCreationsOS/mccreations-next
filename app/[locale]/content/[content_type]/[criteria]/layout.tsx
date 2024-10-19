@@ -109,7 +109,6 @@ export default function StaticContentPageLayout({ children, params }: {children:
   
    return (
           <Suspense>
-            <Menu selectedPage={params.content_type}></Menu>
               {children}
           </Suspense>
   )

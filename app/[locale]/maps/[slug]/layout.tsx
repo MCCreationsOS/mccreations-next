@@ -30,7 +30,6 @@ export default function MapPageLayout({ children, params }: {children: React.Rea
 
  return (
         <Suspense>
-          <Menu selectedPage={"maps"}></Menu>
             {children}
         </Suspense>
   )

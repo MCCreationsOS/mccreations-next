@@ -30,7 +30,6 @@ export default function DatapackPageLayout({ children, params }: {children: Reac
 
  return (
         <Suspense>
-          <Menu selectedPage={"datapacks"}></Menu>
             {children}
         </Suspense>
   )

@@ -12,7 +12,6 @@ export default function NotFound({ params }: { params: Params}) {
     unstable_setRequestLocale(params?.locale  ?? "en-US");
     return (
         <>
-            <MenuSkeleton />
             <div className="centered-content">
                 <h1>Page not found</h1>
             </div>

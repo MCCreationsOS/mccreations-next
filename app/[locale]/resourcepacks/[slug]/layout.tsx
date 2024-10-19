@@ -29,7 +29,6 @@ export default function ResourcepackPageLayout({ children, params }: {children: 
 
  return (
         <Suspense>
-          <Menu selectedPage={"resourcepacks"}></Menu>
             {children}
         </Suspense>
   )

@@ -6,7 +6,6 @@ import { shimmer, toBase64 } from '@/components/skeletons/imageShimmer'
 export default function ProfileLoading() {
     return (
         <>
-         <Menu selectedPage="" />
         <div className={styles.profile_page}>
             <div className={styles.profile_card}>
                 <Image className={styles.banner} width={1920} height={540} src={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} alt=""></Image>

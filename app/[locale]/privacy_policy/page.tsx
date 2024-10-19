@@ -3,7 +3,6 @@ import { Link } from "@/app/api/navigation";
 
 export default function Page() {
     return (<>
-    <Menu selectedPage="none" />
     <div className="centered_content">
 
         <h1>Privacy Policy</h1>

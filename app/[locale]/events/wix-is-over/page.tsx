@@ -30,7 +30,6 @@ export const metadata: Metadata = {
 export default function Page() {
     return (
         <>
-        <Menu selectedPage="events" />
         <div className="centered_content">
             <Image src="/wix-is-over.jpg" style={{width: "100%", height: "auto"}} width={1920} height={1080} alt="Submit your map for $1000 plus another $1000 in bonus prizes. MCCreations Wix is Over Giveaway."/>
             <div className="centered_content">

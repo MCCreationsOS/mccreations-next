@@ -28,7 +28,6 @@ export const metadata: Metadata = {
 export default function SignUpLayout({ params: { locale }, children }: { params: { locale: string }, children: React.ReactNode}) {
     return (
         <>
-        <Menu selectedPage="/" />
             {children}
         </>
     )

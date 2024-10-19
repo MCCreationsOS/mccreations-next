@@ -43,7 +43,6 @@ export default async function ContentSearchPage({searchParams, contentType, path
     
     return (
         <div>
-            <Menu selectedPage={pathname.replace("/", "")}></Menu>
             <SearchAndFilter contentType={contentType} tags={tags}/>
             { creations && creations.length !== 0 && (
                 <div className="page_with_sidebar">

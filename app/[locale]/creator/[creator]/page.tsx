@@ -65,7 +65,6 @@ export default async function ProfilePage({params}: {params: Params}) {
     
     return (
         <>
-        <Menu selectedPage="" />
         <div className={styles.profile_page}>
             <ProfileCard creator={c} />
             <CustomizableProfileArea creator={c} />

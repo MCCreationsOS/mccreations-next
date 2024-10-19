@@ -325,7 +325,6 @@ export default function OauthHandlerPage() {
 
     return (
         <>
-            <Menu selectedPage="" />
             <div className="popup_page">
                 <div className="popup centered_content small">
                     {t('Auth.OAuth.loading')}

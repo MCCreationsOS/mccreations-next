@@ -36,7 +36,6 @@ export default function Page() {
 
     return (
         <>
-        <Menu selectedPage="" />
         <Tabs tabs={[
             {
                 content: <ContentAdminTable contentType={CollectionNames.Maps} jwt={jwt!} />,

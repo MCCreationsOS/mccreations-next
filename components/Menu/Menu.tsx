@@ -17,11 +17,7 @@ import Select from "../FormInputs/Select"
 import { createDonation } from "@/app/api/payments";
 import { useTranslations } from "next-intl";
 
-/**
- * The menu for the site
- * @param selectedPage The currently selected page
- */
-export default function Menu({selectedPage}: {selectedPage: string}) {
+export default function Menu() {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
     const uploading = useRef(false)
     const t = useTranslations()
@@ -90,16 +86,16 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                             </Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('Navigation.home')}</Link>
+                            <Link className={"link"} href="/">{t('Navigation.home')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">{t('map', {count: 2})}</Link>
+                            <Link className={"link"} href="/maps">{t('map', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
+                            <Link className={"link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
+                            <Link className={"link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
                         </li>
                     </ul>
                     <ul className='action_list'>
@@ -163,16 +159,16 @@ export default function Menu({selectedPage}: {selectedPage: string}) {
                     </ul>
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">
-                            <Link className={(selectedPage == 'home') ? "link selected" : "link"} href="/">{t('Navigation.home')}</Link>
+                            <Link className={"link"} href="/">{t('Navigation.home')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'maps') ? "link selected" : "link"} href="/maps">{t('map', {count: 2})}</Link>
+                            <Link className={"link"} href="/maps">{t('map', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'datapacks') ? "link selected" : "link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
+                            <Link className={"link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(selectedPage == 'resourcepacks') ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
+                            <Link className={"link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
                         </li>
                         <li className='item'>
                             <HollowButton onClick={() => {Popup.createPopup({

@@ -12,6 +12,7 @@ import { getLocale, getMessages } from 'next-intl/server'
 import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
 import './styles/globals.css'
+import Menu from '@/components/Menu/Menu'
 
 
 export const metadata: Metadata = {
@@ -53,6 +54,7 @@ export default async function RootLayout({params: { locale }, children}: {params
         <NextIntlClientProvider messages={messages}>
           <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333" crossOrigin="anonymous"></Script>
           <PopupMessageComponent />
+          <Menu />
           <Suspense fallback={<Loading />}>
               {children}
           </Suspense>

@@ -3,7 +3,6 @@ import Menu from "@/components/Menu/Menu";
 export default function Page() {
     return (
         <>
-        <Menu selectedPage="none" />
             <div className="centered_content">
                 <h1>Privacy Notice for California Residents</h1>
                 <p><strong>Effective Date: </strong><em>August 5th, 2023</em></p><p>
