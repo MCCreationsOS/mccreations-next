@@ -1,8 +1,5 @@
 import { Link } from "@/app/api/navigation";
 import Image from "next/image";
-import download from 'public/download.svg'
-import heart from 'public/heart.svg';
-import map from 'public/map.svg'
 import { shimmer, toBase64 } from "./imageShimmer";
 import MainButton from '../Buttons/MainButton';
 
@@ -19,9 +16,9 @@ export default function FeaturedSkeleton() {
                     <p className="description"></p>
                     <p className="author"></p>
                     <div className='stats'>
-                        <div className="cardStat"><Image className="inTextIcon" src={download} alt=""></Image></div>
-                        <div className="cardStat"><Image className="inTextIcon" src={heart} alt=""></Image></div>
-                        <div className='cardStat'><Image className="inTextIcon" src={map} alt=""></Image></div>
+                        <div className="cardStat"><Image className="inTextIcon" src={"/download.svg"} alt="" width={16} height={16}></Image></div>
+                        <div className="cardStat"><Image className="inTextIcon" src={"/heart.svg"} alt="" width={16} height={16}></Image></div>
+                        <div className='cardStat'><Image className="inTextIcon" src={"/map.svg"} alt="" width={16} height={16}></Image></div>
                     </div>
                     <MainButton>See More!</MainButton>
                     <div>

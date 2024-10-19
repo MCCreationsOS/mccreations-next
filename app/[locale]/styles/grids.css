@@ -131,7 +131,7 @@
 }
 
 .sidebar_filters {
-    max-width: 300px;
+    width: 300px;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -195,6 +195,16 @@
     background-color: #3a3a3a;
 }
 
+.option_button.no-flex {
+    text-align: left;
+    display: block;
+}
+
+.option_button.break-line {
+    border-bottom: 1px solid gray;
+    margin-bottom: 10px;
+}
+
 @media screen and (min-width: 1900px) {
     .content_grid {
         display: grid;
@@ -205,7 +215,7 @@
     }
 
     .sidebar_filters {
-        max-width: 400px;
+        width: 400px;
     }
     
 }
@@ -220,7 +230,7 @@
     }
 
     .sidebar_filters {
-        max-width: 300px;
+        width: 300px;
     }
 }
 
@@ -239,7 +249,7 @@
     }
 
     .sidebar_filters {
-        max-width: 250px;
+        width: 250px;
     }
 }
 
