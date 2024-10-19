@@ -1,18 +1,15 @@
 import Menu from "@/components/Menu/Menu"
-import ContentGrid from "@/components/ContentGrid";
-import ContentCard from "@/components/ContentSlideshow/ContentCard";
 import FeaturedSlideshow from "@/components/FeaturedSlideshow/FeaturedSlideshow";
 import { searchContent } from "@/app/api/content";
-import Error from "@/components/Error";
-import ContentSlideshow from "@/components/ContentSlideshow/ContentSlideshow";
 import './styles/homepage.css'
-import { IContentDoc, QueryOptions, SortOptions } from "../api/types";
+import { QueryOptions, SortOptions } from "../api/types";
 import ContentArea from "@/components/ContentArea/ContentArea";
 import { Suspense } from "react";
 import GridSkeleton from "@/components/skeletons/GridSkeleton";
 import { AdsenseComponent } from "@/components/AdUnits/InContent";
 import { getTranslations } from "next-intl/server";
 
+export const dynamic = 'force-dynamic'
 
 export default async function Page({ params: { locale } }: { params: { locale: string } }) {
     const t = await getTranslations();

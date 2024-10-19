@@ -9,6 +9,8 @@ import { Metadata, ResolvingMetadata } from "next"
 import { getTranslations } from "next-intl/server"
 import CustomizableProfileArea from "@/components/Profile/CustomizableProfileArea"
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({ params }: {params: Params}, parent: ResolvingMetadata): Promise<Metadata> {
     const id = params.creator
     const t = await getTranslations();
