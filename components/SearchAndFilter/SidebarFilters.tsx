@@ -101,7 +101,7 @@ export default function SidebarFilters({contentType}: {contentType: CollectionNa
                         {t(`Content.Tags.${category as TagCategories}`)}
                         <div>
                             <div className={styles.tags_list}>
-                                {tags[category].map((tag,idx) => <Tag key={idx} tagValue={tag} tag={t(`Content.Tags.${tag as TagKeys}`)} />)}
+                                {tags[category].map((tag,idx) => <Tag key={tag} tagValue={tag} tag={t(`Content.Tags.${tag as TagKeys}`)} />)}
                             </div>
                         </div>
                     </div>

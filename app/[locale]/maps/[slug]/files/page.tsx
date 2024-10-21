@@ -79,7 +79,7 @@ export default function Page({ params }: { params: Params }) {
                         </div>
                     </div>
                     {content.files && content.files.map((file: IFile, idx) => (
-                        <div className={styles.content_item} key={idx}>
+                        <div className={styles.content_item} key={file.createdDate}>
                             <div className={styles.content_item_item}>
                                 <p>{file.contentVersion || formatFileURL(file)}</p>
                             </div>
@@ -94,7 +94,7 @@ export default function Page({ params }: { params: Params }) {
                                         <IconButton onClick={() => { download(file.url!) }}>{(file.type === "map") ? <Archive /> : (file.type === 'resourcepack') ? <Layers /> : <Package />} </IconButton>
                                         {file.extraFiles && file.extraFiles.map((extraFile, idx) => {
                                             if (idx > 2) return <></>
-                                            return <IconButton key={idx} onClick={() => { download(extraFile.url) }}>{(extraFile.type === "map") ? <Archive /> : (extraFile.type === 'resourcepack') ? <Layers /> : <Package />}</IconButton>
+                                            return <IconButton key={file.createdDate} onClick={() => { download(extraFile.url) }}>{(extraFile.type === "map") ? <Archive /> : (extraFile.type === 'resourcepack') ? <Layers /> : <Package />}</IconButton>
                                         })}
                                     </> :
                                     <>

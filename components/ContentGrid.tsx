@@ -12,7 +12,7 @@ export default function ContentGrid({content, linkTo, cards, enableSelection, en
         <div className={(cards) ? 'content_grid ' + cards : 'content_grid'}>
             {content && content.map((map: IContentDoc, idx: number) => {
                 return (
-                    <ContentCard adPosition={adPosition} key={idx} content={map} priority={true} playlist={"none"} index={idx} linkTo={linkTo} enableSelection={enableSelection}></ContentCard>
+                    <ContentCard adPosition={adPosition} key={map._id} content={map} priority={true} playlist={"none"} index={idx} linkTo={linkTo} enableSelection={enableSelection}></ContentCard>
                 )
             })}
         </div>

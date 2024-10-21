@@ -103,7 +103,7 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
             <h3 className='label'>{t('Form.CreatorSelector.title')}</h3>
             <div className={styles.options}>
                 {creators && creators.map((creator, idx) => {return (
-                    <div key={idx} className={(confirmRemove) ? styles.option_removing : styles.option} onClick={() => {removeCreator(idx)}}>{creator.username}</div>
+                    <div key={creator.username} className={(confirmRemove) ? styles.option_removing : styles.option} onClick={() => {removeCreator(idx)}}>{creator.username}</div>
                 )})}
                 <div className={styles.option} onClick={() => Popup.createPopup({content: <FormComponent id="newCreator" onSave={saveNewCreator}>
                         <Text name={t('Account.Shared.username')} placeholder={t('Account.Shared.username_placeholder')} description={t('Form.CreatorSelector.username_description')}/>

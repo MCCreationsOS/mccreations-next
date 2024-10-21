@@ -344,8 +344,8 @@ export default function EditContentPage({params}: {params: Params}) {
                             <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')} value={map?.shortDescription} />
                             <Text type="text" name={t('Content.Edit.video_url')} description={t('Content.Edit.video_url_description')} value={map?.videoUrl} />
                             <RichTextInput id="edit_general" name={t('Content.Edit.description')} description={t('Content.Edit.description_description')} value={map?.description} />
-                            {tags && Object.keys(tags).map((category, idx) => {
-                                return <Select key={idx} name={t(`Content.Tags.${category as TagCategories}`)} description={t(`Content.Edit.Tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
+                            {tags && Object.keys(tags).map((category) => {
+                                return <Select key={category} name={t(`Content.Tags.${category as TagCategories}`)} description={t(`Content.Edit.Tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
                                     return {name: t(`Content.Tags.${tag as TagKeys}`), value: tag}
                                 })} multiSelect={true} value={map.tags?.filter(t => tags[category].includes(t)).join(',')}/>
                             })}

@@ -95,7 +95,7 @@ export default async function Page({params}: {params: Params}) {
                                     if(a.score_type !== "highest_score") return a.score - b.score
                                     return b.score - a.score
                                 }).map((entry, index) => (
-                                <tr key={index}>
+                                <tr key={entry.date}>
                                     <td className={styles.leaderboard_table_data}>{index + 1}</td>
                                     <td className={styles.leaderboard_table_data}>{entry.username}</td>
                                     <td className={styles.leaderboard_table_data}>{formatTime(entry.score)}</td>

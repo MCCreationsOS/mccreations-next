@@ -78,7 +78,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
                         </section>
                         <section className='map_sidebar_section'>
                             <h4 className='header'>{t('Content.Sidebar.creators')}</h4>
-                            {content.creators && content.creators.map((creator: ICreator, idx: number) => <CreatorCard key={idx} creator={creator} />)}
+                            {content.creators && content.creators.map((creator: ICreator, idx: number) => <CreatorCard key={creator.username} creator={creator} />)}
                         </section>
                         <section className='map_sidebar_section stats'>
                             <h4 className='header'>{t('Content.Sidebar.stats')}</h4>
@@ -90,7 +90,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
                         </section>
                         <section className='map_sidebar_section'>
                             <h4 className='header'>{t('Content.Sidebar.files')}</h4>
-                            {content.files && content.files.slice(0, 3).map((file: IFile, idx: number) => <FileCard contentType={content.type} key={idx} file={file} slug={content.slug}/>)}
+                            {content.files && content.files.slice(0, 3).map((file: IFile, idx: number) => <FileCard contentType={content.type} key={file.createdDate} file={file} slug={content.slug}/>)}
                         </section>
                     </div>
                 </div>

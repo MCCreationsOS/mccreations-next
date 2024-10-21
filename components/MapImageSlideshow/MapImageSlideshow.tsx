@@ -62,7 +62,7 @@ export default function MapImageSlideshow({images}: {images: string[]}) {
         <div className={styles.slideshow}>
             {images.map((f: string, idx: number) => {
                 return (
-                    <div key={idx} className={(index === idx) ? `${styles.slide} ${styles.active}` : `${styles.slide} ${styles.inactive}`}>
+                    <div key={f} className={(index === idx) ? `${styles.slide} ${styles.active}` : `${styles.slide} ${styles.inactive}`}>
                         <Image className={styles.image_background} src={f} width={1920} height={1080} alt=""></Image>
                         <img className={`${styles.nav_arrow} ${styles.left}`} src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
                         <img className={`${styles.nav_arrow} ${styles.right}`} src="/chev-right.svg" onClick={() => {slideButtonClicked(false)}}></img>
@@ -72,7 +72,7 @@ export default function MapImageSlideshow({images}: {images: string[]}) {
                                 {
                                     images.map((f: string, idx: number) => {
                                         return (
-                                            <div onClick={() => setSlide(idx)} key={idx} className={(index === idx) ? `${styles.marker} ${styles.active}` : styles.marker}>
+                                            <div onClick={() => setSlide(idx)} key={f} className={(index === idx) ? `${styles.marker} ${styles.active}` : styles.marker}>
                                                 {index === idx ? (<span className={styles.color} style={{width: `${slideTime/10}px`}}></span>): (<span className={styles.color}></span>)} 
                                             </div>
                                         )

@@ -49,9 +49,9 @@ export default async function Page({ params: { locale } }: { params: { locale: s
                 <ContentArea type="scroll" playlist="updated_content" options={{ contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20 }} filterOptions={{ contentType: "content", status: 2, sort: SortOptions.Newest, limit: 5 }} />
             </Suspense>
             <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"} />
-            {dynamicPlaylists.map((playlist, index) => {
+            {dynamicPlaylists.map((playlist) => {
                 return (
-                    <div key={index}>
+                    <div key={playlist.id}>
                         <h2 className="playlist_header">{playlist.name}</h2>
                         <Suspense fallback={<GridSkeleton amount={4} />}>
                             <ContentArea type="scroll" playlist={playlist.id} options={playlist.options} filterOptions={{ contentType: "content", status: 2, sort: SortOptions.Newest, limit: 5 }}/>

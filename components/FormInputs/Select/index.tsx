@@ -77,7 +77,7 @@ export default function Select(props: SelectProps): SelectElement {
             <p className={styles.description}>{props.description}</p>
             <div className={styles.options}>
                 {props.options?.map((option, idx) => {return (
-                    <div key={idx} className={isOptionSelected(option)} onClick={() => {selectOption(option)}}>{option.name}</div>
+                    <div key={option.value} className={isOptionSelected(option)} onClick={() => {selectOption(option)}}>{option.name}</div>
                 )})}
             </div>
             <input type="hidden" value={value || ""} />

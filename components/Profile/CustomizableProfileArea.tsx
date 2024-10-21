@@ -81,7 +81,7 @@ export default function CustomizableProfileArea({creator}: {creator: IUser}) {
                 onResizeStop={onResizeStop}
             >
                 {profileLayout.layout.map((widget, index) => (
-                     <div key={index} data-grid={widget} className={widgetStyles.widget}>
+                     <div key={widget.i} data-grid={widget} className={widgetStyles.widget}>
                        <ProfileWidget type={profileLayout.widgets[index].type} id={profileLayout.widgets[index].id} creator={creator} data={profileLayout.widgets[index].data} canEdit={user.handle === creator.handle}/>
                    </div>
                 ))}

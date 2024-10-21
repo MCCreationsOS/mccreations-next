@@ -147,7 +147,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
             {(allowMultiple) ? <div className={styles.uploaded_images}>
                 {files.map((file, idx) => {
                     return (
-                        <div key={idx} className={styles.uploaded_image_wrapper} onClick={(e) => {removeFile(file.name)}}>
+                        <div key={file.url} className={styles.uploaded_image_wrapper} onClick={(e) => {removeFile(file.name)}}>
                             <Image className={styles.uploaded_image} src={(file.url) ? file.url : (presetImage) ? presetImage : ""} width={150} height={150} alt={`${file.url.substring(file.url.lastIndexOf('/') + 1)}`}></Image>
                         </div>
                     )

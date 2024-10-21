@@ -58,7 +58,7 @@ const nextConfig = {
       }
     ],
   },
-  reactStrictMode: false
+  reactStrictMode: true
 }
 
 module.exports = withNextIntl(nextConfig)

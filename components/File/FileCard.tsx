@@ -29,7 +29,7 @@ export default function FileCard({file, slug, contentType}: {file: IFile, slug: 
                     <IconButton onClick={() => {download(file.url!)}}>{(file.type === "map") ? <Archive /> : (file.type === 'resourcepack') ? <Layers /> : <Package />} </IconButton>
                     {file.extraFiles && file.extraFiles.map((extraFile, idx) => {
                         if(idx > 2) return <></>
-                        return <IconButton key={idx} onClick={() => {download(extraFile.url)}}>{(extraFile.type === "map") ? <Archive /> : (extraFile.type === 'resourcepack') ? <Layers /> : <Package /> }</IconButton>
+                        return <IconButton key={extraFile.url} onClick={() => {download(extraFile.url)}}>{(extraFile.type === "map") ? <Archive /> : (extraFile.type === 'resourcepack') ? <Layers /> : <Package /> }</IconButton>
                     })}
                 </div>
             </div>

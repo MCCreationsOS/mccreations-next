@@ -56,7 +56,7 @@ export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
         <div className={styles.slideshow}>
             {content.map((f: IContentDoc, idx: number) => {
                 return (
-                    <div key={idx} className={(index === idx) ? `${styles.slide} ${styles.active}` : `${styles.slide} ${styles.inactive}`}>
+                    <div key={f._id} className={(index === idx) ? `${styles.slide} ${styles.active}` : `${styles.slide} ${styles.inactive}`}>
                         <Image className={styles.image_background} src={f.images[0]} width={1920} height={1080} alt=""></Image>
 
                         <img className={`${styles.nav_arrow} ${styles.left}`} src="/chev-left.svg" onClick={() => {slideButtonClicked(true)}}></img>
@@ -81,7 +81,7 @@ export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
                                 {
                                     content.map((f: IContentDoc, idx: number) => {
                                         return (
-                                            <div onClick={() => setSlide(idx)} key={idx} className={(index === idx) ? `${styles.marker} ${styles.active}` : styles.marker}>
+                                            <div onClick={() => setSlide(idx)} key={f._id} className={(index === idx) ? `${styles.marker} ${styles.active}` : styles.marker}>
                                                 {index === idx ? (<span className={styles.color} style={{width: `${slideTime/10}px`}}></span>): (<span className={styles.color}></span>)} 
                                             </div>
                                         )

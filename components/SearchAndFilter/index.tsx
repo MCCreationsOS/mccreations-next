@@ -180,7 +180,7 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
                             return (
                                 <div className="filter_option">
                                     {t(`Content.Tags.${category as TagCategories}`)}
-                                    <div key={idx} className="select" onClick={() => {
+                                    <div key={category} className="select" onClick={() => {
                                         let newOpenDropdowns = [...openDropdowns]
                                         newOpenDropdowns[idx] = true
                                         setOpenDropdowns(newOpenDropdowns)
@@ -188,7 +188,7 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
                                         <button className="selected_option">{(tag_dropdown_names[category])}</button>
                                         <div className={(openDropdowns[idx]) ? `options active` : "options"}>
                                             <div className={styles.tags_list}>
-                                                {tags[category].map((tag,idx) => <Tag key={idx} tagValue={tag} tag={t(`Content.Tags.${tag as TagKeys}`)} />)}
+                                                {tags[category].map((tag,idx) => <Tag key={tag} tagValue={tag} tag={t(`Content.Tags.${tag as TagKeys}`)} />)}
                                             </div>
                                     </div>
                                 </div>
