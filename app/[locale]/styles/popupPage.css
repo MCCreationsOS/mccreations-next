@@ -3,4 +3,5 @@
     height: calc(1200px - 100vw);
     min-height: 100vh;
     overflow: hidden;
+    flex: 1;
 }

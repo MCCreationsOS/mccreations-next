@@ -85,3 +85,50 @@ export async function postWallComment(authorization: string, id: string, comment
         console.error(e)
     }
 }
+
+export async function getNotifications(authorization: string, user_id: string) {
+    try {
+        const response = await fetch(`${process.env.DATA_URL}/notifications/${user_id}`, {
+            headers: {
+                'Authorization': authorization
+            }
+        })
+        return response.json()
+    } catch(e) {
+        console.error(e)
+    }
+}
+
+export async function subscribe(authorization: string, handle: string) {
+    try {
+        await fetch(`${process.env.DATA_URL}/creator/subscribe`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authorization
+            },
+            body: JSON.stringify({
+                handle: handle
+            })
+        })
+        return;
+    } catch(e) {
+        console.error(e)
+    }
+}
+
+export async function unsubscribe(authorization: string, handle: string) {
+    try {
+        await fetch(`${process.env.DATA_URL}/creator/unsubscribe`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': authorization
+            },
+            body: JSON.stringify({handle: handle})
+        })
+        return;
+    } catch(e) {
+        console.error(e)
+    }
+}

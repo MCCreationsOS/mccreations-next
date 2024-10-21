@@ -10,25 +10,8 @@ export default function Page() {
     const t = useTranslations()
     return (
         <>
-        <h1 style={{marginLeft: "20px"}}>{t('Dashboard.title')}</h1>
-        <Tabs tabs={[
-            {
-                content: <></>,
-                title: t('map', {count:2}),
-                link: '/dashboard/maps'
-            },
-            {
-                content: <></>,
-                title: t('datapack', {count:2}),
-                link: '/dashboard/datapacks'
-            },
-            {
-                content: <></>,
-                title: t('resourcepack', {count:2}),
-                link: '/dashboard/resourcepacks'
-            }
-        ]} preselectedTab={1}/>
-        <Table collectionName={CollectionNames.Datapacks} />
+            <h3>{t('datapack', {count : 2})}</h3>
+            <Table collectionName={CollectionNames.Datapacks} />
         </>
     )
 }

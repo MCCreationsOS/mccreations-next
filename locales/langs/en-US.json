@@ -6,6 +6,7 @@
     "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
     "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
     "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
+    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
 
     "Status": {
         "approved": "Verified",
@@ -59,6 +60,46 @@
             },
             "forgot_password": "Forgot your password?",
             "providers": "Sign in with..."
+        },
+
+        "Notifications": {
+            "title": "Notification Settings",
+            "comment": "New Comments",
+            "like": "Like Notifications",
+            "reply": "New Replies",
+            "subscription": "New Subscription Posts",
+            "email_daily": "Email Daily",
+            "email_weekly": "Email Weekly",
+            "push_only": "Push Only",
+            "push_email_daily": "Push & Email Daily",
+            "push_email_weekly": "Push & Email Weekly",
+            "dashboard_only": "Dashboard Only",
+            "none": "None",
+            "translation": "New Creation Translations",
+            "rating": "New Creation Ratings",
+            "no_notifications": "No notifications yet!",
+            "read_all": "Mark all as read",
+
+            "NewComment": {
+                "title": "New Comment:",
+                "body": "{username} posted a new comment on your {content_type} {title}."
+            },
+            "NewReply": {
+                "title": "New Reply:",
+                "body": "{username} replied to your comment."
+            },
+            "NewPost": {
+                "title": "New Post:",
+                "body": "{username} posted a new {content_type}."
+            },
+            "NewRating": {
+                "title": "New Rating:",
+                "body": "{content_type} received a new rating of {rating} stars."
+            },
+            "NewTranslation": {
+                "title": "New Translation:",
+                "body": "{username} translated your {content_type} into {language}."
+            }
         }
     },
 
@@ -308,6 +349,7 @@
             "sign_in": "Sign In",
             "sign_out": "Sign Out",
             "dashboard": "Dashboard",
+            "notifications": "Notifications",
             "profile": "Profile",
             "settings": "Settings",
             "admin": "Admin"

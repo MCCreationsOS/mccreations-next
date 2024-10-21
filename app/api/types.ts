@@ -198,6 +198,8 @@ export interface NewFile {
     required: boolean,
 }
 
+export type NotificationOption = "push_only" | "push_email_daily" | "push_email_weekly" | "email_daily" | "email_weekly" | "dashboard_only" | "none"
+
 export interface IUser {
     _id?: string
     type: UserTypes
@@ -212,7 +214,34 @@ export interface IUser {
         link: string,
         name: string
     }]
-    profileLayout?: ProfileLayout
+    profileLayout?: ProfileLayout,
+    settings?: CreatorSettings,
+    notifications?: INotification[]
+}
+
+export interface CreatorSettings {
+    notifications: {
+        comment: NotificationOption,
+        like: NotificationOption,
+        reply: NotificationOption,
+        subscription: NotificationOption,
+        rating: NotificationOption,
+        translation: NotificationOption
+    }
+}
+
+export type NotificationType = "comment" | "like" | "reply" | "subscription" | "rating" | "translation"
+
+export interface INotification {
+    _id?: string,
+    user_id: string,
+    type: NotificationType,
+    date: number,
+    link: string,
+    read?: boolean,
+    notified?: boolean,
+    title: string | {key: string, options: {[key: string]: string}},
+    body: string | {key: string, options: {[key: string]: string}}
 }
 
 export interface Leaderboard {

@@ -55,7 +55,7 @@ export default function Page({params}: {params: Params}) {
                 const baseLanguage = await import(`@/locales/langs/en-US.json`)
                 const formattedLanguage = getKeys(lang.default)
                 setCurrentLanguage(formattedLanguage)
-                setKeys(Object.keys(formattedLanguage))
+                setKeys(Object.keys(getKeys(baseLanguage.default)))
             } catch {
                 const lang = await import(`@/locales/langs/en-US.json`)
                 const formattedLanguage = getKeys(lang.default)

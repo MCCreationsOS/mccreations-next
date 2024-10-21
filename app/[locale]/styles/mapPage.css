@@ -131,7 +131,7 @@
 
 .map_description {
     flex: 50%;
-    width: 80%;
+    width: 70ch;
 }
 
 .map_description img {
@@ -147,7 +147,7 @@
   
   @media screen and (max-width: 900px) {
     .map_description {
-        width: 70%;
+        width: 70ch;
     }
   }
 

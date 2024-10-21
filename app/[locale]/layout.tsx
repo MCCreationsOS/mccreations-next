@@ -13,6 +13,7 @@ import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
 import './styles/globals.css'
 import Menu from '@/components/Menu/Menu'
+import ServiceWorkerManager from '@/components/ServiceWorkerManager'
 
 
 export const metadata: Metadata = {
@@ -61,6 +62,7 @@ export default async function RootLayout({params: { locale }, children}: {params
           <Footer></Footer>
           <PopupComponent />
           <Analytics />
+          <ServiceWorkerManager />
         </NextIntlClientProvider>
       </body>
       </html>

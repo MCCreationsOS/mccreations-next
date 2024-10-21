@@ -60,7 +60,7 @@ export default function Wall({creator, canEdit, id}: {creator: IUser, canEdit: b
 
     return (
         <div className={styles.widget_container}>
-            <h3 className={styles.draggable_handle}>{t('Profile.Widgets.Wall.title')}</h3>
+            <h3 className={styles.draggable_handle} id="wall_title">{t('Profile.Widgets.Wall.title')}</h3>
             {canEdit && <IconButton className={`${styles.options}`} onClick={editWidget} ><MoreVertical/></IconButton>}
             <div className={styles.widget_content}>
                 {user && user._id === creator._id && <FormComponent id="wallForm" onSave={saveWallPost} options={{saveButtonContent: t('CommentForm.send')}}>

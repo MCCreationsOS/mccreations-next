@@ -42,8 +42,6 @@
 }
 
 .content_title {
-    font-size: 1.2rem;
-    font-weight: bold;
     margin: 5px 0 5px 0
 }
 
@@ -56,4 +54,5 @@
 .content_item_item {
     margin: 0 15px;
     width: 130px;
+    font-size: 0.9rem;
 }

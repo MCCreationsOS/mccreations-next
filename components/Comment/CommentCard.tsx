@@ -89,10 +89,10 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
                 <div className={`${styles.comment_text} ${(expanded) ? styles.expanded : ""}`} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.comment)}}></div>
                 <div className={styles.reactions}>
                     <div className={styles.like}>
-                        <Heart aria-label={t('Comment.like')} onClick={handleLike}/>
+                        <Heart className={styles.comment_icon} aria-label={t('Comment.like')} onClick={handleLike}/>
                         <span>{likes}</span>
                     </div>
-                    {canReply && <MessageSquare aria-label={t('Comment.reply')} onClick={handleReply}/>}
+                    {canReply && <MessageSquare className={styles.comment_icon} aria-label={t('Comment.reply')} onClick={handleReply}/>}
                 </div>
                 {replying && <FormComponent id="replyForm" onSave={handleReplySave} options={{saveButtonContent: t('Comment.reply')}}>
                     {!user || user.username === "" && <Text name="Username" value={user.username}/>}

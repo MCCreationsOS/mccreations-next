@@ -207,6 +207,36 @@
     border: none;
   }
 
+  .icon_container {
+    position: relative;
+  }
+
+  .notification_indicator {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    right: -5px;
+    top: -5px;
+    border: 2px solid #171717;
+    background-color: #c73030;
+  }
+
+  .notification_count {
+    position: absolute;
+    right: 10px;
+    font-size: 0.8rem;
+    background-color: #c73030;
+    color: white;
+    padding: 0 5px;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
   .user_menu .icon {
     border-radius: 50%;
     object-fit: cover;

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { IUser } from "../../api/types"
+import { IUser } from "@/app/api/types"
 import { useRouter } from "next/navigation"
 import { X } from "react-feather"
 import { deleteUser, getUser, useUserStore } from "@/app/api/auth"
@@ -12,6 +12,7 @@ import SecondaryButton from "@/components/Buttons/SecondaryButton"
 import WarningButton from "@/components/Buttons/WarningButton"
 import Text from "@/components/FormInputs/Text"
 import {useTranslations} from 'next-intl';
+import styles from "../AccountSidebar.module.css"
 
 export default function AccountPage() {
     const [email, setEmail] = useState("")
@@ -151,7 +152,7 @@ export default function AccountPage() {
 
     return (
         <div className="popup_page">
-            <div className="centered_content small">
+            <div className={styles.account_content}>
                 <h2>{t('Account.settings')}</h2>
                 <div className="settings_option">
                     <div className="text">

@@ -44,7 +44,6 @@
 
 .comment .body p {
     margin-top: 5px;
-    color: #aaa
 }
 
 .comment .header {
@@ -88,4 +87,9 @@
 .comment .replies {
     margin-left: 5px;
     width: 100%;
+}
+
+.comment_icon {
+    width: 18px;
+    height: 18px;
 }

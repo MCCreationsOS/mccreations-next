@@ -1,3 +1,67 @@
+.dashboard_page {
+    margin: 20px;
+}
+
+.dashboard_layout {
+    display: flex;
+    flex-direction: row;
+}
+
+.dashboard_sidebar {
+    width: 200px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+}
+
+.dashboard_content {
+    flex: 1;
+}
+
+.dashboard_sidebar_item {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #272727;
+    margin: 5px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+}
+
+.dashboard_sidebar_item:hover {
+    background-color: #333;
+}
+
+.dashboard_sidebar_item.active {
+    background-color: #272727;
+}
+
+.dashboard_sidebar_item:active {
+    background-color: #272727;
+}
+
+.dashboard_sidebar_item:visited {
+    color: white;
+}
+
+@media screen and (max-width: 600px) {
+    .dashboard_layout {
+        flex-direction: column;
+    }
+
+    .dashboard_sidebar {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+    }
+}
+
 .content_item {
     display: flex;
     background-color: #272727;
@@ -55,4 +119,14 @@
 .content_item_item {
     margin: 0 15px;
     width: 130px;
+}
+
+.notifications_page {
+    position: relative;
+}
+
+.read_all_button {
+    position: absolute;
+    right: 0;
+    top: -10px;
 }

@@ -1,6 +1,7 @@
-import { IUser, UserTypes } from "@/app/api/types";
+import { INotification, IUser, NotificationOption, UserTypes, CreatorSettings } from "@/app/api/types";
 import { ProfileLayout } from "@/components/Profile/CustomizableProfileArea";
 import { create } from "zustand";
+import { getNotifications } from "./creators";
 
 type UserStore = {
     username: string
@@ -16,6 +17,8 @@ type UserStore = {
         name: string
     }]
     profileLayout?: ProfileLayout
+    settings?: CreatorSettings
+    notifications?: INotification[]
     setUser: (user: IUser) => void
     setIcon: (iconURL: string) => void
     setBanner: (bannerURL: string) => void
@@ -25,6 +28,8 @@ type UserStore = {
         name: string
     }]) => void
     setProfileLayout: (profileLayout: ProfileLayout) => void
+    setNotifications: (notifications: INotification[]) => void
+    setSettings: (settings: CreatorSettings) => void
     logout: () => void
 }
 
@@ -39,6 +44,8 @@ export const useUserStore = create<UserStore>(set => ({
     about: "",
     socialLinks: undefined,
     profileLayout: undefined,
+    settings: undefined,
+    notifications: undefined,
     setUser: (user: IUser) => {
         set({
             username: user.username,
@@ -50,7 +57,12 @@ export const useUserStore = create<UserStore>(set => ({
             bannerURL: user.bannerURL,
             about: user.about,
             socialLinks: user.socialLinks,
-            profileLayout: user.profileLayout
+            profileLayout: user.profileLayout,
+            settings: user.settings,
+        })
+
+        getNotifications(localStorage.getItem('jwt') + "", user._id + "").then((notifications) => {
+            set({...user, notifications: notifications})
         })
     },
     setIcon: (iconURL: string) => {
@@ -71,6 +83,12 @@ export const useUserStore = create<UserStore>(set => ({
     setProfileLayout: (profileLayout: ProfileLayout) => {
         set({profileLayout: profileLayout})
     },
+    setNotifications: (notifications: INotification[]) => {
+        set({notifications: notifications})
+    },
+    setSettings: (settings: CreatorSettings) => {
+        set({settings: settings})
+    },
     logout: () => {
         set({
             username: "",
@@ -82,7 +100,9 @@ export const useUserStore = create<UserStore>(set => ({
             bannerURL: "",
             about: "",
             socialLinks: undefined,
-            profileLayout: undefined
+            profileLayout: undefined,
+            settings: undefined,
+            notifications: undefined
         })
     }
 }))
@@ -212,3 +232,44 @@ export async function resetPassword(token: string, password: string) {
         return e
     }
 }
+
+export async function updateNotificationSettings(authorization: string, comment: string, like: string, reply: string, subscription: string, rating: string, translation: string) {
+    fetch(`${process.env.DATA_URL}/auth/user/updateNotifications`, {
+        method: 'POST',
+        headers: {
+            'Authorization': authorization,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({comment: comment, like: like, reply: reply, subscription: subscription, rating: rating, translation: translation})
+    })
+}
+
+export async function readNotification(authorization: string, notification: string) {
+    fetch(`${process.env.DATA_URL}/notification/${notification}`, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': authorization
+        }
+    })
+}
+
+export async function readAllNotifications(authorization: string) {
+    fetch(`${process.env.DATA_URL}/notifications`, {
+        method: 'PATCH',
+        headers: {
+            'Authorization': authorization
+        }
+    })
+}
+
+export async function subscribeToPushNotifications(authorization: string, subscription: PushSubscription) {
+    fetch(`${process.env.DATA_URL}/notifications/subscribe`, {
+        method: 'POST',
+        headers: {
+            'Authorization': authorization,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(subscription)
+    })
+}
+

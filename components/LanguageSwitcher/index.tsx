@@ -25,6 +25,10 @@ export default function LanguageSwitcher() {
             <DropDownItem className="option_button" onClick={() =>{router.replace("/", {locale: 'ru-RU'})}}>
                 Русский (Россия)
             </DropDownItem>
+            <DropDownItem className="option_button" onClick={() =>{router.push("/translate")}}>
+                <Plus />
+                Add Language
+            </DropDownItem>
         </DropDown>
     )
 }
