@@ -3,6 +3,7 @@ import useSWR, { mutate } from 'swr'
 import { ICreator, IUser } from "../types"
 import { getCreator } from "../community"
 import { getContent } from "../content"
+import { useEffect } from "react"
 const getUserFetcher = (token: string) => {
     return getUser(token)
 }
@@ -28,18 +29,20 @@ const getOwnedCreationsFetcher = (handle: string) => {
 export const useUser = () => {
     const { data, error, isLoading } = useSWR(['stored_user'], getStoredUserFetcher)
 
-    let token = localStorage?.getItem('jwt') + ""
-    if(token) {
-        getUserFetcher(token).then((user) => {
-            if(user) {
-                mutate(user)
-            } else {
-                localStorage.removeItem('jwt')
-                localStorage.removeItem('user')
-                mutate(null)
+    useEffect(() => {
+        let token = localStorage?.getItem('jwt') + ""
+        if(token) {
+            getUserFetcher(token).then((user) => {
+                if(user) {
+                    mutate(user)
+                } else {
+                    localStorage?.removeItem('jwt')
+                    localStorage?.removeItem('user')
+                    mutate(null)
+                }
+                })
             }
-        })
-    }
+    }, [])
 
     return {
         user: data,
@@ -54,7 +57,7 @@ export const useUserAlwaysSecure = () => {
     const setUser = useUserStore((state) => state.setUser)
 
     if(data && data._id !== "") {
-        localStorage.setItem('user', JSON.stringify(data))
+        localStorage?.setItem('user', JSON.stringify(data))
         setUser(data)
     }
 

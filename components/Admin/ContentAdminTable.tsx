@@ -30,7 +30,7 @@ export default function ContentAdminTable({contentType, jwt}: {contentType: Coll
     }, [])
 
     useEffect(() => {
-        let jwt = localStorage.getItem('jwt')
+        let jwt = localStorage?.getItem('jwt')
         fetch(`${process.env.DATA_URL}/${contentType}-nosearch?status=0&limit=20&page=${page}`, {
             headers: {
                 authorization: jwt + ""
@@ -45,13 +45,13 @@ export default function ContentAdminTable({contentType, jwt}: {contentType: Coll
 
     const update = async () => {
         updateQueue.forEach((map) => {
-            updateContent(map, localStorage.getItem('jwt'), contentType, true)       
+            updateContent(map, localStorage?.getItem('jwt'), contentType, true)       
         })
         setUpdateQueue([])
     }
 
     const refresh = () => {
-        let jwt = localStorage.getItem('jwt')
+        let jwt = localStorage?.getItem('jwt')
         fetch(`${process.env.DATA_URL}/${contentType}-nosearch?status=0&limit=20&page=${page}`, {
             headers: {
                 authorization: jwt + ""

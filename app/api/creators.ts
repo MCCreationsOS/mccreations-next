@@ -29,7 +29,7 @@ export const useProfileLayoutStore = create<ProfileLayoutStore>(set => ({
         set({profileLayout})
     },
     updateProfileLayout: (profileLayout: ProfileLayout) => {
-        let token = localStorage.getItem('jwt')
+        let token = localStorage?.getItem('jwt')
         updateProfileLayout(token + "", profileLayout).then(() => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Profile layout updated"))
         })

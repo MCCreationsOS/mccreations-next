@@ -26,10 +26,10 @@ export default function NotificationsPage() {
     let token: string | null;
 
     useEffect(() => {
-        token = localStorage.getItem('jwt')
+        token = localStorage?.getItem('jwt')
         if(!user._id) {
             console.log("Reading from local storage")
-            const storedUser = localStorage.getItem('user')
+            const storedUser = localStorage?.getItem('user')
             if(storedUser) {
                 let user = JSON.parse(storedUser) as IUser
                 setUser(user)
@@ -50,10 +50,10 @@ export default function NotificationsPage() {
                     setTranslation("dashboard_only")
                 }
             } else {
-                getUser(localStorage.getItem('jwt') + "").then((user) => {
+                getUser(localStorage?.getItem('jwt') + "").then((user) => {
                     if(user) {
                         setUser(user)
-                        localStorage.setItem('user', JSON.stringify(user))
+                        localStorage?.setItem('user', JSON.stringify(user))
 
                         if(user.settings?.notifications) {
                             setComment(user.settings.notifications.comment ?? "dashboard_only")
@@ -71,8 +71,8 @@ export default function NotificationsPage() {
                             setTranslation("dashboard_only")
                         }
                     } else {
-                        localStorage.removeItem('jwt')
-                        localStorage.removeItem('user')
+                        localStorage?.removeItem('jwt')
+                        localStorage?.removeItem('user')
                     }
                 })
             }
@@ -95,7 +95,7 @@ export default function NotificationsPage() {
 
     useEffect(() => {
         if(!comment || !like || !reply || !subscription || !rating || !translation) return
-        token = localStorage.getItem('jwt')
+        token = localStorage?.getItem('jwt')
         updateNotificationSettings(token!, comment, like, reply, subscription, rating, translation)
 
         console.log(comment, like, reply, subscription, rating, translation)
@@ -115,7 +115,7 @@ export default function NotificationsPage() {
             subscribeToPush()
         }
 
-        localStorage.setItem('user', JSON.stringify({...user, settings: {notifications: {comment: comment, like: like, reply: reply, subscription: subscription, rating: rating, translation: translation}}}))
+        localStorage?.setItem('user', JSON.stringify({...user, settings: {notifications: {comment: comment, like: like, reply: reply, subscription: subscription, rating: rating, translation: translation}}}))
     }, [comment, like, reply, subscription, rating, translation])
 
     async function subscribeToPush() {

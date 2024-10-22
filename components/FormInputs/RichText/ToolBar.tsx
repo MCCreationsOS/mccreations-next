@@ -46,9 +46,10 @@ export default function ToolbarPlugin() {
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection();
-    setFontColor($getSelectionStyleValueForProperty(selection, 'color', '#000000'))
-    setBgColor($getSelectionStyleValueForProperty(selection, 'background-color', '#ffffff'))
-    if ($isRangeSelection(selection)) {
+    if(selection) {
+      setFontColor($getSelectionStyleValueForProperty(selection, 'color', '#000000'))
+      setBgColor($getSelectionStyleValueForProperty(selection, 'background-color', '#ffffff'))
+      if ($isRangeSelection(selection)) {
       // Update text format
       setIsBold(selection.hasFormat('bold'));
       setIsItalic(selection.hasFormat('italic'));
@@ -63,7 +64,8 @@ export default function ToolbarPlugin() {
           ),
         );
       } else {
-        setIsImageCaption(false);
+          setIsImageCaption(false);
+        }
       }
     }
   }, [activeEditor, editor]);

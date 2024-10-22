@@ -12,7 +12,7 @@ import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
 
 export default function ProfileEditButton({creator}: {creator: IUser}) {
-    let token = localStorage.getItem('jwt')
+    let token = localStorage?.getItem('jwt')
     const user = useUserStore((state) => state) as IUser
     const setUser = useUserStore((state) => state.setUser)
     const t = useTranslations()

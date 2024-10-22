@@ -17,8 +17,8 @@ function signInWithDiscord(code: string | null, setUser: (user: IUser) => void):
                         reject(data.error)
                         return;
                     }
-                    localStorage.setItem('jwt', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.creator))
+                    localStorage?.setItem('jwt', data.token);
+                    localStorage?.setItem('user', JSON.stringify(data.creator))
                     setUser(data.creator)
                     resolve(data)
                 })
@@ -37,7 +37,7 @@ function addDiscordProvider(code: string | null): Promise<any> {
             fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
             method: 'POST',
             headers: {
-                'Authorization': `${localStorage.getItem('jwt')}`,
+                'Authorization': `${localStorage?.getItem('jwt')}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
@@ -71,8 +71,8 @@ function signInWithGithub(code: string | null, setUser: (user: IUser) => void): 
                         reject(data.error)
                         return;
                     }
-                    localStorage.setItem('jwt', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.creator))
+                    localStorage?.setItem('jwt', data.token);
+                    localStorage?.setItem('user', JSON.stringify(data.creator))
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -89,7 +89,7 @@ function addGithubProvider(code: string | null): Promise<any> {
             fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `${localStorage.getItem('jwt')}`,
+                    'Authorization': `${localStorage?.getItem('jwt')}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -121,8 +121,8 @@ function signInWithGoogle(code: string | null, setUser: (user: IUser) => void): 
                         reject(data.error)
                         return;
                     }
-                    localStorage.setItem('jwt', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.creator))
+                    localStorage?.setItem('jwt', data.token);
+                    localStorage?.setItem('user', JSON.stringify(data.creator))
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -139,7 +139,7 @@ function addGoogleProvider(code: string | null): Promise<any> {
             fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `${localStorage.getItem('jwt')}`,
+                    'Authorization': `${localStorage?.getItem('jwt')}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -171,8 +171,8 @@ function signInWithMicrosoft(code: string | null, setUser: (user: IUser) => void
                         reject(data.error)
                         return;
                     }
-                    localStorage.setItem('jwt', data.token);
-                    localStorage.setItem('user', JSON.stringify(data.creator))
+                    localStorage?.setItem('jwt', data.token);
+                    localStorage?.setItem('user', JSON.stringify(data.creator))
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -189,7 +189,7 @@ function addMicrosoftProvider(code: string | null): Promise<any> {
             fetch(`${process.env.DATA_URL}/auth/user/addProvider?code=${code}`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `${localStorage.getItem('jwt')}`,
+                    'Authorization': `${localStorage?.getItem('jwt')}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
@@ -219,7 +219,7 @@ export default function OauthHandlerPage() {
 
     let provider = params.get('provider')
     const handleSignIn = async () => {
-        const token = localStorage.getItem('jwt')
+        const token = localStorage?.getItem('jwt')
         if(token) {
             let u = await getUser(token)
             if(u) {

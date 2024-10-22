@@ -23,14 +23,14 @@ export default function Wall({creator, canEdit, id}: {creator: IUser, canEdit: b
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
 
     useEffect(() => {
-        let token = localStorage.getItem('jwt')
+        let token = localStorage?.getItem('jwt')
         getWall(token + "", creator.handle + "").then((wall) => {
             setWallPosts(wall)
         })
     }, [])
 
     const saveWallPost = async (inputs: string[]) => {
-        let token = localStorage.getItem('jwt')
+        let token = localStorage?.getItem('jwt')
         postComment(creator.handle + "", "wall", creator.username, FormInput.getFormInput("comment").submit() + "", creator.handle).then(() => {
             getWall(token + "", creator.handle + "").then((wall) => {
                 setWallPosts(wall)

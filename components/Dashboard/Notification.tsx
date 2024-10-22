@@ -19,7 +19,7 @@ export default function Notification({notification} : {notification : INotificat
     }
 
     const handleClick = () => {
-        readNotification(localStorage.getItem('jwt') + "", notification._id + "")
+        readNotification(localStorage?.getItem('jwt') + "", notification._id + "")
 
         setNotifications(user.notifications!.map((n) => {
             if(n._id === notification._id) {

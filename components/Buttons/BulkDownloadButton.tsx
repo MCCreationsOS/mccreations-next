@@ -6,7 +6,7 @@ import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 export default function BulkDownloadButton() {
     const t = useTranslations()
     const bulkDownload = async () => {
-        let content = localStorage.getItem('selectedContent')
+        let content = localStorage?.getItem('selectedContent')
         if(content) {
             let selected = JSON.parse(content)
             selected.forEach((url: string) => {

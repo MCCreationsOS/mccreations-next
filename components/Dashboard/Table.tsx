@@ -22,7 +22,7 @@ export default function Table({collectionName}: {collectionName: CollectionNames
 
     useEffect(() => {
         if(!user._id) {
-            getUser(localStorage.getItem('jwt') + "").then((u) => {
+            getUser(localStorage?.getItem('jwt') + "").then((u) => {
                 if(u) {
                     setUser(u)
                 }
@@ -32,7 +32,7 @@ export default function Table({collectionName}: {collectionName: CollectionNames
 
     useEffect(() => {
         if(user._id) {
-            getOwnedContent(localStorage.getItem('jwt') + "")
+            getOwnedContent(localStorage?.getItem('jwt') + "")
         }
     }, [user])
 
@@ -83,7 +83,7 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                         <div className={styles.info_buttons}>
                             <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><ImageIcon /></Link>
                             <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')}><Edit /></Link>
-                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, localStorage.getItem('jwt'), collectionName); getOwnedContent(localStorage.getItem('jwt'))}}><Trash /></span>
+                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, localStorage?.getItem('jwt'), collectionName); getOwnedContent(localStorage?.getItem('jwt'))}}><Trash /></span>
                         </div>
                     </div>
                     <div className={styles.content_item_item}>

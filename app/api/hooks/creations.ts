@@ -1,4 +1,4 @@
-import useSWR from 'swr'
+import useSWR, { mutate } from 'swr'
 import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, getContent, searchContent } from '../content'
 import { CollectionNames, ContentTypes, IContentDoc, QueryOptions, Tags } from '../types'
 // import { fetcher } from '../utils'
@@ -49,12 +49,17 @@ export const useCreations = (queryOptions: QueryOptions) => {
 }
 
 export const useCreation = (slug: string, type: ContentTypes) => {
-    let token = localStorage?.getItem('jwt')
-    if(!token) {
+    let token = ""
+    const { data, error, isLoading } = useSWR([token, slug, type, 'useCreation'], ([token, slug, type]) => getCreationFetcher(token, slug, type))
+
+    if(!data || (data.error && !isLoading)) {
+        token = localStorage?.getItem('jwt') + ""
+        if(token === "") {
         token = sessionStorage?.getItem('temp_key') + ""
+        }
+        mutate(getCreationFetcher(token, slug, type))
     }
 
-    const { data, error, isLoading } = useSWR([token, slug, type, 'useCreation'], ([token, slug, type]) => getCreationFetcher(token, slug, type))
     return {
         creation: data as IContentDoc | {error: string},
         isLoading,

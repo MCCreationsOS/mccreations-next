@@ -40,7 +40,7 @@ export default function ContentRow({content, addToUpdateQueue}: {content: IConte
                 })
             }}><Plus /></button>
             <Link target="_blank" className={styles.table_item} href={(content.files && content.files[0]) ? content.files[0].url ?? "" : ""}><SecondaryButton>Download {(content.files && content.files[0]) ? content.files[0].minecraftVersion : ""}</SecondaryButton></Link>
-            {(content.status === 1) ? <MainButton className={styles.table_item} onClick={() => {approveContent(content.slug, CollectionNames[type], localStorage.getItem('jwt')); content.status = 2}}>Approve</MainButton> : <></> }
+            {(content.status === 1) ? <MainButton className={styles.table_item} onClick={() => {approveContent(content.slug, CollectionNames[type], localStorage?.getItem('jwt')); content.status = 2}}>Approve</MainButton> : <></> }
             <div>{content.creators.map((c, idx) => (<div className={styles.creator_group}><input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={c.username} onChange={(e) => {updateCreator(idx, e.currentTarget.value, c.handle)}}></input><input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={c.handle} onChange={(e) => {updateCreator(idx, c.username, e.currentTarget.value)}}></input></div>))}</div>
         </div>
     )

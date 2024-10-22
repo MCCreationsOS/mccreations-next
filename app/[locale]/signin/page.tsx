@@ -33,8 +33,8 @@ export default function SignIn() {
             }).then(res => {
                 res.json().then(data => {
                     if(data.token) {
-                        localStorage.setItem('jwt', data.token);
-                        localStorage.setItem('user', JSON.stringify(data.creator))
+                        localStorage?.setItem('jwt', data.token);
+                        localStorage?.setItem('user', JSON.stringify(data.creator))
                         setUser(data.creator)
                         router.push('/')
                     } else {

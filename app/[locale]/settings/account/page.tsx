@@ -29,7 +29,7 @@ export default function AccountPage() {
     }
 
     const updateHandle = (inputs: string[]) => {
-        token = localStorage.getItem('jwt')
+        token = localStorage?.getItem('jwt')
         fetch(`${process.env.DATA_URL}/auth/user/updateHandle`, {
             method: 'POST',
             headers: {
@@ -43,7 +43,7 @@ export default function AccountPage() {
             }).catch(e => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.handle_updated', {handle: inputs[0]}))) 
                 setUser({...user, handle: inputs[0]})
-                localStorage.setItem('user', JSON.stringify({...user, handle: inputs[0]}))
+                localStorage?.setItem('user', JSON.stringify({...user, handle: inputs[0]}))
             })
         }).catch(e => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
@@ -52,7 +52,7 @@ export default function AccountPage() {
     }
 
     const updateUsername = (inputs: string[]) => {
-        token = localStorage.getItem('jwt')
+        token = localStorage?.getItem('jwt')
         fetch(`${process.env.DATA_URL}/auth/user/updateProfile`, {
             method: 'POST',
             headers: {
@@ -66,7 +66,7 @@ export default function AccountPage() {
             }).catch(e => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.username_updated', {username: inputs[0]}))) 
                 setUser({...user, username: inputs[0]})
-                localStorage.setItem('user', JSON.stringify({...user, username: inputs[0]}))
+                localStorage?.setItem('user', JSON.stringify({...user, username: inputs[0]}))
             })
         }).catch(e => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
@@ -75,7 +75,7 @@ export default function AccountPage() {
     }
 
     const updateEmail = (inputs: string[]) => {
-        token = localStorage.getItem('jwt')
+        token = localStorage?.getItem('jwt')
         fetch(`${process.env.DATA_URL}/auth/user/updateEmail`, {
             method: 'POST',
             headers: {
@@ -89,7 +89,7 @@ export default function AccountPage() {
             }).catch(e => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.email_updated', {email: inputs[0]}))) 
                 setUser({...user, email: inputs[0]})
-                localStorage.setItem('user', JSON.stringify({...user, email: inputs[0]}))
+                localStorage?.setItem('user', JSON.stringify({...user, email: inputs[0]}))
             })
         }).catch(e => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
@@ -98,7 +98,7 @@ export default function AccountPage() {
 
     const updatePassword = (inputs: string[]) => {
         if(inputs[0] === inputs[1] && inputs[0]) {
-            token = localStorage.getItem('jwt')
+            token = localStorage?.getItem('jwt')
             fetch(`${process.env.DATA_URL}/auth/user/updatePassword`, {
                 method: 'POST',
                 headers: {
@@ -120,7 +120,7 @@ export default function AccountPage() {
     }
 
     const deleteAccount = () => {
-        token = localStorage.getItem('jwt')
+        token = localStorage?.getItem('jwt')
         if(!triedDeleteAccount) {
             setTriedDeleteAccount(true)
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('Account.PopupMessage.delete_account_warning'))) 

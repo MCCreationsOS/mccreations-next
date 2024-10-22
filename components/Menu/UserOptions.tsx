@@ -24,27 +24,27 @@ export default function UserOptions() {
 
     useEffect(() => {
         if(!user._id) {
-            const storedUser = localStorage.getItem('user')
+            const storedUser = localStorage?.getItem('user')
             if(storedUser) {
                 let user = JSON.parse(storedUser) as IUser
-                getUser(localStorage.getItem('jwt') + "").then((user) => {
+                getUser(localStorage?.getItem('jwt') + "").then((user) => {
                     if(user) {
                         setUser(user)
-                        localStorage.setItem('user', JSON.stringify(user))
+                        localStorage?.setItem('user', JSON.stringify(user))
                     } else {
-                        localStorage.removeItem('jwt')
-                        localStorage.removeItem('user')
+                        localStorage?.removeItem('jwt')
+                        localStorage?.removeItem('user')
                     }
                 })
                 setUser(user)
             } else {
-                getUser(localStorage.getItem('jwt') + "").then((user) => {
+                getUser(localStorage?.getItem('jwt') + "").then((user) => {
                     if(user) {
                         setUser(user)
-                        localStorage.setItem('user', JSON.stringify(user))
+                        localStorage?.setItem('user', JSON.stringify(user))
                     } else {
-                        localStorage.removeItem('jwt')
-                        localStorage.removeItem('user')
+                        localStorage?.removeItem('jwt')
+                        localStorage?.removeItem('user')
                     }
                 })
             }
@@ -81,7 +81,7 @@ export default function UserOptions() {
             <DropDownItem className="option_button" onClick={() => {router.push("/settings")}}>
                 <Settings /> {t("Navigation.UserOptions.settings")}
             </DropDownItem>
-            <DropDownItem className="option_button" onClick={() => {localStorage.removeItem('jwt'); localStorage.removeItem('user'); logout()}}>
+            <DropDownItem className="option_button" onClick={() => {localStorage?.removeItem('jwt'); localStorage?.removeItem('user'); logout()}}>
                 <LogOut /> {t("Navigation.UserOptions.sign_out")}
             </DropDownItem>
         </DropDown>

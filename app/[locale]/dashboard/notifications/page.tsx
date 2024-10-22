@@ -24,7 +24,7 @@ export default function Notifications() {
     }
 
     const readAll = () => {
-        let authorization = localStorage.getItem('jwt') + ""
+        let authorization = localStorage?.getItem('jwt') + ""
         mutate(notifications?.map(notification => ({...notification, read: true})) || [])
         setUserNotifications(notifications?.map(notification => ({...notification, read: true})) || [])
         readAllNotifications(authorization)

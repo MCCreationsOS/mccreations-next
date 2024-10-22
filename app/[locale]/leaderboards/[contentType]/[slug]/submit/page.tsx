@@ -17,7 +17,7 @@ export default function Page({params}: { params: Params}) {
     const router = useRouter()
 
     const sendScore = async (inputs: string[]) => {
-        let jwt = localStorage.getItem('jwt')
+        let jwt = localStorage?.getItem('jwt')
         const contentType = params.contentType as ContentTypes
         const slug = params.slug as string
         submitLeaderboard(contentType, slug, score, score_type, inputs[0], jwt + "")

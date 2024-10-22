@@ -22,7 +22,7 @@ const onMapCreate = (router: AppRouterInstance, title?: string, type?: string, s
     if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_type')))
     if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_short_description')))
 
-    let token  = localStorage.getItem('jwt')
+    let token  = localStorage?.getItem('jwt')
     Popup.close()
     createNewContent(title!, type!, shortDescription!, token).then((key) => {
         if(key && 'key' in key) {
@@ -52,7 +52,7 @@ export default function DesktopNav({selectedPage}: {selectedPage: string}) {
 
     const onMapImport = async (link?: string, type?: string) => {
         if(link && type && !uploading.current) {
-            let token = localStorage.getItem('jwt')
+            let token = localStorage?.getItem('jwt')
             uploading.current = true
             let res = await importContent(link, type, token)
             if(res.error) {

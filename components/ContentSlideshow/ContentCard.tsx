@@ -37,7 +37,7 @@ export default function ContentCard(props: IContentCardProps) {
     const locale = useLocale();
 
     useEffect(() => {
-        let selectedMaps = localStorage.getItem('selectedContent')
+        let selectedMaps = localStorage?.getItem('selectedContent')
         if(selectedMaps) {
             let maps = JSON.parse(selectedMaps)
             if(props.content.files && props.content.files.length > 0) {
@@ -52,20 +52,20 @@ export default function ContentCard(props: IContentCardProps) {
         e.preventDefault(); 
 
         if(!selected) {
-            let selectedMaps = localStorage.getItem('selectedContent')
+            let selectedMaps = localStorage?.getItem('selectedContent')
             if(selectedMaps) {
                 let maps = JSON.parse(selectedMaps)
                 maps.push((props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!)
-                localStorage.setItem('selectedContent', JSON.stringify(maps))
+                localStorage?.setItem('selectedContent', JSON.stringify(maps))
             } else {
-                localStorage.setItem('selectedContent', JSON.stringify([(props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!]))
+                localStorage?.setItem('selectedContent', JSON.stringify([(props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!]))
             }
         } else {
-            let selectedMaps = localStorage.getItem('selectedContent')
+            let selectedMaps = localStorage?.getItem('selectedContent')
             if(selectedMaps) {
                 let maps = JSON.parse(selectedMaps)
                 maps = maps.filter((map: string) => map !== ((props.content.files[0].worldUrl) ? props.content.files[0].worldUrl: (props.content.files[0].dataUrl) ? props.content.files[0].dataUrl : props.content.files[0].resourceUrl!))
-                localStorage.setItem('selectedContent', JSON.stringify(maps))
+                localStorage?.setItem('selectedContent', JSON.stringify(maps))
             }
         
         }

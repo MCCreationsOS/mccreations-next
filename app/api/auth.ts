@@ -61,7 +61,7 @@ export const useUserStore = create<UserStore>(set => ({
             settings: user.settings,
         })
 
-        getNotifications(localStorage.getItem('jwt') + "", user._id + "").then((notifications) => {
+        getNotifications(localStorage?.getItem('jwt') + "", user._id + "").then((notifications) => {
             set({...user, notifications: notifications})
         })
     },

@@ -7,7 +7,7 @@ const notificationsFetcher = (authorization: string, user_id: string) => {
 }
 
 export const useNotifications = (user_id: string) => {
-    const authorization = localStorage.getItem('jwt') + ""
+    const authorization = localStorage?.getItem('jwt') + ""
     const {data, error, isLoading} = useSWR(['notifications', user_id], ([key, user_id]) => notificationsFetcher(authorization, user_id))
     return {
         notifications: data as INotification[]|undefined,

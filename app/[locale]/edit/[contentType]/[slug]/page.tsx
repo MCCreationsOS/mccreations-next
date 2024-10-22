@@ -183,7 +183,7 @@ export default function EditContentPage({params}: {params: Params}) {
             }
         }
 
-        updateContent(newCreation, localStorage.getItem('jwt') + "", collectionName).then((result) => {
+        updateContent(newCreation, localStorage?.getItem('jwt') + "", collectionName).then((result) => {
             if(result.error) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
                 return;
@@ -210,7 +210,7 @@ export default function EditContentPage({params}: {params: Params}) {
             ...creation
         }
         newCreation.images = files.map(f => f.url)
-        updateContent(newCreation, localStorage.getItem('jwt') + "", collectionName).then(() => {
+        updateContent(newCreation, localStorage?.getItem('jwt') + "", collectionName).then(() => {
             mutate(newCreation)
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.images_saved')))
         }).catch((e) => {
@@ -230,7 +230,7 @@ export default function EditContentPage({params}: {params: Params}) {
             return b.createdDate - a.createdDate
         })
 
-        updateContent(newCreation, localStorage.getItem('jwt') + "", collectionName).then(() => {
+        updateContent(newCreation, localStorage?.getItem('jwt') + "", collectionName).then(() => {
             mutate(newCreation)
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.versions_saved')))
         }).catch((e) => {
@@ -248,7 +248,7 @@ export default function EditContentPage({params}: {params: Params}) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t(error.error)))
             })
         } else {
-            requestApproval(creation.slug, collectionName, localStorage.getItem('jwt') + "").then(() => {
+            requestApproval(creation.slug, collectionName, localStorage?.getItem('jwt') + "").then(() => {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.requested_approval')))
                 mutate({...creation, status: 1})
             })
@@ -343,7 +343,7 @@ export default function EditContentPage({params}: {params: Params}) {
                                         description: FormInput.getFormInput(`edit_translation_${lang}`)?.submit() + "",
                                         approved: (inputs[3] === "true") ? true : false
                                     }
-                                    updateTranslation(creation.slug, collectionName, translation, localStorage.getItem('jwt')).then((d) => {
+                                    updateTranslation(creation.slug, collectionName, translation, localStorage?.getItem('jwt')).then((d) => {
                                         if('error' in d) {
                                             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, d.error))
                                         } else {
