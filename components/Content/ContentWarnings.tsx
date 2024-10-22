@@ -6,24 +6,16 @@ import { Link } from "@/app/api/navigation";
 import { useEffect, useState } from "react"
 import MessageComponent, { IMessage } from "../Message/Message"
 import {useTranslations} from 'next-intl';
+import { useUser } from "@/app/api/hooks/users";
 
 /**
  * Content warnings for the map creator(s)
  * @param map The map to check
  */
 export default function ContentWarnings({map}: {map: IContentDoc}) {
-    const user = useUserStore() as IUser
-    const setUser = useUserStore((state) => state.setUser)
+    const {user} = useUser()
     const t = useTranslations()
 
-    // Get the user on load
-    useEffect(() => {
-        if(!user._id) {
-            getUser(localStorage.getItem('jwt') + "").then((u) => {
-                if(u) setUser(u)
-            })
-        }
-    }, [])
 
     // Check if the user is a creator
     let match = false;

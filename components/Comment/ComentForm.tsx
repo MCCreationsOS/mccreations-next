@@ -13,22 +13,16 @@ import {useTranslations} from 'next-intl';
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 import RichTextInput from "../FormInputs/RichText";
 import { FormInput } from "../FormInputs";
+import { useUser } from "@/app/api/hooks/users";
 
 export default function CommentForm({mapSlug: slug, content_type}: {mapSlug: string, content_type: string}) {
     const [comment, setComment] = useState("");
-    const user = useUserStore() as IUser
-    const setUser = useUserStore((state) => state.setUser)
+    const {user} = useUser()
     const [render, setRender] = useState(false);
     const t = useTranslations()
     let token;
 
     useEffect(() => {
-        if(!user._id) {
-            getUser(localStorage.getItem('jwt') + "").then((u) => {
-                if(u) setUser(u)
-            })
-        }
-
         if(!navigator.webdriver) {
             setRender(true);
         }

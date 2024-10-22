@@ -11,9 +11,10 @@ import FormComponent from "@/components/Form/Form"
 import WarningButton from "@/components/Buttons/WarningButton"
 import Text from "@/components/FormInputs/Text"
 import IconButton from "@/components/Buttons/IconButton"
+import { useCreation } from "@/app/api/hooks/creations"
 
 export default function FeaturedCreation({type, slug, canEdit, id}: {type: ContentTypes, slug: string, canEdit: boolean, id: string}) {
-    let [content, setContent] = useState<IContentDoc | null>(null)
+    let {creation, isLoading, error} = useCreation(slug, type)
     const t = useTranslations()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
 
@@ -45,22 +46,8 @@ export default function FeaturedCreation({type, slug, canEdit, id}: {type: Conte
             layout: profileLayout.layout.filter((layout) => layout.i !== id)
         })
     }
-
-    useEffect(() => {
-        switch(type) {
-            case "map":
-                fetchMap(slug).then(setContent)
-                break
-            case "datapack":
-                fetchDatapack(slug).then(setContent)
-                break
-            case "resourcepack":
-                fetchResourcepack(slug).then(setContent)
-                break
-        }
-    }, [])
     
-    if (!content) {
+    if (!creation || isLoading || 'error' in creation) {
         return <div className={styles.widget_container}>
             <h3 className={styles.draggable_handle}>{t('Profile.Widgets.FeaturedCreation.title')}</h3>
             {canEdit && <IconButton className={`${styles.options}`} onClick={editWidget} ><MoreVertical/></IconButton>}
@@ -71,7 +58,7 @@ export default function FeaturedCreation({type, slug, canEdit, id}: {type: Conte
         <div className={styles.widget_container}>
             <h3 className={styles.draggable_handle}>{t('Profile.Widgets.FeaturedCreation.title')}</h3>
             {canEdit && <IconButton className={`${styles.options}`} onClick={editWidget} ><MoreVertical/></IconButton>}
-            <ContentCard content={content} playlist={""} index={0} priority={true} />
+            <ContentCard content={creation} playlist={""} index={0} priority={true} />
         </div>
     )
 }

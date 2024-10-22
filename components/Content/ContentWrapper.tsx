@@ -2,10 +2,11 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { fetchDatapack, fetchMap, fetchResourcepack } from "@/app/api/content";
-import { CollectionNames, IContentDoc } from "@/app/api/types";
+import { CollectionNames, ContentTypes, IContentDoc } from "@/app/api/types";
 import { sendLog } from "@/app/api/logging";
 import Content from "./Content";
 import {useTranslations} from 'next-intl';
+import { useCreation } from "@/app/api/hooks/creations";
 
 /**
  * Wrapper for the map component that checks whether a user should be able to view the current content
@@ -18,25 +19,11 @@ export default function MapWrapper({slug, response}: {slug: string, response?: a
             <Content content={response} collectionName={CollectionNames.Maps} />
         )
     } else {
-        const [map, setMap] = useState<IContentDoc>()
+        const {creation, isLoading, error} = useCreation(slug, ContentTypes.Maps)
         const t = useTranslations()
 
-        useEffect(() => {
-            const getData = async (token: string) => {
-                let map = await fetchMap(slug, token)
-                if(map && '_id' in map) {
-                    setMap(map)
-                } else if(map) {
-                    map = await fetchMap(slug, sessionStorage.getItem('temp_key') + "")
-                    setMap(map)
-                }
-            }
-            let token = localStorage.getItem('jwt') + ""
-            getData(token)
-        }, [])
-
-        if(map && typeof map === "object" && '_id' in map) {
-            return (<Content content={map} collectionName={CollectionNames.Maps} />)
+        if(creation && typeof creation === "object" && '_id' in creation) {
+            return (<Content content={creation} collectionName={CollectionNames.Maps} />)
          } else {
             //  sendLog("Content Wrapper", "Map Not Found")
  
@@ -71,26 +58,11 @@ export function DatapackWrapper({slug, response}: {slug: string, response?: any}
             <Content content={response} collectionName={CollectionNames.Datapacks} />
         )
     } else {
-        const [datapack, setDatapack] = useState<IContentDoc>()
+        const {creation, isLoading, error} = useCreation(slug, ContentTypes.Datapacks)
         const t = useTranslations()
 
-        useEffect(() => {
-            const getData = async (token: string) => {
-                let map = await fetchDatapack(slug, token)
-                if(map && typeof map === "object" && '_id' in map) {
-                    setDatapack(map)
-                } else if(map) {
-                    map = await fetchDatapack(slug, sessionStorage.getItem('temp_key') + "")
-                    setDatapack(map)
-                }
-            }
-            let token = localStorage.getItem('jwt') + ""
-            getData(token)
-        }, [])
-
-
-        if(datapack && typeof datapack === "object" && '_id' in datapack) {
-           return (<Content content={datapack} collectionName={CollectionNames.Datapacks} />)
+        if(creation && typeof creation === "object" && '_id' in creation) {
+           return (<Content content={creation} collectionName={CollectionNames.Datapacks} />)
         } else {
             // sendLog("Content Wrapper", "Datapack Not Found")
 
@@ -125,25 +97,11 @@ export function ResourcepackWrapper({slug, response}: {slug: string, response?: 
             <Content content={response} collectionName={CollectionNames.Resourcepacks} />
         )
     } else {
-        const [resourcepack, setResourcepack] = useState<IContentDoc>()
+        const {creation, isLoading, error} = useCreation(slug, ContentTypes.Resourcepacks)
         const t = useTranslations()
 
-        useEffect(() => {
-            const getData = async (token: string) => {
-                let map = await fetchResourcepack(slug, token)
-                if(map && '_id' in map) {
-                    setResourcepack(map)
-                } else if(map) {
-                    map = await fetchResourcepack(slug, sessionStorage.getItem('temp_key') + "")
-                    setResourcepack(map)
-                }
-            }
-            let token = localStorage.getItem('jwt') + ""
-            getData(token)
-        }, [])
-
-        if(resourcepack && typeof resourcepack === "object" && '_id' in resourcepack) {
-            return (<Content content={resourcepack} collectionName={CollectionNames.Resourcepacks} />)
+        if(creation && typeof creation === "object" && '_id' in creation) {
+            return (<Content content={creation} collectionName={CollectionNames.Resourcepacks} />)
          } else {
              // sendLog("Content Wrapper", "Datapack Not Found")
  

@@ -1,22 +1,16 @@
 'use client'
 
-import { fetchComment } from "@/app/api/community";
-import { IComment } from "@/app/api/types";
+import { useComment } from "@/app/api/hooks/comments";
 import CommentCard from "@/components/Comment/CommentCard";
-import { useEffect, useState } from "react";
 
 
 export default function CommentPage({params: {locale, _id}}: {params: {locale: string, _id: string}}) {
-    const [comment, setComment] = useState<IComment | undefined>()
+    const {comment, isLoading, error} = useComment(_id)
 
-    useEffect(() => {
-        fetchComment(_id).then((comment) => {
-            setComment(comment)
-        })
-    }, [])
-    if(!comment) return <div>Loading...</div>
+    if(!comment || isLoading) return <div>Loading...</div>
+
     return (
-        <div>
+        <div className="centered_content">
             <CommentCard comment={comment} contentType="wall" handle={comment.slug} canReply={true} />
         </div>
     )

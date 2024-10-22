@@ -1,7 +1,7 @@
 'use client'
 
-import { convertToCollection, downloadCreation, fetchMap, fetchResourcepack } from "@/app/api/content";
-import { ContentTypes, IContentDoc, IFile } from "@/app/api/types";
+import { convertToCollection, downloadCreation, fetchResourcepack } from "@/app/api/content";
+import { ContentTypes, IFile } from "@/app/api/types";
 import DownloadButton from "@/components/Buttons/DownloadButton";
 import IconButton from "@/components/Buttons/IconButton";
 import ContentMenu from "@/components/Content/ContentMenu";
@@ -9,20 +9,19 @@ import ContentWarnings from "@/components/Content/ContentWarnings";
 import Rating from "@/components/Rating";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Link from "next/link";
-import { useEffect, useState } from "react";
 import { Archive, Layers, Package, Server } from "react-feather";
 import styles from './table.module.css'
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { useCreation } from "@/app/api/hooks/creations";
 
 export default function Page({ params }: { params: Params }) {
-    const [content, setContent] = useState<IContentDoc | null>(null)
+    const { creation, isLoading, error } = useCreation(params.slug, ContentTypes.Resourcepacks)
     const t = useTranslations();
+    const locale = useLocale()
 
-    useEffect(() => {
-        fetchResourcepack(params.slug).then(setContent)
-    }, [])
-
+    if(error || 'error' in creation) return <div className="centered_content">{t('Content.Files.loading')}</div>
+    
     const formatFileURL = (file: IFile) => {
         let url = ""
 
@@ -37,7 +36,7 @@ export default function Page({ params }: { params: Params }) {
     }
 
     const download = async (url: string) => {
-        await downloadCreation(content!.slug, content!.type)
+        await downloadCreation(creation!.slug, creation!.type)
         let a = document.createElement('a')
         a.href = url
         a.download = url.split('/').pop()!
@@ -46,21 +45,27 @@ export default function Page({ params }: { params: Params }) {
         a.remove()
     }
 
-    if (!content) return <div className="centered_content">{t('Content.Files.loading')}</div>
+    if (!creation) return <div className="centered_content">{t('Content.Files.loading')}</div>
+
+    let title = creation.title
+    
+    if(creation.translations && creation.translations[locale] && creation.translations[locale].approved) {
+        title = creation.translations[locale].title
+    }
 
     return (
         <>
-            <ContentWarnings map={content} />
-            <ContentMenu content={content} selectedTab={1} />
+            <ContentWarnings map={creation} />
+            <ContentMenu content={creation} selectedTab={1} />
             <div className='map_page'>
                 <div className="centered_content">
                     <div className='map_title_bar'>
                         <div className="map_title_stack">
-                            <h1 className='map_title'>{content.title}</h1>
+                            <h1 className='map_title'>{creation.title}</h1>
                         </div>
                         <div className='map_download_stack'>
-                            <Rating value={content.rating} content={content} />
-                            {(content.files) ? <DownloadButton contentType={content.type} slug={content.slug} file={content.files[0]} /> : <></>}
+                            <Rating value={creation.rating} content={creation} />
+                            {(creation.files) ? <DownloadButton contentType={creation.type} slug={creation.slug} file={creation.files[0]} /> : <></>}
                             <Link className="affiliate_button" title={t(`Content.affiliate`, {type: t('resourcepack', {count: 1})})} href="https://www.minecraft-hosting.pro/?affiliate=468862"><IconButton><Server /></IconButton></Link>
                         </div>
                     </div>
@@ -78,7 +83,7 @@ export default function Page({ params }: { params: Params }) {
                             <p>{t('Content.Files.download')}</p>
                         </div>
                     </div>
-                    {content.files && content.files.map((file: IFile, idx) => (
+                    {creation.files && creation.files.map((file: IFile) => (
                         <div className={styles.content_item} key={file.createdDate}>
                             <div className={styles.content_item_item}>
                                 <p>{file.contentVersion || formatFileURL(file)}</p>

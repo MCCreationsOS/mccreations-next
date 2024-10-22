@@ -1,49 +1,32 @@
 'use client'
 
-import { useEffect, useState } from "react"
-import { IUser } from "@/app/api/types"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { X } from "react-feather"
-import { deleteUser, getUser, useUserStore } from "@/app/api/auth"
+import { deleteUser, useUserStore } from "@/app/api/auth"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
-import PopupComponent, { Popup } from "@/components/Popup/Popup";
-import FormComponent, { FormElement } from "@/components/Form/Form";
+import { Popup } from "@/components/Popup/Popup";
+import FormComponent from "@/components/Form/Form";
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
 import WarningButton from "@/components/Buttons/WarningButton"
 import Text from "@/components/FormInputs/Text"
 import {useTranslations} from 'next-intl';
 import styles from "../AccountSidebar.module.css"
+import { useUserAlwaysSecure } from "@/app/api/hooks/users"
 
 export default function AccountPage() {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [password2, setPassword2] = useState("")
     const [triedDeleteAccount, setTriedDeleteAccount] = useState(false)
-    const user = useUserStore() as IUser
+    const {user, isLoading, error} = useUserAlwaysSecure()
     const setUser = useUserStore((state) => state.setUser)
     const router = useRouter();
     const t = useTranslations()
     let token: string | null;
 
-    useEffect(() => {
-        if(!user._id) {
-            const storedUser = localStorage.getItem('user')
-            if(storedUser) {
-                let user = JSON.parse(storedUser) as IUser
-                setUser(user)
-            } else {
-                getUser(localStorage.getItem('jwt') + "").then((user) => {
-                    if(user) {
-                        setUser(user)
-                        localStorage.setItem('user', JSON.stringify(user))
-                    } else {
-                        localStorage.removeItem('jwt')
-                        localStorage.removeItem('user')
-                    }
-                })
-            }
-        }
-    }, [])
+    if(error) return <div className="centered_content">{t('Account.PopupMessage.error')}</div>
+    if(isLoading) return <div className="centered_content">{t('Account.PopupMessage.loading')}</div>
+    if(!user) {
+        router.push("/signin")
+        return
+    }
 
     const updateHandle = (inputs: string[]) => {
         token = localStorage.getItem('jwt')

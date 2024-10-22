@@ -67,19 +67,15 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
         })
     }
 
-    useEffect(() => {
-
-        if(searchParams.get("search") && searchParams.get("search") != search) {
-            setSearch(searchParams.get("search") + "")
-        }
-        if(searchParams.get("sort") && searchParams.get("sort") != sort && (searchParams.get("sort") != "" || searchParams.get("sort") != null || searchParams.get("sort") != "undefined")) {
-            setSort(searchParams.get("sort")! as SortOptions)
-        }
-        if(searchParams.get("status")&& Number.parseInt(searchParams.get("status")!) != status) {
-            setStatus(Number.parseInt(searchParams.get("status")!))
-        }
-
-    }, [])
+    if(searchParams.get("search") && searchParams.get("search") != search) {
+        setSearch(searchParams.get("search") + "")
+    }
+    if(searchParams.get("sort") && searchParams.get("sort") != sort && (searchParams.get("sort") != "" || searchParams.get("sort") != null || searchParams.get("sort") != "undefined")) {
+        setSort(searchParams.get("sort")! as SortOptions)
+    }
+    if(searchParams.get("status")&& Number.parseInt(searchParams.get("status")!) != status) {
+        setStatus(Number.parseInt(searchParams.get("status")!))
+    }
 
     const Tag = ({tag, tagValue}: {tag: string, tagValue: string}) => {
         return (
@@ -178,7 +174,7 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
                     </div>
                         {tags && Object.keys(tags).map((category, idx) => {
                             return (
-                                <div className="filter_option">
+                                <div className="filter_option" key={category}>
                                     {t(`Content.Tags.${category as TagCategories}`)}
                                     <div key={category} className="select" onClick={() => {
                                         let newOpenDropdowns = [...openDropdowns]

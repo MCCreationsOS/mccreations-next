@@ -8,36 +8,18 @@ import styles from './index.module.css'
 import { fetchTags } from "@/app/api/content";
 import { useRouter, useSearchParams } from "next/navigation";
 
-export default function SidebarFilters({contentType}: {contentType: CollectionNames}) {
+export default function SidebarFilters({contentType, tags}: {contentType: CollectionNames, tags: {[key: string]: string[]}}) {
     const t = useTranslations()
     const router = useRouter()
     const searchParams = useSearchParams()
-    const [sort, setSort] = useState<SortOptions>(SortOptions.Newest)
-    const [status, setStatus] = useState<StatusOptions>(StatusOptions.Unapproved)
-    const [tags, setTags] = useState<{[key: string]: string[]}>()
-    const [includeTags, setIncludeTags] = useState<string[]>([])
-    const [excludeTags, setExcludeTags] = useState<string[]>([])
-
-    useEffect(() => {
-
-        fetchTags(contentType).then((data) => {
-            if('genre' in data) {
-                setTags(data)
-            }
-        })
-
-        if(searchParams.get("sort") && searchParams.get("sort") != sort && (searchParams.get("sort") != "" || searchParams.get("sort") != null || searchParams.get("sort") != "undefined")) {
-            setSort(searchParams.get("sort")! as SortOptions)
-        }
-        if(searchParams.get("status")&& Number.parseInt(searchParams.get("status")!) != status) {
-            setStatus(Number.parseInt(searchParams.get("status")!))
-        }
-
-    }, [])
+    const [sort, setSort] = useState<SortOptions>((searchParams.get("sort")) ? searchParams.get("sort")! as SortOptions : SortOptions.Newest)
+    const [status, setStatus] = useState<StatusOptions>((searchParams.get("status")) ? Number.parseInt(searchParams.get("status")!) as StatusOptions : StatusOptions.Unapproved)
+    const [includeTags, setIncludeTags] = useState<string[]>(searchParams.get("includeTags") ? searchParams.get("includeTags")!.split(",") : [])
+    const [excludeTags, setExcludeTags] = useState<string[]>(searchParams.get("excludeTags") ? searchParams.get("excludeTags")!.split(",") : [])
 
     const Tag = ({tag, tagValue}: {tag: string, tagValue: string}) => {
         return (
-            <div className={`${styles.tag} ${(includeTags.includes(tagValue)) ? styles.include : ""} ${(excludeTags.includes(tagValue)) ? styles.exclude : ""}`} onClick={() => {
+            <button className={`${styles.tag} ${(includeTags.includes(tagValue)) ? styles.include : ""} ${(excludeTags.includes(tagValue)) ? styles.exclude : ""}`} onClick={() => {
                 if(includeTags.includes(tagValue)) {
                     setIncludeTags(prev => prev.filter((t) => t != tagValue))
                     setExcludeTags(prev => [...prev, tagValue])
@@ -48,7 +30,7 @@ export default function SidebarFilters({contentType}: {contentType: CollectionNa
                 }
             }}>
                 {tag}
-            </div>
+            </button>
         )
     }
 

@@ -7,14 +7,14 @@ import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import Notification from "@/components/Dashboard/Notification";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 import styles from "../dashboard.module.css"
+import { useNotifications } from "@/app/api/hooks/notifications";
+import { mutate } from "swr";
 
 export default function Notifications() {
-    const [notifications, setNotifications] = useState<INotification[]>([])
     const user = useUserStore() as IUser
-    const setUser = useUserStore((state) => state.setUser)
+    const {notifications, isLoading, error} = useNotifications(user._id + "")
     const setUserNotifications = useUserStore((state) => state.setNotifications)
     const router = useRouter()
     const t = useTranslations()
@@ -23,32 +23,17 @@ export default function Notifications() {
         router.push("/signin")
     }
 
-    useEffect(() => {
-        let authorization = localStorage.getItem('jwt') + ""
-        getNotifications(authorization, user._id + "").then(setNotifications)
-
-        getUser(authorization).then(user => {
-            if(user) {
-                setUser(user)
-                localStorage.setItem('user', JSON.stringify(user))
-            } else {
-                localStorage.removeItem('jwt')
-                localStorage.removeItem('user')
-            }
-        })
-    }, [])
-
     const readAll = () => {
         let authorization = localStorage.getItem('jwt') + ""
-        setNotifications(notifications.map(notification => ({...notification, read: true})))
-        setUserNotifications(notifications.map(notification => ({...notification, read: true})))
+        mutate(notifications?.map(notification => ({...notification, read: true})) || [])
+        setUserNotifications(notifications?.map(notification => ({...notification, read: true})) || [])
         readAllNotifications(authorization)
     }
 
     return <div className={styles.notifications_page}>
             <h3>{t('notification', {count : 2})}</h3>
             <SecondaryButton className={styles.read_all_button} onClick={readAll}>{t('Account.Notifications.read_all')}</SecondaryButton>
-            {notifications.map(notification => <Notification notification={notification} />)}
-            {notifications.length === 0 && <p>{t('Account.Notifications.no_notifications')}</p>}
+            {notifications?.map(notification => <Notification notification={notification} />)}
+            {notifications?.length === 0 && <p>{t('Account.Notifications.no_notifications')}</p>}
     </div>
 }

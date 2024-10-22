@@ -1,6 +1,6 @@
 'use client'
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { resetPassword } from "@/app/api/auth";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import MainButton from "@/components/Buttons/MainButton";
@@ -16,15 +16,13 @@ export default function Page() {
 
     let token: string | null
     
-    useEffect(() => {
-        token = params.get('token')
-        if(!token) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('ResetPassword.token_error'), () => {
-                router.back()
-            }))
-            return;
-        }
-    }, [])
+    token = params.get('token')
+    if(!token) {
+        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('ResetPassword.token_error'), () => {
+            router.back()
+        }))
+        return;
+    }
 
     const updatePassword = async () => {
         token = params.get('token')

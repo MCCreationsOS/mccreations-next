@@ -14,6 +14,7 @@ import { FormInput } from '../FormInputs';
 import { useUserStore } from '@/app/api/auth';
 import { postWallComment } from '@/app/api/creators';
 import Text from '../FormInputs/Text';
+import { useCreator } from '@/app/api/hooks/users';
 
 /**
  * A comment
@@ -22,7 +23,7 @@ import Text from '../FormInputs/Text';
 export default function CommentCard({comment, contentType, handle, canReply}: {comment: IComment, contentType: CollectionNames | "wall", handle: string, canReply?: boolean}) {
     const t = useTranslations()
     const [image, setImage] = useState("/defaultLogo.png")
-    const [creator, setCreator] = useState<IUser | null>(null)
+    const {creator} = useCreator(handle)
     const [expanded, setExpanded] = useState(false)
     const [canExpand, setCanExpand] = useState(false)
     const [replying, setReplying] = useState(false)
@@ -32,14 +33,6 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
     const user = useUserStore((state) => state)
 
     useEffect(() => {
-        // If the comment is attached to a user, get the user's icon
-        if(comment.handle) {
-            getCreator(comment.handle).then((creator) => {
-                if(creator && creator.iconURL) {
-                    setImage(creator.iconURL)
-                }
-            })
-        }
         if(container.current) {
             setCanExpand(container.current.scrollHeight > 300)
         }

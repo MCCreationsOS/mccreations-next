@@ -4,9 +4,9 @@ import { getUser, useUserStore } from "@/app/api/auth";
 import { getCreator } from "@/app/api/community";
 import { ContentTypes, ICreator, IUser } from "@/app/api/types";
 import { Link } from "@/app/api/navigation";
-import { useEffect, useState } from "react";
 import MainButton from "./MainButton";
 import {useTranslations} from 'next-intl';
+import { useUser } from "@/app/api/hooks/users";
 
 /**
  * The Edit Content button, which displays if the user is a creator of the content
@@ -15,16 +15,8 @@ import {useTranslations} from 'next-intl';
  * @param status The status of the content 
  */
 export default function EditContentButton({slug, creators, status, contentType}: {slug: string, creators: ICreator[], status: number, contentType: ContentTypes}) {
-    const user = useUserStore() as IUser
-    const setUser = useUserStore((state) => state.setUser)
+    const {user} = useUser()
     const t = useTranslations()
-    useEffect(() => {
-        if(!user._id) {
-            getUser(localStorage.getItem('jwt') + "").then((u) => {
-                if(u) setUser(u)
-            })
-        }
-    }, [])
 
     let match = false;
     creators && creators.forEach((creator) => {

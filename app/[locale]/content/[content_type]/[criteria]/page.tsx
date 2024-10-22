@@ -1,6 +1,6 @@
 import { convertToCollection, searchContent } from "@/app/api/content";
 import { AllTags, ContentTypes, MinecraftVersions, SortOptions, StatusOptions } from "@/app/api/types";
-import SearchPage from "@/components/Search/SearchPage";
+import ContentSearchPage from "@/components/Content/Search/ContentSearchPage";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { Suspense } from "react";
@@ -8,7 +8,7 @@ import { Suspense } from "react";
 export default async function Page({params}: {params: Params}) {
     unstable_setRequestLocale(params.locale)
     const criteria = params.criteria
-    const contentType = params.content_type
+    const contentType = params.content_type as ContentTypes
     let sort = SortOptions.Newest
     let status = StatusOptions.Approved
     let include = ""
@@ -75,9 +75,13 @@ export default async function Page({params}: {params: Params}) {
             break
     }
 
-    defaultContent = (await searchContent({contentType: convertToCollection(params.content_type as ContentTypes), sort: sort, status: status, includeTags: include, excludeTags: "", limit: 20, page: 0}, false)).documents
+    if(search === "") {
+        search = criteria
+    }
+
+    // defaultContent = (await searchContent({contentType: convertToCollection(contentType), sort: sort, status: status, includeTags: include, excludeTags: "", limit: 20, page: 0}, false)).documents
     
     return (
-        <SearchPage defaultContent={defaultContent} contentType={params.content_type} sort={sort} status={status} include={include} exclude="" search={search} />
+        <ContentSearchPage searchParams={{page: "0", search: search, sort: sort, status: status.toString(), includeTags: include, excludeTags: ""}} contentType={convertToCollection(contentType)} pathname={`/${params.locale}/content/${contentType}/${criteria}`} />
     )
 }

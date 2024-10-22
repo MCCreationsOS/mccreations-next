@@ -38,6 +38,8 @@
     border-radius: 5px;
     border: 1px solid gray;
     cursor: pointer;
+    background-color: transparent;
+    font-size: 1rem;
 }
 
 .include {
@@ -45,5 +47,5 @@
 }
 
 .exclude {
-    border: 1px solid #c73030;
+    border: 1px dashed #c73030;
 }

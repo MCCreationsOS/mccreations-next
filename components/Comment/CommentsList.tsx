@@ -5,7 +5,7 @@ import { fetchComments, postComment } from "@/app/api/community";
 import { CollectionNames, IComment, IUser, SortOptions } from "@/app/api/types";
 import { getUser } from "@/app/api/auth";
 import {useTranslations} from 'next-intl';
-import { useEffect, useState } from "react";
+import { useComments } from "@/app/api/hooks/comments";
 
 /**
  * A list of comments that are cached with the map, this component should be improved to initially display the cached comments and then fetch any new ones
@@ -14,17 +14,10 @@ import { useEffect, useState } from "react";
  */
 export default function CommentsList({mapSlug, content_type}: {mapSlug: string, content_type: CollectionNames}) {
     const t = useTranslations()
-    const [comments, setComments] = useState<IComment[] | undefined>()
+    const {comments, isLoading, error} = useComments(mapSlug, content_type, SortOptions.Newest, 20)
 
-    useEffect(() => {
-        getComments()
-    }, [])
-
-    const getComments = () => {
-        fetchComments(mapSlug, {contentType: content_type, sort: SortOptions.Newest, limit: 20}).then((comments) => {
-            setComments(comments.documents)
-        })
-    }
+    if(error) return <div className="centered_content">{t('CommentsList.error')}</div>
+    if(isLoading) return <div className="centered_content">{t('CommentsList.loading')}</div>
 
     return (
         <div className='centered_content'>

@@ -2,11 +2,9 @@
 
 import { getUser, useUserStore } from "@/app/api/auth";
 import { IUser } from "@/app/api/types";
-import Menu from "@/components/Menu/Menu";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
 import { useRouter, useSearchParams } from "next/navigation"
-import { useEffect, useState } from "react"
 
 function signInWithDiscord(code: string | null, setUser: (user: IUser) => void): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -219,39 +217,63 @@ export default function OauthHandlerPage() {
     const router = useRouter();
     const t = useTranslations()
 
-    useEffect(() => {
-        let provider = params.get('provider')
-        const handleSignIn = async () => {
-            const token = localStorage.getItem('jwt')
-            if(token) {
-                let u = await getUser(token)
-                if(u) {
-                    setUser(u)
-                }
+    let provider = params.get('provider')
+    const handleSignIn = async () => {
+        const token = localStorage.getItem('jwt')
+        if(token) {
+            let u = await getUser(token)
+            if(u) {
+                setUser(u)
             }
-            if(provider === "discord") {
-                let code = params.get('code')
-                if(!user || user._id === "") {
-                    signInWithDiscord(code, setUser).then(data => {
+        }
+        if(provider === "discord") {
+            let code = params.get('code')
+            if(!user || user._id === "") {
+                signInWithDiscord(code, setUser).then(data => {
+                    router.push('/')
+                }).catch(error => {
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                         router.push('/')
-                    }).catch(error => {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                            router.push('/')
-                        }))
-                    });
-                } else {
-                    addDiscordProvider(code).then(data => {
+                    }))
+                });
+            } else {
+                addDiscordProvider(code).then(data => {
+                    router.push('/')
+                }).catch(error => {
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
                         router.push('/')
-                    }).catch(error => {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                            router.push('/')
-                        }))
-                    });
-                }
-            } else if(provider === 'github') {
-                let code = params.get('code')
+                    }))
+                });
+            }
+        } else if(provider === 'github') {
+            let code = params.get('code')
+            if(!user || user._id === "") {
+                signInWithGithub(code + "", setUser).then(data => {
+                    router.push('/')
+                }).catch(error => {
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
+                        router.push("/")
+                    }))
+                });
+            } else {
+                addGithubProvider(code + "").then(data => {
+                    router.push('/')
+                }).catch(error => {
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
+                        router.push("/")
+                    }))
+                });
+            }
+        } else if(provider === 'google') {
+            let hash = location.hash.substring(1);
+            let params:any = {};
+            var regex = /([^&=]+)=([^&]*)/g, m;
+            while(m = regex.exec(hash)) {
+                params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
+            }
+            if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie" && params.access_token) {
                 if(!user || user._id === "") {
-                    signInWithGithub(code + "", setUser).then(data => {
+                    signInWithGoogle(params.access_token, setUser).then(data => {
                         router.push('/')
                     }).catch(error => {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -259,54 +281,7 @@ export default function OauthHandlerPage() {
                         }))
                     });
                 } else {
-                    addGithubProvider(code + "").then(data => {
-                        router.push('/')
-                    }).catch(error => {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                            router.push("/")
-                        }))
-                    });
-                }
-            } else if(provider === 'google') {
-                let hash = location.hash.substring(1);
-                let params:any = {};
-                var regex = /([^&=]+)=([^&]*)/g, m;
-                while(m = regex.exec(hash)) {
-                    params[decodeURIComponent(m[1])] = decodeURIComponent(m[2])
-                }
-                if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie" && params.access_token) {
-                    if(!user || user._id === "") {
-                        signInWithGoogle(params.access_token, setUser).then(data => {
-                            router.push('/')
-                        }).catch(error => {
-                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                                router.push("/")
-                            }))
-                        });
-                    } else {
-                        addGoogleProvider(params.access_token).then(data => {
-                            router.push('/')
-                        }).catch(error => {
-                            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                                router.push("/")
-                            }))
-                        });
-                    }
-                } else {
-                    router.push("/signup")
-                }
-            } else if(params.get('state') === "ShoutoutToMyBoyMicrosoft") {
-                let code = params.get('code')
-                if(!user || user._id === "") {
-                    signInWithMicrosoft(code, setUser).then(data => {
-                        router.push('/')
-                    }).catch(error => {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                            router.push("/")
-                        }))
-                    });
-                } else {
-                    addMicrosoftProvider(code).then(data => {
+                    addGoogleProvider(params.access_token).then(data => {
                         router.push('/')
                     }).catch(error => {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -315,11 +290,32 @@ export default function OauthHandlerPage() {
                     });
                 }
             } else {
-                router.push('/')
+                router.push("/signup")
             }
+        } else if(params.get('state') === "ShoutoutToMyBoyMicrosoft") {
+            let code = params.get('code')
+            if(!user || user._id === "") {
+                signInWithMicrosoft(code, setUser).then(data => {
+                    router.push('/')
+                }).catch(error => {
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
+                        router.push("/")
+                    }))
+                });
+            } else {
+                addMicrosoftProvider(code).then(data => {
+                    router.push('/')
+                }).catch(error => {
+                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
+                        router.push("/")
+                    }))
+                });
+            }
+        } else {
+            router.push('/')
         }
-        handleSignIn()
-    }, [])
+    }
+    handleSignIn()
 
     
 
