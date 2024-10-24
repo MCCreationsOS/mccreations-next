@@ -10,6 +10,9 @@
     text-decoration: none;
     opacity: 1;
     height: fit-content;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .main_button:hover {

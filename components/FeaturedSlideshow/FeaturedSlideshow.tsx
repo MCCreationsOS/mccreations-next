@@ -65,29 +65,31 @@ export default function FeaturedSlideshow({content}: {content: IContentDoc[]}) {
                         <div className={styles.information}>
                             <Image placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1920, 1080))}`} priority={true} className={styles.image} src={f.images[0]} width={1920} height={1080} alt={t('Content.logo_alt', {title: f.title, type: f.type, minecraft_version: f.files[0].minecraftVersion, creator: f.creators[0].username})}></Image>
 
-                            <h2 className={styles.title}>{f.title}</h2>
-                            <p className={styles.description}>{f.shortDescription}</p>
-                            <p className={styles.author}>{t('Content.by', {creator: f.creators.slice(0, 5).map(c => c.username).join(t('Content.by_joiner'))})}</p>
+                            <div className={styles.text_information}>
+                                <h2 className={styles.title}>{f.title}</h2>
+                                <p className={styles.description}>{f.shortDescription}</p>
+                                <p className={styles.author}>{t('Content.by', {creator: f.creators.slice(0, 5).map(c => c.username).join(t('Content.by_joiner'))})}</p>
 
-                            <div className={styles.stats}>
-                                <div className={styles.stat}><img className={styles.in_text_icon} src='/download.svg'></img>{f.downloads}</div>
-                                {(f.rating > 0) ? <div className={styles.stat}><img className={styles.in_text_icon}  src='/star_white.svg'></img>{(Math.round(f.rating*100)/100) * 5}</div>: <></> }
-                                <div className={styles.stat}><img className={styles.in_text_icon}  src='/map.svg'></img>{f.files[0].minecraftVersion}</div>
+                                <div className={styles.stats}>
+                                    <div className={styles.stat}><img className={styles.in_text_icon} src='/download.svg'></img>{f.downloads}</div>
+                                    {(f.rating > 0) ? <div className={styles.stat}><img className={styles.in_text_icon}  src='/star_white.svg'></img>{(Math.round(f.rating*100)/100) * 5}</div>: <></> }
+                                    <div className={styles.stat}><img className={styles.in_text_icon}  src='/map.svg'></img>{f.files[0].minecraftVersion}</div>
+                                </div>
+
+                                <Link href={`/${f.type}s/${f.slug}`}><MainButton>{t('FeaturedSlideshow.see_more')}</MainButton></Link>
+                                <div className={styles.markers}>
+                                    {
+                                        content.map((f: IContentDoc, idx: number) => {
+                                            return (
+                                                <div onClick={() => setSlide(idx)} key={f._id} className={(index === idx) ? `${styles.marker} ${styles.active}` : styles.marker}>
+                                                    {index === idx ? (<span className={styles.color} style={{width: `${slideTime/10}px`}}></span>): (<span className={styles.color}></span>)} 
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
-
-                            <Link href={`/${f.type}s/${f.slug}`}><MainButton>{t('FeaturedSlideshow.see_more')}</MainButton></Link>
                             
-                            <div>
-                                {
-                                    content.map((f: IContentDoc, idx: number) => {
-                                        return (
-                                            <div onClick={() => setSlide(idx)} key={f._id} className={(index === idx) ? `${styles.marker} ${styles.active}` : styles.marker}>
-                                                {index === idx ? (<span className={styles.color} style={{width: `${slideTime/10}px`}}></span>): (<span className={styles.color}></span>)} 
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
                         </div>
                     </div>
                 )

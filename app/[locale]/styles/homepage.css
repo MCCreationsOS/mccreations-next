@@ -1,4 +1,13 @@
-.playlist_header {
+.view_all_header {
     font-size: 1.7rem;
-    margin: 50px 5% 15px 5%;
+    text-align: center;
+    margin: 50px 0 15px 0;
+}
+
+.view_all_buttons {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    gap: 10px;
+    margin-bottom: 20px;
 }
