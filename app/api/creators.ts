@@ -86,9 +86,9 @@ export async function postWallComment(authorization: string, id: string, comment
     }
 }
 
-export async function getNotifications(authorization: string, user_id: string) {
+export async function getNotifications(authorization: string, user_id: string, page: number) {
     try {
-        const response = await fetch(`${process.env.DATA_URL}/notifications/${user_id}`, {
+        const response = await fetch(`${process.env.DATA_URL}/notifications/${user_id}?page=${page}`, {
             headers: {
                 'Authorization': authorization
             }
