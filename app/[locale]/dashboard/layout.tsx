@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 
 import styles from "./dashboard.module.css"
-import { Bell, Box, Layers, Map } from "react-feather"
+import { Bell, Layers, Map, Package } from "react-feather"
 
 export default async function Layout({params: {locale}, children}: {params: {locale: string}, children: React.ReactElement}) {
     const t = await getTranslations()
@@ -13,7 +13,7 @@ export default async function Layout({params: {locale}, children}: {params: {loc
                 <nav className={styles.dashboard_sidebar}>
                     <h1>{t('Dashboard.title')}</h1>
                     <Link className={styles.dashboard_sidebar_item} href="/dashboard/maps"><Map /> {t('map', {count : 2})}</Link>
-                    <Link className={styles.dashboard_sidebar_item} href="/dashboard/datapacks"><Box /> {t('datapack', {count : 2})}</Link>
+                    <Link className={styles.dashboard_sidebar_item} href="/dashboard/datapacks"><Package /> {t('datapack', {count : 2})}</Link>
                     <Link className={styles.dashboard_sidebar_item} href="/dashboard/resourcepacks"><Layers /> {t('resourcepack', {count : 2})}</Link>
                     <Link className={styles.dashboard_sidebar_item} href="/dashboard/notifications"><Bell /> {t('notification', {count : 2})}</Link>
                 </nav>
