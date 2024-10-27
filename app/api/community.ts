@@ -145,8 +145,10 @@ export async function getCreator(handle: string) {
     try {
         let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: Infinity }})
         try {
-            let json = await data.json()
-            return json;
+            if(data.status === 200) {
+                let json = await data.json()
+                return json;
+            }
         } catch(e) {
             console.error(e)
         }

@@ -196,13 +196,16 @@
     "Comment": {
         "permalink": "复制永久评论链接",
         "expand": "展开",
-        "collapse": "折叠"
+        "collapse": "折叠",
+        "reply": "Reply",
+        "like": "Like"
     },
     
     "CommentsList": {
         "title": "评论",
         "no_comments": "成为第一个评论的人！",
-        "none_yet": "尚无评论！"
+        "none_yet": "尚无评论！",
+        "loading": "Loading Comments..."
     },
 
     "FeaturedSlideshow": {
@@ -283,7 +286,9 @@
             "center_align": "居中对齐",
             "right_align": "右对齐",
             "image": "插入图片",
-            "add_caption": "添加标题"
+            "add_caption": "添加标题",
+            "spoiler": "Add Spoiler",
+            "font_size": "Font Size"
         }
     },
 
@@ -313,7 +318,8 @@
         },
         "badge": "测试版",
         "beta_warning": "MCCreations 目前仍处于 beta 版。请使用该<form>表格</form>，<github>通过我们的 Github page</github>，或<link>加入我们的 Discord</link>以留下反馈或报告问题。",
-        "home": "首页"
+        "home": "首页",
+        "feed": "Feed"
     },
 
     "SearchAndFilter": {

@@ -20,7 +20,7 @@ export default function Page({ params }: { params: Params }) {
     const t = useTranslations();
     const locale = useLocale()
 
-    if(error || 'error' in creation) return <div className="centered_content">{t('Content.Files.loading')}</div>
+    if(creation && (error || 'error' in creation)) return <div className="centered_content">{t('Content.Files.loading')}</div>
     
     const formatFileURL = (file: IFile) => {
         let url = ""

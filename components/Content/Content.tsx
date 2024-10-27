@@ -47,7 +47,6 @@ export default function Content({content, collectionName}: {content: IContentDoc
 
     return (
         <>
-        <ContentWarnings map={content} />
         <ContentMenu content={content} />
         <div className='map_page'>
             <Image className='image_background' width={1920} height={1080} src={content.images[0]} alt=""></Image>

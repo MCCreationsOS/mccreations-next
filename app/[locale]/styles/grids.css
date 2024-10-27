@@ -163,6 +163,10 @@
     gap: 10px;
 }
 
+.options_dropdown_button:hover {
+    background-color: #3a3a3a;
+}
+
 .options_dropdown_button.language {
     display: inline;
     padding: 5px 15px;

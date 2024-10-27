@@ -1,19 +1,13 @@
 import { getUser, useUserStore } from "../auth"
 import useSWR, { mutate } from 'swr'
-import { ICreator, IUser } from "../types"
+import { ICreator, IUser, UserTypes } from "../types"
 import { getCreator } from "../community"
 import { getContent } from "../content"
 import { useEffect } from "react"
+import { useLocalStorage } from 'usehooks-ts'
+
 const getUserFetcher = (token: string) => {
     return getUser(token)
-}
-
-const getStoredUserFetcher = () => {
-    const user = useUserStore() as IUser
-    if(user._id === "") {
-        return JSON.parse(localStorage?.getItem('user') + "")
-    }
-    return user
 }
 
 const getCreatorFetcher = (handle?: string) => {
@@ -26,33 +20,75 @@ const getOwnedCreationsFetcher = (handle: string) => {
     return getContent({contentType: "content", creator: handle, status: 0, limit: 20, page: 0})
 }
 
-export const useUser = () => {
-    const { data, error, isLoading } = useSWR(['stored_user'], getStoredUserFetcher)
+export const useToken = () => {
+    const [token, setToken] = useLocalStorage<string>('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    return { token, setToken }
+}
 
-    useEffect(() => {
-        let token = localStorage?.getItem('jwt') + ""
-        if(token) {
-            getUserFetcher(token).then((user) => {
-                if(user) {
-                    mutate(user)
-                } else {
-                    localStorage?.removeItem('jwt')
-                    localStorage?.removeItem('user')
-                    mutate(null)
+export const useUser = () => {
+    const user = useUserStore()
+    const setUserStore = useUserStore((state) => state.setUser)
+    const [storedUser, setStoredUser] = useLocalStorage<IUser>('user', {
+        _id: "",
+        username: "",
+        email: "",
+        type: UserTypes.Account
+    })
+    const [token, setToken] = useLocalStorage<string>('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const { data, error, isLoading } = useSWR([token, 'user'], ([token]) => getUserFetcher(token))
+
+    const setUser = (user: IUser) => {
+        setStoredUser(user)
+        setUserStore(user)
+    }
+
+    if(user && user._id !== "") {
+        return {
+            user: user as IUser,
+            setUser,
+            isLoading: false,
+            error: undefined
+        }
+    }
+
+    if(storedUser) {
+        try {
+            let user = storedUser
+            if(user && user._id !== "") {
+                return {
+                    user: user as IUser,
+                    setUser,
+                    isLoading: false,
+                    error: undefined
                 }
-                })
             }
-    }, [])
+        } catch(e) {
+            console.error(e)
+        }
+    }
+
+    if(token) {
+        if(data && data._id !== "") {
+            setStoredUser(data)
+            return {
+                user: data as IUser,
+                setUser,
+                isLoading: false,
+                error: undefined
+            }
+        }
+    }
 
     return {
-        user: data,
-        isLoading,
-        error
+        user: undefined,
+        setUser,
+        isLoading: false,
+        error: undefined
     }
 }
 
 export const useUserAlwaysSecure = () => {
-    const token = localStorage?.getItem('jwt') + ""
+    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
     const { data, error, isLoading } = useSWR([token, 'always_secure'], ([token]) => getUserFetcher(token))
     const setUser = useUserStore((state) => state.setUser)
 
@@ -78,10 +114,10 @@ export const useCreator = (handle?: string) => {
     }
 }
 
-export const useOwnedCreations = (handle: string) => {
-    let token = localStorage?.getItem('jwt')
-    if(!token) {
-        token = sessionStorage?.getItem('temp_key') + ""
-    }
+// export const useOwnedCreations = (handle: string) => {
+//     const [token] = useLocalStorage('jwt', '')
+//     if(!token) {
+//         token = sessionStorage?.getItem('temp_key') + ""
+//     }
 
-}
+// }

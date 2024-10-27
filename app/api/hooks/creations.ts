@@ -1,6 +1,8 @@
 import useSWR, { mutate } from 'swr'
-import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, getContent, searchContent } from '../content'
+import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, getContent, getFeed, searchContent } from '../content'
 import { CollectionNames, ContentTypes, IContentDoc, QueryOptions, Tags } from '../types'
+import { useLocalStorage } from 'usehooks-ts'
+import { useToken } from './users'
 // import { fetcher } from '../utils'
 
 const searchCreationsFetcher = (token: string, queryOptions: QueryOptions, filterQuery?: QueryOptions) => {
@@ -20,12 +22,10 @@ const getCreationFetcher = (token: string, slug: string, type: ContentTypes) => 
 }
 
 export const useCreationSearch = (queryOptions: QueryOptions, filterQuery?: QueryOptions) => {
-    let token = localStorage?.getItem('jwt')
-    if(!token) {
-        token = sessionStorage?.getItem('temp_key') + ""
-    }
+    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const [tempKey] = useLocalStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
-    const { data, error, isLoading } = useSWR([token, queryOptions, filterQuery], ([token, queryOptions, filterQuery]) => searchCreationsFetcher(token, queryOptions, filterQuery))
+    const { data, error, isLoading } = useSWR([token ?? tempKey, queryOptions, filterQuery], ([token, queryOptions, filterQuery]) => searchCreationsFetcher(token, queryOptions, filterQuery))
     return {
         creations: (data?.documents ?? []) as IContentDoc[],
         count: data?.count ?? 0,
@@ -35,12 +35,10 @@ export const useCreationSearch = (queryOptions: QueryOptions, filterQuery?: Quer
 }
 
 export const useCreations = (queryOptions: QueryOptions) => {
-    let token = localStorage?.getItem('jwt')
-    if(!token) {
-        token = sessionStorage?.getItem('temp_key') + ""
-    }
+    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const [tempKey] = useLocalStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
-    const { data, error, isLoading } = useSWR([token, queryOptions, 'useCreations'], ([token, queryOptions]) => getCreationsFetcher(token, queryOptions))
+    const { data, error, isLoading } = useSWR([token ?? tempKey, queryOptions, 'useCreations'], ([token, queryOptions]) => getCreationsFetcher(token, queryOptions))
     return {
         creations: (data?.documents ?? []) as IContentDoc[],
         isLoading,
@@ -49,16 +47,10 @@ export const useCreations = (queryOptions: QueryOptions) => {
 }
 
 export const useCreation = (slug: string, type: ContentTypes) => {
-    let token = ""
-    const { data, error, isLoading } = useSWR([token, slug, type, 'useCreation'], ([token, slug, type]) => getCreationFetcher(token, slug, type))
+    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const [tempKey] = useLocalStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
-    if(!data || (data.error && !isLoading)) {
-        token = localStorage?.getItem('jwt') + ""
-        if(token === "") {
-        token = sessionStorage?.getItem('temp_key') + ""
-        }
-        mutate(getCreationFetcher(token, slug, type))
-    }
+    const { data, error, isLoading } = useSWR([token ?? tempKey, slug, type, 'useCreation'], ([token, slug, type]) => getCreationFetcher(token, slug, type))
 
     return {
         creation: data as IContentDoc | {error: string},
@@ -71,6 +63,16 @@ export const useTags = (type: CollectionNames) => {
     const { data, error, isLoading } = useSWR([type, 'useTags'], ([type]) => fetchTags(type))
     return {
         tags: data as Tags | {error: string},
+        isLoading,
+        error
+    }
+}
+
+export const useFeed = (limit: number, page: number) => {
+    const {token} = useToken()
+    const { data, error, isLoading } = useSWR([token, 'useFeed', limit, page], async ([token, id, limit, page]) => getFeed(token, limit, page))
+    return {
+        feed: data as IContentDoc[] | {error: string} | undefined,
         isLoading,
         error
     }

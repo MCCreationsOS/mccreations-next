@@ -216,7 +216,9 @@ export interface IUser {
     }]
     profileLayout?: ProfileLayout,
     settings?: CreatorSettings,
-    notifications?: INotification[]
+    notifications?: INotification[],
+    subscribers?: string[],
+    subscriptions?: string[]
 }
 
 export interface CreatorSettings {

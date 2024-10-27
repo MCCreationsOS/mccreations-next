@@ -1,4 +1,4 @@
-import ContentGrid from "@/components/ContentGrid"
+import ContentGrid from "@/components/Grids/ContentGrid"
 import Menu from "@/components/Menu/Menu"
 import { useSearchParams, usePathname } from "next/navigation"
 import Link from "next/link";

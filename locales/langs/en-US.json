@@ -239,13 +239,15 @@
         "permalink": "Copy comment permalink",
         "expand": "See More",
         "collapse": "See Less",
-        "reply": "Reply"
+        "reply": "Reply",
+        "like": "Like"
     },
 
     "CommentsList": {
         "title": "Comments",
         "no_comments": "Be the first to comment!",
-        "none_yet": "None Yet!"
+        "none_yet": "None Yet!",
+        "loading": "Loading Comments..."
     },
 
     "FeaturedSlideshow": {
@@ -326,7 +328,9 @@
             "center_align": "Center Align",
             "right_align": "Right Align",
             "image": "Insert Image",
-            "add_caption": "Add Caption"
+            "add_caption": "Add Caption",
+            "spoiler": "Add Spoiler",
+            "font_size": "Font Size"
         }
     },
 
@@ -357,7 +361,8 @@
         },
         "badge": "Beta",
         "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
-        "home": "Home"
+        "home": "Home",
+        "feed": "Feed"
     },
 
     "SearchAndFilter": {

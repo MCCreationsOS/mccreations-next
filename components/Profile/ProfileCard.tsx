@@ -10,6 +10,9 @@ import IconButton from '../Buttons/IconButton';
 import { Plus } from 'react-feather';
 import SecondaryButton from '../Buttons/SecondaryButton';
 import AddWidgetButton from './AddWidgetButton';
+import dynamic from 'next/dynamic';
+
+const SubscribeButton = dynamic(() => import('../Buttons/SubscribeButton'), { ssr: false })
 
 export default async function ProfileCard({creator}: {creator: IUser}) {
     return (
@@ -30,6 +33,9 @@ export default async function ProfileCard({creator}: {creator: IUser}) {
             </svg>
             <div className={styles.profile_content}>
                 <AddWidgetButton creator={creator} />
+                <div className={styles.add_widget_button}>
+                    <SubscribeButton handle={creator.handle!} />
+                </div>
             </div>
         </div>
     )

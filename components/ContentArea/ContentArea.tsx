@@ -1,5 +1,5 @@
 import { QueryOptions } from "@/app/api/types"
-import ContentGrid from "../ContentGrid"
+import ContentGrid from "../Grids/ContentGrid"
 import ContentScrollGrid from "../ContentScrollBackground/ContentScrollGrid"
 import { getContent, searchContent } from "@/app/api/content"
 import ContentSlideshow from "../ContentSlideshow/ContentSlideshow"

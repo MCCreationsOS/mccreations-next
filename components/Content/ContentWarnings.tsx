@@ -111,9 +111,11 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
             })
         }
 
-        return (
-            <MessageComponent messages={messages} />
-        )
+        if(messages.length > 0) {
+            return (
+                <MessageComponent messages={messages} />
+            )
+        }
     }
     return (<></>)
 }

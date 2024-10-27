@@ -20,10 +20,9 @@ import { useCreator } from '@/app/api/hooks/users';
  * A comment
  * @param comment The comment to display 
  */
-export default function CommentCard({comment, contentType, handle, canReply}: {comment: IComment, contentType: CollectionNames | "wall", handle: string, canReply?: boolean}) {
+export default function CommentCard({comment, contentType, handle, canReply}: {comment: IComment, contentType: CollectionNames | "wall", handle?: string, canReply?: boolean}) {
     const t = useTranslations()
-    const [image, setImage] = useState("/defaultLogo.png")
-    const {creator} = useCreator(handle)
+    const {creator} = useCreator(comment.handle)
     const [expanded, setExpanded] = useState(false)
     const [canExpand, setCanExpand] = useState(false)
     const [replying, setReplying] = useState(false)
@@ -31,6 +30,11 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
     const [likes, setLikes] = useState(comment.likes || 0)
     const container = useRef<HTMLDivElement>(null)
     const user = useUserStore((state) => state)
+    let image = "/defaultLogo.png"
+
+    if(creator && creator.iconURL) {
+        image = creator.iconURL
+    }
 
     useEffect(() => {
         if(container.current) {
@@ -92,8 +96,8 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
                     <RichTextInput id="reply" name="Reply" className="compact"/>
                 </FormComponent>}
                 <div className={styles.replies}>
-                    {comment.replies?.map((comment) => {
-                        return <CommentCard comment={comment} contentType={contentType} handle={handle}/>
+                    {comment.replies?.map((reply) => {
+                        return <CommentCard comment={reply} contentType={contentType} handle={handle} key={reply._id}/>
                     })}
                 </div>
             </div>

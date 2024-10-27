@@ -1,5 +1,5 @@
 import { IContentDoc } from "@/app/api/types"
-import ContentCard from "./ContentSlideshow/ContentCard"
+import ContentCard from "../ContentSlideshow/ContentCard"
 
 export default function ContentGrid({content, linkTo, cards, enableSelection, enableAds}: {content: IContentDoc[], linkTo?: string, cards?: string, enableSelection?: boolean, enableAds?: boolean}) {
     let adPosition = Math.floor(Math.random() * 15) + 2

@@ -5,21 +5,26 @@
 }
 
 .account_navigation {
+    width: 200px;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    padding: 20px;
-    background-color: #272727;
-    border-radius: 5px;
-    height: fit-content;
-    width: 200px;
+    align-items: left;
+    justify-content: left;
 }
 
 .account_navigation_link {
-    color: #fff;
+    color: white;
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
+    background-color: #272727;
+    margin: 5px 2px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    gap: 10px;
+    transition: background-color 0.2s ease;
 }
 
 .account_navigation_link:hover {
@@ -53,6 +58,7 @@
 
     .account_navigation {
         flex-direction: row;
+        flex-wrap: wrap;
         gap: 10px;
         width: 100%;
     }

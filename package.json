@@ -41,6 +41,7 @@
     "react-grid-layout": "^1.4.4",
     "sharp": "^0.32.6",
     "swr": "^2.2.5",
+    "usehooks-ts": "^3.1.0",
     "uuid": "^9.0.0",
     "zustand": "^5.0.0-rc.2"
   },

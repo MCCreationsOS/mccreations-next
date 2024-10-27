@@ -28,11 +28,12 @@ import { Link } from "@/app/api/navigation"
 import { FormInput } from "@/components/FormInputs"
 import { useCreation, useTags } from "@/app/api/hooks/creations"
 import { mutate } from "swr"
+import { useUser } from "@/app/api/hooks/users"
 
 export default function EditContentPage({params}: {params: Params}) {
     const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
     const collectionName = convertToCollection(contentType)
-    const user = useUserStore()
+    const { user } = useUser()
     const { creation, isLoading, error } = useCreation(params.slug, contentType)
     const {tags, isLoading: tagsLoading, error: tagsError} = useTags(collectionName)
     const t = useTranslations();
@@ -57,7 +58,7 @@ export default function EditContentPage({params}: {params: Params}) {
         let allowedToEdit = false;
         if(creation.creators) {
             creation.creators.forEach((creator) => {
-                if(creator.handle === user.handle && user.handle.length > 0) {
+                if(creator.handle === user?.handle && (user?.handle?.length ?? 0) > 0) {
                     allowedToEdit = true;
                 }
             })
@@ -65,11 +66,11 @@ export default function EditContentPage({params}: {params: Params}) {
             allowedToEdit = true;
         }
 
-        if(user.type === UserTypes.Admin) {
+        if(user?.type === UserTypes.Admin) {
             allowedToEdit = true;
         }
 
-        if(creation.owner && creation.owner.length > 0 && creation.owner === user.handle) {
+        if(creation.owner && creation.owner.length > 0 && creation.owner === user?.handle) {
             allowedToEdit = true;
         }
 

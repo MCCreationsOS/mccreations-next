@@ -1,6 +1,6 @@
 .slideshow {
     position: relative;
-    margin: 0 auto 40px auto;
+    margin: 0 auto 0 auto;
 }
 
 .slideshow {
@@ -87,10 +87,10 @@
     position: absolute;
     top: 10%;
     left: 5%;
-    width: 100%;
     display: flex;
     gap: 20px;
     justify-content: center;
+    width: 95%;
 }
 
 .slideshow .information .text_information {

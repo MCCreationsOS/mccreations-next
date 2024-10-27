@@ -138,6 +138,23 @@ export async function getContent(queryOptions: QueryOptions, token?: string | nu
     }
 }
 
+export async function getFeed(token: string | null, limit: number, page: number) {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/content/feed?limit=${limit}&page=${page}`, {
+            headers: {
+                authorization: token + ""
+            }
+        })
+        let data = await response.json();
+        return data
+    } catch(e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e
+        }
+    }
+}
+
 /**
  * Fetch a single map from the API by slug
  * @param slug The slug of the map to fetch

@@ -6,6 +6,7 @@ import { CollectionNames, IComment, IUser, SortOptions } from "@/app/api/types";
 import { getUser } from "@/app/api/auth";
 import {useTranslations} from 'next-intl';
 import { useComments } from "@/app/api/hooks/comments";
+import styles from './Comment.module.css'
 
 /**
  * A list of comments that are cached with the map, this component should be improved to initially display the cached comments and then fetch any new ones
@@ -22,7 +23,7 @@ export default function CommentsList({mapSlug, content_type}: {mapSlug: string, 
     return (
         <div className='centered_content'>
             <h2 id="comments_title">{t('CommentsList.title')}</h2>
-            {(comments && comments.length > 0 && comments[0].comment) ? comments.map((comment: IComment, idx: number) => <CommentCard key={comment._id} comment={comment} contentType={content_type} handle={mapSlug} canReply={true}/>) : <><div className="no_comments"><h3>{t('CommentsList.none_yet')}</h3><p>{t('CommentsList.no_comments')}</p></div></>}
+            {(comments && comments.length > 0 && comments[0].comment) ? <div className={styles.comments_list}>{comments.map((comment: IComment, idx: number) => <CommentCard key={comment._id} comment={comment} contentType={content_type} handle={mapSlug} canReply={true}/>)}</div> : <><div className="no_comments"><h3>{t('CommentsList.none_yet')}</h3><p>{t('CommentsList.no_comments')}</p></div></>}
         </div>
     )
 }

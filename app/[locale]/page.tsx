@@ -10,6 +10,7 @@ import { AdsenseComponent } from "@/components/AdUnits/InContent";
 import { getTranslations } from "next-intl/server";
 import MainButton from "@/components/Buttons/MainButton";
 import { Layers, Map, Package } from "react-feather";
+import HomepageFeed from "@/components/Feed/HomepageFeed";
 
 export const dynamic = 'force-dynamic'
 
@@ -74,6 +75,7 @@ export default async function Page({ params: { locale } }: { params: { locale: s
     return (
         <>
             {(featured) ? (<FeaturedSlideshow content={featured} />) : "MCCreations API Error"}
+            <HomepageFeed />
             <ContentArea type="grid" options={dynamicPlaylists[0].options} />
             <h2 className="view_all_header">{t('Home.ViewAll')}</h2>
             <div className="view_all_buttons">

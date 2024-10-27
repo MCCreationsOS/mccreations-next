@@ -89,6 +89,9 @@ export default function Menu() {
                             <Link className={"link"} href="/">{t('Navigation.home')}</Link>
                         </li>
                         <li className="item">
+                            <Link className={"link"} href="/feed">{t('Navigation.feed')}</Link>
+                        </li>
+                        <li className="item">
                             <Link className={"link"} href="/maps">{t('map', {count: 2})}</Link>
                         </li>
                         <li className="item">
@@ -160,6 +163,9 @@ export default function Menu() {
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">
                             <Link className={"link"} href="/">{t('Navigation.home')}</Link>
+                        </li>
+                        <li className="item">
+                            <Link className={"link"} href="/feed">{t('Navigation.feed')}</Link>
                         </li>
                         <li className="item">
                             <Link className={"link"} href="/maps">{t('map', {count: 2})}</Link>

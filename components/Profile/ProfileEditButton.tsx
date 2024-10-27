@@ -10,9 +10,10 @@ import ImageInput from "../FormInputs/ImageDropzone";
 import Text from "../FormInputs/Text";
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
+import { useToken } from "@/app/api/hooks/users";
 
 export default function ProfileEditButton({creator}: {creator: IUser}) {
-    let token = localStorage?.getItem('jwt')
+    const { token, setToken } = useToken()
     const user = useUserStore((state) => state) as IUser
     const setUser = useUserStore((state) => state.setUser)
     const t = useTranslations()

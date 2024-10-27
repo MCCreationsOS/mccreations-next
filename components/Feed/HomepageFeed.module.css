@@ -1,0 +1,18 @@
+.homepage_feed {
+    margin: 0 auto;
+    background-color: #272727;
+    padding: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.feed_header {
+    font-size: 1.7rem;
+    margin: 0 0 20px 50px;
+}
+
+.feed_see_all {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
