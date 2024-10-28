@@ -8,7 +8,7 @@ import FormComponent from "../Form/Form";
 import Tabs from "../Tabs/Tabs";
 import { createNewContent, importContent } from "@/app/api/content";
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import HollowButton from "../Buttons/HollowButton";
 import Badge from "../Badge";
 import LanguageSwitcher from "../LanguageSwitcher";
@@ -22,13 +22,7 @@ export default function Menu() {
     const uploading = useRef(false)
     const t = useTranslations()
     const router = useRouter();
-
-    const onDonate = async (amount: number) => {
-        const url = (await createDonation(amount)).url;
-        if(url) {
-            router.push(url);
-        }
-    }
+    const pathname = usePathname()
 
     const onMapCreate = (title?: string, type?: string, shortDescription?: string) => {
         if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_title')))
@@ -86,19 +80,19 @@ export default function Menu() {
                             </Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/">{t('Navigation.home')}</Link>
+                            <Link className={(pathname === '/') ? "link selected" : "link"} href="/">{t('Navigation.home')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/feed">{t('Navigation.feed')}</Link>
+                            <Link className={(pathname.includes('/feed')) ? "link selected" : "link"} href="/feed">{t('Navigation.feed')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/maps">{t('map', {count: 2})}</Link>
+                            <Link className={(pathname.includes('/maps')) ? "link selected" : "link"} href="/maps">{t('map', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
+                            <Link className={(pathname.includes('/datapacks')) ? "link selected" : "link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
+                            <Link className={(pathname.includes('/resourcepacks')) ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
                         </li>
                     </ul>
                     <ul className='action_list'>
