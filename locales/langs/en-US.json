@@ -79,6 +79,8 @@
             "rating": "New Creation Ratings",
             "no_notifications": "No notifications yet!",
             "read_all": "Mark all as read",
+            "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
+            "add_to_this_device": "Subscribe to Push Notifications Here",
 
             "NewComment": {
                 "title": "New Comment:",
