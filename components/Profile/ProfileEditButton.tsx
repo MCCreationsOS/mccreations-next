@@ -27,7 +27,7 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
             ...user,
             bannerURL: banner,
             iconURL: icon,
-            about: inputs[2]
+            about: ""
         })
         Popup.close();
         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Creator.Edit.saved')))
@@ -41,7 +41,6 @@ export default function ProfileEditButton({creator}: {creator: IUser}) {
                     content: <FormComponent id="updateProfile" onSave={saveCreator}>
                     <ImageInput name={t('Creator.Edit.banner')} value={JSON.stringify([{url: creator.bannerURL}])} />
                     <ImageInput name={t('Creator.Edit.logo')} value={JSON.stringify([{url: creator.bannerURL}])} />
-                    <Text name={t('Creator.Edit.about')} value={creator.about} />    
                 </FormComponent>, 
                 title: t('Creator.Edit.title')
                 })}}>
