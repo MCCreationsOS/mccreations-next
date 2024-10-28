@@ -1,9 +1,9 @@
 'use client'
 
 import Image from 'next/image';
-import { Heart, Link as LinkIcon, MessageSquare } from 'react-feather';
-import { CollectionNames, IComment, IUser } from '@/app/api/types';
-import { getCreator, likeComment, postReply } from '@/app/api/community';
+import { Heart, Link as LinkIcon, MessageSquare, MoreVertical, Trash2 } from 'react-feather';
+import { CollectionNames, IComment, IUser, UserTypes } from '@/app/api/types';
+import { deleteComment, getCreator, likeComment, postReply } from '@/app/api/community';
 import styles from './Comment.module.css';
 import { useEffect, useRef, useState } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
@@ -14,8 +14,9 @@ import { FormInput } from '../FormInputs';
 import { useUserStore } from '@/app/api/auth';
 import { postWallComment } from '@/app/api/creators';
 import Text from '../FormInputs/Text';
-import { useCreator } from '@/app/api/hooks/users';
+import { useCreator, useToken, useUser } from '@/app/api/hooks/users';
 import Link from 'next/link';
+import DropDown, { DropDownItem } from '../FormInputs/RichText/DropDown';
 
 /**
  * A comment
@@ -30,7 +31,8 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
     const [replies, setReplies] = useState<IComment[]>(comment.replies || [])
     const [likes, setLikes] = useState(comment.likes || 0)
     const container = useRef<HTMLDivElement>(null)
-    const user = useUserStore((state) => state)
+    const {user} = useUser()
+    const {token} = useToken()
     let image = "/defaultLogo.png"
 
     if(creator && creator.iconURL) {
@@ -58,17 +60,23 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
 
     const handleReplySave = (inputs: string[]) => {
         console.log(comment._id)
-        postReply(comment._id!, (user.username === "" ? inputs[0] : user.username), FormInput.getFormInput("reply").submit() as string, user.handle)
+        postReply(comment._id!, (user?.username === "" ? inputs[0] : user!.username), FormInput.getFormInput("reply").submit() as string, user?.handle + "")
         setReplies([...replies, {
             content_type: contentType,
             comment: FormInput.getFormInput("reply").submit() as string,
             date: Date.now(),
-            handle: user.handle,
-            username: user.username === "" ? inputs[0] : user.username,
+            handle: user?.handle,
+            username: user?.username === "" ? inputs[0] : user!.username,
             approved: true,
             slug: ""
         }])
         setReplying(false)
+    }
+
+    const handleDelete = () => {
+        if(token) {
+            deleteComment(comment._id!, token + "")
+        }
     }
 
     if(!comment.approved) return undefined
@@ -81,10 +89,19 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
                     <Link href={(comment.handle) ? `/creator/${comment.handle}` : ""}><h4>{("username" in comment) ? comment.username : creator?.username}</h4></Link>
                     <p>{new Date(comment.date).toLocaleDateString()}</p>
                 </div>
-                <div className={styles.right_header}>
-                    <LinkIcon aria-label={t('Comment.permalink')} onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}/>
-                </div>
                 <div className={`${styles.comment_text} ${(expanded) ? styles.expanded : ""}`} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.comment)}}></div>
+                <div className={styles.right_header}>
+                    <DropDown className='option_dropdown' buttonClassName={`options_dropdown_button ${styles.dropdown_button}`} buttonLabel={<MoreVertical/>} useButtonWidth={false}>
+                        <DropDownItem className="option_button" onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}>
+                            <LinkIcon aria-label={t('Comment.permalink')}/>
+                            {t('Comment.permalink')}
+                        </DropDownItem>
+                        {(user?.handle === comment.handle || user?.type === UserTypes.Admin) && <DropDownItem className="option_button" onClick={handleDelete}>
+                            <Trash2 aria-label={t('Comment.delete')}/>
+                            {t('Comment.delete')}
+                        </DropDownItem>}
+                    </DropDown>
+                </div>
                 <div className={styles.reactions}>
                     <div className={styles.like}>
                         <Heart className={styles.comment_icon} aria-label={t('Comment.like')} onClick={handleLike}/>

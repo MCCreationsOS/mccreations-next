@@ -242,7 +242,8 @@
         "expand": "See More",
         "collapse": "See Less",
         "reply": "Reply",
-        "like": "Like"
+        "like": "Like",
+        "delete": "Delete"
     },
 
     "CommentsList": {

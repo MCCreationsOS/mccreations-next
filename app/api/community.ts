@@ -141,6 +141,21 @@ export async function updateComment(comment: IComment, jwt: string = "") {
     }
 }
 
+export async function deleteComment(id: string, jwt: string = "") {
+    try {
+        fetch(`${process.env.DATA_URL}/content/comment/${id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': jwt
+            }
+        })
+    }
+    catch(e) {
+        console.error(e);
+    }
+}
+
 export async function getCreator(handle: string) {
     try {
         let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: Infinity }})
