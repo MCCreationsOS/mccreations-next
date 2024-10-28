@@ -713,6 +713,8 @@
     },
 
     "Profile": {
+        "follow": "Follow",
+        "unfollow": "Unfollow",
         "Widgets": {
             "Discord": {
                 "title": "Discord",
