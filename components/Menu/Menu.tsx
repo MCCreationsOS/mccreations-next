@@ -156,19 +156,19 @@ export default function Menu() {
                     </ul>
                     <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
                         <li className="item">
-                            <Link className={"link"} href="/">{t('Navigation.home')}</Link>
+                            <Link className={(pathname === '/') ? "link selected" : "link"} href="/" onClick={() => {setMobileMenuActive(false)}}>{t('Navigation.home')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/feed">{t('Navigation.feed')}</Link>
+                            <Link className={(pathname.includes('/feed')) ? "link selected" : "link"} href="/feed" onClick={() => {setMobileMenuActive(false)}}>{t('Navigation.feed')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/maps">{t('map', {count: 2})}</Link>
+                            <Link className={(pathname.includes('/maps')) ? "link selected" : "link"} href="/maps" onClick={() => {setMobileMenuActive(false)}}>{t('map', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
+                            <Link className={(pathname.includes('/datapacks')) ? "link selected" : "link"} href="/datapacks" onClick={() => {setMobileMenuActive(false)}}>{t('datapack', {count: 2})}</Link>
                         </li>
                         <li className="item">
-                            <Link className={"link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
+                            <Link className={(pathname.includes('/resourcepacks')) ? "link selected" : "link"} href="/resourcepacks" onClick={() => {setMobileMenuActive(false)}}>{t('resourcepack', {count: 2})}</Link>
                         </li>
                         <li className='item'>
                             <HollowButton onClick={() => {Popup.createPopup({
@@ -178,6 +178,7 @@ export default function Menu() {
                                         content:
                                         <FormComponent id={"createForm"} onSave={(inputs) => {
                                             onMapCreate(inputs[0], inputs[1], inputs[2])
+                                            setMobileMenuActive(false)
                                         }}>
                                             <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} />
                                             <Select name={t('Navigation.CreateForm.type')} defaultValue="map" options={[{name: t('map', { count: 1 }), value: 'map'}, {name: t('datapack', {count: 1}), value: "datapack"}, {name: t('resourcepack', {count: 1}), value: 'resourcepack'}]} />
@@ -191,6 +192,7 @@ export default function Menu() {
                                             <FormComponent id={"importForm"}
                                             onSave={(inputs) => {
                                                 onMapImport(inputs[1], inputs[0])
+                                                setMobileMenuActive(false)
                                             }}>
                                                 <Select name={t('Navigation.ImportForm.type')} defaultValue="Maps" options={[{name: t('map', { count: 1 }), value: 'Maps'}, {name: t('datapack', {count: 1}), value: "datapacks"}, {name: t('resourcepack', {count: 1}), value: 'resourcepacks'}]} />
                                                 <Text type="text" name={t('Navigation.ImportForm.link')} placeholder={t('Navigation.ImportForm.link_placeholder')} />
