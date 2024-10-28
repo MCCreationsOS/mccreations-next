@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { Heart, Link, MessageSquare } from 'react-feather';
+import { Heart, Link as LinkIcon, MessageSquare } from 'react-feather';
 import { CollectionNames, IComment, IUser } from '@/app/api/types';
 import { getCreator, likeComment, postReply } from '@/app/api/community';
 import styles from './Comment.module.css';
@@ -15,6 +15,7 @@ import { useUserStore } from '@/app/api/auth';
 import { postWallComment } from '@/app/api/creators';
 import Text from '../FormInputs/Text';
 import { useCreator } from '@/app/api/hooks/users';
+import Link from 'next/link';
 
 /**
  * A comment
@@ -74,14 +75,14 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
 
     return (
         <div className={styles.comment} ref={container}>
-            <Image src={image} width={45} height={45} className={styles.logo} alt={t('Creator.logo_alt', {username: ("username" in comment) ? comment.username : creator?.username})}></Image>
+            <Link href={(comment.handle) ? `/creator/${comment.handle}` : ""}><Image src={image} width={45} height={45} className={styles.logo} alt={t('Creator.logo_alt', {username: ("username" in comment) ? comment.username : creator?.username})}></Image></Link>
             <div className={styles.body}>
                 <div className={styles.header}>
-                    <h4>{("username" in comment) ? comment.username : creator?.username}</h4>
+                    <Link href={(comment.handle) ? `/creator/${comment.handle}` : ""}><h4>{("username" in comment) ? comment.username : creator?.username}</h4></Link>
                     <p>{new Date(comment.date).toLocaleDateString()}</p>
                 </div>
                 <div className={styles.right_header}>
-                    <Link aria-label={t('Comment.permalink')} onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}/>
+                    <LinkIcon aria-label={t('Comment.permalink')} onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}/>
                 </div>
                 <div className={`${styles.comment_text} ${(expanded) ? styles.expanded : ""}`} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.comment)}}></div>
                 <div className={styles.reactions}>

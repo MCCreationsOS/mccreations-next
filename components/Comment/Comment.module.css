@@ -58,9 +58,24 @@
     margin-top: 0
 }
 
-.comment .header h4 {
+.comment .header a h4 {
     margin-top: 0;
     margin-bottom: 5px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.comment .header a {
+    text-decoration: none;
+}
+
+.comment .header a:hover {
+    text-decoration: underline;
+}
+
+.comment .header a:visited {
+    color: white;
+    text-decoration: none;
 }
 
 .comment .header p {
