@@ -14,6 +14,7 @@ type Language = {[key: string]: string}
 export default function Page({params}: {params: Params}) {
     const [keys, setKeys] = useState<string[]>([])
     const [currentLanguage, setCurrentLanguage] = useState<Language>({})
+    const [englishLanguage, setEnglishLanguage] = useState<Language>({})
 
     const getKeys = (lang: any) => {
         const formattedLanguage: Language = {}
@@ -57,11 +58,13 @@ export default function Page({params}: {params: Params}) {
                 const formattedLanguage = getKeys(lang)
                 setCurrentLanguage(formattedLanguage)
                 setKeys(Object.keys(getKeys(baseLanguage)))
+                setEnglishLanguage(getKeys(baseLanguage))
             } catch {
                 const lang = await getLanguage("en-US")
                 const formattedLanguage = getKeys(lang)
                 setCurrentLanguage(formattedLanguage)
                 setKeys(Object.keys(formattedLanguage))
+                setEnglishLanguage(getKeys(lang))
             }
         }
         getLang();
@@ -88,12 +91,12 @@ export default function Page({params}: {params: Params}) {
             <div className='centered_content'>
                 <Suspense>
                     <FormComponent id="add_language" onSave={saveLanguage} options={{stickyButtons: true, saveButtonContent: "Send"}}>
-                        <p>Translations are not saved if you leave this page. When you're ready, click send to send the translation to our admins. It doesn't have to be complete, but try and avoid spamming the button.</p>
+                        <p>When you're ready, click send to save your translation. Clicking will save your translation, so it is safe to leave this page once you do so. Your translation doesn't have to be complete, but try and avoid spamming the button.</p>
                         <Link href="https://youtu.be/lhZTkbkuORI">For help, click here</Link>
                         <br></br>
                         <br></br>
                         {keys.map((key) => {
-                            return <Text value={currentLanguage[key]} name={key} description={(key === 'language_code') ? <>An <Link href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">ISO 639 language code</Link> follow by an <Link href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1 Region Code</Link>. If you can't find your language, leave this blank.</> : undefined}/>
+                            return <Text value={currentLanguage[key] ?? englishLanguage[key]} name={key} description={(key === 'language_code') ? <>An <Link href="https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes">ISO 639 language code</Link> follow by an <Link href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements">ISO 3166-1 Region Code</Link>. If you can't find your language, leave this blank.</> : undefined}/>
                         })}
                     </FormComponent>
                 </Suspense>
