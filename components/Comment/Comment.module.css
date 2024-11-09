@@ -88,14 +88,14 @@
 
 .comment .right_header {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    right: 0;
+    top: 0;
     cursor: pointer;
 }
 
 .dropdown_button {
     scale: 0.8;
-    background-color: #191919;
+    background-color: #19191900;
 }
 
 .dropdown_button:hover {
