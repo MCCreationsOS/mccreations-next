@@ -28,16 +28,33 @@
   margin-right: 10px;
 }
 
+
 .nav .brand_icon {
   width: 40px;
   image-rendering: pixelated;
   margin-right: 5px;
 }
-  
+
 .nav .brand_name {
-    display: inline;
-    font-weight: 700;
-    font-size: 18px;
+  display: inline;
+  font-weight: 700;
+  font-size: 18px;
+  position: relative;
+}
+
+.nav .brand_name::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 2px;
+  bottom: -8px;
+  left: 0;
+  background-image: linear-gradient(to right, #ff4242,#ff9742,#ffe242,#3cd76b,#3c6fd7,#843cd7,#d73c94);
+  background-size: 300% 100%;
+  animation: gradient_anim 8s ease infinite;
+  -webkit-animation: gradient_anim 8s ease infinite;
+  -moz-animation: gradient_anim 8s ease infinite;
+  border-radius: 5px;
 }
 
 @media screen and (max-width: 400px) {
@@ -356,5 +373,17 @@
     100% {
       transform: scaleX(0);
       transform-origin: left;
+    }
+  }
+
+  @keyframes gradient_anim {
+    0% {
+      background-position: 0% 100%;
+    }
+    50% {
+      background-position: 100% 100%;
+    }
+    100% {
+      background-position: 0% 100%;
     }
   }
