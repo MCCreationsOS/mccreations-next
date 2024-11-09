@@ -7,6 +7,7 @@ import { PopupMessage, PopupMessageType } from '@/components/PopupMessage/PopupM
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { Link } from "@/app/api/navigation";
 import { Suspense, useEffect, useState } from 'react';
+import { getLanguage, getQueuedLanguage } from '@/app/api/translation';
 
 type Language = {[key: string]: string}
 
@@ -49,21 +50,21 @@ export default function Page({params}: {params: Params}) {
     };
 
     useEffect(() => {
-        const getLanguage = async () => {
+        const getLang = async () => {
             try {
-                const lang = await import(`@/locales/langs/${params.lang}.json`)
-                const baseLanguage = await import(`@/locales/langs/en-US.json`)
-                const formattedLanguage = getKeys(lang.default)
+                const lang = await getQueuedLanguage(params.lang)
+                const baseLanguage = await getLanguage("en-US")
+                const formattedLanguage = getKeys(lang)
                 setCurrentLanguage(formattedLanguage)
-                setKeys(Object.keys(getKeys(baseLanguage.default)))
+                setKeys(Object.keys(getKeys(baseLanguage)))
             } catch {
-                const lang = await import(`@/locales/langs/en-US.json`)
-                const formattedLanguage = getKeys(lang.default)
+                const lang = await getLanguage("en-US")
+                const formattedLanguage = getKeys(lang)
                 setCurrentLanguage(formattedLanguage)
                 setKeys(Object.keys(formattedLanguage))
             }
         }
-        getLanguage();
+        getLang();
     }, [])
 
     const saveLanguage = (inputs: string[]) => {
@@ -72,7 +73,7 @@ export default function Page({params}: {params: Params}) {
             lang[key] = inputs[idx]
         })
         const expandedLanguage = expandLanguage(lang)
-        fetch(`${process.env.DATA_URL}/translation`, {
+        fetch(`${process.env.DATA_URL}/translation/${params.lang}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
