@@ -57,6 +57,7 @@ export default function NotificationsPage() {
 
         settings.notifications[type] = value
         setUser({ ...user!, settings })
+        updateNotificationSettings(token!, settings.notifications.comment, settings.notifications.like, settings.notifications.reply, settings.notifications.subscription, settings.notifications.rating, settings.notifications.translation)
     }
 
     async function subscribeToPush() {
