@@ -1,33 +1,35 @@
 'use client'
 
 import { getUser, useUserStore } from "@/app/api/auth"
-import { ICreator, IContentDoc, IUser, UserTypes } from "@/app/api/types"
+import { ICreator, IContentDoc, IUser, UserTypes, ContentTypes } from "@/app/api/types"
 import { Link } from "@/app/api/navigation";
 import { useEffect, useState } from "react"
 import MessageComponent, { IMessage } from "../Message/Message"
 import {useTranslations} from 'next-intl';
 import { useUser } from "@/app/api/hooks/users";
+import { useCreation } from "@/app/api/hooks/creations";
 
 /**
  * Content warnings for the map creator(s)
  * @param map The map to check
  */
-export default function ContentWarnings({map}: {map: IContentDoc}) {
+export default function ContentWarnings({slug, contentType}: {slug: string, contentType: ContentTypes}) {
+    const { creation } = useCreation(slug, contentType)
     const {user} = useUser()
     const t = useTranslations()
 
-
+    if(!creation || 'error' in creation) return null;
     // Check if the user is a creator
     let match = false;
-    map.creators && map.creators.forEach((creator) => {
+    creation.creators && creation.creators.forEach((creator) => {
         if(creator.handle && user && user.handle && (creator.handle === user?.handle || user.type === UserTypes.Admin)) {
             match = true
         }
     })
     if(match) {
         let messages: IMessage[] = []
-        let hasOwner = map.owner && map.owner.length > 0
-        map.creators.forEach((creator) => {
+        let hasOwner = creation.owner && creation.owner.length > 0
+        creation.creators.forEach((creator) => {
             if(creator.handle && user && user.handle && (creator.handle === user?.handle || user.type === UserTypes.Admin)) {
                 hasOwner = true
             }
@@ -39,56 +41,56 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
                 message: t('Content.Warnings.not_linked.description')
             })
         }
-        if(!map.shortDescription || map.shortDescription.length < 20) {
+        if(!creation.shortDescription || creation.shortDescription.length < 20) {
             messages.push({
                 type: 'Error',
-                title: t('Content.Warnings.short_description.title'),
-                message: t('Content.Warnings.short_description.description')
+                title: t('Content.Warnings.no_short_description.title'),
+                message: t('Content.Warnings.no_short_description.description')
             })
         }
-        if(map.images.length === 0) {
+        if(creation.images.length === 0) {
             messages.push({
                 type: 'Error',
                 title: t('Content.Warnings.no_images.title'),
                 message: t('Content.Warnings.no_images.description')
             })
         }
-        if(map.description.length < 20) {
+        if(creation.description.length < 20) {
             messages.push({
                 type: 'Error',
                 title: t('Content.Warnings.description_too_short.title'),
                 message: t('Content.Warnings.description_too_short.description')
             })
         }
-        if(map.creators.length === 0) {
+        if(creation.creators.length === 0) {
             messages.push({
                 type: 'Error',
                 title: t('Content.Warnings.no_creators.title'),
                 message: t('Content.Warnings.no_creators.description')
             })
         }
-        if(map.files && map.files[0] && (!map.files[0].minecraftVersion || map.files[0].minecraftVersion.length === 0)) {
+        if(creation.files && creation.files[0] && (!creation.files[0].minecraftVersion || creation.files[0].minecraftVersion.length === 0)) {
             messages.push({
                 type: 'Error',
                 title: t('Content.Warnings.no_minecraft_version.title'),
                 message: t('Content.Warnings.no_minecraft_version.description')
             })
         }
-        if(!map.title || map.title.length === 0) {
+        if(!creation.title || creation.title.length === 0) {
             messages.push({
                 type: 'Error',
                 title: t('Content.Warnings.no_title.title'),
                 message: t('Content.Warnings.no_title.description')
             })
         }
-        if(!map.tags || map.tags.length === 0) {
+        if(!creation.tags || creation.tags.length === 0) {
             messages.push({
                 type: 'Error',
                 title: t('Content.Warnings.no_tags.title'),
                 message: t('Content.Warnings.no_tags.description')
             })
         }
-        if(!map.files || map.files.length === 0) {
+        if(!creation.files || creation.files.length === 0) {
             messages.push({
                 type: 'Error',
                 title: t('Content.Warnings.no_files.title'),
@@ -96,14 +98,14 @@ export default function ContentWarnings({map}: {map: IContentDoc}) {
             })
         }
 
-        if(map.images.length <= 2) {
+        if(creation.images.length <= 2) {
             messages.push({
                 type: 'Warning',
                 title: t('Content.Warnings.few_images.title'),
                 message: t('Content.Warnings.few_images.description')
             })
         }
-        if(map.images.find(image => !image.includes('mccreations'))) {
+        if(creation.images.find(image => !image.includes('mccreations'))) {
             messages.push({
                 type: 'Warning',
                 title: t('Content.Warnings.external_images.title'),

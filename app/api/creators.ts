@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { IComment } from "./types"
+import { IComment, IContentDoc, IUser, UserTypes } from "./types"
 import { ProfileLayout } from "@/components/Profile/CustomizableProfileArea"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import { updateProfileLayout } from "./auth"
@@ -131,4 +131,27 @@ export async function unsubscribe(authorization: string, handle: string) {
     } catch(e) {
         console.error(e)
     }
+}
+
+export function canEdit(creation: IContentDoc, user: IUser) {
+    let allowedToEdit = false;
+    if(creation.creators) {
+        creation.creators.forEach((creator) => {
+            if(creator.handle === user?.handle && (user?.handle?.length ?? 0) > 0) {
+                allowedToEdit = true;
+            }
+        })
+    } else if (sessionStorage.getItem('temp_key')) {
+        allowedToEdit = true;
+    }
+
+    if(user?.type === UserTypes.Admin) {
+        allowedToEdit = true;
+    }
+
+    if(creation.owner && creation.owner.length > 0 && creation.owner === user?.handle) {
+        allowedToEdit = true;
+    }
+
+    return allowedToEdit;
 }
