@@ -55,7 +55,6 @@ export default function Page({ params }: { params: Params }) {
 
     return (
         <>
-            <ContentWarnings map={creation} />
             <ContentMenu content={creation} selectedTab={1} />
             <div className='map_page'>
                 <div className="centered_content">
