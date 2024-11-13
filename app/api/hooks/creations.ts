@@ -72,7 +72,8 @@ export const useFeed = (limit: number, page: number) => {
     const {token} = useToken()
     const { data, error, isLoading } = useSWR([token, 'useFeed', limit, page], async ([token, id, limit, page]) => getFeed(token, limit, page))
     return {
-        feed: data as IContentDoc[] | {error: string} | undefined,
+        feed: data?.feed as IContentDoc[] | {error: string} | undefined,
+        count: data?.totalCount ?? 0,
         isLoading,
         error
     }
