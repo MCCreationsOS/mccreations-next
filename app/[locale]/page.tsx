@@ -11,6 +11,7 @@ import { getTranslations } from "next-intl/server";
 import MainButton from "@/components/Buttons/MainButton";
 import { Layers, Map, Package } from "react-feather";
 import HomepageFeed from "@/components/Feed/HomepageFeed";
+import { Link } from "../api/navigation";
 
 export const dynamic = 'force-dynamic'
 
@@ -32,9 +33,9 @@ export default async function Page({ params: { locale } }: { params: { locale: s
             <ContentArea type="grid" options={dynamicPlaylists[0].options} enableAds={true}/>
             <h2 className="view_all_header">{t('Home.ViewAll')}</h2>
             <div className="view_all_buttons">
-                <MainButton><Map />{t('map', { count: 2})}</MainButton>
-                <MainButton><Package />{t('datapack', { count: 2})}</MainButton>
-                <MainButton><Layers />{t('resourcepack', { count: 2})}</MainButton>
+                <Link href={`/maps`}><MainButton><Map />{t('map', { count: 2})}</MainButton></Link>
+                <Link href={`/datapacks`}><MainButton><Package />{t('datapack', { count: 2})}</MainButton></Link>
+                <Link href={`/resourcepacks`}><MainButton><Layers />{t('resourcepack', { count: 2})}</MainButton></Link>
             </div>
         </>
     )
