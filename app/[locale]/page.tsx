@@ -17,57 +17,9 @@ export const dynamic = 'force-dynamic'
 export default async function Page({ params: { locale } }: { params: { locale: string } }) {
     const t = await getTranslations();
     let dynamicPlaylists: { name: string, id: string, options: QueryOptions }[] = [{
-        name: 'parkour',
-        id: "parkour",
-        options: { contentType: "content", status: 2, sort: SortOptions.Newest, limit: 20, includeTags: "parkour" }
-    }, {
-        name: 'adventure',
-        id: "adventure",
-        options: { contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20, includeTags: "adventure" }
-    }, {
-        name: 'puzzle',
-        id: "puzzle",
-        options: { contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20, includeTags: "puzzle" }
-    }, {
-        name: 'highly_rated',
-        id: "highly_rated",
-        options: { contentType: 'content', status: 2, sort: SortOptions.HighestRated, limit: 20 }
-    }, {
-        name: 'popular',
-        id: "popular",
-        options: { contentType: 'content', status: 2, sort: SortOptions.HighestDownloads, limit: 20 }
-    }, {
-        name: 'new_content',
-        id: "new_content",
-        options: { contentType: 'content', status: 2, sort: SortOptions.Newest, limit: 20 }
-    }, {
         name: 'updated_content',
         id: "updated_content",
-        options: { contentType: 'content', status: 2, sort: SortOptions.Updated, limit: 20 }
-    }, {
-        name: 'builds',
-        id: "builds",
-        options: { contentType: 'content', status: 2, sort: SortOptions.Newest, limit: 20, includeTags: "build" }
-    }, {
-        name: 'maps',
-        id: "maps",
-        options: { contentType: CollectionNames.Maps, status: 2, sort: SortOptions.Newest, limit: 20 }
-    }, {
-        name: 'datapacks',
-        id: "datapacks",
-        options: { contentType: CollectionNames.Datapacks, status: 2, sort: SortOptions.Newest, limit: 20 }
-    }, {
-        name: 'resource_packs',
-        id: "resource_packs",
-        options: { contentType: CollectionNames.Resourcepacks, status: 2, sort: SortOptions.Newest, limit: 20 }
-    }, {
-        name: 'tools',
-        id: "tools",
-        options: { contentType: "content", status: 2, sort: SortOptions.Newest, limit: 20, includeTags: "tool" }
-    }, {
-        name: 'challenges',
-        id: "challenges",
-        options: { contentType: "content", status: 2, sort: SortOptions.Newest, limit: 20, includeTags: "challenge" }
+        options: { contentType: 'content', status: 2, sort: SortOptions.Updated, limit: 19 }
     }]
     dynamicPlaylists.sort(() => Math.random() - 0.5)
 
@@ -76,7 +28,8 @@ export default async function Page({ params: { locale } }: { params: { locale: s
         <>
             {(featured) ? (<FeaturedSlideshow content={featured} />) : "MCCreations API Error"}
             <HomepageFeed />
-            <ContentArea type="grid" options={dynamicPlaylists[0].options} />
+            <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
+            <ContentArea type="grid" options={dynamicPlaylists[0].options} enableAds={true}/>
             <h2 className="view_all_header">{t('Home.ViewAll')}</h2>
             <div className="view_all_buttons">
                 <MainButton><Map />{t('map', { count: 2})}</MainButton>

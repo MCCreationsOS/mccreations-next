@@ -45,9 +45,9 @@
 .nav .brand_name::after {
   position: absolute;
   content: "";
-  width: 100%;
+  width: 70%;
   height: 2px;
-  bottom: -8px;
+  bottom: -2px;
   left: 0;
   background-image: linear-gradient(to right, #ff4242,#ff9742,#ffe242,#3cd76b,#3c6fd7,#843cd7,#d73c94);
   background-size: 300% 100%;

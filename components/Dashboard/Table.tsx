@@ -37,7 +37,7 @@ export default function Table({collectionName}: {collectionName: CollectionNames
     }, [user])
 
     const getOwnedContent = async (jwt: any) => {
-        fetch(`${process.env.DATA_URL}/${collectionName}-nosearch?status=0&limit=20&page=0&creator=${user?.handle}`, {
+        fetch(`${process.env.DATA_URL}/${collectionName}-nosearch?status=0&limit=20&page=0&creator=${user?.handle}&sort=createdDate`, {
             headers: {
                 authorization: jwt + ""
             }

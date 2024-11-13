@@ -61,6 +61,10 @@
         gap: 10px;
         width: 100%;
     }
+
+    .dashboard_sidebar_header {
+        width: 100%;
+    }
 }
 
 .content_item {

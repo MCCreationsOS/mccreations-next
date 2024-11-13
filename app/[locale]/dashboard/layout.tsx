@@ -11,7 +11,9 @@ export default async function Layout({params: {locale}, children}: {params: {loc
         <div className={styles.dashboard_page}>
             <div className={styles.dashboard_layout}>
                 <nav className={styles.dashboard_sidebar}>
-                    <h1>{t('Dashboard.title')}</h1>
+                    <div className={styles.dashboard_sidebar_header}>
+                        <h1>{t('Dashboard.title')}</h1>
+                    </div>
                     <Link className={styles.dashboard_sidebar_item} href="/dashboard/maps"><Map /> {t('map', {count : 2})}</Link>
                     <Link className={styles.dashboard_sidebar_item} href="/dashboard/datapacks"><Package /> {t('datapack', {count : 2})}</Link>
                     <Link className={styles.dashboard_sidebar_item} href="/dashboard/resourcepacks"><Layers /> {t('resourcepack', {count : 2})}</Link>
