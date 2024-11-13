@@ -233,14 +233,14 @@ export async function resetPassword(token: string, password: string) {
     }
 }
 
-export async function updateNotificationSettings(authorization: string, comment: string, like: string, reply: string, subscription: string, rating: string, translation: string) {
+export async function updateNotificationSettings(authorization: string, comment: string, like: string, reply: string, follow: string, rating: string, translation: string) {
     fetch(`${process.env.DATA_URL}/auth/user/updateNotifications`, {
         method: 'POST',
         headers: {
             'Authorization': authorization,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({comment: comment, like: like, reply: reply, subscription: subscription, rating: rating, translation: translation})
+        body: JSON.stringify({comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation})
     })
 }
 

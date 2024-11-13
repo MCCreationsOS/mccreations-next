@@ -25,7 +25,7 @@ export default function NotificationsPage() {
 
     const comment = user?.settings?.notifications.comment ?? "dashboard_only"
     const reply = user?.settings?.notifications.reply ?? "dashboard_only"
-    const subscription = user?.settings?.notifications.subscription ?? "dashboard_only"
+    const follow = user?.settings?.notifications.follow ?? "dashboard_only"
     const rating = user?.settings?.notifications.rating ?? "dashboard_only"
     const translation = user?.settings?.notifications.translation ?? "dashboard_only"
 
@@ -48,7 +48,7 @@ export default function NotificationsPage() {
         let settings = user?.settings
 
         if (!settings) {
-            settings = { notifications: { comment: "dashboard_only", like: "dashboard_only", reply: "dashboard_only", subscription: "dashboard_only", rating: "dashboard_only", translation: "dashboard_only" } }
+            settings = { notifications: { comment: "dashboard_only", like: "dashboard_only", reply: "dashboard_only", follow: "dashboard_only", rating: "dashboard_only", translation: "dashboard_only" } }
         }
 
         if (value.includes("push") && isSupported && !pushSubscription) {
@@ -57,7 +57,7 @@ export default function NotificationsPage() {
 
         settings.notifications[type] = value
         setUser({ ...user!, settings })
-        updateNotificationSettings(token!, settings.notifications.comment, settings.notifications.like, settings.notifications.reply, settings.notifications.subscription, settings.notifications.rating, settings.notifications.translation)
+        updateNotificationSettings(token!, settings.notifications.comment, settings.notifications.like, settings.notifications.reply, settings.notifications.follow, settings.notifications.rating, settings.notifications.translation)
     }
 
     async function subscribeToPush() {
@@ -135,9 +135,9 @@ export default function NotificationsPage() {
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <p>{t('Account.Notifications.subscription')}</p>
+                        <p>{t('Account.Notifications.follow')}</p>
                     </div>
-                    <NotificationOptionDropdown type="subscription" value={subscription} />
+                    <NotificationOptionDropdown type="follow" value={follow} />
                 </div>
                 <div className="settings_option">
                     <div className="text">

@@ -217,8 +217,8 @@ export interface IUser {
     profileLayout?: ProfileLayout,
     settings?: CreatorSettings,
     notifications?: INotification[],
-    subscribers?: string[],
-    subscriptions?: string[]
+    followers?: string[],
+    following?: string[]
 }
 
 export interface CreatorSettings {
@@ -226,13 +226,13 @@ export interface CreatorSettings {
         comment: NotificationOption,
         like: NotificationOption,
         reply: NotificationOption,
-        subscription: NotificationOption,
+        follow: NotificationOption,
         rating: NotificationOption,
         translation: NotificationOption
     }
 }
 
-export type NotificationType = "comment" | "like" | "reply" | "subscription" | "rating" | "translation"
+export type NotificationType = "comment" | "like" | "reply" | "follow" | "rating" | "translation"
 
 export interface INotification {
     _id?: string,
