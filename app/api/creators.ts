@@ -99,9 +99,9 @@ export async function getNotifications(authorization: string, user_id: string, p
     }
 }
 
-export async function subscribe(authorization: string, handle: string) {
+export async function follow(authorization: string, handle: string) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/subscribe`, {
+        await fetch(`${process.env.DATA_URL}/creator/follow`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -117,9 +117,9 @@ export async function subscribe(authorization: string, handle: string) {
     }
 }
 
-export async function unsubscribe(authorization: string, handle: string) {
+export async function unfollow(authorization: string, handle: string) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/unsubscribe`, {
+        await fetch(`${process.env.DATA_URL}/creator/unfollow`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

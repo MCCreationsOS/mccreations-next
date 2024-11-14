@@ -2,7 +2,7 @@
 
 import { useCreator, useToken, useUser } from "@/app/api/hooks/users"
 import SecondaryButton from "./SecondaryButton"
-import { subscribe, unsubscribe } from "@/app/api/creators"
+import { follow, unfollow } from "@/app/api/creators"
 import MainButton from "./MainButton"
 import { useTranslations } from "next-intl"
 
@@ -13,11 +13,11 @@ export default function SubscribeButton({handle}: {handle: string}) {
     const t = useTranslations()
 
     const handleSubscribe = () => {
-        subscribe(token, handle)
+        follow(token, handle)
     }
 
     const handleUnsubscribe = () => {
-        unsubscribe(token, handle)
+        unfollow(token, handle)
     }
 
     if(user?.handle === handle) return null
