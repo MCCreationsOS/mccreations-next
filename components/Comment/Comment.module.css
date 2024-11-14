@@ -122,3 +122,24 @@
     width: 18px;
     height: 18px;
 }
+
+.follow_button {
+    position: absolute;
+    display: block;
+    left: 30px;
+    bottom: -10px;
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    padding: 3px;
+    margin: 0;
+    z-index: 2;
+    background-color: #272727;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.follow_button:hover {
+    background-color: #3a3a3a;
+}

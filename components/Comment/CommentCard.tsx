@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { Heart, Link as LinkIcon, MessageSquare, MoreVertical, Trash2 } from 'react-feather';
+import { Heart, Link as LinkIcon, MessageSquare, MoreVertical, Plus, Trash2 } from 'react-feather';
 import { CollectionNames, IComment, IUser, UserTypes } from '@/app/api/types';
 import { deleteComment, getCreator, likeComment, postReply } from '@/app/api/community';
 import styles from './Comment.module.css';
@@ -12,7 +12,7 @@ import FormComponent from '../Form/Form';
 import RichTextInput from '../FormInputs/RichText';
 import { FormInput } from '../FormInputs';
 import { useUserStore } from '@/app/api/auth';
-import { postWallComment } from '@/app/api/creators';
+import { follow, postWallComment } from '@/app/api/creators';
 import Text from '../FormInputs/Text';
 import { useCreator, useToken, useUser } from '@/app/api/hooks/users';
 import Link from 'next/link';
@@ -79,11 +79,20 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
         }
     }
 
+    const handleFollow = () => {
+        follow(token, comment!.handle!)
+    }
+
     if(!comment.approved) return undefined
 
     return (
         <div className={styles.comment} ref={container}>
-            <Link href={(comment.handle) ? `/creator/${comment.handle}` : ""}><Image src={image} width={45} height={45} className={styles.logo} alt={t('Creator.logo_alt', {username: ("username" in comment) ? comment.username : creator?.username})}></Image></Link>
+            <div style={{position: "relative"}}>
+                <Link href={(comment.handle) ? `/creator/${comment.handle}` : ""}><Image src={image} width={45} height={45} className={styles.logo} alt={t('Creator.logo_alt', {username: ("username" in comment) ? comment.username : creator?.username})}></Image></Link>
+                {user && user.handle !== "" && comment.handle && !user.following?.includes(comment.handle) && <DropDown buttonClassName={styles.follow_button} buttonLabel={<Plus />} className='option_dropdown' useButtonWidth={false}>
+                            <DropDownItem onClick={handleFollow} className='option_button'>Follow {comment.username}</DropDownItem>
+                        </DropDown>}
+            </div>
             <div className={styles.body}>
                 <div className={styles.header}>
                     <Link href={(comment.handle) ? `/creator/${comment.handle}` : ""}><h4>{("username" in comment) ? comment.username : creator?.username}</h4></Link>
