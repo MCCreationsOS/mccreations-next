@@ -95,7 +95,7 @@
 
 .dropdown_button {
     scale: 0.8;
-    background-color: #19191900;
+    background-color: #19191900 !important;
 }
 
 .dropdown_button:hover {
