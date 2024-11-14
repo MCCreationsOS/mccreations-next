@@ -25,6 +25,10 @@ export default function HomepageFeed() {
         return <></>
     }
 
+    if(feed.length === 0) {
+        return <></>
+    }
+
     return (
         <div className={styles.homepage_feed}>
             <h2 className={styles.feed_header}>Your Feed</h2>
