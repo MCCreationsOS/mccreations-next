@@ -23,7 +23,7 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
     const [sort, setSort] = useState<SortOptions>(SortOptions.Newest);
     
     const [statusDropdown, setStatusDropdown] = useState(false)
-    const [status, setStatus] = useState(StatusOptions.Approved)
+    const [status, setStatus] = useState(StatusOptions.Unapproved)
     
     const [openDropdowns, setOpenDropdowns] = useState<boolean[]>([])
     const [includeTags, setIncludeTags] = useState<string[]>([])
@@ -67,13 +67,13 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
         })
     }
 
-    if(searchParams.get("search") && searchParams.get("search") != search) {
+    if(searchParams.get("search") && (!search || search.length == 0)) {
         setSearch(searchParams.get("search") + "")
     }
-    if(searchParams.get("sort") && searchParams.get("sort") != sort && (searchParams.get("sort") != "" || searchParams.get("sort") != null || searchParams.get("sort") != "undefined")) {
+    if(searchParams.get("sort") && sort !== SortOptions.Newest) {
         setSort(searchParams.get("sort")! as SortOptions)
     }
-    if(searchParams.get("status")&& Number.parseInt(searchParams.get("status")!) != status) {
+    if(searchParams.get("status") && status !== StatusOptions.Unapproved) {
         setStatus(Number.parseInt(searchParams.get("status")!))
     }
 
@@ -122,6 +122,7 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
 
     
     const performSearch = () => {
+        console.log(search, sort, status, includeTags, excludeTags)
         const params = new URLSearchParams(searchParams)
         params.set("search", search)
         params.set("sort", sort)
