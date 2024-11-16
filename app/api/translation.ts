@@ -18,7 +18,8 @@ export async function getLanguageList() {
 export async function updateLanguage(locale: string, language: string) {
     let response = await fetch(`${process.env.DATA_URL}/translation/${locale}`, {
         method: "PUT",
-        body: language
+        body: language,
+        cache: 'no-store'
     })
     let data = await response.json()
     return data
@@ -26,7 +27,8 @@ export async function updateLanguage(locale: string, language: string) {
 
 export async function approveLanguage(locale: string) {
     await fetch(`${process.env.DATA_URL}/translation/${locale}/approve`, {
-        method: "PUT"
+        method: "PUT",
+            cache: 'no-store'
     })
 }
 

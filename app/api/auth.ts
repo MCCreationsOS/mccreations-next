@@ -114,7 +114,8 @@ export async function getUser(authorization?: string) {
             let res = await fetch(`${process.env.DATA_URL}/auth/user`, {
                 headers: {
                     'Authorization': authorization
-                }
+                },
+                cache: 'no-store'
             })
             let data = await res.json();
             if(data.user) {
@@ -150,7 +151,8 @@ export async function deleteUser(authorization: string) {
             method: 'DELETE',
             headers: {
                 "Authorization": authorization
-            }
+            },
+            cache: 'no-store'
         })
     } catch(e) {
         console.error(e)
@@ -172,7 +174,8 @@ export async function updateProfile(authorization: string, banner?: string, icon
                 icon: icon,
                 username: username,
                 about: about
-            })
+            }),
+            cache: 'no-store'
         })
     } catch(e) {
         console.error(e)
@@ -187,7 +190,8 @@ export async function updateProfileLayout(authorization: string, layout: Profile
                 'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({profileLayout: layout})
+            body: JSON.stringify({profileLayout: layout}),
+            cache: 'no-store'
         })
     } catch(e) {
         console.error(e)
@@ -201,7 +205,8 @@ export async function sendPasswordResetEmail(email: string) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({email: email})
+            body: JSON.stringify({email: email}),
+            cache: 'no-store'
         })
     } catch(e) {
         console.error(e)
@@ -216,7 +221,8 @@ export async function resetPassword(token: string, password: string) {
                 'Authorization': token,
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({password: password})
+            body: JSON.stringify({password: password}),
+            cache: 'no-store'
         })
         try {
             let data = await res.json()
@@ -240,7 +246,8 @@ export async function updateNotificationSettings(authorization: string, comment:
             'Authorization': authorization,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation})
+        body: JSON.stringify({comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation}),
+            cache: 'no-store'
     })
 }
 
@@ -249,7 +256,8 @@ export async function readNotification(authorization: string, notification: stri
         method: 'PATCH',
         headers: {
             'Authorization': authorization
-        }
+        },
+        cache: 'no-store'
     })
 }
 
@@ -258,7 +266,8 @@ export async function readAllNotifications(authorization: string) {
         method: 'PATCH',
         headers: {
             'Authorization': authorization
-        }
+        },
+        cache: 'no-store'
     })
 }
 
@@ -269,7 +278,8 @@ export async function subscribeToPushNotifications(authorization: string, subscr
             'Authorization': authorization,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(subscription)
+        body: JSON.stringify(subscription),
+        cache: 'no-store'
     })
 }
 

@@ -45,7 +45,8 @@ export async function sendWallPost(authorization: string, wallPost: IComment) {
                 'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({wallPost: wallPost})
+            body: JSON.stringify({wallPost: wallPost}),
+            cache: 'no-store'
         })
         return;
     } catch(e) {
@@ -78,7 +79,8 @@ export async function postWallComment(authorization: string, id: string, comment
                 creator: id,
                 comment: comment,
                 idx: idx
-            })
+            }),
+            cache: 'no-store'
         })
         return;
     } catch(e) {
@@ -91,7 +93,8 @@ export async function getNotifications(authorization: string, user_id: string, p
         const response = await fetch(`${process.env.DATA_URL}/notifications/${user_id}?page=${page}`, {
             headers: {
                 'Authorization': authorization
-            }
+            },
+            cache: 'no-store'
         })
         return response.json()
     } catch(e) {
@@ -109,7 +112,8 @@ export async function follow(authorization: string, handle: string) {
             },
             body: JSON.stringify({
                 handle: handle
-            })
+            }),
+            cache: 'no-store'
         })
         return;
     } catch(e) {
@@ -125,7 +129,8 @@ export async function unfollow(authorization: string, handle: string) {
                 'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({handle: handle})
+            body: JSON.stringify({handle: handle}),
+            cache: 'no-store'
         })
         return;
     } catch(e) {

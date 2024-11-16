@@ -74,7 +74,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
     try {
         let p1 = fetch(`${process.env.DATA_URL}/content?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
             next:{
-                revalidate:3600
+                revalidate: 216000
             },
             method: 'GET',
             headers: {
@@ -87,7 +87,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
             // console.log(filterQuery)
             p2 = fetch(`${process.env.DATA_URL}/content?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}`, {
                 next:{
-                    revalidate:3600
+                    revalidate: 216000
                 },
                 method: 'GET',
                 headers: {
@@ -121,7 +121,7 @@ export async function getContent(queryOptions: QueryOptions, token?: string | nu
     try {
         let response = await fetch(`${process.env.DATA_URL}/content-nosearch?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=false&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creator=${queryOptions.creator}`, {
             next:{
-                revalidate:3600
+                revalidate: 216000
             },
             headers: {
                 authorization: token + ""
@@ -143,7 +143,8 @@ export async function getFeed(token: string | null, limit: number, page: number)
         let response = await fetch(`${process.env.DATA_URL}/content/feed?limit=${limit}&page=${page}`, {
             headers: {
                 authorization: token + ""
-            }
+            },
+            next: { tags: ["feed"], revalidate: 3600 }
         })
         let data = await response.json();
         return data
@@ -229,7 +230,9 @@ export async function fetchResourcepack(slug: string, token?: string) {
 
 export async function fetchTags(type: CollectionNames) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/tags/${type}`)
+        let response = await fetch(`${process.env.DATA_URL}/tags/${type}`, {
+            next: { tags: [type], revalidate: 216000 }
+        })
         let data = await response.json();
         return data
     } catch (e) {

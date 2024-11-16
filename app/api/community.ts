@@ -16,7 +16,8 @@ export async function postRating(rating: number, map: IContentDoc) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({rating: rating, map: map})
+            body: JSON.stringify({rating: rating, map: map}),
+            cache: 'no-store'
         })
         let newRating = (await response.json()).rating as number
         revalidateTag(map.slug)
@@ -46,7 +47,8 @@ export async function postComment(slug: string, content_type: string, username: 
                 comment: comment,
                 handle: handle,
                 content_type: content_type
-            })
+            }),
+            cache: 'no-store'
         })
     }
     catch(e) {
@@ -66,7 +68,8 @@ export async function postReply(comment_id: string, username: string, reply: str
                 username: username,
                 reply: reply,
                 handle: handle
-            })
+            }),
+            cache: 'no-store'
         })
     }
     catch(e) {
@@ -82,7 +85,8 @@ export async function likeComment(comment_id: string, jwt: string = "") {
                 'Content-Type': 'application/json',
                 'Authorization': jwt
             },
-            body: JSON.stringify({comment_id: comment_id})
+            body: JSON.stringify({comment_id: comment_id}),
+            cache: 'no-store'
         })
         return response.status === 200
     }
@@ -133,7 +137,8 @@ export async function updateComment(comment: IComment, jwt: string = "") {
                 'Content-Type': 'application/json',
                 'Authorization': jwt
             },
-            body: JSON.stringify(comment)
+            body: JSON.stringify(comment),
+            cache: 'no-store'
         })
     }
     catch(e) {
@@ -148,7 +153,8 @@ export async function deleteComment(id: string, jwt: string = "") {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': jwt
-            }
+            },
+            cache: 'no-store'
         })
     }
     catch(e) {
@@ -158,7 +164,7 @@ export async function deleteComment(id: string, jwt: string = "") {
 
 export async function getCreator(handle: string) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: Infinity }})
+        let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: 216000 }})
         try {
             if(data.status === 200) {
                 let json = await data.json()
@@ -202,7 +208,8 @@ export async function submitLeaderboard(contentType: ContentTypes, slug: string,
                 score: score,
                 username: username,
                 score_type: score_type
-            })
+            }),
+            cache: 'no-store'
         })
     }
     catch(e) {
