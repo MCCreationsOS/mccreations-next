@@ -16,6 +16,8 @@ import Text from "../FormInputs/Text"
 import Select from "../FormInputs/Select"
 import { createDonation } from "@/app/api/payments";
 import { useTranslations } from "next-intl";
+import DropDown, { DropDownItem } from "../FormInputs/RichText/DropDown";
+import { Layers, Map, Package } from "react-feather";
 
 export default function Menu() {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
@@ -76,23 +78,24 @@ export default function Menu() {
                         <li className="item brand">
                             <Link href="/" className="brand">
                                 <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
-                                <p className="brand_name">{t('brand')} <Badge color="red">{t('Navigation.badge')}</Badge></p>
+                                <p className="brand_name">mccreations <Badge color="red">{t('Navigation.badge')}</Badge></p>
                             </Link>
-                        </li>
-                        <li className="item">
-                            <Link className={(pathname === '/') ? "link selected" : "link"} href="/">{t('Navigation.home')}</Link>
                         </li>
                         <li className="item">
                             <Link className={(pathname.includes('/feed')) ? "link selected" : "link"} href="/feed">{t('Navigation.feed')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(pathname.includes('/maps')) ? "link selected" : "link"} href="/maps">{t('map', {count: 2})}</Link>
+                            <DropDown buttonLabel={t('Navigation.creations')} buttonClassName={(pathname.includes('/maps')) ? "link selected" : "link"} openOnHover={true} className="option_dropdown" useButtonWidth={false}>
+                                <DropDownItem onClick={() => {router.push('/maps')}} className="option_button"><Link className="dropdown_link" href="/maps"><Map />{t('map', {count: 2})}</Link></DropDownItem>
+                                <DropDownItem onClick={() => {router.push('/datapacks')}} className="option_button"><Link className="dropdown_link" href="/datapacks"><Package />{t('datapack', {count: 2})}</Link></DropDownItem>
+                                <DropDownItem onClick={() => {router.push('/resourcepacks')}} className="option_button"><Link className="dropdown_link" href="/resourcepacks"><Layers />{t('resourcepack', {count: 2})}</Link></DropDownItem>
+                            </DropDown>
                         </li>
                         <li className="item">
-                            <Link className={(pathname.includes('/datapacks')) ? "link selected" : "link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
+                            <Link className={(pathname.includes('/marketplace')) ? "link selected" : "link"} href="/marketplace">{t('Navigation.marketplace')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(pathname.includes('/resourcepacks')) ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
+                            <Link className={(pathname.includes('/forums')) ? "link selected" : "link"} href="/forums">{t('Navigation.forums')}</Link>
                         </li>
                     </ul>
                     <ul className='action_list'>

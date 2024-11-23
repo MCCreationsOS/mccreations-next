@@ -24,6 +24,7 @@
   align-items: center;
   color: white;
   text-decoration: none;
+  gap: 10px;
 }
 
 .nav .brand_icon {
@@ -42,7 +43,7 @@
     margin: 0 5px 0 5px;
 }
   
-.nav .link {
+.link {
     text-decoration: none;
     color: #777777;
     padding: 8px 10px;
