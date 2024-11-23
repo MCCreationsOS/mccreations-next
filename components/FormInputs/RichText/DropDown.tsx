@@ -121,6 +121,7 @@ export default function DropDown({
   stopCloseOnClickSelf,
   className,
   useButtonWidth = true,
+  openOnHover = false,
 }: {
   disabled?: boolean;
   buttonAriaLabel?: string;
@@ -131,6 +132,7 @@ export default function DropDown({
   stopCloseOnClickSelf?: boolean;
   className?: string;
   useButtonWidth?: boolean;
+  openOnHover?: boolean;
 }): JSX.Element {
   const dropDownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -217,6 +219,7 @@ export default function DropDown({
         aria-label={buttonAriaLabel}
         className={buttonClassName}
         onClick={() => setShowDropDown(!showDropDown)}
+        onMouseEnter={() => {if(openOnHover) setShowDropDown(true)}}
         ref={buttonRef}>
         {buttonIconClassName && <span className={buttonIconClassName} />}
         {buttonLabel && (
