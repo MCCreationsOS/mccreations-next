@@ -68,7 +68,7 @@
   .editor-text-code {
     background-color: #303030;
     padding: 1px 0.25rem;
-    font-family: Menlo, Consolas, Monaco, monospace;
+    font-family: var(--font-courier);
     font-size: 94%;
   }
   
@@ -79,7 +79,7 @@
   
   .editor-code {
     background-color: #303030;
-    font-family: Menlo, Consolas, Monaco, monospace;
+    font-family: var(--font-courier);
     display: block;
     padding: 8px 8px 8px 52px;
     line-height: 1.53;

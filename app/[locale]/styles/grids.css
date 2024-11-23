@@ -1,21 +1,21 @@
 .content_grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
+    gap: 10px;
     margin: 0 auto 10px auto;
     width: 90%;
 }
 .content_grid.three {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    gap: 10px;
     margin: 0 auto 10px auto;
     width: 100%;
 }
 .content_grid.two {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px;
     margin: 0 auto 10px auto;
     width: 90%;
 }
@@ -161,6 +161,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    border-radius: 5px;
 }
 
 .options_dropdown_button:hover {
@@ -213,7 +214,7 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 20px;
+        gap: 10px;
         margin: 0 auto 10px auto;
         width: 90%;
     }
@@ -228,7 +229,7 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        gap: 10px;
         margin: 0 auto 10px auto;
         width: 90%;
     }
@@ -242,7 +243,7 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 8px;
+        gap: 8px;
         margin: 0 auto 10px auto;
         width: 90%;
     }
@@ -261,19 +262,19 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
-        gap: 25px;
+        gap: 10px;
         margin: 0 auto 10px auto;
         width: 90%;
     }
 
     .content_grid.three {
         grid-template-columns: repeat(1, 1fr);
-        gap: 25px;
+        gap: 10px;
     }
 
     .content_grid.three {
         grid-template-columns: repeat(1, 1fr);
-        gap: 25px;
+        gap: 10px;
     }
 
     .search_and_filter {

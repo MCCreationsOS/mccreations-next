@@ -29,6 +29,7 @@
     aspect-ratio: 16/9;
     object-fit: cover;
     height: 100%;
+    border-radius: 5px;
 }
 
 .map_title_bar {
@@ -163,6 +164,7 @@
     margin: 10px 0 0 5px;
     background-color: #272727;
     height: fit-content;
+    border-radius: 5px;
 }
 
 .map_sidebar_section {

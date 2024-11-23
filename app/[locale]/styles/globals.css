@@ -5,15 +5,32 @@
 @import 'editor.css';
 @import 'grids.css';
 
+:root {
+  --primary-color: #3154F4;
+  --primary-color-hover: #516FF6;
+  --secondary-color: #292929;
+  --secondary-color-hover: #333333;
+  --background-color: #171717;
+  --error-color: #F15025;
+  --error-color-hover: #F3663F;
+  --warning-color: #ECA400;
+  --warning-color-hover: #FFB60A;
+  --text-white: #FFFFFF;
+  --text-grey: #808080;
+  --text-black: #000000;
+  --font-paytone: 'Paytone One', sans-serif;
+  --font-oxygen: 'Oxygen', sans-serif;
+  --font-courier: 'Courier Prime', monospace;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
-    Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-    background-color: #171717;
-    color: white;
-    scrollbar-track-color: #202020;
+  font-family: var(--font-oxygen);
+  background-color: var(--background-color);
+  color: var(--text-white);
+  scrollbar-track-color: var(--secondary-color);
 }
 
 * {
@@ -30,10 +47,10 @@ main {
 }
 
 code {
-  background: #272727;
+  background: var(--secondary-color);
   border-radius: 5px;
   padding: 0.75rem;
-  font-family: Menlo, Monaco, Lucida Console, Courier New, monospace;
+  font-family: var(--font-courier);
   line-height: 2.6rem;
 }
 
@@ -46,27 +63,15 @@ code {
 }
 
 a {
-    color: #344ec1;
+    color: var(--primary-color);
 }
 
 a:visited {
-  color: #506be3;
+  color: var(--primary-color);
 }
 
 a:active {
-  color: white;
-}
-
-.errorBox {
-  background-color: #272727;
-  padding: 20px;
-  width: 40%;
-  margin: 20px auto;
-}
-
-.errorBox p {
-  background-color: #331111;
-  padding: 10px;
+  color: var(--text-white);
 }
 
 .image_background {
