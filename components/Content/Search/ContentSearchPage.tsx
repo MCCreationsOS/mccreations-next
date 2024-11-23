@@ -35,7 +35,7 @@ export default async function ContentSearchPage({searchParams, contentType, path
             { creations && creations.length !== 0 && (
                 <div className="page_with_sidebar">
                     <SidebarFilters contentType={contentType} tags={tags} />
-                    <ContentGrid content={creations} enableSelection={true} enableAds={true}></ContentGrid>
+                    <ContentGrid content={creations} enableSelection={true} enableAds={true} showCategory={true}></ContentGrid>
                 </div>
             )}
             { !creations || creations.length === 0 && (

@@ -107,16 +107,25 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
 
     const updateSearch = (search: string) => {
         setSearch(search);
+        const params = new URLSearchParams(searchParams)
+        params.set("search", search)
+        router.push(`?${params.toString()}`)
         closePopups()
     }
     
     const updateSort = (sort: SortOptions) => {
         setSort(sort);
+        const params = new URLSearchParams(searchParams)
+        params.set("sort", sort)
+        router.push(`?${params.toString()}`)
         closePopups()
     }
     
     const updateStatus = (status: StatusOptions) => {
         setStatus(status);
+        const params = new URLSearchParams(searchParams)
+        params.set("status", status.toString())
+        router.push(`?${params.toString()}`)
         closePopups()
     }
 
