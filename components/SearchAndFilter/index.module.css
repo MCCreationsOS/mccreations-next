@@ -36,16 +36,32 @@
     padding: 5px 10px;
     color: white;
     border-radius: 5px;
-    border: 1px solid gray;
+    border: 1.5px solid gray;
     cursor: pointer;
     background-color: transparent;
     font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.tag:hover {
+    background-color: rgb(0, 190, 0, 0.2)
 }
 
 .include {
-    border: 1px solid green;
+    border: 1.5px solid rgb(0, 190, 0);
+    background-color: rgb(0, 190, 0, 0.2);
+}
+
+.include:hover {
+    background-color: #c7303040;
 }
 
 .exclude {
-    border: 1px dashed #c73030;
+    border: 1.5px dashed #c73030;
+    background-color: #c73030;
+    text-decoration: line-through;
+}
+
+.exclude:hover {
+    background-color: var(--secondary-color-hover);
 }
