@@ -9,7 +9,6 @@ import CommentForm from "../Comment/ComentForm";
 import CommentsList from "@/components/Comment/CommentsList";
 import DOMPurify from "isomorphic-dompurify";
 import ContentMenu from "./ContentMenu";
-import ContentWarnings from "./ContentWarnings";
 import IconButton from "../Buttons/IconButton";
 import { Server } from "react-feather";
 import { Link } from "@/app/api/navigation";
@@ -19,6 +18,8 @@ import CreateTranslationForm from "../CreateTranslationForm";
 import { Suspense } from "react";
 import { convertToType } from "@/app/api/content";
 import { AdsenseComponent } from "../AdUnits/InContent";
+import styles from './Content.module.css'
+import { makeSentenceCase } from "@/app/api/utils";
 
 /**
  * The map component represents all the information displayed on a map page
@@ -86,6 +87,12 @@ export default function Content({content, collectionName}: {content: IContentDoc
                             {(content.files) ? <p className='stat_header'>{t('Content.Sidebar.minecraft_version')} <span className='stat'>{(content.files && content.files[0]) ? content.files[0].minecraftVersion : ""}</span></p> : <></> }
                             <p className='stat_header'>{t('Content.Sidebar.created_date')} <span className='stat'>{new Date(content.createdDate).toLocaleDateString()}</span></p>
                             {(content.updatedDate) ? <p className='stat_header'>{t('Content.Sidebar.updated_date')} <span className='stat'>{new Date(content.updatedDate).toLocaleDateString()}</span></p> : <></>}
+                        </section>
+                        <section className='map_sidebar_section'>
+                            <h4 className='header'>{t('Content.Sidebar.tags')}</h4>
+                            <div className={styles.tags_list}>
+                                {content.tags && content.tags.map((tag: string, idx: number) => <Link className={styles.tag} key={tag} href={`/${content.type}s?includeTags=${tag}`}>{makeSentenceCase(tag)}</Link>)}
+                            </div>
                         </section>
                         <section className='map_sidebar_section'>
                             <h4 className='header'>{t('Content.Sidebar.files')}</h4>
