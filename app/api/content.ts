@@ -108,7 +108,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
         return data
 
     } catch(e) {
-        console.error("API fetch error! Is it running?: " + e);
+        console.error("API fetch error! `searchContent` Is it running?: " + e);
         return {
             error: e,
             query: queryOptions
@@ -130,7 +130,7 @@ export async function getContent(queryOptions: QueryOptions, token?: string | nu
         let data = await response.json();
         return data
     } catch(e) {
-        console.error("API fetch error! Is it running?: " + e);
+        console.error("API fetch error! `getContent` Is it running?: " + e);
         return {
             error: e,
             query: queryOptions
@@ -146,10 +146,15 @@ export async function getFeed(token: string | null, limit: number, page: number)
             },
             next: { tags: ["feed"], revalidate: 3600 }
         })
+        if(response.status === 401) {
+            return {
+                error: "Unauthorized"
+            }
+        }
         let data = await response.json();
         return data
     } catch(e) {
-        console.error("API fetch error! Is it running?: " + e);
+        console.error("API fetch error! `getFeed` Is it running?: " + e);
         return {
             error: e
         }
@@ -172,7 +177,7 @@ export async function fetchMap(slug: string, token?: string) {
         let data = await response.json();
         return data
     } catch (e) {
-        console.error("API fetch error! Is it running?: " + e);
+        console.error("API fetch error! `fetchMap` Is it running?: " + e);
         return {
             error: e,
             query: slug
@@ -196,7 +201,7 @@ export async function fetchDatapack(slug: string, token?: string) {
         let data = await response.json();
         return data
     } catch (e: any) {
-        console.error("API fetch error! Is it running?: " + e);
+        console.error("API fetch error! `fetchDatapack` Is it running?: " + e);
         return JSON.stringify({
             error: e.toString(),
             query: slug
@@ -220,7 +225,7 @@ export async function fetchResourcepack(slug: string, token?: string) {
         let data = await response.json();
         return data
     } catch (e) {
-        console.error("API fetch error! Is it running?: " + e);
+        console.error("API fetch error! `fetchResourcepack` Is it running?: " + e);
         return {
             error: e,
             query: slug
@@ -236,7 +241,7 @@ export async function fetchTags(type: CollectionNames) {
         let data = await response.json();
         return data
     } catch (e) {
-        console.error("API fetch error! Is it running?: " + e);
+        console.error("API fetch error! `fetchTags` Is it running?: " + e);
         return {
             error: e
         }
@@ -248,7 +253,7 @@ export async function downloadCreation(slug: string, contentType: ContentTypes) 
         await fetch(`${process.env.DATA_URL}/${contentType}s/${slug}/download`)
         return;
     } catch (e) {
-        console.error("API fetch error! Is it running?: " + e);
+        console.error("API fetch error! `downloadCreation` Is it running?: " + e);
         return {
             error: e,
             query: slug
@@ -276,7 +281,7 @@ export async function createNewContent(title: string, type: string, summary: str
         let b = await res.json();
         return b
     } catch(e) {
-        console.error("API fetch error! Is it running?: " + e)
+        console.error("API fetch error! `createNewContent` Is it running?: " + e)
         return {
             error: e
         }
@@ -301,7 +306,7 @@ export async function importContent(link: string, type: string, token?: string |
         let data = await response.json();
         return data;
     } catch(e) {
-        console.error("API fetch error! Is it running?: " + e)
+        console.error("API fetch error! `importContent` Is it running?: " + e)
         return {
             error: e
         }
@@ -326,7 +331,7 @@ export async function updateContent(map: IContentDoc, token: string | null, type
         let data = await response.json();
         return data;
     } catch(e) {
-        console.error("API fetch error! Is it running?: " + e)
+        console.error("API fetch error! `updateContent` Is it running?: " + e)
         return {
             message: e
         }

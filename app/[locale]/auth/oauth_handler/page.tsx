@@ -1,12 +1,19 @@
 'use client'
 
 import { getUser, useUserStore } from "@/app/api/auth";
+import { useToken, useUser } from "@/app/api/hooks/users";
 import { IUser } from "@/app/api/types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
 import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect } from "react";
+import { mutate } from "swr";
+import { useLocalStorage } from "usehooks-ts";
 
 function signInWithDiscord(code: string | null, setUser: (user: IUser) => void): Promise<any> {
+    const [jwt, setJwt, removeJwt] = useLocalStorage('jwt', undefined)
+    const [user, setStoredUser, removeUser] = useLocalStorage('user', undefined)
+    
     return new Promise((resolve, reject) => {
         try {
             fetch(`${process.env.DATA_URL}/auth/signInWithDiscord?code=${code}`, {
@@ -17,8 +24,8 @@ function signInWithDiscord(code: string | null, setUser: (user: IUser) => void):
                         reject(data.error)
                         return;
                     }
-                    localStorage?.setItem('jwt', data.token);
-                    localStorage?.setItem('user', JSON.stringify(data.creator))
+                    setJwt(data.token)
+                    setStoredUser(data.creator)
                     setUser(data.creator)
                     resolve(data)
                 })
@@ -61,6 +68,9 @@ function addDiscordProvider(code: string | null): Promise<any> {
 }
 
 function signInWithGithub(code: string | null, setUser: (user: IUser) => void): Promise<any> {
+    const [jwt, setJwt, removeJwt] = useLocalStorage('jwt', undefined)
+    const [user, setStoredUser, removeUser] = useLocalStorage('user', undefined)
+    
     return new Promise((resolve, reject) => {
         try {
             fetch(`${process.env.DATA_URL}/auth/signInWithGithub?code=${code}`, {
@@ -71,8 +81,8 @@ function signInWithGithub(code: string | null, setUser: (user: IUser) => void): 
                         reject(data.error)
                         return;
                     }
-                    localStorage?.setItem('jwt', data.token);
-                    localStorage?.setItem('user', JSON.stringify(data.creator))
+                    setJwt(data.token)
+                    setStoredUser(data.creator)
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -111,6 +121,9 @@ function addGithubProvider(code: string | null): Promise<any> {
 }
 
 function signInWithGoogle(code: string | null, setUser: (user: IUser) => void): Promise<any> {
+    const [jwt, setJwt, removeJwt] = useLocalStorage('jwt', undefined)
+    const [user, setStoredUser, removeUser] = useLocalStorage('user', undefined)
+    
     return new Promise((resolve, reject) => {
         try {
             fetch(`${process.env.DATA_URL}/auth/signInWithGoogle?access_token=${code}`, {
@@ -121,8 +134,8 @@ function signInWithGoogle(code: string | null, setUser: (user: IUser) => void): 
                         reject(data.error)
                         return;
                     }
-                    localStorage?.setItem('jwt', data.token);
-                    localStorage?.setItem('user', JSON.stringify(data.creator))
+                    setJwt(data.token)
+                    setStoredUser(data.creator)
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -161,6 +174,9 @@ function addGoogleProvider(code: string | null): Promise<any> {
 }
 
 function signInWithMicrosoft(code: string | null, setUser: (user: IUser) => void): Promise<any> {
+    const [jwt, setJwt, removeJwt] = useLocalStorage('jwt', undefined)
+    const [user, setStoredUser, removeUser] = useLocalStorage('user', undefined)
+    
     return new Promise((resolve, reject) => {
         try {
             fetch(`${process.env.DATA_URL}/auth/signInWithMicrosoft?code=${code}`, {
@@ -171,8 +187,8 @@ function signInWithMicrosoft(code: string | null, setUser: (user: IUser) => void
                         reject(data.error)
                         return;
                     }
-                    localStorage?.setItem('jwt', data.token);
-                    localStorage?.setItem('user', JSON.stringify(data.creator))
+                    setJwt(data.token)
+                    setStoredUser(data.creator)
                     setUser(data.creator)
                     resolve(data)
                 }).catch(error => reject(error))
@@ -211,25 +227,24 @@ function addMicrosoftProvider(code: string | null): Promise<any> {
 }
 
 export default function OauthHandlerPage() {
-    const user = useUserStore()
-    const setUser = useUserStore((state) => state.setUser)
+    const {user} = useUser()
+    const {token} = useToken()
     const params = useSearchParams()
     const router = useRouter();
     const t = useTranslations()
 
     let provider = params.get('provider')
     const handleSignIn = async () => {
-        const token = localStorage?.getItem('jwt')
         if(token) {
             let u = await getUser(token)
             if(u) {
-                setUser(u)
+                mutate(u)
             }
         }
         if(provider === "discord") {
             let code = params.get('code')
             if(!user || user._id === "") {
-                signInWithDiscord(code, setUser).then(data => {
+                signInWithDiscord(code, mutate).then(data => {
                     router.push('/')
                 }).catch(error => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -248,7 +263,7 @@ export default function OauthHandlerPage() {
         } else if(provider === 'github') {
             let code = params.get('code')
             if(!user || user._id === "") {
-                signInWithGithub(code + "", setUser).then(data => {
+                signInWithGithub(code + "", mutate).then(data => {
                     router.push('/')
                 }).catch(error => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -273,7 +288,7 @@ export default function OauthHandlerPage() {
             }
             if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie" && params.access_token) {
                 if(!user || user._id === "") {
-                    signInWithGoogle(params.access_token, setUser).then(data => {
+                    signInWithGoogle(params.access_token, mutate).then(data => {
                         router.push('/')
                     }).catch(error => {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -295,7 +310,7 @@ export default function OauthHandlerPage() {
         } else if(params.get('state') === "ShoutoutToMyBoyMicrosoft") {
             let code = params.get('code')
             if(!user || user._id === "") {
-                signInWithMicrosoft(code, setUser).then(data => {
+                signInWithMicrosoft(code, mutate).then(data => {
                     router.push('/')
                 }).catch(error => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -315,7 +330,9 @@ export default function OauthHandlerPage() {
             router.push('/')
         }
     }
-    handleSignIn()
+    useEffect(() => {
+        handleSignIn()
+    }, [])
 
     
 
