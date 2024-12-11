@@ -12,16 +12,15 @@ import { useLocalStorage } from "usehooks-ts";
 
 export default function OauthHandlerPage() {
     const {user, setUser} = useUser()
-    const {token} = useToken()
+    const {token, setToken} = useToken()
     const params = useSearchParams()
     const router = useRouter();
     const t = useTranslations()
 
-    const [jwt, setJwt, removeJwt] = useLocalStorage<string|undefined>('jwt', undefined)
     const [storedUser, setStoredUser, removeUser] = useLocalStorage<IUser|undefined>('user', undefined)
 
     function saveUser(data: any) {
-        setJwt(data.token)
+        setToken(data.token)
         setStoredUser(data.creator)
         setUser(data.creator)
         mutate(data.creator)
