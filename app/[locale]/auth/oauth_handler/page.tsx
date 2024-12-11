@@ -11,16 +11,23 @@ import { mutate } from "swr";
 import { useLocalStorage } from "usehooks-ts";
 
 export default function OauthHandlerPage() {
-    const {user} = useUser()
+    const {user, setUser} = useUser()
     const {token} = useToken()
     const params = useSearchParams()
     const router = useRouter();
     const t = useTranslations()
 
-    const [jwt, setJwt, removeJwt] = useLocalStorage('jwt', undefined)
-    const [storedUser, setStoredUser, removeUser] = useLocalStorage('user', undefined)
+    const [jwt, setJwt, removeJwt] = useLocalStorage<string|undefined>('jwt', undefined)
+    const [storedUser, setStoredUser, removeUser] = useLocalStorage<IUser|undefined>('user', undefined)
 
-    function signInWithDiscord(code: string | null, setUser: (user: IUser) => void): Promise<any> {
+    function saveUser(data: any) {
+        setJwt(data.token)
+        setStoredUser(data.creator)
+        setUser(data.creator)
+        mutate(data.creator)
+    }
+
+    function signInWithDiscord(code: string | null): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
                 fetch(`${process.env.DATA_URL}/auth/signInWithDiscord?code=${code}`, {
@@ -31,9 +38,7 @@ export default function OauthHandlerPage() {
                             reject(data.error)
                             return;
                         }
-                        setJwt(data.token)
-                        setStoredUser(data.creator)
-                        setUser(data.creator)
+                        saveUser(data)
                         resolve(data)
                     })
                 }).catch(error => {
@@ -74,7 +79,7 @@ export default function OauthHandlerPage() {
         })
     }
     
-    function signInWithGithub(code: string | null, setUser: (user: IUser) => void): Promise<any> {
+    function signInWithGithub(code: string | null): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
                 fetch(`${process.env.DATA_URL}/auth/signInWithGithub?code=${code}`, {
@@ -85,9 +90,7 @@ export default function OauthHandlerPage() {
                             reject(data.error)
                             return;
                         }
-                        setJwt(data.token)
-                        setStoredUser(data.creator)
-                        setUser(data.creator)
+                        saveUser(data)
                         resolve(data)
                     }).catch(error => reject(error))
                 }).catch(error => reject(error))
@@ -124,7 +127,7 @@ export default function OauthHandlerPage() {
         })
     }
     
-    function signInWithGoogle(code: string | null, setUser: (user: IUser) => void): Promise<any> {
+    function signInWithGoogle(code: string | null): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
                 fetch(`${process.env.DATA_URL}/auth/signInWithGoogle?access_token=${code}`, {
@@ -135,9 +138,7 @@ export default function OauthHandlerPage() {
                             reject(data.error)
                             return;
                         }
-                        setJwt(data.token)
-                        setStoredUser(data.creator)
-                        setUser(data.creator)
+                        saveUser(data)
                         resolve(data)
                     }).catch(error => reject(error))
                 }).catch(error => reject(error))
@@ -174,7 +175,7 @@ export default function OauthHandlerPage() {
         })
     }
     
-    function signInWithMicrosoft(code: string | null, setUser: (user: IUser) => void): Promise<any> {
+    function signInWithMicrosoft(code: string | null): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
                 fetch(`${process.env.DATA_URL}/auth/signInWithMicrosoft?code=${code}`, {
@@ -185,9 +186,7 @@ export default function OauthHandlerPage() {
                             reject(data.error)
                             return;
                         }
-                        setJwt(data.token)
-                        setStoredUser(data.creator)
-                        setUser(data.creator)
+                        saveUser(data)
                         resolve(data)
                     }).catch(error => reject(error))
                 }).catch(error => reject(error))
@@ -235,7 +234,7 @@ export default function OauthHandlerPage() {
         if(provider === "discord") {
             let code = params.get('code')
             if(!user || user._id === "") {
-                signInWithDiscord(code, mutate).then(data => {
+                signInWithDiscord(code).then(data => {
                     router.push('/')
                 }).catch(error => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -254,7 +253,7 @@ export default function OauthHandlerPage() {
         } else if(provider === 'github') {
             let code = params.get('code')
             if(!user || user._id === "") {
-                signInWithGithub(code + "", mutate).then(data => {
+                signInWithGithub(code + "").then(data => {
                     router.push('/')
                 }).catch(error => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -279,7 +278,7 @@ export default function OauthHandlerPage() {
             }
             if(Object.keys(params).length > 0 && params.state && params.state === "ILikeBigMoosAndICannotLie" && params.access_token) {
                 if(!user || user._id === "") {
-                    signInWithGoogle(params.access_token, mutate).then(data => {
+                    signInWithGoogle(params.access_token).then(data => {
                         router.push('/')
                     }).catch(error => {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
@@ -301,7 +300,7 @@ export default function OauthHandlerPage() {
         } else if(params.get('state') === "ShoutoutToMyBoyMicrosoft") {
             let code = params.get('code')
             if(!user || user._id === "") {
-                signInWithMicrosoft(code, mutate).then(data => {
+                signInWithMicrosoft(code).then(data => {
                     router.push('/')
                 }).catch(error => {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
