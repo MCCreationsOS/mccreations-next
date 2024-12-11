@@ -42,7 +42,7 @@ export default function EditHeader({slug, contentType}: {slug: string, contentTy
         </div>;
     }
 
-    if(user && creation && !canEdit(creation, user) || (!user && !userLoading)) {
+    if(user && creation && !canEdit(creation, user)) {
         window.location.href = `/${contentType}s/${slug}`
     }
 
