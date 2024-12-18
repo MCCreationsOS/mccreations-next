@@ -42,7 +42,7 @@ export function DropDownItem({children, className, onClick, title}: {children: R
   );
 }
 
-function DropDownItems({children, dropDownRef, onClose, className}: {children: React.ReactNode, dropDownRef: React.Ref<HTMLDivElement>, onClose: () => void, className?: string}) {
+function DropDownItems({children, dropDownRef, onClose, className, onMouseEnter, onMouseLeave}: {children: React.ReactNode, dropDownRef: React.Ref<HTMLDivElement>, onClose: () => void, className?: string, onMouseEnter: () => void, onMouseLeave: () => void}) {
   const [items, setItems] = useState<React.RefObject<HTMLButtonElement>[]>();
   const [highlightedItem, setHighlightedItem] =
     useState<React.RefObject<HTMLButtonElement>>();
@@ -104,7 +104,7 @@ function DropDownItems({children, dropDownRef, onClose, className}: {children: R
 
   return (
     <DropDownContext.Provider value={contextValue}>
-      <div className={className + " dropdown"} ref={dropDownRef} onKeyDown={handleKeyDown}>
+      <div className={className + " dropdown"} ref={dropDownRef} onKeyDown={handleKeyDown} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
         {children}
       </div>
     </DropDownContext.Provider>
@@ -137,6 +137,7 @@ export default function DropDown({
   const dropDownRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [showDropDown, setShowDropDown] = useState(false);
+  const closeTimeout = useRef<NodeJS.Timeout>();
 
   const handleClose = () => {
     setShowDropDown(false);
@@ -219,7 +220,8 @@ export default function DropDown({
         aria-label={buttonAriaLabel}
         className={buttonClassName}
         onClick={() => setShowDropDown(!showDropDown)}
-        onMouseEnter={() => {if(openOnHover) setShowDropDown(true)}}
+        onMouseEnter={() => {if(openOnHover) setShowDropDown(true); clearTimeout(closeTimeout.current)}}
+        onMouseLeave={() => {if(openOnHover) closeTimeout.current = setTimeout(() => handleClose(), 100)}}
         ref={buttonRef}>
         {buttonIconClassName && <span className={buttonIconClassName} />}
         {buttonLabel && (
@@ -229,7 +231,7 @@ export default function DropDown({
 
       {showDropDown &&
         createPortal(
-          <DropDownItems dropDownRef={dropDownRef} onClose={handleClose} className={className}>
+          <DropDownItems dropDownRef={dropDownRef} onClose={handleClose} className={className} onMouseEnter={() => {if(openOnHover) clearTimeout(closeTimeout.current)}} onMouseLeave={() => {if(openOnHover) closeTimeout.current = setTimeout(() => handleClose(), 100)}}>
             {children}
           </DropDownItems>,
           document.body,

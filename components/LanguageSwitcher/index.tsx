@@ -15,7 +15,7 @@ export default function LanguageSwitcher() {
     const saveNewLanguage = (inputs: string[]) => {}
 
     return (
-        <DropDown buttonClassName="options_dropdown_button language" buttonLabel={<Globe />} className="option_dropdown" useButtonWidth={false}>
+        <DropDown buttonClassName="options_dropdown_button language" buttonLabel={<Globe />} className="option_dropdown" useButtonWidth={false} openOnHover={true}>
             <DropDownItem className="option_button" onClick={() =>{router.replace("/", {locale: 'en-US'})}}>
                 US English
             </DropDownItem>
