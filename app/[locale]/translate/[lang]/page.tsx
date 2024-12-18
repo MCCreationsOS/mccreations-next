@@ -8,6 +8,8 @@ import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { Link } from "@/app/api/navigation";
 import { Suspense, useEffect, useState } from 'react';
 import { getLanguage, getQueuedLanguage } from '@/app/api/translation';
+import MainButton from '@/components/Buttons/MainButton';
+import { Popup } from '@/components/Popup/Popup';
 
 type Language = {[key: string]: string}
 
@@ -90,7 +92,16 @@ export default function Page({params}: {params: Params}) {
         <>
             <div className='centered_content'>
                 <Suspense>
-                    <FormComponent id="add_language" onSave={saveLanguage} options={{stickyButtons: true, saveButtonContent: "Send"}}>
+                    <FormComponent id="add_language" onSave={saveLanguage} options={{stickyButtons: true, saveButtonContent: "Send", extraButtons: <MainButton onClick={() => {
+                        Popup.createPopup({
+                            title: "Add Key",
+                            content: <FormComponent id="add_key" onSave={(inputs) => {
+                                setKeys([...keys, inputs[0]])
+                            }}>
+                                <Text name="key" placeholder="Key" description="The key to add"/>
+                            </FormComponent>
+                        })
+                    }}>Add Key</MainButton>}}>
                         <p>When you're ready, click send to save your translation. Clicking will save your translation, so it is safe to leave this page once you do so. Your translation doesn't have to be complete, but try and avoid spamming the button.</p>
                         <Link href="https://youtu.be/lhZTkbkuORI">For help, click here</Link>
                         <br></br>
