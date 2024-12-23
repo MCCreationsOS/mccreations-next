@@ -3,16 +3,16 @@ import { MetadataRoute } from "next"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const contentTypes = [ContentTypes.Maps, ContentTypes.Resourcepacks, ContentTypes.Datapacks]
-    const options = [SortOptions.Newest, SortOptions.Updated, SortOptions.HighestDownloads, SortOptions.HighestRated, `verified`, `published`, `featured`, ...MinecraftVersions, ...AllTags]
+    const options = [SortOptions.Newest, SortOptions.Updated, SortOptions.HighestDownloads, SortOptions.HighestRated, ...AllTags]
     
     let sitemap: MetadataRoute.Sitemap = []
 
 
-    for (let locale of Locales) {
+    // for (let locale of Locales) {
         for (let type of contentTypes) {
             for (let option of options) {
                 sitemap.push({
-                    url: `https://mccreations.net/${locale}/content/${type}/${option}`,
+                    url: `https://mccreations.net/en-US/content/${type}/${option}`,
                     lastModified: new Date().toISOString(),
                     changeFrequency: 'weekly',
                     alternates: {
@@ -25,7 +25,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                 })
             }
         }
-    }
+    // }
 
     return sitemap
 }
