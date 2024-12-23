@@ -6,18 +6,16 @@ import { Suspense } from "react"
 
 export async function generateStaticParams() {
     const contentTypes = [ContentTypes.Maps + "s", ContentTypes.Resourcepacks + "s", ContentTypes.Datapacks + "s"]
-    const options = [SortOptions.Newest, SortOptions.Updated, SortOptions.HighestDownloads, SortOptions.HighestRated, `${StatusOptions.Approved}`, `${StatusOptions.Unapproved}`, `${StatusOptions.Featured}`, ...MinecraftVersions, ...AllTags]
+    const options = [SortOptions.Newest, SortOptions.Updated, SortOptions.HighestDownloads, SortOptions.HighestRated, `${StatusOptions.Approved}`, `${StatusOptions.Unapproved}`, `${StatusOptions.Featured}`, ...AllTags]
 
     let params = []
-    for (let locale of Locales) {
-        for (let type of contentTypes) {
-            for (let option of options) {
-                params.push({
-                    locale: locale,
-                    content_type: type,
-                    criteria: option
-                })
-            }
+    for (let type of contentTypes) {
+        for (let option of options) {
+            params.push({
+                locale: "en-US",
+                content_type: type,
+                criteria: option
+            })
         }
     }
     // console.log(params)
