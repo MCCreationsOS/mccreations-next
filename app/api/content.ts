@@ -233,6 +233,25 @@ export async function fetchResourcepack(slug: string, token?: string) {
     }
 }
 
+export async function fetchMarketplaceItem(slug: string, token?: string) {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/marketplace/${slug}`, {
+            next: { tags: [slug], revalidate: 3600 },
+            headers: {
+                authorization: token + ""
+            }
+        })
+        let data = await response.json();
+        return data
+    } catch (e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: slug
+        }
+    }
+}
+
 export async function fetchTags(type: CollectionNames) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/tags/${type}`, {
@@ -248,9 +267,9 @@ export async function fetchTags(type: CollectionNames) {
     }
 }
 
-export async function downloadCreation(slug: string, contentType: ContentTypes) {
+export async function downloadCreation(slug: string, collectionName: CollectionNames) {
     try {
-        await fetch(`${process.env.DATA_URL}/${contentType}s/${slug}/download`)
+        await fetch(`${process.env.DATA_URL}/${collectionName}/${slug}/download`)
         return;
     } catch (e) {
         console.error("API fetch error! `downloadCreation` Is it running?: " + e);

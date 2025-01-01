@@ -68,7 +68,8 @@ export interface ErrorMessage {
 export enum CollectionNames {
     Maps = "Maps",
     Datapacks = "datapacks",
-    Resourcepacks = "resourcepacks"
+    Resourcepacks = "resourcepacks",
+    Marketplace = "marketplace"
 }
 
 export enum ContentTypes {
