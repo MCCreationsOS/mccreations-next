@@ -8,24 +8,23 @@ import upload from '@/app/api/upload'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 import Text from '../Text'
 import { useTranslations } from 'next-intl'
-
+import { useToken } from '@/app/api/hooks/users'
 const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
     const [file, setFile] = useState<string>("")
     const [rejected, setRejected] = useState<FileRejection[]>([])
+    const {token} = useToken();
     const t = useTranslations()
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
-            acceptedFiles.forEach(file => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploading', { file: file.name })))
-                upload(file, "files").then(url => {
-                    if(url) {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', { file: file.name })))
-                        setFile(url)
-                    } else {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Form.Shared.upload_failed', { file: file.name })))
-                    }
-                });
+            upload(acceptedFiles, token).then(uploadedFiles => {
+                if(uploadedFiles) {
+                    uploadedFiles.forEach(uploadedFile => {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', { file: uploadedFile.name })))
+                        setFile(uploadedFile.location)
+                    })
+                    onFilesUploaded(uploadedFiles.map(file => file.location).join(','))
+                }
             })
         }
 

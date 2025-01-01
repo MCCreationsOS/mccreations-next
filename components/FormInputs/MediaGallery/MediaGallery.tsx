@@ -13,6 +13,7 @@ import GalleryImage from './GalleryImage'
 import MapImageSlideshow from '@/components/MapImageSlideshow/MapImageSlideshow'
 import { DragDropContext, Draggable, DragUpdate, Droppable, DropResult, ResponderProvided } from 'react-beautiful-dnd'
 import { useTranslations } from 'next-intl'
+import { useToken } from '@/app/api/hooks/users'
 
 /**
  * A gallery of images that can be uploaded
@@ -22,20 +23,23 @@ import { useTranslations } from 'next-intl'
 const MediaGallery = ({ onImagesUploaded, presetFiles }: { onImagesUploaded(files: UploadedImageRepresentation[]) : void, presetFiles?: string }) => {
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     const [rejected, setRejected] = useState<FileRejection[]>([])
+    const {token} = useToken();
     const t = useTranslations()
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
-            acceptedFiles.forEach(file => {
-                upload(file, "images").then(url => {
-                    if(url) {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', {file: file.name})))
-                        setFiles(previousFiles => [
-                            ...previousFiles,
-                            { url: url, name: file.name }
-                        ])
-                    }
-                });
+            upload(acceptedFiles, token).then(uploadedFiles => {
+                if(uploadedFiles) {
+                    uploadedFiles.forEach(uploadedFile => {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', {file: uploadedFile.name})))
+                    })
+                    setFiles(previousFiles => [
+                        ...previousFiles,
+                        ...uploadedFiles.map(file =>
+                            {return { url: file.location, name: file.name }}
+                        )
+                    ])
+                }
             })
         }
 
