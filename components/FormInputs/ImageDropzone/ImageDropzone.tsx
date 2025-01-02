@@ -9,6 +9,7 @@ import styles from './ImageDropzone.module.css'
 import upload from '@/app/api/upload'
 import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 import { useTranslations } from 'next-intl'
+import { useToken } from '@/app/api/hooks/users'
 
 /**
  * The representation of an uploaded image
@@ -31,44 +32,43 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     // Reject files are collected, although not technically displayed
     const [rejected, setRejected] = useState<FileRejection[]>([])
+    const {token} = useToken();
     const t = useTranslations()
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
-            acceptedFiles.forEach(file => {
-                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, `${t('form.images.uploading')}${file.name}`))
-                upload(file, "images").then(url => {
-                    if(url) {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', {file: file.name})))
-                        
-                        if(allowMultiple) {
-                            // Send uploaded files to the parent component, then update the internal state of images
-                            onImagesUploaded([
-                                ...files,
-                                ...acceptedFiles.map(file =>
-                                    {return { url: url, name: file.name }}
-                                )
-                            ]);
-                            setFiles(previousFiles => [
-                                ...previousFiles,
-                                ...acceptedFiles.map(file =>
-                                    {return { url: url, name: file.name }}
-                                )
-                            ])
-                        } else {
-                            onImagesUploaded([
-                                ...acceptedFiles.map(file =>
-                                    {return { url: url, name: file.name }}
-                                )
-                            ]);
-                            setFiles([
-                                ...acceptedFiles.map(file =>
-                                    {return { url: url, name: file.name }}
-                                )
-                            ])
-                        }
+            upload(acceptedFiles, token).then(uploadedFiles => {
+                if(files) {
+                    files.forEach(uploadedFile => {
+                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', {file: uploadedFile.name})))
+                    })
+
+                    if(allowMultiple) {
+                        onImagesUploaded([
+                            ...files,
+                            ...uploadedFiles.map(file =>
+                                {return { url: file.location, name: file.name }}
+                            )
+                        ]);
+                        setFiles(previousFiles => [
+                            ...previousFiles,
+                            ...uploadedFiles.map(file =>
+                                {return { url: file.location, name: file.name }}
+                            )
+                        ])
+                    } else {
+                        onImagesUploaded([
+                            ...uploadedFiles.map(file =>
+                                {return { url: file.location, name: file.name }}
+                            )
+                        ]);
+                        setFiles([
+                            ...uploadedFiles.map(file =>
+                                {return { url: file.location, name: file.name }}
+                            )
+                        ])
                     }
-                });
+                }
             })
         }
 
