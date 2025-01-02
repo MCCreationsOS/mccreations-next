@@ -3,13 +3,14 @@
 import { CollectionNames, SortOptions, StatusOptions, StatusStrings, TagCategories, TagKeys, Tags } from "@/app/api/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Filter, Search } from "react-feather";
+import { Filter, Grid, List, Search } from "react-feather";
 import styles from './index.module.css'
 import WarningButton from "../Buttons/WarningButton";
 import { fetchTags } from "@/app/api/content";
 import IconButton from "../Buttons/IconButton";
 import BulkDownloadButton from "../Buttons/BulkDownloadButton";
 import {useTranslations} from 'next-intl';
+import { useGridView } from "@/app/api/hooks/grids";
 
 export default function SearchAndFilter({contentType, tags}: {contentType: CollectionNames, tags: {[key: string]: string[]}}) {
     const searchParams = useSearchParams()
@@ -28,6 +29,8 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
     const [openDropdowns, setOpenDropdowns] = useState<boolean[]>([])
     const [includeTags, setIncludeTags] = useState<string[]>([])
     const [excludeTags, setExcludeTags] = useState<string[]>([])
+
+    const {gridView, setGridView} = useGridView()
     
     const router = useRouter();
     const t = useTranslations()
@@ -150,6 +153,7 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
                     <IconButton onClick={()=>{performSearch()}}><Search /></IconButton>
                     <IconButton className="filter" onClick={() => {setFiltering(!filtering)}}><Filter /></IconButton>
                     <div className="bulk_dl"><BulkDownloadButton /></div>
+                    <IconButton className="secondary" onClick={() => {setGridView(gridView === "grid" ? "list" : "grid")}}>{(gridView === "grid") ? <List /> : <Grid />}</IconButton>
                 </div>
                 <div className={`filters ${filtering ? "filtering" : ""}`}>
                     <div className="filter_option">
