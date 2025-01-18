@@ -14,7 +14,7 @@ export default async function Footer() {
             <footer className={styles.footer}>
                 <div className={styles.flex}>
                     <div>
-                        <h2><img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>{t('brand')}</h2>
+                        <h2 className={styles.brand}><img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>{t('brand')}</h2>
                         <p>{t(`Footer.Splashes.${splash}`)}</p>
                         <p>{t.rich('Footer.open_source', {link: (chunks) => <Link href="https://github.com/MCCreationsOS">{chunks}</Link>})}</p>
                         <Link href={'https://blog.mccreations.net'}><MainButton>{t('Footer.updates')}</MainButton></Link>

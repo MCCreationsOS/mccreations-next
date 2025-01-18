@@ -46,7 +46,7 @@
 .nav .brand_name::after {
   position: absolute;
   content: "";
-  width: 70%;
+  width: 75%;
   height: 2px;
   bottom: -2px;
   left: 0;
@@ -124,6 +124,30 @@
     border-radius: 5px;
     transition: 0.2s ease;
   }
+
+  .create_dropdown {
+    padding: 10px 35px;
+    font-size: 1rem;
+    border: 1px solid var(--primary-color);
+    font-weight: 500;
+    color: white;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    opacity: 1;
+    background-color: transparent;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.create_dropdown:visited {
+    color: white;
+}
+
+.create_dropdown:hover {
+    background-color: var(--primary-color-hover);
+    border-radius: 5px;
+}
 
   .action_list {
     margin: 0 0 0 -15px;

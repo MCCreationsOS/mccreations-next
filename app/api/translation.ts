@@ -5,7 +5,9 @@ export async function getLanguage(locale: string) {
         return data
     } catch (error) {
         console.error(error)
-        return null
+        let localLang = await import(`../../locales/langs/${locale}.json`)
+        // console.log(JSON.stringify(localLang))
+        return JSON.parse(JSON.stringify(localLang))
     }
 }
 

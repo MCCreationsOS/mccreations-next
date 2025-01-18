@@ -8,6 +8,8 @@ import { sendLog } from '@/app/api/logging';
 import Content from '@/components/Content/Content';
 import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
     // fetch data
     const map: IContentDoc = await fetchMap(params.slug)

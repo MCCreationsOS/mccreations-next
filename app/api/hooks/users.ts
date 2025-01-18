@@ -4,7 +4,7 @@ import { ICreator, IUser, UserTypes } from "../types"
 import { getCreator } from "../community"
 import { getContent } from "../content"
 import { useEffect } from "react"
-import { useLocalStorage } from 'usehooks-ts'
+import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
 
 const getUserFetcher = (token: string) => {
     return getUser(token)
@@ -23,6 +23,17 @@ const getOwnedCreationsFetcher = (handle: string) => {
 export const useToken = () => {
     const [token, setToken] = useLocalStorage<string>('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
     return { token, setToken }
+}
+
+export const useTokenOrKey = () => {
+    const [token, setToken] = useLocalStorage<string>('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const [tempKey, setTempKey] = useSessionStorage<string>('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
+
+    if(token && token !== "") {
+        return { token, setToken }
+    } else {
+        return { token: tempKey, setToken: setTempKey }
+    }
 }
 
 export const useUser = () => {

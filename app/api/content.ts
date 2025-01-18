@@ -515,3 +515,24 @@ export function convertToType(collection?: CollectionNames) {
             return ContentTypes.Maps
     }
 }
+
+export function createEmptyCreation(): IContentDoc {
+    return {
+        title: "",
+        shortDescription: "",
+        description: "",
+        creators: [],
+        slug: "",
+        status: 0,
+        images: [],
+        files: [],
+        videoUrl: "",
+        downloads: 0,
+        views: 0,
+        rating: 0,
+        createdDate: Date.now(),
+        _id: 0,
+        tags: [""],
+        type: ContentTypes.Maps
+    }
+}

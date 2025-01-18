@@ -21,6 +21,8 @@ import { AdsenseComponent } from "../AdUnits/InContent";
 import styles from './Content.module.css'
 import { makeSentenceCase } from "@/app/api/utils";
 
+export const dynamic = 'force-dynamic'
+
 /**
  * The map component represents all the information displayed on a map page
  * @param map The map to display
