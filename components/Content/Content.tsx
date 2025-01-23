@@ -1,4 +1,3 @@
-'use client'
 import { ICreator, IFile, IContentDoc, CollectionNames, Locales } from "@/app/api/types";
 import Image from 'next/image'
 import Rating from "../Rating";
@@ -9,26 +8,23 @@ import CommentForm from "../Comment/ComentForm";
 import CommentsList from "@/components/Comment/CommentsList";
 import DOMPurify from "isomorphic-dompurify";
 import ContentMenu from "./ContentMenu";
-import ContentWarnings from "./ContentWarnings";
 import IconButton from "../Buttons/IconButton";
 import { Server } from "react-feather";
 import { Link } from "@/app/api/navigation";
-import {useLocale, useTranslations} from 'next-intl';
 import DownloadButton from "../Buttons/DownloadButton";
 import CreateTranslationForm from "../CreateTranslationForm";
 import { Suspense } from "react";
-import { convertToType } from "@/app/api/content";
 import { AdsenseComponent } from "../AdUnits/InContent";
+import { getLocale, getTranslations } from "next-intl/server";
 
 /**
  * The map component represents all the information displayed on a map page
  * @param map The map to display
  * @param privileged If the user is privileged to see the content
  */
-export default function Content({content, collectionName}: {content: IContentDoc, collectionName: CollectionNames}) {
-    const t = useTranslations()
-    const locale = useLocale();
-    const contentType = convertToType(collectionName);
+export default async function Content({content, collectionName}: {content: IContentDoc, collectionName: CollectionNames}) {
+    const t = await getTranslations()
+    const locale = await getLocale();
 
     let title = content.title
     let description = content.description
