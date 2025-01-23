@@ -29,7 +29,8 @@ export default function CreateBasicInfo() {
             if(key && 'key' in key) {
                 sessionStorage.setItem('temp_key', key.key)
             }
-            setCreation
+            setCreation({...creation, ...key.content})
+            console.log(key)
             if('error' in key) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, key.error))
             }

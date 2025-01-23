@@ -3,18 +3,21 @@
 import { convertToCollection, createEmptyCreation, updateContent } from "@/app/api/content";
 import { useTokenOrKey } from "@/app/api/hooks/users";
 import { ContentTypes, IContentDoc } from "@/app/api/types";
+import MainButton from "@/components/Buttons/MainButton";
 import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import { useTranslations } from "next-intl";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
+import { useRouter } from "next/navigation";
 import { useSessionStorage } from "usehooks-ts";
 
 export default function Versions({params}: {params: Params}) {
-    const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
-    const collectionName = convertToCollection(contentType)
     const [creation, setCreation] = useSessionStorage<IContentDoc>('tempCreation', createEmptyCreation())
+    const contentType = creation.type
+    const collectionName = convertToCollection(contentType)
     const {token} = useTokenOrKey();
     const t = useTranslations()
+    const router = useRouter()
 
     const saveVersionsForm = (versions: string) => {
         if(!creation || 'error' in creation) return;
@@ -36,5 +39,8 @@ export default function Versions({params}: {params: Params}) {
         })
     }
 
-    return <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(creation?.files)} onVersionsChanged={saveVersionsForm} />
+    return <>
+        <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(creation?.files)} onVersionsChanged={saveVersionsForm} />
+        <MainButton onClick={() => {router.push('/create/images')}}>{t('Create.next')}</MainButton>
+    </>
 }

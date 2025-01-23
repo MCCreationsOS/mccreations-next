@@ -15,6 +15,7 @@ import Select from "../Select"
 import Checkbox from "../Checkbox"
 import { convertToType } from "@/app/api/content"
 import IconButton from "@/components/Buttons/IconButton"
+import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 
 export default function VersionManager({ onVersionsChanged, collectionName, presetVersions }: { onVersionsChanged: (versions: string) => void, collectionName: CollectionNames, presetVersions?: string }) {
     const [versions, setVersions] = useState<IFile[]>([])
@@ -75,6 +76,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 let vs = [...versions]
                 vs[idx] = v
                 setVersions(vs)
+                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('VersionManager.Version.saved')))
             }} options={{ useSaveButton: true, saveButtonContent: t('VersionManager.Version.save'), extraButtons: [<SecondaryButton onClick={() => { setRenderVersion(undefined) }}>{t('VersionManager.Version.cancel')}</SecondaryButton>, <WarningButton onClick={() => {
                 let vs = [...versions]
                 vs.splice(idx, 1)
@@ -158,6 +160,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                                     return b.createdDate - a.createdDate
                                 })
                                 setVersions(newVersions)
+                                setRenderVersion(newVersions[0])
                                 Popup.close()
                             }}>
                                 <VersionUploader name="" />

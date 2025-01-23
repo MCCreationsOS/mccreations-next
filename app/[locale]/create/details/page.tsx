@@ -13,7 +13,7 @@ import Text from '@/components/FormInputs/Text'
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import { useTranslations } from "next-intl"
 import { useSessionStorage } from "usehooks-ts"
-import { Link } from "@/app/api/navigation";
+import { Link, useRouter } from "@/app/api/navigation";
 
 export default function CreateBasicInfo() {
     const [creation, setCreation] = useSessionStorage<IContentDoc>('tempCreation', createEmptyCreation())
@@ -22,6 +22,7 @@ export default function CreateBasicInfo() {
     const {token} = useTokenOrKey()
     const { tags } = useTags(collectionName)
     const t = useTranslations()
+    const router = useRouter()
 
     let showLeaderboardsHelp = creation.extraFeatures?.leaderboards.use !== false
 
@@ -121,9 +122,7 @@ export default function CreateBasicInfo() {
                 return;
             }
 
-            if(newCreation.slug !== creation.slug) {
-                window.location.href = `/edit/${newCreation.type}s/${newCreation.slug}`
-            }
+            router.push('/create/files')
 
             setCreation(newCreation)
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.general_saved')))
