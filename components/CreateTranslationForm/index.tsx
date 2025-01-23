@@ -1,3 +1,5 @@
+'use client'
+
 import { Globe } from "react-feather";
 import IconButton from "../Buttons/IconButton";
 import { CollectionNames, IContentDoc, Locales } from "@/app/api/types";

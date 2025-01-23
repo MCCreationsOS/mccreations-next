@@ -3,6 +3,8 @@ import Footer from '@/components/Footer/Footer'
 import { Metadata } from 'next'
 import Loading from './loading'
 
+export const dynamic = "force-dynamic"
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://mccreations.net'),
   title: "Download Resource Packs | MCCreations",

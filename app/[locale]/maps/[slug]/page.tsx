@@ -3,7 +3,7 @@ import { fetchMap, searchContent } from '@/app/api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IContentDoc, CollectionNames, Locales } from '@/app/api/types';
 import MapWrapper from '@/components/Content/ContentWrapper';
-import { Metadata, ResolvingMetadata } from 'next';
+import { GetStaticPaths, GetStaticProps, Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
 import Content from '@/components/Content/Content';
 import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server';

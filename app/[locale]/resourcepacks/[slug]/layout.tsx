@@ -6,6 +6,9 @@ import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { searchContent } from '@/app/api/content'
 import { CollectionNames, IContentDoc, Locales } from '@/app/api/types'
 
+export const dynamicParams = true
+export const revalidate = 86_400
+
 export async function generateStaticParams() {
   const maps = (await searchContent({ contentType: CollectionNames.Resourcepacks, limit: 300 }, false)).documents
   let mapParams = maps.map((map: IContentDoc) => ({
