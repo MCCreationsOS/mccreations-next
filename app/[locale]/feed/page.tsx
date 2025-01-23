@@ -5,8 +5,6 @@ import PageNavigator from "@/components/Content/Search/Navigator"
 import FeedGrid from "@/components/Grids/FeedGrid"
 import { useSearchParams } from "next/navigation"
 
-export const dynamic = 'force-dynamic'
-
 export default function Feed() {
     const page = parseInt(useSearchParams().get('page') ?? '0')
     const {feed, count} = useFeed(20, page)

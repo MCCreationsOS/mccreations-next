@@ -13,8 +13,6 @@ import { Layers, Map, Package } from "react-feather";
 import HomepageFeed from "@/components/Feed/HomepageFeed";
 import { Link } from "../api/navigation";
 
-export const dynamic = 'force-dynamic'
-
 export default async function Page({ params: { locale } }: { params: { locale: string } }) {
     const t = await getTranslations();
     let dynamicPlaylists: { name: string, id: string, options: QueryOptions }[] = [{
