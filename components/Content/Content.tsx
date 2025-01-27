@@ -1,3 +1,5 @@
+"use client"
+
 import { ICreator, IFile, IContentDoc, CollectionNames, Locales } from "@/app/api/types";
 import Image from 'next/image'
 import Rating from "../Rating";
