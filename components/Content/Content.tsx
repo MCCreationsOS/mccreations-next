@@ -15,16 +15,16 @@ import DownloadButton from "../Buttons/DownloadButton";
 import CreateTranslationForm from "../CreateTranslationForm";
 import { Suspense } from "react";
 import { AdsenseComponent } from "../AdUnits/InContent";
-import { getLocale, getTranslations } from "next-intl/server";
+import { useLocale, useTranslations } from "next-intl";
 
 /**
  * The map component represents all the information displayed on a map page
  * @param map The map to display
  * @param privileged If the user is privileged to see the content
  */
-export default async function Content({content, collectionName}: {content: IContentDoc, collectionName: CollectionNames}) {
-    const t = await getTranslations()
-    const locale = await getLocale();
+export default function Content({content, collectionName}: {content: IContentDoc, collectionName: CollectionNames}) {
+    const t = useTranslations()
+    const locale = useLocale();
 
     let title = content.title
     let description = content.description
