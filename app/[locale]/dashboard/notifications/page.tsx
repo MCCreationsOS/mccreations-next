@@ -16,7 +16,7 @@ import PageNavigator from "@/components/Content/Search/Navigator";
 export default function Notifications() {
     const page = parseInt(useSearchParams().get("page") ?? "0")
     const user = useUserStore() as IUser
-    const {notifications, isLoading, error} = useNotifications(user._id + "", page)
+    const {notifications, isLoading, error} = useNotifications(page)
     const setUserNotifications = useUserStore((state) => state.setNotifications)
     const router = useRouter()
     const t = useTranslations()

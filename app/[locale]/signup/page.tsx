@@ -50,7 +50,7 @@ export default function SignUp() {
             return;
         }
 
-        fetch(`${process.env.DATA_URL}/auth/signUpWithEmail`, {
+        fetch(`${process.env.DATA_URL}/sign_up`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

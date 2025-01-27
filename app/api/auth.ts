@@ -61,8 +61,8 @@ export const useUserStore = create<UserStore>(set => ({
             settings: user.settings,
         })
 
-        getNotifications(localStorage?.getItem('jwt') + "", user._id + "", 0).then((notifications) => {
-            set({...user, notifications: notifications})
+        getNotifications(localStorage?.getItem('jwt') + "", 0).then((response) => {
+            set({...user, notifications: response.notifications})
         })
     },
     setIcon: (iconURL: string) => {
@@ -111,7 +111,7 @@ export const useUserStore = create<UserStore>(set => ({
 export async function getUser(authorization?: string) {
     if(authorization) {
         try {
-            let res = await fetch(`${process.env.DATA_URL}/auth/user`, {
+            let res = await fetch(`${process.env.DATA_URL}/user`, {
                 headers: {
                     'Authorization': authorization
                 },

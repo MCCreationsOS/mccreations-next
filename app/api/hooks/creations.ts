@@ -65,7 +65,7 @@ export const useCreation = (slug: string, type: ContentTypes) => {
     }
 }
 
-export const useTags = (type: CollectionNames) => {
+export const useTags = (type: ContentTypes) => {
     const { data, error, isLoading } = useSWR([type, 'useTags'], ([type]) => fetchTags(type))
     return {
         tags: data as Tags | {error: string},

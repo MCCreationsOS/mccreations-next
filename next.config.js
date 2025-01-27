@@ -41,7 +41,7 @@ const nextConfig = {
     },
   ],
   env: {
-    DATA_URL: 'https://api.mccreations.net',
+    DATA_URL: 'http://localhost:8080',
     LOGGING_URL: 'https://api.mccreations.net/bamboo/v1'
   },
   images: {

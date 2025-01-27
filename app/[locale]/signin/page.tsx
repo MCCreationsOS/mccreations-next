@@ -20,7 +20,7 @@ export default function SignIn() {
     const t = useTranslations()
 
     const signInWithEmail = () => {
-        fetch(`${process.env.DATA_URL}/auth/signInWithEmail`, {
+        fetch(`${process.env.DATA_URL}/sign_in`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,10 +32,10 @@ export default function SignIn() {
                 })
             }).then(res => {
                 res.json().then(data => {
-                    if(data.token) {
-                        localStorage?.setItem('jwt', data.token);
-                        localStorage?.setItem('user', JSON.stringify(data.creator))
-                        setUser(data.creator)
+                    if(data.jwt) {
+                        localStorage?.setItem('jwt', data.jwt);
+                        localStorage?.setItem('user', JSON.stringify(data.user))
+                        setUser(data.user)
                         router.push('/')
                     } else {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))

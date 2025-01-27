@@ -25,7 +25,7 @@ import { IContentCardProps } from "../ContentSlideshow/ContentCard";
  */
 export default function ContentListCard(props: IContentCardProps) {
     const [selected, setSelected] = useState(false)
-    const {tags} = useTags(convertToCollection(props.content.type))
+    const {tags} = useTags(props.content.type)
     const router = useRouter()
     const t = useTranslations()
     const locale = useLocale();
@@ -77,7 +77,7 @@ export default function ContentListCard(props: IContentCardProps) {
 
     const downloadButtonClicked = async () => {
         let file = props.content.files[0]
-        await downloadCreation(props.content.slug, props.content.type)
+        await downloadCreation(props.content.slug, convertToCollection(props.content.type))
         let files: NewFile[] = [{url: file.url ?? file.worldUrl ?? file.dataUrl ?? file.resourceUrl ?? "", required: true, type: file.type}]
         file.extraFiles && files.push(...file.extraFiles)
 

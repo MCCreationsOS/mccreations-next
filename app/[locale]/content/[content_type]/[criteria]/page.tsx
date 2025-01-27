@@ -82,6 +82,6 @@ export default async function Page({params}: {params: Params}) {
     // defaultContent = (await searchContent({contentType: convertToCollection(contentType), sort: sort, status: status, includeTags: include, excludeTags: "", limit: 20, page: 0}, false)).documents
     
     return (
-        <ContentSearchPage searchParams={{page: "0", search: search, sort: sort, status: status.toString(), includeTags: include, excludeTags: ""}} contentType={convertToCollection(contentType)} pathname={`/${params.locale}/content/${contentType}/${criteria}`} />
+        <ContentSearchPage searchParams={{page: "0", search: search, sort: sort, status: status.toString(), includeTags: include, excludeTags: ""}} collectionName={convertToCollection(contentType)} pathname={`/${params.locale}/content/${contentType}/${criteria}`} />
     )
 }
