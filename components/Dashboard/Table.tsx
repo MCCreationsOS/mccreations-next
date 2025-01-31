@@ -13,17 +13,34 @@ import { convertToType, deleteContent } from "@/app/api/content";
 import {useTranslations} from 'next-intl';
 import { useToken, useUserAlwaysSecure } from "@/app/api/hooks/users";
 import { useCreations } from "@/app/api/hooks/creations";
+import IconButton from "../Buttons/IconButton";
+import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 
 export default function Table({collectionName}: {collectionName: CollectionNames}) {
     const {user, isLoading} = useUserAlwaysSecure()
     const {token} = useToken()
     const {creations} = useCreations({contentType: collectionName, status: 0, limit: 20, page: 0, creators: [user?.handle ?? ""]})
     const contentType = convertToType(collectionName);
+    const [deleting, setDeleting] = useState(false)
     const t = useTranslations()
+    const router = useRouter()
+
+    const handleDelete = (slug: string) => {
+        if(!deleting) {
+            setDeleting(true)
+            PopupMessage.addMessage({type: PopupMessageType.Warning, message: t('Dashboard.delete_content'), time: 10000, endAction() {
+                setDeleting(false)
+            },})
+        } else {
+            deleteContent(slug, token, collectionName)
+            setDeleting(false)
+        }
+    }
 
     if(isLoading) return <></>
     console.log(user)
     
+
     return (
         <>
             <div className={styles.content_item}>
@@ -54,15 +71,21 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                         <Image className={styles.logo} src={map.images[0]} width={160} height={90} alt=""></Image>
                     </div>
                     <div className={styles.info_container}>
-                        <p className={styles.content_title}>{map.title}</p>
+                        <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')} key={map.slug}>
+                            <p className={styles.content_title}>{map.title}</p>
+                        </Link>
                         <p className={styles.content_description}>{map.shortDescription}</p>
                         <div className={styles.info_buttons}>
-                            <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><ImageIcon /></Link>
-                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')}><Edit /></Link>
-                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, localStorage?.getItem('jwt'), collectionName);}}><Trash /></span>
+                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')} key={map.slug}><IconButton className="secondary"><Edit /></IconButton></Link>
+                            <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><IconButton className="secondary"><ImageIcon /></IconButton></Link>
+                            <IconButton onClick={() => {handleDelete(map.slug)}} className="secondary"><span style={{color: 'red'}}><Trash /></span></IconButton>
+
                         </div>
+
                     </div>
+
                     <div className={styles.content_item_item}>
+
                         <p>{(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('Status.draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('Status.unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('Status.approved')}</span>: <span style={{color:"#3154f4"}}>{t('Status.featured')}</span>}</p>
                     </div>
                     <div className={styles.content_item_item}>
