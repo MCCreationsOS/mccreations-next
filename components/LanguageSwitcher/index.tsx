@@ -2,7 +2,7 @@
 import { Link, useRouter } from "@/app/api/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { Globe, Plus } from "react-feather";
+import { ChevronDown, Globe, Plus } from "react-feather";
 import DropDown, { DropDownItem } from "../FormInputs/RichText/DropDown";
 
 export default function LanguageSwitcher() {
@@ -15,9 +15,9 @@ export default function LanguageSwitcher() {
     const saveNewLanguage = (inputs: string[]) => {}
 
     return (
-        <DropDown buttonClassName="options_dropdown_button language" buttonLabel={<Globe />} className="option_dropdown" useButtonWidth={false} openOnHover={true}>
+        <DropDown buttonClassName="options_dropdown_button language" buttonLabel={<div style={{display: "flex", alignItems: "center", gap: "0.5rem"}}>{t("Navigation.language")}<ChevronDown /></div>} className="option_dropdown" useButtonWidth={false} openOnHover={true}>
             <DropDownItem className="option_button" onClick={() =>{router.replace("/", {locale: 'en-US'})}}>
-                US English
+                English
             </DropDownItem>
             <DropDownItem className="option_button" onClick={() =>{router.replace("/", {locale: 'zh-CN'})}}>
                 简体中文
@@ -27,8 +27,9 @@ export default function LanguageSwitcher() {
             </DropDownItem>
             <DropDownItem className="option_button" onClick={() =>{router.push("/translate")}}>
                 <Plus />
-                Add Language
+                {t("Navigation.helpTranslate")}
             </DropDownItem>
         </DropDown>
+
     )
 }
