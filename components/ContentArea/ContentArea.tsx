@@ -1,7 +1,7 @@
 import { QueryOptions } from "@/app/api/types"
 import ContentGrid from "../Grids/ContentGrid"
 import ContentScrollGrid from "../ContentScrollBackground/ContentScrollGrid"
-import { getContent, searchContent } from "@/app/api/content"
+import { searchContent } from "@/app/api/content"
 import ContentSlideshow from "../ContentSlideshow/ContentSlideshow"
 
 /**
@@ -11,8 +11,8 @@ import ContentSlideshow from "../ContentSlideshow/ContentSlideshow"
  * @param playlist The playlist identifier if the type is scroll
  * @param cards The number of cards to display if the type is grid
  */
-export default async function ContentArea({type, options, filterOptions, playlist, cards, no_search, enableSelection, enableAds}: {type: string, options: QueryOptions, filterOptions?: QueryOptions, playlist?: string, cards?: string, no_search?: boolean, enableSelection?: boolean, enableAds?: boolean}) {
-    let content = (!no_search) ? (await searchContent(options, false, filterOptions)).documents : (await getContent(options)).documents
+export default async function ContentArea({type, options, filterOptions, playlist, cards, enableSelection, enableAds}: {type: string, options: QueryOptions, filterOptions?: QueryOptions, playlist?: string, cards?: string, enableSelection?: boolean, enableAds?: boolean}) {
+    let content = (await searchContent(options, false, filterOptions)).documents
     if(type === "grid") {
         if(!cards) cards = "four"
         return (
