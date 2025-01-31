@@ -54,8 +54,8 @@ export function formatQueryOptions(queryOptions: QueryOptions) {
         queryOptions.contentType = CollectionNames.Maps
     }
 
-    if(!queryOptions.creator) {
-        queryOptions.creator = ""
+    if(!queryOptions.creators) {
+        queryOptions.creators = []
     }
 
     return queryOptions
@@ -72,7 +72,7 @@ export function formatQueryOptions(queryOptions: QueryOptions) {
 export async function searchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let p1 = fetch(`${process.env.DATA_URL}/creations?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
+        let p1 = fetch(`${process.env.DATA_URL}/creations?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creators=${queryOptions.creators?.join(",")}`, {
             next:{
                 revalidate: 216000
             },
@@ -85,7 +85,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
         if(filterQuery) {
             filterQuery = formatQueryOptions(filterQuery);
             // console.log(filterQuery)
-            p2 = fetch(`${process.env.DATA_URL}/creations?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}`, {
+            p2 = fetch(`${process.env.DATA_URL}/creations?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}&creators=${filterQuery.creators?.join(",")}`, {
                 next:{
                     revalidate: 216000
                 },
@@ -109,28 +109,6 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
 
     } catch(e) {
         console.error("API fetch error! `searchContent` Is it running?: " + e);
-        return {
-            error: e,
-            query: queryOptions
-        }
-    }
-}
-
-export async function getContent(queryOptions: QueryOptions, token?: string | null) {
-    queryOptions = formatQueryOptions(queryOptions);
-    try {
-        let response = await fetch(`${process.env.DATA_URL}/content-nosearch?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=false&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creator=${queryOptions.creator}`, {
-            next:{
-                revalidate: 216000
-            },
-            headers: {
-                authorization: token + ""
-            }
-        })
-        let data = await response.json();
-        return data
-    } catch(e) {
-        console.error("API fetch error! `getContent` Is it running?: " + e);
         return {
             error: e,
             query: queryOptions
@@ -283,7 +261,7 @@ export async function downloadCreation(slug: string, collectionName: CollectionN
 export async function createNewContent(title: string, type: string, summary: string, token?: string | null) {
     if(!token) token = ""
     try {
-        let res = await fetch(`${process.env.DATA_URL}/content`, {
+        let res = await fetch(`${process.env.DATA_URL}/creations/upload`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -293,7 +271,7 @@ export async function createNewContent(title: string, type: string, summary: str
                 content: {
                     title: title,
                     type: type,
-                    summary: summary
+                    shortDescription: summary
                 }
             })
         })
@@ -311,15 +289,15 @@ export async function createNewContent(title: string, type: string, summary: str
 
 export async function importContent(link: string, type: string, token?: string | null) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content/import`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/import`, { 
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': token + ""
             },
             body: JSON.stringify({
                 url: link,
-                type: type,
-                token: token
+                type: type
             })
         })
         let data = await response.json();
@@ -334,18 +312,13 @@ export async function importContent(link: string, type: string, token?: string |
 
 export async function updateContent(map: IContentDoc, token: string | null, type: CollectionNames, dontSendDate?: boolean) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content/update`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/update`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token + ""
             },
-            body: JSON.stringify({
-                content: map,
-                token: token,
-                dontUpdateDate: dontSendDate,
-                type: type
-            })
+            body: JSON.stringify(map)
         })
         let data = await response.json();
         return data;
@@ -411,14 +384,13 @@ export function errorCheckContent(content: IContentDoc) {
 
 export async function updateTranslation(slug: string, type: CollectionNames, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content/update_translation`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/${slug}/translate`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token + ''
             },
             body: JSON.stringify({
-                slug: slug,
                 type: type,
                 translation: translation
             })
@@ -433,18 +405,14 @@ export async function updateTranslation(slug: string, type: CollectionNames, tra
     }
 }
 
-export async function deleteContent(id: any, token: string | null, contentType: CollectionNames) {
+export async function deleteContent(slug: string, token: string | null, contentType: CollectionNames) {
     try {
-        await fetch(`${process.env.DATA_URL}/content`, {
+        await fetch(`${process.env.DATA_URL}/creations/${slug}?type=${contentType}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token + ""
-            },
-            body: JSON.stringify({
-                id: id,
-                type: contentType
-            })
+            }
         })
         return;
     } catch(e) {
@@ -456,16 +424,12 @@ export async function deleteContent(id: any, token: string | null, contentType: 
 
 export async function requestApproval(slug: string, collectionName: CollectionNames, token: string | null) {
     try {
-        await fetch(`${process.env.DATA_URL}/content/request_approval`, {
+        await fetch(`${process.env.DATA_URL}/creations/${slug}/request_approval?type=${collectionName}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token + ""
-            },
-            body: JSON.stringify({
-                slug: slug,
-                type: collectionName
-            })
+            }
         })
         return;
     } catch(e) {

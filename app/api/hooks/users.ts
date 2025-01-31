@@ -2,9 +2,9 @@ import { getUser, useUserStore } from "../auth"
 import useSWR, { mutate } from 'swr'
 import { ICreator, IUser, UserTypes } from "../types"
 import { getCreator } from "../community"
-import { getContent } from "../content"
 import { useEffect } from "react"
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
+import { searchContent } from "../content"
 
 const getUserFetcher = (token: string) => {
     return getUser(token)
@@ -17,7 +17,7 @@ const getCreatorFetcher = (handle?: string) => {
 
 const getOwnedCreationsFetcher = (handle: string) => {
     if(!handle) return undefined
-    return getContent({contentType: "content", creator: handle, status: 0, limit: 20, page: 0})
+    return searchContent({contentType: "content", creators: [handle], status: 0, limit: 20, page: 0}, false)
 }
 
 export const useToken = () => {

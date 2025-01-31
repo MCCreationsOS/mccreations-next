@@ -6,7 +6,7 @@ import FormComponent from "@/components/Form/Form";
 import Text from "@/components/FormInputs/Text";
 import RichTextInput from "@/components/FormInputs/RichText";
 import { useTranslations } from "next-intl";
-import { getWall, sendWallPost, useProfileLayoutStore } from "@/app/api/creators";
+import { getWall, useProfileLayoutStore } from "@/app/api/creators";
 import styles from './ProfileWidget.module.css'
 import { FormInput } from "@/components/FormInputs";
 import { useEffect, useState } from "react";

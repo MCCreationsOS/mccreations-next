@@ -37,23 +37,6 @@ export const useProfileLayoutStore = create<ProfileLayoutStore>(set => ({
     }
 }))
 
-export async function sendWallPost(authorization: string, wallPost: IComment) {
-    try {
-        await fetch(`${process.env.DATA_URL}/creator/wall/post`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authorization
-            },
-            body: JSON.stringify({wallPost: wallPost}),
-            cache: 'no-store'
-        })
-        return;
-    } catch(e) {
-        console.error(e)
-    }
-}
-
 export async function getWall(authorization: string, handle: string) {
     try {
         const response = await fetch(`${process.env.DATA_URL}/creator/wall/${handle}`, {
@@ -62,27 +45,6 @@ export async function getWall(authorization: string, handle: string) {
             }
         })
         return response.json()
-    } catch(e) {
-        console.error(e)
-    }
-}
-
-export async function postWallComment(authorization: string, id: string, comment: IComment, idx?: number) {
-    try {
-        await fetch(`${process.env.DATA_URL}/creator/wall/comment`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authorization
-            },
-            body: JSON.stringify({
-                creator: id,
-                comment: comment,
-                idx: idx
-            }),
-            cache: 'no-store'
-        })
-        return;
     } catch(e) {
         console.error(e)
     }
@@ -104,15 +66,11 @@ export async function getNotifications(authorization: string, page: number) {
 
 export async function follow(authorization: string, handle: string) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/follow`, {
-            method: 'POST',
+        await fetch(`${process.env.DATA_URL}/creator/follow/${handle}`, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({
-                handle: handle
-            }),
             cache: 'no-store'
         })
         return;
@@ -123,15 +81,15 @@ export async function follow(authorization: string, handle: string) {
 
 export async function unfollow(authorization: string, handle: string) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/unfollow`, {
-            method: 'POST',
+        await fetch(`${process.env.DATA_URL}/creator/unfollow/${handle}`, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({handle: handle}),
             cache: 'no-store'
+
         })
+
         return;
     } catch(e) {
         console.error(e)

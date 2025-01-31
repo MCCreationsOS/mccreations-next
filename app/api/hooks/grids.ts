@@ -1,15 +1,11 @@
-import { create } from "zustand"
+import { useLocalStorage } from "usehooks-ts"
 
 type GridView = "grid" | "list"
 
-type GridViewStore = {
-    gridView: GridView
-    setGridView: (gridView: GridView) => void
-}
+export function useGridView() {
+    const [gridView, setGridView] = useLocalStorage("gridView", "grid")
 
-export const useGridView = create<GridViewStore>(set => ({
-    gridView: "list",
-    setGridView: (gridView: GridView) => {
-        set({gridView})
+    return {
+        gridView, setGridView
     }
-}))
+}

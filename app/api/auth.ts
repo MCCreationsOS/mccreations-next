@@ -118,8 +118,8 @@ export async function getUser(authorization?: string) {
                 cache: 'no-store'
             })
             let data = await res.json();
-            if(data.user) {
-                return data.user as IUser;
+            if(data) {
+                return data as IUser;
             }
         } catch(e) {
             console.error(e)
@@ -147,7 +147,7 @@ export async function getCreators(authorization: string): Promise<IUser[] | unde
 
 export async function deleteUser(authorization: string) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/user`, {
+        fetch(`${process.env.DATA_URL}/user`, {
             method: 'DELETE',
             headers: {
                 "Authorization": authorization
@@ -163,7 +163,7 @@ export async function deleteUser(authorization: string) {
 
 export async function updateProfile(authorization: string, banner?: string, icon?: string, username?: string, about?: string) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/user/updateProfile`, {
+        fetch(`${process.env.DATA_URL}/user/updateProfile`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -184,7 +184,7 @@ export async function updateProfile(authorization: string, banner?: string, icon
 
 export async function updateProfileLayout(authorization: string, layout: ProfileLayout) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/user/updateProfileLayout`, {
+        fetch(`${process.env.DATA_URL}/user/updateProfileLayout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -200,7 +200,7 @@ export async function updateProfileLayout(authorization: string, layout: Profile
 
 export async function sendPasswordResetEmail(email: string) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/forgotPassword`, {
+        fetch(`${process.env.DATA_URL}/user/forgotPassword`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -215,7 +215,7 @@ export async function sendPasswordResetEmail(email: string) {
 
 export async function resetPassword(token: string, password: string) {
     try {
-        let res = await fetch(`${process.env.DATA_URL}/auth/resetPassword`, {
+        let res = await fetch(`${process.env.DATA_URL}/user/updatePassword`, {
             method: 'POST',
             headers: {
                 'Authorization': token,
@@ -240,7 +240,7 @@ export async function resetPassword(token: string, password: string) {
 }
 
 export async function updateNotificationSettings(authorization: string, comment: string, like: string, reply: string, follow: string, rating: string, translation: string) {
-    fetch(`${process.env.DATA_URL}/auth/user/updateNotifications`, {
+    fetch(`${process.env.DATA_URL}/user/updateNotifications`, {
         method: 'POST',
         headers: {
             'Authorization': authorization,

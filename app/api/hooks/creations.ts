@@ -1,5 +1,5 @@
 import useSWR, { mutate } from 'swr'
-import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, getContent, getFeed, searchContent } from '../content'
+import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, getFeed, searchContent } from '../content'
 import { CollectionNames, ContentTypes, IContentDoc, QueryOptions, Tags } from '../types'
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
 import { useToken } from './users'
@@ -7,10 +7,6 @@ import { useToken } from './users'
 
 const searchCreationsFetcher = (token: string, queryOptions: QueryOptions, filterQuery?: QueryOptions) => {
     return searchContent(queryOptions, false, filterQuery, token)
-}
-
-const getCreationsFetcher = (token: string, queryOptions: QueryOptions) => {
-    return getContent(queryOptions,token)
 }
 
 const getCreationFetcher = (token: string, slug: string, type: ContentTypes) => {
@@ -42,7 +38,7 @@ export const useCreations = (queryOptions: QueryOptions) => {
 
     let key = (token?.length ?? 0) > 0 ? token : tempKey
 
-    const { data, error, isLoading } = useSWR([key, queryOptions, 'useCreations'], ([key, queryOptions]) => getCreationsFetcher(key, queryOptions))
+    const { data, error, isLoading } = useSWR([key, queryOptions, 'useCreations'], ([key, queryOptions]) => searchCreationsFetcher(key, queryOptions))
     return {
         creations: (data?.documents ?? []) as IContentDoc[],
         isLoading,

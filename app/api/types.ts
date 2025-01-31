@@ -57,7 +57,7 @@ export interface QueryOptions {
     excludeTags?: string,
     exclusiveStatus?: boolean,
     contentType: CollectionNames | "content",
-    creator?: string
+    creators?: string[]
 }
 
 export interface ErrorMessage {
