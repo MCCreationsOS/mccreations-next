@@ -19,7 +19,7 @@ export default function General({params}: {params: Params}) {
     const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
     const collectionName = convertToCollection(contentType)
     const { creation, isLoading } = useCreation(params.slug, contentType)
-    const { tags } = useTags(collectionName)
+    const { tags } = useTags(contentType)
     const t = useTranslations()
 
     
