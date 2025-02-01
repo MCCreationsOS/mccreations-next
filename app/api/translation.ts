@@ -1,6 +1,6 @@
 export async function getLanguage(locale: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/translation/${locale}`, {cache: "force-cache", next: {revalidate: 60 * 60 * 24}})
+        let response = await fetch(`${process.env.DATA_URL}/translation/${locale}`, {next: {revalidate: 60 * 60 * 24}})
         let data = await response.json()
         return data
     } catch (error) {
