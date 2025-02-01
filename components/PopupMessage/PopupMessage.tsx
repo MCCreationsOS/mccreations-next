@@ -16,6 +16,7 @@ export class PopupMessage {
     static active: boolean
     static onMessagePlay: () => void
     static onMessageClear: () => void
+    static onMessageChange: () => void
     static endAction: () => void;
     static time: number | undefined
     
@@ -70,9 +71,15 @@ export class PopupMessage {
             }, 500)
         }
     }
+
+    static changeMessage(message: string) {
+        this.message = message;
+        this.onMessageChange();
+    }
 }
 
 export default function PopupMessageComponent() {
+
     const [message, setMessage] = useState("")
     const [type, setType] = useState(PopupMessageType.Alert)
     const [display, setDisplay] = useState(false)
@@ -93,9 +100,14 @@ export default function PopupMessageComponent() {
         setDisplayTime(0)
     }
 
+    PopupMessage.onMessageChange = () => {
+        setMessage(PopupMessage.message);
+    }
+
     useEffect(() => {
         updateDisplayTime();
     }, [display, displayTime])
+
 
     const updateDisplayTime = () => {
         if(display) {
