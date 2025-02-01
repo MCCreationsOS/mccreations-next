@@ -19,6 +19,7 @@ export default function Page({params}: {params: Params}) {
     const [englishLanguage, setEnglishLanguage] = useState<Language>({})
 
     const getKeys = (lang: any) => {
+        delete lang._id
         const formattedLanguage: Language = {}
         Object.keys(lang).forEach((key) => {
             if(typeof lang[key] === 'string') {
