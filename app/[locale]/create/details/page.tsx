@@ -20,7 +20,7 @@ export default function CreateBasicInfo() {
     const contentType = creation.type
     const collectionName = convertToCollection(contentType)
     const {token} = useTokenOrKey()
-    const { tags } = useTags(collectionName)
+    const { tags } = useTags(contentType)
     const t = useTranslations()
     const router = useRouter()
 
