@@ -11,11 +11,13 @@ import HollowButton from "../Buttons/HollowButton"
 import { useTranslations } from "next-intl";
 import DropDown, { DropDownItem } from "../FormInputs/RichText/DropDown";
 import { useUser } from "@/app/api/hooks/users";
+import { useIsClient } from "usehooks-ts";
 
 /**
  * The user options menu displayed on the far right of the menu
  */
 export default function UserOptions() {
+    const isClient = useIsClient()
     const {user, setUser, isLoading} = useUser()
     const router = useRouter();
     let t = useTranslations();
@@ -49,13 +51,8 @@ export default function UserOptions() {
         }
     }, [])
 
-    if(!user || !user._id || user.username === "" || isLoading) {
-        return (
-            <div className="user_menu">
-                <Link className="sign_in_button" href="/signin"><HollowButton>{t('Navigation.UserOptions.sign_in')}</HollowButton></Link>
-                <Link className="sign_in_icon" href="/signup"><UserPlus /></Link>
-            </div>
-        )
+    if(!user || !user._id || user.username === "" || isLoading || !isClient) {
+        return null
     }
 
     return (
