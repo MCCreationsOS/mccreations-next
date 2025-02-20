@@ -15,6 +15,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             changeFrequency: 'weekly',
             alternates: {
                 languages: {
+                    "en": `https://mccreations.net/en-US/datapacks/${doc.slug}`,
+                    "en-US": `https://mccreations.net/en-US/datapacks/${doc.slug}`,
                     "zh-CN": `https://mccreations.net/zh-CN/datapacks/${doc.slug}`,
                     "ru-RU": `https://mccreations.net/ru-RU/datapacks/${doc.slug}`,
                 }
