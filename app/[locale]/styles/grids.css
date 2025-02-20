@@ -2,8 +2,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 10px;
-    margin: 0 auto 10px auto;
-    width: 90%;
+    width: 100%;
 }
 .content_grid.three {
     display: grid;
@@ -130,6 +129,7 @@
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 10px;
+    padding: 0 10px;
 }
 
 .sidebar_filters {
@@ -217,8 +217,7 @@
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 10px;
-        margin: 0 auto 10px auto;
-        width: 90%;
+        width: 100%;
     }
 
     .page_with_sidebar {
@@ -238,8 +237,7 @@
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
-        margin: 0 auto 10px auto;
-        width: 90%;
+        width: 100%;
     }
 
     .page_with_sidebar {
@@ -258,8 +256,7 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
-        margin: 0 auto 10px auto;
-        width: 90%;
+        width: 100%;
     }
 
     .content_grid.three {
@@ -283,8 +280,7 @@
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         gap: 10px;
-        margin: 0 auto 10px auto;
-        width: 90%;
+        width: 100%;
     }
 
     .content_grid.three {

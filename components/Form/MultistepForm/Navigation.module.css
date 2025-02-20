@@ -3,6 +3,7 @@
     flex-direction: column;
     gap: 0.5rem;
     padding: 1rem;
+    width: 400px;
 }
 
 .navigationItem {

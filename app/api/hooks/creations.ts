@@ -18,7 +18,7 @@ const getCreationFetcher = (token: string, slug: string, type: ContentTypes) => 
 }
 
 export const useCreationSearch = (queryOptions: QueryOptions, filterQuery?: QueryOptions) => {
-    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const {token} = useToken()
     const [tempKey] = useSessionStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
     let key = (token?.length ?? 0) > 0 ? token : tempKey
@@ -33,7 +33,7 @@ export const useCreationSearch = (queryOptions: QueryOptions, filterQuery?: Quer
 }
 
 export const useCreations = (queryOptions: QueryOptions) => {
-    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const {token} = useToken()
     const [tempKey] = useSessionStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
     let key = (token?.length ?? 0) > 0 ? token : tempKey
@@ -47,7 +47,7 @@ export const useCreations = (queryOptions: QueryOptions) => {
 }
 
 export const useCreation = (slug: string, type: ContentTypes) => {
-    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const {token} = useToken()
     const [tempKey] = useSessionStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
     let key = (token?.length ?? 0) > 0 ? token : tempKey
@@ -74,7 +74,7 @@ export const useFeed = (limit: number, page: number) => {
     const {token} = useToken()
     const { data, error, isLoading } = useSWR([token, 'useFeed', limit, page], async ([token, id, limit, page]) => getFeed(token, limit, page))
     return {
-        feed: data?.feed as IContentDoc[] | {error: string} | undefined,
+        feed: data?.documents as IContentDoc[] | {error: string} | undefined,
         count: data?.totalCount ?? 0,
         isLoading,
         error

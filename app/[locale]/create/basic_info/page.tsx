@@ -29,7 +29,7 @@ export default function CreateBasicInfo() {
             if(key && 'key' in key) {
                 sessionStorage.setItem('temp_key', key.key)
             }
-            setCreation({...creation, ...key.content})
+            setCreation({...creation, ...key.creation})
             console.log(key)
             if('error' in key) {
                 PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, key.error))
@@ -42,9 +42,9 @@ export default function CreateBasicInfo() {
         <FormComponent id={"createForm"} onSave={(inputs) => {
             onMapCreate(inputs[0], inputs[1] as ContentTypes, inputs[2])
         }} options={{saveButtonContent:t('Create.next')}}>
-            <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} />
-            <Select name={t('Navigation.CreateForm.type')} defaultValue="map" options={[{name: t('map', { count: 1 }), value: 'map'}, {name: t('datapack', {count: 1}), value: "datapack"}, {name: t('resourcepack', {count: 1}), value: 'resourcepack'}]} />
-            <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')}/>
+            <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} value={creation.title}/>
+            <Select name={t('Navigation.CreateForm.type')} defaultValue="map" options={[{name: t('map', { count: 1 }), value: 'map'}, {name: t('datapack', {count: 1}), value: "datapack"}, {name: t('resourcepack', {count: 1}), value: 'resourcepack'}]} value={creation.type}/>
+            <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')} value={creation.shortDescription}/>
         </FormComponent>
     </>
 }

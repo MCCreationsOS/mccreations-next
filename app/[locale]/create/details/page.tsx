@@ -134,7 +134,7 @@ export default function CreateBasicInfo() {
         })
     }
     
-    return <FormComponent id="general" onSave={saveGeneralForm} options={{saveButtonContent: "Next"}}> 
+    return <FormComponent id="general" onSave={saveGeneralForm} options={{saveButtonContent: t('Create.next')}}> 
                 {/* <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} value={creation?.title} /> */}
                 <Text type="text" name={t('Content.Edit.slug')}  description={t('Content.Edit.slug_description')} value={creation?.slug}/>
                 <CreatorSelector value={creation.creators} />

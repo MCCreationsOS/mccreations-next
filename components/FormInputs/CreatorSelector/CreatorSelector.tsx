@@ -1,4 +1,4 @@
-import { getCreators } from "@/app/api/auth"
+import { getCreators, getUser } from "@/app/api/auth"
 import { ICreator, IUser, UserTypes } from "@/app/api/types"
 import { useEffect, useRef, useState } from "react"
 import styles from './CreatorSelector.module.css'
@@ -28,14 +28,15 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
             let token = localStorage?.getItem('jwt')
             if(token) {
                 loggedIn.current = true;
-                let users = await getCreators(token)
-                if(users && creators.length > 0) {
-                    setCreators([...creators, ...users]);
-                } else if(users && !value) {
-                    setCreators(users)
+                let user = await getUser(token)
+                if(user && creators.length > 0) {
+                    setCreators([...creators, user]);
+                } else if(user && !value) {
+                    setCreators([user])
                 } else if (value) {
                     setCreators(value)
                 }
+
             } else if(!value) {
                 setCreators([{username: t('Account.Shared.username_placeholder'), handle: t('Account.Shared.handle_placeholder')}])
             } else {

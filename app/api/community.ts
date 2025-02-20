@@ -16,7 +16,7 @@ export async function postRating(rating: number, map: IContentDoc) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({rating: rating, id: map._id, type: convertToCollection(map.type)}),
+            body: JSON.stringify({rating: rating, id: map._id, collection: convertToCollection(map.type)}),
             cache: 'no-store'
         })
         let newRating = (await response.json()).rating as number

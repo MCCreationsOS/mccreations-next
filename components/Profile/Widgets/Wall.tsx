@@ -15,22 +15,22 @@ import { MoreVertical } from "react-feather";
 import { Popup } from "@/components/Popup/Popup";
 import WarningButton from "@/components/Buttons/WarningButton";
 import IconButton from "@/components/Buttons/IconButton";
+import { useToken } from "@/app/api/hooks/users";
 
 export default function Wall({creator, canEdit, id}: {creator: IUser, canEdit: boolean, id: string}) {
     const [wallPosts, setWallPosts] = useState<IComment[]>([])
+    const {token} = useToken()
     const user = useUserStore(state => state)
     const t = useTranslations()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
 
     useEffect(() => {
-        let token = localStorage?.getItem('jwt')
         getWall(token + "", creator.handle + "").then((wall) => {
-            setWallPosts(wall)
+            setWallPosts(wall.documents)
         })
     }, [])
 
     const saveWallPost = async (inputs: string[]) => {
-        let token = localStorage?.getItem('jwt')
         postComment(creator.handle + "", "wall", creator.username, FormInput.getFormInput("comment").submit() + "", creator.handle).then(() => {
             getWall(token + "", creator.handle + "").then((wall) => {
                 setWallPosts(wall)

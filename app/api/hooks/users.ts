@@ -5,6 +5,7 @@ import { getCreator } from "../community"
 import { useEffect } from "react"
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
 import { searchContent } from "../content"
+import { getUserSettings } from "../creators"
 
 const getUserFetcher = (token: string) => {
     return getUser(token)
@@ -18,6 +19,10 @@ const getCreatorFetcher = (handle?: string) => {
 const getOwnedCreationsFetcher = (handle: string) => {
     if(!handle) return undefined
     return searchContent({contentType: "content", creators: [handle], status: 0, limit: 20, page: 0}, false)
+}
+
+const getUserSettingsFetcher = (token: string) => {
+    return getUserSettings(token)
 }
 
 export const useToken = () => {
@@ -120,6 +125,17 @@ export const useCreator = (handle?: string) => {
 
     return {
         creator: data as IUser|undefined,
+        isLoading,
+        error
+    }
+}
+
+export const useUserSettings = () => {
+    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const {data, error, isLoading} = useSWR([token, 'user_settings'], ([token]) => getUserSettingsFetcher(token))
+
+    return {
+        settings: data,
         isLoading,
         error
     }

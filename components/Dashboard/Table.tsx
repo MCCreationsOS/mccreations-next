@@ -89,10 +89,10 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                         <p>{(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('Status.draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('Status.unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('Status.approved')}</span>: <span style={{color:"#3154f4"}}>{t('Status.featured')}</span>}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{map.createdDate && new Date(map.createdDate * 1000).toLocaleDateString()}</p>
+                        <p>{map.createdDate && new Date((typeof map.createdDate === "number" ? map.createdDate * 1000 : map.createdDate)).toLocaleDateString()}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{map.updatedDate && new Date(map.updatedDate * 1000).toLocaleDateString()}</p>
+                        <p>{map.updatedDate && new Date((typeof map.updatedDate === "number" ? map.updatedDate * 1000 : map.updatedDate)).toLocaleDateString()}</p>
                     </div>
                     <div className={styles.content_item_item}>
                         <p>{map.downloads}</p>

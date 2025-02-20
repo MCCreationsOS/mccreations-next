@@ -64,6 +64,20 @@ export async function getNotifications(authorization: string, page: number) {
     }
 }
 
+export async function getUserSettings(authorization: string) {
+    try {
+        const response = await fetch(`${process.env.DATA_URL}/user/settings`, {
+            headers: {
+                'Authorization': authorization
+            },
+            cache: 'no-store'
+        })
+        return response.json()
+    } catch(e) {
+        console.error(e)
+    }
+}
+
 export async function follow(authorization: string, handle: string) {
     try {
         await fetch(`${process.env.DATA_URL}/creator/follow/${handle}`, {

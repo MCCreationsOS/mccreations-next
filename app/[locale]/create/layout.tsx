@@ -26,7 +26,7 @@ export default function CreateLayout({ children }: { children: React.ReactNode }
                     href: "/create/images"
                 }
             ]} key="create" />
-            <div>
+            <div className={styles.createFormContent}>
                 {children}
             </div>
         </div>

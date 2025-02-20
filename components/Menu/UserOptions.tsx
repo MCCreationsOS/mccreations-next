@@ -16,7 +16,7 @@ import { useUser } from "@/app/api/hooks/users";
  * The user options menu displayed on the far right of the menu
  */
 export default function UserOptions() {
-    const {user, setUser} = useUser()
+    const {user, setUser, isLoading} = useUser()
     const router = useRouter();
     let t = useTranslations();
 
@@ -49,7 +49,7 @@ export default function UserOptions() {
         }
     }, [])
 
-    if(!user || !user._id) {
+    if(!user || !user._id || user.username === "" || isLoading) {
         return (
             <div className="user_menu">
                 <Link className="sign_in_button" href="/signin"><HollowButton>{t('Navigation.UserOptions.sign_in')}</HollowButton></Link>

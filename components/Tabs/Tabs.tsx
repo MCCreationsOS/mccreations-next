@@ -6,8 +6,8 @@ import styles from "./Tabs.module.css"
 import { useRouter } from "next/navigation";
 
 export interface ITab {
-    title: string | ReactElement,
-    content: ReactElement,
+    title: string | ReactElement<any>,
+    content: ReactElement<any>,
     link?: string,
     disabled?: boolean
 }

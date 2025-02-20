@@ -247,7 +247,7 @@ export async function fetchTags(type: ContentTypes) {
 
 export async function downloadCreation(slug: string, collectionName: CollectionNames) {
     try {
-        await fetch(`${process.env.DATA_URL}/${collectionName}/${slug}/download`)
+        await fetch(`${process.env.DATA_URL}/creations/${collectionName.toLowerCase()}/${slug}/download`)
         return;
     } catch (e) {
         console.error("API fetch error! `downloadCreation` Is it running?: " + e);
@@ -268,11 +268,9 @@ export async function createNewContent(title: string, type: string, summary: str
                 'Authorization': token
             },
             body: JSON.stringify({
-                content: {
-                    title: title,
-                    type: type,
-                    shortDescription: summary
-                }
+                title: title,
+                type: type,
+                shortDescription: summary
             })
         })
         let b = await res.json();
@@ -289,23 +287,23 @@ export async function createNewContent(title: string, type: string, summary: str
 
 export async function importContent(link: string, type: string, token?: string | null) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/creations/import`, { 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token + ""
-            },
-            body: JSON.stringify({
-                url: link,
-                type: type
-            })
+       let response = await fetch(`${process.env.DATA_URL}/creations/import`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token + ""
+        },
+        body: JSON.stringify({
+            url: link,
+            type: type
         })
-        let data = await response.json();
-        return data;
-    } catch(e) {
+       })
+       return response
+
+    } catch(e: any) {
         console.error("API fetch error! `importContent` Is it running?: " + e)
         return {
-            error: e
+            error: e.toString()
         }
     }
 }
@@ -410,7 +408,6 @@ export async function deleteContent(slug: string, token: string | null, contentT
         await fetch(`${process.env.DATA_URL}/creations/${slug}?type=${contentType}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': token + ""
             }
         })
@@ -425,9 +422,8 @@ export async function deleteContent(slug: string, token: string | null, contentT
 export async function requestApproval(slug: string, collectionName: CollectionNames, token: string | null) {
     try {
         await fetch(`${process.env.DATA_URL}/creations/${slug}/request_approval?type=${collectionName}`, {
-            method: 'POST',
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': token + ""
             }
         })
