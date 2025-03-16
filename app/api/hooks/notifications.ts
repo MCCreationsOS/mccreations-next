@@ -12,6 +12,7 @@ export const useNotifications = (page: number) => {
     const {data, error, isLoading} = useSWR(['notifications', page], ([key, page]) => notificationsFetcher(token, page))
     return {
         notifications: data?.documents as INotification[]|undefined,
+        total: data?.totalCount as number|undefined,
         isLoading,
         error
     }
