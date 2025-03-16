@@ -5,13 +5,13 @@ import Tabs from "@/components/Tabs/Tabs";
 import ContentAdminTable from "@/components/Admin/ContentAdminTable";
 import {useTranslations} from 'next-intl';
 import CommentsAdminTable from "@/components/Admin/CommentsAdminTable";
-import { useToken, useUserAlwaysSecure } from "@/app/api/hooks/users";
+import { useToken, useUser } from "@/app/api/hooks/users";
 import Loading from "../loading";
 import MainButton from "@/components/Buttons/MainButton";
 import { approveLanguage } from "@/app/api/translation";
 
 export default function Page() {
-    const {user, isLoading, error} = useUserAlwaysSecure()
+    const {user, isLoading, error} = useUser(true)
     const {token} = useToken()
     const router = useRouter();
     const t = useTranslations()
@@ -21,7 +21,7 @@ export default function Page() {
     }
 
     if(!user || user.type !== UserTypes.Admin) {
-        router.push('/')
+        router.push('/signin?redirect=admin_dashboard')
         return;
     }
 

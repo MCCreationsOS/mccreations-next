@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { deleteUser, useUserStore } from "@/app/api/auth"
+import { deleteUser } from "@/app/api/auth"
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import { Popup } from "@/components/Popup/Popup";
 import FormComponent from "@/components/Form/Form";
@@ -11,26 +11,25 @@ import WarningButton from "@/components/Buttons/WarningButton"
 import Text from "@/components/FormInputs/Text"
 import {useTranslations} from 'next-intl';
 import styles from "../AccountSidebar.module.css"
-import { useUserAlwaysSecure } from "@/app/api/hooks/users"
+import { useToken, useUser } from "@/app/api/hooks/users"
+import { UserTypes } from "@/app/api/types"
 
 export default function AccountPage() {
     const [triedDeleteAccount, setTriedDeleteAccount] = useState(false)
-    const {user, isLoading, error} = useUserAlwaysSecure()
-    const setUser = useUserStore((state) => state.setUser)
+    const {user, setUser, isLoading, error} = useUser(true)
     const router = useRouter();
     const t = useTranslations()
-    let token: string | null;
+    const {token} = useToken()
 
     if(error) return <div className="centered_content">{t('Account.PopupMessage.error')}</div>
     if(isLoading) return <div className="centered_content">{t('Account.PopupMessage.loading')}</div>
     if(!user) {
-        router.push("/signin")
+        router.push("/signin?redirect=settings/account")
         return
     }
 
     const updateHandle = (inputs: string[]) => {
-        token = localStorage?.getItem('jwt')
-        fetch(`${process.env.DATA_URL}/auth/user/updateHandle`, {
+        fetch(`${process.env.DATA_URL}/user/updateHandle`, {
             method: 'POST',
             headers: {
                 authorization: token!,
@@ -52,8 +51,7 @@ export default function AccountPage() {
     }
 
     const updateUsername = (inputs: string[]) => {
-        token = localStorage?.getItem('jwt')
-        fetch(`${process.env.DATA_URL}/auth/user/updateProfile`, {
+        fetch(`${process.env.DATA_URL}/user/updateProfile`, {
             method: 'POST',
             headers: {
                 authorization: token!,
@@ -75,8 +73,7 @@ export default function AccountPage() {
     }
 
     const updateEmail = (inputs: string[]) => {
-        token = localStorage?.getItem('jwt')
-        fetch(`${process.env.DATA_URL}/auth/user/updateEmail`, {
+        fetch(`${process.env.DATA_URL}/user/updateEmail`, {
             method: 'POST',
             headers: {
                 authorization: token!,
@@ -98,8 +95,7 @@ export default function AccountPage() {
 
     const updatePassword = (inputs: string[]) => {
         if(inputs[0] === inputs[1] && inputs[0]) {
-            token = localStorage?.getItem('jwt')
-            fetch(`${process.env.DATA_URL}/auth/user/updatePassword`, {
+            fetch(`${process.env.DATA_URL}/user/updatePassword`, {
                 method: 'POST',
                 headers: {
                     authorization: token!,
@@ -120,7 +116,6 @@ export default function AccountPage() {
     }
 
     const deleteAccount = () => {
-        token = localStorage?.getItem('jwt')
         if(!triedDeleteAccount) {
             setTriedDeleteAccount(true)
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('Account.PopupMessage.delete_account_warning'))) 
@@ -129,6 +124,7 @@ export default function AccountPage() {
         } else {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.delete_account_success')))
             deleteUser(token!)
+            setUser({_id: "", username: "", email: "", type: UserTypes.Account })
             router.push("/")
         }
     }

@@ -1,112 +1,5 @@
-import { INotification, IUser, NotificationOption, UserTypes, CreatorSettings } from "@/app/api/types";
+import { IUser } from "@/app/api/types";
 import { ProfileLayout } from "@/components/Profile/CustomizableProfileArea";
-import { create } from "zustand";
-import { getNotifications } from "./creators";
-
-type UserStore = {
-    username: string
-    type: UserTypes
-    email: string
-    handle: string
-    _id: string
-    iconURL: string
-    bannerURL: string
-    about: string,
-    socialLinks?: [{
-        link: string,
-        name: string
-    }]
-    profileLayout?: ProfileLayout
-    settings?: CreatorSettings
-    notifications?: INotification[]
-    setUser: (user: IUser) => void
-    setIcon: (iconURL: string) => void
-    setBanner: (bannerURL: string) => void
-    setAbout: (about: string) => void
-    setSocialLinks: (socialLinks: [{
-        link: string,
-        name: string
-    }]) => void
-    setProfileLayout: (profileLayout: ProfileLayout) => void
-    setNotifications: (notifications: INotification[]) => void
-    setSettings: (settings: CreatorSettings) => void
-    logout: () => void
-}
-
-export const useUserStore = create<UserStore>(set => ({
-    username: "",
-    type: UserTypes.Account,
-    email: "",
-    handle: "",
-    _id: "",
-    iconURL: "",
-    bannerURL: "",
-    about: "",
-    socialLinks: undefined,
-    profileLayout: undefined,
-    settings: undefined,
-    notifications: undefined,
-    setUser: (user: IUser) => {
-        set({
-            username: user.username,
-            type: user.type,
-            email: user.email,
-            handle: user.handle,
-            _id: user._id,
-            iconURL: user.iconURL,
-            bannerURL: user.bannerURL,
-            about: user.about,
-            socialLinks: user.socialLinks,
-            profileLayout: user.profileLayout,
-            settings: user.settings,
-        })
-
-        getNotifications(localStorage?.getItem('jwt') + "", 0).then((response) => {
-            set({...user, notifications: response.notifications})
-        })
-    },
-    setIcon: (iconURL: string) => {
-        set({iconURL: iconURL})
-    },
-    setBanner: (bannerURL: string) => {
-        set({bannerURL: bannerURL})
-    },
-    setAbout: (about: string) => {
-        set({about: about})
-    },
-    setSocialLinks: (socialLinks: [{
-        link: string,
-        name: string
-    }]) => {
-        set({socialLinks: socialLinks})
-    },
-    setProfileLayout: (profileLayout: ProfileLayout) => {
-        set({profileLayout: profileLayout})
-    },
-    setNotifications: (notifications: INotification[]) => {
-        set({notifications: notifications})
-    },
-    setSettings: (settings: CreatorSettings) => {
-        set({settings: settings})
-    },
-    logout: () => {
-        set({
-            username: "",
-            type: UserTypes.Account,
-            email: "",
-            handle: "",
-            _id: "",
-            iconURL: "",
-            bannerURL: "",
-            about: "",
-            socialLinks: undefined,
-            profileLayout: undefined,
-            settings: undefined,
-            notifications: undefined
-        })
-    }
-}))
-
 
 export async function getUser(authorization?: string) {
     if(authorization) {
@@ -240,13 +133,13 @@ export async function resetPassword(token: string, password: string) {
 }
 
 export async function updateNotificationSettings(authorization: string, comment: string, like: string, reply: string, follow: string, rating: string, translation: string) {
-    fetch(`${process.env.DATA_URL}/user/updateNotifications`, {
+    fetch(`${process.env.DATA_URL}/user/updateSettings`, {
         method: 'POST',
         headers: {
             'Authorization': authorization,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation}),
+        body: JSON.stringify({notifications: {comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation}}),
             cache: 'no-store'
     })
 }

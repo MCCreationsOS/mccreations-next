@@ -1,6 +1,6 @@
 'use client'
 
-import { getUser, useUserStore } from "@/app/api/auth";
+import { getUser } from "@/app/api/auth";
 import { useToken, useUser } from "@/app/api/hooks/users";
 import { IUser } from "@/app/api/types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
@@ -17,11 +17,8 @@ export default function OauthHandlerPage() {
     const router = useRouter();
     const t = useTranslations()
 
-    const [storedUser, setStoredUser, removeUser] = useLocalStorage<IUser|undefined>('user', undefined)
-
     function saveUser(data: any) {
         setToken(data.token)
-        setStoredUser(data.creator)
         setUser(data.creator)
         mutate(data.creator)
     }

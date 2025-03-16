@@ -3,23 +3,23 @@
 import { Plus } from "react-feather";
 import SecondaryButton from "../Buttons/SecondaryButton";
 import styles from './ProfileStyle.module.css'
-import { useUserStore } from "@/app/api/auth";
 import { IUser } from "@/app/api/types";
 import { Popup } from "../Popup/Popup";
 import FormComponent from "../Form/Form";
 import Text from "../FormInputs/Text";
 import Select from "../FormInputs/Select";
-import { ProfileWidget, ProfileWidgetType } from "./CustomizableProfileArea";
+import { ProfileWidgetType } from "./CustomizableProfileArea";
 import RichTextInput from "../FormInputs/RichText";
 import ImageInput from "../FormInputs/ImageDropzone";
 import { FormInput } from "../FormInputs";
 import { useProfileLayoutStore } from "@/app/api/creators";
-
+import { useToken, useUser } from "@/app/api/hooks/users";
 export default function AddWidgetButton({creator}: {creator: IUser}) {
-    const user = useUserStore(state => state)
+    const {user} = useUser()
+    const {token} = useToken()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
 
-    if(user.handle !== creator.handle) return
+    if(user?.handle !== creator.handle) return null
 
     const chooseWidget = () => {
         Popup.createPopup({
@@ -118,8 +118,7 @@ export default function AddWidgetButton({creator}: {creator: IUser}) {
             w: 12,
             h: 6
         })
-        console.log(layout)
-        updateProfileLayout(layout)
+        updateProfileLayout(layout, token + "")
     }
     
     return (

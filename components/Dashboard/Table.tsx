@@ -5,25 +5,33 @@ import Image from "next/image";
 import { Image as ImageIcon, Trash } from "react-feather";
 import { Edit } from "react-feather";
 import styles from './table.module.css'
-import { CollectionNames, IContentDoc, IUser } from "@/app/api/types";
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { getUser, useUserStore } from "@/app/api/auth";
+import { CollectionNames, IContentDoc } from "@/app/api/types";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { convertToType, deleteContent } from "@/app/api/content";
 import {useTranslations} from 'next-intl';
-import { useToken, useUserAlwaysSecure } from "@/app/api/hooks/users";
+import { useToken, useUser } from "@/app/api/hooks/users";
 import { useCreations } from "@/app/api/hooks/creations";
 import IconButton from "../Buttons/IconButton";
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
+import PageNavigator from "../Content/Search/Navigator";
 
 export default function Table({collectionName}: {collectionName: CollectionNames}) {
-    const {user, isLoading} = useUserAlwaysSecure()
+    const {user, isLoading} = useUser(true)
     const {token} = useToken()
-    const {creations} = useCreations({contentType: collectionName, status: 0, limit: 20, page: 0, creators: [user?.handle ?? ""]})
+    const [page, setPage] = useState(0)
+    const {creations, count} = useCreations({contentType: collectionName, status: 0, limit: 20, page: page, creators: [user?.handle ?? ""]})
     const contentType = convertToType(collectionName);
     const [deleting, setDeleting] = useState(false)
     const t = useTranslations()
     const router = useRouter()
+    const searchParams = useSearchParams()
+
+    useEffect(() => {
+        if(searchParams.get('page')) {
+            setPage(Number(searchParams.get('page')))
+        }
+    }, [searchParams])
 
     const handleDelete = (slug: string) => {
         if(!deleting) {
@@ -37,8 +45,14 @@ export default function Table({collectionName}: {collectionName: CollectionNames
         }
     }
 
-    if(isLoading) return <></>
-    console.log(user)
+    if(!user) {
+        router.push("/signin?redirect=dashboard")
+        return null
+    }
+
+    if(isLoading) {
+        return <div className="centered_content">{t('Dashboard.loading')}</div>
+    }
     
 
     return (
@@ -102,6 +116,7 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                     </div>
                 </div>
             ))}
+            <PageNavigator page={page} pages={Math.ceil(count / 20)} />
         </>
     )
 }

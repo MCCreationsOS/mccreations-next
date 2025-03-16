@@ -1,6 +1,6 @@
-import { getUser, useUserStore } from "../auth"
+import { getUser } from "../auth"
 import useSWR, { mutate } from 'swr'
-import { ICreator, IUser, UserTypes } from "../types"
+import { CreatorSettings, ICreator, IUser, UserTypes } from "../types"
 import { getCreator } from "../community"
 import { useEffect } from "react"
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
@@ -41,56 +41,23 @@ export const useTokenOrKey = () => {
     }
 }
 
-export const useUser = () => {
-    const user = useUserStore()
-    const setUserStore = useUserStore((state) => state.setUser)
-    const [storedUser, setStoredUser] = useLocalStorage<IUser>('user', {
-        _id: "",
-        username: "",
-        email: "",
-        type: UserTypes.Account
-    })
-    const [token, setToken] = useLocalStorage<string>('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+export const useUser = (alwaysSecure: boolean = false) => {
+    const {token} = useToken()
     const { data, error, isLoading } = useSWR([token, 'user'], ([token]) => getUserFetcher(token))
 
     const setUser = (user: IUser) => {
-        setStoredUser(user)
-        setUserStore(user)
-    }
-
-    if(user && user._id !== "") {
-        return {
-            user: user as IUser,
-            setUser,
-            isLoading: false,
-            error: undefined
-        }
-    }
-
-    if(storedUser) {
-        try {
-            let user = storedUser
-            if(user && user._id !== "") {
-                return {
-                    user: user as IUser,
-                    setUser,
-                    isLoading: false,
-                    error: undefined
-                }
-            }
-        } catch(e) {
-            console.error(e)
-        }
+        // setStoredUser(user)
+        mutate([token, 'user'], user)
     }
 
     if(token) {
         if(data && data._id !== "") {
-            setStoredUser(data)
+            // setStoredUser(data)
             return {
                 user: data as IUser,
                 setUser,
-                isLoading: false,
-                error: undefined
+                isLoading: isLoading || false,
+                error: error || undefined
             }
         }
     }
@@ -100,23 +67,6 @@ export const useUser = () => {
         setUser,
         isLoading: false,
         error: undefined
-    }
-}
-
-export const useUserAlwaysSecure = () => {
-    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
-    const { data, error, isLoading } = useSWR([token, 'always_secure'], ([token]) => getUserFetcher(token))
-    const setUser = useUserStore((state) => state.setUser)
-
-    if(data && data._id !== "") {
-        localStorage?.setItem('user', JSON.stringify(data))
-        setUser(data)
-    }
-
-    return {
-        user: data,
-        isLoading,
-        error
     }
 }
 
@@ -136,6 +86,9 @@ export const useUserSettings = () => {
 
     return {
         settings: data,
+        setSettings: (settings: CreatorSettings) => {
+            mutate([token, 'user_settings'], settings)
+        },
         isLoading,
         error
     }
