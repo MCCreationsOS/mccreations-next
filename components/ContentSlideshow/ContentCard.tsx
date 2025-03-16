@@ -127,7 +127,7 @@ export default function ContentCard(props: IContentCardProps) {
                 </div>
                 <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className={styles.logo} src={props.content.images[0]} width={1280} height={720} sizes="25vw" alt={t('Content.logo_alt', {title: props.content.title, type: props.content.type, minecraft_version: (props.content.files && props.content.files.length > 0) ? props.content.files[0].minecraftVersion : "", creator: (props.content.creators && props.content.creators[0] && props.content.creators[0].username) ? props.content.creators[0].username : ""})}></Image>
             </div>
-            <Link className={styles.title} href={`/${(props.linkTo) ? props.linkTo : props.content.type + "s"}/${props.content.slug}`}>{title}</Link>
+            <Link className={styles.title} href={`/${(props.linkTo) ? props.linkTo : props.content.type + "s"}/${props.content.slug}`} >{title}</Link>
             <div className={styles.stats}>
                 <div className={styles.stat}><Download className={styles.in_text_icon} />{props.content.downloads}</div>
                 {(props.content.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{((Math.round(props.content.rating*100)/100) * 5).toFixed(2)}</div>: <></> }

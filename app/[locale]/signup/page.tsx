@@ -27,7 +27,6 @@ export default function SignUp() {
 
         var regex = /[A-Za-z0-9_]*/g, m;
         m = regex.exec(username)
-        console.log()
         if(!m || m[0] !== m.input) {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.username_invalid_characters')))
             return;
@@ -67,7 +66,7 @@ export default function SignUp() {
                     PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))
                     return;
                 } else {
-                    router.push("/")
+                    router.push("/signin")
                 }
             }).catch(error => {
                 if(res.status === 200) {

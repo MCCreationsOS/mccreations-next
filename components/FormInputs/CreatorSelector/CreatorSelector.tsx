@@ -73,7 +73,6 @@ export default function CreatorSelector({value, onChange}: {value?: ICreator[], 
             newCreators = [...creators]
         newCreators.push({username: inputs[0]!, handle: (inputs[1]) ? inputs[1]: ""})
         input.current?.setValue(newCreators)
-        console.log(input.current?.value)
         setCreators(newCreators)
         if(onChange) {
             onChange(newCreators)

@@ -58,7 +58,6 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
     }
 
     const handleReplySave = (inputs: string[]) => {
-        console.log(comment._id)
         postReply(comment._id!, (user?.username === "" ? inputs[0] : user!.username), FormInput.getFormInput("reply").submit() as string, user?.handle + "")
         setReplies([...replies, {
             content_type: contentType,
@@ -88,7 +87,7 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
         <div className={styles.comment} ref={container}>
             <div style={{position: "relative"}}>
                 <Link href={(comment.handle) ? `/creator/${comment.handle}` : ""}><Image src={image} width={45} height={45} className={styles.logo} alt={t('Creator.logo_alt', {username: ("username" in comment) ? comment.username : creator?.username})}></Image></Link>
-                {user && user.handle !== "" && comment.handle && !user.following?.includes(comment.handle) && <DropDown buttonClassName={styles.follow_button} buttonLabel={<Plus />} className='option_dropdown' useButtonWidth={false}>
+                {user && user.handle !== "" && comment.handle && !user.following?.includes(comment.handle) && user.handle !== comment.handle && <DropDown buttonClassName={styles.follow_button} buttonLabel={<Plus />} className='option_dropdown' useButtonWidth={false}>
                             <DropDownItem onClick={handleFollow} className='option_button'>Follow {comment.username}</DropDownItem>
                         </DropDown>}
             </div>

@@ -26,14 +26,12 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
 
     useEffect(() => {
         if (versions && loaded && JSON.stringify(versions) !== presetVersions) {
-            console.log('Versions from UseEffect', versions)
             onVersionsChanged(JSON.stringify(versions))
         }
     }, [versions])
 
     useEffect(() => {
         if (presetVersions) {
-            console.log("preset version", presetVersions)
             setVersions(JSON.parse(presetVersions))
         }
         setLoaded(true)
@@ -48,7 +46,6 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
             <h2>{t('VersionManager.Version.edit')}</h2>
             <SecondaryButton className={styles.button_icon_aligned} onClick={() => {setRenderVersion(undefined)}}><ArrowLeft />{t('VersionManager.Version.back_to_versions')}</SecondaryButton>
             <FormComponent id={`version_${idx}`} onSave={(inputs) => {
-                console.log(inputs)
                 const contentVersion = inputs[0]
                 const minecraftVersion = inputs[1]
                 if(JSON.parse(inputs[2])) {
