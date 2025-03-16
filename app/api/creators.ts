@@ -7,7 +7,7 @@ import { updateProfileLayout } from "./auth"
 type ProfileLayoutStore = {
     profileLayout: ProfileLayout
     setProfileLayout: (profileLayout: ProfileLayout) => void
-    updateProfileLayout: (profileLayout: ProfileLayout) => void
+    updateProfileLayout: (profileLayout: ProfileLayout, authorization: string) => void
 }
 
 export const defaultProfileLayout: ProfileLayout = {
@@ -28,9 +28,8 @@ export const useProfileLayoutStore = create<ProfileLayoutStore>(set => ({
     setProfileLayout: (profileLayout: ProfileLayout) => {
         set({profileLayout})
     },
-    updateProfileLayout: (profileLayout: ProfileLayout) => {
-        let token = localStorage?.getItem('jwt')
-        updateProfileLayout(token + "", profileLayout).then(() => {
+    updateProfileLayout: (profileLayout: ProfileLayout, authorization: string) => {
+        updateProfileLayout(authorization, profileLayout).then(() => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Profile layout updated"))
         })
         set({profileLayout})
