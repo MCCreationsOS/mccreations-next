@@ -47,7 +47,10 @@ export async function postComment(slug: string, content_type: string, username: 
                 comment: comment,
                 handle: handle,
                 content_type: content_type,
-                slug: slug
+                slug: slug,
+                date: Date.now(),
+                replies: [],
+                likes: 0
             }),
             cache: 'no-store'
         })
@@ -67,8 +70,10 @@ export async function postReply(comment_id: string, username: string, reply: str
             body: JSON.stringify({
                 comment_id: comment_id,
                 username: username,
-                reply: reply,
-                handle: handle
+                comment: reply,
+                handle: handle,
+                date: Date.now(),
+                likes: 0
             }),
             cache: 'no-store'
         })
@@ -150,7 +155,6 @@ export async function deleteComment(id: string, jwt: string = "") {
         fetch(`${process.env.DATA_URL}/comment/${id}`, {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': jwt
             },
             cache: 'no-store'
