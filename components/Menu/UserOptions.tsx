@@ -1,16 +1,15 @@
 'use client'
 
-import { use, useEffect, useState } from "react"
+import { useEffect, } from "react"
 import Image from "next/image"
 import { IUser, UserTypes } from "@/app/api/types"
-import { Link } from "@/app/api/navigation";
-import { Bell, LogOut, Settings, Table, User, UserPlus } from "react-feather"
+import { Bell, LogOut, Settings, Table, User } from "react-feather"
 import { useRouter } from "next/navigation"
-import { getUser, useUserStore } from "@/app/api/auth"
+import { getUser } from "@/app/api/auth"
 import HollowButton from "../Buttons/HollowButton"
 import { useTranslations } from "next-intl";
 import DropDown, { DropDownItem } from "../FormInputs/RichText/DropDown";
-import { useUser } from "@/app/api/hooks/users";
+import { useUser, useToken } from "@/app/api/hooks/users";
 import { useIsClient } from "usehooks-ts";
 
 /**
@@ -19,40 +18,34 @@ import { useIsClient } from "usehooks-ts";
 export default function UserOptions() {
     const isClient = useIsClient()
     const {user, setUser, isLoading} = useUser()
+    const {token, setToken} = useToken()
     const router = useRouter();
     let t = useTranslations();
 
     useEffect(() => {
         if(!user || !user._id) {
-            const storedUser = localStorage?.getItem('user')
-            if(storedUser) {
-                let user = JSON.parse(storedUser) as IUser
-                getUser(localStorage?.getItem('jwt') + "").then((user) => {
-                    if(user) {
-                        setUser(user)
-                        localStorage?.setItem('user', JSON.stringify(user))
-                    } else {
-                        localStorage?.removeItem('jwt')
-                        localStorage?.removeItem('user')
-                    }
-                })
-                setUser(user)
-            } else {
-                getUser(localStorage?.getItem('jwt') + "").then((user) => {
-                    if(user) {
-                        setUser(user)
-                        localStorage?.setItem('user', JSON.stringify(user))
-                    } else {
-                        localStorage?.removeItem('jwt')
-                        localStorage?.removeItem('user')
-                    }
-                })
-            }
+            getUser(token).then((user) => {
+                if(user && user._id !== "") {
+                    setUser(user)
+                } else {
+                    setToken("")
+                    setUser({_id: "", username: "", email: "", type: UserTypes.Account })
+                }
+            })
         }
     }, [])
 
-    if(!user || !user._id || user.username === "" || isLoading || !isClient) {
+    const signOut = () => {
+        setToken("")
+        setUser({_id: "", username: "", email: "", type: UserTypes.Account })
+    }
+
+    if(!isClient) {
         return null
+    }
+
+    if(!user || !user._id || user.username === "" || isLoading) {
+        return <HollowButton onClick={() => {router.push("/signin")}}>{t("Navigation.UserOptions.sign_in")}</HollowButton>
     }
 
     return (
@@ -76,7 +69,7 @@ export default function UserOptions() {
             <DropDownItem className="option_button" onClick={() => {router.push("/settings")}}>
                 <Settings /> {t("Navigation.UserOptions.settings")}
             </DropDownItem>
-            <DropDownItem className="option_button" onClick={() => {localStorage?.removeItem('jwt'); localStorage?.removeItem('user'); setUser({_id: "", username: "", email: "", type: UserTypes.Account })}}>
+            <DropDownItem className="option_button" onClick={signOut}>
                 <LogOut /> {t("Navigation.UserOptions.sign_out")}
             </DropDownItem>
         </DropDown>
