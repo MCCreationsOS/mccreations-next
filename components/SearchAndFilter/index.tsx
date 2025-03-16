@@ -145,6 +145,10 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
         // router.refresh()
     }
 
+    useEffect(() => {
+        performSearch()
+    }, [search, sort, status, includeTags, excludeTags])
+
     return (
         <div className="search_and_filter">
             <div className={styles.fullscreen} style={{display: (popupOpen) ? "block": "none"}} onClick={() => {(popupOpen == true) ? closePopups(): false}}></div>
