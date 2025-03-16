@@ -41,6 +41,7 @@ export const useCreations = (queryOptions: QueryOptions) => {
     const { data, error, isLoading } = useSWR([key, queryOptions, 'useCreations'], ([key, queryOptions]) => searchCreationsFetcher(key, queryOptions))
     return {
         creations: (data?.documents ?? []) as IContentDoc[],
+        count: data?.totalCount ?? 0,
         isLoading,
         error
     }

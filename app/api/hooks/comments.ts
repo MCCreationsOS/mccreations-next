@@ -1,4 +1,4 @@
-import useSWR from "swr"
+import useSWR, { mutate } from "swr"
 import { fetchComment, fetchComments } from "../community"
 import { CollectionNames, IComment, SortOptions } from "../types"
 
@@ -19,6 +19,9 @@ export const useComments = (slug: string, contentType: CollectionNames, sort: So
     const {data, error, isLoading} = useSWR(['comments', slug, contentType, sort, limit], ([key, slug, contentType, sort, limit]) => fetchComments(slug, {contentType, sort, limit}))
     return {
         comments: data?.documents as IComment[] | undefined,
+        setComments: (comments: IComment[]) => {
+            mutate(['comments', slug, contentType, sort, limit], comments)
+        },
         isLoading,
         error
     }
