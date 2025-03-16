@@ -2,7 +2,7 @@
 
 import { convertToCollection, updateTranslation } from "@/app/api/content"
 import { useCreation } from "@/app/api/hooks/creations"
-import { ContentTypes, Locales, Translation } from "@/app/api/types"
+import { ContentTypes, Locales, Translation, UserTypes } from "@/app/api/types"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useTranslations } from "next-intl"
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
@@ -18,12 +18,16 @@ import { FormInput } from "@/components/FormInputs"
 import Text from "@/components/FormInputs/Text"
 import RichTextInput from "@/components/FormInputs/RichText"
 import Checkbox from "@/components/FormInputs/Checkbox"
+import { useUser } from "@/app/api/hooks/users"
+import { useRouter } from "next/navigation"
 
 export default function Translations({params}: {params: Params}) {
     const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
     const collectionName = convertToCollection(contentType)
     const { creation, isLoading } = useCreation(params.slug, contentType)
+    const {user} = useUser(true)
     const t = useTranslations()
+    const router = useRouter()
 
     if((creation && 'error' in creation)) {
         return <div className="centered_content">
@@ -36,6 +40,12 @@ export default function Translations({params}: {params: Params}) {
         </div>
     }
 
+    if(!user || (!creation?.creators.some(creator => creator.handle === user.handle) || creation.owner !== user._id) && user.type !== UserTypes.Admin) {
+        router.push("/signin?redirect=/edit/" + contentType + "/" + params.slug)
+        return <div className="centered_content">
+            <h1>You are not allowed to edit this content</h1>
+        </div>
+    }
     return <>
             <SecondaryButton onClick={() => {
                 Popup.createPopup({title: t('Content.Edit.add_translation'), content: <FormComponent id="add_translation" onSave={(inputs) => {

@@ -1,8 +1,9 @@
 'use client'
 
-import { convertToCollection, updateContent } from "@/app/api/content"
+import { convertToCollection, errorCheckContent, updateContent } from "@/app/api/content"
 import { useCreation, useTags } from "@/app/api/hooks/creations"
-import { ContentTypes, ExtraFeatureKeys, ICreator, LeaderboardFeature, TagCategories, TagKeys } from "@/app/api/types"
+import { useUser } from "@/app/api/hooks/users"
+import { ContentTypes, ExtraFeatureKeys, ICreator, LeaderboardFeature, TagCategories, TagKeys, UserTypes } from "@/app/api/types"
 import FormComponent from "@/components/Form/Form"
 import { FormInput } from "@/components/FormInputs"
 import CreatorSelector from "@/components/FormInputs/CreatorSelector/CreatorSelector"
@@ -14,14 +15,18 @@ import { useTranslations } from "next-intl"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import Link from "next/link"
 import { mutate } from "swr"
+import { useRouter } from "next/navigation"
 
 export default function General({params}: {params: Params}) {
     const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
     const collectionName = convertToCollection(contentType)
     const { creation, isLoading } = useCreation(params.slug, contentType)
+    const {user} = useUser(true)
     const { tags } = useTags(contentType)
     const t = useTranslations()
+    const router = useRouter()
 
+    
     
     if((creation && 'error' in creation)) {
         return <div className="centered_content">
@@ -34,6 +39,13 @@ export default function General({params}: {params: Params}) {
         </div>
     }
 
+    if(!user || (!creation?.creators.some(creator => creator.handle === user.handle) || creation.owner !== user._id) && user.type !== UserTypes.Admin) {
+        router.push("/signin?redirect=/edit/" + contentType + "/" + params.slug)
+        return <div className="centered_content">
+            <h1>You are not allowed to edit this content</h1>
+        </div>
+    }
+    
     let showLeaderboardsHelp = creation.extraFeatures?.leaderboards.use !== false
 
     const saveGeneralForm = (inputs: string[]) => {
