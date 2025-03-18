@@ -6,18 +6,19 @@ import styles from './ProfileWidget.module.css'
 import { MoreVertical } from "react-feather";
 import { useTranslations } from "next-intl";
 import FormComponent from "@/components/Form/Form";
-import Text from "@/components/FormInputs/Text";
 import { Popup } from "@/components/Popup/Popup";
 import { useProfileLayoutStore } from "@/app/api/creators";
 import WarningButton from "@/components/Buttons/WarningButton";
 import IconButton from "@/components/Buttons/IconButton";
 import Select from "@/components/FormInputs/Select";
 import { useCreations } from "@/app/api/hooks/creations";
+import { useToken } from "@/app/api/hooks/users";
 
 export default function Showcase({id, creator, type, canEdit}: {id: string, creator: IUser, type: CollectionNames | "content", canEdit: boolean}) {
-    const {creations} = useCreations({limit: 10, contentType: type, creators: [creator.handle!]})
+    const {creations} = useCreations({limit: 10, contentType: type, creators: [creator.handle!], status: 1})
     const t = useTranslations()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
+    const {token} = useToken();
 
 
     const editWidget = () => {
@@ -38,14 +39,14 @@ export default function Showcase({id, creator, type, canEdit}: {id: string, crea
                 return widget
             }),
             layout: profileLayout.layout
-        })
+        }, token)
     }
 
     const deleteWidget = () => {
         updateProfileLayout({
             widgets: profileLayout.widgets.filter((widget) => widget.id !== id),
             layout: profileLayout.layout.filter((layout) => layout.i !== id)
-        })
+        }, token)
     }
     
     if(!creations) {

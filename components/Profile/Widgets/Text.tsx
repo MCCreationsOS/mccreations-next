@@ -10,10 +10,12 @@ import RichTextInput from '@/components/FormInputs/RichText';
 import { FormInput } from '@/components/FormInputs';
 import IconButton from '@/components/Buttons/IconButton';
 import { useTranslations } from 'next-intl';
+import { useToken } from '@/app/api/hooks/users';
 
 export default function TextWidget({text, title, canEdit, id}: {text: string, title: string, canEdit: boolean, id: string}) {
     const t = useTranslations()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
+    const {token} = useToken();
 
     const editWidget = () => {
         Popup.createPopup({
@@ -34,14 +36,14 @@ export default function TextWidget({text, title, canEdit, id}: {text: string, ti
                 return widget
             }),
             layout: profileLayout.layout
-        })
+        }, token)
     }
 
     const deleteWidget = () => {
         updateProfileLayout({
             widgets: profileLayout.widgets.filter((widget) => widget.id !== id),
             layout: profileLayout.layout.filter((layout) => layout.i !== id)
-        })
+        }, token)
     }
 
     return (

@@ -9,10 +9,12 @@ import { useProfileLayoutStore } from '@/app/api/creators'
 import { Popup } from '@/components/Popup/Popup'
 import ImageInput from '@/components/FormInputs/ImageDropzone'
 import IconButton from '@/components/Buttons/IconButton'
+import { useToken } from '@/app/api/hooks/users'
 
 export default function ImageWidget({image, title, canEdit, id}: {image: string, title: string, canEdit: boolean, id: string}) {
     const t = useTranslations()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
+    const {token} = useToken();
 
     const editWidget = () => {
         Popup.createPopup({
@@ -33,14 +35,14 @@ export default function ImageWidget({image, title, canEdit, id}: {image: string,
                 return widget
             }),
             layout: profileLayout.layout
-        })
+        }, token)
     }
 
     const deleteWidget = () => {
         updateProfileLayout({
             widgets: profileLayout.widgets.filter((widget) => widget.id !== id),
             layout: profileLayout.layout.filter((layout) => layout.i !== id)
-        })
+        }, token)
     }
 
     return (
