@@ -5,7 +5,7 @@ import FormComponent from "@/components/Form/Form"
 import { useEffect, useState } from "react"
 import styles from './FileDropzone.module.css'
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
-import { ArrowLeft, X } from "react-feather"
+import { ArrowLeft, Edit, X } from "react-feather"
 import Text from "../Text"
 import VersionUploader from "."
 import WarningButton from "@/components/Buttons/WarningButton"
@@ -73,7 +73,6 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 let vs = [...versions]
                 vs[idx] = v
                 setVersions(vs)
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('VersionManager.Version.saved')))
             }} options={{ useSaveButton: true, saveButtonContent: t('VersionManager.Version.save'), extraButtons: [<SecondaryButton onClick={() => { setRenderVersion(undefined) }}>{t('VersionManager.Version.cancel')}</SecondaryButton>, <WarningButton onClick={() => {
                 let vs = [...versions]
                 vs.splice(idx, 1)
@@ -164,7 +163,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                             </FormComponent>,
                             title: t('VersionManager.add_version')
                         })
-                    }}>{t('VersionManager.add_version')}</SecondaryButton>
+                    }}>{t('VersionManager.add_version')} <Edit /></SecondaryButton>
                 </div>
                 <div className={styles.versions}>
                     {versions && versions.map((version, idx) => {

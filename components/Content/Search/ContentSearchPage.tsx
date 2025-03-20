@@ -1,10 +1,6 @@
 import ContentGrid from "@/components/Grids/ContentGrid"
-import Menu from "@/components/Menu/Menu"
-import { useSearchParams, usePathname } from "next/navigation"
-import Link from "next/link";
 import { convertToType, fetchTags, searchContent } from "@/app/api/content"
 import SearchAndFilter from "@/components/SearchAndFilter"
-import {useTranslations} from 'next-intl';
 import { AdsenseComponent } from "@/components/AdUnits/InContent"
 import SidebarFilters from "@/components/SearchAndFilter/SidebarFilters"
 import { getTranslations } from "next-intl/server";

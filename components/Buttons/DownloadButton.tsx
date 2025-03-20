@@ -16,14 +16,11 @@ export default function DownloadButton({slug, file, contentType}: {slug: string,
         let files: NewFile[] = [{url: file.url ?? file.worldUrl ?? file.dataUrl ?? file.resourceUrl ?? "", required: true, type: file.type}]
         file.extraFiles && files.push(...file.extraFiles)
 
-        files.forEach((file) => {
+        files.forEach(async (file) => {
             if(!file.required) return
-            let a = document.createElement('a')
-            a.href = file.url
-            a.download = slug
-            a.target = '_blank'
-            a.click()
-            a.remove()
+            console.log(file.url)
+            window.open(file.url, '_blank')
+            await new Promise(resolve => setTimeout(resolve, 500))
         })
     }
 
