@@ -1,10 +1,9 @@
 import {redirect} from 'next/navigation'
-import {getLocale} from 'next-intl/server'
+import {unstable_setRequestLocale} from 'next-intl/server'
 
 export default async function RootNotFound() {
-  // Get the current locale
-  const locale = await getLocale()
+  unstable_setRequestLocale("en-US")
   
   // Redirect to the localized 404 page
-  redirect(`/${locale ?? "en-US"}/not_found`)
+  redirect(`/en-US/not_found`)
 }
