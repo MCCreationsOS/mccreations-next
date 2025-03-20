@@ -11,6 +11,7 @@ import { useTranslations } from "next-intl";
 import DropDown, { DropDownItem } from "../FormInputs/RichText/DropDown";
 import { useUser, useToken } from "@/app/api/hooks/users";
 import { useIsClient } from "usehooks-ts";
+import { useNotifications } from "@/app/api/hooks/notifications"
 
 /**
  * The user options menu displayed on the far right of the menu
@@ -18,6 +19,7 @@ import { useIsClient } from "usehooks-ts";
 export default function UserOptions() {
     const isClient = useIsClient()
     const {user, setUser, isLoading} = useUser()
+    const {notifications} = useNotifications(0)
     const {token, setToken} = useToken()
     const router = useRouter();
     let t = useTranslations();
@@ -49,13 +51,13 @@ export default function UserOptions() {
     }
 
     return (
-        <DropDown className="option_dropdown user_menu" buttonClassName="user_menu" buttonLabel={<div className="icon_container"><Image className="icon" src={(user.iconURL) ? user.iconURL : "/defaultLogo.png"} alt="User Icon" width={40} height={40} />{user.notifications && user.notifications.length > 0 && user.notifications.filter((notification) => !notification.read).length > 0 && <div className="notification_indicator"></div>}</div>} useButtonWidth={false}>
+        <DropDown className="option_dropdown user_menu" buttonClassName="user_menu" buttonLabel={<div className="icon_container"><Image className="icon" src={(user.iconURL) ? user.iconURL : "/defaultLogo.png"} alt="User Icon" width={40} height={40} />{notifications && notifications.length > 0 && notifications.filter((notification) => !notification.read).length > 0 && <div className="notification_indicator"></div>}</div>} useButtonWidth={false}>
             <DropDownItem className="option_button no-flex break-line" onClick={() => {router.push("/creator/"+user.handle)}}>
                 <p className="display_name">{user.username}</p>
                 <p className="email">{user.email}</p>
             </DropDownItem>
             <DropDownItem className="option_button" onClick={() => {router.push("/dashboard/notifications")}}>
-                <Bell /> {t("Navigation.UserOptions.notifications")} {user.notifications && user.notifications.length > 0 && user.notifications.filter((notification) => !notification.read).length > 0 && <div className="notification_count">{(user.notifications.filter((notification) => !notification.read).length < 10) ? user.notifications.filter((notification) => !notification.read).length : "9+"}</div>}
+                <Bell /> {t("Navigation.UserOptions.notifications")} {notifications && notifications.length > 0 && notifications.filter((notification) => !notification.read).length > 0 && <div className="notification_count">{(notifications.filter((notification) => !notification.read).length < 10) ? notifications.filter((notification) => !notification.read).length : "9+"}</div>}
             </DropDownItem>
             <DropDownItem className="option_button" onClick={() => {router.push("/creator/"+user.handle)}}>
                 <User /> {t('Navigation.UserOptions.profile')}
