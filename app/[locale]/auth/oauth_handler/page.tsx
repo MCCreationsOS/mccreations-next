@@ -28,6 +28,9 @@ export default function OauthHandlerPage() {
             try {
                 fetch(`${process.env.DATA_URL}/sign_in`, {
                     'method': 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     'body': JSON.stringify({
                         'provider': 0,
                         'code': code
@@ -84,6 +87,9 @@ export default function OauthHandlerPage() {
             try {
                 fetch(`${process.env.DATA_URL}/sign_in`, {
                     'method': 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     'body': JSON.stringify({
                         'provider': 3,
                         'code': code
@@ -136,6 +142,9 @@ export default function OauthHandlerPage() {
             try {
                 fetch(`${process.env.DATA_URL}/sign_in`, {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     'body': JSON.stringify({
                         'provider': 1,
                         'code': code
@@ -188,6 +197,9 @@ export default function OauthHandlerPage() {
             try {
                 fetch(`${process.env.DATA_URL}/sign_in`, {
                     method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
                     'body': JSON.stringify({
                         'provider': 2,
                         'code': code
