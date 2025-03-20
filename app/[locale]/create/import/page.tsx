@@ -52,7 +52,7 @@ export default function Import() {
                             case 'complete':
                                 const uploadedCreation = json.data.creation
                                 setCreation({...creation, ...uploadedCreation})
-                                router.push(`/create/details`)
+                                router.push(`/create/basic_info`)
                                 break
                         }
                     } catch {
