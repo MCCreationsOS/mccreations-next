@@ -217,7 +217,6 @@ export interface IUser {
     }]
     profileLayout?: ProfileLayout,
     settings?: CreatorSettings,
-    notifications?: INotification[],
     followers?: string[],
     following?: string[]
 }
