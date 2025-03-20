@@ -105,7 +105,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
             </div>
             <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
             <MapImageSlideshow images={content.images.slice(1)} />
-            <CommentForm mapSlug={content.slug} content_type={collectionName}></CommentForm>
+            <CommentForm mapSlug={content.slug} content_type={contentType}></CommentForm>
             <Suspense fallback={<></>}>
                 <CommentsList mapSlug={content.slug} content_type={collectionName}/>
             </Suspense>

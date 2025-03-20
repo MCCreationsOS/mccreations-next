@@ -1,7 +1,5 @@
 'use client'
 
-import { getUser, useUserStore } from "@/app/api/auth";
-import { getCreator } from "@/app/api/community";
 import { ContentTypes, ICreator, IUser } from "@/app/api/types";
 import { Link } from "@/app/api/navigation";
 import MainButton from "./MainButton";
