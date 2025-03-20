@@ -163,14 +163,14 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                             </FormComponent>,
                             title: t('VersionManager.add_version')
                         })
-                    }}>{t('VersionManager.add_version')} <Edit /></SecondaryButton>
+                    }}>{t('VersionManager.add_version')}</SecondaryButton>
                 </div>
                 <div className={styles.versions}>
                     {versions && versions.map((version, idx) => {
                         return (
                             <SecondaryButton key={`version_${version.createdDate}`} onClick={() => {
                                 setRenderVersion(version)
-                            }}>{version.contentVersion}</SecondaryButton>
+                            }}>{version.contentVersion}  <Edit /></SecondaryButton>
                         )
                     })}
                 </div>
