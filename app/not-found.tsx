@@ -6,5 +6,5 @@ export default async function RootNotFound() {
   const locale = await getLocale()
   
   // Redirect to the localized 404 page
-  redirect(`/${locale}/not_found`)
+  redirect(`/${locale ?? "en-US"}/not_found`)
 }
