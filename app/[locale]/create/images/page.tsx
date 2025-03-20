@@ -35,8 +35,14 @@ export default function Images({params}: {params: Params}) {
         })
     }
 
+    const onFinish = () => {
+        if(!creation || 'error' in creation) return;
+        setCreation(createEmptyCreation())
+        router.push(`/${contentType}s/${creation.slug}`)
+    }
+
     return <>
         <MediaGallery onImagesUploaded={saveImagesForm} presetFiles={JSON.stringify(creation?.images?.map(image => {return {url: image, name: image}}))}/>
-        <MainButton onClick={() => {router.push(`/${contentType}s/${creation.slug}`)}}>{t('Create.finish')}</MainButton>
+        <MainButton onClick={onFinish}>{t('Create.finish')}</MainButton>
     </>
 }
