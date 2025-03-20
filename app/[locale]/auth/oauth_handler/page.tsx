@@ -2,13 +2,11 @@
 
 import { getUser } from "@/app/api/auth";
 import { useToken, useUser } from "@/app/api/hooks/users";
-import { IUser } from "@/app/api/types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react";
 import { mutate } from "swr";
-import { useLocalStorage } from "usehooks-ts";
 
 export default function OauthHandlerPage() {
     const {user, setUser} = useUser()
@@ -18,9 +16,8 @@ export default function OauthHandlerPage() {
     const t = useTranslations()
 
     function saveUser(data: any) {
-        setToken(data.token)
-        setUser(data.creator)
-        mutate(data.creator)
+        setToken(data.jwt)
+        setUser(data.user)
     }
 
     function signInWithDiscord(code: string | null): Promise<any> {
