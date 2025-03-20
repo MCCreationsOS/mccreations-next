@@ -23,7 +23,7 @@ export default function CreateBasicInfo() {
         if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_type')))
         if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_short_description')))
 
-        setCreation({...creation, title: title!, type: type!, shortDescription: shortDescription!, slug: encodeURIComponent(title!.toLowerCase().replace(/ /g, "-"))})
+        setCreation({...creation, title: title!, type: type!, shortDescription: shortDescription!, slug: creation.slug ?? encodeURIComponent(title!.toLowerCase().replace(/ /g, "-"))})
     
         createNewContent(title!, type!, shortDescription!, token).then((key) => {
             if(key && 'key' in key) {
