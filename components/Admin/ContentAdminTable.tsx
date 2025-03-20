@@ -8,40 +8,13 @@ import styles from './table.module.css'
 import { Plus, RefreshCw } from "react-feather";
 import IconButton from "../Buttons/IconButton";
 import ContentRow from "./ContentRow";
+import { useCreations } from "@/app/api/hooks/creations";
 
 export default function ContentAdminTable({contentType, jwt}: {contentType: CollectionNames, jwt: string}) {
-    const [maps, setMaps] = useState<IContentDoc[]>([])
     const [page, setPage] = useState(0)
-    const [pages, setPages] = useState(0)
+    const {creations, count, isLoading, error} = useCreations({contentType: contentType, limit: 20, page: page, status: 0})
+    const pages = Math.ceil(count / 20.0)
     const [updateQueue, setUpdateQueue] = useState<IContentDoc[]>([])
-
-    useEffect(() => {
-
-        fetch(`${process.env.DATA_URL}/${contentType}-nosearch?status=0&limit=20&page=${page}`, {
-            headers: {
-                authorization: jwt + ""
-            }
-        }).then((res) => {
-            res.json().then((data) => {
-                setMaps(data.documents)
-            })
-        })
-    
-    }, [])
-
-    useEffect(() => {
-        let jwt = localStorage?.getItem('jwt')
-        fetch(`${process.env.DATA_URL}/${contentType}-nosearch?status=0&limit=20&page=${page}`, {
-            headers: {
-                authorization: jwt + ""
-            }
-        }).then((res) => {
-            res.json().then((data) => {
-                setMaps(data.documents)
-                setPages(Math.ceil(data.totalCount / 20.0))
-            })
-        })
-    }, [page])
 
     const update = async () => {
         updateQueue.forEach((map) => {
@@ -50,34 +23,25 @@ export default function ContentAdminTable({contentType, jwt}: {contentType: Coll
         setUpdateQueue([])
     }
 
-    const refresh = () => {
-        let jwt = localStorage?.getItem('jwt')
-        fetch(`${process.env.DATA_URL}/${contentType}-nosearch?status=0&limit=20&page=${page}`, {
-            headers: {
-                authorization: jwt + ""
-            }
-        }).then((res) => {
-            res.json().then((data) => {
-                setMaps(data.documents)
-            })
-        })
-    }
-
     const addToUpdateQueue = (map: IContentDoc) => {
         setUpdateQueue([...updateQueue, map])
+    }
+
+    if(isLoading || !creations || count == 0 || error) {
+        return null
     }
 
 
     return (
         <div>
-            <MainButton onClick={update}>Update {contentType}</MainButton><IconButton onClick={refresh}><RefreshCw /></IconButton>
+            <MainButton onClick={update}>Update {contentType}</MainButton><IconButton><RefreshCw /></IconButton>
             <div className={`${styles.admin_table}`}>
                 {updateQueue.map((map) => <span key={map.slug}>{map.title}</span>)}
-                {maps && maps.map((map: IContentDoc, idx) => (
+                {creations && creations.map((map: IContentDoc, idx) => (
                     <ContentRow key={map.slug} content={map} addToUpdateQueue={addToUpdateQueue} />
                 ))}
             </div>
-            { maps && pages > 1 &&  (<div className="navigator">
+            {creations && pages > 1 &&  (<div className="navigator">
                 {(page != 0) ? <span onClick={()=>{setPage(0)}}><img src="/chevs-left.svg"></img></span> : <></>}
                 {(page != 0) ? <span onClick={()=>{(page - 1)}}><img src="/chev-left.svg"></img></span> : <></>}
                 {(page - 3 >= 0) ? (page < pages - 4) ? <span onClick={()=>{(page - 3)}}>{page - 2}</span> : <span className={page == pages-7 ? "current": ""} onClick={()=>{(pages-7)}}>{pages - 6}</span> : <span className={page == 0 ? "current": ""} onClick={()=>{setPage(0)}}>{1}</span>}

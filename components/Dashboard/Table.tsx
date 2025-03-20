@@ -5,49 +5,56 @@ import Image from "next/image";
 import { Image as ImageIcon, Trash } from "react-feather";
 import { Edit } from "react-feather";
 import styles from './table.module.css'
-import { CollectionNames, IContentDoc, IUser } from "@/app/api/types";
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
-import { getUser, useUserStore } from "@/app/api/auth";
+import { CollectionNames, IContentDoc } from "@/app/api/types";
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { convertToType, deleteContent } from "@/app/api/content";
 import {useTranslations} from 'next-intl';
+import { useToken, useUser } from "@/app/api/hooks/users";
+import { useCreations } from "@/app/api/hooks/creations";
+import IconButton from "../Buttons/IconButton";
+import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
+import PageNavigator from "../Content/Search/Navigator";
 
 export default function Table({collectionName}: {collectionName: CollectionNames}) {
-    const [maps, setMaps] = useState<IContentDoc[]>([])
-    const user = useUserStore() as IUser
-    const setUser = useUserStore((state) => state.setUser)
-    const router = useRouter();
+    const {user, isLoading} = useUser(true)
+    const {token} = useToken()
+    const [page, setPage] = useState(0)
+    const {creations, count} = useCreations({contentType: collectionName, status: 0, limit: 20, page: page, creators: [user?.handle ?? ""]})
     const contentType = convertToType(collectionName);
+    const [deleting, setDeleting] = useState(false)
     const t = useTranslations()
+    const router = useRouter()
+    const searchParams = useSearchParams()
 
     useEffect(() => {
-        if(!user._id) {
-            getUser(localStorage?.getItem('jwt') + "").then((u) => {
-                if(u) {
-                    setUser(u)
-                }
-            })
+        if(searchParams.get('page')) {
+            setPage(Number(searchParams.get('page')))
         }
-    }, [])
+    }, [searchParams])
 
-    useEffect(() => {
-        if(user._id) {
-            getOwnedContent(localStorage?.getItem('jwt') + "")
+    const handleDelete = (slug: string) => {
+        if(!deleting) {
+            setDeleting(true)
+            PopupMessage.addMessage({type: PopupMessageType.Warning, message: t('Dashboard.delete_content'), time: 10000, endAction() {
+                setDeleting(false)
+            },})
+        } else {
+            deleteContent(slug, token, collectionName)
+            setDeleting(false)
         }
-    }, [user])
+    }
 
-    const getOwnedContent = async (jwt: any) => {
-        fetch(`${process.env.DATA_URL}/${collectionName}-nosearch?status=0&limit=20&page=0&creator=${user?.handle}&sort=createdDate`, {
-            headers: {
-                authorization: jwt + ""
-            }
-        }).then((res) => {
-            res.json().then((data) => {
-                setMaps(data.documents)
-            })
-        })
+    if(!user) {
+        router.push("/signin?redirect=dashboard")
+        return null
+    }
+
+    if(isLoading) {
+        return <div className="centered_content">{t('Dashboard.loading')}</div>
     }
     
+
     return (
         <>
             <div className={styles.content_item}>
@@ -72,28 +79,34 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                         <p>{t('Dashboard.rating')}</p>
                     </div>
                 </div>
-            {maps && maps.map((map: IContentDoc, idx) => (
+            {creations && creations.map((map: IContentDoc, idx) => (
                 <div className={styles.content_item} key={map.slug}>
                     <div className={styles.content_item_item}>
                         <Image className={styles.logo} src={map.images[0]} width={160} height={90} alt=""></Image>
                     </div>
                     <div className={styles.info_container}>
-                        <p className={styles.content_title}>{map.title}</p>
+                        <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')} key={map.slug}>
+                            <p className={styles.content_title}>{map.title}</p>
+                        </Link>
                         <p className={styles.content_description}>{map.shortDescription}</p>
                         <div className={styles.info_buttons}>
-                            <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><ImageIcon /></Link>
-                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')}><Edit /></Link>
-                            <span style={{color: 'red'}} onClick={() => {deleteContent(map._id, localStorage?.getItem('jwt'), collectionName); getOwnedContent(localStorage?.getItem('jwt'))}}><Trash /></span>
+                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')} key={map.slug}><IconButton className="secondary"><Edit /></IconButton></Link>
+                            <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><IconButton className="secondary"><ImageIcon /></IconButton></Link>
+                            <IconButton onClick={() => {handleDelete(map.slug)}} className="secondary"><span style={{color: 'red'}}><Trash /></span></IconButton>
+
                         </div>
+
                     </div>
+
                     <div className={styles.content_item_item}>
+
                         <p>{(map?.status === 0) ? <span style={{color: "#c73030"}}>{t('Status.draft')}</span> : (map?.status === 1) ? <span style={{color: "#f0b432"}}>{t('Status.unapproved')}</span> : (map?.status === 2) ? <span style={{color: "#10b771"}}>{t('Status.approved')}</span>: <span style={{color:"#3154f4"}}>{t('Status.featured')}</span>}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{map.createdDate && new Date(map.createdDate).toLocaleDateString()}</p>
+                        <p>{map.createdDate && new Date((typeof map.createdDate === "number" ? map.createdDate * 1000 : map.createdDate)).toLocaleDateString()}</p>
                     </div>
                     <div className={styles.content_item_item}>
-                        <p>{map.updatedDate && new Date(map.updatedDate).toLocaleDateString()}</p>
+                        <p>{map.updatedDate && new Date((typeof map.updatedDate === "number" ? map.updatedDate * 1000 : map.updatedDate)).toLocaleDateString()}</p>
                     </div>
                     <div className={styles.content_item_item}>
                         <p>{map.downloads}</p>
@@ -103,6 +116,7 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                     </div>
                 </div>
             ))}
+            <PageNavigator page={page} pages={Math.ceil(count / 20)} />
         </>
     )
 }

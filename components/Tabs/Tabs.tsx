@@ -6,8 +6,8 @@ import styles from "./Tabs.module.css"
 import { useRouter } from "next/navigation";
 
 export interface ITab {
-    title: string | ReactElement,
-    content: ReactElement,
+    title: string | ReactElement<any>,
+    content: ReactElement<any>,
     link?: string,
     disabled?: boolean
 }
@@ -20,7 +20,7 @@ export default function Tabs({tabs, preselectedTab, onChangeTabs}: {tabs: ITab[]
     return (
         <>
             <div className={styles.tabs}>
-                {tabs.map((tab, idx) => (<Link key={idx} href={(tab.link && !tab.disabled) ? tab.link! : "#"} onClick={() => {
+                {tabs.map((tab, idx) => (<Link key={idx} href={(tab.link && !tab.disabled && selectedTab !== idx) ? tab.link! : "#"} onClick={() => {
                     if(tab.disabled) return;
                     if(onChangeTabs) onChangeTabs(idx, selectedTab);
                     setSelectedTab(idx)

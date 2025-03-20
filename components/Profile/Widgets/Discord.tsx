@@ -7,10 +7,11 @@ import Text from '@/components/FormInputs/Text'
 import { useProfileLayoutStore } from '@/app/api/creators'
 import { useTranslations } from 'next-intl'
 import IconButton from '@/components/Buttons/IconButton'
-
+import { useToken } from '@/app/api/hooks/users'
 export default function Discord({serverId, canEdit, id}: {serverId: string, canEdit: boolean, id: string}) {
     const t = useTranslations()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
+    const {token} = useToken();
 
     const editWidget = () => {
         Popup.createPopup({
@@ -30,14 +31,14 @@ export default function Discord({serverId, canEdit, id}: {serverId: string, canE
                 return widget
             }),
             layout: profileLayout.layout
-        })
+        }, token)
     }
 
     const deleteWidget = () => {
         updateProfileLayout({
             widgets: profileLayout.widgets.filter((widget) => widget.id !== id),
             layout: profileLayout.layout.filter((layout) => layout.i !== id)
-        })
+        }, token)
     }
 
     return (

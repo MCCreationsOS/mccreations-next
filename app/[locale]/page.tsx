@@ -26,7 +26,6 @@ export default async function Page({ params: { locale } }: { params: { locale: s
     return (
         <>
             {(featured) ? (<FeaturedSlideshow content={featured} />) : "MCCreations API Error"}
-            <HomepageFeed />
             <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
             <ContentArea type="grid" options={dynamicPlaylists[0].options} enableAds={true}/>
             <h2 className="view_all_header">{t('Home.ViewAll')}</h2>

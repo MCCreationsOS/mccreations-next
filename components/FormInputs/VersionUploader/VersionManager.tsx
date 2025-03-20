@@ -5,7 +5,7 @@ import FormComponent from "@/components/Form/Form"
 import { useEffect, useState } from "react"
 import styles from './FileDropzone.module.css'
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
-import { ArrowLeft, X } from "react-feather"
+import { ArrowLeft, Edit, X } from "react-feather"
 import Text from "../Text"
 import VersionUploader from "."
 import WarningButton from "@/components/Buttons/WarningButton"
@@ -15,6 +15,7 @@ import Select from "../Select"
 import Checkbox from "../Checkbox"
 import { convertToType } from "@/app/api/content"
 import IconButton from "@/components/Buttons/IconButton"
+import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 
 export default function VersionManager({ onVersionsChanged, collectionName, presetVersions }: { onVersionsChanged: (versions: string) => void, collectionName: CollectionNames, presetVersions?: string }) {
     const [versions, setVersions] = useState<IFile[]>([])
@@ -25,14 +26,12 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
 
     useEffect(() => {
         if (versions && loaded && JSON.stringify(versions) !== presetVersions) {
-            console.log('Versions from UseEffect', versions)
             onVersionsChanged(JSON.stringify(versions))
         }
     }, [versions])
 
     useEffect(() => {
         if (presetVersions) {
-            console.log("preset version", presetVersions)
             setVersions(JSON.parse(presetVersions))
         }
         setLoaded(true)
@@ -47,7 +46,6 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
             <h2>{t('VersionManager.Version.edit')}</h2>
             <SecondaryButton className={styles.button_icon_aligned} onClick={() => {setRenderVersion(undefined)}}><ArrowLeft />{t('VersionManager.Version.back_to_versions')}</SecondaryButton>
             <FormComponent id={`version_${idx}`} onSave={(inputs) => {
-                console.log(inputs)
                 const contentVersion = inputs[0]
                 const minecraftVersion = inputs[1]
                 if(JSON.parse(inputs[2])) {
@@ -158,6 +156,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                                     return b.createdDate - a.createdDate
                                 })
                                 setVersions(newVersions)
+                                setRenderVersion(newVersions[0])
                                 Popup.close()
                             }}>
                                 <VersionUploader name="" />
@@ -171,7 +170,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                         return (
                             <SecondaryButton key={`version_${version.createdDate}`} onClick={() => {
                                 setRenderVersion(version)
-                            }}>{version.contentVersion}</SecondaryButton>
+                            }}>{version.contentVersion}  <Edit /></SecondaryButton>
                         )
                     })}
                 </div>

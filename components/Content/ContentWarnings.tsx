@@ -1,9 +1,6 @@
 'use client'
 
-import { getUser, useUserStore } from "@/app/api/auth"
-import { ICreator, IContentDoc, IUser, UserTypes, ContentTypes } from "@/app/api/types"
-import { Link } from "@/app/api/navigation";
-import { useEffect, useState } from "react"
+import { UserTypes, ContentTypes } from "@/app/api/types"
 import MessageComponent, { IMessage } from "../Message/Message"
 import {useTranslations} from 'next-intl';
 import { useUser } from "@/app/api/hooks/users";

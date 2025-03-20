@@ -11,12 +11,12 @@ import { convertToCollection, formatQueryOptions } from "./content";
  */
 export async function postRating(rating: number, map: IContentDoc) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content/rate/${map.slug}`, { 
+        let response = await fetch(`${process.env.DATA_URL}/rate`, { 
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({rating: rating, map: map}),
+            body: JSON.stringify({rating: rating, id: map._id, collection: convertToCollection(map.type)}),
             cache: 'no-store'
         })
         let newRating = (await response.json()).rating as number
@@ -37,7 +37,7 @@ export async function postRating(rating: number, map: IContentDoc) {
  */
 export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string) {
     try {
-        fetch(`${process.env.DATA_URL}/content/comment/${slug}`, {
+        fetch(`${process.env.DATA_URL}/comment`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -46,7 +46,11 @@ export async function postComment(slug: string, content_type: string, username: 
                 username: username,
                 comment: comment,
                 handle: handle,
-                content_type: content_type
+                content_type: content_type,
+                slug: slug,
+                date: Date.now(),
+                replies: [],
+                likes: 0
             }),
             cache: 'no-store'
         })
@@ -58,7 +62,7 @@ export async function postComment(slug: string, content_type: string, username: 
 
 export async function postReply(comment_id: string, username: string, reply: string, handle: string) {
     try {
-        fetch(`${process.env.DATA_URL}/content/comment_reply`, {
+        fetch(`${process.env.DATA_URL}/comment/${comment_id}/reply`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -66,8 +70,10 @@ export async function postReply(comment_id: string, username: string, reply: str
             body: JSON.stringify({
                 comment_id: comment_id,
                 username: username,
-                reply: reply,
-                handle: handle
+                comment: reply,
+                handle: handle,
+                date: Date.now(),
+                likes: 0
             }),
             cache: 'no-store'
         })
@@ -79,13 +85,11 @@ export async function postReply(comment_id: string, username: string, reply: str
 
 export async function likeComment(comment_id: string, jwt: string = "") {
     try {
-        let response =await fetch(`${process.env.DATA_URL}/content/comment_like`, {
-            method: "POST",
+        let response =await fetch(`${process.env.DATA_URL}/comment/${comment_id}/like`, {
+            method: "GET",
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': jwt
             },
-            body: JSON.stringify({comment_id: comment_id}),
             cache: 'no-store'
         })
         return response.status === 200
@@ -99,7 +103,7 @@ export async function likeComment(comment_id: string, jwt: string = "") {
 export async function fetchComments(slug: string, options: QueryOptions) {
     let opts = formatQueryOptions(options)
     try {
-        let data = await fetch(`${process.env.DATA_URL}/content/comments-nosearch?slug=${slug}&content_type=${opts.contentType}&limit=${opts.limit}&page=${opts.page}&sort=${opts.sort}&creator=${opts.creator}`, { next: { tags: ["comments"], revalidate: Infinity }})
+        let data = await fetch(`${process.env.DATA_URL}/comments?slug=${slug}&content_type=${opts.contentType}&limit=${opts.limit}&page=${opts.page}&sort=${opts.sort}&creators=${opts.creators?.join(",")}`, { next: { tags: ["comments"], revalidate: Infinity }})
         try {
             let json = await data.json()
             return json;
@@ -115,7 +119,7 @@ export async function fetchComments(slug: string, options: QueryOptions) {
 
 export async function fetchComment(id: string) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/content/comment/${id}`, { next: { tags: ["comment"], revalidate: Infinity }})
+        let data = await fetch(`${process.env.DATA_URL}/comment/${id}`, { next: { tags: ["comment"], revalidate: Infinity }})
         try {
             let json = await data.json()
             return json;
@@ -131,8 +135,8 @@ export async function fetchComment(id: string) {
 
 export async function updateComment(comment: IComment, jwt: string = "") {
     try {
-        fetch(`${process.env.DATA_URL}/content/comment/update`, {
-            method: "POST",
+        fetch(`${process.env.DATA_URL}/comment/${comment._id}`, {
+            method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': jwt
@@ -148,10 +152,9 @@ export async function updateComment(comment: IComment, jwt: string = "") {
 
 export async function deleteComment(id: string, jwt: string = "") {
     try {
-        fetch(`${process.env.DATA_URL}/content/comment/${id}`, {
+        fetch(`${process.env.DATA_URL}/comment/${id}`, {
             method: "DELETE",
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': jwt
             },
             cache: 'no-store'

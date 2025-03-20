@@ -1,5 +1,5 @@
 import useSWR, { mutate } from 'swr'
-import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, getContent, getFeed, searchContent } from '../content'
+import { fetchDatapack, fetchMap, fetchResourcepack, fetchTags, getFeed, searchContent } from '../content'
 import { CollectionNames, ContentTypes, IContentDoc, QueryOptions, Tags } from '../types'
 import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
 import { useToken } from './users'
@@ -7,10 +7,6 @@ import { useToken } from './users'
 
 const searchCreationsFetcher = (token: string, queryOptions: QueryOptions, filterQuery?: QueryOptions) => {
     return searchContent(queryOptions, false, filterQuery, token)
-}
-
-const getCreationsFetcher = (token: string, queryOptions: QueryOptions) => {
-    return getContent(queryOptions,token)
 }
 
 const getCreationFetcher = (token: string, slug: string, type: ContentTypes) => {
@@ -22,7 +18,7 @@ const getCreationFetcher = (token: string, slug: string, type: ContentTypes) => 
 }
 
 export const useCreationSearch = (queryOptions: QueryOptions, filterQuery?: QueryOptions) => {
-    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const {token} = useToken()
     const [tempKey] = useSessionStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
     let key = (token?.length ?? 0) > 0 ? token : tempKey
@@ -37,21 +33,22 @@ export const useCreationSearch = (queryOptions: QueryOptions, filterQuery?: Quer
 }
 
 export const useCreations = (queryOptions: QueryOptions) => {
-    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const {token} = useToken()
     const [tempKey] = useSessionStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
     let key = (token?.length ?? 0) > 0 ? token : tempKey
 
-    const { data, error, isLoading } = useSWR([key, queryOptions, 'useCreations'], ([key, queryOptions]) => getCreationsFetcher(key, queryOptions))
+    const { data, error, isLoading } = useSWR([key, queryOptions, 'useCreations'], ([key, queryOptions]) => searchCreationsFetcher(key, queryOptions))
     return {
         creations: (data?.documents ?? []) as IContentDoc[],
+        count: data?.totalCount ?? 0,
         isLoading,
         error
     }
 }
 
 export const useCreation = (slug: string, type: ContentTypes) => {
-    const [token] = useLocalStorage('jwt', '', {serializer: (value) => value, deserializer: (value) => value})
+    const {token} = useToken()
     const [tempKey] = useSessionStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
     let key = (token?.length ?? 0) > 0 ? token : tempKey
@@ -65,7 +62,7 @@ export const useCreation = (slug: string, type: ContentTypes) => {
     }
 }
 
-export const useTags = (type: CollectionNames) => {
+export const useTags = (type: ContentTypes) => {
     const { data, error, isLoading } = useSWR([type, 'useTags'], ([type]) => fetchTags(type))
     return {
         tags: data as Tags | {error: string},
@@ -78,7 +75,7 @@ export const useFeed = (limit: number, page: number) => {
     const {token} = useToken()
     const { data, error, isLoading } = useSWR([token, 'useFeed', limit, page], async ([token, id, limit, page]) => getFeed(token, limit, page))
     return {
-        feed: data?.feed as IContentDoc[] | {error: string} | undefined,
+        feed: data?.documents as IContentDoc[] | {error: string} | undefined,
         count: data?.totalCount ?? 0,
         isLoading,
         error

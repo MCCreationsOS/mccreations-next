@@ -1,1 +1,4 @@
-export const fetcher = (url: string) => fetch(url).then(res => res.json())
+export function makeSentenceCase(string: string) {
+    if(!string) return ""
+    return string.charAt(0).toUpperCase() + string.slice(1)
+}

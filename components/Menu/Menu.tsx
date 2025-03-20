@@ -16,52 +16,14 @@ import Text from "../FormInputs/Text"
 import Select from "../FormInputs/Select"
 import { createDonation } from "@/app/api/payments";
 import { useTranslations } from "next-intl";
+import DropDown, { DropDownItem } from "../FormInputs/RichText/DropDown";
+import { DownloadCloud, Layers, Map, Package, Upload } from "react-feather";
 
 export default function Menu() {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)
-    const uploading = useRef(false)
     const t = useTranslations()
     const router = useRouter();
     const pathname = usePathname()
-
-    const onMapCreate = (title?: string, type?: string, shortDescription?: string) => {
-        if(!title) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_title')))
-        if(!type) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_type')))
-        if(!shortDescription) PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.CreateForm.missing_short_description')))
-    
-        let token  = localStorage?.getItem('jwt')
-        Popup.close()
-        createNewContent(title!, type!, shortDescription!, token).then((key) => {
-            if(key && 'key' in key) {
-                sessionStorage.setItem('temp_key', key.key)
-            }
-            if('slug' in key) {
-                router.push(`/edit/${type}s/${key.slug}`)
-            }
-            if('error' in key) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, key.error))
-            }
-        })
-    }
-
-    const onMapImport = async (link?: string, type?: string) => {
-        if(link && type && !uploading.current) {
-            let token = localStorage?.getItem('jwt')
-            uploading.current = true
-            let res = await importContent(link, type, token)
-            if(res.error) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
-            } else if(res.content) {
-                if(res.key) {
-                    sessionStorage.setItem('temp_key', res.key)
-                }
-                Popup.close()
-                router.push(`/edit/${type.toLowerCase()}/${res.content}`)
-            }
-        } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.ImportForm.missing_link')))
-        }
-    }
     
     return (
         <>
@@ -80,58 +42,31 @@ export default function Menu() {
                             </Link>
                         </li>
                         <li className="item">
-                            <Link className={(pathname === '/') ? "link selected" : "link"} href="/">{t('Navigation.home')}</Link>
-                        </li>
-                        <li className="item">
                             <Link className={(pathname.includes('/feed')) ? "link selected" : "link"} href="/feed">{t('Navigation.feed')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(pathname.includes('/maps')) ? "link selected" : "link"} href="/maps">{t('map', {count: 2})}</Link>
+                            <DropDown buttonLabel={t('Navigation.creations')} buttonClassName={(pathname.includes('/maps')) ? "link selected" : "link"} openOnHover={true} className="option_dropdown" useButtonWidth={false}>
+                                <DropDownItem onClick={() => {router.push('/maps')}} className="option_button"><Link className="dropdown_link" href="/maps"><Map />{t('map', {count: 2})}</Link></DropDownItem>
+                                <DropDownItem onClick={() => {router.push('/datapacks')}} className="option_button"><Link className="dropdown_link" href="/datapacks"><Package />{t('datapack', {count: 2})}</Link></DropDownItem>
+                                <DropDownItem onClick={() => {router.push('/resourcepacks')}} className="option_button"><Link className="dropdown_link" href="/resourcepacks"><Layers />{t('resourcepack', {count: 2})}</Link></DropDownItem>
+                            </DropDown>
+                        </li>
+                        {/* <li className="item">
+                            <Link className={(pathname.includes('/marketplace')) ? "link selected" : "link"} href="/marketplace">{t('Navigation.marketplace')}</Link>
                         </li>
                         <li className="item">
-                            <Link className={(pathname.includes('/datapacks')) ? "link selected" : "link"} href="/datapacks">{t('datapack', {count: 2})}</Link>
-                        </li>
-                        <li className="item">
-                            <Link className={(pathname.includes('/resourcepacks')) ? "link selected" : "link"} href="/resourcepacks">{t('resourcepack', {count: 2})}</Link>
-                        </li>
+                            <Link className={(pathname.includes('/forums')) ? "link selected" : "link"} href="/forums">{t('Navigation.forums')}</Link>
+                        </li> */}
                     </ul>
                     <ul className='action_list'>
                         <li className="item">
                             <LanguageSwitcher />
                         </li>
                         <li className='item'>
-                            <HollowButton onClick={() => {Popup.createPopup({
-                                content: <Tabs tabs={[
-                                    {
-                                        title: t('Navigation.CreateForm.title'), 
-                                        content:
-                                        <FormComponent id={"createForm"} onSave={(inputs) => {
-                                            onMapCreate(inputs[0], inputs[1], inputs[2])
-                                        }}>
-                                            <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} />
-                                            <Select name={t('Navigation.CreateForm.type')} defaultValue="map" options={[{name: t('map', { count: 1 }), value: 'map'}, {name: t('datapack', {count: 1}), value: "datapack"}, {name: t('resourcepack', {count: 1}), value: 'resourcepack'}]} />
-                                            <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')}/>
-                                        </FormComponent>
-                                    }, 
-                                    {
-                                        title: t('Navigation.ImportForm.title'),
-                                        content: <>
-                                            <p>{t('Navigation.ImportForm.description')}</p>
-                                            <FormComponent id={"importForm"}
-                                            onSave={(inputs) => {
-                                                onMapImport(inputs[1], inputs[0])
-                                            }}>
-                                                <Select name={t('Navigation.ImportForm.type')} defaultValue="Maps" options={[{name: t('map', { count: 1 }), value: 'Maps'}, {name: t('datapack', {count: 1}), value: "datapacks"}, {name: t('resourcepack', {count: 1}), value: 'resourcepacks'}]} />
-                                                <Text type="text" name={t('Navigation.ImportForm.link')} placeholder={t('Navigation.ImportForm.link_placeholder')} />
-                                            </FormComponent>
-                                        </>
-                                    }
-                                ]} />,
-                                title: t('Navigation.CreateForm.title'),
-                            }
-                            )}}>
-                                {t('Navigation.CreateForm.title')}
-                            </HollowButton>
+                            <DropDown buttonLabel={t('Navigation.create')} buttonClassName="create_dropdown" className="option_dropdown" useButtonWidth={true}>
+                                <DropDownItem className="option_button" onClick={() => {router.push("/create")}}><Link className="dropdown_link" href="/create"><Upload/> Upload</Link></DropDownItem>
+                                <DropDownItem className="option_button" onClick={() => {router.push("/create/import")}}><Link className="dropdown_link" href="/create/import"><DownloadCloud/> Import</Link></DropDownItem>
+                            </DropDown>
                         </li>
                         <li className='item'>
                             <UserOptions />
@@ -171,40 +106,10 @@ export default function Menu() {
                             <Link className={(pathname.includes('/resourcepacks')) ? "link selected" : "link"} href="/resourcepacks" onClick={() => {setMobileMenuActive(false)}}>{t('resourcepack', {count: 2})}</Link>
                         </li>
                         <li className='item'>
-                            <HollowButton onClick={() => {Popup.createPopup({
-                                content: <Tabs tabs={[
-                                    {
-                                        title: t('Navigation.CreateForm.title'), 
-                                        content:
-                                        <FormComponent id={"createForm"} onSave={(inputs) => {
-                                            onMapCreate(inputs[0], inputs[1], inputs[2])
-                                            setMobileMenuActive(false)
-                                        }}>
-                                            <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} />
-                                            <Select name={t('Navigation.CreateForm.type')} defaultValue="map" options={[{name: t('map', { count: 1 }), value: 'map'}, {name: t('datapack', {count: 1}), value: "datapack"}, {name: t('resourcepack', {count: 1}), value: 'resourcepack'}]} />
-                                            <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')}/>
-                                        </FormComponent>
-                                    }, 
-                                    {
-                                        title: t('Navigation.ImportForm.title'),
-                                        content: <>
-                                            <p>{t('Navigation.ImportForm.description')}</p>
-                                            <FormComponent id={"importForm"}
-                                            onSave={(inputs) => {
-                                                onMapImport(inputs[1], inputs[0])
-                                                setMobileMenuActive(false)
-                                            }}>
-                                                <Select name={t('Navigation.ImportForm.type')} defaultValue="Maps" options={[{name: t('map', { count: 1 }), value: 'Maps'}, {name: t('datapack', {count: 1}), value: "datapacks"}, {name: t('resourcepack', {count: 1}), value: 'resourcepacks'}]} />
-                                                <Text type="text" name={t('Navigation.ImportForm.link')} placeholder={t('Navigation.ImportForm.link_placeholder')} />
-                                            </FormComponent>
-                                        </>
-                                    }
-                                ]} />,
-                                title: t('Navigation.CreateForm.title'),
-                            }
-                            )}}>
-                                {t('Navigation.CreateForm.title')}
-                            </HollowButton>
+                            <DropDown buttonLabel={t('Navigation.create')} buttonClassName="link" className="option_dropdown" useButtonWidth={true}>
+                                <DropDownItem className="option_button" onClick={() => {}}><Link className="dropdown_link" href="/create"><Upload/> Upload</Link></DropDownItem>
+                                <DropDownItem className="option_button" onClick={() => {}}><Link className="dropdown_link" href="/create/import"><DownloadCloud/> Import</Link></DropDownItem>
+                            </DropDown>
                         </li>
                         
                     </ul>

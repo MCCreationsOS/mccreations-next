@@ -1,125 +1,18 @@
-import { INotification, IUser, NotificationOption, UserTypes, CreatorSettings } from "@/app/api/types";
+import { IUser } from "@/app/api/types";
 import { ProfileLayout } from "@/components/Profile/CustomizableProfileArea";
-import { create } from "zustand";
-import { getNotifications } from "./creators";
-
-type UserStore = {
-    username: string
-    type: UserTypes
-    email: string
-    handle: string
-    _id: string
-    iconURL: string
-    bannerURL: string
-    about: string,
-    socialLinks?: [{
-        link: string,
-        name: string
-    }]
-    profileLayout?: ProfileLayout
-    settings?: CreatorSettings
-    notifications?: INotification[]
-    setUser: (user: IUser) => void
-    setIcon: (iconURL: string) => void
-    setBanner: (bannerURL: string) => void
-    setAbout: (about: string) => void
-    setSocialLinks: (socialLinks: [{
-        link: string,
-        name: string
-    }]) => void
-    setProfileLayout: (profileLayout: ProfileLayout) => void
-    setNotifications: (notifications: INotification[]) => void
-    setSettings: (settings: CreatorSettings) => void
-    logout: () => void
-}
-
-export const useUserStore = create<UserStore>(set => ({
-    username: "",
-    type: UserTypes.Account,
-    email: "",
-    handle: "",
-    _id: "",
-    iconURL: "",
-    bannerURL: "",
-    about: "",
-    socialLinks: undefined,
-    profileLayout: undefined,
-    settings: undefined,
-    notifications: undefined,
-    setUser: (user: IUser) => {
-        set({
-            username: user.username,
-            type: user.type,
-            email: user.email,
-            handle: user.handle,
-            _id: user._id,
-            iconURL: user.iconURL,
-            bannerURL: user.bannerURL,
-            about: user.about,
-            socialLinks: user.socialLinks,
-            profileLayout: user.profileLayout,
-            settings: user.settings,
-        })
-
-        getNotifications(localStorage?.getItem('jwt') + "", user._id + "", 0).then((notifications) => {
-            set({...user, notifications: notifications})
-        })
-    },
-    setIcon: (iconURL: string) => {
-        set({iconURL: iconURL})
-    },
-    setBanner: (bannerURL: string) => {
-        set({bannerURL: bannerURL})
-    },
-    setAbout: (about: string) => {
-        set({about: about})
-    },
-    setSocialLinks: (socialLinks: [{
-        link: string,
-        name: string
-    }]) => {
-        set({socialLinks: socialLinks})
-    },
-    setProfileLayout: (profileLayout: ProfileLayout) => {
-        set({profileLayout: profileLayout})
-    },
-    setNotifications: (notifications: INotification[]) => {
-        set({notifications: notifications})
-    },
-    setSettings: (settings: CreatorSettings) => {
-        set({settings: settings})
-    },
-    logout: () => {
-        set({
-            username: "",
-            type: UserTypes.Account,
-            email: "",
-            handle: "",
-            _id: "",
-            iconURL: "",
-            bannerURL: "",
-            about: "",
-            socialLinks: undefined,
-            profileLayout: undefined,
-            settings: undefined,
-            notifications: undefined
-        })
-    }
-}))
-
 
 export async function getUser(authorization?: string) {
     if(authorization) {
         try {
-            let res = await fetch(`${process.env.DATA_URL}/auth/user`, {
+            let res = await fetch(`${process.env.DATA_URL}/user`, {
                 headers: {
                     'Authorization': authorization
                 },
                 cache: 'no-store'
             })
             let data = await res.json();
-            if(data.user) {
-                return data.user as IUser;
+            if(data) {
+                return data as IUser;
             }
         } catch(e) {
             console.error(e)
@@ -147,7 +40,7 @@ export async function getCreators(authorization: string): Promise<IUser[] | unde
 
 export async function deleteUser(authorization: string) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/user`, {
+        fetch(`${process.env.DATA_URL}/user`, {
             method: 'DELETE',
             headers: {
                 "Authorization": authorization
@@ -163,7 +56,7 @@ export async function deleteUser(authorization: string) {
 
 export async function updateProfile(authorization: string, banner?: string, icon?: string, username?: string, about?: string) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/user/updateProfile`, {
+        fetch(`${process.env.DATA_URL}/user/updateProfile`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -184,7 +77,7 @@ export async function updateProfile(authorization: string, banner?: string, icon
 
 export async function updateProfileLayout(authorization: string, layout: ProfileLayout) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/user/updateProfileLayout`, {
+        fetch(`${process.env.DATA_URL}/user/updateProfileLayout`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -200,7 +93,7 @@ export async function updateProfileLayout(authorization: string, layout: Profile
 
 export async function sendPasswordResetEmail(email: string) {
     try {
-        fetch(`${process.env.DATA_URL}/auth/forgotPassword`, {
+        fetch(`${process.env.DATA_URL}/user/forgotPassword`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -215,7 +108,7 @@ export async function sendPasswordResetEmail(email: string) {
 
 export async function resetPassword(token: string, password: string) {
     try {
-        let res = await fetch(`${process.env.DATA_URL}/auth/resetPassword`, {
+        let res = await fetch(`${process.env.DATA_URL}/user/updatePassword`, {
             method: 'POST',
             headers: {
                 'Authorization': token,
@@ -240,13 +133,13 @@ export async function resetPassword(token: string, password: string) {
 }
 
 export async function updateNotificationSettings(authorization: string, comment: string, like: string, reply: string, follow: string, rating: string, translation: string) {
-    fetch(`${process.env.DATA_URL}/auth/user/updateNotifications`, {
+    fetch(`${process.env.DATA_URL}/user/updateSettings`, {
         method: 'POST',
         headers: {
             'Authorization': authorization,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation}),
+        body: JSON.stringify({notifications: {comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation}}),
             cache: 'no-store'
     })
 }

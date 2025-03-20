@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { SiDiscord, SiGithub, SiGoogle, SiMicrosoft } from "@icons-pack/react-simple-icons";
 import { Link } from "@/app/api/navigation";
@@ -9,18 +9,20 @@ import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupM
 import MainButton from "@/components/Buttons/MainButton";
 import { sendLog } from "@/app/api/logging";
 import {useTranslations} from 'next-intl';
-import { useUserStore } from "@/app/api/auth";
+import { useUser, useToken } from "@/app/api/hooks/users";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState("");
-    const setUser = useUserStore((state) => state.setUser)
+    const {setUser} = useUser(true)
+    const {setToken} = useToken()
+    const query = useSearchParams()
     const router = useRouter();
     const t = useTranslations()
 
     const signInWithEmail = () => {
-        fetch(`${process.env.DATA_URL}/auth/signInWithEmail`, {
+        fetch(`${process.env.DATA_URL}/sign_in`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,11 +34,15 @@ export default function SignIn() {
                 })
             }).then(res => {
                 res.json().then(data => {
-                    if(data.token) {
-                        localStorage?.setItem('jwt', data.token);
-                        localStorage?.setItem('user', JSON.stringify(data.creator))
-                        setUser(data.creator)
-                        router.push('/')
+                    if(data.jwt) {
+                        setUser(data.user)
+                        setToken(data.jwt)
+                        let redirect = query.get('redirect') ?? ''
+                        if(redirect !== "null" && redirect !== "") {
+                            router.push('/' + redirect)
+                        } else {
+                            router.push('/')
+                        }
                     } else {
                         PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))
                         return;

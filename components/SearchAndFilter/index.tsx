@@ -3,13 +3,14 @@
 import { CollectionNames, SortOptions, StatusOptions, StatusStrings, TagCategories, TagKeys, Tags } from "@/app/api/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Filter, Search } from "react-feather";
+import { Filter, Grid, List, Search } from "react-feather";
 import styles from './index.module.css'
 import WarningButton from "../Buttons/WarningButton";
 import { fetchTags } from "@/app/api/content";
 import IconButton from "../Buttons/IconButton";
 import BulkDownloadButton from "../Buttons/BulkDownloadButton";
 import {useTranslations} from 'next-intl';
+import { useGridView } from "@/app/api/hooks/grids";
 
 export default function SearchAndFilter({contentType, tags}: {contentType: CollectionNames, tags: {[key: string]: string[]}}) {
     const searchParams = useSearchParams()
@@ -28,6 +29,8 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
     const [openDropdowns, setOpenDropdowns] = useState<boolean[]>([])
     const [includeTags, setIncludeTags] = useState<string[]>([])
     const [excludeTags, setExcludeTags] = useState<string[]>([])
+
+    const {gridView, setGridView} = useGridView()
     
     const router = useRouter();
     const t = useTranslations()
@@ -107,16 +110,25 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
 
     const updateSearch = (search: string) => {
         setSearch(search);
+        const params = new URLSearchParams(searchParams)
+        params.set("search", search)
+        router.push(`?${params.toString()}`)
         closePopups()
     }
     
     const updateSort = (sort: SortOptions) => {
         setSort(sort);
+        const params = new URLSearchParams(searchParams)
+        params.set("sort", sort)
+        router.push(`?${params.toString()}`)
         closePopups()
     }
     
     const updateStatus = (status: StatusOptions) => {
         setStatus(status);
+        const params = new URLSearchParams(searchParams)
+        params.set("status", status.toString())
+        router.push(`?${params.toString()}`)
         closePopups()
     }
 
@@ -133,6 +145,10 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
         // router.refresh()
     }
 
+    useEffect(() => {
+        performSearch()
+    }, [search, sort, status, includeTags, excludeTags])
+
     return (
         <div className="search_and_filter">
             <div className={styles.fullscreen} style={{display: (popupOpen) ? "block": "none"}} onClick={() => {(popupOpen == true) ? closePopups(): false}}></div>
@@ -141,6 +157,7 @@ export default function SearchAndFilter({contentType, tags}: {contentType: Colle
                     <IconButton onClick={()=>{performSearch()}}><Search /></IconButton>
                     <IconButton className="filter" onClick={() => {setFiltering(!filtering)}}><Filter /></IconButton>
                     <div className="bulk_dl"><BulkDownloadButton /></div>
+                    <IconButton className="secondary" onClick={() => {setGridView(gridView === "grid" ? "list" : "grid")}}>{(gridView === "grid") ? <List /> : <Grid />}</IconButton>
                 </div>
                 <div className={`filters ${filtering ? "filtering" : ""}`}>
                     <div className="filter_option">

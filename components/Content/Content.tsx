@@ -18,6 +18,11 @@ import CreateTranslationForm from "../CreateTranslationForm";
 import { Suspense } from "react";
 import { AdsenseComponent } from "../AdUnits/InContent";
 import { useLocale, useTranslations } from "next-intl";
+import styles from './Content.module.css'
+import { makeSentenceCase } from "@/app/api/utils";
+import { convertToType } from "@/app/api/content";
+
+export const dynamic = 'force-dynamic'
 
 /**
  * The map component represents all the information displayed on a map page
@@ -27,6 +32,7 @@ import { useLocale, useTranslations } from "next-intl";
 export default function Content({content, collectionName}: {content: IContentDoc, collectionName: CollectionNames}) {
     const t = useTranslations()
     const locale = useLocale();
+    const contentType = convertToType(collectionName);
 
     let title = content.title
     let description = content.description
@@ -86,6 +92,12 @@ export default function Content({content, collectionName}: {content: IContentDoc
                             {(content.updatedDate) ? <p className='stat_header'>{t('Content.Sidebar.updated_date')} <span className='stat'>{new Date(content.updatedDate).toLocaleDateString()}</span></p> : <></>}
                         </section>
                         <section className='map_sidebar_section'>
+                            <h4 className='header'>{t('Content.Sidebar.tags')}</h4>
+                            <div className={styles.tags_list}>
+                                {content.tags && content.tags.map((tag: string, idx: number) => <Link className={styles.tag} key={tag} href={`/${content.type}s?includeTags=${tag}`}>{makeSentenceCase(tag)}</Link>)}
+                            </div>
+                        </section>
+                        <section className='map_sidebar_section'>
                             <h4 className='header'>{t('Content.Sidebar.files')}</h4>
                             {content.files && content.files.slice(0, 3).map((file: IFile, idx: number) => <FileCard contentType={content.type} key={file.createdDate} file={file} slug={content.slug}/>)}
                         </section>
@@ -94,7 +106,7 @@ export default function Content({content, collectionName}: {content: IContentDoc
             </div>
             <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
             <MapImageSlideshow images={content.images.slice(1)} />
-            <CommentForm mapSlug={content.slug} content_type={collectionName}></CommentForm>
+            <CommentForm mapSlug={content.slug} content_type={contentType}></CommentForm>
             <Suspense fallback={<></>}>
                 <CommentsList mapSlug={content.slug} content_type={collectionName}/>
             </Suspense>

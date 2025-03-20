@@ -1,16 +1,8 @@
 'use client'
 
 import { Link } from "@/app/api/navigation";
-import { Suspense, useState } from "react";
-import PopupComponent, { Popup } from "../Popup/Popup";
-import FormComponent from "../Form/Form";
-import Tabs from "../Tabs/Tabs";
-import { createNewContent, importContent } from "@/app/api/content";
-import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
-import { useRouter } from "next/navigation";
-import HollowButton from "../Buttons/HollowButton";
+import { useState } from "react";
 import Badge from "../Badge";
-import DesktopNav from "../Menu/DesktopNav";
 
 export default function MenuSkeleton() {
     const [mobileMenuActive, setMobileMenuActive] = useState(false)

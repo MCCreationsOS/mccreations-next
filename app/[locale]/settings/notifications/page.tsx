@@ -3,12 +3,12 @@
 import { useEffect, useState } from "react"
 import { CreatorSettings, IUser, NotificationOption } from "@/app/api/types"
 import { useRouter } from "next/navigation"
-import { deleteUser, getUser, subscribeToPushNotifications, updateNotificationSettings, useUserStore } from "@/app/api/auth"
+import { deleteUser, getUser, subscribeToPushNotifications, updateNotificationSettings } from "@/app/api/auth"
 import { useTranslations } from 'next-intl';
 import styles from "../AccountSidebar.module.css"
 import { DropDownItem } from "@/components/FormInputs/RichText/DropDown"
 import { base64ToArrayBuffer } from 'base64-u8array-arraybuffer'
-import { useToken, useUser } from "@/app/api/hooks/users"
+import { useToken, useUserSettings, useUser } from "@/app/api/hooks/users"
 import dynamic from "next/dynamic";
 import { Share } from "react-feather"
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
@@ -19,15 +19,11 @@ const DropDown = dynamic(() => import("@/components/FormInputs/RichText/DropDown
 export default function NotificationsPage() {
     const [isSupported, setIsSupported] = useState(false)
     const [pushSubscription, setPushSubscription] = useState<PushSubscription | null>(null)
-    const { user, setUser } = useUser()
+    const { settings, setSettings } = useUserSettings()
+    const {user, isLoading} = useUser(true)
     const { token } = useToken()
     const t = useTranslations()
-
-    const comment = user?.settings?.notifications.comment ?? "dashboard_only"
-    const reply = user?.settings?.notifications.reply ?? "dashboard_only"
-    const follow = user?.settings?.notifications.follow ?? "dashboard_only"
-    const rating = user?.settings?.notifications.rating ?? "dashboard_only"
-    const translation = user?.settings?.notifications.translation ?? "dashboard_only"
+    const router = useRouter()
 
     useEffect(() => {
         const getSubscription = async () => {
@@ -44,20 +40,30 @@ export default function NotificationsPage() {
         }
     }, [])
 
-    const handleUpdate = (type: keyof CreatorSettings['notifications'], value: NotificationOption) => {
-        let settings = user?.settings
+    if(!user && !isLoading) {
+        router.push("/signin?redirect=settings/notifications")
+        return
+    }
 
-        if (!settings) {
-            settings = { notifications: { comment: "dashboard_only", like: "dashboard_only", reply: "dashboard_only", follow: "dashboard_only", rating: "dashboard_only", translation: "dashboard_only" } }
+    const comment = settings?.settings?.notifications.comment ?? "dashboard_only"
+    const reply = settings?.settings?.notifications.reply ?? "dashboard_only"
+    const follow = settings?.settings?.notifications.follow ?? "dashboard_only"
+    const rating = settings?.settings?.notifications.rating ?? "dashboard_only"
+    const translation = settings?.settings?.notifications.translation ?? "dashboard_only"
+
+
+    const handleUpdate = (type: keyof CreatorSettings['notifications'], value: NotificationOption) => {
+        if (!settings?.settings) {
+            settings.settings = { notifications: { comment: "dashboard_only", like: "dashboard_only", reply: "dashboard_only", follow: "dashboard_only", rating: "dashboard_only", translation: "dashboard_only" } }
         }
 
         if (value.includes("push") && isSupported && !pushSubscription) {
             subscribeToPush()
         }
 
-        settings.notifications[type] = value
-        setUser({ ...user!, settings })
-        updateNotificationSettings(token!, settings.notifications.comment, settings.notifications.like, settings.notifications.reply, settings.notifications.follow, settings.notifications.rating, settings.notifications.translation)
+        settings.settings.notifications[type] = value
+        updateNotificationSettings(token!, settings.settings.notifications.comment, settings.settings.notifications.like, settings.settings.notifications.reply, settings.settings.notifications.follow, settings.settings.notifications.rating, settings.settings.notifications.translation)
+        setSettings(settings)
     }
 
     async function subscribeToPush() {

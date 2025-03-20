@@ -3,7 +3,7 @@ import { ContentTypes, IFile } from "@/app/api/types";
 import { Archive, Layers, Package } from "react-feather";
 import styles from './FileCard.module.css';
 import IconButton from "../Buttons/IconButton";
-import { downloadCreation } from "@/app/api/content";
+import { convertToCollection, downloadCreation } from "@/app/api/content";
 
 /**
  * A card that displays download options for a file
@@ -12,7 +12,7 @@ import { downloadCreation } from "@/app/api/content";
  */
 export default function FileCard({file, slug, contentType}: {file: IFile, slug: string, contentType: ContentTypes   }) {
     const download = async (url: string) => {
-        await downloadCreation(slug, contentType)
+        await downloadCreation(slug, convertToCollection(contentType))
         let a = document.createElement('a')
         a.href = url
         a.download = url.split('/').pop()!

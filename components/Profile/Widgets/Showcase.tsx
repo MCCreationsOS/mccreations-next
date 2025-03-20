@@ -1,4 +1,4 @@
-import { getContent } from "@/app/api/content";
+import { searchContent } from "@/app/api/content";
 import { CollectionNames, IContentDoc, IUser } from "@/app/api/types";
 import ContentSlideshow from "@/components/ContentSlideshow/ContentSlideshow";
 import { useEffect, useState } from "react";
@@ -6,17 +6,20 @@ import styles from './ProfileWidget.module.css'
 import { MoreVertical } from "react-feather";
 import { useTranslations } from "next-intl";
 import FormComponent from "@/components/Form/Form";
-import Text from "@/components/FormInputs/Text";
 import { Popup } from "@/components/Popup/Popup";
 import { useProfileLayoutStore } from "@/app/api/creators";
 import WarningButton from "@/components/Buttons/WarningButton";
 import IconButton from "@/components/Buttons/IconButton";
 import Select from "@/components/FormInputs/Select";
+import { useCreations } from "@/app/api/hooks/creations";
+import { useToken } from "@/app/api/hooks/users";
 
 export default function Showcase({id, creator, type, canEdit}: {id: string, creator: IUser, type: CollectionNames | "content", canEdit: boolean}) {
-    const [content, setContent] = useState<IContentDoc[]>([])
+    const {creations} = useCreations({limit: 10, contentType: type, creators: [creator.handle!], status: 1})
     const t = useTranslations()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
+    const {token} = useToken();
+
 
     const editWidget = () => {
         Popup.createPopup({
@@ -36,30 +39,26 @@ export default function Showcase({id, creator, type, canEdit}: {id: string, crea
                 return widget
             }),
             layout: profileLayout.layout
-        })
-        getContent({limit: 10, contentType: inputs[0] as CollectionNames, creator: creator.handle}).then((content) => {
-            setContent(content.documents)
-        })
+        }, token)
     }
 
     const deleteWidget = () => {
         updateProfileLayout({
             widgets: profileLayout.widgets.filter((widget) => widget.id !== id),
             layout: profileLayout.layout.filter((layout) => layout.i !== id)
-        })
+        }, token)
     }
-
-    useEffect(() => {
-        getContent({limit: 10, contentType: type, creator: creator.handle}).then((content) => {
-            setContent(content.documents)
-        })
-    }, [])
+    
+    if(!creations) {
+        return <div className={styles.widget_container}>Loading...</div>
+    }
 
     return (
         <div className={styles.widget_container}>
+
             <h3 className={styles.draggable_handle}>{t('Profile.Widgets.Showcase.title')}</h3>
             {canEdit && <IconButton className={`${styles.options}`} onClick={editWidget} ><MoreVertical/></IconButton>}
-            <ContentSlideshow content={content} playlist={id}/>
+            <ContentSlideshow content={creations} playlist={id}/>
         </div>
     )
 }

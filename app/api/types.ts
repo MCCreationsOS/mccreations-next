@@ -57,7 +57,7 @@ export interface QueryOptions {
     excludeTags?: string,
     exclusiveStatus?: boolean,
     contentType: CollectionNames | "content",
-    creator?: string
+    creators?: string[]
 }
 
 export interface ErrorMessage {
@@ -68,7 +68,8 @@ export interface ErrorMessage {
 export enum CollectionNames {
     Maps = "Maps",
     Datapacks = "datapacks",
-    Resourcepacks = "resourcepacks"
+    Resourcepacks = "resourcepacks",
+    Marketplace = "marketplace"
 }
 
 export enum ContentTypes {
@@ -216,7 +217,6 @@ export interface IUser {
     }]
     profileLayout?: ProfileLayout,
     settings?: CreatorSettings,
-    notifications?: INotification[],
     followers?: string[],
     following?: string[]
 }

@@ -4,5 +4,5 @@ import ContentSearchPage from "@/components/Content/Search/ContentSearchPage";
 const pathname = "/datapacks/"
 
 export default async function Datapacks({searchParams}: {searchParams: {page: string, search: string, sort: string, status: string, includeTags: string, excludeTags: string}}) {
-    return <ContentSearchPage searchParams={searchParams} contentType={CollectionNames.Datapacks} pathname={pathname}/>
+    return <ContentSearchPage searchParams={searchParams} collectionName={CollectionNames.Datapacks} pathname={pathname}/>
 }

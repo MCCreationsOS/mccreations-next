@@ -24,7 +24,6 @@ export default function CreateTranslationForm({content, type}: {content: IConten
     const makeTranslation = () => {
         const availableLocales = Locales
         Popup.createPopup({title: t('Content.translate', {title: content.title}), canClose: true, content: <FormComponent id="makeTranslation" onSave={(data) => {
-            console.log(data)
             let lang = data[0]
             let translation: {[key: string]: {description: string, shortDescription: string, title: string, approved: boolean}} = {
             }

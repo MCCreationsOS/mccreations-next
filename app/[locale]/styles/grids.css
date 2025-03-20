@@ -1,21 +1,20 @@
 .content_grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    margin: 0 auto 10px auto;
-    width: 90%;
+    gap: 10px;
+    width: 100%;
 }
 .content_grid.three {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
+    gap: 10px;
     margin: 0 auto 10px auto;
     width: 100%;
 }
 .content_grid.two {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px;
     margin: 0 auto 10px auto;
     width: 90%;
 }
@@ -82,7 +81,7 @@
 .search {
     background-color: #272727;
     color: white;
-    padding: 15px 12px;
+    padding: 10px 12px;
     border: 1px solid #474747;
     width: 350px;
     font-size: 1.2rem;
@@ -95,8 +94,8 @@
 }
 
 .search_stack button {
-    height: 55px;
-    width: 55px;;
+    height: 45px;
+    width: 45px;;
 }
 
 .filters {
@@ -127,7 +126,10 @@
 }
 
 .page_with_sidebar {
-    display: flex;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 10px;
+    padding: 0 10px;
 }
 
 .sidebar_filters {
@@ -161,6 +163,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    border-radius: 5px;
 }
 
 .options_dropdown_button:hover {
@@ -213,9 +216,14 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 20px;
-        margin: 0 auto 10px auto;
-        width: 90%;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .page_with_sidebar {
+        display: grid;
+        grid-template-columns: 400px 1fr;
+        gap: 10px;
     }
 
     .sidebar_filters {
@@ -228,9 +236,14 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        margin: 0 auto 10px auto;
-        width: 90%;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .page_with_sidebar {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 10px;
     }
 
     .sidebar_filters {
@@ -242,14 +255,19 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        grid-gap: 8px;
-        margin: 0 auto 10px auto;
-        width: 90%;
+        gap: 8px;
+        width: 100%;
     }
 
     .content_grid.three {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
+    }
+
+    .page_with_sidebar {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 10px;
     }
 
     .sidebar_filters {
@@ -261,19 +279,18 @@
     .content_grid {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
-        gap: 25px;
-        margin: 0 auto 10px auto;
-        width: 90%;
+        gap: 10px;
+        width: 100%;
     }
 
     .content_grid.three {
         grid-template-columns: repeat(1, 1fr);
-        gap: 25px;
+        gap: 10px;
     }
 
     .content_grid.three {
         grid-template-columns: repeat(1, 1fr);
-        gap: 25px;
+        gap: 10px;
     }
 
     .search_and_filter {
@@ -287,6 +304,12 @@
 
     .filters.filtering {
         display: flex;
+    }
+
+    .page_with_sidebar {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
     }
     
     .sidebar_filters {

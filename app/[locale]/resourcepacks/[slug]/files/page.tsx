@@ -36,7 +36,7 @@ export default function Page({ params }: { params: Params }) {
     }
 
     const download = async (url: string) => {
-        await downloadCreation(creation!.slug, creation!.type)
+        await downloadCreation(creation!.slug, convertToCollection(creation!.type))
         let a = document.createElement('a')
         a.href = url
         a.download = url.split('/').pop()!

@@ -1,6 +1,6 @@
 'use client'
 
-import { getUser, useUserStore } from "@/app/api/auth";
+import { getUser } from "@/app/api/auth";
 import { useToken, useUser } from "@/app/api/hooks/users";
 import { IUser } from "@/app/api/types";
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
@@ -17,11 +17,8 @@ export default function OauthHandlerPage() {
     const router = useRouter();
     const t = useTranslations()
 
-    const [storedUser, setStoredUser, removeUser] = useLocalStorage<IUser|undefined>('user', undefined)
-
     function saveUser(data: any) {
         setToken(data.token)
-        setStoredUser(data.creator)
         setUser(data.creator)
         mutate(data.creator)
     }
@@ -29,8 +26,12 @@ export default function OauthHandlerPage() {
     function signInWithDiscord(code: string | null): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
-                fetch(`${process.env.DATA_URL}/auth/signInWithDiscord?code=${code}`, {
-                    'method': 'POST'
+                fetch(`${process.env.DATA_URL}/sign_in`, {
+                    'method': 'POST',
+                    'body': JSON.stringify({
+                        'provider': 0,
+                        'code': code
+                    })
                 }).then(res => {
                     res.json().then(data => {
                         if(data.error) {
@@ -81,8 +82,12 @@ export default function OauthHandlerPage() {
     function signInWithGithub(code: string | null): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
-                fetch(`${process.env.DATA_URL}/auth/signInWithGithub?code=${code}`, {
-                    'method': 'POST'
+                fetch(`${process.env.DATA_URL}/sign_in`, {
+                    'method': 'POST',
+                    'body': JSON.stringify({
+                        'provider': 3,
+                        'code': code
+                    })
                 }).then(res => {
                     res.json().then(data => {
                         if(data.error) {
@@ -129,8 +134,12 @@ export default function OauthHandlerPage() {
     function signInWithGoogle(code: string | null): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
-                fetch(`${process.env.DATA_URL}/auth/signInWithGoogle?access_token=${code}`, {
-                    method: 'POST'
+                fetch(`${process.env.DATA_URL}/sign_in`, {
+                    method: 'POST',
+                    'body': JSON.stringify({
+                        'provider': 1,
+                        'code': code
+                    })
                 }).then(res => {
                     res.json().then(data => {
                         if(data.error) {
@@ -177,8 +186,12 @@ export default function OauthHandlerPage() {
     function signInWithMicrosoft(code: string | null): Promise<any> {
         return new Promise((resolve, reject) => {
             try {
-                fetch(`${process.env.DATA_URL}/auth/signInWithMicrosoft?code=${code}`, {
-                    method: 'POST'
+                fetch(`${process.env.DATA_URL}/sign_in`, {
+                    method: 'POST',
+                    'body': JSON.stringify({
+                        'provider': 2,
+                        'code': code
+                    })
                 }).then(res => {
                     res.json().then(data => {
                         if(data.error) {

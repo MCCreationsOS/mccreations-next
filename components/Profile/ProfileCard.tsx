@@ -1,14 +1,9 @@
 import defaultLogo from '/public/defaultLogo.png'
 import defaultBanner from '/public/defaultBanner.png'
 import Image from "next/image"
-import { Link } from "@/app/api/navigation";
 import styles from './ProfileStyle.module.css'
-import { getCreator } from "@/app/api/community";
 import ProfileEditButton from './ProfileEditButton'
 import { IUser } from '@/app/api/types'
-import IconButton from '../Buttons/IconButton';
-import { Plus } from 'react-feather';
-import SecondaryButton from '../Buttons/SecondaryButton';
 import AddWidgetButton from './AddWidgetButton';
 import dynamic from 'next/dynamic';
 

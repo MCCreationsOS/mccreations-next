@@ -54,8 +54,8 @@ export function formatQueryOptions(queryOptions: QueryOptions) {
         queryOptions.contentType = CollectionNames.Maps
     }
 
-    if(!queryOptions.creator) {
-        queryOptions.creator = ""
+    if(!queryOptions.creators) {
+        queryOptions.creators = []
     }
 
     return queryOptions
@@ -72,7 +72,7 @@ export function formatQueryOptions(queryOptions: QueryOptions) {
 export async function searchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null) {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let p1 = fetch(`${process.env.DATA_URL}/content?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}`, {
+        let p1 = fetch(`${process.env.DATA_URL}/creations?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creators=${queryOptions.creators?.join(",")}`, {
             next:{
                 revalidate: 216000
             },
@@ -85,7 +85,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
         if(filterQuery) {
             filterQuery = formatQueryOptions(filterQuery);
             // console.log(filterQuery)
-            p2 = fetch(`${process.env.DATA_URL}/content?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}`, {
+            p2 = fetch(`${process.env.DATA_URL}/creations?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}&creators=${filterQuery.creators?.join(",")}`, {
                 next:{
                     revalidate: 216000
                 },
@@ -116,31 +116,9 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
     }
 }
 
-export async function getContent(queryOptions: QueryOptions, token?: string | null) {
-    queryOptions = formatQueryOptions(queryOptions);
-    try {
-        let response = await fetch(`${process.env.DATA_URL}/content-nosearch?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=false&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creator=${queryOptions.creator}`, {
-            next:{
-                revalidate: 216000
-            },
-            headers: {
-                authorization: token + ""
-            }
-        })
-        let data = await response.json();
-        return data
-    } catch(e) {
-        console.error("API fetch error! `getContent` Is it running?: " + e);
-        return {
-            error: e,
-            query: queryOptions
-        }
-    }
-}
-
 export async function getFeed(token: string | null, limit: number, page: number) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content/feed?limit=${limit}&page=${page}`, {
+        let response = await fetch(`${process.env.DATA_URL}/feed?limit=${limit}&page=${page}`, {
             headers: {
                 authorization: token + ""
             },
@@ -168,7 +146,7 @@ export async function getFeed(token: string | null, limit: number, page: number)
  */
 export async function fetchMap(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/maps/${slug}`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/maps/${slug}`, { 
             next: { tags: [slug], revalidate: 3600 },
             headers: {
                 authorization: token + ""
@@ -192,7 +170,7 @@ export async function fetchMap(slug: string, token?: string) {
  */
 export async function fetchDatapack(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/datapacks/${slug}`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/datapacks/${slug}`, { 
             next: { tags: [slug], revalidate: 3600 },
             headers: {
                 authorization: token + ""
@@ -216,7 +194,7 @@ export async function fetchDatapack(slug: string, token?: string) {
  */
 export async function fetchResourcepack(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/resourcepacks/${slug}`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/resourcepacks/${slug}`, { 
             next: { tags: [slug], revalidate: 3600 },
             headers: {
                 authorization: token + ""
@@ -233,9 +211,28 @@ export async function fetchResourcepack(slug: string, token?: string) {
     }
 }
 
-export async function fetchTags(type: CollectionNames) {
+export async function fetchMarketplaceItem(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/tags/${type}`, {
+        let response = await fetch(`${process.env.DATA_URL}/creations/marketplace/${slug}`, {
+            next: { tags: [slug], revalidate: 3600 },
+            headers: {
+                authorization: token + ""
+            }
+        })
+        let data = await response.json();
+        return data
+    } catch (e) {
+        console.error("API fetch error! Is it running?: " + e);
+        return {
+            error: e,
+            query: slug
+        }
+    }
+}
+
+export async function fetchTags(type: ContentTypes) {
+    try {
+        let response = await fetch(`${process.env.DATA_URL}/creations/tags/${type}`, {
             next: { tags: [type], revalidate: 216000 }
         })
         let data = await response.json();
@@ -248,9 +245,9 @@ export async function fetchTags(type: CollectionNames) {
     }
 }
 
-export async function downloadCreation(slug: string, contentType: ContentTypes) {
+export async function downloadCreation(slug: string, collectionName: CollectionNames) {
     try {
-        await fetch(`${process.env.DATA_URL}/${contentType}s/${slug}/download`)
+        await fetch(`${process.env.DATA_URL}/creations/${collectionName.toLowerCase()}/${slug}/download`)
         return;
     } catch (e) {
         console.error("API fetch error! `downloadCreation` Is it running?: " + e);
@@ -264,18 +261,16 @@ export async function downloadCreation(slug: string, contentType: ContentTypes) 
 export async function createNewContent(title: string, type: string, summary: string, token?: string | null) {
     if(!token) token = ""
     try {
-        let res = await fetch(`${process.env.DATA_URL}/content`, {
+        let res = await fetch(`${process.env.DATA_URL}/creations/upload`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token
             },
             body: JSON.stringify({
-                content: {
-                    title: title,
-                    type: type,
-                    summary: summary
-                }
+                title: title,
+                type: type,
+                shortDescription: summary
             })
         })
         let b = await res.json();
@@ -292,41 +287,36 @@ export async function createNewContent(title: string, type: string, summary: str
 
 export async function importContent(link: string, type: string, token?: string | null) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content/import`, { 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                url: link,
-                type: type,
-                token: token
-            })
+       let response = await fetch(`${process.env.DATA_URL}/creations/import`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token + ""
+        },
+        body: JSON.stringify({
+            url: link,
+            type: type
         })
-        let data = await response.json();
-        return data;
-    } catch(e) {
+       })
+       return response
+
+    } catch(e: any) {
         console.error("API fetch error! `importContent` Is it running?: " + e)
         return {
-            error: e
+            error: e.toString()
         }
     }
 }
 
 export async function updateContent(map: IContentDoc, token: string | null, type: CollectionNames, dontSendDate?: boolean) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content/update`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/update`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token + ""
             },
-            body: JSON.stringify({
-                content: map,
-                token: token,
-                dontUpdateDate: dontSendDate,
-                type: type
-            })
+            body: JSON.stringify(map)
         })
         let data = await response.json();
         return data;
@@ -392,14 +382,13 @@ export function errorCheckContent(content: IContentDoc) {
 
 export async function updateTranslation(slug: string, type: CollectionNames, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/content/update_translation`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/${slug}/translate`, { 
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': token + ''
             },
             body: JSON.stringify({
-                slug: slug,
                 type: type,
                 translation: translation
             })
@@ -414,18 +403,13 @@ export async function updateTranslation(slug: string, type: CollectionNames, tra
     }
 }
 
-export async function deleteContent(id: any, token: string | null, contentType: CollectionNames) {
+export async function deleteContent(slug: string, token: string | null, contentType: CollectionNames) {
     try {
-        await fetch(`${process.env.DATA_URL}/content`, {
+        await fetch(`${process.env.DATA_URL}/creations/${slug}?type=${contentType}`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': token + ""
-            },
-            body: JSON.stringify({
-                id: id,
-                type: contentType
-            })
+            }
         })
         return;
     } catch(e) {
@@ -437,16 +421,11 @@ export async function deleteContent(id: any, token: string | null, contentType: 
 
 export async function requestApproval(slug: string, collectionName: CollectionNames, token: string | null) {
     try {
-        await fetch(`${process.env.DATA_URL}/content/request_approval`, {
-            method: 'POST',
+        await fetch(`${process.env.DATA_URL}/creations/${slug}/request_approval?type=${collectionName}`, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': token + ""
-            },
-            body: JSON.stringify({
-                slug: slug,
-                type: collectionName
-            })
+            }
         })
         return;
     } catch(e) {
@@ -494,5 +473,26 @@ export function convertToType(collection?: CollectionNames) {
             return ContentTypes.Resourcepacks
         default:
             return ContentTypes.Maps
+    }
+}
+
+export function createEmptyCreation(): IContentDoc {
+    return {
+        title: "",
+        shortDescription: "",
+        description: "",
+        creators: [],
+        slug: "",
+        status: 0,
+        images: [],
+        files: [],
+        videoUrl: "",
+        downloads: 0,
+        views: 0,
+        rating: 0,
+        createdDate: Date.now(),
+        _id: 0,
+        tags: [""],
+        type: ContentTypes.Maps
     }
 }

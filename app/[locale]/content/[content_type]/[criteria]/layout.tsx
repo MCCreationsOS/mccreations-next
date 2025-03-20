@@ -99,6 +99,13 @@ export async function generateMetadata({params}: {params: Params}) {
                 keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
+        default:
+            return {
+                title: `MCCreations | ${t(content_type, {count: 2})}`,
+                description: `Browse ${t(content_type, {count: 2})} on MCCreations`,
+                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations')],
+                publisher: "MCCreations",
+            }
     }
 }
 

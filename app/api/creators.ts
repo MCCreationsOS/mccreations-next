@@ -7,7 +7,7 @@ import { updateProfileLayout } from "./auth"
 type ProfileLayoutStore = {
     profileLayout: ProfileLayout
     setProfileLayout: (profileLayout: ProfileLayout) => void
-    updateProfileLayout: (profileLayout: ProfileLayout) => void
+    updateProfileLayout: (profileLayout: ProfileLayout, authorization: string) => void
 }
 
 export const defaultProfileLayout: ProfileLayout = {
@@ -28,31 +28,13 @@ export const useProfileLayoutStore = create<ProfileLayoutStore>(set => ({
     setProfileLayout: (profileLayout: ProfileLayout) => {
         set({profileLayout})
     },
-    updateProfileLayout: (profileLayout: ProfileLayout) => {
-        let token = localStorage?.getItem('jwt')
-        updateProfileLayout(token + "", profileLayout).then(() => {
+    updateProfileLayout: (profileLayout: ProfileLayout, authorization: string) => {
+        updateProfileLayout(authorization, profileLayout).then(() => {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Profile layout updated"))
         })
         set({profileLayout})
     }
 }))
-
-export async function sendWallPost(authorization: string, wallPost: IComment) {
-    try {
-        await fetch(`${process.env.DATA_URL}/creator/wall/post`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authorization
-            },
-            body: JSON.stringify({wallPost: wallPost}),
-            cache: 'no-store'
-        })
-        return;
-    } catch(e) {
-        console.error(e)
-    }
-}
 
 export async function getWall(authorization: string, handle: string) {
     try {
@@ -67,30 +49,23 @@ export async function getWall(authorization: string, handle: string) {
     }
 }
 
-export async function postWallComment(authorization: string, id: string, comment: IComment, idx?: number) {
+export async function getNotifications(authorization: string, page: number) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/wall/comment`, {
-            method: 'POST',
+        const response = await fetch(`${process.env.DATA_URL}/notifications?page=${page}`, {
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({
-                creator: id,
-                comment: comment,
-                idx: idx
-            }),
             cache: 'no-store'
         })
-        return;
+        return response.json()
     } catch(e) {
         console.error(e)
     }
 }
 
-export async function getNotifications(authorization: string, user_id: string, page: number) {
+export async function getUserSettings(authorization: string) {
     try {
-        const response = await fetch(`${process.env.DATA_URL}/notifications/${user_id}?page=${page}`, {
+        const response = await fetch(`${process.env.DATA_URL}/user/settings`, {
             headers: {
                 'Authorization': authorization
             },
@@ -104,15 +79,11 @@ export async function getNotifications(authorization: string, user_id: string, p
 
 export async function follow(authorization: string, handle: string) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/follow`, {
-            method: 'POST',
+        await fetch(`${process.env.DATA_URL}/creator/follow/${handle}`, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({
-                handle: handle
-            }),
             cache: 'no-store'
         })
         return;
@@ -123,15 +94,15 @@ export async function follow(authorization: string, handle: string) {
 
 export async function unfollow(authorization: string, handle: string) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/unfollow`, {
-            method: 'POST',
+        await fetch(`${process.env.DATA_URL}/creator/unfollow/${handle}`, {
+            method: 'GET',
             headers: {
-                'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({handle: handle}),
             cache: 'no-store'
+
         })
+
         return;
     } catch(e) {
         console.error(e)

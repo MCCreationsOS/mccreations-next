@@ -12,11 +12,13 @@ import WarningButton from "@/components/Buttons/WarningButton"
 import Text from "@/components/FormInputs/Text"
 import IconButton from "@/components/Buttons/IconButton"
 import { useCreation } from "@/app/api/hooks/creations"
+import { useToken } from "@/app/api/hooks/users"
 
 export default function FeaturedCreation({type, slug, canEdit, id}: {type: ContentTypes, slug: string, canEdit: boolean, id: string}) {
     let {creation, isLoading, error} = useCreation(slug, type)
     const t = useTranslations()
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
+    const {token} = useToken();
 
     const editWidget = () => {
         Popup.createPopup({
@@ -37,14 +39,14 @@ export default function FeaturedCreation({type, slug, canEdit, id}: {type: Conte
                 return widget
             }),
             layout: profileLayout.layout
-        })
+        }, token)
     }
 
     const deleteWidget = () => {
         updateProfileLayout({
             widgets: profileLayout.widgets.filter((widget) => widget.id !== id),
             layout: profileLayout.layout.filter((layout) => layout.i !== id)
-        })
+        }, token)
     }
     
     if (!creation || isLoading || 'error' in creation) {

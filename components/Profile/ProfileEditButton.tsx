@@ -1,30 +1,27 @@
 'use client'
 
 import { IUser } from "@/app/api/types"
-import PopupComponent, { Popup } from "@/components/Popup/Popup";
+import { Popup } from "@/components/Popup/Popup";
 import FormComponent from "@/components/Form/Form";
 import { Edit } from "react-feather"
 import styles from './ProfileStyle.module.css'
-import { updateProfile, useUserStore } from "@/app/api/auth";
+import { updateProfile } from "@/app/api/auth";
 import ImageInput from "../FormInputs/ImageDropzone";
-import Text from "../FormInputs/Text";
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
-import { useToken } from "@/app/api/hooks/users";
+import { useToken, useUser } from "@/app/api/hooks/users";
 
 export default function ProfileEditButton({creator}: {creator: IUser}) {
     const { token, setToken } = useToken()
-    const user = useUserStore((state) => state) as IUser
-    const setUser = useUserStore((state) => state.setUser)
+    const {user, setUser} = useUser()
     const t = useTranslations()
 
     const saveCreator = (inputs: string[]) => {
-        console.log(inputs)
         const banner = JSON.parse(inputs[0])[0].url
         const icon = JSON.parse(inputs[1])[0].url
         updateProfile(token!, banner, icon, undefined, inputs[2])
         setUser({
-            ...user,
+            ...user!,
             bannerURL: banner,
             iconURL: icon,
             about: ""

@@ -8,11 +8,13 @@ import { Popup } from '@/components/Popup/Popup'
 import WarningButton from '@/components/Buttons/WarningButton'
 import IconButton from '@/components/Buttons/IconButton'
 import { useTranslations } from 'next-intl'
+import { useToken } from '@/app/api/hooks/users'
 
 export default function Youtube({handle, canEdit, id}: {handle: string, canEdit: boolean, id: string}) {
     const t = useTranslations()
     const [video, setVideo] = useState<any[]>([])
     const {profileLayout, updateProfileLayout} = useProfileLayoutStore(state => state)
+    const {token} = useToken();
 
     useEffect(() => {
         fetch(`https://www.googleapis.com/youtube/v3/channels?part=snippet,contentDetails&forHandle=${handle}&key=${process.env.NEXT_PUBLIC_YOUTUBE_API_KEY}`)
@@ -44,14 +46,14 @@ export default function Youtube({handle, canEdit, id}: {handle: string, canEdit:
                 return widget
             }),
             layout: profileLayout.layout
-        })
+        }, token)
     }
 
     const deleteWidget = () => {
         updateProfileLayout({
             widgets: profileLayout.widgets.filter((widget) => widget.id !== id),
             layout: profileLayout.layout.filter((layout) => layout.i !== id)
-        })  
+        }, token)
     }
 
     return (

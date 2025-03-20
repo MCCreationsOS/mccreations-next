@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
+                    "en-US": 'https://mccreations.net/en-US/',
                     "zh-CN": 'https://mccreations.net/zh-CN/',
                     "ru-RU": 'https://mccreations.net/ru-RU/',
                 }
@@ -18,6 +19,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
+                    "en-US": 'https://mccreations.net/en-US/signin',
                     "zh-CN": 'https://mccreations.net/zh-CN/signin',
                     "ru-RU": 'https://mccreations.net/ru-RU/signin',
                 }
@@ -28,6 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
+                    "en-US": 'https://mccreations.net/en-US/signup',
                     "zh-CN": 'https://mccreations.net/zh-CN/signup',
                     "ru-RU": 'https://mccreations.net/ru-RU/signup',
                 }
@@ -39,6 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
+                    "en-US": 'https://mccreations.net/en-US/maps',
                     "zh-CN": 'https://mccreations.net/zh-CN/maps',
                     "ru-RU": 'https://mccreations.net/ru-RU/maps',
                 }
@@ -50,6 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
+                    "en-US": 'https://mccreations.net/en-US/datapacks',
                     "zh-CN": 'https://mccreations.net/zh-CN/datapacks',
                     "ru-RU": 'https://mccreations.net/ru-RU/datapacks',
                 }
@@ -61,6 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
             lastModified: new Date(),
             alternates: {
                 languages: {
+                    "en-US": 'https://mccreations.net/en-US/resourcepacks',
                     "zh-CN": 'https://mccreations.net/zh-CN/resourcepacks',
                     "ru-RU": 'https://mccreations.net/ru-RU/resourcepacks',
                 }
