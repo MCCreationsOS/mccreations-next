@@ -1,8 +1,0 @@
-User-Agent: *
-Allow: /
-Disallow: /auth/
-Disallow: /admin_dashboard/
-Disallow: /dashboard/
-Disallow: /reset_password/
-Disallow: /account/
-Sitemap: https://mccreations.net/sitemap.xml

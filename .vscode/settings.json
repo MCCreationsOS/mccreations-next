@@ -1,8 +1,0 @@
-{
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "i18n-ally.localesPaths": [
-        "locales",
-        "locales/langs"
-    ],
-    "i18n-ally.sourceLanguage": "en-US"
-}

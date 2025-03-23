@@ -1,0 +1,32 @@
+{
+    "Terms": {
+        "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
+        "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
+        "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
+        "creation": "{count, plural, =0 {Creations} =1 {Creation} other {Creations}}",
+        "tool": "{count, plural, =0 {Tools} =1 {Tool} other {Tools}}",
+        "feed": "Feed",
+        "home": "Home",
+        "back": "Back",
+        "next": "Next",
+        "login": "Login",
+        "create": "Create"
+    },
+    "Navbar": {
+        "resourcepack_description": "Change the look of your Minecraft world with custom textures, models, and more.",
+        "datapack_description": "Find world changing datapacks, or just the perfect small tweaks.",
+        "map_description": "Explore stories, games, challenges, and more handcrafted by talented creators."
+    },
+    "Home": {
+        "featured_title": "Featured Creations",
+        "featured_description": "Explore the latest and greatest creations from the community.",
+        "latest_title": "Latest Creations",
+        "latest_description": "Check out the newest creations from the community.",
+        "featured_button": "View All",
+        "TextScroll": {
+            "start": "Find Minecraft",
+            "community": "Community",
+            "fun": "Fun"
+        }
+    }
+}
