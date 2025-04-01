@@ -20,7 +20,7 @@ export default function Table({collectionName}: {collectionName: CollectionNames
     const {user, isLoading} = useUser(true)
     const {token} = useToken()
     const [page, setPage] = useState(0)
-    const {creations, count} = useCreations({contentType: collectionName, status: 0, limit: 20, page: page, creators: [user?.handle ?? ""]})
+    const {creations, count} = useCreations({contentType: collectionName, status: 0, limit: 20, page: page})
     const contentType = convertToType(collectionName);
     const [deleting, setDeleting] = useState(false)
     const t = useTranslations()

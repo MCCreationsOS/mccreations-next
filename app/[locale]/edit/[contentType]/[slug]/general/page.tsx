@@ -39,8 +39,8 @@ export default function General({params}: {params: Params}) {
         </div>
     }
 
-    if(!user || (!creation?.creators.some(creator => creator.handle === user.handle) || creation.owner !== user._id) && user.type !== UserTypes.Admin) {
-        router.push("/signin?redirect=/edit/" + contentType + "/" + params.slug)
+    if(!user || (!creation?.creators.some(creator => creator.handle === user.handle) && creation.owner !== user.handle) && user.type !== UserTypes.Admin) {
+        console.log(user)
         return <div className="centered_content">
             <h1>You are not allowed to edit this content</h1>
         </div>
