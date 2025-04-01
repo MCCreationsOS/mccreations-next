@@ -33,9 +33,9 @@ export default function Navbar() {
                         <nav className="flex flex-col gap-4">
                             <Link href="/">{t("Terms.home")}</Link>
                             <Link href="/feed">{t("Terms.feed")}</Link>
-                            <Link href="/maps">{t("Terms.map", {count: 0})}</Link>
-                            <Link href="/datapacks">{t("Terms.datapack", {count: 0})}</Link>
-                            <Link href="/resources">{t("Terms.resourcepack", {count: 0})}</Link>
+                            <Link href="/creations?type=maps">{t("Terms.map", {count: 0})}</Link>
+                            <Link href="/creations?type=datapacks">{t("Terms.datapack", {count: 0})}</Link>
+                            <Link href="/creations?type=resourcepacks">{t("Terms.resourcepack", {count: 0})}</Link>
                         </nav>
                     </SheetContent>
                 </Sheet>
@@ -65,7 +65,7 @@ export default function Navbar() {
                             <NavigationMenuContent>
                                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
                                     <li>
-                                        <Link href="/maps" legacyBehavior passHref>
+                                        <Link href="/creations?type=maps" legacyBehavior passHref>
                                             <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[active]:text-accent-foreground/50">
                                                 <div className="text-sm font-medium flex items-center gap-2">
                                                     <OptimizedImage
@@ -83,7 +83,7 @@ export default function Navbar() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/datapacks" legacyBehavior passHref>
+                                        <Link href="/creations?type=datapacks" legacyBehavior passHref>
                                             <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[active]:text-accent-foreground/50">
                                                 <div className="text-sm font-medium flex items-center gap-2">
                                                     <OptimizedImage
@@ -101,7 +101,7 @@ export default function Navbar() {
                                         </Link>
                                     </li>
                                     <li>
-                                        <Link href="/resourcepacks" legacyBehavior passHref>
+                                        <Link href="/creations?type=resourcepacks" legacyBehavior passHref>
                                             <NavigationMenuLink className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[active]:text-accent-foreground/50">
                                                 <div className="text-sm font-medium flex items-center gap-2">
                                                     <OptimizedImage

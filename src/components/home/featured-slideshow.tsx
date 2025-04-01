@@ -46,10 +46,10 @@ export function FeaturedSlideshow({creations}: {creations: Creation[]}) {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-4">
                     <div className="flex items-center gap-2 mb-2">
-                        <Badge variant="secondary" className="bg-primary-button">
+                        <Badge variant="secondary" className="bg-primary-button text-white">
                             {creation.type}
                         </Badge>
-                        <Badge variant="secondary" className="bg-secondary-button">
+                        <Badge variant="secondary" className="bg-secondary-button text-white">
                             {creation.files![0].minecraftVersion}
                         </Badge>
                         {creation.tags?.slice(0, 2).map((tag) => (

@@ -4,7 +4,8 @@ export const TContentType = Type.Enum({
     MAP: "map",
     DATAPACK: "datapack",
     RESOURCEPACK: "resourcepack",
-    MARKETPLACE: "marketplace"
+    MARKETPLACE: "marketplace",
+    CONTENT: "content"
 })
 
 export type ContentType = Static<typeof TContentType>

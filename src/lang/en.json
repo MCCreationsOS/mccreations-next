@@ -5,6 +5,8 @@
         "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
         "creation": "{count, plural, =0 {Creations} =1 {Creation} other {Creations}}",
         "tool": "{count, plural, =0 {Tools} =1 {Tool} other {Tools}}",
+        "category": "{count, plural, =0 {Categories} =1 {Category} other {Categories}}",
+        "creator": "{count, plural, =0 {Creators} =1 {Creator} other {Creators}}",
         "feed": "Feed",
         "home": "Home",
         "back": "Back",
@@ -17,16 +19,41 @@
         "datapack_description": "Find world changing datapacks, or just the perfect small tweaks.",
         "map_description": "Explore stories, games, challenges, and more handcrafted by talented creators."
     },
+    "Footer": {
+        "footer_description": "The best place to find and share Minecraft maps with the community.",
+        "footer_copyright": "© {year} MCCreations. All rights reserved.",
+        "footer_disclaimer": "Not affiliated with Mojang Studios or Microsoft. Minecraft is a trademark of Mojang Studios.",
+        "footer_newsletter": "Newsletter",
+        "footer_newsletter_description": "Subscribe to get updates on new maps and features",
+        "footer_subscribe": "Subscribe",
+        "footer_explore": "Explore",
+        "footer_newest": "Newest Creations",
+        "footer_popular": "Popular Creations",
+        "footer_information": "Information",
+        "footer_about": "About",
+        "footer_contact": "Contact",
+        "footer_faq": "FAQ",
+        "footer_terms": "Terms of Service",
+        "footer_privacy": "Privacy Policy"
+    },
+    "ThemeSwitch": {
+        "sun": "Light mode",
+        "moon": "Dark mode"
+    },
     "Home": {
         "featured_title": "Featured Creations",
         "featured_description": "Explore the latest and greatest creations from the community.",
         "latest_title": "Latest Creations",
         "latest_description": "Check out the newest creations from the community.",
+        "latest_button": "View All",
         "featured_button": "View All",
         "TextScroll": {
             "start": "Find Minecraft",
             "community": "Community",
             "fun": "Fun"
-        }
+        },
+        "share_title": "Share Your Creations",
+        "share_description": "Join our community of map creators and showcase your builds to players around the world.",
+        "share_button": "Share Your Creation"
     }
 }

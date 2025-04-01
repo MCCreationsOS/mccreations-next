@@ -20,7 +20,7 @@ export default async function Home({params}: {params: {locale: string}}) {
         <div className="absolute inset-0 opacity-10 bg-[url('/placeholder.svg?height=500&width=1000')] bg-repeat"></div>
         <div className="relative max-w-7xl mx-auto text-center">
           <TextScroll />
-          <p className="text-xl text-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-white mb-8 max-w-3xl mx-auto">
             Browse hundreds of community creations or share your own with the world
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -56,12 +56,36 @@ export default async function Home({params}: {params: {locale: string}}) {
       </section>
       <section className="py-12 px-4 md:px-6 lg:px-8 bg-gray-100 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-primary mb-8">
-            {t("Home.latest_title")}
-          </h2>
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl font-bold text-primary">
+              {t("Home.latest_title")}
+            </h2>
+            <Button asChild variant="ghost" className="text-primary/90">
+              <Link href="/creations?status=1">
+                {t("Home.latest_button")}
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </Button>
+          </div>
           <Suspense fallback={<div>Loading...</div>}>
             <LatestWrapper />
           </Suspense>
+        </div>
+      </section>
+      <section className="py-12 px-4 md:px-6 lg:px-8 bg-blue-800">
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-white mb-8">
+            {t("Home.share_title")}
+          </h2>
+          <p className="text-white mb-8">
+            {t("Home.share_description")}
+          </p>
+          <Button asChild variant="outline" className="text-foreground">
+            <Link href="/create">
+              {t("Home.share_button")}
+              <ArrowRight className="w-4 h-4" />
+            </Link>
+          </Button>
         </div>
       </section>
     </main>
