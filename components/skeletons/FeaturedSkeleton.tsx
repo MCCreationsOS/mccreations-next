@@ -1,9 +1,8 @@
 import { Link } from "@/app/api/navigation";
 import Image from "next/image";
 import { shimmer, toBase64 } from "./imageShimmer";
-import MainButton from '../Buttons/MainButton';
-import styles from '../FeaturedSlideshow/FeaturedSlideshow.module.css';
-
+import styles from '@/components/old/FeaturedSlideshow/FeaturedSlideshow.module.css';
+import { Button } from "../ui/button";
 export default function FeaturedSkeleton() {
     return (
         <div className={styles.slideshow}>
@@ -21,7 +20,7 @@ export default function FeaturedSkeleton() {
                         <div className={styles.cardStat}><Image className={styles.inTextIcon} src={"/heart.svg"} alt="" width={16} height={16}></Image></div>
                         <div className={styles.cardStat}><Image className={styles.inTextIcon} src={"/map.svg"} alt="" width={16} height={16}></Image></div>
                     </div>
-                    <MainButton>See More!</MainButton>
+                    <Button>See More!</Button>
                     <div>
                         <div className={`${styles.marker} ${styles.active}`}>
                             <span className={styles.color} style={{margin: `0 -0%`}}></span>

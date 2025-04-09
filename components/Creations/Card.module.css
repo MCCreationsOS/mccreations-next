@@ -1,0 +1,101 @@
+.content_card {
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    position: relative;
+    background-color: var(--secondary-color);
+    padding: 10px;
+    overflow: hidden;
+}
+
+.content_card .information {
+    height: max-content;
+    position: relative;
+    margin: -10px -10px 0 -10px;
+}
+
+.stats {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    color: #d0d0d0;
+    margin: 8px 0;
+    flex-wrap: wrap;
+}
+
+.stats .stat {
+    margin: 0 15px 0 0px !important;
+    display: flex;
+    align-items: center;
+}
+
+.stats .stat .in_text_icon {
+    margin: 0 5px 0 0px !important;
+    width: 18px;
+}
+
+.quick_actions {
+    position: absolute;
+    bottom: 5%;
+    right: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    z-index: 1;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.content_card:hover .quick_actions {
+    opacity: 1;
+}
+
+.content_card:hover .description {
+    opacity: 1;
+}
+
+.content_card:hover .logo {
+    transform: scale(1.05);
+}
+
+.content_card .logo {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    border-radius: 5px;
+    opacity: 1;
+    margin-bottom: 0px;
+    transition: transform 0.2s;
+}
+
+.content_card .title:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+    .content_card .information .description {
+        font-size: 1.1rem;
+    }
+
+    .content_card .title {
+        display: block;
+        width: 100%;
+        margin-bottom: 0;
+        font-size: 1.2rem;
+    }
+}
+
+.content_card .author {
+    margin: 0 0 5px 0;
+    font-size: 0.95rem;
+    color: #d0d0d0;
+}
+
+.content_card .author a {
+    margin: 0 0 5px 0;
+    font-size: 0.95rem;
+    color: #aaaaaa;
+    text-decoration: underline;
+}

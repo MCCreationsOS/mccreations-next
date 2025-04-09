@@ -1,122 +1,200 @@
-'use client'
+"use client";
 
 import { Link } from "@/app/api/navigation";
-import { Suspense, useRef, useState } from "react";
-import UserOptions from "./UserOptions";
-import PopupComponent, { Popup } from "../Popup/Popup";
-import FormComponent from "../Form/Form";
-import Tabs from "../Tabs/Tabs";
-import { createNewContent, importContent } from "@/app/api/content";
-import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
-import { useRouter, usePathname } from "next/navigation";
-import HollowButton from "../Buttons/HollowButton";
-import Badge from "../Badge";
-import LanguageSwitcher from "../LanguageSwitcher";
-import Text from "../FormInputs/Text"
-import Select from "../FormInputs/Select"
-import { createDonation } from "@/app/api/payments";
-import { useTranslations } from "next-intl";
-import DropDown, { DropDownItem } from "../FormInputs/RichText/DropDown";
-import { DownloadCloud, Layers, Map, Package, Upload } from "react-feather";
+import { Menu, Upload, User } from "lucide-react";
+import { Sheet, SheetTrigger, SheetContent } from "../ui/sheet";
+import { Button } from "../ui/button";
+import Image from "next/image";
+import {
+    NavigationMenu,
+    NavigationMenuContent,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+    NavigationMenuTrigger,
+} from "../ui/navigation-menu";
 
-export default function Menu() {
-    const [mobileMenuActive, setMobileMenuActive] = useState(false)
-    const t = useTranslations()
-    const router = useRouter();
-    const pathname = usePathname()
-    
+export default function Navbar() {
     return (
-        <>
-            <div className="beta_warning">{t.rich('Navigation.beta_warning', {
-                form: (chunks) => <Link href="https://forms.gle/J7HEX9KKbYhQXCii7">{chunks}</Link>,
-                link: (chunks) => <Link href="https://discord.com/invite/HQSnKGf">{chunks}</Link>,
-                github: (chunks) => <Link href="https://github.com/MCCreationsOS">{chunks}</Link>
-                })}</div>
-            <nav className="nav">
-                <div className="main_nav">
-                    <ul className="nav_list">
-                        <li className="item brand">
-                            <Link href="/" className="brand">
-                                <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
-                                <p className="brand_name">{t('brand')} <Badge color="red">{t('Navigation.badge')}</Badge></p>
-                            </Link>
-                        </li>
-                        <li className="item">
-                            <Link className={(pathname.includes('/feed')) ? "link selected" : "link"} href="/feed">{t('Navigation.feed')}</Link>
-                        </li>
-                        <li className="item">
-                            <DropDown buttonLabel={t('Navigation.creations')} buttonClassName={(pathname.includes('/maps')) ? "link selected" : "link"} openOnHover={true} className="option_dropdown" useButtonWidth={false}>
-                                <DropDownItem onClick={() => {router.push('/maps')}} className="option_button"><Link className="dropdown_link" href="/maps"><Map />{t('map', {count: 2})}</Link></DropDownItem>
-                                <DropDownItem onClick={() => {router.push('/datapacks')}} className="option_button"><Link className="dropdown_link" href="/datapacks"><Package />{t('datapack', {count: 2})}</Link></DropDownItem>
-                                <DropDownItem onClick={() => {router.push('/resourcepacks')}} className="option_button"><Link className="dropdown_link" href="/resourcepacks"><Layers />{t('resourcepack', {count: 2})}</Link></DropDownItem>
-                            </DropDown>
-                        </li>
-                        {/* <li className="item">
-                            <Link className={(pathname.includes('/marketplace')) ? "link selected" : "link"} href="/marketplace">{t('Navigation.marketplace')}</Link>
-                        </li>
-                        <li className="item">
-                            <Link className={(pathname.includes('/forums')) ? "link selected" : "link"} href="/forums">{t('Navigation.forums')}</Link>
-                        </li> */}
-                    </ul>
-                    <ul className='action_list'>
-                        <li className="item">
-                            <LanguageSwitcher />
-                        </li>
-                        <li className='item'>
-                            <DropDown buttonLabel={t('Navigation.create')} buttonClassName="create_dropdown" className="option_dropdown" useButtonWidth={true}>
-                                <DropDownItem className="option_button" onClick={() => {router.push("/create")}}><Link className="dropdown_link" href="/create"><Upload/> Upload</Link></DropDownItem>
-                                <DropDownItem className="option_button" onClick={() => {router.push("/create/import")}}><Link className="dropdown_link" href="/create/import"><DownloadCloud/> Import</Link></DropDownItem>
-                            </DropDown>
-                        </li>
-                        <li className='item'>
-                            <UserOptions />
-                        </li>
-                    </ul>
-                </div>
-                <div className="mobile_nav">
-                    <div className="icon_align">
-                        <img className="menu_icon" src='/menu.svg' alt="" onClick={() => {setMobileMenuActive(true)}}/>
-                        <Link href="/" className="brand">
-                            <img className="brand_icon" src="/mcc_more_scaffold_cube.png"></img>
-                            <p className="brand_name">{t('brand')}<Badge color="red">{t('Navigation.badge')}</Badge></p>
+        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="container flex h-16 items-center">
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="md:hidden"
+                        >
+                            <Menu className="h-5 w-5" />
+                            <span className="sr-only">Toggle menu</span>
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="left">
+                        <Link href="/" className="flex items-center gap-2 mb-8">
+                            <div className="relative w-8 h-8">
+                                <Image
+                                    src="/placeholder.svg?height=32&width=32"
+                                    alt="GetMinecraftMaps Logo"
+                                    fill
+                                    className="object-contain"
+                                />
+                            </div>
+                            <span className="font-bold text-xl">
+                                MCCreations
+                            </span>
                         </Link>
+                        <nav className="flex flex-col gap-4">
+                            <Link href="/" className="text-lg font-medium">
+                                Home
+                            </Link>
+                            <Link href="/maps" className="text-lg font-medium">
+                                Browse Maps
+                            </Link>
+                            <Link
+                                href="/categories"
+                                className="text-lg font-medium"
+                            >
+                                Categories
+                            </Link>
+                            <Link
+                                href="/creators"
+                                className="text-lg font-medium"
+                            >
+                                Creators
+                            </Link>
+                            <Link
+                                href="/upload"
+                                className="text-lg font-medium"
+                            >
+                                Upload
+                            </Link>
+                            <Link href="/about" className="text-lg font-medium">
+                                About
+                            </Link>
+                        </nav>
+                    </SheetContent>
+                </Sheet>
+
+                <Link href="/" className="mr-6 flex items-center gap-2">
+                    <div className="relative w-8 h-8">
+                        <Image
+                            src="/mcc_more_scaffold_cube.png"
+                            alt="MCCreations Logo"
+                            fill
+                            className="object-contain"
+                        />
                     </div>
-                    <ul className="action_list">
-                        <li className="action_item">
-                            <LanguageSwitcher />
+                    <span className="hidden font-brand sm:inline-block text-2xl">
+                        MCCreations
+                    </span>
+                </Link>
+
+                <NavigationMenu className="hidden md:flex">
+                    <NavigationMenuList>
+                        <NavigationMenuItem>
+                            <Link href="/maps" legacyBehavior passHref>
+                                <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                                    Feed
+                                </NavigationMenuLink>
+                            </Link>
+                        </NavigationMenuItem>
+                        <NavigationMenuItem>
+                            <NavigationMenuTrigger>
+                                Creations
+                            </NavigationMenuTrigger>
+                            <NavigationMenuContent>
+                                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                                    {creations.map((creation) => (
+                                        <li key={creation.title}>
+                                            <NavigationMenuLink asChild>
+                                                <Link
+                                                    href={creation.href}
+                                                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                                >
+                                                    <div className="text-sm font-medium leading-none">
+                                                        {creation.title}
+                                                    </div>
+                                                    <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                                        {creation.description}
+                                                    </p>
+                                                </Link>
+                                            </NavigationMenuLink>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </NavigationMenuContent>
+                        </NavigationMenuItem>
+                        {/* <NavigationMenuItem>
+                  <NavigationMenuTrigger>Versions</NavigationMenuTrigger>
+                  <NavigationMenuContent>
+                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                      {versions.map((version) => (
+                        <li key={version.title}>
+                          <NavigationMenuLink asChild>
+                            <Link
+                              href={version.href}
+                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                            >
+                              <div className="text-sm font-medium leading-none">{version.title}</div>
+                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                {version.description}
+                              </p>
+                            </Link>
+                          </NavigationMenuLink>
                         </li>
-                        <li className="action_item">
-                            <UserOptions />
-                        </li>
+                      ))}
                     </ul>
-                    <ul className={(mobileMenuActive) ? "nav_list active" : "nav_list inactive"}>
-                        <li className="item">
-                            <Link className={(pathname === '/') ? "link selected" : "link"} href="/" onClick={() => {setMobileMenuActive(false)}}>{t('Navigation.home')}</Link>
-                        </li>
-                        <li className="item">
-                            <Link className={(pathname.includes('/feed')) ? "link selected" : "link"} href="/feed" onClick={() => {setMobileMenuActive(false)}}>{t('Navigation.feed')}</Link>
-                        </li>
-                        <li className="item">
-                            <Link className={(pathname.includes('/maps')) ? "link selected" : "link"} href="/maps" onClick={() => {setMobileMenuActive(false)}}>{t('map', {count: 2})}</Link>
-                        </li>
-                        <li className="item">
-                            <Link className={(pathname.includes('/datapacks')) ? "link selected" : "link"} href="/datapacks" onClick={() => {setMobileMenuActive(false)}}>{t('datapack', {count: 2})}</Link>
-                        </li>
-                        <li className="item">
-                            <Link className={(pathname.includes('/resourcepacks')) ? "link selected" : "link"} href="/resourcepacks" onClick={() => {setMobileMenuActive(false)}}>{t('resourcepack', {count: 2})}</Link>
-                        </li>
-                        <li className='item'>
-                            <DropDown buttonLabel={t('Navigation.create')} buttonClassName="link" className="option_dropdown" useButtonWidth={true}>
-                                <DropDownItem className="option_button" onClick={() => {}}><Link className="dropdown_link" href="/create"><Upload/> Upload</Link></DropDownItem>
-                                <DropDownItem className="option_button" onClick={() => {}}><Link className="dropdown_link" href="/create/import"><DownloadCloud/> Import</Link></DropDownItem>
-                            </DropDown>
-                        </li>
-                        
-                    </ul>
-                    <img className={(mobileMenuActive) ? "menu_icon close_button active" : "menu_icon close_button"} src='/x.svg' alt="" onClick={() => {setMobileMenuActive(false)}} />
+                  </NavigationMenuContent>
+                </NavigationMenuItem>
+                <NavigationMenuItem>
+                  <Link href="/creators" legacyBehavior passHref>
+                    <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                      Creators
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem> */}
+                    </NavigationMenuList>
+                </NavigationMenu>
+
+                <div className="flex items-center ml-auto gap-2">
+                    <Button
+                        asChild
+                        variant="secondary"
+                        size="icon"
+                        className="hidden md:flex"
+                    >
+                        <Link href="/account">
+                            <User className="h-5 w-5" />
+                            <span className="sr-only">Account</span>
+                        </Link>
+                    </Button>
+
+                    <Button asChild className="hidden md:flex">
+                        <Link href="/upload">
+                            <Upload className="mr-2 h-4 w-4" />
+                            Upload Map
+                        </Link>
+                    </Button>
                 </div>
-            </nav>
-            {/* <div className="donate">MCCreations costs a lot of money to run, consider donating to keep us alive <SecondaryButton onClick={() => onDonate(5)}>$5</SecondaryButton> <SecondaryButton onClick={() => onDonate(10)}>$10</SecondaryButton> <SecondaryButton onClick={() => onDonate(15)}>$15</SecondaryButton></div> */}
-        </>
-    )
+            </div>
+        </header>
+    );
 }
+
+const creations = [
+    {
+        title: "Maps",
+        description: "Browse all maps",
+        href: "/maps",
+    },
+    {
+        title: "Data Packs",
+        description: "Browse all data packs",
+        href: "/data-packs",
+    },
+    {
+        title: "Resource Packs",
+        description: "Browse all resource packs",
+        href: "/resource-packs",
+    },
+];

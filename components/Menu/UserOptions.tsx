@@ -3,7 +3,7 @@
 import { useEffect, } from "react"
 import Image from "next/image"
 import { IUser, UserTypes } from "@/app/api/types"
-import { Bell, LogOut, Settings, Table, User } from "react-feather"
+import { Bell, LogOut, Settings, Table, User } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { getUser } from "@/app/api/auth"
 import HollowButton from "../Buttons/HollowButton"

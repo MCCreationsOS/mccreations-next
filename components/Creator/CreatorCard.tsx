@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useCreator, useToken, useUser } from '@/app/api/hooks/users';
 import SecondaryButton from '../Buttons/SecondaryButton';
-import { Plus } from 'react-feather';
+import { Plus } from 'lucide-react';
 import { follow } from '@/app/api/creators';
 import DropDown, { DropDownItem } from '../FormInputs/RichText/DropDown';
 

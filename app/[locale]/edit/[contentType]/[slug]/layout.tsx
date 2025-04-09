@@ -4,7 +4,7 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { Link } from "@/app/api/navigation";
 import { getTranslations } from "next-intl/server";
 import styles from "./edit.module.css"
-import { Edit, Globe, Image, Server } from "react-feather";
+import { Edit, Globe, Image, Server } from "lucide-react";
 import ContentWarnings from "@/components/Content/ContentWarnings";
 import EditMenu from "./editMenu";
 import { ContentTypes } from "@/app/api/types";

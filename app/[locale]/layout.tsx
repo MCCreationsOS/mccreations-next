@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Loading from './loading'
 import Footer from '@/components/Footer/Footer'
-import PopupMessageComponent from '@/components/PopupMessage/PopupMessage'
-import PopupComponent from '@/components/Popup/Popup'
+import PopupMessageComponent from '@/components/old/PopupMessage/PopupMessage'
+import PopupComponent from '@/components/old/Popup/Popup'
 import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import {NextIntlClientProvider} from 'next-intl';
@@ -11,7 +11,7 @@ import { getLocale, getMessages } from 'next-intl/server'
 
 import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
-import './styles/globals.css'
+import '@/app/globals.css'
 import Menu from '@/components/Menu/Menu'
 import ServiceWorkerManager from '@/components/ServiceWorkerManager'
 

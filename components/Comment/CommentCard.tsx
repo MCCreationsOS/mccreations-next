@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image';
-import { Heart, Link as LinkIcon, MessageSquare, MoreVertical, Plus, Trash2 } from 'react-feather';
+import { Heart, Link as LinkIcon, MessageSquare, MoreVertical, Plus, Trash2 } from 'lucide-react';
 import { CollectionNames, IComment, IUser, UserTypes } from '@/app/api/types';
 import { deleteComment, getCreator, likeComment, postReply } from '@/app/api/community';
 import styles from './Comment.module.css';

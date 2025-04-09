@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./AccountSidebar.module.css"
-import { Bell, Image, User } from "react-feather";
+import { Bell, Image, User } from "lucide-react";
 
 export default function Layout({ children }: { children: React.ReactNode}) {
     return <div className="centered_content small">

@@ -10,7 +10,7 @@ import { DropDownItem } from "@/components/FormInputs/RichText/DropDown"
 import { base64ToArrayBuffer } from 'base64-u8array-arraybuffer'
 import { useToken, useUserSettings, useUser } from "@/app/api/hooks/users"
 import dynamic from "next/dynamic";
-import { Share } from "react-feather"
+import { Share } from "lucide-react"
 import SecondaryButton from "@/components/Buttons/SecondaryButton"
 
 const DropDown = dynamic(() => import("@/components/FormInputs/RichText/DropDown"), { ssr: false })

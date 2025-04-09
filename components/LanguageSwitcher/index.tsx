@@ -2,7 +2,7 @@
 import { Link, useRouter } from "@/app/api/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import { useState } from "react";
-import { ChevronDown, Globe, Plus } from "react-feather";
+import { ChevronDown, Globe, Plus } from "lucide-react";
 import DropDown, { DropDownItem } from "../FormInputs/RichText/DropDown";
 
 export default function LanguageSwitcher() {

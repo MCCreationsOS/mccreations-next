@@ -2,7 +2,7 @@ import { getTranslations } from "next-intl/server"
 import Link from "next/link"
 
 import styles from "./dashboard.module.css"
-import { Bell, Layers, Map, Package } from "react-feather"
+import { Bell, Layers, Map, Package } from "lucide-react"
 
 export default async function Layout({params: {locale}, children}: {params: {locale: string}, children: React.ReactElement}) {
     const t = await getTranslations()

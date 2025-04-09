@@ -9,7 +9,7 @@ import ContentWarnings from "@/components/Content/ContentWarnings";
 import Rating from "@/components/Rating";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Link from "next/link";
-import { Archive, Layers, Package, Server } from "react-feather";
+import { Archive, Layers, Package, Server } from "lucide-react";
 import styles from './table.module.css'
 import { useLocale, useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";

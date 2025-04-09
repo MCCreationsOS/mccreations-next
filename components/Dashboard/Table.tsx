@@ -2,8 +2,8 @@
 
 import { Link } from "@/app/api/navigation";
 import Image from "next/image";
-import { Image as ImageIcon, Trash } from "react-feather";
-import { Edit } from "react-feather";
+import { Image as ImageIcon, Trash } from "lucide-react";
+import { Edit } from "lucide-react";
 import styles from './table.module.css'
 import { CollectionNames, IContentDoc } from "@/app/api/types";
 import { useEffect, useState } from "react";

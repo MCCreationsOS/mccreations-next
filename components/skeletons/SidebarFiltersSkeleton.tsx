@@ -1,4 +1,4 @@
-import styles from '@/components/SearchAndFilter/index.module.css'
+import styles from '@/components/Creations/Search/SearchBar.module.css'
 import { getTranslations } from "next-intl/server";
 
 export default async function SidebarFiltersSkeleton() {

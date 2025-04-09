@@ -1,6 +1,6 @@
 'use client'
 
-import { Edit, Globe, Image, Server } from "react-feather";
+import { Edit, Globe, Image, Server } from "lucide-react";
 import EditHeader from "./editHeader";
 import { Link, usePathname } from "@/app/api/navigation";
 import styles from "./edit.module.css"

@@ -1,7 +1,6 @@
-import { Download, Filter, Search } from "react-feather";
-import IconButton from "../Buttons/IconButton";
-import BulkDownloadButton from "../Buttons/BulkDownloadButton";
+import { Download, Filter, Search } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { Button } from "../ui/button";
 
 export default async function SearchAndFilterSkeleton() {
     const t = await getTranslations()
@@ -10,9 +9,9 @@ export default async function SearchAndFilterSkeleton() {
         <div className="search_and_filter">
                 <div className="search_stack">
                     <input type="text" placeholder={t('SearchAndFilter.search_placeholder')} className="search"></input>
-                    <IconButton><Search /></IconButton>
-                    <IconButton className="filter"><Filter /></IconButton>
-                    <div className="bulk_dl"><IconButton className="secondary"><Download /></IconButton></div>
+                    <Button variant="secondary"><Search /></Button>
+                    <Button variant="secondary"><Filter /></Button>
+                    <div className="bulk_dl"><Button variant="secondary"><Download /></Button></div>
                 </div>
                 <div className={`filters`}>
                 </div>

@@ -1,0 +1,166 @@
+.field {
+    padding: 10px 0;
+}
+
+.field.compact {
+    padding: 0
+}
+
+.label {
+    margin: 0 0 5px 0;
+    color: #eee;
+}
+
+.label.compact {
+    display: none;
+}
+
+.input {
+    background-color: #272727;
+    color: white;
+    padding: 10px 12px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 350px;
+    font-size: 1rem;
+    font-family: var(--font-oxygen);
+}
+
+.input:focus {
+    border: 1px solid #344ec1;
+}
+
+.input.wide {
+    width: 100%;
+}
+
+.select {
+    position: relative;
+    border: 1px solid #474747;
+    display: block;
+    padding: 6px;
+    margin-top: 5px;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.select.language {
+    margin: 0 auto;
+    width: 60px;
+}
+
+.select .selected_option {
+    display: inline;
+    padding: 8px 15px;
+    background-color: #11111100;
+    color: white;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.select .options {
+    position: absolute;
+    display: none;
+    background-color: #272727;
+    padding: 10px 10px;
+    font-size: 1.1rem;
+    z-index: 3;
+    top: 120%;
+    left: -1%;
+    border: 1px solid #474747;
+    box-shadow: 3px 3px 10px #000000;
+    border-radius: 5px;
+    max-height: 40vh;
+    scroll-padding: 0;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
+    overflow: auto;
+    overscroll-behavior-y: none;
+}
+
+.select .options.active {
+    display: block;
+}
+
+.select .options.language {
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1095px) {
+    .select .options.language {
+        left: -175px
+    }
+}
+
+.select .options .option {
+    margin: 2px 0;
+    padding: 8px;
+    width: 200px;
+    color: #aaa
+}
+
+.select .options .option.selected {
+    color: white
+}
+
+.select .options .option:hover {
+    color: white;
+    background-color: #2d2d2d;
+}
+
+.sign_in_providers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    margin-bottom: 50px;
+}
+
+@media screen and (max-width: 465px) {
+    .sign_in_providers {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .sign_in_providers {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.sign_in_providers .provider {
+    margin: 2px;
+    padding: 8px 20px;
+    background-color: #373737;
+    border-radius: 5px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sign_in_providers .provider svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
+
+.sign_up_options {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.sign_up_options a {
+    margin-right: 20px;
+}
+
+.settings_option {
+    display: flex;
+    align-items: center;
+}
+
+.settings_option .text {
+    flex: 50%
+}

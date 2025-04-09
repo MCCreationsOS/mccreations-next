@@ -1,7 +1,7 @@
 import { Link } from "@/app/api/navigation";
 import Image from "next/image";
 import { shimmer, toBase64 } from "./imageShimmer";
-import styles from "../ContentSlideshow/ContentCard.module.css"
+import styles from "@/components/Creations/Card.module.css"
 
 export default function CardSkeleton() {
     return (
