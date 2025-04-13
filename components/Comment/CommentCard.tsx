@@ -8,14 +8,10 @@ import styles from './Comment.module.css';
 import { useEffect, useRef, useState } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 import {useTranslations} from 'next-intl';
-import FormComponent from '../Form/Form';
-import RichTextInput from '../FormInputs/RichText';
-import { FormInput } from '../FormInputs';
 import { follow } from '@/app/api/creators';
-import Text from '../FormInputs/Text';
 import { useCreator, useToken, useUser } from '@/app/api/hooks/users';
 import Link from 'next/link';
-import DropDown, { DropDownItem } from '../FormInputs/RichText/DropDown';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
 /**
  * A comment
@@ -87,9 +83,14 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
         <div className={styles.comment} ref={container}>
             <div style={{position: "relative"}}>
                 <Link href={(comment.handle) ? `/creator/${comment.handle}` : ""}><Image src={image} width={45} height={45} className={styles.logo} alt={t('Creator.logo_alt', {username: ("username" in comment) ? comment.username : creator?.username})}></Image></Link>
-                {user && user.handle !== "" && comment.handle && !user.following?.includes(comment.handle) && user.handle !== comment.handle && <DropDown buttonClassName={styles.follow_button} buttonLabel={<Plus />} className='option_dropdown' useButtonWidth={false}>
-                            <DropDownItem onClick={handleFollow} className='option_button'>Follow {comment.username}</DropDownItem>
-                        </DropDown>}
+                {user && user.handle !== "" && comment.handle && !user.following?.includes(comment.handle) && user.handle !== comment.handle && <DropdownMenu>
+                            <DropdownMenuTrigger><Plus /></DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
+                                    <DropdownMenuItem onClick={handleFollow} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">Follow {comment.username}</DropdownMenuItem>
+                                </div>
+                            </DropdownMenuContent>
+                        </DropdownMenu>}
             </div>
             <div className={styles.body}>
                 <div className={styles.header}>
@@ -98,16 +99,19 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
                 </div>
                 <div className={`${styles.comment_text} ${(expanded) ? styles.expanded : ""}`} dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(comment.comment)}}></div>
                 <div className={styles.right_header}>
-                    <DropDown className='option_dropdown' buttonClassName={`options_dropdown_button ${styles.dropdown_button}`} buttonLabel={<MoreVertical/>} useButtonWidth={false}>
-                        <DropDownItem className="option_button" onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}>
-                            <LinkIcon aria-label={t('Comment.permalink')}/>
-                            {t('Comment.permalink')}
-                        </DropDownItem>
-                        {(user?.handle === comment.handle || user?.type === UserTypes.Admin) && <DropDownItem className="option_button" onClick={handleDelete}>
-                            <Trash2 aria-label={t('Comment.delete')}/>
-                            {t('Comment.delete')}
-                        </DropDownItem>}
-                    </DropDown>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger><MoreVertical /></DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuItem onClick={() => {navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)}}>
+                                <LinkIcon aria-label={t('Comment.permalink')}/>
+                                {t('Comment.permalink')}
+                            </DropdownMenuItem>
+                            {(user?.handle === comment.handle || user?.type === UserTypes.Admin) && <DropdownMenuItem onClick={handleDelete}>
+                                <Trash2 aria-label={t('Comment.delete')}/>
+                                {t('Comment.delete')}
+                            </DropdownMenuItem>}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
                 <div className={styles.reactions}>
                     <div className={styles.like}>
@@ -116,10 +120,10 @@ export default function CommentCard({comment, contentType, handle, canReply}: {c
                     </div>
                     {canReply && <MessageSquare className={styles.comment_icon} aria-label={t('Comment.reply')} onClick={handleReply}/>}
                 </div>
-                {replying && <FormComponent id="replyForm" onSave={handleReplySave} options={{saveButtonContent: t('Comment.reply')}}>
+                {/* {replying && <FormComponent id="replyForm" onSave={handleReplySave} options={{saveButtonContent: t('Comment.reply')}}>
                     {!user || user.username === "" && <Text name="Username" value={user.username}/>}
                     <RichTextInput id="reply" name="Reply" className="compact"/>
-                </FormComponent>}
+                </FormComponent>} */}
                 <div className={styles.replies}>
                     {comment.replies?.map((reply) => {
                         return <CommentCard comment={reply} contentType={contentType} handle={handle} key={reply._id}/>

@@ -1,8 +1,8 @@
 'use client'
 
 import { useFeed } from "@/app/api/hooks/creations"
-import PageNavigator from "@/components/Content/Search/Navigator"
-import FeedGrid from "@/components/Grids/FeedGrid"
+import FeedGrid from "@/components/Creations/FeedGrid"
+import PageNavigator from "@/components/Creations/Search/Navigator"
 import { useSearchParams } from "next/navigation"
 
 export default function Feed() {

@@ -120,10 +120,11 @@
     }
 }
 
-.content_card .author {
+.author {
     margin: 0 0 5px 0;
     font-size: 0.95rem;
     color: #d0d0d0;
+    align-self: baseline;
 }
 
 .content_card .author a {

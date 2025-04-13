@@ -13,11 +13,12 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "../ui/navigation-menu";
+import UserOptions from "./UserOptions";
 
 export default function Navbar() {
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-            <div className="container flex h-16 items-center">
+            <div className="flex h-16 items-center px-2">
                 <Sheet>
                     <SheetTrigger asChild>
                         <Button
@@ -47,14 +48,14 @@ export default function Navbar() {
                             <Link href="/" className="text-lg font-medium">
                                 Home
                             </Link>
-                            <Link href="/maps" className="text-lg font-medium">
-                                Browse Maps
+                            <Link href="/feed" className="text-lg font-medium">
+                                Feed
                             </Link>
                             <Link
-                                href="/categories"
+                                href="/creations"
                                 className="text-lg font-medium"
                             >
-                                Categories
+                                Creations
                             </Link>
                             <Link
                                 href="/creators"
@@ -67,9 +68,6 @@ export default function Navbar() {
                                 className="text-lg font-medium"
                             >
                                 Upload
-                            </Link>
-                            <Link href="/about" className="text-lg font-medium">
-                                About
                             </Link>
                         </nav>
                     </SheetContent>
@@ -92,8 +90,8 @@ export default function Navbar() {
                 <NavigationMenu className="hidden md:flex">
                     <NavigationMenuList>
                         <NavigationMenuItem>
-                            <Link href="/maps" legacyBehavior passHref>
-                                <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                            <Link href="/feed" legacyBehavior passHref>
+                                <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
                                     Feed
                                 </NavigationMenuLink>
                             </Link>
@@ -157,22 +155,12 @@ export default function Navbar() {
                 </NavigationMenu>
 
                 <div className="flex items-center ml-auto gap-2">
-                    <Button
-                        asChild
-                        variant="secondary"
-                        size="icon"
-                        className="hidden md:flex"
-                    >
-                        <Link href="/account">
-                            <User className="h-5 w-5" />
-                            <span className="sr-only">Account</span>
-                        </Link>
-                    </Button>
+                    <UserOptions />
 
-                    <Button asChild className="hidden md:flex">
-                        <Link href="/upload">
+                    <Button asChild className="hidden md:flex gap-0">
+                        <Link href="/create">
                             <Upload className="mr-2 h-4 w-4" />
-                            Upload Map
+                            <span>Create</span>
                         </Link>
                     </Button>
                 </div>
@@ -184,17 +172,17 @@ export default function Navbar() {
 const creations = [
     {
         title: "Maps",
-        description: "Browse all maps",
+        description: "From puzzles to adventures to multiplayer madness.",
         href: "/maps",
     },
     {
         title: "Data Packs",
-        description: "Browse all data packs",
-        href: "/data-packs",
+        description: "Change your world, add a little challenge, or make a small tweak.",
+        href: "/datapacks",
     },
     {
         title: "Resource Packs",
-        description: "Browse all resource packs",
-        href: "/resource-packs",
+        description: "Explore a whole new world, or just add some new music.",
+        href: "/resourcepacks",
     },
 ];

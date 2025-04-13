@@ -1,7 +1,7 @@
 import { fetchMap, fetchDatapack, fetchResourcepack } from "@/app/api/content"
 import { ContentTypes, IContentDoc } from "@/app/api/types"
 import styles from './ProfileWidget.module.css'
-import CreationCard from "@/components/Creations/Card"
+import CreationCard from "@/components/Creations/Cards/Card"
 import { useState, useEffect } from "react"
 import { MoreVertical } from "lucide-react"
 import { useTranslations } from "next-intl"

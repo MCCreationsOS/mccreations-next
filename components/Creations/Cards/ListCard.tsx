@@ -1,31 +1,21 @@
 'use client'
 
-import { IContentDoc, NewFile } from "@/app/api/types"
+import { CollectionNames, IContentDoc, NewFile, Tags } from "@/app/api/types"
 import Image from "next/image"
 import { Link } from "@/app/api/navigation";
-import { shimmer, toBase64 } from "../skeletons/imageShimmer"
-import styles from './Card.module.css'
+import { shimmer, toBase64 } from "../../skeletons/imageShimmer"
+import styles from './ListCard.module.css'
 import { useRouter } from "next/navigation"
-import InGridAdUnit from "../AdUnits/InContent"
+import { Archive, CheckSquare, Download, Layers, Map, Package, Square, Star, Tag } from "lucide-react";
 import { useEffect, useState } from "react"
 import { convertToCollection, downloadCreation } from "@/app/api/content"
 import { useLocale, useTranslations } from "use-intl";
 import { useTags } from "@/app/api/hooks/creations";
 import { makeSentenceCase } from "@/app/api/utils";
-import { Button } from "../ui/button";
-import { Archive, CheckSquare, Download, Layers, Map, Package, Square, Star, Tag } from "lucide-react";
-import { Badge } from "../ui/badge";
-
-export interface IContentCardProps {
-    creation: IContentDoc
-    playlist: string
-    index: number
-    priority: boolean,
-    enableSelection?: boolean
-    linkTo?: string
-    adPosition?: number
-    showCategory?: boolean
-}
+import { IContentCardProps } from "./Card";
+import { Button } from "../../ui/button";
+import { Badge } from "../../ui/badge";
+import { InListAdUnit } from "../../AdUnits/InContent";
 
 /**
  * A card for displaying content
@@ -34,7 +24,7 @@ export interface IContentCardProps {
  * @param index The index of the content in the playlist
  * @param priority Whether the image should be loaded with priority
  */
-export default function CreationCard(props: IContentCardProps) {
+export default function CreationListCard(props: IContentCardProps) {
     const [selected, setSelected] = useState(false)
     const {tags} = useTags(props.creation.type)
     const router = useRouter()
@@ -42,18 +32,18 @@ export default function CreationCard(props: IContentCardProps) {
     const locale = useLocale();
 
     useEffect(() => {
-        let selectedCreations = localStorage?.getItem('selectedCreations')
-        if(selectedCreations) {
-            let creations = JSON.parse(selectedCreations)
+        let selectedMaps = localStorage?.getItem('selectedContent')
+        if(selectedMaps) {
+            let maps = JSON.parse(selectedMaps)
             if(props.creation.files && props.creation.files.length > 0) {
-                if(creations.includes((props.creation.files[0].worldUrl) ? props.creation.files[0].worldUrl: (props.creation.files[0].dataUrl) ? props.creation.files[0].dataUrl : props.creation.files[0].resourceUrl!)) {
+                if(maps.includes((props.creation.files[0].worldUrl) ? props.creation.files[0].worldUrl: (props.creation.files[0].dataUrl) ? props.creation.files[0].dataUrl : props.creation.files[0].resourceUrl!)) {
                     setSelected(true)
                 }
             }
         }
     }, [])
 
-    const selectCreation = (e: any) => {
+    const selectContent = (e: any) => {
         e.preventDefault(); 
 
         if(!selected) {
@@ -117,10 +107,10 @@ export default function CreationCard(props: IContentCardProps) {
 
     return (
         <>
-        <div className="bg-card border-gray-950 border-2 card-shadow group transition-all duration-200 group-hover:bg-card-hover relative overflow-hidden" id={props.playlist + "_" + props.index} >
+        <div className="bg-card group transition-all duration-200 group-hover:bg-card-hover overflow-hidden grid grid-cols-[295px_1fr]" id={props.playlist + "_" + props.index} >
             <Link href={`/${(props.linkTo) ? props.linkTo : props.creation.type + "s"}/${props.creation.slug}`}>
-            <div className="overflow-hidden aspect-video relative border-gray-950 border-b-2">
-                    <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 border-b object-cover" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Content.logo_alt', {title: props.creation.title, type: props.creation.type, minecraft_version: (props.creation.files && props.creation.files.length > 0) ? props.creation.files[0].minecraftVersion : "", creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
+                <div className="border-gray-950 border-2 border-r-0 overflow-hidden aspect-video relative">
+                    <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 object-cover" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Content.logo_alt', {title: props.creation.title, type: props.creation.type, minecraft_version: (props.creation.files && props.creation.files.length > 0) ? props.creation.files[0].minecraftVersion : "", creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
                     <div className="absolute bottom-1 right-1 flex flex-row gap-1">
                         <Badge>{props.creation.files[0].minecraftVersion}</Badge>
                         {
@@ -132,20 +122,29 @@ export default function CreationCard(props: IContentCardProps) {
                     </div>
                 </div>
             </Link>
-            <div className="p-2 mb-2">
-                <Link href={`/${(props.linkTo) ? props.linkTo : props.creation.type + "s"}/${props.creation.slug}`} ><h2 className="mb-1">{title}</h2></Link>
+            <div className="flex flex-col gap-1 p-2 border-gray-950 border-2 card-shadow relative">
+                <div className={styles.title_container}>
+                    <Link href={`/${(props.linkTo) ? props.linkTo : props.creation.type + "s"}/${props.creation.slug}`} ><h2 className="mb-1">{title}</h2></Link>
+                    <div className={styles.stats}>
+                        <div className={styles.stat}><Download className={styles.in_text_icon} />{props.creation.downloads}</div>
+                        {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{((Math.round(props.creation.rating*100)/100) * 5).toFixed(2)}</div>: <></> }
+                        {(props.creation.files && props.creation.files.length > 0) ? <div className={styles.stat}><Map className={styles.in_text_icon} />{props.creation.files[0].minecraftVersion}</div>: <></> }
+                    </div>
+                </div>
                 <div className="line-clamp-2 text-sm text-muted-foreground">
                     {shortDescription}
                 </div>
-                <div className={styles.stats}>
-                    <div className={styles.stat}><Download className={styles.in_text_icon} />{props.creation.downloads}</div>
-                    {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{((Math.round(props.creation.rating*100)/100) * 5).toFixed(2)}</div>: <></> }
+                <div className={styles.stat}>
+                    { !props.showCategory && (
+                        (props.creation.type === "map") ? <><Archive className={styles.in_text_icon} />{t('map', {count: 1})}</> : 
+                        (props.creation.type === 'datapack') ? <><Package className={styles.in_text_icon} />{t('datapack', {count: 1})}</> : 
+                        <><Layers className={styles.in_text_icon} />{t('resourcepack', {count: 1})}</>) }
                 </div>
                 <p className={styles.author}>{t('Content.by', {creator: props.creation.creators.slice(0, 3).map(c => c.username).join(t('Content.by_joiner'))})}</p>
             </div>
         </div>
         {props.index === props.adPosition &&
-            <InGridAdUnit />    }
+            <InListAdUnit />    }
         </>
     )
 }

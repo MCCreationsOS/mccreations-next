@@ -2,8 +2,6 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import Loading from './loading'
 import Footer from '@/components/Footer/Footer'
-import PopupMessageComponent from '@/components/old/PopupMessage/PopupMessage'
-import PopupComponent from '@/components/old/Popup/Popup'
 import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import {NextIntlClientProvider} from 'next-intl';
@@ -14,6 +12,7 @@ import "/node_modules/react-resizable/css/styles.css"
 import '@/app/globals.css'
 import Menu from '@/components/Menu/Menu'
 import ServiceWorkerManager from '@/components/ServiceWorkerManager'
+import { Toaster } from '@/components/ui/sonner'
 
 
 export const metadata: Metadata = {
@@ -57,13 +56,12 @@ export default async function RootLayout({params: { locale }, children}: {params
       <body id="view">
         <NextIntlClientProvider messages={messages}>
           <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333" crossOrigin="anonymous"></Script>
-          <PopupMessageComponent />
           <Menu />
           <Suspense fallback={<Loading />}>
               {children}
           </Suspense>
           <Footer></Footer>
-          <PopupComponent />
+          <Toaster />
           <Analytics />
           <ServiceWorkerManager />
         </NextIntlClientProvider>

@@ -3,13 +3,12 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { SiDiscord, SiGithub, SiGoogle, SiMicrosoft } from "@icons-pack/react-simple-icons";
 import { Link } from "@/app/api/navigation";
-import MapScroll from "@/components/ContentScrollBackground/MapScroll";
 import { UserTypes } from "../../api/types";
-import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
-import MainButton from "@/components/Buttons/MainButton";
 import { sendLog } from "@/app/api/logging";
 import {useTranslations} from 'next-intl';
 import { useUser, useToken } from "@/app/api/hooks/users";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
@@ -44,16 +43,16 @@ export default function SignIn() {
                             router.push('/')
                         }
                     } else {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))
+                        toast.error(data.error)
                         return;
                     }
                 }).catch(e => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignIn.error')))
+                    toast.error(t('SignIn.error'))
                     return;
                 })
             }).catch(error => {
                 sendLog("Sign in with email", error)
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignIn.error')))
+                toast.error(t('SignIn.error'))
                 return;
             })
     }
@@ -119,7 +118,7 @@ export default function SignIn() {
                     <p className='label'>{t('Account.Shared.password')}</p>
                     <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}} onKeyDown={(e) => {if(e.key === 'Enter') signInWithEmail()}}></input>
                 </div>
-                <MainButton onClick={signInWithEmail}>{t('SignIn.button')}</MainButton>
+                <Button onClick={signInWithEmail}>{t('SignIn.button')}</Button>
             </form>
             <div className="sign_up_options">
                 <Link href="/signup">{t('SignIn.no_account')}</Link>

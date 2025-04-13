@@ -7,6 +7,7 @@ import { Layers, Map, Package } from "lucide-react";
 import { Link } from "../api/navigation";
 import { Button } from "@/components/ui/button";
 import ContentGrid from "@/components/Creations/Grid";
+import FeaturedSlideshow from "@/components/Creations/FeaturedSlideshow";
 
 export default async function Page({ params: { locale } }: { params: { locale: string } }) {
     const t = await getTranslations();
@@ -20,8 +21,10 @@ export default async function Page({ params: { locale } }: { params: { locale: s
     const featured = (await searchContent({ contentType: "content", status: 3, limit: 5 }, false)).documents
     return (
         <>
-            {/* {(featured) ? (<FeaturedSlideshow content={featured} />) : "MCCreations API Error"} */}
-            <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
+            <FeaturedSlideshow creations={featured} />
+            <div className="relative">
+                <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
+            </div>
             <UpdatedCreations />
             <h2 className="view_all_header">{t('Home.ViewAll')}</h2>
             <div className="view_all_buttons">
@@ -35,7 +38,7 @@ export default async function Page({ params: { locale } }: { params: { locale: s
 
 async function UpdatedCreations() {
     const t = await getTranslations();
-    const creations = (await searchContent({ contentType: "content", status: 2, sort: SortOptions.Updated, limit: 19 }, false)).documents
+    const creations = (await searchContent({ contentType: "content", status: 2, sort: SortOptions.Updated, limit: 20 }, false)).documents
     return (
         <ContentGrid content={creations} />
     )

@@ -1,5 +1,5 @@
 import { IComment, IContentDoc } from "@/app/api/types"
-import CreationCard from "./Card"
+import CreationCard from "./Cards/Card"
 import CommentCard from "../Comment/CommentCard"
 
 export default function FeedGrid({content, linkTo, cards, enableSelection, enableAds}: {content: IContentDoc[], linkTo?: string, cards?: string, enableSelection?: boolean, enableAds?: boolean}) {

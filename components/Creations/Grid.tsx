@@ -1,9 +1,9 @@
 "use client"
 
 import { IContentDoc } from "@/app/api/types"
-import CreationCard from "./Card"
+import CreationCard from "./Cards/Card"
 import { useGridView } from "@/app/api/hooks/grids"
-import CreationListCard from "./ListCard"
+import CreationListCard from "./Cards/ListCard"
 
 export default function ContentGrid({content, linkTo, enableSelection, enableAds, showCategory}: {content: IContentDoc[], linkTo?: string, enableSelection?: boolean, enableAds?: boolean, showCategory?: boolean}) {
     const {gridView} = useGridView()
