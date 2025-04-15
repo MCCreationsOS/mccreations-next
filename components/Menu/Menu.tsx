@@ -34,8 +34,8 @@ export default function Navbar() {
                         <Link href="/" className="flex items-center gap-2 mb-8">
                             <div className="relative w-8 h-8">
                                 <Image
-                                    src="/placeholder.svg?height=32&width=32"
-                                    alt="GetMinecraftMaps Logo"
+                                    src="/mcc_more_scaffold_cube.png"
+                                    alt="MCCreations Logo"
                                     fill
                                     className="object-contain"
                                 />
