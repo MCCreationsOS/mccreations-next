@@ -53,20 +53,18 @@ export default function SidebarFilters({contentType, tags}: {contentType: Collec
             <h3>{t('SearchAndFilter.sort_by')}</h3>
             <DropdownMenu>
                 <DropdownMenuTrigger><Button variant="secondary" className="w-full"><span className="w-full">{t(`SearchAndFilter.Sort.${sort}`)}</span></Button></DropdownMenuTrigger>
-                <DropdownMenuContent >
-                    <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.newest')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.Oldest)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.oldest')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.Updated)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.updated')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.HighestRated)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.highest_rated')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.LowestRated)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.lowest_rated')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.HighestDownloads)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.highest_downloads')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.LowestDownloads)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.lowest_downloads')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.TitleAscending)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.title_ascending')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.TitleDescending)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.title_descending')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorAscending)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.creator_ascending')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorDescending)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('SearchAndFilter.Sort.creator_descending')}</DropdownMenuItem>
-                    </div>
+                <DropdownMenuContent className="border-2 border-white/15 p-1">
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.newest')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.Oldest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.oldest')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.Updated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.updated')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.HighestRated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.highest_rated')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.LowestRated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.lowest_rated')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.HighestDownloads)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.highest_downloads')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.LowestDownloads)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.lowest_downloads')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.TitleAscending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.title_ascending')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.TitleDescending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.title_descending')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorAscending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.creator_ascending')}</Button></DropdownMenuItem>
+                    <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorDescending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.creator_descending')}</Button></DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
             <h3>{t('SearchAndFilter.status')}</h3>
@@ -74,9 +72,9 @@ export default function SidebarFilters({contentType, tags}: {contentType: Collec
                 <DropdownMenuTrigger><Button variant="secondary" className="w-full"><span className="w-full">{t(`Status.${(StatusOptions[status] === "Unapproved") ? "unapproved" : (StatusOptions[status] === "Approved") ? "approved" : "featured"}`)}</span></Button></DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                        <DropdownMenuItem onClick={() => setStatus(StatusOptions.Unapproved)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('Status.unapproved')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setStatus(StatusOptions.Approved)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('Status.approved')}</DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => setStatus(StatusOptions.Featured)} className="hover:bg-black/70 px-2 py-1 text-sm transition-all duration-200">{t('Status.featured')}</DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setStatus(StatusOptions.Unapproved)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Status.unapproved')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setStatus(StatusOptions.Approved)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Status.approved')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setStatus(StatusOptions.Featured)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Status.featured')}</Button></DropdownMenuItem>
                     </div>
                 </DropdownMenuContent>
             </DropdownMenu>
