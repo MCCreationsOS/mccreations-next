@@ -3,7 +3,7 @@
 import { useEffect, } from "react"
 import Image from "next/image"
 import { IUser, UserTypes } from "@/app/api/types"
-import { Bell, LogOut, Settings, Table, User } from "lucide-react"
+import { Bell, LogIn, LogOut, Settings, Table, User } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { getUser } from "@/app/api/auth"
 import { useTranslations } from "next-intl";
@@ -48,57 +48,80 @@ export default function UserOptions() {
     }
 
     if(!user || !user._id || user.username === "" || isLoading) {
-        return <Button variant="secondary" asChild><Link href="/signin">
-                <User className="h-5 w-5" />
-                <span className="sr-only">Sign In</span>
-        </Link></Button>
+        return <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="secondary" className="flex items-center gap-2">
+                    <User className="h-5 w-5" />
+                    <span className="sr-only">Account</span>
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="border-2 border-white/15">
+                <DropdownMenuItem>
+                    <Link href="/signin">
+                        <Button variant="ghost" className="w-full">
+                            <LogIn /> {t("Navigation.UserOptions.sign_in")}
+                        </Button>
+                    </Link>
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     }
 
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="secondary">
-                    <Image className="icon" src={(user.iconURL) ? user.iconURL : "/defaultLogo.png"} alt="User Icon" width={40} height={40} />
+                <Button variant="secondary" className="flex items-center gap-2">
+                    <User className="h-5 w-5" />
                     <span className="sr-only">Account</span>
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-                <DropdownMenuItem>
-                    <Link href="/creator/{user.handle}">
+            <DropdownMenuContent className="border-2 border-white/15 p-0">
+                <DropdownMenuItem className="px-2 pt-2 pb-0">
+                    <Link href={`/creator/${user.handle}`} className="w-full flex items-center gap-2">
+                        <Image className="icon rounded-full w-8 h-8 object-cover" src={(user.iconURL) ? user.iconURL : "/defaultLogo.png"} alt="User Icon" width={40} height={40}/>
                         <p className="display_name">{user.username}</p>
-                        <p className="email">{user.email}</p>
                     </Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator></DropdownMenuSeparator>
-                <DropdownMenuItem>
-                    <Link href="/dashboard/notifications">
-                        <Bell /> {t("Navigation.UserOptions.notifications")}
+                <DropdownMenuItem className="p-0 justify-start">
+                    <Link href="/dashboard/notifications" className="w-full">
+                        <Button variant="ghost" className="w-full justify-start">
+                            <Bell /> {t("Navigation.UserOptions.notifications")}
+                        </Button>
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <Link href="/creator/{user.handle}">
-                        <User /> {t('Navigation.UserOptions.profile')}
+                <DropdownMenuItem className="p-0 justify-start">
+                    <Link href={`/creator/${user.handle}`} className="w-full">
+                        <Button variant="ghost" className="w-full justify-start">
+                            <User /> {t('Navigation.UserOptions.profile')}
+                        </Button>
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <Link href="/dashboard">
-                        <Table /> {t("Navigation.UserOptions.dashboard")}
+                <DropdownMenuItem className="p-0 justify-start">
+                    <Link href="/dashboard" className="w-full">
+                        <Button variant="ghost" className="w-full justify-start">
+                            <Table /> {t("Navigation.UserOptions.dashboard")}
+                        </Button>
                     </Link>
                 </DropdownMenuItem>
-                {user.type === UserTypes.Admin && <DropdownMenuItem>
-                    <Link href="/admin_dashboard">
-                        <Table /> {t("Navigation.UserOptions.admin")}
+                {user.type === UserTypes.Admin && <DropdownMenuItem className="p-0 justify-start">
+                    <Link href="/admin_dashboard" className="w-full">
+                        <Button variant="ghost" className="w-full justify-start">
+                            <Table /> {t("Navigation.UserOptions.admin")}
+                        </Button>
                     </Link>
                 </DropdownMenuItem>}
-                <DropdownMenuItem>
-                    <Link href="/settings">
-                        <Settings /> {t("Navigation.UserOptions.settings")}
+                <DropdownMenuItem className="p-0 justify-start">
+                    <Link href="/settings" className="w-full">
+                        <Button variant="ghost" className="w-full justify-start">
+                            <Settings /> {t("Navigation.UserOptions.settings")}
+                        </Button>
                     </Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <Link href="/signout">
+                <DropdownMenuItem className="p-0 justify-start">
+                    <Button variant="ghost" className="w-full justify-start" onClick={signOut}>
                         <LogOut /> {t("Navigation.UserOptions.sign_out")}
-                    </Link>
+                    </Button>
                 </DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
