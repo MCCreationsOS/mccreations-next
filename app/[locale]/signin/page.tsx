@@ -109,7 +109,7 @@ export default function SignIn() {
                 <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('Account.Shared.Providers.microsoft')}</div>
             </div>
             <h2>{t('SignIn.email_title')}</h2>
-            <form method="">
+            <form method="" onSubmit={(e) => {e.preventDefault(); signInWithEmail()}}>
                 <div className='field'>
                     <p className='label'>{t('Account.Shared.email')}</p>
                     <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('Account.Shared.email_placeholder')} onChange={(e) => {setEmail(e.target.value)}}></input>
