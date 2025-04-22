@@ -25,7 +25,7 @@ export default function Translations({params}: {params: Params}) {
     const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
     const collectionName = convertToCollection(contentType)
     const { creation, isLoading } = useCreation(params.slug, contentType)
-    const {user} = useUser(true)
+    const {user, isLoading: userLoading} = useUser(true)
     const t = useTranslations()
     const router = useRouter()
 
@@ -40,7 +40,7 @@ export default function Translations({params}: {params: Params}) {
         </div>
     }
 
-    if(!user || (!creation?.creators.some(creator => creator.handle === user.handle) || creation.owner !== user._id) && user.type !== UserTypes.Admin) {
+    if(!user || (!creation?.creators.some(creator => creator.handle === user.handle) && creation.owner !== user.handle) && user.type !== UserTypes.Admin) {
         router.push("/signin?redirect=/edit/" + contentType + "/" + params.slug)
         return <div className="centered_content">
             <h1>You are not allowed to edit this content</h1>
