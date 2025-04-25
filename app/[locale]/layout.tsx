@@ -5,7 +5,7 @@ import Footer from '@/components/Footer/Footer'
 import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import {NextIntlClientProvider} from 'next-intl';
-import { getLocale, getMessages } from 'next-intl/server'
+import { getLocale, getMessages, unstable_setRequestLocale } from 'next-intl/server'
 
 import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
@@ -40,11 +40,11 @@ export const metadata: Metadata = {
 }
  
 export default async function RootLayout({params: { locale }, children}: {params: {locale: string}, children: React.ReactNode}) {
+  unstable_setRequestLocale(locale)
   const messages = await getMessages();
-  const l = await getLocale();
  return (
 
-  <html lang={l}>
+  <html lang={locale}>
       <head>
         <meta property="og:image:width" content="2500"></meta>
         <meta property="og:image:height" content="1408"></meta>
