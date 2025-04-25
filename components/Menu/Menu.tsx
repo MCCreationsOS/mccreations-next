@@ -14,6 +14,7 @@ import {
     NavigationMenuTrigger,
 } from "../ui/navigation-menu";
 import UserOptions from "./UserOptions";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 export default function Navbar() {
     return (
@@ -155,6 +156,7 @@ export default function Navbar() {
                 </NavigationMenu>
 
                 <div className="flex items-center ml-auto gap-2">
+                    <LanguageSwitcher />
                     <UserOptions />
 
                     <Button asChild className="hidden md:flex gap-0">
