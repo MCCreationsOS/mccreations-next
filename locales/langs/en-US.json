@@ -1,24 +1,44 @@
 {
+    "_id": {
+        "$oid": "67254c06fbd562c74b56caea"
+    },
     "language_name": "English",
-    "language_code": "en_US",
-
+    "language_code": "en-US",
     "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
     "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
     "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
     "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
     "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
-
+    "Creations": {
+        "Search": {
+            "SearchPage": {
+                "map": {
+                    "title": "Browse and Search for Minecraft Maps",
+                    "blurb": "Find amazing new Minecraft maps for your next adventure!",
+                    "description": "Minecraft maps are custom worlds created by players or developers that offer unique experiences beyond the standard game. These maps can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced map-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft maps have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players."
+                },
+                "datapack": {
+                    "title": "Browse and Search for Minecraft Data Packs",
+                    "blurb": "Find amazing new Minecraft data packs for your next adventure!",
+                    "description": "Minecraft data packs are custom content that can add new features, change the way the game is played, and more! They are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
+                },
+                "resourcepack": {
+                    "title": "Browse and Search for Minecraft Resource Packs",
+                    "blurb": "Find amazing new Minecraft resource packs for your next adventure!",
+                    "description": "Minecraft resource packs are custom content that change the look and feel of Minecraft. They can change the textures, the models, the sounds, the music, and more!"
+                }
+            }
+        }
+    },
     "Status": {
         "approved": "Verified",
         "draft": "Draft",
         "featured": "Featured",
         "unapproved": "Published"
     },
-
     "Account": {
         "settings": "Account Settings",
         "delete_account": "Delete Account",
-
         "Popup": {
             "new_username": "New Username",
             "change_username": "Change Username",
@@ -30,7 +50,6 @@
             "confirm_password": "Confirm Password",
             "change_password": "Change Password"
         },
-
         "PopupMessage": {
             "email_updated": "Email updated successfully to {email}",
             "handle_updated": "Handle updated successfully to {handle}",
@@ -43,7 +62,6 @@
             "delete_account_success": "Account successfully deleted",
             "error": "There was an error. Please report this issue using the link above"
         },
-
         "Shared": {
             "username": "Username",
             "username_placeholder": "Steve",
@@ -61,13 +79,11 @@
             "forgot_password": "Forgot your password?",
             "providers": "Sign in with..."
         },
-
         "Notifications": {
             "title": "Notification Settings",
             "comment": "New Comments",
             "like": "Like Notifications",
             "reply": "New Replies",
-            "subscription": "New Subscription Posts",
             "email_daily": "Email Daily",
             "email_weekly": "Email Weekly",
             "push_only": "Push Only",
@@ -81,30 +97,29 @@
             "read_all": "Mark all as read",
             "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
             "add_to_this_device": "Subscribe to Push Notifications Here",
-
             "NewComment": {
-                "title": "New Comment:",
+                "title": "New Comment",
                 "body": "{username} posted a new comment on your {content_type} {title}."
             },
             "NewReply": {
-                "title": "New Reply:",
+                "title": "New Reply",
                 "body": "{username} replied to your comment."
             },
             "NewPost": {
-                "title": "New Post:",
+                "title": "New Post",
                 "body": "{username} posted a new {content_type}."
             },
             "NewRating": {
-                "title": "New Rating:",
+                "title": "New Rating",
                 "body": "{content_type} received a new rating of {rating} stars."
             },
             "NewTranslation": {
-                "title": "New Translation:",
+                "title": "New Translation",
                 "body": "{username} translated your {content_type} into {language}."
-            }
+            },
+            "follow": "Following Posts"
         }
     },
-
     "Auth": {
         "OAuth": {
             "PopupMessage": {
@@ -113,11 +128,9 @@
             "loading": "Signing you in!"
         }
     },
-
     "Comments": {
         "loading": "Loading Comment..."
     },
-
     "Creator": {
         "Metadata": {
             "not_found_title": "Creator Not Found",
@@ -135,7 +148,6 @@
         "not_found": "Creator Not Found",
         "logo_alt": "{username}'s logo"
     },
-
     "Dashboard": {
         "title": "Dashboard",
         "info": "Info",
@@ -148,7 +160,6 @@
         "edit": "Edit",
         "delete": "Delete"
     },
-
     "ResetPassword": {
         "token_error": "No token found, returning to previous page",
         "new_password": "New Password",
@@ -159,7 +170,6 @@
         "reset": "Reset",
         "title": "Reset Password"
     },
-
     "SignIn": {
         "Reset": {
             "title": "Reset Password",
@@ -172,7 +182,6 @@
         "button": "Sign In",
         "no_account": "Don't have an account?"
     },
-
     "SignUp": {
         "title": "Sign Up",
         "email_invalid": "Email is not a valid email address",
@@ -184,42 +193,30 @@
         "already_have_account": "Already have an account?",
         "error": "There was an error creating your account. Please report this issue using the link above."
     },
-
     "Translate": {
         "title": "Translate",
         "help": "<link>For help, click here</link>",
         "AddLanguage": {
-            "title": "Add A Language",
+            "title": "Add Language",
             "language_placeholder": "en-US",
             "language_description": "An <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct."
         },
         "language": "Language",
         "language_missing": "Is your language missing? Click here to add it."
     },
-
     "Error": {
         "title": "Something went wrong!",
         "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
         "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
     },
-
     "Home": {
-        "Playlists": {
-            "new_content": "New Content",
-            "updated_content": "Recently Updated",
-            "parkour": "Parkour: Jump to Victory!",
-            "adventure": "Adventure: Explore the Unknown",
-            "puzzle": "Puzzle: Use your Brain",
-            "highly_rated": "Highly Rated",
-            "popular": "Popular"
-        },
-        "ViewAll": "Find More..."
+        "blurb": "Minecraft Maps, Data Packs, Resource Packs, and more from the Minecraft Community around the world!",
+        "recently_updated": "Recently Updated Creations",
+        "view_all": "Find More..."
     },
-
     "Ads": {
         "behind_text": "Ads help keep MCCreations creating cool things! Please consider disabling your ad blocker for this site :)"
     },
-
     "Buttons": {
         "BulkDownload": {
             "text": "BULK",
@@ -229,14 +226,12 @@
         "download_bedrock": "Download for Bedrock",
         "edit": "Edit"
     },
-
     "CommentForm": {
         "sent": "Comment sent",
         "title": "Leave a Comment",
         "comment": "Comment",
         "send": "Send"
     },
-
     "Comment": {
         "permalink": "Copy comment permalink",
         "expand": "See More",
@@ -245,18 +240,15 @@
         "like": "Like",
         "delete": "Delete"
     },
-
     "CommentsList": {
         "title": "Comments",
         "no_comments": "Be the first to comment!",
         "none_yet": "None Yet!",
         "loading": "Loading Comments..."
     },
-
     "FeaturedSlideshow": {
         "see_more": "Download"
     },
-
     "Footer": {
         "about": "About",
         "contact": "Contact",
@@ -285,7 +277,6 @@
         "open_source": "MCCreations is <link>open source</link>. Contribute today!",
         "copyright": "© Ben Meier/CrazyCowMM"
     },
-
     "Form": {
         "save": "Save",
         "CreatorSelector": {
@@ -336,10 +327,9 @@
             "font_size": "Font Size"
         }
     },
-
     "Navigation": {
         "CreateForm": {
-            "title": "Create",
+            "title": "Upload",
             "missing_title": "A title must be included to save content",
             "missing_short_description": "A short description must be included to save content",
             "missing_type": "A type must be selected to save content",
@@ -365,9 +355,14 @@
         "badge": "Beta",
         "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
         "home": "Home",
-        "feed": "Feed"
+        "feed": "Feed",
+        "forums": "Forums",
+        "marketplace": "Marketplace",
+        "creations": "Creations",
+        "helpTranslate": "Help Translate",
+        "language": "English",
+        "create": "Create"
     },
-
     "SearchAndFilter": {
         "search": "Search",
         "clear_filters": "Clear Filters",
@@ -389,12 +384,9 @@
         "tags": "Tags",
         "search_placeholder": "Search title, creator, version, etc."
     },
-
-    
     "brand": "MCCreations",
     "error": "Error",
     "events": "Events",
-
     "VersionManager": {
         "title": "Version Manager",
         "add_version": "Add Version",
@@ -422,7 +414,6 @@
             "add_file_description": "Add any extra files required for this creation, like resourcepacks"
         }
     },
-
     "Content": {
         "affiliate": "Get a server for this {type} for 25% off",
         "leaderboards": "Leaderboards",
@@ -439,7 +430,8 @@
             "downloads": "Downloads",
             "ratings": "Ratings",
             "minecraft_version": "Minecraft Version",
-            "files": "Files"
+            "files": "Files",
+            "tags": "Tags"
         },
         "Files": {
             "name": "Name",
@@ -688,14 +680,12 @@
             "vanilla": "Vanilla"
         }
     },
-
     "Datapacks": {
         "Metadata": {
             "title": "Download Data Packs | MCCreations",
             "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
         }
     },
-
     "Leaderboards": {
         "not_found": "Leaderboard Not Found",
         "rank": "Rank",
@@ -712,7 +702,6 @@
         "submit": "Submit",
         "username": "Username"
     },
-
     "Profile": {
         "follow": "Follow",
         "unfollow": "Unfollow",
@@ -762,6 +751,19 @@
                 "handle": "YouTube Handle"
             },
             "delete_widget": "Delete Widget"
+        }
+    },
+    "Create": {
+        "next": "Next",
+        "finish": "Finish",
+        "save": "Save",
+        "Import": {
+            "PMC": "Importing from Planet Minecraft",
+            "downloading": "Downloading creation from {host}",
+            "preroll": "Waiting for Preroll Ad...",
+            "unknown": "Importing from unknown host",
+            "MinecraftMaps": "Importing from Minecraft Maps",
+            "Modrinth": "Importing from Modrinth"
         }
     }
 }

@@ -1,6 +1,9 @@
 {
+    "_id": {
+        "$oid": "67254b21fbd562c74b56cae8"
+    },
     "language_name": "Русский (Россия)",
-    "language_code": "ru_RU",
+    "language_code": "ru-RU",
     "map": "{count, plural, =0 {Карты} =1 {Карта} other {Карты}}",
     "datapack": "{count, plural, =0 {Датапаки} =1 {Датапак} other {Датапаки}}",
     "resourcepack": "{count, plural, =0 {Ресурспаки} =1 {Ресурспак} other {Ресурспаки}}",
@@ -53,6 +56,46 @@
             },
             "forgot_password": "Забыли ваш пароль?",
             "providers": "Sign in with..."
+        },
+        "Notifications": {
+            "title": "Notification Settings",
+            "comment": "New Comments",
+            "like": "Like Notifications",
+            "reply": "New Replies",
+            "email_daily": "Email Daily",
+            "email_weekly": "Email Weekly",
+            "push_only": "Push Only",
+            "push_email_daily": "Push & Email Daily",
+            "push_email_weekly": "Push & Email Weekly",
+            "dashboard_only": "Dashboard Only",
+            "none": "None",
+            "translation": "New Creation Translations",
+            "rating": "New Creation Ratings",
+            "no_notifications": "No notifications yet!",
+            "read_all": "Mark all as read",
+            "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
+            "add_to_this_device": "Subscribe to Push Notifications Here",
+            "NewComment": {
+                "title": "New Comment",
+                "body": "{username} posted a new comment on your {content_type} {title}."
+            },
+            "NewReply": {
+                "title": "New Reply",
+                "body": "{username} replied to your comment."
+            },
+            "NewPost": {
+                "title": "New Post",
+                "body": "{username} posted a new {content_type}."
+            },
+            "NewRating": {
+                "title": "New Rating",
+                "body": "{content_type} received a new rating of {rating} stars."
+            },
+            "NewTranslation": {
+                "title": "New Translation",
+                "body": "{username} translated your {content_type} into {language}."
+            },
+            "follow": "Following Posts"
         }
     },
     "Auth": {
@@ -153,7 +196,8 @@
             "puzzle": "Пазл: Используйте свой мозг",
             "highly_rated": "Высокий рейтинг",
             "popular": "Популярный контент"
-        }
+        },
+        "ViewAll": "Find More..."
     },
     "Ads": {
         "behind_text": "Рекламы помогают продолжать MCCreations создавать крутые штуки! Пожалуйста рассмотрите возможность выключения блокировщика рекламы для этого сайта :)"
@@ -178,7 +222,8 @@
         "expand": "Видеть больше",
         "collapse": "Видеть меньше",
         "reply": "Reply",
-        "like": "Like"
+        "like": "Like",
+        "delete": "Delete"
     },
     "CommentsList": {
         "title": "Комметарии",
@@ -289,12 +334,19 @@
             "dashboard": "Dashboard",
             "profile": "Профиль",
             "settings": "Настройки",
-            "admin": "Администратор"
+            "admin": "Администратор",
+            "notifications": "Notifications"
         },
         "badge": "Бета",
         "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
         "home": "Главная",
-        "feed": "Feed"
+        "feed": "Feed",
+        "forums": "Forums",
+        "marketplace": "Marketplace",
+        "creations": "Creations",
+        "helpTranslate": "Help Translate",
+        "language": "Русский (Россия)",
+        "create": "Create"
     },
     "SearchAndFilter": {
         "search": "Искать",
@@ -363,7 +415,8 @@
             "downloads": "Скачиваний",
             "ratings": "Рейтинг",
             "minecraft_version": "Версия Minecraft",
-            "files": "Файлы"
+            "files": "Файлы",
+            "tags": "Tags"
         },
         "Files": {
             "name": "Название",
@@ -634,7 +687,6 @@
         "submit": "Submit",
         "username": "Username"
     },
-
     "Profile": {
         "Widgets": {
             "Discord": {
@@ -682,6 +734,9 @@
                 "handle": "YouTube Handle"
             },
             "delete_widget": "Delete Widget"
-        }
-    }
+        },
+        "follow": "Follow",
+        "unfollow": "Unfollow"
+    },
+    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}"
 }

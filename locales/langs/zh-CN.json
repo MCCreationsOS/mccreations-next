@@ -1,23 +1,22 @@
 {
+    "_id": {
+        "$oid": "679d764655fd25e2d4a00518"
+    },
     "language_name": "简体中文",
-    "language_code": "zh_CN",
-
+    "language_code": "zh-CN",
     "map": "{count, plural, =0 {地图} =1 {地图} other {地图}}",
     "datapack": "{count, plural, =0 {数据包} =1 {数据包} other {数据包}}",
     "resourcepack": "{count, plural, =0 {资源包} =1 {资源包} other {资源包}}",
     "comment": "{count, plural, =0 {评论} =1 {评论} other {评论}}",
-
     "Status": {
         "approved": "Verified",
         "draft": "未完成",
         "featured": "精选",
         "unapproved": "Published"
     },
-
     "Account": {
         "settings": "账户设置",
         "delete_account": "删除账户",
-
         "Popup": {
             "new_username": "新昵称",
             "change_username": "更改昵称",
@@ -29,7 +28,6 @@
             "confirm_password": "再次确认密码",
             "change_password": "更改密码"
         },
-
         "PopupMessage": {
             "email_updated": "邮箱已成功更新为 {email}",
             "handle_updated": "用户名已成功更新为 {handle}",
@@ -42,7 +40,6 @@
             "delete_account_success": "已成功删除账户",
             "error": "发生一处错误。请通过以上链接报告问题"
         },
-
         "Shared": {
             "username": "昵称",
             "username_placeholder": "Steve",
@@ -59,9 +56,48 @@
             },
             "forgot_password": "忘记密码？",
             "providers": "以……登录"
+        },
+        "Notifications": {
+            "title": "Notification Settings",
+            "comment": "New Comments",
+            "like": "Like Notifications",
+            "reply": "New Replies",
+            "email_daily": "Email Daily",
+            "email_weekly": "Email Weekly",
+            "push_only": "Push Only",
+            "push_email_daily": "Push & Email Daily",
+            "push_email_weekly": "Push & Email Weekly",
+            "dashboard_only": "Dashboard Only",
+            "none": "None",
+            "translation": "New Creation Translations",
+            "rating": "New Creation Ratings",
+            "no_notifications": "No notifications yet!",
+            "read_all": "Mark all as read",
+            "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
+            "add_to_this_device": "Subscribe to Push Notifications Here",
+            "NewComment": {
+                "title": "New Comment",
+                "body": "{username} posted a new comment on your {content_type} {title}."
+            },
+            "NewReply": {
+                "title": "New Reply",
+                "body": "{username} replied to your comment."
+            },
+            "NewPost": {
+                "title": "New Post",
+                "body": "{username} posted a new {content_type}."
+            },
+            "NewRating": {
+                "title": "New Rating",
+                "body": "{content_type} received a new rating of {rating} stars."
+            },
+            "NewTranslation": {
+                "title": "New Translation",
+                "body": "{username} translated your {content_type} into {language}."
+            },
+            "follow": "Following Posts"
         }
     },
-
     "Auth": {
         "OAuth": {
             "PopupMessage": {
@@ -70,11 +106,9 @@
             "loading": "你已登录！"
         }
     },
-
     "Comments": {
         "loading": "加载评论中……"
     },
-
     "Creator": {
         "Metadata": {
             "not_found_title": "未找到创作者",
@@ -92,7 +126,6 @@
         "not_found": "未找到创作者",
         "logo_alt": "{username} 的 logo"
     },
-
     "Dashboard": {
         "title": "您的内容",
         "info": "信息",
@@ -105,7 +138,6 @@
         "edit": "编辑",
         "delete": "删除"
     },
-
     "ResetPassword": {
         "token_error": "未找到 token ，返回上一页",
         "new_password": "新密码",
@@ -116,7 +148,6 @@
         "reset": "重置",
         "title": "重置密码"
     },
-
     "SignIn": {
         "Reset": {
             "title": "重置密码",
@@ -129,7 +160,6 @@
         "button": "登录",
         "no_account": "没有账户？"
     },
-
     "SignUp": {
         "title": "注册",
         "email_invalid": "邮箱地址无效",
@@ -141,7 +171,6 @@
         "already_have_account": "已有账户？",
         "error": "创建账户时出现错误。请通过以上链接报告问题。"
     },
-
     "Translate": {
         "title": "翻译",
         "help": "<link>想获得帮助？点这</link>",
@@ -153,13 +182,11 @@
         "language": "语言",
         "language_missing": "缺少你的语言？点击这里以添加。"
     },
-
     "Error": {
         "title": "发生错误！",
         "description": "看来我们的电路里可能染了一些灰尘！请使用下方链接以报告问题，并稍后再试。",
         "report": "使用<form>此表格</form>报告问题，<github>通过我们的 Github 页面<github>或<link>加入我们的 Discord</link> 以报告该问题。"
     },
-
     "Home": {
         "Playlists": {
             "new_content": "新内容",
@@ -169,13 +196,12 @@
             "puzzle": "解密：开发大脑",
             "highly_rated": "评分较高",
             "popular": "流行"
-        }
+        },
+        "ViewAll": "Find More..."
     },
-
     "Ads": {
         "behind_text": "广告能帮助 MCCreations 继续创造超酷的内容！请考虑在本网站禁用广告拦截器 :)"
     },
-
     "Buttons": {
         "BulkDownload": {
             "text": "批量",
@@ -185,33 +211,29 @@
         "download_bedrock": "供基岩版下载",
         "edit": "编辑"
     },
-
     "CommentForm": {
         "sent": "评论已发送",
         "title": "发表评论",
         "comment": "评论",
         "send": "发送"
     },
-
     "Comment": {
         "permalink": "复制永久评论链接",
         "expand": "展开",
         "collapse": "折叠",
         "reply": "Reply",
-        "like": "Like"
+        "like": "Like",
+        "delete": "Delete"
     },
-    
     "CommentsList": {
         "title": "评论",
         "no_comments": "成为第一个评论的人！",
         "none_yet": "尚无评论！",
         "loading": "Loading Comments..."
     },
-
     "FeaturedSlideshow": {
         "see_more": "下载"
     },
-
     "Footer": {
         "about": "关于",
         "contact": "联系",
@@ -240,7 +262,6 @@
         "open_source": "MCCreations 是<link>开源的</link>。欢迎贡献！",
         "copyright": "© Ben Meier/CrazyCowMM"
     },
-
     "Form": {
         "save": "保存",
         "CreatorSelector": {
@@ -291,7 +312,6 @@
             "font_size": "Font Size"
         }
     },
-
     "Navigation": {
         "CreateForm": {
             "title": "创建",
@@ -314,14 +334,20 @@
             "dashboard": "仪表盘",
             "profile": "个人资料",
             "settings": "设置",
-            "admin": "管理员"
+            "admin": "管理员",
+            "notifications": "Notifications"
         },
         "badge": "测试版",
         "beta_warning": "MCCreations 目前仍处于 beta 版。请使用该<form>表格</form>，<github>通过我们的 Github page</github>，或<link>加入我们的 Discord</link>以留下反馈或报告问题。",
         "home": "首页",
-        "feed": "Feed"
+        "feed": "Feed",
+        "forums": "Forums",
+        "marketplace": "Marketplace",
+        "creations": "Creations",
+        "helpTranslate": "Help Translate",
+        "language": "简体中文",
+        "create": "Create"
     },
-
     "SearchAndFilter": {
         "search": "搜索",
         "clear_filters": "清除筛选",
@@ -343,12 +369,9 @@
         "tags": "标签",
         "search_placeholder": "搜索标题、创作者、版本等"
     },
-
-    
     "brand": "MCCreations",
     "error": "错误",
     "events": "事件",
-
     "VersionManager": {
         "title": "版本管理",
         "add_version": "添加版本",
@@ -376,7 +399,6 @@
             "add_file_description": "添加该作品所需的额外文件，如资源包"
         }
     },
-
     "Content": {
         "affiliate": "以25%的折扣购买{type}服务器",
         "leaderboards": "Leaderboards",
@@ -393,7 +415,8 @@
             "downloads": "下载次数",
             "ratings": "评分",
             "minecraft_version": "Minecraft 版本",
-            "files": "文件"
+            "files": "文件",
+            "tags": "Tags"
         },
         "Files": {
             "name": "名称",
@@ -642,14 +665,12 @@
             "vanilla": "原版"
         }
     },
-
     "Datapacks": {
         "Metadata": {
             "title": "下载数据包 | MCCreations",
             "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
         }
     },
-
     "Leaderboards": {
         "not_found": "Leaderboard Not Found",
         "rank": "Rank",
@@ -665,5 +686,57 @@
         "submit_score_description": "Your score was {score}",
         "submit": "Submit",
         "username": "Username"
-    }
+    },
+    "Profile": {
+        "follow": "Follow",
+        "unfollow": "Unfollow",
+        "Widgets": {
+            "Discord": {
+                "title": "Discord",
+                "edit_title": "Edit Discord Widget",
+                "server_id": "Server ID"
+            },
+            "FeaturedCreation": {
+                "title": "Featured Creation",
+                "edit_title": "Edit Featured Creation Widget",
+                "type": "Type",
+                "slug": "Slug"
+            },
+            "Image": {
+                "edit_title": "Edit Image Widget",
+                "image": "Image",
+                "title": "Title"
+            },
+            "Showcase": {
+                "title": "Creations",
+                "edit_title": "Edit Showcase Widget",
+                "type": "Type"
+            },
+            "SupportSite": {
+                "title": "Support Site",
+                "edit_title": "Edit Support Site Widget"
+            },
+            "Text": {
+                "edit_title": "Edit Text Widget",
+                "text": "Text",
+                "title": "Title"
+            },
+            "Twitch": {
+                "title": "Twitch",
+                "edit_title": "Edit Twitch Widget",
+                "handle": "Twitch Username"
+            },
+            "Wall": {
+                "title": "Wall",
+                "edit_title": "Edit Wall Widget"
+            },
+            "Youtube": {
+                "title": "YouTube",
+                "edit_title": "Edit YouTube Widget",
+                "handle": "YouTube Handle"
+            },
+            "delete_widget": "Delete Widget"
+        }
+    },
+    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}"
 }
