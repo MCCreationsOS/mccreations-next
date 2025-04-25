@@ -1,4 +1,4 @@
-import Menu from "@/components/Menu/Menu";
+import Menu from "@/components/Menu/Navbar";
 import EditHeader from "./editHeader";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { Link } from "@/app/api/navigation";

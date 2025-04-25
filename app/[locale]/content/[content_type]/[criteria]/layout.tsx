@@ -1,5 +1,5 @@
 import { Locales, MinecraftVersions, SortOptions, StatusOptions, AllTags, ContentTypes } from "@/app/api/types"
-import Menu from "@/components/Menu/Menu"
+import Menu from "@/components/Menu/Navbar"
 import { getTranslations, unstable_setRequestLocale } from "next-intl/server"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { Suspense } from "react"

@@ -10,7 +10,7 @@ import { getLocale, getMessages, unstable_setRequestLocale } from 'next-intl/ser
 import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
 import '@/app/globals.css'
-import Menu from '@/components/Menu/Menu'
+import Menu from '@/components/Menu/Navbar'
 import ServiceWorkerManager from '@/components/ServiceWorkerManager'
 import { Toaster } from '@/components/ui/sonner'
 

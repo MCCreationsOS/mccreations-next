@@ -1,4 +1,4 @@
-import Menu from "@/components/Menu/Menu";
+import Menu from "@/components/Menu/Navbar";
 
 
 export default function ClientLayout({params: {locale}, children}: {params: {locale: string}, children: React.ReactElement}) {

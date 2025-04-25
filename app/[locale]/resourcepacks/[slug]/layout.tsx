@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 import { Metadata } from 'next'
-import Menu from '@/components/Menu/Menu'
+import Menu from '@/components/Menu/Navbar'
 import { unstable_setRequestLocale } from 'next-intl/server'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { searchContent } from '@/app/api/content'

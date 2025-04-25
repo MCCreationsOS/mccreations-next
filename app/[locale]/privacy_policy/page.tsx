@@ -1,4 +1,4 @@
-import Menu from "@/components/Menu/Menu";
+import Menu from "@/components/Menu/Navbar";
 import { Link } from "@/app/api/navigation";
 
 export default function Page() {

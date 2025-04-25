@@ -1,6 +1,6 @@
 import styles from './CreatorPage.module.css'
 import Image from "next/image"
-import Menu from '@/components/Menu/Menu'
+import Menu from '@/components/Menu/Navbar'
 import { shimmer, toBase64 } from '@/components/skeletons/imageShimmer'
 
 export default function ProfileLoading() {

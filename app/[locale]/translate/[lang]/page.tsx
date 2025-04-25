@@ -2,7 +2,7 @@
 
 import FormComponent from '@/components/Form/Form'
 import Text from "@/components/FormInputs/Text";
-import Menu from '@/components/Menu/Menu'
+import Menu from '@/components/Menu/Navbar'
 import { PopupMessage, PopupMessageType } from '@/components/PopupMessage/PopupMessage';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { Link } from "@/app/api/navigation";

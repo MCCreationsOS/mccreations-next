@@ -3,7 +3,7 @@
 import SecondaryButton from "@/components/Buttons/SecondaryButton";
 import FormComponent from "@/components/Form/Form";
 import Text from "@/components/FormInputs/Text";
-import Menu from "@/components/Menu/Menu";
+import Menu from "@/components/Menu/Navbar";
 import { Popup } from "@/components/Popup/Popup";
 import { Link } from "@/app/api/navigation";
 import { useTranslations } from "next-intl";

@@ -1,5 +1,5 @@
 import { getCreator } from "@/app/api/community"
-import Menu from "@/components/Menu/Menu"
+import Menu from "@/components/Menu/Navbar"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import styles from './CreatorPage.module.css'
 import ContentArea from "@/components/ContentArea/ContentArea"
