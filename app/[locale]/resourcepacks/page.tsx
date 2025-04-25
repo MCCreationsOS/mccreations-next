@@ -1,5 +1,5 @@
 import { CollectionNames} from "@/app/api/types"
-import ContentSearchPage from "@/components/Content/Search/ContentSearchPage";
+import ContentSearchPage from "@/components/Creations/Search/ContentSearchPage"
 
 const pathname = "/resourcepacks/"
 

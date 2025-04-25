@@ -2,11 +2,11 @@ import '../../styles/mapPage.css'
 import { searchContent, fetchDatapack } from '@/app/api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IContentDoc, CollectionNames, Locales } from '@/app/api/types';
-import MapWrapper, { DatapackWrapper } from '@/components/Content/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
-import Content from '@/components/Content/Content';
 import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import Creation from '@/components/Creations/Page/Creation';
+import { DatapackWrapper } from '@/components/Creations/Page/ContentWrapper';
 
 export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
     // fetch data
@@ -62,7 +62,7 @@ export default async function Page({params}: {params: Params}) {
     
     if(map && typeof map === "object" && "_id" in map) {
         return (
-            <Content content={map} collectionName={CollectionNames.Datapacks}/>
+            <Creation creation={map} collectionName={CollectionNames.Datapacks}/>
         )
     } else if (map) {
         return (

@@ -1,0 +1,118 @@
+"use client"
+
+import { IContentDoc, CollectionNames, } from "@/app/api/types";
+import Image from 'next/image'
+import { Download, EllipsisVertical } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { makeSentenceCase } from "@/app/api/utils";
+import { convertToType } from "@/app/api/content";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { useTags } from "@/app/api/hooks/creations";
+import DOMPurify from "isomorphic-dompurify";
+import CreatorCard from "@/components/Creator/CreatorCard";
+import Rating from "@/components/Creations/Page/Rating";
+
+export const dynamic = 'force-dynamic'
+
+/**
+ * The map component represents all the information displayed on a map page
+ * @param map The map to display
+ * @param privileged If the user is privileged to see the content
+ */
+export default function Creation({creation, collectionName}: {creation: IContentDoc, collectionName: CollectionNames}) {
+    const t = useTranslations()
+    const locale = useLocale();
+    const contentType = convertToType(collectionName);
+    const {tags} = useTags(contentType)
+
+    let title = creation.title
+    let description = creation.description
+    
+    if(creation.translations && creation.translations[locale] && creation.translations[locale].approved) {
+        title = creation.translations[locale].title
+        description = creation.translations[locale].description
+    }
+
+    let videoID = ""
+    if(creation.videoUrl && creation.videoUrl.includes("?v=")) {
+        videoID = creation.videoUrl.substring(creation.videoUrl.indexOf("?v=") + 3, (creation.videoUrl.lastIndexOf("&") > 0) ? creation.videoUrl.lastIndexOf("&") : creation.videoUrl.length)
+    } else if(creation.videoUrl) {
+        videoID = creation.videoUrl.substring(creation.videoUrl.lastIndexOf("/") + 1)
+    }
+
+    let formattedTags
+    if(tags && 'genre' in tags) {
+        formattedTags = Object.keys(tags).reduce((acc, key) => {
+            const filteredTags = creation.tags?.filter((tag: string) => tags[key].includes(tag));
+            if (filteredTags && filteredTags.length > 0) {
+                acc[key] = filteredTags;
+            }
+            return acc;
+        }, {} as {[key: string]: string[]})
+        
+    }
+
+    return (
+        <div>
+            <div className="w-full max-h-96 relative">
+                <div className="w-full max-h-96 object-cover object-center hidden md:block">
+                    <Image className="w-full max-h-96 object-cover object-center opacity-20" width={1920} height={1080} src={creation.images[0]} alt=""></Image>
+                </div>
+                <div className="w-full h-full object-cover object-center aspect-video z-2 mx-auto md:absolute md:top-5">
+                    <Image className="max-w-xl w-full mx-auto object-cover object-center" width={1280} height={720} src={creation.images[0]} alt="" priority></Image>
+                </div>
+                <div className="w-full h-8 object-cover object-center aspect-video z-2 hidden md:flex md:absolute md:bottom-[-15px] gap-1 justify-center">
+                    <Badge className="text-md">{creation.files[0].minecraftVersion}</Badge>
+                        {
+                            (creation.type === "map") ? <><Badge variant="secondary" className="text-md">{t('map', {count: 1})}</Badge></> : 
+                                (creation.type === "datapack") ? <><Badge variant="secondary" className="text-md">{t('datapack', {count: 1})}</Badge></> : 
+                                <><Badge variant="secondary" className="text-md">{t('resourcepack', {count: 1})}</Badge></>
+                        }
+                        {formattedTags && formattedTags.genre && formattedTags.genre.length > 0 && <>{formattedTags.genre.concat(formattedTags.subgenre).map(tag => <Badge variant="secondary" className="text-md">{makeSentenceCase(t(`Creation.Tags.${tag}`))}</Badge>)}</>}
+                </div>
+            </div>
+            <div className="max-w-4xl mx-auto mt-3 md:mt-10">
+                <div className="flex flex-row gap-2 mb-2">
+                    <h1 className="text-4xl font-extrabold flex-1">{title}</h1>
+                    <div className="flex flex-row gap-2">
+                        <Button className="px-6 py-5"><span className="text-lg font-bold">{t('Buttons.download')}</span><Download/></Button>
+                        <Button variant="secondary" className="flex items-center gap-2 py-5">
+                            <EllipsisVertical className="h-5 w-5" />
+                            <span className="sr-only">Options</span>
+                        </Button>
+                    </div>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-4">
+                    <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}} className="max-w-xl lg:text-lg">
+
+                    </div>
+                    <div className="bg-card border-gray-950 border-2 card-shadow p-5 w-full h-fit flex-1/2 relative">
+                        <div className="flex flex-col gap-2">
+                            {creation.creators.map(creator => <CreatorCard creator={creator} key={creator.username}/>)}
+                        </div>
+                        <hr className="my-2"></hr>
+                        <div className="flex flex-col gap-1 text-sm text-muted-foreground">
+                            <div>
+                                <Rating value={creation.rating} content={creation}/>
+                            </div>
+                            <div className="flex flex-row">
+                                <span className="flex-1">{t('Creation.Sidebar.downloads')}</span>
+                                <span>{creation.downloads}</span>
+                            </div>
+                            <div className="flex flex-row">
+                                <span className="flex-1">{t('Creation.Sidebar.created_date')}</span>
+                                <span>{new Date(creation.createdDate).toLocaleDateString()}</span>
+                            </div>
+                            {creation.updatedDate && <div className="flex flex-row">
+                                <span className="flex-1">{t('Creation.Sidebar.updated_date')}</span>
+                                <span>{new Date(creation.updatedDate).toLocaleDateString()}</span>
+                            </div>}
+                        </div>
+                        <hr className="my-2"></hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}

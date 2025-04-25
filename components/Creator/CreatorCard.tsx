@@ -8,10 +8,10 @@ import styles from './CreatorCard.module.css';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { useCreator, useToken, useUser } from '@/app/api/hooks/users';
-import SecondaryButton from '../Buttons/SecondaryButton';
-import { Plus } from 'lucide-react';
+import { Plus, UserPlus } from 'lucide-react';
 import { follow } from '@/app/api/creators';
-import DropDown, { DropDownItem } from '../FormInputs/RichText/DropDown';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { Button } from '../ui/button';
 
 /**
  * A card that displays a creator's logo and username
@@ -32,16 +32,28 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
 
     if(c && c.handle) {
         return (
-            <div style={{position: "relative"}}>
-                <Link className={styles.card} href={`/creator/${c.handle}`}>
-                    <Image src={c.iconURL ?? "/defaultLogo.png"} width={50} height={50} className={styles.logo} alt={t('Creator.logo_alt', {username: c.username})}></Image>
+            <div className='flex flex-row gap-2'>
+                <Link className="flex-1 flex flex-row gap-2 items-center" href={`/creator/${c.handle}`}>
+                    <Image src={c.iconURL ?? "/defaultLogo.png"} width={50} height={50} className="rounded-full" alt={t('Creator.logo_alt', {username: c.username})}></Image>
                     <div>
                         {c.username}
                     </div>
                 </Link>
-                {user && user.handle !== "" && !user.following?.includes(c.handle) && <DropDown buttonClassName={styles.follow_button} buttonLabel={<Plus />} className='option_dropdown' useButtonWidth={false}>
-                        <DropDownItem onClick={handleFollow} className='option_button'>Follow {c.username}</DropDownItem>
-                    </DropDown>}
+                {user && user.handle !== "" && !user.following?.includes(c.handle) && <DropdownMenu>
+                    <DropdownMenuTrigger>
+                        <Button variant="secondary"><UserPlus /></Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent>
+                        <div className='flex flex-row gap-2 border-2 border-white/15'>
+                            <DropdownMenuItem onClick={handleFollow}>Follow {c.username}</DropdownMenuItem>
+                        </div>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+                
+                // <DropDown buttonClassName={styles.follow_button} buttonLabel={<Plus />} className='option_dropdown' useButtonWidth={false}>
+                //         <DropDownItem onClick={handleFollow} className='option_button'>Follow {c.username}</DropDownItem>
+                //     </DropDown>
+                }
             </div>
         )
     } else {

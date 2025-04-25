@@ -1,11 +1,10 @@
-import '../../styles/mapPage.css'
-import { searchContent, fetchResourcepack } from '@/app/api/content';
+import { fetchResourcepack } from '@/app/api/content';
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
-import { ICreator, IFile, IContentDoc, CollectionNames, Locales } from '@/app/api/types';
-import MapWrapper, { ResourcepackWrapper } from '@/components/Content/ContentWrapper';
+import { ICreator, IContentDoc, CollectionNames } from '@/app/api/types';
+import MapWrapper, { ResourcepackWrapper } from '@/components/Creations/Page/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
-import Content from '@/components/Content/Content';
+import Creation from '@/components/Creations/Page/Creation';
 import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
@@ -15,10 +14,10 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     const t = await getTranslations()
     const locale = await getLocale()
     if (!map || typeof map === "string") return {
-        title: t('Content.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
+        title: t('Creation.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
         openGraph: {
-            title: t('Content.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
-            description: t('Content.Metadata.not_found_description', { content_type: t('resourcepack', {count: 1})}),
+            title: t('Creation.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
+            description: t('Creation.Metadata.not_found_description', { content_type: t('resourcepack', {count: 1})}),
             images: [
                 {
                     url: "https://mccreations.net/images/logo.png"
@@ -33,14 +32,14 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     if(!map.tags) map.tags = []
 
     return {
-        title: t('Content.Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}),
+        title: t('Creation.Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}),
         description: map.shortDescription,
         authors: (map.creators) ? map.creators.map((creator: ICreator) => { return { name: creator.username } }) : [],
         generator: "MCCreations",
-        keywords: map.tags.concat([t('Content.Metadata.Tags.minecraft'), t('resourcepack', {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_resourcepack'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""})]),
+        keywords: map.tags.concat([t('Creation.Metadata.Tags.minecraft'), t('resourcepack', {count: 2}), t('Creation.Metadata.Tags.games'), t('Creation.Metadata.Tags.gaming'), t('Creation.Metadata.Tags.minecraft_resourcepack'), t('Creation.Metadata.Tags.minecraft_creations'), t('Creation.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""})]),
         publisher: "MCCreations",
         openGraph: {
-            title: t('Content.Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}),
+            title: t('Creation.Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""}),
             description: map.shortDescription,
             images: map.images,
             siteName: "MCCreations",
@@ -50,7 +49,7 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
             authors: (map.creators) ? map.creators.map((creator: ICreator) => { return creator.username }) : [],
             publishedTime: new Date(map.createdDate).toString(),
             modifiedTime: new Date(map.updatedDate + "").toString(),
-            tags: map.tags.concat([t('Content.Metadata.Tags.minecraft'), t('resourcepack', {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_resourcepack'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""})]),
+            tags: map.tags.concat([t('Creation.Metadata.Tags.minecraft'), t('resourcepack', {count: 2}), t('Creation.Metadata.Tags.games'), t('Creation.Metadata.Tags.gaming'), t('Creation.Metadata.Tags.minecraft_resourcepack'), t('Creation.Metadata.Tags.minecraft_creations'), t('Creation.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? map.files[0].minecraftVersion : ""})]),
             videos: (map.videoUrl) ? [{ url: map.videoUrl }] : []
         }
     }
@@ -63,7 +62,7 @@ export default async function Page({params}: {params: Params}) {
     
     if(map && '_id' in map) {
         return (
-            <Content content={map} collectionName={CollectionNames.Resourcepacks}/>
+            <Creation creation={map} collectionName={CollectionNames.Resourcepacks}/>
         )
     } else if (map) {
         return (
@@ -74,8 +73,8 @@ export default async function Page({params}: {params: Params}) {
         return (
             <div className='centered_content'>
 
-                <h1>{t('Content.resourcepack_not_found')}</h1>
-                <p>{t('Content.resourcepack_not_found_description')}</p>
+                <h1>{t('Creation.resourcepack_not_found')}</h1>
+                <p>{t('Creation.resourcepack_not_found_description')}</p>
             </div>
         )
     }

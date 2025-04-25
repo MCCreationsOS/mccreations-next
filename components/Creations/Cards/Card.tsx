@@ -120,7 +120,7 @@ export default function CreationCard(props: IContentCardProps) {
         <div className="bg-card border-gray-950 border-2 card-shadow group transition-all duration-200 group-hover:bg-card-hover relative overflow-hidden" id={props.playlist + "_" + props.index} >
             <Link href={`/${(props.linkTo) ? props.linkTo : props.creation.type + "s"}/${props.creation.slug}`}>
             <div className="overflow-hidden aspect-video relative border-gray-950 border-b-2">
-                    <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 border-b object-cover" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Content.logo_alt', {title: props.creation.title, type: props.creation.type, minecraft_version: (props.creation.files && props.creation.files.length > 0) ? props.creation.files[0].minecraftVersion : "", creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
+                    <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 border-b object-cover aspect-video" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Creation.logo_alt', {title: props.creation.title, type: props.creation.type, minecraft_version: (props.creation.files && props.creation.files.length > 0) ? props.creation.files[0].minecraftVersion : "", creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
                     <div className="absolute bottom-1 right-1 flex flex-row gap-1">
                         <Badge>{props.creation.files[0].minecraftVersion}</Badge>
                         {
@@ -128,7 +128,7 @@ export default function CreationCard(props: IContentCardProps) {
                                 (props.creation.type === "map") ? <><Badge variant="secondary">{t('map', {count: 1})}</Badge></> : 
                                 (props.creation.type === 'datapack') ? <><Badge variant="secondary">{t('datapack', {count: 1})}</Badge></> : 
                                 <><Badge variant="secondary">{t('resourcepack', {count: 1})}</Badge></>) }
-                            {props.showCategory && formattedTags && formattedTags.genre && formattedTags.genre.length > 0 && <>{formattedTags.genre.concat(formattedTags.subgenre).slice(0, 2).map(tag => <Badge variant="secondary">{makeSentenceCase(tag)}</Badge>)}</>}
+                            {props.showCategory && formattedTags && formattedTags.genre && formattedTags.genre.length > 0 && <>{formattedTags.genre.concat(formattedTags.subgenre).slice(0, 2).map(tag => <Badge variant="secondary">{makeSentenceCase(t(`Creation.Tags.${tag}`))}</Badge>)}</>}
                     </div>
                 </div>
             </Link>
@@ -141,7 +141,7 @@ export default function CreationCard(props: IContentCardProps) {
                     <div className={styles.stat}><Download className={styles.in_text_icon} />{props.creation.downloads}</div>
                     {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{((Math.round(props.creation.rating*100)/100) * 5).toFixed(2)}</div>: <></> }
                 </div>
-                <p className={styles.author}>{t('Content.by', {creator: props.creation.creators.slice(0, 3).map(c => c.username).join(t('Content.by_joiner'))})}</p>
+                <p className={styles.author}>{t('Creation.by', {creator: props.creation.creators.slice(0, 3).map(c => c.username).join(t('Creation.by_joiner'))})}</p>
             </div>
         </div>
         {props.index === props.adPosition &&

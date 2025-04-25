@@ -2,8 +2,8 @@
 import { ContentTypes, IFile } from "@/app/api/types";
 import { Archive, Layers, Package } from "lucide-react";
 import styles from './FileCard.module.css';
-import IconButton from "../Buttons/IconButton";
 import { convertToCollection, downloadCreation } from "@/app/api/content";
+import { Button } from "../ui/button";
 
 /**
  * A card that displays download options for a file
@@ -26,10 +26,10 @@ export default function FileCard({file, slug, contentType}: {file: IFile, slug: 
             <div className={styles.card}>
                 <div className={styles.download_options}>
                     <p>{(file.contentVersion) ? file.contentVersion : "1.0"}</p>
-                    <IconButton onClick={() => {download(file.url!)}}>{(file.type === "map") ? <Archive /> : (file.type === 'resourcepack') ? <Layers /> : <Package />} </IconButton>
+                    <Button onClick={() => {download(file.url!)}}>{(file.type === "map") ? <Archive /> : (file.type === 'resourcepack') ? <Layers /> : <Package />} </Button>
                     {file.extraFiles && file.extraFiles.map((extraFile, idx) => {
                         if(idx > 2) return <></>
-                        return <IconButton key={extraFile.url} onClick={() => {download(extraFile.url)}}>{(extraFile.type === "map") ? <Archive /> : (extraFile.type === 'resourcepack') ? <Layers /> : <Package /> }</IconButton>
+                        return <Button key={extraFile.url} onClick={() => {download(extraFile.url)}}>{(extraFile.type === "map") ? <Archive /> : (extraFile.type === 'resourcepack') ? <Layers /> : <Package /> }</Button>
                     })}
                 </div>
             </div>
@@ -39,9 +39,9 @@ export default function FileCard({file, slug, contentType}: {file: IFile, slug: 
         <div className={styles.card}>
             <div className={styles.download_options}>
                 <p>{(file.contentVersion) ? file.contentVersion : "1.0"}</p>
-                {(file.worldUrl) ? <IconButton onClick={() => {download(file.worldUrl!)}}><Archive /></IconButton>: <></>}
-                {(file.dataUrl) ? <IconButton onClick={() => {download(file.dataUrl!)}}><Package/></IconButton> : <></>}
-                {(file.resourceUrl) ? <IconButton onClick={() => {download(file.resourceUrl!)}}><Layers /></IconButton> : <></>}
+                {(file.worldUrl) ? <Button onClick={() => {download(file.worldUrl!)}}><Archive /></Button>: <></>}
+                {(file.dataUrl) ? <Button onClick={() => {download(file.dataUrl!)}}><Package/></Button> : <></>}
+                {(file.resourceUrl) ? <Button onClick={() => {download(file.resourceUrl!)}}><Layers /></Button> : <></>}
             </div>
         </div>
     )

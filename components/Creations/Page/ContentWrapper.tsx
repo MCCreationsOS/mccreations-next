@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import { fetchDatapack, fetchMap, fetchResourcepack } from "@/app/api/content";
 import { CollectionNames, ContentTypes, IContentDoc } from "@/app/api/types";
 import { sendLog } from "@/app/api/logging";
-import Content from "./Content";
+import Creation from "./Creation";
 import {useTranslations} from 'next-intl';
 import { useCreation } from "@/app/api/hooks/creations";
 
@@ -16,14 +16,14 @@ import { useCreation } from "@/app/api/hooks/creations";
 export default function MapWrapper({slug, response}: {slug: string, response?: any}) {
     if(typeof response === "object" && '_id' in response) {
         return (
-            <Content content={response} collectionName={CollectionNames.Maps} />
+            <Creation creation={response} collectionName={CollectionNames.Maps} />
         )
     } else {
         const {creation, isLoading, error} = useCreation(slug, ContentTypes.Maps)
         const t = useTranslations()
 
         if(creation && typeof creation === "object" && '_id' in creation) {
-            return (<Content content={creation} collectionName={CollectionNames.Maps} />)
+            return (<Creation creation={creation} collectionName={CollectionNames.Maps} />)
          } else {
             //  sendLog("Content Wrapper", "Map Not Found")
  
@@ -55,14 +55,14 @@ export default function MapWrapper({slug, response}: {slug: string, response?: a
 export function DatapackWrapper({slug, response}: {slug: string, response?: any}) {
     if(typeof response === "object" && '_id' in response) {
         return (
-            <Content content={response} collectionName={CollectionNames.Datapacks} />
+            <Creation creation={response} collectionName={CollectionNames.Datapacks} />
         )
     } else {
         const {creation, isLoading, error} = useCreation(slug, ContentTypes.Datapacks)
         const t = useTranslations()
 
         if(creation && typeof creation === "object" && '_id' in creation) {
-           return (<Content content={creation} collectionName={CollectionNames.Datapacks} />)
+           return (<Creation creation={creation} collectionName={CollectionNames.Datapacks} />)
         } else {
             // sendLog("Content Wrapper", "Datapack Not Found")
 
@@ -94,14 +94,14 @@ export function DatapackWrapper({slug, response}: {slug: string, response?: any}
 export function ResourcepackWrapper({slug, response}: {slug: string, response?: any}) {
     if(typeof response === "object" && '_id' in response) {
         return (
-            <Content content={response} collectionName={CollectionNames.Resourcepacks} />
+            <Creation creation={response} collectionName={CollectionNames.Resourcepacks} />
         )
     } else {
         const {creation, isLoading, error} = useCreation(slug, ContentTypes.Resourcepacks)
         const t = useTranslations()
 
         if(creation && typeof creation === "object" && '_id' in creation) {
-            return (<Content content={creation} collectionName={CollectionNames.Resourcepacks} />)
+            return (<Creation creation={creation} collectionName={CollectionNames.Resourcepacks} />)
          } else {
              // sendLog("Content Wrapper", "Datapack Not Found")
  

@@ -53,18 +53,20 @@ export default function SidebarFilters({contentType, tags}: {contentType: Collec
             <h3>{t('SearchAndFilter.sort_by')}</h3>
             <DropdownMenu>
                 <DropdownMenuTrigger><Button variant="secondary" className="w-full"><span className="w-full">{t(`SearchAndFilter.Sort.${sort}`)}</span></Button></DropdownMenuTrigger>
-                <DropdownMenuContent className="border-2 border-white/15 p-1">
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.newest')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.Oldest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.oldest')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.Updated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.updated')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.HighestRated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.highest_rated')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.LowestRated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.lowest_rated')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.HighestDownloads)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.highest_downloads')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.LowestDownloads)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.lowest_downloads')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.TitleAscending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.title_ascending')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.TitleDescending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.title_descending')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorAscending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.creator_ascending')}</Button></DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorDescending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.creator_descending')}</Button></DropdownMenuItem>
+                <DropdownMenuContent>
+                    <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.newest')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.Oldest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.oldest')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.Updated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.updated')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.HighestRated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.highest_rated')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.LowestRated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.lowest_rated')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.HighestDownloads)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.highest_downloads')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.LowestDownloads)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.lowest_downloads')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.TitleAscending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.title_ascending')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.TitleDescending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.title_descending')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorAscending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.creator_ascending')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorDescending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('SearchAndFilter.Sort.creator_descending')}</Button></DropdownMenuItem>
+                    </div>
                 </DropdownMenuContent>
             </DropdownMenu>
             <h3>{t('SearchAndFilter.status')}</h3>
@@ -82,10 +84,10 @@ export default function SidebarFilters({contentType, tags}: {contentType: Collec
                 {tags && Object.keys(tags).map((category, idx) => {
                     return (
                     <div className="filter_option">
-                        <h4>{t(`Content.Tags.${category as TagCategories}`)}</h4>
+                        <h4>{t(`Creation.Tags.${category as TagCategories}`)}</h4>
                         <div>
                             <div className={styles.tags_list}>
-                                {tags[category].map((tag,idx) => <Tag key={tag} tagValue={tag} tag={t(`Content.Tags.${tag as TagKeys}`)} />)}
+                                {tags[category].map((tag,idx) => <Tag key={tag} tagValue={tag} tag={t(`Creation.Tags.${tag as TagKeys}`)} />)}
                             </div>
                         </div>
                     </div>

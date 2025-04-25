@@ -1,7 +1,7 @@
 'use client'
 import { convertToCollection, downloadCreation } from "@/app/api/content"
 import { ContentTypes, IFile, NewFile } from "@/app/api/types";
-import { isBedrockType } from "../../old/FormInputs/VersionUploader/VersionManager";
+// import { isBedrockType } from "../../old/FormInputs/VersionUploader/VersionManager";
 import { useTranslations } from "next-intl";
 import { Button } from "../button";
 
@@ -25,9 +25,9 @@ export default function DownloadButton({slug, file, contentType}: {slug: string,
     }
 
     let text = t('Buttons.download')
-    if(isBedrockType(file.type)) {
-        text = t('Buttons.download_bedrock')
-    }
+    // if(isBedrockType(file.type)) {
+    //     text = t('Buttons.download_bedrock')
+    // }
 
     return (
         <Button onClick={downloadButtonClicked}>{text}</Button>
