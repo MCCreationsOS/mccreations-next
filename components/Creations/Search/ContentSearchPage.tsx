@@ -6,6 +6,8 @@ import SidebarFilters from "@/components/Creations/Search/SidebarFilters"
 import { getTranslations } from "next-intl/server";
 import { CollectionNames, SortOptions, StatusOptions } from "@/app/api/types";
 import PageNavigator from "./Navigator";
+import { makeSentenceCase } from "@/app/api/utils"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 export const dynamic = "force-dynamic"
 
@@ -30,11 +32,26 @@ export default async function ContentSearchPage({searchParams, collectionName, p
     
     return (
         <div>
-            <SearchAndFilter searchParams={searchParams} tags={tags}/>
+            <div className="mb-4 mt-2 p-2">
+                <h1 className="text-2xl font-bold">{t(`Creations.Search.SearchPage.${contentType}.title`)}</h1>
+                <Collapsible>
+                    <CollapsibleTrigger><p className="text-sm text-gray-500">{t(`Creations.Search.SearchPage.${contentType}.blurb`)}</p></CollapsibleTrigger>
+                    <CollapsibleContent>
+                    <p className="text-sm text-gray-500">
+                        {t(`Creations.Search.SearchPage.${contentType}.description`)}
+                    </p>
+                    </CollapsibleContent>
+                </Collapsible>
+
+            </div>
             { creations && creations.length !== 0 && (
                 <div className="md:grid md:grid-cols-[300px_1fr] gap-4 p-2 @container">
                     <SidebarFilters contentType={collectionName} tags={tags} />
-                    <ContentGrid content={creations} enableSelection={true} enableAds={true} showCategory={true}></ContentGrid>
+                    <div>
+                        <SearchAndFilter searchParams={searchParams} tags={tags}/>
+                        <ContentGrid content={creations} enableSelection={true} enableAds={true} showCategory={true}></ContentGrid>
+                        { creations && pages > 1 &&  (<PageNavigator page={page} pages={pages} />) }
+                    </div>
                 </div>
             )}
             { !creations || creations.length === 0 && (
@@ -42,7 +59,6 @@ export default async function ContentSearchPage({searchParams, collectionName, p
                     <h2>{t('Content.maps_not_found')}</h2>
                 </div>
             )}
-            { creations && pages > 1 &&  (<PageNavigator page={page} pages={pages} />) }
             <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
         </div>
     )
