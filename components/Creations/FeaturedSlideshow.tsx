@@ -3,6 +3,7 @@
 import { IContentDoc } from "@/app/api/types";
 import { useEffect, useRef, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { Download, Star } from "lucide-react";
 
@@ -26,7 +27,9 @@ export default function FeaturedSlideshow({creations}: {creations: IContentDoc[]
 
     return (
         <div className="relative mx-10">
-            <Carousel className="w-full max-w-[1000px] mx-auto">
+            <Carousel className="w-full max-w-[1000px] mx-auto" plugins={[Autoplay({
+                delay: 5000,
+            })]}>
                 <CarouselContent>
                     {creations.map((creation) => (
                         <CarouselItem key={creation._id}>
