@@ -1,0 +1,760 @@
+{
+    "_id": {
+        "$oid": "67254c06fbd562c74b56caea"
+    },
+    "language_name": "日本語",
+    "language_code": "ja-JP",
+    "map": "{count, plural, =0 {マップ} =1 {マップ} other {マップ}}",
+    "datapack": "{count, plural, =0 {データパック} =1 {データパック} other {データパック}}",
+    "resourcepack": "{count, plural, =0 {リソースパック} =1 {リソースパック} other {リソースパック}}",
+    "comment": "{count, plural, =0 {コメント} =1 {コメント} other {コメント}}",
+    "notification": "{count, plural, =0 {通知} =1 {通知} other {通知}}",
+    "Creations": {
+        "Search": {
+            "SearchPage": {
+                "map": {
+                    "title": "Minecraftマップの閲覧と検索",
+                    "blurb": "次の冒険のための素晴らしい新しいMinecraftマップを見つけましょう！",
+                    "description": "Minecraftマップは、プレイヤーや開発者によって作成されたカスタムワールドで、標準的なゲームを超えたユニークな体験を提供します。これらのマップは、シンプルなパルクールチャレンジから複雑なアドベンチャーストーリー、パズル解決クエスト、さらには実世界の場所の再現まで多岐にわたります。Minecraftの初期から、コミュニティはマップ作成を創造的な表現の一形態として受け入れ、豊かな革新と協力の歴史を築いてきました。長年にわたり、Minecraftマップはコミュニティの定番となり、ゲームの無限の可能性を示し、クリエイターとプレイヤーの活気あるエコシステムを育んでいます。"
+                },
+                "datapack": {
+                    "title": "Minecraftデータパックの閲覧と検索",
+                    "blurb": "次の冒険のための素晴らしい新しいMinecraftデータパックを見つけましょう！",
+                    "description": "Minecraftデータパックは、新しい機能を追加したり、ゲームの遊び方を変更したりできるカスタムコンテンツです！これらはMinecraftのModのバニラ版に相当します。新しい機能を追加したり、ゲームの遊び方を変更したりできます！"
+                },
+                "resourcepack": {
+                    "title": "Minecraftリソースパックの閲覧と検索",
+                    "blurb": "次の冒険のための素晴らしい新しいMinecraftリソースパックを見つけましょう！",
+                    "description": "Minecraftリソースパックは、Minecraftの見た目や雰囲気を変えるカスタムコンテンツです。テクスチャ、モデル、サウンド、音楽などを変更できます！"
+                }
+            }
+        }
+    },
+    "Menu": {
+        "Navbar": {
+            "home": "ホーム",
+            "feed": "フィード",
+            "creations": "作品",
+            "maps_blurb": "パズルからアドベンチャー、マルチプレイヤーの興奮まで。",
+            "datapacks_blurb": "世界を変え、小さな挑戦を加え、小さな調整を行いましょう。",
+            "resourcepacks_blurb": "全く新しい世界を探索するか、新しい音楽を追加しましょう。",
+            "creators": "クリエイター",
+            "create": "作成",
+            "account": "アカウント",
+            "toggle_menu": "メニューの切り替え"
+        },
+        "LanguageSwitcher": {
+            "language": "日本語",
+            "helpTranslate": "翻訳を手伝う"
+        },
+        "UserOptions": {
+            "sign_in": "ログイン",
+            "sign_out": "ログアウト",
+            "dashboard": "ダッシュボード",
+            "notifications": "通知",
+            "profile": "プロフィール",
+            "settings": "設定",
+            "admin": "管理者"
+        }
+    },
+    "Status": {
+        "approved": "検証済み",
+        "draft": "下書き",
+        "featured": "注目",
+        "unapproved": "公開済み"
+    },
+    "Account": {
+        "settings": "アカウント設定",
+        "delete_account": "アカウントを削除",
+        "Popup": {
+            "new_username": "新しいユーザー名",
+            "change_username": "ユーザー名を変更",
+            "new_handle": "新しいハンドル",
+            "change_handle": "ハンドルを変更",
+            "new_email": "新しいメール",
+            "change_email": "メールを変更",
+            "new_password": "新しいパスワード",
+            "confirm_password": "パスワードを確認",
+            "change_password": "パスワードを変更"
+        },
+        "PopupMessage": {
+            "email_updated": "メールが{email}に正常に更新されました",
+            "handle_updated": "ハンドルが{handle}に正常に更新されました",
+            "username_updated": "ユーザー名が{username}に正常に更新されました",
+            "password_updated": "パスワードが正常に更新されました",
+            "passwords_not_match": "パスワードが一致しません",
+            "delete_account_warning": "アカウントを削除するにはもう一度クリックしてください。これは永久的です！",
+            "delete_account_auth_error": "認証エラー。もう一度ログインしてください",
+            "delete_account_error": "アカウントの削除中にエラーが発生しました。上記のリンクを使用してこの問題を報告してください",
+            "delete_account_success": "アカウントが正常に削除されました",
+            "error": "エラーが発生しました。上記のリンクを使用してこの問題を報告してください"
+        },
+        "Shared": {
+            "username": "ユーザー名",
+            "username_placeholder": "Steve",
+            "handle": "ハンドル",
+            "handle_placeholder": "steve",
+            "email": "メール",
+            "email_placeholder": "steve@minecraft.net",
+            "password": "パスワード",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            },
+            "forgot_password": "パスワードをお忘れですか？",
+            "providers": "次でログイン..."
+        },
+        "Notifications": {
+            "title": "通知設定",
+            "comment": "新しいコメント",
+            "like": "いいね通知",
+            "reply": "新しい返信",
+            "email_daily": "毎日メール",
+            "email_weekly": "毎週メール",
+            "push_only": "プッシュのみ",
+            "push_email_daily": "プッシュ＆毎日メール",
+            "push_email_weekly": "プッシュ＆毎週メール",
+            "dashboard_only": "ダッシュボードのみ",
+            "none": "なし",
+            "translation": "新しい作品の翻訳",
+            "rating": "新しい作品の評価",
+            "no_notifications": "まだ通知はありません！",
+            "read_all": "すべて既読にする",
+            "install_ios_instructions": "iOSでプッシュ通知を使用するには、<icon></icon>共有ボタンをタップし、「ホーム画面に追加」を選択してください。",
+            "add_to_this_device": "ここでプッシュ通知を購読",
+            "NewComment": {
+                "title": "新しいコメント",
+                "body": "{username}があなたの{content_type} {title}に新しいコメントを投稿しました。"
+            },
+            "NewReply": {
+                "title": "新しい返信",
+                "body": "{username}があなたのコメントに返信しました。"
+            },
+            "NewPost": {
+                "title": "新しい投稿",
+                "body": "{username}が新しい{content_type}を投稿しました。"
+            },
+            "NewRating": {
+                "title": "新しい評価",
+                "body": "{content_type}が{rating}星の新しい評価を受けました。"
+            },
+            "NewTranslation": {
+                "title": "新しい翻訳",
+                "body": "{username}があなたの{content_type}を{language}に翻訳しました。"
+            },
+            "follow": "投稿をフォロー"
+        }
+    },
+    "Auth": {
+        "OAuth": {
+            "PopupMessage": {
+                "error": "APIとの通信中にエラーが発生しました。上記のリンクを使用してこの問題を報告してください"
+            },
+            "loading": "ログイン中！"
+        }
+    },
+    "Comments": {
+        "loading": "コメントを読み込み中..."
+    },
+    "Creator": {
+        "Metadata": {
+            "not_found_title": "クリエイターが見つかりません",
+            "not_found_description": "このクリエイターはMCCreationsに存在しません",
+            "title": "MCCreationsの{username}",
+            "description": "MCCreationsで{username}のMinecraftマップ、データパック、リソースパックなどを閲覧"
+        },
+        "Edit": {
+            "about": "概要",
+            "banner": "バナーを変更",
+            "logo": "アイコンを変更",
+            "title": "プロフィールを更新",
+            "saved": "プロフィールが正常に保存されました"
+        },
+        "not_found": "クリエイターが見つかりません",
+        "logo_alt": "{username}のロゴ"
+    },
+    "Dashboard": {
+        "title": "ダッシュボード",
+        "info": "情報",
+        "status": "ステータス",
+        "created_date": "作成日",
+        "updated_date": "更新日",
+        "downloads": "ダウンロード",
+        "rating": "評価",
+        "view": "コンテンツを表示",
+        "edit": "編集",
+        "delete": "削除"
+    },
+    "ResetPassword": {
+        "token_error": "トークンが見つかりません。前のページに戻ります",
+        "new_password": "新しいパスワード",
+        "retype_password": "パスワードを再入力",
+        "password_length": "パスワードは10文字以上である必要があります",
+        "password_number": "パスワードには少なくとも1つの数字を含める必要があります",
+        "passwords_not_same": "パスワードが一致しません",
+        "reset": "リセット",
+        "title": "パスワードをリセット"
+    },
+    "SignIn": {
+        "Reset": {
+            "title": "パスワードをリセット",
+            "send_reset_email": "リセットメールを送信"
+        },
+        "PopupMessage": {
+            "error": "エラーが発生しました。上記のリンクを使用してこの問題を報告してください。"
+        },
+        "email_title": "メールでログイン",
+        "button": "ログイン",
+        "no_account": "アカウントをお持ちでないですか？"
+    },
+    "SignUp": {
+        "title": "登録",
+        "email_invalid": "メールは有効なメールアドレスではありません",
+        "password_no_number": "パスワードには少なくとも1つの数字を含める必要があります",
+        "password_too_short": "パスワードは10文字以上である必要があります",
+        "username_invalid_characters": "ユーザー名には文字、数字、_のみを含めることができます",
+        "username_too_short": "ユーザー名は3文字以上である必要があります",
+        "button": "登録",
+        "already_have_account": "すでにアカウントをお持ちですか？",
+        "error": "アカウントの作成中にエラーが発生しました。上記のリンクを使用してこの問題を報告してください。"
+    },
+    "Translate": {
+        "title": "翻訳",
+        "help": "<link>ヘルプはこちら</link>",
+        "AddLanguage": {
+            "title": "言語を追加",
+            "language_placeholder": "ja-JP",
+            "language_description": "<link>ISO 639言語コード</link>の後に<link2>ISO 3166-1地域コード</link2>が続きます。言語が見つからない場合は、適当なものを考えてください！厳密に正確である必要はありません。"
+        },
+        "language": "言語",
+        "language_missing": "言語が見つかりませんか？ここをクリックして追加してください。"
+    },
+    "Error": {
+        "title": "何か問題が発生しました！",
+        "description": "回路に埃が入ってしまったようです！下のリンクを使用してこの問題を報告し、後でもう一度お試しください。",
+        "report": "この問題を<form>このフォーム</form>、<github>Githubページ</github>、または<link>Discordに参加</link>して報告してください。"
+    },
+    "Home": {
+        "blurb": "世界中のMinecraftコミュニティからのマップ、データパック、リソースパックなど！",
+        "recently_updated": "最近更新された作品",
+        "view_all": "もっと見る..."
+    },
+    "Ads": {
+        "behind_text": "広告はMCCreationsがクールなものを作るのを助けています！このサイトの広告ブロッカーを無効にすることをご検討ください :)"
+    },
+    "Buttons": {
+        "BulkDownload": {
+            "text": "一括",
+            "no_selection": "ダウンロードするコンテンツが選択されていません"
+        },
+        "download": "ダウンロード",
+        "download_bedrock": "Bedrock用にダウンロード",
+        "edit": "編集"
+    },
+    "CommentForm": {
+        "sent": "コメントが送信されました",
+        "title": "コメントを残す",
+        "comment": "コメント",
+        "send": "送信"
+    },
+    "Comment": {
+        "permalink": "コメントのパーマリンクをコピー",
+        "expand": "もっと見る",
+        "collapse": "折りたたむ",
+        "reply": "返信",
+        "like": "いいね",
+        "delete": "削除"
+    },
+    "CommentsList": {
+        "title": "コメント",
+        "no_comments": "最初のコメントを投稿しましょう！",
+        "none_yet": "まだありません！",
+        "loading": "コメントを読み込み中..."
+    },
+    "FeaturedSlideshow": {
+        "see_more": "ダウンロード"
+    },
+    "Footer": {
+        "about": "概要",
+        "contact": "連絡先",
+        "discord": "Discord",
+        "join_community": "コミュニティに参加",
+        "legal_contact": "法的連絡先",
+        "privacy": "プライバシーポリシー",
+        "request_data": "データをリクエスト",
+        "twitter": "Twitter",
+        "bluesky": "Bluesky",
+        "youtube": "Youtube",
+        "updates": "更新",
+        "Splashes": {
+            "1": "グローバルになりました！",
+            "2": "ウェブサイトです！",
+            "3": "何かが壊れています。",
+            "4": "私はフッターです！",
+            "5": "Minecraftはかなりクールですね。",
+            "6": "創造性が勝利を！",
+            "7": "誰がこれを読んでいるの？",
+            "8": "誰かサンドイッチ持ってる？",
+            "9": "Githubで貢献しよう！",
+            "10": "これがランダムだと知っていましたか？"
+        },
+        "mojang_disclamer": "公式のMINECRAFT製品ではありません。MOJANGによって承認または関連付けられていません。",
+        "open_source": "MCCreationsは<link>オープンソース</link>です。今すぐ貢献しましょう！",
+        "copyright": "© Ben Meier/CrazyCowMM"
+    },
+    "Form": {
+        "save": "保存",
+        "CreatorSelector": {
+            "title": "クリエイター",
+            "add_creator": "クリエイターを追加",
+            "confirm_remove": "このクリエイターを削除するにはもう一度クリックしてください",
+            "username_description": "MCCreationsに表示される名前。",
+            "handle_description": "クリエイターがMCCreationsにアカウントを持っている場合、ここにハンドルを入力してプロフィールをリンクします。"
+        },
+        "Shared": {
+            "uploaded": "{file}がアップロードされました",
+            "uploading": "{file}のアップロードを開始しました",
+            "upload_failed": "{file}のアップロードに失敗しました"
+        },
+        "Images": {
+            "drop_zone": "画像をここにドラッグ＆ドロップするか、クリックして選択してください。",
+            "hovering_drop": "ここにドロップ！",
+            "invalid": "ファイルが有効な画像ではないため、アップロードできませんでした。",
+            "too_large": "ファイルが2MBより大きいため、アップロードできませんでした。",
+            "unknown_error": "不明なエラーのため、アップロードできませんでした。"
+        },
+        "Files": {
+            "drop_zone": "ファイルをここにドラッグ＆ドロップするか、クリックして選択してください。",
+            "invalid_file": "ファイルが有効なzipアーカイブではないため、アップロードできませんでした。"
+        },
+        "RichText": {
+            "ImagePopup": {
+                "alt_text": "代替テキスト",
+                "image_url": "画像URL",
+                "insert_file": "画像ファイルを挿入",
+                "insert_url": "画像URLを挿入"
+            },
+            "placeholder": "書き始めましょう！",
+            "undo": "元に戻す",
+            "redo": "やり直し",
+            "bold": "太字",
+            "italic": "斜体",
+            "underline": "下線",
+            "strikethrough": "取り消し線",
+            "bullet_list": "箇条書きリストを追加",
+            "justify_align": "両端揃え",
+            "left_align": "左揃え",
+            "center_align": "中央揃え",
+            "right_align": "右揃え",
+            "image": "画像を挿入",
+            "add_caption": "キャプションを追加",
+            "spoiler": "ネタバレを追加",
+            "font_size": "フォントサイズ"
+        }
+    },
+    "SearchAndFilter": {
+        "search": "検索",
+        "clear_filters": "フィルターをクリア",
+        "sort_by": "並び替え",
+        "Sort": {
+            "title_ascending": "タイトル昇順",
+            "title_descending": "タイトル降順",
+            "creator_ascending": "クリエイター昇順",
+            "creator_descending": "クリエイター降順",
+            "newest": "最新",
+            "oldest": "最古",
+            "highest_rated": "評価が高い順",
+            "lowest_rated": "評価が低い順",
+            "highest_downloads": "ダウンロード数が多い順",
+            "lowest_downloads": "ダウンロード数が少ない順",
+            "updated": "最近更新された順"
+        },
+        "status": "ステータス",
+        "tags": "タグ",
+        "search_placeholder": "タイトル、クリエイター、バージョンなどで検索"
+    },
+    "brand": "MCCreations",
+    "error": "エラー",
+    "events": "イベント",
+    "VersionManager": {
+        "title": "バージョン管理",
+        "add_version": "バージョンを追加",
+        "Version": {
+            "back_to_versions": "バージョンに戻る",
+            "edit": "バージョンを編集",
+            "version_number": "バージョン番号",
+            "minecraft_version": "Minecraftバージョン",
+            "Bedrock": "Bedrock",
+            "Bedrock_description": "このファイルはBedrockエディション用ですか",
+            "MainFile": {
+                "link": "メインファイルのリンク"
+            },
+            "ExtraFiles": {
+                "file_type": "ファイルタイプ",
+                "link": "リンク",
+                "required": "必須",
+                "required_description": "このファイルをメインファイルと一緒に自動的にダウンロードします",
+                "upload_file": "ファイルをアップロード"
+            },
+            "save": "バージョンを保存",
+            "cancel": "キャンセル",
+            "delete": "削除",
+            "add_file": "ファイルを追加",
+            "add_file_description": "リソースパックなど、この作品に必要な追加ファイルを追加してください"
+        }
+    },
+    "Content": {
+        "affiliate": "この{type}用のサーバーを25%オフで入手",
+        "leaderboards": "リーダーボード",
+        "files": "ファイル",
+        "info": "情報",
+        "logo_alt": "{title}のロゴ、{creator}によるMinecraft {minecraft_version}用のMinecraft {type}、MCCreations",
+        "by": "{creator}による",
+        "by_joiner": "、",
+        "Sidebar": {
+            "creators": "クリエイター",
+            "stats": "統計",
+            "created_date": "作成日",
+            "updated_date": "更新日",
+            "downloads": "ダウンロード",
+            "ratings": "評価",
+            "minecraft_version": "Minecraftバージョン",
+            "files": "ファイル",
+            "tags": "タグ"
+        },
+        "Files": {
+            "name": "名前",
+            "date": "日付",
+            "minecraft_version": "Minecraftバージョン",
+            "download": "ダウンロード",
+            "loading": "読み込み中..."
+        },
+        "Warnings": {
+            "count": "メッセージ：",
+            "no_title": {
+                "title": "タイトルなし",
+                "description": "コンテンツにはタイトルが必要です"
+            },
+            "no_description": {
+                "title": "説明なし",
+                "description": "説明が必要です"
+            },
+            "no_short_description": {
+                "title": "短い説明なし",
+                "description": "短い説明が必要です"
+            },
+            "no_tags": {
+                "title": "タグなし",
+                "description": "コンテンツには少なくとも1つのタグが必要です"
+            },
+            "no_minecraft_version": {
+                "title": "Minecraftバージョンなし",
+                "description": "コンテンツにはMinecraftバージョンが必要です"
+            },
+            "no_creators": {
+                "title": "クリエイターなし",
+                "description": "コンテンツには少なくとも1人のクリエイターが必要です"
+            },
+            "no_files": {
+                "title": "ファイルなし",
+                "description": "コンテンツには少なくとも1つのファイルが必要です"
+            },
+            "no_images": {
+                "title": "画像なし",
+                "description": "コンテンツには少なくとも1つの画像が必要です。"
+            },
+            "short_description_too_short": {
+                "title": "短い説明が短すぎます",
+                "description": "短い説明は40文字以上である必要があります"
+            },
+            "description_too_short": {
+                "title": "説明が短すぎます",
+                "description": "説明は100文字以上である必要があります"
+            },
+            "external_images": {
+                "title": "外部ソースからの画像",
+                "description": "外部ソースからの画像があります。これは、MCCreationsが将来も機能し続けることや、すべてのユーザーがアクセスできることを保証できないことを意味します。代わりにこれらの画像をアップロードすることを強くお勧めします。"
+            },
+            "few_images": {
+                "title": "画像が非常に少ない",
+                "description": "より多くの画像は、人々があなたのコンテンツについてより良い理解を得るのに役立ちます。ロゴを含めて少なくとも4つの画像をアップロードすることをお勧めします。"
+            },
+            "not_linked": {
+                "title": "アカウントにリンクされていない",
+                "description": "このコンテンツはMCCreationsのアカウントにリンクされていません。これは、このコンテンツを編集するためのアクセス権が24時間で期限切れになることを意味します。すべての機能にアクセスできるように、アカウントでコンテンツをアップロードすることをお勧めします。"
+            },
+            "no_download_link": {
+                "title": "ダウンロードリンクなし",
+                "description": "少なくとも1つのダウンロードリンクが必要です"
+            },
+            "slug_too_short": {
+                "title": "スラッグが短すぎます",
+                "description": "スラッグは2文字以上である必要があります"
+            }
+        },
+        "Edit": {
+            "editing": "{title}を編集",
+            "status": "ステータス：",
+            "request_approval": "公開",
+            "general": "一般",
+            "title": "タイトル",
+            "title_description": "あなたの作品の主な名前。短く簡潔であるべきです！",
+            "slug": "スラッグ",
+            "slug_description": "あなたの作品の一意の識別子。URLで使用されます（例：mccreations.net/maps/your-slug）",
+            "short_description": "短い説明",
+            "short_description_description": "あなたの作品の短い要約。検索結果とプレビューで使用されます。",
+            "video_url": "動画URL",
+            "video_url_description": "あなたの作品の動画へのリンク。作品ページのロゴを埋め込み動画に置き換えます。",
+            "description": "説明",
+            "description_description": "あなたの作品のより長い説明。作品のメインページで使用されます。",
+            "Tags": {
+                "genre_description": "あなたの作品の主なカテゴリ。ユーザーに作品の遊び方の非常に一般的なアイデアを与えます。",
+                "subgenre_description": "あなたの作品の二次カテゴリ。ユーザーに作品の内容についてより具体的なアイデアを与えます。",
+                "difficulty_description": "あなたの作品の難易度。",
+                "length_description": "あなたの作品の長さ。",
+                "resolution_description": "あなたのリソースパックの解像度。",
+                "theme_description": "あなたの作品のテーマ。"
+            },
+            "extra_features": "追加機能",
+            "ExtraFeatures": {
+                "Leaderboards": {
+                    "help": "MCCreationsリーダーボードの設定方法を<link>ここ</link>で学びましょう。現在、リーダーボードはJavaエディションでのみ利用可能であることに注意してください。",
+                    "title": "リーダーボード",
+                    "message_text": "メッセージテキスト",
+                    "message_text_description": "プレイヤーにスコアを提出するよう伝えるために表示されるテキスト。これは作品が終了したときにゲーム内で送信されます。",
+                    "message_format": "追加のフォーマット",
+                    "message_format_description": "tellrawメッセージに追加する追加のフォーマット。\"color\":\"green\", \"bold\": trueのようにフォーマットする必要があります"
+                }
+            },
+            "images": "画像",
+            "versions": "バージョン",
+            "translations": "翻訳",
+            "add_translation": "翻訳を追加",
+            "translation_languages": "言語",
+            "translation_languages_description": "言語が見つかりませんか？ここをクリックして追加してください。",
+            "delete_translation": "削除",
+            "translation_approved": "承認済み",
+            "PopupMessage": {
+                "general_saved": "コンテンツ情報が正常に保存されました",
+                "images_saved": "画像が正常に保存されました",
+                "translations_saved": "翻訳が正常に保存されました",
+                "versions_saved": "バージョンが正常に保存されました",
+                "requested_approval": "コンテンツが公開され、検証待ちです"
+            }
+        },
+        "translate": "{title}を翻訳",
+        "translate_button": "{type}ページを翻訳",
+        "Metadata": {
+            "title_not_found": "{content_type}が見つかりません",
+            "description_not_found": "この{content_type}はMCCreationsに存在しません",
+            "title": "{creator}によるMinecraft {minecraft_version}用の{title} {content_type}、MCCreations",
+            "Tags": {
+                "minecraft": "Minecraft",
+                "games": "ゲーム",
+                "gaming": "ゲーミング",
+                "minecraft_creations": "Minecraft作品",
+                "minecraft_version": "Minecraft {minecraft_version}",
+                "minecraft_datapack": "Minecraftデータパック",
+                "minecraft_map": "Minecraftマップ",
+                "minecraft_resourcepack": "Minecraftリソースパック",
+                "mods": "Mod",
+                "minecraft_mods": "Minecraft Mod",
+                "minecraft_but": "Minecraftだが",
+                "minecraft_survival": "Minecraftサバイバル"
+            }
+        },
+        "datapack_not_found": "データパックが見つかりません",
+        "datapack_not_found_description": "このデータパックは存在しないか、閲覧権限がありません",
+        "datapacks_not_found": "データパックが見つかりません",
+        "maps_not_found": "マップが見つかりません",
+        "map_not_found": "マップが見つかりません",
+        "map_not_found_description": "このマップは存在しないか、閲覧権限がありません",
+        "resourcepack_not_found": "リソースパックが見つかりません",
+        "resourcepack_not_found_description": "このリソースパックは存在しないか、閲覧権限がありません",
+        "resourcepacks_not_found": "リソースパックが見つかりません",
+        "Rating": {
+            "1": "5つ星中1つ",
+            "2": "5つ星中2つ",
+            "3": "5つ星中3つ",
+            "4": "5つ星中4つ",
+            "5": "5つ星中5つ"
+        },
+        "Tags": {
+            "genre": "ジャンル",
+            "subgenre": "サブジャンル",
+            "difficulty": "難易度",
+            "length": "長さ",
+            "resolution": "解像度",
+            "theme": "テーマ",
+            "chill": "リラックス",
+            "easy": "簡単",
+            "hard": "難しい",
+            "hardcore": "ハードコア",
+            "normal": "普通",
+            "adventure": "アドベンチャー",
+            "build": "建築",
+            "creative": "クリエイティブ",
+            "game": "ゲーム",
+            "other": "その他",
+            "overhaul": "オーバーホール",
+            "parkour": "パルクール",
+            "puzzle": "パズル",
+            "qol": "生活の質",
+            "realistic": "リアル",
+            "simple": "シンプル",
+            "survival": "サバイバル",
+            "themed": "テーマ",
+            "tool": "ツール",
+            "utility": "ユーティリティ",
+            "long": "長い",
+            "medium": "中程度",
+            "short": "短い",
+            "1024x +": "1024x +",
+            "128x": "128x",
+            "16x": "16x",
+            "256x": "256x",
+            "32x": "32x",
+            "512x": "512x",
+            "64x": "64x",
+            "8x": "8x",
+            "blocks": "ブロック",
+            "bosses": "ボス",
+            "cartoon": "カートゥーン",
+            "challenge": "チャレンジ",
+            "city": "都市",
+            "co-op": "協力",
+            "cosmetic": "コスメティック",
+            "crafting": "クラフト",
+            "CTM": "CTM",
+            "dropper": "ドロッパー",
+            "elytra": "エリトラ",
+            "entities": "エンティティ",
+            "episodic": "エピソード",
+            "escape": "エスケープ",
+            "exploration": "探索",
+            "faithful": "Faithful",
+            "finding": "発見",
+            "font": "フォント",
+            "funny": "面白い",
+            "GUI": "GUI",
+            "horror": "ホラー",
+            "items": "アイテム",
+            "language": "言語",
+            "magic": "魔法",
+            "maze": "迷路",
+            "mobs": "モブ",
+            "models": "モデル",
+            "multiplayer": "マルチプレイヤー",
+            "music": "音楽",
+            "park": "公園",
+            "PVE": "PvE",
+            "PVP": "PvP",
+            "RPG": "RPG",
+            "shaders": "シェーダー",
+            "singleplayer": "シングルプレイヤー",
+            "skybox": "スカイボックス",
+            "smooth": "スムーズ",
+            "sound": "サウンド",
+            "tech": "テクノロジー",
+            "tools": "ツール",
+            "trivia": "トリビア",
+            "tweak": "調整",
+            "unfair": "不公平",
+            "weapons": "武器",
+            "anime": "アニメ",
+            "fantasy": "ファンタジー",
+            "medieval": "中世",
+            "modern": "モダン",
+            "sci-fi": "SF",
+            "vanilla": "バニラ"
+        }
+    },
+    "Datapacks": {
+        "Metadata": {
+            "title": "データパックをダウンロード | MCCreations",
+            "description": "Minecraftの最高のデータパックをダウンロード。最も人気のあるデータパックを探索し、プレイする準備をしましょう！データパックはMinecraftのModのバニラ版に相当します。新しい機能を追加したり、ゲームの遊び方を変更したりできます！"
+        }
+    },
+    "Leaderboards": {
+        "not_found": "リーダーボードが見つかりません",
+        "rank": "ランク",
+        "player": "プレイヤー",
+        "time": "時間",
+        "score": "スコア",
+        "date": "日付",
+        "device": "デバイス",
+        "location": "場所",
+        "submit_time": "時間を提出",
+        "submit_score": "スコアを提出",
+        "submit_time_description": "あなたの時間は{hours}時間{minutes}分{seconds}秒{ticks}ティックでした",
+        "submit_score_description": "あなたのスコアは{score}でした",
+        "submit": "提出",
+        "username": "ユーザー名"
+    },
+    "Profile": {
+        "follow": "フォロー",
+        "unfollow": "フォロー解除",
+        "Widgets": {
+            "Discord": {
+                "title": "Discord",
+                "edit_title": "Discordウィジェットを編集",
+                "server_id": "サーバーID"
+            },
+            "FeaturedCreation": {
+                "title": "注目の作品",
+                "edit_title": "注目の作品ウィジェットを編集",
+                "type": "タイプ",
+                "slug": "スラッグ"
+            },
+            "Image": {
+                "edit_title": "画像ウィジェットを編集",
+                "image": "画像",
+                "title": "タイトル"
+            },
+            "Showcase": {
+                "title": "作品",
+                "edit_title": "ショーケースウィジェットを編集",
+                "type": "タイプ"
+            },
+            "SupportSite": {
+                "title": "サポートサイト",
+                "edit_title": "サポートサイトウィジェットを編集"
+            },
+            "Text": {
+                "edit_title": "テキストウィジェットを編集",
+                "text": "テキスト",
+                "title": "タイトル"
+            },
+            "Twitch": {
+                "title": "Twitch",
+                "edit_title": "Twitchウィジェットを編集",
+                "handle": "Twitchユーザー名"
+            },
+            "Wall": {
+                "title": "壁",
+                "edit_title": "壁ウィジェットを編集"
+            },
+            "Youtube": {
+                "title": "YouTube",
+                "edit_title": "YouTubeウィジェットを編集",
+                "handle": "YouTubeハンドル"
+            },
+            "delete_widget": "ウィジェットを削除"
+        }
+    },
+    "Create": {
+        "next": "次へ",
+        "finish": "完了",
+        "save": "保存",
+        "Import": {
+            "PMC": "Planet Minecraftからインポート",
+            "downloading": "{host}から作品をダウンロード中",
+            "preroll": "プリロール広告を待機中...",
+            "unknown": "不明なホストからインポート",
+            "MinecraftMaps": "Minecraft Mapsからインポート",
+            "Modrinth": "Modrinthからインポート"
+        }
+    }
+} 

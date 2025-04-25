@@ -1,0 +1,760 @@
+{
+    "_id": {
+        "$oid": "67254c06fbd562c74b56caea"
+    },
+    "language_name": "Français",
+    "language_code": "fr-FR",
+    "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
+    "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
+    "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
+    "comment": "{count, plural, =0 {Commentaires} =1 {Commentaire} other {Commentaires}}",
+    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
+    "Creations": {
+        "Search": {
+            "SearchPage": {
+                "map": {
+                    "title": "Parcourir et rechercher des cartes Minecraft",
+                    "blurb": "Trouvez d'incroyables nouvelles cartes Minecraft pour votre prochaine aventure !",
+                    "description": "Les cartes Minecraft sont des mondes personnalisés créés par des joueurs ou des développeurs qui offrent des expériences uniques au-delà du jeu standard. Ces cartes peuvent aller de simples défis de parkour à des histoires d'aventure complexes, des quêtes de résolution d'énigmes, ou même des recréations de lieux réels. Depuis les débuts de Minecraft, la communauté a adopté la création de cartes comme forme d'expression créative, conduisant à une riche histoire d'innovation et de collaboration. Au fil des années, les cartes Minecraft sont devenues un élément essentiel de la communauté, démontrant les possibilités illimitées du jeu et favorisant un écosystème dynamique de créateurs et de joueurs."
+                },
+                "datapack": {
+                    "title": "Parcourir et rechercher des Data Packs Minecraft",
+                    "blurb": "Trouvez d'incroyables nouveaux Data Packs Minecraft pour votre prochaine aventure !",
+                    "description": "Les Data Packs Minecraft sont du contenu personnalisé qui peut ajouter de nouvelles fonctionnalités, changer la façon dont le jeu est joué, et plus encore ! Ils sont l'équivalent vanilla des mods pour Minecraft. Ils peuvent ajouter de nouvelles fonctionnalités, changer la façon dont le jeu est joué, et plus encore !"
+                },
+                "resourcepack": {
+                    "title": "Parcourir et rechercher des Resource Packs Minecraft",
+                    "blurb": "Trouvez d'incroyables nouveaux Resource Packs Minecraft pour votre prochaine aventure !",
+                    "description": "Les Resource Packs Minecraft sont du contenu personnalisé qui change l'apparence et le sentiment de Minecraft. Ils peuvent changer les textures, les modèles, les sons, la musique, et plus encore !"
+                }
+            }
+        }
+    },
+    "Menu": {
+        "Navbar": {
+            "home": "Accueil",
+            "feed": "Fil d'actualité",
+            "creations": "Créations",
+            "maps_blurb": "Des énigmes aux aventures en passant par la folie multijoueur.",
+            "datapacks_blurb": "Changez votre monde, ajoutez un petit défi, ou faites un petit ajustement.",
+            "resourcepacks_blurb": "Explorez un tout nouveau monde, ou ajoutez simplement de la nouvelle musique.",
+            "creators": "Créateurs",
+            "create": "Créer",
+            "account": "Compte",
+            "toggle_menu": "Basculer le menu"
+        },
+        "LanguageSwitcher": {
+            "language": "Français",
+            "helpTranslate": "Aider à traduire"
+        },
+        "UserOptions": {
+            "sign_in": "Se connecter",
+            "sign_out": "Se déconnecter",
+            "dashboard": "Tableau de bord",
+            "notifications": "Notifications",
+            "profile": "Profil",
+            "settings": "Paramètres",
+            "admin": "Admin"
+        }
+    },
+    "Status": {
+        "approved": "Vérifié",
+        "draft": "Brouillon",
+        "featured": "Mis en avant",
+        "unapproved": "Publié"
+    },
+    "Account": {
+        "settings": "Paramètres du compte",
+        "delete_account": "Supprimer le compte",
+        "Popup": {
+            "new_username": "Nouveau nom d'utilisateur",
+            "change_username": "Changer le nom d'utilisateur",
+            "new_handle": "Nouveau identifiant",
+            "change_handle": "Changer l'identifiant",
+            "new_email": "Nouvel email",
+            "change_email": "Changer l'email",
+            "new_password": "Nouveau mot de passe",
+            "confirm_password": "Confirmer le mot de passe",
+            "change_password": "Changer le mot de passe"
+        },
+        "PopupMessage": {
+            "email_updated": "Email mis à jour avec succès vers {email}",
+            "handle_updated": "Identifiant mis à jour avec succès vers {handle}",
+            "username_updated": "Nom d'utilisateur mis à jour avec succès vers {username}",
+            "password_updated": "Mot de passe mis à jour avec succès",
+            "passwords_not_match": "Les mots de passe ne correspondent pas",
+            "delete_account_warning": "Cliquez à nouveau pour supprimer votre compte. C'est permanent !",
+            "delete_account_auth_error": "Erreur d'autorisation. Veuillez vous reconnecter",
+            "delete_account_error": "Une erreur s'est produite lors de la suppression de votre compte. Veuillez signaler ce problème en utilisant le lien ci-dessus",
+            "delete_account_success": "Compte supprimé avec succès",
+            "error": "Une erreur s'est produite. Veuillez signaler ce problème en utilisant le lien ci-dessus"
+        },
+        "Shared": {
+            "username": "Nom d'utilisateur",
+            "username_placeholder": "Steve",
+            "handle": "Identifiant",
+            "handle_placeholder": "steve",
+            "email": "Email",
+            "email_placeholder": "steve@minecraft.net",
+            "password": "Mot de passe",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            },
+            "forgot_password": "Mot de passe oublié ?",
+            "providers": "Se connecter avec..."
+        },
+        "Notifications": {
+            "title": "Paramètres de notification",
+            "comment": "Nouveaux commentaires",
+            "like": "Notifications de j'aime",
+            "reply": "Nouvelles réponses",
+            "email_daily": "Email quotidien",
+            "email_weekly": "Email hebdomadaire",
+            "push_only": "Notifications push uniquement",
+            "push_email_daily": "Push & Email quotidien",
+            "push_email_weekly": "Push & Email hebdomadaire",
+            "dashboard_only": "Tableau de bord uniquement",
+            "none": "Aucune",
+            "translation": "Nouvelles traductions de création",
+            "rating": "Nouvelles évaluations de création",
+            "no_notifications": "Pas encore de notifications !",
+            "read_all": "Tout marquer comme lu",
+            "install_ios_instructions": "Pour utiliser les notifications push sur iOS, appuyez sur le bouton de partage <icon></icon> puis \"Ajouter à l'écran d'accueil\".",
+            "add_to_this_device": "S'abonner aux notifications push ici",
+            "NewComment": {
+                "title": "Nouveau commentaire",
+                "body": "{username} a posté un nouveau commentaire sur votre {content_type} {title}."
+            },
+            "NewReply": {
+                "title": "Nouvelle réponse",
+                "body": "{username} a répondu à votre commentaire."
+            },
+            "NewPost": {
+                "title": "Nouveau post",
+                "body": "{username} a posté un nouveau {content_type}."
+            },
+            "NewRating": {
+                "title": "Nouvelle évaluation",
+                "body": "{content_type} a reçu une nouvelle évaluation de {rating} étoiles."
+            },
+            "NewTranslation": {
+                "title": "Nouvelle traduction",
+                "body": "{username} a traduit votre {content_type} en {language}."
+            },
+            "follow": "Suivre les publications"
+        }
+    },
+    "Auth": {
+        "OAuth": {
+            "PopupMessage": {
+                "error": "Une erreur s'est produite lors de la communication avec notre API. Veuillez signaler ce problème avec le lien ci-dessus"
+            },
+            "loading": "Connexion en cours !"
+        }
+    },
+    "Comments": {
+        "loading": "Chargement du commentaire..."
+    },
+    "Creator": {
+        "Metadata": {
+            "not_found_title": "Créateur non trouvé",
+            "not_found_description": "Ce créateur n'existe pas sur MCCreations",
+            "title": "{username} sur MCCreations",
+            "description": "Voir les cartes Minecraft, Data Packs, Resource Packs et plus de {username} sur MCCreations"
+        },
+        "Edit": {
+            "about": "À propos",
+            "banner": "Changer la bannière",
+            "logo": "Changer l'icône",
+            "title": "Mettre à jour le profil",
+            "saved": "Profil enregistré avec succès"
+        },
+        "not_found": "Créateur non trouvé",
+        "logo_alt": "Logo de {username}"
+    },
+    "Dashboard": {
+        "title": "Tableau de bord",
+        "info": "Info",
+        "status": "Statut",
+        "created_date": "Date de création",
+        "updated_date": "Date de mise à jour",
+        "downloads": "Téléchargements",
+        "rating": "Évaluation",
+        "view": "Voir le contenu",
+        "edit": "Modifier",
+        "delete": "Supprimer"
+    },
+    "ResetPassword": {
+        "token_error": "Aucun token trouvé, retour à la page précédente",
+        "new_password": "Nouveau mot de passe",
+        "retype_password": "Retapez le mot de passe",
+        "password_length": "Le mot de passe doit contenir 10 caractères ou plus",
+        "password_number": "Le mot de passe doit inclure au moins un chiffre",
+        "passwords_not_same": "Les mots de passe ne sont pas identiques",
+        "reset": "Réinitialiser",
+        "title": "Réinitialiser le mot de passe"
+    },
+    "SignIn": {
+        "Reset": {
+            "title": "Réinitialiser le mot de passe",
+            "send_reset_email": "Envoyer l'email de réinitialisation"
+        },
+        "PopupMessage": {
+            "error": "Une erreur s'est produite. Veuillez signaler ce problème en utilisant le lien ci-dessus."
+        },
+        "email_title": "Se connecter avec email",
+        "button": "Se connecter",
+        "no_account": "Vous n'avez pas de compte ?"
+    },
+    "SignUp": {
+        "title": "S'inscrire",
+        "email_invalid": "L'email n'est pas une adresse email valide",
+        "password_no_number": "Le mot de passe doit inclure au moins un chiffre",
+        "password_too_short": "Le mot de passe doit contenir 10 caractères ou plus",
+        "username_invalid_characters": "Le nom d'utilisateur ne peut contenir que des lettres, des chiffres et _",
+        "username_too_short": "Le nom d'utilisateur doit contenir au moins 3 caractères",
+        "button": "S'inscrire",
+        "already_have_account": "Vous avez déjà un compte ?",
+        "error": "Une erreur s'est produite lors de la création de votre compte. Veuillez signaler ce problème en utilisant le lien ci-dessus."
+    },
+    "Translate": {
+        "title": "Traduire",
+        "help": "<link>Pour de l'aide, cliquez ici</link>",
+        "AddLanguage": {
+            "title": "Ajouter une langue",
+            "language_placeholder": "fr-FR",
+            "language_description": "Un <link>code de langue ISO 639</link> suivi d'un <link2>code de région ISO 3166-1</link2>. Si vous ne trouvez pas votre langue, inventez-en une ! Ce n'est pas important que ce soit strictement correct."
+        },
+        "language": "Langue",
+        "language_missing": "Votre langue est manquante ? Cliquez ici pour l'ajouter."
+    },
+    "Error": {
+        "title": "Une erreur s'est produite !",
+        "description": "Il semble que nous ayons de la poussière coincée dans nos circuits ! Veuillez signaler ce problème en utilisant les liens ci-dessous et réessayer plus tard.",
+        "report": "Signalez ce problème en utilisant <form>ce formulaire</form>, <github>via notre page Github</github>, ou <link>rejoignez notre Discord</link> pour le signaler là-bas."
+    },
+    "Home": {
+        "blurb": "Cartes Minecraft, Data Packs, Resource Packs et plus de la communauté Minecraft du monde entier !",
+        "recently_updated": "Créations récemment mises à jour",
+        "view_all": "En trouver plus..."
+    },
+    "Ads": {
+        "behind_text": "Les publicités aident MCCreations à créer des choses cool ! Veuillez envisager de désactiver votre bloqueur de publicités pour ce site :)"
+    },
+    "Buttons": {
+        "BulkDownload": {
+            "text": "EN MASSE",
+            "no_selection": "Aucun contenu sélectionné pour le téléchargement"
+        },
+        "download": "Télécharger",
+        "download_bedrock": "Télécharger pour Bedrock",
+        "edit": "Modifier"
+    },
+    "CommentForm": {
+        "sent": "Commentaire envoyé",
+        "title": "Laisser un commentaire",
+        "comment": "Commentaire",
+        "send": "Envoyer"
+    },
+    "Comment": {
+        "permalink": "Copier le lien permanent du commentaire",
+        "expand": "Voir plus",
+        "collapse": "Voir moins",
+        "reply": "Répondre",
+        "like": "J'aime",
+        "delete": "Supprimer"
+    },
+    "CommentsList": {
+        "title": "Commentaires",
+        "no_comments": "Soyez le premier à commenter !",
+        "none_yet": "Pas encore !",
+        "loading": "Chargement des commentaires..."
+    },
+    "FeaturedSlideshow": {
+        "see_more": "Télécharger"
+    },
+    "Footer": {
+        "about": "À propos",
+        "contact": "Contact",
+        "discord": "Discord",
+        "join_community": "Rejoindre la communauté",
+        "legal_contact": "Contact légal",
+        "privacy": "Politique de confidentialité",
+        "request_data": "Demander des données",
+        "twitter": "Twitter",
+        "bluesky": "Bluesky",
+        "youtube": "Youtube",
+        "updates": "Mises à jour",
+        "Splashes": {
+            "1": "Devenu mondial !",
+            "2": "C'est un site web !",
+            "3": "Des choses sont cassées.",
+            "4": "Je suis un pied de page !",
+            "5": "Minecraft est plutôt cool, hein.",
+            "6": "La créativité pour la victoire !",
+            "7": "Qui lit ça ?",
+            "8": "Quelqu'un a un sandwich ?",
+            "9": "Contribuez sur Github !",
+            "10": "Saviez-vous que c'est aléatoire ?"
+        },
+        "mojang_disclamer": "CE N'EST PAS UN PRODUIT OFFICIEL MINECRAFT. NON APPROUVÉ OU ASSOCIÉ À MOJANG.",
+        "open_source": "MCCreations est <link>open source</link>. Contribuez aujourd'hui !",
+        "copyright": "© Ben Meier/CrazyCowMM"
+    },
+    "Form": {
+        "save": "Enregistrer",
+        "CreatorSelector": {
+            "title": "Créateurs",
+            "add_creator": "Ajouter un créateur",
+            "confirm_remove": "Cliquez à nouveau pour supprimer ce créateur",
+            "username_description": "Le nom à afficher sur MCCreations.",
+            "handle_description": "Si le créateur a un compte sur MCCreations, entrez son identifiant ici pour lier son profil."
+        },
+        "Shared": {
+            "uploaded": "{file} téléchargé",
+            "uploading": "Début du téléchargement de {file}",
+            "upload_failed": "Échec du téléchargement de {file}"
+        },
+        "Images": {
+            "drop_zone": "Glissez et déposez une image ici, ou cliquez pour en sélectionner une.",
+            "hovering_drop": "Déposez ici !",
+            "invalid": "n'a pas pu être téléchargé car le fichier n'est pas une image valide.",
+            "too_large": "n'a pas pu être téléchargé car le fichier fait plus de 2Mo.",
+            "unknown_error": "n'a pas pu être téléchargé à cause d'une erreur inconnue."
+        },
+        "Files": {
+            "drop_zone": "Glissez et déposez un fichier ici, ou cliquez pour en sélectionner un.",
+            "invalid_file": "n'a pas pu être téléchargé car le fichier n'est pas une archive zip valide."
+        },
+        "RichText": {
+            "ImagePopup": {
+                "alt_text": "Texte alternatif",
+                "image_url": "URL de l'image",
+                "insert_file": "Insérer un fichier image",
+                "insert_url": "Insérer une URL d'image"
+            },
+            "placeholder": "Commencez à écrire !",
+            "undo": "Annuler",
+            "redo": "Rétablir",
+            "bold": "Gras",
+            "italic": "Italique",
+            "underline": "Souligné",
+            "strikethrough": "Barré",
+            "bullet_list": "Ajouter une liste non ordonnée",
+            "justify_align": "Justifier",
+            "left_align": "Aligner à gauche",
+            "center_align": "Centrer",
+            "right_align": "Aligner à droite",
+            "image": "Insérer une image",
+            "add_caption": "Ajouter une légende",
+            "spoiler": "Ajouter un spoiler",
+            "font_size": "Taille de police"
+        }
+    },
+    "SearchAndFilter": {
+        "search": "Rechercher",
+        "clear_filters": "Effacer les filtres",
+        "sort_by": "Trier par",
+        "Sort": {
+            "title_ascending": "Titre croissant",
+            "title_descending": "Titre décroissant",
+            "creator_ascending": "Créateur croissant",
+            "creator_descending": "Créateur décroissant",
+            "newest": "Plus récent",
+            "oldest": "Plus ancien",
+            "highest_rated": "Mieux noté",
+            "lowest_rated": "Moins bien noté",
+            "highest_downloads": "Plus de téléchargements",
+            "lowest_downloads": "Moins de téléchargements",
+            "updated": "Récemment mis à jour"
+        },
+        "status": "Statut",
+        "tags": "Tags",
+        "search_placeholder": "Rechercher par titre, créateur, version, etc."
+    },
+    "brand": "MCCreations",
+    "error": "Erreur",
+    "events": "Événements",
+    "VersionManager": {
+        "title": "Gestionnaire de versions",
+        "add_version": "Ajouter une version",
+        "Version": {
+            "back_to_versions": "Retour aux versions",
+            "edit": "Modifier la version",
+            "version_number": "Numéro de version",
+            "minecraft_version": "Version de Minecraft",
+            "Bedrock": "Bedrock",
+            "Bedrock_description": "Ce fichier est-il pour l'édition Bedrock",
+            "MainFile": {
+                "link": "Lien du fichier principal"
+            },
+            "ExtraFiles": {
+                "file_type": "Type de fichier",
+                "link": "Lien",
+                "required": "Requis",
+                "required_description": "Fait en sorte que ce fichier soit automatiquement téléchargé avec le fichier principal",
+                "upload_file": "Télécharger un fichier"
+            },
+            "save": "Enregistrer la version",
+            "cancel": "Annuler",
+            "delete": "Supprimer",
+            "add_file": "Ajouter un fichier",
+            "add_file_description": "Ajoutez des fichiers supplémentaires requis pour cette création, comme des resourcepacks"
+        }
+    },
+    "Content": {
+        "affiliate": "Obtenez un serveur pour ce {type} avec 25% de réduction",
+        "leaderboards": "Classements",
+        "files": "Fichiers",
+        "info": "Info",
+        "logo_alt": "Le logo de {title}, une {type} Minecraft pour Minecraft {minecraft_version} par {creator} sur MCCreations",
+        "by": "par {creator}",
+        "by_joiner": ", ",
+        "Sidebar": {
+            "creators": "Créateurs",
+            "stats": "Statistiques",
+            "created_date": "Date de création",
+            "updated_date": "Date de mise à jour",
+            "downloads": "Téléchargements",
+            "ratings": "Évaluations",
+            "minecraft_version": "Version de Minecraft",
+            "files": "Fichiers",
+            "tags": "Tags"
+        },
+        "Files": {
+            "name": "Nom",
+            "date": "Date",
+            "minecraft_version": "Version de Minecraft",
+            "download": "Télécharger",
+            "loading": "Chargement..."
+        },
+        "Warnings": {
+            "count": "Messages : ",
+            "no_title": {
+                "title": "Pas de titre",
+                "description": "Le contenu doit avoir un titre"
+            },
+            "no_description": {
+                "title": "Pas de description",
+                "description": "Une description est requise"
+            },
+            "no_short_description": {
+                "title": "Pas de courte description",
+                "description": "Une courte description est requise"
+            },
+            "no_tags": {
+                "title": "Pas de tags",
+                "description": "Le contenu doit avoir au moins un tag"
+            },
+            "no_minecraft_version": {
+                "title": "Pas de version Minecraft",
+                "description": "Le contenu doit avoir une version Minecraft"
+            },
+            "no_creators": {
+                "title": "Pas de créateurs",
+                "description": "Le contenu doit avoir au moins un créateur"
+            },
+            "no_files": {
+                "title": "Pas de fichiers",
+                "description": "Le contenu doit avoir au moins un fichier"
+            },
+            "no_images": {
+                "title": "Pas d'images",
+                "description": "Le contenu doit avoir au moins une image."
+            },
+            "short_description_too_short": {
+                "title": "Description courte trop courte",
+                "description": "Votre description courte doit faire au moins 40 caractères"
+            },
+            "description_too_short": {
+                "title": "Description trop courte",
+                "description": "Votre description doit faire au moins 100 caractères"
+            },
+            "external_images": {
+                "title": "Images de sources externes",
+                "description": "Vous avez des images qui proviennent de sources externes. Cela signifie que MCCreations ne peut pas garantir qu'elles continueront à fonctionner à l'avenir, ou qu'elles seront accessibles par tous les utilisateurs. Nous vous recommandons fortement de télécharger ces images à la place."
+            },
+            "few_images": {
+                "title": "Très peu d'images",
+                "description": "Plus d'images aident les gens à mieux comprendre ce dont parle votre contenu. Il est recommandé de télécharger au moins 4 images, y compris votre logo."
+            },
+            "not_linked": {
+                "title": "Non lié à un compte",
+                "description": "Ce contenu n'est pas lié à un compte sur MCCreations. Cela signifie que votre accès pour modifier ce contenu expirera dans 24 heures. Il est recommandé de télécharger du contenu avec un compte pour conserver l'accès à toutes les fonctionnalités."
+            },
+            "no_download_link": {
+                "title": "Pas de lien de téléchargement",
+                "description": "Au moins un lien de téléchargement est requis"
+            },
+            "slug_too_short": {
+                "title": "Slug trop court",
+                "description": "Votre slug doit faire au moins 2 caractères"
+            }
+        },
+        "Edit": {
+            "editing": "Modification de {title}",
+            "status": "Statut :",
+            "request_approval": "Publier",
+            "general": "Général",
+            "title": "Titre",
+            "title_description": "Le nom principal de votre création. Doit être court et concis !",
+            "slug": "Slug",
+            "slug_description": "L'identifiant unique de votre création. Il sera utilisé dans l'URL, comme mccreations.net/maps/votre-slug",
+            "short_description": "Description courte",
+            "short_description_description": "Un bref résumé de votre création. Il sera utilisé dans les résultats de recherche et les aperçus.",
+            "video_url": "URL de la vidéo",
+            "video_url_description": "Un lien vers une vidéo de votre création. Il remplacera votre logo sur la page de création par une vidéo intégrée.",
+            "description": "Description",
+            "description_description": "Une description plus longue de votre création. Elle sera utilisée sur la page principale de votre création.",
+            "Tags": {
+                "genre_description": "La catégorie principale de votre création. Elle donne aux utilisateurs une idée très générale de la façon dont votre création se joue.",
+                "subgenre_description": "La catégorie secondaire de votre création. Elle donne aux utilisateurs une idée plus spécifique du contenu de votre création.",
+                "difficulty_description": "La difficulté de votre création.",
+                "length_description": "La longueur de votre création.",
+                "resolution_description": "La résolution de votre resourcepack.",
+                "theme_description": "Le thème de votre création."
+            },
+            "extra_features": "Fonctionnalités supplémentaires",
+            "ExtraFeatures": {
+                "Leaderboards": {
+                    "help": "Apprenez à configurer les classements MCCreations <link>ici</link>. Notez que les classements ne sont disponibles que pour l'édition Java pour le moment.",
+                    "title": "Classements",
+                    "message_text": "Texte du message",
+                    "message_text_description": "Texte à afficher pour dire aux joueurs de soumettre leur score. Ceci est envoyé en jeu lorsque votre création se termine.",
+                    "message_format": "Formatage supplémentaire",
+                    "message_format_description": "Formatage supplémentaire à ajouter au message tellraw. Doit être formaté comme \"color\":\"green\", \"bold\": true"
+                }
+            },
+            "images": "Images",
+            "versions": "Versions",
+            "translations": "Traductions",
+            "add_translation": "Ajouter une traduction",
+            "translation_languages": "Langues",
+            "translation_languages_description": "Votre langue est manquante ? Cliquez ici pour l'ajouter.",
+            "delete_translation": "Supprimer",
+            "translation_approved": "Approuvé",
+            "PopupMessage": {
+                "general_saved": "Informations du contenu enregistrées avec succès",
+                "images_saved": "Images enregistrées avec succès",
+                "translations_saved": "Traductions enregistrées avec succès",
+                "versions_saved": "Versions enregistrées avec succès",
+                "requested_approval": "Le contenu a été publié et est en attente de vérification"
+            }
+        },
+        "translate": "Traduire {title}",
+        "translate_button": "Traduire la page {type}",
+        "Metadata": {
+            "title_not_found": "{content_type} non trouvé",
+            "description_not_found": "Ce {content_type} n'existe pas sur MCCreations",
+            "title": "{title} {content_type} pour Minecraft {minecraft_version} par {creator} sur MCCreations",
+            "Tags": {
+                "minecraft": "Minecraft",
+                "games": "jeux",
+                "gaming": "jeux vidéo",
+                "minecraft_creations": "Créations Minecraft",
+                "minecraft_version": "Minecraft {minecraft_version}",
+                "minecraft_datapack": "Data Pack Minecraft",
+                "minecraft_map": "Carte Minecraft",
+                "minecraft_resourcepack": "Resource Pack Minecraft",
+                "mods": "Mods",
+                "minecraft_mods": "Mods Minecraft",
+                "minecraft_but": "Minecraft mais",
+                "minecraft_survival": "Survie Minecraft"
+            }
+        },
+        "datapack_not_found": "Data Pack non trouvé",
+        "datapack_not_found_description": "Ce data pack n'existe pas ou vous n'avez pas la permission de le voir",
+        "datapacks_not_found": "Aucun Data Pack trouvé",
+        "maps_not_found": "Aucune carte trouvée",
+        "map_not_found": "Carte non trouvée",
+        "map_not_found_description": "Cette carte n'existe pas ou vous n'avez pas la permission de la voir",
+        "resourcepack_not_found": "Resource Pack non trouvé",
+        "resourcepack_not_found_description": "Ce resource pack n'existe pas ou vous n'avez pas la permission de le voir",
+        "resourcepacks_not_found": "Aucun Resource Pack trouvé",
+        "Rating": {
+            "1": "1 sur 5 étoiles",
+            "2": "2 sur 5 étoiles",
+            "3": "3 sur 5 étoiles",
+            "4": "4 sur 5 étoiles",
+            "5": "5 sur 5 étoiles"
+        },
+        "Tags": {
+            "genre": "Genre",
+            "subgenre": "Sous-genre",
+            "difficulty": "Difficulté",
+            "length": "Longueur",
+            "resolution": "Résolution",
+            "theme": "Thème",
+            "chill": "Détendu",
+            "easy": "Facile",
+            "hard": "Difficile",
+            "hardcore": "Hardcore",
+            "normal": "Normal",
+            "adventure": "Aventure",
+            "build": "Construction",
+            "creative": "Créatif",
+            "game": "Jeu",
+            "other": "Autre",
+            "overhaul": "Refonte",
+            "parkour": "Parkour",
+            "puzzle": "Énigme",
+            "qol": "Qualité de vie",
+            "realistic": "Réaliste",
+            "simple": "Simple",
+            "survival": "Survie",
+            "themed": "Thématique",
+            "tool": "Outil",
+            "utility": "Utilitaire",
+            "long": "Long",
+            "medium": "Moyen",
+            "short": "Court",
+            "1024x +": "1024x +",
+            "128x": "128x",
+            "16x": "16x",
+            "256x": "256x",
+            "32x": "32x",
+            "512x": "512x",
+            "64x": "64x",
+            "8x": "8x",
+            "blocks": "Blocs",
+            "bosses": "Boss",
+            "cartoon": "Cartoon",
+            "challenge": "Défi",
+            "city": "Ville",
+            "co-op": "Coopératif",
+            "cosmetic": "Cosmétique",
+            "crafting": "Crafting",
+            "CTM": "CTM",
+            "dropper": "Dropper",
+            "elytra": "Élytres",
+            "entities": "Entités",
+            "episodic": "Épisodique",
+            "escape": "Évasion",
+            "exploration": "Exploration",
+            "faithful": "Fidèle",
+            "finding": "Recherche",
+            "font": "Police",
+            "funny": "Drôle",
+            "GUI": "Interface",
+            "horror": "Horreur",
+            "items": "Objets",
+            "language": "Langue",
+            "magic": "Magie",
+            "maze": "Labyrinthe",
+            "mobs": "Mobs",
+            "models": "Modèles",
+            "multiplayer": "Multijoueur",
+            "music": "Musique",
+            "park": "Parc",
+            "PVE": "JcE",
+            "PVP": "JcJ",
+            "RPG": "RPG",
+            "shaders": "Shaders",
+            "singleplayer": "Solo",
+            "skybox": "Skybox",
+            "smooth": "Lisse",
+            "sound": "Son",
+            "tech": "Technologie",
+            "tools": "Outils",
+            "trivia": "Trivia",
+            "tweak": "Ajustement",
+            "unfair": "Injuste",
+            "weapons": "Armes",
+            "anime": "Anime",
+            "fantasy": "Fantasy",
+            "medieval": "Médiéval",
+            "modern": "Moderne",
+            "sci-fi": "Science-fiction",
+            "vanilla": "Vanilla"
+        }
+    },
+    "Datapacks": {
+        "Metadata": {
+            "title": "Télécharger des Data Packs | MCCreations",
+            "description": "Téléchargez les meilleurs Data Packs pour Minecraft. Explorez les Data Packs les plus populaires et préparez-vous à jouer ! Les Data Packs sont l'équivalent vanilla des mods pour Minecraft. Ils peuvent ajouter de nouvelles fonctionnalités, changer la façon dont le jeu est joué, et plus encore !"
+        }
+    },
+    "Leaderboards": {
+        "not_found": "Classement non trouvé",
+        "rank": "Rang",
+        "player": "Joueur",
+        "time": "Temps",
+        "score": "Score",
+        "date": "Date",
+        "device": "Appareil",
+        "location": "Localisation",
+        "submit_time": "Soumettre votre temps",
+        "submit_score": "Soumettre votre score",
+        "submit_time_description": "Votre temps était de {hours} heures, {minutes} minutes, {seconds} secondes et {ticks} ticks",
+        "submit_score_description": "Votre score était de {score}",
+        "submit": "Soumettre",
+        "username": "Nom d'utilisateur"
+    },
+    "Profile": {
+        "follow": "Suivre",
+        "unfollow": "Ne plus suivre",
+        "Widgets": {
+            "Discord": {
+                "title": "Discord",
+                "edit_title": "Modifier le widget Discord",
+                "server_id": "ID du serveur"
+            },
+            "FeaturedCreation": {
+                "title": "Création mise en avant",
+                "edit_title": "Modifier le widget de création mise en avant",
+                "type": "Type",
+                "slug": "Slug"
+            },
+            "Image": {
+                "edit_title": "Modifier le widget d'image",
+                "image": "Image",
+                "title": "Titre"
+            },
+            "Showcase": {
+                "title": "Créations",
+                "edit_title": "Modifier le widget de vitrine",
+                "type": "Type"
+            },
+            "SupportSite": {
+                "title": "Site de support",
+                "edit_title": "Modifier le widget de site de support"
+            },
+            "Text": {
+                "edit_title": "Modifier le widget de texte",
+                "text": "Texte",
+                "title": "Titre"
+            },
+            "Twitch": {
+                "title": "Twitch",
+                "edit_title": "Modifier le widget Twitch",
+                "handle": "Nom d'utilisateur Twitch"
+            },
+            "Wall": {
+                "title": "Mur",
+                "edit_title": "Modifier le widget de mur"
+            },
+            "Youtube": {
+                "title": "YouTube",
+                "edit_title": "Modifier le widget YouTube",
+                "handle": "Identifiant YouTube"
+            },
+            "delete_widget": "Supprimer le widget"
+        }
+    },
+    "Create": {
+        "next": "Suivant",
+        "finish": "Terminer",
+        "save": "Enregistrer",
+        "Import": {
+            "PMC": "Importation depuis Planet Minecraft",
+            "downloading": "Téléchargement de la création depuis {host}",
+            "preroll": "Attente de la publicité preroll...",
+            "unknown": "Importation depuis un hôte inconnu",
+            "MinecraftMaps": "Importation depuis Minecraft Maps",
+            "Modrinth": "Importation depuis Modrinth"
+        }
+    }
+} 

@@ -7,6 +7,7 @@
     "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
     "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
     "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
+    "creator": "{count, plural, =0 {Creators} =1 {Creator} other {Creators}}",
     "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
     "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
     "Creations": {
@@ -19,15 +20,42 @@
                 },
                 "datapack": {
                     "title": "Browse and Search for Minecraft Data Packs",
-                    "blurb": "Find amazing new Minecraft data packs for your next adventure!",
-                    "description": "Minecraft data packs are custom content that can add new features, change the way the game is played, and more! They are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
+                    "blurb": "Find tools, challenges and more for your Minecraft adventures!",
+                    "description": "Minecraft data packs are essentially mods for vanilla Minecraft. They enhance gameplay by adding new features, mechanics, and experiences. They can transform the game with new challenges, quests, and even entirely new game modes. Since their introduction, data packs have become a beloved tool for creators, allowing the community to innovate and expand the possibilities of Minecraft, fostering a rich ecosystem of creativity and collaboration."
                 },
                 "resourcepack": {
                     "title": "Browse and Search for Minecraft Resource Packs",
-                    "blurb": "Find amazing new Minecraft resource packs for your next adventure!",
-                    "description": "Minecraft resource packs are custom content that change the look and feel of Minecraft. They can change the textures, the models, the sounds, the music, and more!"
+                    "blurb": "Change up or enhance the look of Minecraft!",
+                    "description": "Minecraft resource packs are customizable collections of files that change the game's visuals and sounds, allowing players to personalize their gaming experience. They can modify textures, models, music, and sound effects, transforming the look and feel of the game. Since their introduction, resource packs have played a significant role in the Minecraft community, enabling creators to express their creativity and share their unique visions with others. Over the years, they have become a cornerstone of Minecraft's modding culture, fostering a vibrant community of artists and players who continually push the boundaries of what's possible in the game."
                 }
             }
+        }
+    },
+    "Menu": {
+        "Navbar": {
+            "home": "Home",
+            "feed": "Feed",
+            "creations": "Creations",
+            "maps_blurb": "From puzzles to adventures to multiplayer madness.",
+            "datapacks_blurb": "Change your world, add a little challenge, or make a small tweak.",
+            "resourcepacks_blurb": "Explore a whole new world, or just add some new music.",
+            "creators": "Creators",
+            "create": "Create",
+            "account": "Account",
+            "toggle_menu": "Toggle Menu"
+        },
+        "LanguageSwitcher": {
+            "language": "English",
+            "helpTranslate": "Help Translate"
+        },
+        "UserOptions": {
+            "sign_in": "Sign In",
+            "sign_out": "Sign Out",
+            "dashboard": "Dashboard",
+            "notifications": "Notifications",
+            "profile": "Profile",
+            "settings": "Settings",
+            "admin": "Admin"
         }
     },
     "Status": {
@@ -327,42 +355,6 @@
             "font_size": "Font Size"
         }
     },
-    "Navigation": {
-        "CreateForm": {
-            "title": "Upload",
-            "missing_title": "A title must be included to save content",
-            "missing_short_description": "A short description must be included to save content",
-            "missing_type": "A type must be selected to save content",
-            "type": "Type"
-        },
-        "ImportForm": {
-            "title": "Import",
-            "description": "Import your existing content from Planet Minecraft, MinecraftMaps.com or Modrinth below.",
-            "link": "Link",
-            "link_placeholder": "https://planetminecraft.com/project/...",
-            "missing_link": "A link must be added to import content",
-            "type": "Type"
-        },
-        "UserOptions": {
-            "sign_in": "Sign In",
-            "sign_out": "Sign Out",
-            "dashboard": "Dashboard",
-            "notifications": "Notifications",
-            "profile": "Profile",
-            "settings": "Settings",
-            "admin": "Admin"
-        },
-        "badge": "Beta",
-        "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
-        "home": "Home",
-        "feed": "Feed",
-        "forums": "Forums",
-        "marketplace": "Marketplace",
-        "creations": "Creations",
-        "helpTranslate": "Help Translate",
-        "language": "English",
-        "create": "Create"
-    },
     "SearchAndFilter": {
         "search": "Search",
         "clear_filters": "Clear Filters",
@@ -414,7 +406,7 @@
             "add_file_description": "Add any extra files required for this creation, like resourcepacks"
         }
     },
-    "Content": {
+    "Creation": {
         "affiliate": "Get a server for this {type} for 25% off",
         "leaderboards": "Leaderboards",
         "files": "Files",
