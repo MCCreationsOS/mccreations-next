@@ -1,6 +1,6 @@
 'use client'
 
-import { convertToCollection, createEmptyCreation, updateContent } from "@/app/api/content"
+import { convertToCollection, createEmptyCreation, requestApproval, updateContent } from "@/app/api/content"
 import { useTokenOrKey } from "@/app/api/hooks/users"
 import { ContentTypes, IContentDoc } from "@/app/api/types"
 import MainButton from "@/components/Buttons/MainButton"
@@ -34,11 +34,15 @@ export default function Images({params}: {params: Params}) {
             PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
         })
     }
-
+    
     const onFinish = () => {
         if(!creation || 'error' in creation) return;
-        setCreation(createEmptyCreation())
-        router.push(`/${contentType}s/${creation.slug}`)
+        requestApproval(creation.slug, collectionName, token).then(() => {
+            setCreation(createEmptyCreation())
+            router.push(`/${contentType}s/${creation.slug}`)
+        }).catch((e) => {
+            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
+        })
     }
 
     return <>
