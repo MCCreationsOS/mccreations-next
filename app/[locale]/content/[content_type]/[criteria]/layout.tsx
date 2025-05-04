@@ -42,9 +42,9 @@ export async function generateMetadata({params}: {params: Params}) {
 
     if (AllTags.includes(criteria)) {
         return {
-            title: `${t(`Content.Tags.${criteria}`)} ${t(content_type, {count: 2})} | MCCreations`,
+            title: `${t(`Creation.Tags.${criteria}`)} ${t(content_type, {count: 2})} | MCCreations`,
             description: `Browse ${criteria} ${t(content_type, {count: 2})}s on MCCreations`,
-            keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), t(`Content.Tags.${criteria}`)],
+            keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), t(`Creation.Tags.${criteria}`)],
             publisher: "MCCreations",
         }
     }

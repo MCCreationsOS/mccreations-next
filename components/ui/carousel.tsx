@@ -67,6 +67,9 @@ const Carousel = React.forwardRef<
     )
     const [canScrollPrev, setCanScrollPrev] = React.useState(false)
     const [canScrollNext, setCanScrollNext] = React.useState(false)
+    const [currentIndex, setCurrentIndex] = React.useState(1)
+    const [total, setTotal] = React.useState(0)
+    let array: number[] | undefined
 
     const onSelect = React.useCallback((api: CarouselApi) => {
       if (!api) {
@@ -102,18 +105,24 @@ const Carousel = React.forwardRef<
       if (!api || !setApi) {
         return
       }
-
       setApi(api)
     }, [api, setApi])
-
+    
     React.useEffect(() => {
       if (!api) {
         return
       }
-
+      
+      setTotal(api.scrollSnapList().length)
+      setCurrentIndex(api.selectedScrollSnap() + 1)
+      array = api.scrollSnapList()
       onSelect(api)
       api.on("reInit", onSelect)
       api.on("select", onSelect)
+
+      api.on("select", () => {
+        setCurrentIndex(api.selectedScrollSnap() + 1)
+      })
 
       return () => {
         api?.off("select", onSelect)
@@ -143,6 +152,9 @@ const Carousel = React.forwardRef<
           {...props}
         >
           {children}
+          <div className="absolute bottom-0 left-1">
+            {currentIndex} / {total}
+          </div>
         </div>
       </CarouselContext.Provider>
     )

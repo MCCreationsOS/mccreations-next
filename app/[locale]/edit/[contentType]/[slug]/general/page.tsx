@@ -181,8 +181,8 @@ export default function General({params}: {params: Params}) {
                 <Text type="text" name={t('Content.Edit.video_url')} description={t('Content.Edit.video_url_description')} value={creation?.videoUrl} />
                 <RichTextInput id="edit_general" name={t('Content.Edit.description')} description={t('Content.Edit.description_description')} value={creation?.description} />
                 {tags && 'genre' in tags && Object.keys(tags).map((category) => {
-                    return <Select key={category} name={t(`Content.Tags.${category as TagCategories}`)} description={t(`Content.Edit.Tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
-                        return {name: t(`Content.Tags.${tag as TagKeys}`), value: tag}
+                    return <Select key={category} name={t(`Creation.Tags.${category as TagCategories}`)} description={t(`Content.Edit.Tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
+                        return {name: t(`Creation.Tags.${tag as TagKeys}`), value: tag}
                     })} multiSelect={true} value={creation.tags?.filter(t => tags[category].includes(t)).join(',')}/>
                 })}
                 <Select name={t('Content.Edit.extra_features')} options={[{name: t("Content.Edit.ExtraFeatures.Leaderboards.title"), value: "leaderboards"}]} value={(creation.extraFeatures) ? Object.keys(creation.extraFeatures).filter(key => creation.extraFeatures![key as ExtraFeatureKeys].use !== false).join(",") : ""} multiSelect description={t.rich('Content.Edit.ExtraFeatures.Leaderboards.help', {link: (chunks) => <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">{chunks}</Link>})}/>

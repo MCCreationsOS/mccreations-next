@@ -12,6 +12,10 @@ import { useTags } from "@/app/api/hooks/creations";
 import DOMPurify from "isomorphic-dompurify";
 import CreatorCard from "@/components/Creator/CreatorCard";
 import Rating from "@/components/Creations/Page/Rating";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
+import RecommendedCreations from "./RecommendedCreations";
+import Comments from "./Comments";
 
 export const dynamic = 'force-dynamic'
 
@@ -87,30 +91,47 @@ export default function Creation({creation, collectionName}: {creation: IContent
                     <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}} className="max-w-xl lg:text-lg">
 
                     </div>
-                    <div className="bg-card border-gray-950 border-2 card-shadow p-5 w-full h-fit flex-1/2 relative">
-                        <div className="flex flex-col gap-2">
-                            {creation.creators.map(creator => <CreatorCard creator={creator} key={creator.username}/>)}
+                    <div className="flex flex-col gap-4 max-w-sm h-fit">
+                        <div className="bg-card border-gray-950 border-2 card-shadow p-5 w-full flex-1/2 relative">
+                            <div className="flex flex-col gap-2">
+                                {creation.creators.map(creator => <CreatorCard creator={creator} key={creator.username}/>)}
+                            </div>
+                            <hr className="my-2"></hr>
+                            <div className="flex flex-col gap-1 text-sm text-muted-foreground">
+                                <div>
+                                    <Rating value={creation.rating} content={creation}/>
+                                </div>
+                                <div className="flex flex-row">
+                                    <span className="flex-1">{t('Creation.Sidebar.downloads')}</span>
+                                    <span>{creation.downloads}</span>
+                                </div>
+                                <div className="flex flex-row">
+                                    <span className="flex-1">{t('Creation.Sidebar.created_date')}</span>
+                                    <span>{new Date(creation.createdDate).toLocaleDateString()}</span>
+                                </div>
+                                {creation.updatedDate && <div className="flex flex-row">
+                                    <span className="flex-1">{t('Creation.Sidebar.updated_date')}</span>
+                                    <span>{new Date(creation.updatedDate).toLocaleDateString()}</span>
+                                </div>}
+                            </div>
+                            <hr className="my-2"></hr>
                         </div>
-                        <hr className="my-2"></hr>
-                        <div className="flex flex-col gap-1 text-sm text-muted-foreground">
-                            <div>
-                                <Rating value={creation.rating} content={creation}/>
-                            </div>
-                            <div className="flex flex-row">
-                                <span className="flex-1">{t('Creation.Sidebar.downloads')}</span>
-                                <span>{creation.downloads}</span>
-                            </div>
-                            <div className="flex flex-row">
-                                <span className="flex-1">{t('Creation.Sidebar.created_date')}</span>
-                                <span>{new Date(creation.createdDate).toLocaleDateString()}</span>
-                            </div>
-                            {creation.updatedDate && <div className="flex flex-row">
-                                <span className="flex-1">{t('Creation.Sidebar.updated_date')}</span>
-                                <span>{new Date(creation.updatedDate).toLocaleDateString()}</span>
-                            </div>}
-                        </div>
-                        <hr className="my-2"></hr>
+                    <RecommendedCreations creation={creation}/>
                     </div>
+                </div>
+                <div className="mt-5">
+                    <Carousel plugins={[Autoplay({delay: 4000})]}>
+                        <CarouselContent>
+                            {creation.images.slice(1, creation.images.length).map(image => <CarouselItem key={image}>
+                                <Image className="aspect-video object-cover object-center" width={1920} height={1080} src={image} alt=""></Image>
+                            </CarouselItem>)}
+                        </CarouselContent>
+                        <CarouselNext/>
+                        <CarouselPrevious/>
+                    </Carousel>
+                </div>
+                <div>
+                    <Comments />
                 </div>
             </div>
         </div>

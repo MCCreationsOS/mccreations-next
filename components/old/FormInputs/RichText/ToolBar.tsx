@@ -16,7 +16,7 @@ import {
 import {useCallback, useEffect, useRef, useState} from 'react';
 import * as React from 'react';
 import { InsertImageDialog } from './ImagePlugin';
-import { Popup } from '@/components/Popup/Popup';
+// import { Popup } from '@/components/Popup/Popup';
 import {useTranslations} from 'next-intl';
 import { Minus, Plus } from 'lucide-react';
 import { INSERT_COLLAPSIBLE_COMMAND } from './SpoilerPlugin';
@@ -266,9 +266,9 @@ export default function ToolbarPlugin() {
       </button>
       <button
           onClick={() => {
-            Popup.createPopup({content: <InsertImageDialog
-              activeEditor={editor}
-            />, title: t('Form.RichText.image')});
+            // Popup.createPopup({content: <InsertImageDialog
+            //   activeEditor={editor}
+            // />, title: t('Form.RichText.image')});
           }}
           aria-label={t('Form.RichText.image')}
           className="toolbar-item spaced">

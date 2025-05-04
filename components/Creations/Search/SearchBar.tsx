@@ -42,9 +42,9 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
             tags[category].forEach((tag) => {
                 if(includeTags.includes(tag)) {
                     if(tag_dropdown_names[category] == "Any") {
-                        tag_dropdown_names[category] = `Include ${t(`Content.Tags.${tag as TagKeys}`)}`
+                        tag_dropdown_names[category] = `Include ${t(`Creation.Tags.${tag as TagKeys}`)}`
                     } else {
-                        tag_dropdown_names[category] += ` & ${t(`Content.Tags.${tag as TagKeys}`)}`
+                        tag_dropdown_names[category] += ` & ${t(`Creation.Tags.${tag as TagKeys}`)}`
                     }
                 }
             })
@@ -52,11 +52,11 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
             tags[category].forEach((tag) => {
                 if(excludeTags.includes(tag)) {
                     if(tag_dropdown_names[category] == "Any") {
-                        tag_dropdown_names[category] = `Exclude ${t(`Content.Tags.${tag as TagKeys}`)}`
+                        tag_dropdown_names[category] = `Exclude ${t(`Creation.Tags.${tag as TagKeys}`)}`
                     } else if(tag_dropdown_names[category].includes("Include") && !tag_dropdown_names[category].includes("exclude")) {
-                        tag_dropdown_names[category] += ` and exclude ${t(`Content.Tags.${tag as TagKeys}`)}`
+                        tag_dropdown_names[category] += ` and exclude ${t(`Creation.Tags.${tag as TagKeys}`)}`
                     } else {
-                        tag_dropdown_names[category] += ` & ${t(`Content.Tags.${tag as TagKeys}`)}`
+                        tag_dropdown_names[category] += ` & ${t(`Creation.Tags.${tag as TagKeys}`)}`
                     }
                 }
             })
@@ -138,7 +138,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
                         return (
                             <div>
                                 <DropdownMenu>
-                                    <DropdownMenuLabel>{t(`Content.Tags.${category as TagCategories}`)}</DropdownMenuLabel>
+                                    <DropdownMenuLabel>{t(`Creation.Tags.${category as TagCategories}`)}</DropdownMenuLabel>
                                     <DropdownMenuTrigger><Button variant="secondary"><span className="w-31">{tag_dropdown_names[category]}</span></Button></DropdownMenuTrigger>
                                     <DropdownMenuContent>
                                         <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
@@ -147,7 +147,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
                                                     setIncludeTags(prev => prev.filter((t) => t != tag))
                                                     setExcludeTags(prev => [...prev, tag])
                                                 }
-                                            }} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t(`Content.Tags.${tag as TagKeys}`)}</Button></DropdownMenuItem>)}
+                                            }} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t(`Creation.Tags.${tag as TagKeys}`)}</Button></DropdownMenuItem>)}
                                         </div>
                                     </DropdownMenuContent>
                                 </DropdownMenu>

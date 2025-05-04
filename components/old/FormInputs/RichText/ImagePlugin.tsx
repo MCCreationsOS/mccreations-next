@@ -30,11 +30,11 @@ import {
   ImageNode,
   ImagePayload,
 } from './nodes/ImageNode';
-import FormComponent from '@/components/Form/Form';
+// import FormComponent from '@/components/Form/Form';
 import Text from '../Text';
 import ImageDropzone from '../ImageDropzone/ImageDropzone';
-import PopupComponent, { Popup } from '@/components/Popup/Popup';
-import SecondaryButton from '@/components/Buttons/SecondaryButton';
+// import PopupComponent, { Popup } from '@/components/Popup/Popup';
+// import SecondaryButton from '@/components/Buttons/SecondaryButton';
 import {useTranslations} from 'next-intl';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
@@ -58,10 +58,10 @@ export function InsertImageUriDialogBody({
 
   return (
     <>
-    <FormComponent id='insertImageUrl' onSave={() => {onClick({altText, src})}}>
+    {/* <FormComponent id='insertImageUrl' onSave={() => {onClick({altText, src})}}>
         <Text name={t('Form.RichText.ImagePopup.image_url')} onChange={setSrc} value={src}/>
         <Text name={t('Form.RichText.ImagePopup.alt_text')} onChange={setAltText} value={altText}/>
-    </FormComponent>
+    </FormComponent> */}
     </>
   );
 }
@@ -79,10 +79,10 @@ export function InsertImageUploadedDialogBody({
 
   return (
     <>
-    <FormComponent id='insertImageFile' onSave={() => {onClick({altText, src})}}>
+    {/* <FormComponent id='insertImageFile' onSave={() => {onClick({altText, src})}}>
         <ImageDropzone onImagesUploaded={(f) => {setSrc(f[0].url)}} allowMultiple={false}/>
         <Text name={t('Form.RichText.ImagePopup.alt_text')} onChange={setAltText} value={altText}/>
-    </FormComponent>
+    </FormComponent> */}
     </>
   );
 }
@@ -109,15 +109,15 @@ export function InsertImageDialog({
 
   const onClick = (payload: InsertImagePayload) => {
     activeEditor.dispatchCommand(INSERT_IMAGE_COMMAND, payload);
-    Popup.close();
+    // Popup.close();
   };
 
   return (
     <>
       {!mode && (
         <>
-            <SecondaryButton onClick={() => setMode('url')}>{t('Form.RichText.ImagePopup.insert_url')}</SecondaryButton>
-            <SecondaryButton onClick={() => setMode('file')}>{t('Form.RichText.ImagePopup.insert_file')}</SecondaryButton>
+            {/* <SecondaryButton onClick={() => setMode('url')}>{t('Form.RichText.ImagePopup.insert_url')}</SecondaryButton>
+            <SecondaryButton onClick={() => setMode('file')}>{t('Form.RichText.ImagePopup.insert_file')}</SecondaryButton> */}
         </>
       )}
       {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} />}

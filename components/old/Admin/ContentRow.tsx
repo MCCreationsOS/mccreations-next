@@ -10,7 +10,7 @@ import SecondaryButton from "../Buttons/SecondaryButton";
 export default function ContentRow({content, addToUpdateQueue}: {content: IContentDoc, addToUpdateQueue: (map: IContentDoc) => void}) {
     const [title, setTitle] = useState(content.title)
     const [slug, setSlug] = useState(content.slug)
-    const [tags, setTags] = useState(content.tags)
+    const [tags, setTags] = useState(Creation.Tags)
     const [shortDescription, setShortDescription] = useState(content.shortDescription)
     const [creators, setCreators] = useState(content.creators ?? "")
 
@@ -27,7 +27,7 @@ export default function ContentRow({content, addToUpdateQueue}: {content: IConte
             <Link className={styles.table_item} href={`/${content.type}s/${content.slug}`}>View</Link>
             <input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={content.title} onChange={(e) => {setTitle(e.currentTarget.value)}}></input>
             <input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={content.slug} onChange={(e) => {setSlug(e.currentTarget.value)}}></input>
-            <input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={content.tags} onChange={(e) => {setTags(e.currentTarget.value.split(","))}}></input>
+            <input type="text" className={`${styles.table_item} ${styles.table_input}`} defaultValue={Creation.Tags} onChange={(e) => {setTags(e.currentTarget.value.split(","))}}></input>
             <textarea className={`${styles.table_item} ${styles.table_input}`} defaultValue={content.shortDescription} onChange={(e) => {setShortDescription(e.currentTarget.value)}}></textarea>
             <button className={styles.table_item} onClick={() => {
                 addToUpdateQueue({
