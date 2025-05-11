@@ -18,6 +18,8 @@ const buttonVariants = cva(
         secondary:
           "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 button-shadow",
         ghost: "hover:bg-black/40 hover:text-accent-foreground",
+        none: "",
+        dropdown: "hover:bg-black/40 hover:text-accent-foreground m-0 p-1 h-full w-full justify-start",
         link: "text-primary underline-offset-4 hover:underline button-shadow",
         bulk_download: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 flex items-center gap-2 flex-col button-shadow",
       },

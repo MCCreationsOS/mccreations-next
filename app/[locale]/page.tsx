@@ -35,9 +35,9 @@ export default async function Page({ params: { locale } }: { params: { locale: s
             </div>
             <h2 className="w-full text-center text-2xl font-bold mt-5 mb-2">{t('Home.view_all')}</h2>
             <div className="w-full flex justify-center gap-2 mb-10">
-                <Link href={`/maps`}><Button><Map />{t('map', { count: 2})}</Button></Link>
-                <Link href={`/datapacks`}><Button><Package />{t('datapack', { count: 2})}</Button></Link>
-                <Link href={`/resourcepacks`}><Button><Layers />{t('resourcepack', { count: 2})}</Button></Link>
+                <Link href={`/maps`}><Button><Map /><span>{t('map', { count: 2})}</span></Button></Link>
+                <Link href={`/datapacks`}><Button><Package /><span>{t('datapack', { count: 2})}</span></Button></Link>
+                <Link href={`/resourcepacks`}><Button><Layers /><span>{t('resourcepack', { count: 2})}</span></Button></Link>
             </div>
         </>
     )

@@ -3,42 +3,32 @@
 import { postRating } from "@/app/api/community";
 import { getCookie, setCookie } from "@/app/setCookies";
 import { IContentDoc } from "@/app/api/types";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {useTranslations} from 'next-intl';
+import { Button } from "@/components/ui/button";
 
-export default function Rating(props: { value: number, content: IContentDoc}) {
+export default function Rating(props: { value: number, currentRating: number, ratings: number[] | undefined, onRate: (value: number) => void, canChange?: boolean, showCount?: boolean, className?: string}) {
     const [value, setValue] = useState(props.value);
     const t = useTranslations()
-    let contentId = props.content.slug;
-
-
-    const sendRating = async (value: number) => {
-        let cookie = await getCookie("RATED_" + contentId)
-        if(!cookie) {
-            let newRating = await postRating(value, props.content);
-            setCookie("RATED_" + contentId, "true")
-            if(newRating)
-                setValue(newRating)
-        }
-    }
 
     let ratingHover = (event: any) => {
+        if(props.canChange === false) return;
         let value = Math.floor(((event.pageX - event.currentTarget.offsetLeft) / 12.0) + 2)
         value = (Math.floor(value/2))/5
         setValue(value)
     }
 
     return (
-        <div className="flex flex-row gap-2 items-center">
+        <div className={`flex flex-row gap-2 items-center ${props.className}`}>
             <ul className="rating" onMouseMove={(e) => {ratingHover(e)}} onMouseLeave={() => {setValue(props.value)}}>
                 <li className="current_rating" style={{width: value*100 + '%'}}></li>
-                <li><a id="one" href="#" title={t('Creation.Rating.1')} onClick={() => {sendRating(0.2)}}></a></li>
-                <li><a id="two" href="#" title={t('Creation.Rating.2')} onClick={() => {sendRating(0.4)}}></a></li>
-                <li><a id="three" href="#" title={t('Creation.Rating.3')} onClick={() => {sendRating(0.6)}}></a></li>
-                <li><a id="four" href="#" title={t('Creation.Rating.4')} onClick={() => {sendRating(0.8)}}></a></li>
-                <li><a id="five" href="#" title={t('Creation.Rating.5')} onClick={() => {sendRating(1)}}></a></li>
+                <li><Button variant="none" className="w-6 h-4 p-0" id="one" title={t('Creation.Rating.1')} onClick={() => {props.onRate(0.2)}}></Button></li>
+                <li><Button variant="none" className="w-6 h-4 p-0" id="two" title={t('Creation.Rating.2')} onClick={() => {props.onRate(0.4)}}></Button></li>
+                <li><Button variant="none" className="w-6 h-4 p-0" id="three" title={t('Creation.Rating.3')} onClick={() => {props.onRate(0.6)}}></Button></li>
+                <li><Button variant="none" className="w-6 h-4 p-0" id="four" title={t('Creation.Rating.4')} onClick={() => {props.onRate(0.8)}}></Button></li>
+                <li><Button variant="none" className="w-6 h-4 p-0" id="five" title={t('Creation.Rating.5')} onClick={() => {props.onRate(1)}}></Button></li>
             </ul>
-            <span className="text-md">{(props.content.rating * 5).toFixed(1)} ({props.content.ratings?.length ?? 0})</span>
+            {props.showCount && <span className="text-md">{(props.currentRating * 5).toFixed(1)} ({props.ratings?.length ?? 0})</span>}
         </div>
     )
 }

@@ -13,6 +13,8 @@ import {useEffect, useMemo, useRef, useState} from 'react';
 import * as React from 'react';
 
 import Text from '../Text';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 
 let skipAddingToHistoryStack = false;
 
@@ -114,7 +116,8 @@ export default function ColorPicker({
       className="color-picker-wrapper"
       style={{width: WIDTH}}
       ref={innerDivRef}>
-      <Text name="Hex" onChange={onSetHex} value={inputColor} />
+      <label htmlFor="Hex">Hex</label>
+      <Input id="Hex" name="Hex" onChange={(e) => onSetHex(e.target.value)} value={inputColor} className='mb-2'/>
       <div className="color-picker-basic-color">
         {basicColors.map((basicColor) => (
           <button
@@ -155,10 +158,10 @@ export default function ColorPicker({
         style={{backgroundColor: selfColor.hex}}
       />
       <div>
-        <button onClick={() => {
+        <Button className='mt-2' onClick={() => {
           setInputColor("#272727")
           setSelfColor(transformColor('hex', '#272727'))
-        }}>Clear</button>
+        }}>Clear</Button>
       </div>
     </div>
   );

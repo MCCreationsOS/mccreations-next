@@ -1,10 +1,11 @@
-import { $getRoot, $getSelection, $insertNodes, EditorState } from 'lexical';
+import { $getRoot, $getSelection, $insertNodes, EditorState, LexicalEditor } from 'lexical';
 import {$generateHtmlFromNodes, $generateNodesFromDOM} from '@lexical/html';
 
 import { LexicalComposer } from '@lexical/react/LexicalComposer';
 import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { ListPlugin } from '@lexical/react/LexicalListPlugin';
 import {ListItemNode, ListNode} from '@lexical/list';
 import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
@@ -21,15 +22,17 @@ import SpoilerPlugin from './SpoilerPlugin';
 import { CollapsibleContainerNode } from './SpoilerPlugin/SpoilerContainerNode';
 import { CollapsibleContentNode } from './SpoilerPlugin/SpoilerContentNode';
 import { CollapsibleTitleNode } from './SpoilerPlugin/SpoilerTitleNode';
+import { useEffect } from 'react';
+import {HeadingNode} from '@lexical/rich-text'
 
 const theme = {
-        code: 'editor-code',
+        code: 'font-mono',
         heading: {
-          h1: 'editor-heading-h1',
-          h2: 'editor-heading-h2',
-          h3: 'editor-heading-h3',
-          h4: 'editor-heading-h4',
-          h5: 'editor-heading-h5',
+          h1: 'text-2xl font-bold',
+          h2: 'text-xl font-bold',
+          h3: 'text-lg font-bold',
+          h4: 'text-base font-bold',
+          h5: 'text-sm font-bold',
         },
         image: 'editor-image',
         link: 'editor-link',
@@ -47,13 +50,13 @@ const theme = {
         quote: 'editor-quote',
         rtl: 'rtl',
         text: {
-          bold: 'editor-text-bold',
-          code: 'editor-text-code',
+          bold: 'font-bold',
+          code: 'font-mono',
           hashtag: 'editor-text-hashtag',
-          italic: 'editor-text-italic',
+          italic: 'italic',
           overflowed: 'editor-text-overflowed',
-          strikethrough: 'editor-text-strikethrough',
-          underline: 'editor-text-underline',
+          strikethrough: 'line-through',
+          underline: 'underline',
           underlineStrikethrough: 'editor-text-underlineStrikethrough',
         },
 }
@@ -72,42 +75,23 @@ function onError(error: any) {
  */
 function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     const [editor] = useLexicalComposerContext();
-    editor.update(() => {
-      try {
-        const parser = new DOMParser();
-        const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
-        
-        const nodes = $generateNodesFromDOM(editor, dom);
-        
-        $getRoot().clear();
-        
-        $insertNodes(nodes);
-      } catch(e) {
-        console.error(e);
-      }
-    });
-    return <></>;
-}
-
-/**
- * Export the HTML from the editor
- * @param setHTML A function used to pass the HTML out of the editor
- * @returns 
- */
-function ExportHTMLPlugin({ setHTML }: { setHTML: (html: string) => void }): JSX.Element {
-    const [editor] = useLexicalComposerContext();
-    editor.registerUpdateListener(({editorState}) => {
-      
-        editorState.read(() => {
-          try {
-            if(editorState.isEmpty()) return;
-            let html = $generateHtmlFromNodes(editor, null);
-            setHTML(html);
-          } catch(e) {
-            console.error(e);
-          }
-        });
+    useEffect(() => {   
+      editor.update(() => {
+        try {
+          if(html.length === 0) return;
+          const parser = new DOMParser();
+          const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
+          
+          const nodes = $generateNodesFromDOM(editor, dom);
+          
+          $getRoot().clear();
+          
+          $insertNodes(nodes);
+        } catch(e) {
+          console.error(e);
+        }
       });
+    }, [])
     return <></>;
 }
 
@@ -123,18 +107,27 @@ export default function RichText({ sendOnChange, initialValue, className }: { se
         namespace: 'MyEditor',
         theme,
         onError,
-        nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode, CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode],
+        nodes: [AutoLinkNode, LinkNode, ListItemNode, ListNode, ImageNode, CollapsibleContainerNode, CollapsibleTitleNode, CollapsibleContentNode, HeadingNode],
         editable: true
     };
     const t = useTranslations()
 
+
+    const onChange = (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => {
+        editorState.read(() => {
+            let html = $generateHtmlFromNodes(editor, null);
+            sendOnChange(html);
+        })
+        console.log(editorState)
+    }
+
     return (
         <LexicalComposer initialConfig={initialConfig}>
-            <div className={`editor-container ${className}`}>
+            <div className={`border-1 border-white/15 ${className}`}>
                 <ToolbarPlugin />
-                <div className={`editor-inner ${className}`}>
+                <div className={`border-t-1 border-white/15 relative ${className}`}>
                     <RichTextPlugin
-                        contentEditable={<ContentEditable className={`editor-input ${className}`} />}
+                        contentEditable={<ContentEditable className={`min-h-[200px] px-3 py-1 ${className}`} />}
                         placeholder={<div className="editor-placeholder">{t('Form.RichText.placeholder')}</div>}
                         ErrorBoundary={LexicalErrorBoundary}
                     />
@@ -143,9 +136,8 @@ export default function RichText({ sendOnChange, initialValue, className }: { se
             <HistoryPlugin />
             <LexicalAutoLinkPlugin />
             <LinkPlugin />
-            {/* <OnChangePlugin onChange={onChange} /> */}
             <LoadHTMLPlugin html={initialValue || ""} />
-            <ExportHTMLPlugin setHTML={sendOnChange} />
+            <OnChangePlugin onChange={onChange} ignoreSelectionChange={true}/>
             <ImagesPlugin />  
             <ListPlugin />
             <SpoilerPlugin />

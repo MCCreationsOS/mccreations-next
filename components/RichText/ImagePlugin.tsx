@@ -31,11 +31,13 @@ import {
   ImagePayload,
 } from './nodes/ImageNode';
 // import FormComponent from '@/components/Form/Form';
-import Text from '../Text';
-import ImageDropzone from '../ImageDropzone/ImageDropzone';
 // import PopupComponent, { Popup } from '@/components/Popup/Popup';
 // import SecondaryButton from '@/components/Buttons/SecondaryButton';
 import {useTranslations} from 'next-intl';
+import { useForm } from '@tanstack/react-form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import ImageDropzone from '../old/FormInputs/ImageDropzone/ImageDropzone';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 
@@ -50,18 +52,36 @@ export function InsertImageUriDialogBody({
 }: {
   onClick: (payload: InsertImagePayload) => void;
 }) {
-  const [src, setSrc] = useState('');
-  const [altText, setAltText] = useState('');
-  const t = useTranslations()
+  const form = useForm({
+    defaultValues: {
+      src: '',
+      altText: '',
+    },
+    onSubmit:({value}) => {
+      onClick(value)
+    }
 
-  const isDisabled = src === '';
+  })
 
   return (
     <>
-    {/* <FormComponent id='insertImageUrl' onSave={() => {onClick({altText, src})}}>
-        <Text name={t('Form.RichText.ImagePopup.image_url')} onChange={setSrc} value={src}/>
-        <Text name={t('Form.RichText.ImagePopup.alt_text')} onChange={setAltText} value={altText}/>
-    </FormComponent> */}
+    <form onSubmit={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        form.handleSubmit()
+    }} className='flex flex-col gap-2'>
+      <form.Field name="src" children={(field) => (
+        <>
+          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Image URL" />
+        </>
+      )}/>
+      <form.Field name="altText" children={(field) => (
+        <>
+          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Alt Text" />
+        </>
+      )}/>
+      <Button type="submit"><span>Insert Image</span></Button>
+    </form>
     </>
   );
 }
@@ -71,18 +91,35 @@ export function InsertImageUploadedDialogBody({
 }: {
   onClick: (payload: InsertImagePayload) => void;
 }) {
-  const [src, setSrc] = useState('');
-  const [altText, setAltText] = useState('');
-  const t = useTranslations()
-
-  const isDisabled = src === '';
+  const form = useForm({
+    defaultValues: {
+      src: '',
+      altText: '',
+    },
+    onSubmit:({value}) => {
+      onClick(value)
+    }
+  })
 
   return (
     <>
-    {/* <FormComponent id='insertImageFile' onSave={() => {onClick({altText, src})}}>
-        <ImageDropzone onImagesUploaded={(f) => {setSrc(f[0].url)}} allowMultiple={false}/>
-        <Text name={t('Form.RichText.ImagePopup.alt_text')} onChange={setAltText} value={altText}/>
-    </FormComponent> */}
+    <form onSubmit={(e) => {
+        e.preventDefault()
+        e.stopPropagation()
+        form.handleSubmit()
+    }} className='flex flex-col gap-2'>
+      <form.Field name="src" children={(field) => (
+        <>
+          <ImageDropzone onImagesUploaded={(f) => {field.handleChange(f[0].url)}} allowMultiple={false}/>
+        </>
+      )}/>
+      <form.Field name="altText" children={(field) => (
+        <>
+          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Alt Text" />
+        </>
+      )}/>
+      <Button type="submit">Insert Image</Button>
+    </form>
     </>
   );
 }
@@ -115,10 +152,10 @@ export function InsertImageDialog({
   return (
     <>
       {!mode && (
-        <>
-            {/* <SecondaryButton onClick={() => setMode('url')}>{t('Form.RichText.ImagePopup.insert_url')}</SecondaryButton>
-            <SecondaryButton onClick={() => setMode('file')}>{t('Form.RichText.ImagePopup.insert_file')}</SecondaryButton> */}
-        </>
+        <div className='flex flex-row gap-2'>
+            <Button variant="secondary" onClick={() => setMode('url')}><span>{t('Form.RichText.ImagePopup.insert_url')}</span></Button>
+            <Button variant="secondary" onClick={() => setMode('file')}><span>{t('Form.RichText.ImagePopup.insert_file')}</span></Button>
+        </div>
       )}
       {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} />}
       {mode === 'file' && <InsertImageUploadedDialogBody onClick={onClick} />}

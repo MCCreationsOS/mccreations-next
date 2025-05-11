@@ -8,9 +8,8 @@
  */
 
  .Collapsible__container {
-    background: #303030;
-    border: 1px solid gray;
-    border-radius: 10px;
+    background: var(--card);
+    border: 1px solid black;
     margin-bottom: 8px;
   }
   

@@ -50,7 +50,7 @@ export default async function ContentSearchPage({searchParams, collectionName, p
                     <div>
                         <SearchAndFilter searchParams={searchParams} tags={tags}/>
                         <ContentGrid content={creations} enableSelection={true} enableAds={true} showCategory={true}></ContentGrid>
-                        { creations && pages > 1 &&  (<PageNavigator page={page} pages={pages} />) }
+                        { creations && pages > 1 &&  (<PageNavigator page={page} pages={pages} className="mt-4" />) }
                     </div>
                 </div>
             )}

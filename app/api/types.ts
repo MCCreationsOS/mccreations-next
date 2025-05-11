@@ -168,7 +168,8 @@ export interface IComment {
     slug: string,
     content_type: CollectionNames | "wall",
     replies?: IComment[],
-    likes?: number
+    likes?: number,
+    rating?: number
 }
 
 /**

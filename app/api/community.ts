@@ -35,7 +35,7 @@ export async function postRating(rating: number, map: IContentDoc) {
  * @param comment The actual comment
  * @param account The UID of the poster of the comment
  */
-export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string) {
+export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string, rating?: number) {
     try {
         fetch(`${process.env.DATA_URL}/comment`, {
             method: "POST",
@@ -50,7 +50,8 @@ export async function postComment(slug: string, content_type: string, username: 
                 slug: slug,
                 date: Date.now(),
                 replies: [],
-                likes: 0
+                likes: 0,
+                rating: rating
             }),
             cache: 'no-store'
         })

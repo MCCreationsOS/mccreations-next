@@ -14,9 +14,11 @@ import { useSearchParams, usePathname } from "next/navigation";
 export default function PageNavigator({
     page,
     pages,
+    className
 }: {
     page: number;
     pages: number;
+    className?: string;
 }) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -33,7 +35,7 @@ export default function PageNavigator({
     };
 
     return (
-        <Pagination>
+        <Pagination className={className}>
             <PaginationContent>
                 {page != 0 ? (
                     <PaginationItem>

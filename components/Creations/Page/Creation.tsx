@@ -2,10 +2,10 @@
 
 import { IContentDoc, CollectionNames, } from "@/app/api/types";
 import Image from 'next/image'
-import { Download, EllipsisVertical } from "lucide-react";
+import { Car, Download, EllipsisVertical } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { makeSentenceCase } from "@/app/api/utils";
-import { convertToType } from "@/app/api/content";
+import { convertToType, downloadCreation } from "@/app/api/content";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useTags } from "@/app/api/hooks/creations";
@@ -16,6 +16,9 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import RecommendedCreations from "./RecommendedCreations";
 import Comments from "./Comments";
+import { getCookie, setCookie } from "@/app/setCookies";
+import { postRating } from "@/app/api/community";
+import { useCallback } from "react";
 
 export const dynamic = 'force-dynamic'
 
@@ -45,18 +48,6 @@ export default function Creation({creation, collectionName}: {creation: IContent
         videoID = creation.videoUrl.substring(creation.videoUrl.lastIndexOf("/") + 1)
     }
 
-    let formattedTags
-    if(tags && 'genre' in tags) {
-        formattedTags = Object.keys(tags).reduce((acc, key) => {
-            const filteredTags = creation.tags?.filter((tag: string) => tags[key].includes(tag));
-            if (filteredTags && filteredTags.length > 0) {
-                acc[key] = filteredTags;
-            }
-            return acc;
-        }, {} as {[key: string]: string[]})
-        
-    }
-
     return (
         <div>
             <div className="w-full max-h-96 relative">
@@ -67,20 +58,20 @@ export default function Creation({creation, collectionName}: {creation: IContent
                     <Image className="max-w-xl w-full mx-auto object-cover object-center" width={1280} height={720} src={creation.images[0]} alt="" priority></Image>
                 </div>
                 <div className="w-full h-8 object-cover object-center aspect-video z-2 hidden md:flex md:absolute md:bottom-[-15px] gap-1 justify-center">
-                    <Badge className="text-md">{creation.files[0].minecraftVersion}</Badge>
+                    {creation.files[0]?.minecraftVersion && <Badge className="text-md">{creation.files[0].minecraftVersion}</Badge>}
                         {
                             (creation.type === "map") ? <><Badge variant="secondary" className="text-md">{t('map', {count: 1})}</Badge></> : 
                                 (creation.type === "datapack") ? <><Badge variant="secondary" className="text-md">{t('datapack', {count: 1})}</Badge></> : 
                                 <><Badge variant="secondary" className="text-md">{t('resourcepack', {count: 1})}</Badge></>
                         }
-                        {formattedTags && formattedTags.genre && formattedTags.genre.length > 0 && <>{formattedTags.genre.concat(formattedTags.subgenre).map(tag => <Badge variant="secondary" className="text-md">{makeSentenceCase(t(`Creation.Tags.${tag}`))}</Badge>)}</>}
+                        {creation.tags && creation.tags.length > 0 && <>{creation.tags.slice(0, 2).map(tag => tag ? <Badge variant="secondary" className="text-md">{t(`Creation.Tags.${tag}`)}</Badge> : <></>)}</>}
                 </div>
             </div>
             <div className="max-w-4xl mx-auto mt-3 md:mt-10">
                 <div className="flex flex-row gap-2 mb-2">
                     <h1 className="text-4xl font-extrabold flex-1">{title}</h1>
                     <div className="flex flex-row gap-2">
-                        <Button className="px-6 py-5"><span className="text-lg font-bold">{t('Buttons.download')}</span><Download/></Button>
+                        <Button className="px-6 py-5" onClick={() => {console.log(creation.slug)}}><span className="text-lg font-bold">{t('Buttons.download')}</span><Download/></Button>
                         <Button variant="secondary" className="flex items-center gap-2 py-5">
                             <EllipsisVertical className="h-5 w-5" />
                             <span className="sr-only">Options</span>
@@ -88,18 +79,24 @@ export default function Creation({creation, collectionName}: {creation: IContent
                     </div>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                    <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}} className="max-w-xl lg:text-lg">
+                    <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}} className="max-w-xl lg:text-lg flex-1">
 
                     </div>
                     <div className="flex flex-col gap-4 max-w-sm h-fit">
-                        <div className="bg-card border-gray-950 border-2 card-shadow p-5 w-full flex-1/2 relative">
+                        <div className="bg-card border-gray-950 border-2 p-5 w-full flex-1/2">
                             <div className="flex flex-col gap-2">
                                 {creation.creators.map(creator => <CreatorCard creator={creator} key={creator.username}/>)}
                             </div>
                             <hr className="my-2"></hr>
                             <div className="flex flex-col gap-1 text-sm text-muted-foreground">
                                 <div>
-                                    <Rating value={creation.rating} content={creation}/>
+                                    <Rating value={creation.rating} currentRating={creation.rating} ratings={creation.ratings} showCount={true} onRate={async (value) => {
+                                        let cookie = await getCookie("RATED_" + creation._id)
+                                        if(!cookie) {
+                                            await postRating(value, creation);
+                                            setCookie("RATED_" + creation._id, "true")
+                                        }
+                                    }}/>
                                 </div>
                                 <div className="flex flex-row">
                                     <span className="flex-1">{t('Creation.Sidebar.downloads')}</span>
@@ -124,14 +121,14 @@ export default function Creation({creation, collectionName}: {creation: IContent
                         <CarouselContent>
                             {creation.images.slice(1, creation.images.length).map(image => <CarouselItem key={image}>
                                 <Image className="aspect-video object-cover object-center" width={1920} height={1080} src={image} alt=""></Image>
-                            </CarouselItem>)}
+                            </CarouselItem>) ?? <CarouselItem><div className="aspect-video object-cover object-center"></div></CarouselItem>}
                         </CarouselContent>
                         <CarouselNext/>
                         <CarouselPrevious/>
                     </Carousel>
                 </div>
                 <div>
-                    <Comments />
+                    <Comments creation={creation} collection={collectionName} />
                 </div>
             </div>
         </div>

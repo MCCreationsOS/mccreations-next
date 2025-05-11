@@ -26,7 +26,6 @@ import { InListAdUnit } from "../../AdUnits/InContent";
  */
 export default function CreationListCard(props: IContentCardProps) {
     const [selected, setSelected] = useState(false)
-    const {tags} = useTags(props.creation.type)
     const router = useRouter()
     const t = useTranslations()
     const locale = useLocale();
@@ -93,18 +92,6 @@ export default function CreationListCard(props: IContentCardProps) {
         })
     }
 
-    let formattedTags
-    if(tags && 'genre' in tags) {
-        formattedTags = Object.keys(tags).reduce((acc, key) => {
-            const filteredTags = props.creation.tags?.filter((tag: string) => tags[key].includes(tag));
-            if (filteredTags && filteredTags.length > 0) {
-                acc[key] = filteredTags;
-            }
-            return acc;
-        }, {} as {[key: string]: string[]})
-        
-    }
-
     return (
         <>
         <div className="bg-card group transition-all duration-200 group-hover:bg-card-hover overflow-hidden grid grid-cols-[295px_1fr]" id={props.playlist + "_" + props.index} >
@@ -112,13 +99,13 @@ export default function CreationListCard(props: IContentCardProps) {
                 <div className="border-gray-950 border-2 border-r-0 overflow-hidden aspect-video relative">
                     <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 object-cover" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Content.logo_alt', {title: props.creation.title, type: props.creation.type, minecraft_version: (props.creation.files && props.creation.files.length > 0) ? props.creation.files[0].minecraftVersion : "", creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
                     <div className="absolute bottom-1 right-1 flex flex-row gap-1">
-                        <Badge>{props.creation.files[0].minecraftVersion}</Badge>
+                        <Badge>{props.creation.files && props.creation.files.length > 0 ? props.creation.files[0].minecraftVersion : ""}</Badge>
                         {
                             !props.showCategory && (
                                 (props.creation.type === "map") ? <><Badge variant="secondary">{t('map', {count: 1})}</Badge></> : 
                                 (props.creation.type === 'datapack') ? <><Badge variant="secondary">{t('datapack', {count: 1})}</Badge></> : 
                                 <><Badge variant="secondary">{t('resourcepack', {count: 1})}</Badge></>) }
-                            {props.showCategory && formattedTags && formattedTags.genre && formattedTags.genre.length > 0 && <>{formattedTags.genre.concat(formattedTags.subgenre).slice(0, 2).map(tag => <Badge variant="secondary">{makeSentenceCase(tag)}</Badge>)}</>}
+                            {props.showCategory && props.creation.tags.length > 0 && <>{props.creation.tags.slice(0, 2).map(tag => tag ? <Badge variant="secondary">{t(`Creation.Tags.${tag}`)}</Badge> : <></>)}</>}
                     </div>
                 </div>
             </Link>
@@ -140,7 +127,7 @@ export default function CreationListCard(props: IContentCardProps) {
                         (props.creation.type === 'datapack') ? <><Package className={styles.in_text_icon} />{t('datapack', {count: 1})}</> : 
                         <><Layers className={styles.in_text_icon} />{t('resourcepack', {count: 1})}</>) }
                 </div>
-                <p className={styles.author}>{t('Content.by', {creator: props.creation.creators.slice(0, 3).map(c => c.username).join(t('Content.by_joiner'))})}</p>
+                <p className={styles.author}>{t('Creation.by', {creator: props.creation.creators.slice(0, 3).map(c => c.username).join(t('Creation.by_joiner'))})}</p>
             </div>
         </div>
         {props.index === props.adPosition &&

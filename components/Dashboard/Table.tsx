@@ -12,9 +12,10 @@ import { convertToType, deleteContent } from "@/app/api/content";
 import {useTranslations} from 'next-intl';
 import { useToken, useUser } from "@/app/api/hooks/users";
 import { useCreations } from "@/app/api/hooks/creations";
-import IconButton from "../Buttons/IconButton";
-import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
-import PageNavigator from "../Content/Search/Navigator";
+// import IconButton from "../Buttons/IconButton";
+// import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
+import PageNavigator from "../Creations/Search/Navigator";
+import { Button } from "../ui/button";
 
 export default function Table({collectionName}: {collectionName: CollectionNames}) {
     const {user, isLoading} = useUser(true)
@@ -36,9 +37,9 @@ export default function Table({collectionName}: {collectionName: CollectionNames
     const handleDelete = (slug: string) => {
         if(!deleting) {
             setDeleting(true)
-            PopupMessage.addMessage({type: PopupMessageType.Warning, message: t('Dashboard.delete_content'), time: 10000, endAction() {
-                setDeleting(false)
-            },})
+            // PopupMessage.addMessage({type: PopupMessageType.Warning, message: t('Dashboard.delete_content'), time: 10000, endAction() {
+            //     setDeleting(false)
+            // },})
         } else {
             deleteContent(slug, token, collectionName)
             setDeleting(false)
@@ -90,9 +91,9 @@ export default function Table({collectionName}: {collectionName: CollectionNames
                         </Link>
                         <p className={styles.content_description}>{map.shortDescription}</p>
                         <div className={styles.info_buttons}>
-                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')} key={map.slug}><IconButton className="secondary"><Edit /></IconButton></Link>
-                            <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><IconButton className="secondary"><ImageIcon /></IconButton></Link>
-                            <IconButton onClick={() => {handleDelete(map.slug)}} className="secondary"><span style={{color: 'red'}}><Trash /></span></IconButton>
+                            <Link href={`/edit/${contentType}/${map.slug}`} title={t('Dashboard.edit')} key={map.slug}><Button variant="secondary"><Edit /></Button></Link>
+                            <Link href={`/${contentType}s/${map.slug}`} title={t('Dashboard.view')}><Button variant="secondary"><ImageIcon /></Button></Link>
+                            <Button onClick={() => {handleDelete(map.slug)}} variant="secondary"><Trash color="red" /></Button>
 
                         </div>
 
