@@ -91,6 +91,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'mccreations-s3.s3.us-east-va.io.cloud.ovh.us'
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.youtube.com'
       }
     ],
   },

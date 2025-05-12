@@ -3,7 +3,7 @@ import useSWR, { mutate } from 'swr'
 import { CreatorSettings, ICreator, IUser, UserTypes } from "../types"
 import { getCreator } from "../community"
 import { useEffect } from "react"
-import { useLocalStorage, useSessionStorage } from 'usehooks-ts'
+import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts'
 import { searchContent } from "../content"
 import { getUserSettings } from "../creators"
 

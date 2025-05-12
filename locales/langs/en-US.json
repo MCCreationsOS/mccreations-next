@@ -186,7 +186,9 @@
         "rating": "Rating",
         "view": "View Content",
         "edit": "Edit",
-        "delete": "Delete"
+        "delete": "Delete",
+        "comments": "Comments",
+        "actions": "Actions"
     },
     "ResetPassword": {
         "token_error": "No token found, returning to previous page",

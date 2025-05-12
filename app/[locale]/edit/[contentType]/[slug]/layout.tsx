@@ -5,7 +5,7 @@ import { Link } from "@/app/api/navigation";
 import { getTranslations } from "next-intl/server";
 import styles from "./edit.module.css"
 import { Edit, Globe, Image, Server } from "lucide-react";
-import ContentWarnings from "@/components/Content/ContentWarnings";
+// import ContentWarnings from "@/components/Content/ContentWarnings";
 import EditMenu from "./editMenu";
 import { ContentTypes } from "@/app/api/types";
 
@@ -18,7 +18,7 @@ export default async function EditLayout({children, params}: {children: React.Re
             <div className={styles.edit_layout}>
                 <EditMenu params={params} />    
                 <div className={styles.edit_content}>
-                    <ContentWarnings slug={params.slug} contentType={contentType} />
+                    {/* <ContentWarnings slug={params.slug} contentType={contentType} /> */}
                     {children}
                 </div>
             </div>

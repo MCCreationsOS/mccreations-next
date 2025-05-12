@@ -25,7 +25,7 @@ export default async function ContentSearchPage({searchParams, collectionName, p
     let excludeTags = searchParams.excludeTags ?? ""
 
     let documents = await searchContent({contentType: collectionName, sort: sort, limit: 19, page: page, search: search, status: status, includeTags: includeTags, excludeTags: excludeTags}, false)
-    let pages = Math.ceil(documents.totalCount / 20.0)
+    let pages = Math.ceil(documents.totalCount / 19)
     let creations = documents.documents
 
     let tags = await fetchTags(contentType)

@@ -4,13 +4,13 @@ import { convertToCollection, errorCheckContent, updateContent } from "@/app/api
 import { useCreation, useTags } from "@/app/api/hooks/creations"
 import { useUser } from "@/app/api/hooks/users"
 import { ContentTypes, ExtraFeatureKeys, ICreator, LeaderboardFeature, TagCategories, TagKeys, UserTypes } from "@/app/api/types"
-import FormComponent from "@/components/Form/Form"
-import { FormInput } from "@/components/FormInputs"
-import CreatorSelector from "@/components/FormInputs/CreatorSelector/CreatorSelector"
-import RichTextInput from "@/components/FormInputs/RichText"
-import Select from "@/components/FormInputs/Select"
-import Text from "@/components/FormInputs/Text"
-import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
+// import FormComponent from "@/components/Form/Form"
+// import { FormInput } from "@/components/FormInputs"
+// import CreatorSelector from "@/components/FormInputs/CreatorSelector/CreatorSelector"
+// import RichTextInput from "@/components/FormInputs/RichText"
+// import Select from "@/components/FormInputs/Select"
+// import Text from "@/components/FormInputs/Text"
+// import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import { useTranslations } from "next-intl"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import Link from "next/link"
@@ -52,7 +52,7 @@ export default function General({params}: {params: Params}) {
         return new Promise<void>((resolve, reject) => {
             if(!creation || 'error' in creation) return;
         if(inputs[1].length < 2) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Content.Warnings.slug_too_short.description')))
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Content.Warnings.slug_too_short.description')))
             return;
         }
 
@@ -72,11 +72,11 @@ export default function General({params}: {params: Params}) {
             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
         }
 
-        if(FormInput.getFormInput("creators")?.getValue()) {
-            newCreation.creators = FormInput.getFormInput<ICreator[]>("creators")?.submit()!
-        } else {
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
-        }
+        // if(FormInput.getFormInput("creators")?.getValue()) {
+        //     newCreation.creators = FormInput.getFormInput<ICreator[]>("creators")?.submit()!
+        // } else {
+        //     // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
+        // }
 
         if(inputs[2]) {
             newCreation.shortDescription = inputs[2]
@@ -91,11 +91,11 @@ export default function General({params}: {params: Params}) {
             newCreation.videoUrl = inputs[3]
         }
 
-        if(FormInput.getFormInput("edit_general")?.getValue()) {
-            newCreation.description = FormInput.getFormInput("edit_general")?.submit() + ""
-        } else {
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
-        }
+        // if(FormInput.getFormInput("edit_general")?.getValue()) {
+        //     newCreation.description = FormInput.getFormInput("edit_general")?.submit() + ""
+        // } else {
+        //     // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
+        // }
 
         if(inputs[4]) {
             newCreation.tags = inputs[4].concat("," + inputs[5]).concat("," + inputs[6]).concat("," + inputs[7]).concat("," + inputs[8]).split(',')
@@ -155,7 +155,7 @@ export default function General({params}: {params: Params}) {
 
         updateContent(newCreation, localStorage?.getItem('jwt') + "", collectionName).then((result) => {
             if(result.error) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
+                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
                 return;
             }
 
@@ -164,30 +164,30 @@ export default function General({params}: {params: Params}) {
             }
 
             mutate(newCreation)
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.general_saved')))
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.general_saved')))
             resolve()
         }).catch((e) => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
+            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
             reject()
         })
         })
     }
     
-    return <FormComponent id="general" onSave={saveGeneralForm} options={{stickyButtons: true}}> 
-                <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} value={creation?.title} />
-                <Text type="text" name={t('Content.Edit.slug')}  description={t('Content.Edit.slug_description')} value={creation?.slug}/>
-                <CreatorSelector value={creation.creators} />
-                <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')} value={creation?.shortDescription} />
-                <Text type="text" name={t('Content.Edit.video_url')} description={t('Content.Edit.video_url_description')} value={creation?.videoUrl} />
-                <RichTextInput id="edit_general" name={t('Content.Edit.description')} description={t('Content.Edit.description_description')} value={creation?.description} />
-                {tags && 'genre' in tags && Object.keys(tags).map((category) => {
-                    return <Select key={category} name={t(`Creation.Tags.${category as TagCategories}`)} description={t(`Content.Edit.Tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
-                        return {name: t(`Creation.Tags.${tag as TagKeys}`), value: tag}
-                    })} multiSelect={true} value={creation.tags?.filter(t => tags[category].includes(t)).join(',')}/>
-                })}
-                <Select name={t('Content.Edit.extra_features')} options={[{name: t("Content.Edit.ExtraFeatures.Leaderboards.title"), value: "leaderboards"}]} value={(creation.extraFeatures) ? Object.keys(creation.extraFeatures).filter(key => creation.extraFeatures![key as ExtraFeatureKeys].use !== false).join(",") : ""} multiSelect description={t.rich('Content.Edit.ExtraFeatures.Leaderboards.help', {link: (chunks) => <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">{chunks}</Link>})}/>
-                {showLeaderboardsHelp && <>
-                    <p></p>
-                </>}
-            </FormComponent>
+    // return <FormComponent id="general" onSave={saveGeneralForm} options={{stickyButtons: true}}> 
+    //             <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} value={creation?.title} />
+    //             <Text type="text" name={t('Content.Edit.slug')}  description={t('Content.Edit.slug_description')} value={creation?.slug}/>
+    //             <CreatorSelector value={creation.creators} />
+    //             <Text type="text" name={t('Content.Edit.short_description')} description={t('Content.Edit.short_description_description')} value={creation?.shortDescription} />
+    //             <Text type="text" name={t('Content.Edit.video_url')} description={t('Content.Edit.video_url_description')} value={creation?.videoUrl} />
+    //             <RichTextInput id="edit_general" name={t('Content.Edit.description')} description={t('Content.Edit.description_description')} value={creation?.description} />
+    //             {tags && 'genre' in tags && Object.keys(tags).map((category) => {
+    //                 return <Select key={category} name={t(`Creation.Tags.${category as TagCategories}`)} description={t(`Content.Edit.Tags.${category as TagCategories}_description`)} options={tags[category].map(tag => {
+    //                     return {name: t(`Creation.Tags.${tag as TagKeys}`), value: tag}
+    //                 })} multiSelect={true} value={creation.tags?.filter(t => tags[category].includes(t)).join(',')}/>
+    //             })}
+    //             <Select name={t('Content.Edit.extra_features')} options={[{name: t("Content.Edit.ExtraFeatures.Leaderboards.title"), value: "leaderboards"}]} value={(creation.extraFeatures) ? Object.keys(creation.extraFeatures).filter(key => creation.extraFeatures![key as ExtraFeatureKeys].use !== false).join(",") : ""} multiSelect description={t.rich('Content.Edit.ExtraFeatures.Leaderboards.help', {link: (chunks) => <Link target="_blank" href="https://github.com/MCCreationsOS/Java-Leaderboards">{chunks}</Link>})}/>
+    //             {showLeaderboardsHelp && <>
+    //                 <p></p>
+    //             </>}
+    //         </FormComponent>
 }
