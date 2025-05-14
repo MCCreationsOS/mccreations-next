@@ -7,8 +7,6 @@ import { getTranslations } from "next-intl/server";
 import { CollectionNames, SortOptions, StatusOptions } from "@/app/api/types";
 import PageNavigator from "./Navigator";
 
-export const dynamic = "force-dynamic"
-
 export default async function ContentSearchPage({searchParams, collectionName, pathname}: {searchParams: {page: string, search: string, sort: string, status: string, includeTags: string, excludeTags: string}, collectionName: CollectionNames, pathname: string}) {
     const t = await getTranslations()
     let contentType = convertToType(collectionName)
