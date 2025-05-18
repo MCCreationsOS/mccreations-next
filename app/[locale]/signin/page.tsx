@@ -1,26 +1,36 @@
 'use client'
 import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { SiDiscord, SiGithub, SiGoogle, SiMicrosoft } from "@icons-pack/react-simple-icons";
 import { Link } from "@/app/api/navigation";
-import { UserTypes } from "../../api/types";
+import { SortOptions, StatusOptions, UserTypes } from "../../api/types";
 import { sendLog } from "@/app/api/logging";
 import {useTranslations} from 'next-intl';
 import { useUser, useToken } from "@/app/api/hooks/users";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useForm } from "@tanstack/react-form";
+import { Input } from "@/components/ui/input";
+import { useCreations } from "@/app/api/hooks/creations";
+import Image from "next/image";
 
 export default function SignIn() {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+    const form = useForm({
+        defaultValues: {
+            email: "",
+            password: ""
+        },
+        onSubmit: async (data) => {
+            await signInWithEmail(data.value.email, data.value.password)
+        }
+    })
     const {setUser} = useUser(true)
     const {setToken} = useToken()
     const query = useSearchParams()
     const router = useRouter();
     const t = useTranslations()
 
-    const signInWithEmail = () => {
+    const signInWithEmail = (email: string, password: string) => {
         fetch(`${process.env.DATA_URL}/sign_in`, {
                 method: 'POST',
                 headers: {
@@ -95,36 +105,89 @@ export default function SignIn() {
     }
 
     return (
-        <div className="popup_page">
-            {/* <Suspense>
-                <MapScroll />
-            </Suspense> */}
-        <div className="centered_content small popup">
-            {(message) ? <div className="errorBox"><p>{message}</p></div>: <></>}
-            <h2>{t('Account.Shared.providers')}</h2>
-            <div className="sign_in_providers">
-                <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('Account.Shared.Providers.google')}</div>
-                <div className="provider" onClick={signInWithDiscord}><SiDiscord />{t('Account.Shared.Providers.discord')}</div>
-                <div className="provider" onClick={signUpWithGithub}><SiGithub />{t('Account.Shared.Providers.github')}</div>
-                <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('Account.Shared.Providers.microsoft')}</div>
-            </div>
-            <h2>{t('SignIn.email_title')}</h2>
-            <form method="" onSubmit={(e) => {e.preventDefault(); signInWithEmail()}}>
-                <div className='field'>
-                    <p className='label'>{t('Account.Shared.email')}</p>
-                    <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('Account.Shared.email_placeholder')} onChange={(e) => {setEmail(e.target.value)}}></input>
+        <>
+            <SignInBackground />
+            <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 z-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-3/2">
+                <h2 className="text-2xl font-bold mb-2">{t('Account.Shared.providers')}</h2>
+                <div className="flex flex-row flex-wrap gap-2 mb-5">
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Account.Shared.Providers.google')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><SiDiscord /><span>{t('Account.Shared.Providers.discord')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><SiGithub /><span>{t('Account.Shared.Providers.github')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><SiMicrosoft /><span>{t('Account.Shared.Providers.microsoft')}</span></Button>
                 </div>
-                <div className='field'>
-                    <p className='label'>{t('Account.Shared.password')}</p>
-                    <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.target.value)}} onKeyDown={(e) => {if(e.key === 'Enter') signInWithEmail()}}></input>
+                <h2 className="text-2xl font-bold mb-2">{t('SignIn.email_title')}</h2>
+                <form onSubmit={(e) => {e.preventDefault(); form.handleSubmit()}} className="flex flex-col gap-2">
+                    <form.Field name="email" children={(field) => (
+                        <>
+                            <Input type="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Email" />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                        </>
+                    )}  validators={{
+                        onChange: ({value}) => {
+                            (!value) ?
+                            'Email is required' :
+                            value.length < 3 ?
+                            'Email must be at least 3 characters long' :
+                            undefined
+                        },
+                        onSubmit: ({value}) => {
+                            if(value.length < 3) {
+                                return 'Email must be at least 3 characters long'
+                            }
+                        }
+                    }}/>
+                    <form.Field name="password" children={(field) => (
+                        <>
+                            <Input type="password" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Password" />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                        </>
+                    )}  validators={{
+                        onChange: ({value}) => {
+                            (!value) ?
+                            'Password is required' :
+                            value.length < 3 ?
+                            'Password must be at least 3 characters long' :
+                            undefined
+                        },
+                        onSubmit: ({value}) => {
+                            if(value.length < 3) {
+                                return 'Password must be at least 3 characters long'
+                            }
+                        }
+                    }}/>
+                    <Button><span>{t('SignIn.button')}</span></Button>
+                </form>
+                <div className="flex flex-row gap-4 mt-2">
+                    <Link className="text-sm hover:underline" href="/signup">{t('SignIn.no_account')}</Link>
+                    <Link className="text-sm hover:underline" href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
                 </div>
-                <Button onClick={signInWithEmail}>{t('SignIn.button')}</Button>
-            </form>
-            <div className="sign_up_options">
-                <Link href="/signup">{t('SignIn.no_account')}</Link>
-                <Link href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
             </div>
-        </div>
+        </>
+    )
+}
+
+function SignInBackground() {
+    const {creations} = useCreations({status: 2, contentType: "content", limit: 20, page: 0, sort: SortOptions.HighestDownloads})
+    const [index, setIndex] = useState(0)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((index + 1) % creations.length)
+        }, 5000)
+        return () => clearInterval(interval)
+    }, [creations, index])
+    
+    return (
+        <div className="w-full min-h-[700px] aspect-video relative">
+            {creations.map((creation, i) => (
+                <div key={i} className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>
+                    <Image key={i} src={creation.images[0]} alt={creation.title} fill className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 object-cover blur-sm`} />
+                    <div className="absolute bottom-0 left-0 bg-black/50 p-4">
+                        <h1 className="text-white text-xl font-bold">{creation.title}</h1>
+                        <p className="text-sm">By {creation.creators.map((creator) => creator.username).join(", ")}</p>
+                    </div>
+                </div>
+            ))}
         </div>
     )
 }

@@ -1,177 +1,177 @@
 'use client'
 
-import { convertToCollection, errorCheckContent, updateContent } from "@/app/api/content"
-import { useCreation, useTags } from "@/app/api/hooks/creations"
-import { useUser } from "@/app/api/hooks/users"
-import { ContentTypes, ExtraFeatureKeys, ICreator, LeaderboardFeature, TagCategories, TagKeys, UserTypes } from "@/app/api/types"
-// import FormComponent from "@/components/Form/Form"
-// import { FormInput } from "@/components/FormInputs"
-// import CreatorSelector from "@/components/FormInputs/CreatorSelector/CreatorSelector"
-// import RichTextInput from "@/components/FormInputs/RichText"
-// import Select from "@/components/FormInputs/Select"
-// import Text from "@/components/FormInputs/Text"
-// import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
+import { useForm } from "@tanstack/react-form"
 import { useTranslations } from "next-intl"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
-import Link from "next/link"
-import { mutate } from "swr"
-import { useRouter } from "next/navigation"
 
 export default function General({params}: {params: Params}) {
-    const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
-    const collectionName = convertToCollection(contentType)
-    const { creation, isLoading } = useCreation(params.slug, contentType)
-    const {user, isLoading: userLoading} = useUser(true)
-    const { tags } = useTags(contentType)
     const t = useTranslations()
-    const router = useRouter()
-
-    
-    
-    if((creation && 'error' in creation)) {
-        return <div className="centered_content">
-            <h1>Something went wrong!</h1>
-            <p>{creation?.error}</p>
-        </div>
-    } else if(isLoading) {
-        return <div className="centered_content">
-            <h1>Loading...</h1>
-        </div>
-    }
-
-    if(!user || (!creation?.creators.some(creator => creator.handle === user.handle) && creation.owner !== user.handle) && user.type !== UserTypes.Admin) {
-        console.log(user)
-        return <div className="centered_content">
-            <h1>You are not allowed to edit this content</h1>
-        </div>
-    }
-    
-    let showLeaderboardsHelp = creation.extraFeatures?.leaderboards.use !== false
-
-    const saveGeneralForm = (inputs: string[]) => {
-        return new Promise<void>((resolve, reject) => {
-            if(!creation || 'error' in creation) return;
-        if(inputs[1].length < 2) {
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Content.Warnings.slug_too_short.description')))
-            return;
+    const form = useForm({
+        defaultValues: {
+            title: "",
+            slug: "",
+            creators: [],
+            shortDescription: "",
+            videoUrl: "",
+            description: "",
+            tags: [],
+            extraFeatures: []
         }
+    })
+    // const contentType = (params.contentType.endsWith("s") ? params.contentType.substring(0, params.contentType.length-1) : params.contentType) as ContentTypes
+    // const collectionName = convertToCollection(contentType)
+    // const { creation, isLoading } = useCreation(params.slug, contentType)
+    // const {user, isLoading: userLoading} = useUser(true)
+    // const { tags } = useTags(contentType)
+    // const t = useTranslations()
+    // const router = useRouter()
 
-        let newCreation = {
-            ...creation
-        }
+    
+    
+    // if((creation && 'error' in creation)) {
+    //     return <div className="centered_content">
+    //         <h1>Something went wrong!</h1>
+    //         <p>{creation?.error}</p>
+    //     </div>
+    // } else if(isLoading) {
+    //     return <div className="centered_content">
+    //         <h1>Loading...</h1>
+    //     </div>
+    // }
+
+    // if(!user || (!creation?.creators.some(creator => creator.handle === user.handle) && creation.owner !== user.handle) && user.type !== UserTypes.Admin) {
+    //     console.log(user)
+    //     return <div className="centered_content">
+    //         <h1>You are not allowed to edit this content</h1>
+    //     </div>
+    // }
+    
+    // let showLeaderboardsHelp = creation.extraFeatures?.leaderboards.use !== false
+
+    // const saveGeneralForm = (inputs: string[]) => {
+    //     return new Promise<void>((resolve, reject) => {
+    //         if(!creation || 'error' in creation) return;
+    //     if(inputs[1].length < 2) {
+    //         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Content.Warnings.slug_too_short.description')))
+    //         return;
+    //     }
+
+    //     let newCreation = {
+    //         ...creation
+    //     }
         
-        if(inputs[0]) {
-            newCreation.title = inputs[0]
-        } else {
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.title')))
-        }
+    //     if(inputs[0]) {
+    //         newCreation.title = inputs[0]
+    //     } else {
+    //         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.title')))
+    //     }
 
-        if(inputs[1]) {
-            newCreation.slug = encodeURI(inputs[1])
-        } else {
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
-        }
+    //     if(inputs[1]) {
+    //         newCreation.slug = encodeURI(inputs[1])
+    //     } else {
+    //         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.slug')))
+    //     }
 
-        // if(FormInput.getFormInput("creators")?.getValue()) {
-        //     newCreation.creators = FormInput.getFormInput<ICreator[]>("creators")?.submit()!
-        // } else {
-        //     // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
-        // }
+    //     // if(FormInput.getFormInput("creators")?.getValue()) {
+    //     //     newCreation.creators = FormInput.getFormInput<ICreator[]>("creators")?.submit()!
+    //     // } else {
+    //     //     // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.creator')))
+    //     // }
 
-        if(inputs[2]) {
-            newCreation.shortDescription = inputs[2]
-            if(inputs[2].length < 20) {
-                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
-            }
-        } else {
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.short_description')))
-        }
+    //     if(inputs[2]) {
+    //         newCreation.shortDescription = inputs[2]
+    //         if(inputs[2].length < 20) {
+    //             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('content.edit.general.error.short_description_length')))
+    //         }
+    //     } else {
+    //         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.short_description')))
+    //     }
 
-        if(inputs[3]) {
-            newCreation.videoUrl = inputs[3]
-        }
+    //     if(inputs[3]) {
+    //         newCreation.videoUrl = inputs[3]
+    //     }
 
-        // if(FormInput.getFormInput("edit_general")?.getValue()) {
-        //     newCreation.description = FormInput.getFormInput("edit_general")?.submit() + ""
-        // } else {
-        //     // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
-        // }
+    //     // if(FormInput.getFormInput("edit_general")?.getValue()) {
+    //     //     newCreation.description = FormInput.getFormInput("edit_general")?.submit() + ""
+    //     // } else {
+    //     //     // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.description')))
+    //     // }
 
-        if(inputs[4]) {
-            newCreation.tags = inputs[4].concat("," + inputs[5]).concat("," + inputs[6]).concat("," + inputs[7]).concat("," + inputs[8]).split(',')
-            newCreation.tags = newCreation.tags.filter((tag) => tag.length > 0)
-            newCreation.tags = newCreation.tags?.filter((tag, index) => {
-                return newCreation.tags?.indexOf(tag) === index
-            })
-        } else {
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
-        }
+    //     if(inputs[4]) {
+    //         newCreation.tags = inputs[4].concat("," + inputs[5]).concat("," + inputs[6]).concat("," + inputs[7]).concat("," + inputs[8]).split(',')
+    //         newCreation.tags = newCreation.tags.filter((tag) => tag.length > 0)
+    //         newCreation.tags = newCreation.tags?.filter((tag, index) => {
+    //             return newCreation.tags?.indexOf(tag) === index
+    //         })
+    //     } else {
+    //         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('content.edit.general.error.tags')))
+    //     }
 
-        if(inputs[9]) {
-            if(inputs[9].includes("leaderboards")) {
-                newCreation.extraFeatures = {
-                        leaderboards: {
-                            use: true,
-                            message: inputs[10],
-                            messageFormatting: inputs[11]
-                        },
-                        translations: {
-                            use: true
-                        },
-                        indexing: {
-                            use: true
-                        }
-                    }
-            } else {
-                newCreation.extraFeatures = {
-                    leaderboards: {
-                        use: false,
-                        message: "",
-                        messageFormatting: ""
-                    },
-                    translations: {
-                        use: true
-                    },
-                    indexing: {
-                        use: true
-                    }
-                }
-            }
-        } else {
-            newCreation.extraFeatures = {
-                leaderboards: {
-                    use: false,
-                    message: "",
-                    messageFormatting: ""
-                },
-                translations: {
-                    use: true
-                },
-                indexing: {
-                    use: true
-                }
-            }
-        }
+    //     if(inputs[9]) {
+    //         if(inputs[9].includes("leaderboards")) {
+    //             newCreation.extraFeatures = {
+    //                     leaderboards: {
+    //                         use: true,
+    //                         message: inputs[10],
+    //                         messageFormatting: inputs[11]
+    //                     },
+    //                     translations: {
+    //                         use: true
+    //                     },
+    //                     indexing: {
+    //                         use: true
+    //                     }
+    //                 }
+    //         } else {
+    //             newCreation.extraFeatures = {
+    //                 leaderboards: {
+    //                     use: false,
+    //                     message: "",
+    //                     messageFormatting: ""
+    //                 },
+    //                 translations: {
+    //                     use: true
+    //                 },
+    //                 indexing: {
+    //                     use: true
+    //                 }
+    //             }
+    //         }
+    //     } else {
+    //         newCreation.extraFeatures = {
+    //             leaderboards: {
+    //                 use: false,
+    //                 message: "",
+    //                 messageFormatting: ""
+    //             },
+    //             translations: {
+    //                 use: true
+    //             },
+    //             indexing: {
+    //                 use: true
+    //             }
+    //         }
+    //     }
 
-        updateContent(newCreation, localStorage?.getItem('jwt') + "", collectionName).then((result) => {
-            if(result.error) {
-                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
-                return;
-            }
+    //     updateContent(newCreation, localStorage?.getItem('jwt') + "", collectionName).then((result) => {
+    //         if(result.error) {
+    //             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, result.error.toString()))
+    //             return;
+    //         }
 
-            if(newCreation.slug !== creation.slug) {
-                window.location.href = `/edit/${newCreation.type}s/${newCreation.slug}`
-            }
+    //         if(newCreation.slug !== creation.slug) {
+    //             window.location.href = `/edit/${newCreation.type}s/${newCreation.slug}`
+    //         }
 
-            mutate(newCreation)
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.general_saved')))
-            resolve()
-        }).catch((e) => {
-            // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
-            reject()
-        })
-        })
-    }
+    //         mutate(newCreation)
+    //         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Content.Edit.PopupMessage.general_saved')))
+    //         resolve()
+    //     }).catch((e) => {
+    //         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, e.error))
+    //         reject()
+    //     })
+    //     })
+    // }
     
     // return <FormComponent id="general" onSave={saveGeneralForm} options={{stickyButtons: true}}> 
     //             <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} value={creation?.title} />
