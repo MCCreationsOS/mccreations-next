@@ -29,15 +29,15 @@ export default async function Page({ params: { locale } }: { params: { locale: s
             <div className="relative">
                 <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
             </div>
-            <div className="p-2">
-                <h2 className="text-2xl font-bold mt-5 mb-2">{t('Home.recently_updated')}</h2>
-                <UpdatedCreations />
-            </div>
             <h2 className="w-full text-center text-2xl font-bold mt-5 mb-2">{t('Home.view_all')}</h2>
             <div className="w-full flex justify-center gap-2 mb-10">
-                <Link href={`/maps`}><Button><Map /><span>{t('map', { count: 2})}</span></Button></Link>
-                <Link href={`/datapacks`}><Button><Package /><span>{t('datapack', { count: 2})}</span></Button></Link>
-                <Link href={`/resourcepacks`}><Button><Layers /><span>{t('resourcepack', { count: 2})}</span></Button></Link>
+                <Link href={`/maps`}><Button className="text-xl py-5 px-8"><Map /><span>{t('map', { count: 2})}</span></Button></Link>
+                <Link href={`/datapacks`}><Button className="text-xl py-5 px-8"><Package /><span>{t('datapack', { count: 2})}</span></Button></Link>
+                <Link href={`/resourcepacks`}><Button className="text-xl py-5 px-8"><Layers /><span>{t('resourcepack', { count: 2})}</span></Button></Link>
+            </div>
+                <h2 className="w-full text-center text-2xl font-bold mt-5 mb-2">{t('Home.recently_updated')}</h2>
+            <div className="p-2">
+                <UpdatedCreations />
             </div>
         </>
     )
