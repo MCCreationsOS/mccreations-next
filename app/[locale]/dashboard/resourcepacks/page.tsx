@@ -1,7 +1,7 @@
 'use client'
 
 import { CollectionNames, IContentDoc, IUser } from "@/app/api/types";
-import Table from "@/components/Dashboard/Table";
+import Table from "@/components/Dashboard/Dashboard";
 import {useTranslations} from 'next-intl';
 
 export default function Page() {
