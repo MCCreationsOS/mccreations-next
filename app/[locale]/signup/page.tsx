@@ -1,54 +1,30 @@
 'use client'
-import { Suspense, useState } from "react";
 import { useRouter } from "next/navigation";
 import { SiDiscord, SiFacebook, SiGithub, SiGoogle, SiMicrosoft } from '@icons-pack/react-simple-icons'
 import { Link } from "@/app/api/navigation";
-import MapScroll from "@/components/ContentScrollBackground/MapScroll";
 import { UserTypes } from "@/app/api/types";
-import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
-import MainButton from "@/components/Buttons/MainButton";
-import PopupComponent from "@/components/Popup/Popup";
 import {useTranslations} from 'next-intl';
-import FormComponent from "@/components/Form/Form";
-import Text from "@/components/FormInputs/Text";
+import { Button } from "@/components/ui/button";
+import { SignInBackground } from "../signin/page";
+import { toast } from "sonner";
+import { useForm } from "@tanstack/react-form";
+import { Input } from "@/components/ui/input";
 
 export default function SignUp() {
     const router = useRouter();
     const t = useTranslations()
-
-    const signUpWithEmail = (inputs: string[]) => {
-        let username = inputs[0]
-        let email = inputs[1]
-        let password = inputs[2]
-        if(username.length < 3) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.username_too_short')))
-            return;
+    const form = useForm({
+        defaultValues: {
+            username: "",
+            email: "",
+            password: ""
+        },
+        onSubmit: async (data) => {
+            await signUpWithEmail(data.value.username, data.value.email, data.value.password)
         }
+    })
 
-        var regex = /[A-Za-z0-9_]*/g, m;
-        m = regex.exec(username)
-        if(!m || m[0] !== m.input) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.username_invalid_characters')))
-            return;
-        }
-
-        if(!(email.includes('@') && email.includes('.'))) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.email_invalid')))
-            return;
-        }
-
-        if(!password || password.length < 9) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.password_too_short')))
-            return;
-        }
-
-        regex = /[0-9]/g;
-        m = regex.exec(password)
-        if(!m) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.password_no_number')))
-            return;
-        }
-
+    const signUpWithEmail = (username: string, email: string, password: string) => {
         fetch(`${process.env.DATA_URL}/sign_up`, {
             method: 'POST',
             headers: {
@@ -63,7 +39,7 @@ export default function SignUp() {
         }).then((res) => {
             res.json().then((data) => {
                 if(data.error) {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error))
+                    toast(data.error)
                     return;
                 } else {
                     router.push("/signin")
@@ -73,12 +49,12 @@ export default function SignUp() {
                     router.push('/signin')
                     return;
                 } else {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.error')))
+                    toast(t('SignUp.error'))
                     return;
                 }
             })
         }).catch(error => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('SignUp.error')))
+            toast(t('SignUp.error'))
             return;
         })
     }
@@ -115,47 +91,96 @@ export default function SignUp() {
     }
 
     return (
-        <div className="popup_page">
-            <Suspense>
-                <MapScroll />
-            </Suspense>
-            <PopupComponent useBackground={false} canClose={false}>
-                    <h2>{t('Account.Shared.providers')}</h2>
-                    <div className="sign_in_providers">
-                        <div className="provider" onClick={signUpWithGoogle}><SiGoogle />{t('Account.Shared.Providers.google')}</div>
-                        <div className="provider" onClick={signInWithDiscord}><SiDiscord />{t('Account.Shared.Providers.discord')}</div>
-                        <div className="provider" onClick={signUpWithGithub}><SiGithub />{t('Account.Shared.Providers.github')}</div>
-                        <div className="provider" onClick={signUpWithMicrosoft}><SiMicrosoft />{t('Account.Shared.Providers.microsoft')}</div>
-                    </div>
-                    <h2>{t('SignUp.title')}</h2>
-                    <FormComponent id="signUpForm" onSave={signUpWithEmail} options={{saveButtonContent: t('SignUp.button')}}>
-                        <Text type="text" placeholder={t('Account.Shared.username_placeholder')} name={t('Account.Shared.username')}/>
-                        <Text type="email" placeholder={t('Account.Shared.email_placeholder')} name={t('Account.Shared.email')}/>
-                        <Text type="password" placeholder={"password"} name={t('Account.Shared.password')}/>
-                    </FormComponent>
-                    {/* <form method="">
-                        <div className='field'>
-                            <p className='label'>{t('account.username')}</p>
-                            <input className='input wide' type='text' autoComplete="username" name='username' placeholder={t('account.username_placeholder')} onChange={(e) => {
-                                console.log(e.target.value);
-                                setUsername(e.currentTarget.value)
-                            }}></input>
-                        </div>
-                        <div className='field'>
-                            <p className='label'>{t('account.email')}</p>
-                            <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('account.email_placeholder')} onChange={(e) => {setEmail(e.currentTarget.value)}}></input>
-                        </div>
-                        <div className='field'>
-                            <p className='label'>{t('account.password')}</p>
-                            <input className='input wide' type='password' autoComplete="password" name='password' placeholder='password' onChange={(e) => {setPassword(e.currentTarget.value)}}></input>
-                        </div>
-                        <MainButton onClick={signUpWithEmail}>{t('auth.sign_up')}</MainButton>
-                    </form> */}
-                    <div className="sign_up_options">
-                        <Link href="/signin">{t('SignUp.already_have_account')}</Link>
-                        <Link href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
-                    </div>
-            </PopupComponent>
+        <div className="h-full relative">
+        <SignInBackground />
+        <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 absolute top-0 left-1/2 -translate-x-1/2 border-2 border-black">
+            <h2 className="text-2xl font-bold mb-2">{t('Account.Shared.providers')}</h2>
+            <div className="flex flex-row flex-wrap gap-2 mb-5">
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Account.Shared.Providers.google')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><SiDiscord /><span>{t('Account.Shared.Providers.discord')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><SiGithub /><span>{t('Account.Shared.Providers.github')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><SiMicrosoft /><span>{t('Account.Shared.Providers.microsoft')}</span></Button>
+            </div>
+            <h2 className="text-2xl font-bold mb-2">{t('SignUp.title')}</h2>
+            <form onSubmit={(e) => {e.preventDefault(); form.handleSubmit()}} className="flex flex-col gap-2">
+                <form.Field name="username" children={(field) => (
+                        <>
+                            <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Username" />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                        </>
+                    )}  validators={{
+                        onChange: ({value}) => {
+                            if(value.length < 3) {
+                                return 'Username must be at least 3 characters long'
+                            }
+                            let regex = /[A-Za-z0-9_]*/g, m;
+                            m = regex.exec(value)
+                            if(!m || m[0] !== m.input) {
+                                return 'Invalid characters'
+                            }
+                        },
+                        onSubmit: ({value}) => {
+                            if(value.length < 3) {
+                                return 'Username must be at least 3 characters long'
+                            }
+                        }
+                    }}/>
+                <form.Field name="email" children={(field) => (
+                    <>
+                        <Input type="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Email" />
+                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                    </>
+                )}  validators={{
+                    onChange: ({value}) => {
+                        if(value.length < 3) {
+                            return 'Email must be at least 3 characters long'
+                        }
+                        let regex = /[A-Za-z0-9_]*/g, m;
+                        m = regex.exec(value)
+                        if(!m || m[0] !== m.input) {
+                            return 'Invalid characters'
+                        }
+                        if(!value.includes('@') || !value.includes('.')) {
+                            return 'Invalid email'
+                        }
+                    },
+                    onSubmit: ({value}) => {
+                        if(value.length < 3) {
+                            return 'Email must be at least 3 characters long'
+                        }
+                    }
+                }}/>
+                <form.Field name="password" children={(field) => (
+                    <>
+                        <Input type="password" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Password" />
+                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                    </>
+                )}  validators={{
+                    onChange: ({value}) => {
+                        let regex = /[0-9]/g;
+                        let m = regex.exec(value)
+                        if(!m) {
+                            return 'Password must contain a number'
+                        }
+                        (!value) ?
+                        'Password is required' :
+                        value.length < 9 ?
+                        'Password must be at least 9 characters long' :
+                        undefined
+                    },
+                    onSubmit: ({value}) => {
+                        if(value.length < 9) {
+                            return 'Password must be at least 9 characters long'
+                        }
+                    }
+                }}/>
+                <Button><span>{t('SignIn.button')}</span></Button>
+            </form>
+            <div className="flex flex-row gap-4 mt-2">
+                <Link className="text-sm hover:underline" href="/signup">{t('SignIn.no_account')}</Link>
+                <Link className="text-sm hover:underline" href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
+                </div>
+            </div>
         </div>
        
     )

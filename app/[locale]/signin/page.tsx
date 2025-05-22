@@ -103,11 +103,11 @@ export default function SignIn() {
         })
         router.push("https://discord.com/api/oauth2/authorize?" + discordParams.toString())
     }
-
+    
     return (
-        <>
+        <div className="h-full relative">
             <SignInBackground />
-            <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 z-1 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-3/2">
+            <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 absolute top-0 left-1/2 -translate-x-1/2 border-2 border-black">
                 <h2 className="text-2xl font-bold mb-2">{t('Account.Shared.providers')}</h2>
                 <div className="flex flex-row flex-wrap gap-2 mb-5">
                     <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Account.Shared.Providers.google')}</span></Button>
@@ -162,11 +162,11 @@ export default function SignIn() {
                     <Link className="text-sm hover:underline" href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
-function SignInBackground() {
+export function SignInBackground() {
     const {creations} = useCreations({status: 2, contentType: "content", limit: 20, page: 0, sort: SortOptions.HighestDownloads})
     const [index, setIndex] = useState(0)
 
