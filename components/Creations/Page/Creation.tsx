@@ -19,6 +19,7 @@ import Comments from "./Comments";
 import { getCookie, setCookie } from "@/app/setCookies";
 import { postRating } from "@/app/api/community";
 import { useCallback } from "react";
+import DownloadButton from "@/components/ui/client_buttons/DownloadButton";
 
 export const dynamic = 'force-dynamic'
 
@@ -71,7 +72,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                 <div className="flex flex-row gap-2 mb-2">
                     <h1 className="text-4xl font-extrabold flex-1">{title}</h1>
                     <div className="flex flex-row gap-2">
-                        <Button className="px-6 py-5" onClick={() => {console.log(creation.slug)}}><span className="text-lg font-bold">{t('Buttons.download')}</span><Download/></Button>
+                        <DownloadButton slug={creation.slug} file={creation.files[0]} contentType={contentType} className="px-6 py-5"/>
                         <Button variant="secondary" className="flex items-center gap-2 py-5">
                             <EllipsisVertical className="h-5 w-5" />
                             <span className="sr-only">Options</span>

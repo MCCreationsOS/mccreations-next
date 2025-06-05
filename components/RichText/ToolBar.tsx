@@ -208,7 +208,7 @@ export default function ToolbarPlugin() {
     };
 
     return (
-        <div className="flex flex-row gap-2" ref={toolbarRef}>
+        <div className="flex flex-row gap-2 overflow-x-auto" ref={toolbarRef}>
             <button
                 disabled={!canUndo}
                 onClick={() => {

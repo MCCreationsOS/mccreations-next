@@ -4,8 +4,9 @@ import { ContentTypes, IFile, NewFile } from "@/app/api/types";
 // import { isBedrockType } from "../../old/FormInputs/VersionUploader/VersionManager";
 import { useTranslations } from "next-intl";
 import { Button } from "../button";
+import { Download } from "lucide-react";
 
-export default function DownloadButton({slug, file, contentType}: {slug: string, file: IFile, contentType: ContentTypes }) {
+export default function DownloadButton({slug, file, contentType, className}: {slug: string, file: IFile, contentType: ContentTypes, className?: string }) {
     const t = useTranslations()
     const collectionName = convertToCollection(contentType)
     if(!file) return <></>
@@ -30,6 +31,6 @@ export default function DownloadButton({slug, file, contentType}: {slug: string,
     // }
 
     return (
-        <Button onClick={downloadButtonClicked}>{text}</Button>
+        <Button onClick={downloadButtonClicked} className={className}><span className="text-lg font-bold">{text}</span><Download/></Button>
     )
 }

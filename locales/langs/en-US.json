@@ -671,7 +671,10 @@
             "medieval": "Medieval",
             "modern": "Modern",
             "sci-fi": "Sci-Fi",
-            "vanilla": "Vanilla"
+            "vanilla": "Vanilla",
+            "player_count_2": "2 Players",
+            "player_count_3": "3 Players",
+            "player_count_4+": "4+ Players"
         }
     },
     "Datapacks": {

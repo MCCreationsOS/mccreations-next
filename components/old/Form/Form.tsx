@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import ImageDropzone, { UploadedImageRepresentation } from "../FormInputs/ImageDropzone/ImageDropzone";
 import styles from './Form.module.css'
 import CreatorSelector from "../FormInputs/CreatorSelector/CreatorSelector";
-import FileDropzone from "../FormInputs/VersionUploader/FileUpload";
+import FileDropzone from "../../VersionManager/FileUpload";
 import RichText from "../FormInputs/RichText/RichText";
 import MainButton from "../Buttons/MainButton";
 import {useTranslations} from 'next-intl';
