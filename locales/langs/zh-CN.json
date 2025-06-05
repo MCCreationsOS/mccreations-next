@@ -1,22 +1,24 @@
 {
-    "_id": {
-        "$oid": "679d764655fd25e2d4a00518"
-    },
     "language_name": "简体中文",
-    "language_code": "zh-CN",
+    "language_code": "zh_CN",
+
     "map": "{count, plural, =0 {地图} =1 {地图} other {地图}}",
     "datapack": "{count, plural, =0 {数据包} =1 {数据包} other {数据包}}",
     "resourcepack": "{count, plural, =0 {资源包} =1 {资源包} other {资源包}}",
     "comment": "{count, plural, =0 {评论} =1 {评论} other {评论}}",
+    "notification": "{count, plural, =0 {通知} =1 {通知} other {通知}}",
+
     "Status": {
-        "approved": "Verified",
-        "draft": "未完成",
+        "approved": "已验证",
+        "draft": "草稿",
         "featured": "精选",
-        "unapproved": "Published"
+        "unapproved": "已发布"
     },
+
     "Account": {
         "settings": "账户设置",
         "delete_account": "删除账户",
+
         "Popup": {
             "new_username": "新昵称",
             "change_username": "更改昵称",
@@ -28,6 +30,7 @@
             "confirm_password": "再次确认密码",
             "change_password": "更改密码"
         },
+
         "PopupMessage": {
             "email_updated": "邮箱已成功更新为 {email}",
             "handle_updated": "用户名已成功更新为 {handle}",
@@ -36,10 +39,11 @@
             "passwords_not_match": "密码不匹配",
             "delete_account_warning": "再次点击以删除您的账户。这是永久的！",
             "delete_account_auth_error": "授权错误。请重新登录",
-            "delete_account_error": "删除帐户时出现错误。请通过以上链接报告问题",
+            "delete_account_error": "删除账户时出现错误。请通过以上链接报告问题",
             "delete_account_success": "已成功删除账户",
-            "error": "发生一处错误。请通过以上链接报告问题"
+            "error": "发生错误。请通过以上链接报告问题"
         },
+
         "Shared": {
             "username": "昵称",
             "username_placeholder": "Steve",
@@ -57,64 +61,69 @@
             "forgot_password": "忘记密码？",
             "providers": "以……登录"
         },
+
         "Notifications": {
-            "title": "Notification Settings",
-            "comment": "New Comments",
-            "like": "Like Notifications",
-            "reply": "New Replies",
-            "email_daily": "Email Daily",
-            "email_weekly": "Email Weekly",
-            "push_only": "Push Only",
-            "push_email_daily": "Push & Email Daily",
-            "push_email_weekly": "Push & Email Weekly",
-            "dashboard_only": "Dashboard Only",
-            "none": "None",
-            "translation": "New Creation Translations",
-            "rating": "New Creation Ratings",
-            "no_notifications": "No notifications yet!",
-            "read_all": "Mark all as read",
-            "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
-            "add_to_this_device": "Subscribe to Push Notifications Here",
+            "title": "通知设置",
+            "comment": "新评论",
+            "like": "点赞通知",
+            "reply": "新回复",
+            "subscription": "新订阅内容",
+            "email_daily": "每日邮件",
+            "email_weekly": "每周邮件",
+            "push_only": "仅推送通知",
+            "push_email_daily": "推送和每日邮件",
+            "push_email_weekly": "推送和每周邮件",
+            "dashboard_only": "仅仪表盘显示",
+            "none": "无",
+            "translation": "新作品翻译",
+            "rating": "新作品评分",
+            "no_notifications": "暂无通知！",
+            "read_all": "全部标记为已读",
+            "install_ios_instructions": "要在 iOS 上使用推送通知，请点击 <icon></icon> 分享按钮，然后选择“添加到主屏幕”。",
+            "add_to_this_device": "在此订阅推送通知",
+
             "NewComment": {
-                "title": "New Comment",
-                "body": "{username} posted a new comment on your {content_type} {title}."
+                "title": "新评论：",
+                "body": "{username} 在您的 {content_type} {title} 上发表了新评论。"
             },
             "NewReply": {
-                "title": "New Reply",
-                "body": "{username} replied to your comment."
+                "title": "新回复：",
+                "body": "{username} 回复了您的评论。"
             },
             "NewPost": {
-                "title": "New Post",
-                "body": "{username} posted a new {content_type}."
+                "title": "新{content_type}发布：",
+                "body": "{username} 发布了新的 {content_type}。"
             },
             "NewRating": {
-                "title": "New Rating",
-                "body": "{content_type} received a new rating of {rating} stars."
+                "title": "新评分：",
+                "body": "您的 {content_type} 收到了新的 {rating} 星评分。"
             },
             "NewTranslation": {
-                "title": "New Translation",
-                "body": "{username} translated your {content_type} into {language}."
-            },
-            "follow": "Following Posts"
+                "title": "新翻译：",
+                "body": "{username} 已将您的 {content_type} 翻译成 {language}。"
+            }
         }
     },
+
     "Auth": {
         "OAuth": {
             "PopupMessage": {
-                "error": "与我们的 API 通信时发生一处错误。请通过上方链接中报告"
+                "error": "与我们的 API 通信时发生错误。请通过上方链接中报告此问题"
             },
             "loading": "你已登录！"
         }
     },
+
     "Comments": {
-        "loading": "加载评论中……"
+        "loading": "评论加载中……"
     },
+
     "Creator": {
         "Metadata": {
             "not_found_title": "未找到创作者",
             "not_found_description": "MCCreations 中不存在该创作者",
             "title": "MCCreations 中的 {username}",
-            "description": "展示 {username} 的 Minecraft 地图，数据包，资源包，以及更多 MCCreations 上的资源"
+            "description": "查看 {username} 在 MCCreations 上发布的 Minecraft 地图、数据包、资源包及更多精彩内容"
         },
         "Edit": {
             "about": "关于",
@@ -124,30 +133,33 @@
             "saved": "已成功保存个人资料"
         },
         "not_found": "未找到创作者",
-        "logo_alt": "{username} 的 logo"
+        "logo_alt": "{username} 的徽标"
     },
+
     "Dashboard": {
-        "title": "您的内容",
+        "title": "仪表盘",
         "info": "信息",
         "status": "状态",
         "created_date": "创建日期",
         "updated_date": "更新日期",
         "downloads": "下载次数",
         "rating": "评分",
-        "view": "展示内容",
+        "view": "查看内容",
         "edit": "编辑",
         "delete": "删除"
     },
+
     "ResetPassword": {
         "token_error": "未找到 token ，返回上一页",
         "new_password": "新密码",
         "retype_password": "重新输入密码",
         "password_length": "密码需要至少十个字符",
         "password_number": "密码需要至少一个数字",
-        "passwords_not_same": "前后密码不能相同",
+        "passwords_not_same": "两次输入的密码不一致",
         "reset": "重置",
         "title": "重置密码"
     },
+
     "SignIn": {
         "Reset": {
             "title": "重置密码",
@@ -160,6 +172,7 @@
         "button": "登录",
         "no_account": "没有账户？"
     },
+
     "SignUp": {
         "title": "注册",
         "email_invalid": "邮箱地址无效",
@@ -171,9 +184,10 @@
         "already_have_account": "已有账户？",
         "error": "创建账户时出现错误。请通过以上链接报告问题。"
     },
+
     "Translate": {
         "title": "翻译",
-        "help": "<link>想获得帮助？点这</link>",
+        "help": "<link>想获得帮助？点击此处</link>",
         "AddLanguage": {
             "title": "添加语言",
             "language_placeholder": "en-US",
@@ -182,11 +196,13 @@
         "language": "语言",
         "language_missing": "缺少你的语言？点击这里以添加。"
     },
+
     "Error": {
         "title": "发生错误！",
         "description": "看来我们的电路里可能染了一些灰尘！请使用下方链接以报告问题，并稍后再试。",
-        "report": "使用<form>此表格</form>报告问题，<github>通过我们的 Github 页面<github>或<link>加入我们的 Discord</link> 以报告该问题。"
+        "report": "使用<form>此表格</form>报告问题，<github>通过我们的 Github 页面</github>或<link>加入我们的 Discord</link> 以报告该问题。"
     },
+
     "Home": {
         "Playlists": {
             "new_content": "新内容",
@@ -197,11 +213,13 @@
             "highly_rated": "评分较高",
             "popular": "流行"
         },
-        "ViewAll": "Find More..."
+        "ViewAll": "发现更多……"
     },
+
     "Ads": {
-        "behind_text": "广告能帮助 MCCreations 继续创造超酷的内容！请考虑在本网站禁用广告拦截器 :)"
+        "behind_text": "广告能帮助 MCCreations 继续创造超酷的内容！请考虑在本网站禁用广告拦截器。:)"
     },
+
     "Buttons": {
         "BulkDownload": {
             "text": "批量",
@@ -211,29 +229,34 @@
         "download_bedrock": "供基岩版下载",
         "edit": "编辑"
     },
+
     "CommentForm": {
         "sent": "评论已发送",
         "title": "发表评论",
         "comment": "评论",
         "send": "发送"
     },
+
     "Comment": {
         "permalink": "复制永久评论链接",
         "expand": "展开",
         "collapse": "折叠",
-        "reply": "Reply",
-        "like": "Like",
-        "delete": "Delete"
+        "reply": "回复",
+        "like": "赞",
+        "delete": "删除"
     },
+    
     "CommentsList": {
         "title": "评论",
         "no_comments": "成为第一个评论的人！",
         "none_yet": "尚无评论！",
-        "loading": "Loading Comments..."
+        "loading": "评论加载中……"
     },
+
     "FeaturedSlideshow": {
         "see_more": "下载"
     },
+
     "Footer": {
         "about": "关于",
         "contact": "联系",
@@ -248,27 +271,28 @@
         "updates": "更新",
         "Splashes": {
             "1": "走向全球！",
-            "2": "It's a website!",
-            "3": "Things are broken.",
-            "4": "I'm a footer!",
-            "5": "Minecraft is pretty cool huh.",
-            "6": "Creativity for the win!",
-            "7": "Who reads these?",
-            "8": "Anyone got a sandwich?",
-            "9": "Contribute on Github!",
-            "10": "Did you know that this is random?"
+            "2": "这是一个网站！",
+            "3": "有些东西坏掉了。",
+            "4": "我是页脚！",
+            "5": "Minecraft 很酷，对吧。",
+            "6": "创意至上！",
+            "7": "谁会看这些啊？",
+            "8": "有人带三明治了吗？",
+            "9": "在 Github 上贡献代码！",
+            "10": "你知道这些是随机的吗？"
         },
-        "mojang_disclamer": "不是官方 Minecraft 产品。未获得Mojang 的批准，与 Mojang 无关。",
+        "mojang_disclamer": "不是官方 Minecraft 产品。未经 Mojang 批准，也与 Mojang 无关联。",
         "open_source": "MCCreations 是<link>开源的</link>。欢迎贡献！",
         "copyright": "© Ben Meier/CrazyCowMM"
     },
+
     "Form": {
         "save": "保存",
         "CreatorSelector": {
             "title": "创作者",
             "add_creator": "添加创作者",
             "confirm_remove": "再次点击以移除此创作者",
-            "username_description": "展示在 MCCreations 上的名称。",
+            "username_description": "在 MCCreations 上显示的名称。",
             "handle_description": "如果创作者已有 MCCreations 账户，请在此处输入用户名以链接至个人资料。"
         },
         "Shared": {
@@ -296,7 +320,7 @@
             },
             "placeholder": "开始编写！",
             "undo": "撤销",
-            "redo": "恢复。",
+            "redo": "重做",
             "bold": "粗体",
             "italic": "斜体",
             "underline": "下划线",
@@ -307,11 +331,12 @@
             "center_align": "居中对齐",
             "right_align": "右对齐",
             "image": "插入图片",
-            "add_caption": "添加标题",
-            "spoiler": "Add Spoiler",
-            "font_size": "Font Size"
+            "add_caption": "添加图注",
+            "spoiler": "添加剧透",
+            "font_size": "字号"
         }
     },
+
     "Navigation": {
         "CreateForm": {
             "title": "创建",
@@ -332,22 +357,17 @@
             "sign_in": "登录",
             "sign_out": "退出",
             "dashboard": "仪表盘",
+            "notifications": "通知",
             "profile": "个人资料",
             "settings": "设置",
-            "admin": "管理员",
-            "notifications": "Notifications"
+            "admin": "管理员"
         },
         "badge": "测试版",
         "beta_warning": "MCCreations 目前仍处于 beta 版。请使用该<form>表格</form>，<github>通过我们的 Github page</github>，或<link>加入我们的 Discord</link>以留下反馈或报告问题。",
         "home": "首页",
-        "feed": "Feed",
-        "forums": "Forums",
-        "marketplace": "Marketplace",
-        "creations": "Creations",
-        "helpTranslate": "Help Translate",
-        "language": "简体中文",
-        "create": "Create"
+        "feed": "Feed"
     },
+
     "SearchAndFilter": {
         "search": "搜索",
         "clear_filters": "清除筛选",
@@ -369,9 +389,12 @@
         "tags": "标签",
         "search_placeholder": "搜索标题、创作者、版本等"
     },
+
+    
     "brand": "MCCreations",
     "error": "错误",
     "events": "事件",
+
     "VersionManager": {
         "title": "版本管理",
         "add_version": "添加版本",
@@ -381,7 +404,7 @@
             "version_number": "版本号",
             "minecraft_version": "Minecraft 版本",
             "Bedrock": "基岩版",
-            "Bedrock_description": "该文件供基岩版使用",
+            "Bedrock_description": "此文件是否用于基岩版",
             "MainFile": {
                 "link": "主文件链接"
             },
@@ -389,7 +412,7 @@
                 "file_type": "文件类型",
                 "link": "链接",
                 "required": "必需",
-                "required_description": "使该文件与主文件共同被下载",
+                "required_description": "勾选后，此文件将随主文件一同自动下载。",
                 "upload_file": "上传文件"
             },
             "save": "保存版本",
@@ -399,12 +422,13 @@
             "add_file_description": "添加该作品所需的额外文件，如资源包"
         }
     },
+
     "Content": {
         "affiliate": "以25%的折扣购买{type}服务器",
-        "leaderboards": "Leaderboards",
+        "leaderboards": "排行榜",
         "files": "文件",
         "info": "信息",
-        "logo_alt": "{title} 的 logo ，一张 Minecraft {minecraft_version}的 Minecraft {type}，由 {creator} 创作，发布于 MCCreations。",
+        "logo_alt": "{title} 的徽标：由 {creator} 创作的Minecraft{minecraft_version}版{type}，发布于 MCCreations。",
         "by": "{creator} 创作",
         "by_joiner": ", ",
         "Sidebar": {
@@ -415,8 +439,7 @@
             "downloads": "下载次数",
             "ratings": "评分",
             "minecraft_version": "Minecraft 版本",
-            "files": "文件",
-            "tags": "Tags"
+            "files": "文件"
         },
         "Files": {
             "name": "名称",
@@ -426,7 +449,7 @@
             "loading": "加载中……"
         },
         "Warnings": {
-            "count": "消息： ",
+            "count": "消息：",
             "no_title": {
                 "title": "无标题",
                 "description": "内容必须有一个标题"
@@ -469,104 +492,104 @@
             },
             "external_images": {
                 "title": "来自外部来源的图片",
-                "description": "您有来自外部来源的图片。这意味着 MCCreations 无法保证这些图片未来仍有效，或所有用户都仍能访问。我们强烈建议您将这些图片上传。"
+                "description": "您有来自外部来源的图片。这意味着 MCCreations 无法保证这些图片未来仍有效，或所有用户都仍能访问。我们强烈建议您改为上传这些图片（而不是使用外部链接）。"
             },
             "few_images": {
                 "title": "图片过少",
-                "description": "更多的图片可以帮助人们更好地了解您的内容。建议您上传至少 4 张图片，包括您的 logo。"
+                "description": "更多的图片可以帮助人们更好地了解您的内容。建议您上传至少 4 张图片，包括您的徽标。"
             },
             "not_linked": {
                 "title": "未绑定至账户",
                 "description": "该内容未链接到 MCCreations 上的账户。这意味着您编辑该内容的权限将在24小时内过期。建议您使用账户上传内容，以便保留所有功能访问权限。"
             },
             "no_download_link": {
-                "title": "No Download Link",
-                "description": "At least one download link is required"
+                "title": "无下载链接",
+                "description": "至少需要一个下载链接"
             },
             "slug_too_short": {
-                "title": "Slug Too Short",
-                "description": "Your slug needs to be at least 2 characters"
+                "title": "路径别名过短",
+                "description": "您的路径别名至少需要 2 个字符"
             }
         },
         "Edit": {
             "editing": "编辑 {title} 中",
             "status": "状态：",
-            "request_approval": "Publish",
+            "request_approval": "发布",
             "general": "常规",
             "title": "标题",
-            "title_description": "The primary name of your creation. Should be short and sweet!",
-            "slug": "Slug",
-            "slug_description": "The unique identifier for your creation. This will be used in the URL, like mccreations.net/maps/your-slug",
+            "title_description": "您的作品的主要名称。应简洁明了！",
+            "slug": "路径别名",
+            "slug_description": "您的作品的唯一标识符。它将用于 URL，例如 mccreations.net/maps/your-slug",
             "short_description": "简短描述",
-            "short_description_description": "A short summary of your creation. This will be used in search results and previews.",
+            "short_description_description": "您的作品的简短摘要。将用于搜索结果和预览。",
             "video_url": "视频 URL",
-            "video_url_description": "A link to a video of your creation. This will replace your logo on the creation page with an embedded video.",
+            "video_url_description": "您的作品的视频链接。这将在作品页面用嵌入式视频替换您的徽标。",
             "description": "描述",
-            "description_description": "A longer description of your creation. This will be used on the main page of your creation.",
+            "description_description": "您的作品的详细描述。将用于您作品的主页。",
             "Tags": {
-                "genre_description": "The primary category of your creation. This gives users a very general idea of how your creation plays.",
-                "subgenre_description": "The secondary category of your creation. This gives users a more specific idea of the contents of your creation.",
-                "difficulty_description": "The difficulty of your creation.",
-                "length_description": "The length of your creation.",
-                "resolution_description": "The resolution of your resourcepack.",
-                "theme_description": "The theme of your creation."
+                "genre_description": "您的作品的主要类别。这能让用户大致了解您作品的玩法。",
+                "subgenre_description": "您的作品的次要类别。这能让用户更具体地了解您作品的内容。",
+                "difficulty_description": "您的作品的难度。",
+                "length_description": "您的作品的长度。",
+                "resolution_description": "您的资源包的分辨率。",
+                "theme_description": "您的作品的主题。"
             },
-            "extra_features": "Extra Features",
+            "extra_features": "额外功能",
             "ExtraFeatures": {
                 "Leaderboards": {
-                    "help": "Learn how to setup MCCreations Leaderboards <link>here</link>. Note that leaderboards are only available for Java Edition at this time.",
-                    "title": "Leaderboards",
-                    "message_text": "Message Text",
-                    "message_text_description": "Text to display to tell players to submit their score. This is sent in game when your creation ends.",
-                    "message_format": "Extra Formatting",
-                    "message_format_description": "Extra formatting to add to the tellraw message. Should be formatted like \"color\":\"green\", \"bold\": true"
+                    "help": "点击<link>此处</link>了解如何设置 MCCreations 排行榜。请注意，排行榜目前仅适用于 Java 版。",
+                    "title": "排行榜",
+                    "message_text": "消息文本",
+                    "message_text_description": "用于提示玩家提交分数的显示文本。此消息将在您的作品结束时在游戏中发送。",
+                    "message_format": "额外格式",
+                    "message_format_description": "添加到 tellraw 消息的额外格式。格式应如：\"color\":\"green\", \"bold\": true"
                 }
             },
             "images": "图片",
             "versions": "版本",
             "translations": "翻译",
             "add_translation": "添加翻译",
-            "translation_languages": "Languages",
-            "translation_languages_description": "Is your language missing? Click here to add it.",
-            "delete_translation": "删除",
+            "translation_languages": "语言",
+            "translation_languages_description": "缺少您的语言？点击此处添加。",
+            "delete_translation": "删除翻译",
             "translation_approved": "已批准",
             "PopupMessage": {
                 "general_saved": "内容信息保存成功",
                 "images_saved": "图片保存成功",
                 "translations_saved": "翻译保存成功",
                 "versions_saved": "版本保存成功",
-                "requested_approval": "Content has been requested for approval"
+                "requested_approval": "内容已发布并等待验证"
             }
         },
-        "translate": "Translate {title}",
-        "translate_button": "Translate {type} Page",
+        "translate": "翻译 {title}",
+        "translate_button": "翻译 {type} 页面",
         "Metadata": {
-            "title_not_found": "{content_type} Not Found",
-            "description_not_found": "This {content_type} does not exist on MCCreations",
-            "title": "{title} {content_type} for Minecraft {minecraft_version} by {creator} on MCCreations",
+            "title_not_found": "{content_type} 未找到",
+            "description_not_found": "此 {content_type} 在 MCCreations 上不存在",
+            "title": "{title} - 由 {creator} 为 Minecraft {minecraft_version} 创作的 {content_type}，发布于 MCCreations",
             "Tags": {
                 "minecraft": "Minecraft",
                 "games": "games",
                 "gaming": "gaming",
-                "minecraft_creations": "Minecraft Creations",
+                "minecraft_creations": "Minecraft 作品",
                 "minecraft_version": "Minecraft {minecraft_version}",
-                "minecraft_datapack": "Minecraft Data Pack",
-                "minecraft_map": "Minecraft Map",
-                "minecraft_resourcepack": "Minecraft Resource Pack",
+                "minecraft_datapack": "Minecraft 数据包",
+                "minecraft_map": "Minecraft 地图",
+                "minecraft_resourcepack": "Minecraft 资源包",
                 "mods": "Mods",
                 "minecraft_mods": "Minecraft Mods",
                 "minecraft_but": "Minecraft but",
-                "minecraft_survival": "Minecraft Survival"
+                "minecraft_survival": "Minecraft 生存"
             }
         },
         "datapack_not_found": "数据包未找到",
-        "datapack_not_found_description": "This datapack does not exist or you do not have permission to view it",
+        "datapack_not_found_description": "该数据包不存在，或者您没有权限查看它",
         "datapacks_not_found": "未找到数据包",
         "maps_not_found": "未找到地图",
         "map_not_found": "地图未找到",
-        "map_not_found_description": "This map does not exist or you do not have permission to view it",
+        "map_not_found_description": "该地图不存在，或者您没有权限查看它",
         "resourcepack_not_found": "资源包未找到",
-        "resourcepack_not_found_description": "This resourcepack does not exist or you do not have permission to view it",
+        "resourcepack_not_found_description": "该资源包不存在，或者您没有权限查看它",
         "resourcepacks_not_found": "未找到资源包",
         "Rating": {
             "1": "1 星（满分5星）",
@@ -595,7 +618,7 @@
             "overhaul": "改革",
             "parkour": "跑酷",
             "puzzle": "解密",
-            "qol": "QOL",
+            "qol": "生活质量",
             "realistic": "现实",
             "simple": "简单",
             "survival": "生存",
@@ -622,7 +645,7 @@
             "cosmetic": "外观",
             "crafting": "合成",
             "CTM": "CTM",
-            "dropper": "下降",
+            "dropper": "掉落",
             "elytra": "鞘翅",
             "entities": "实体",
             "episodic": "系列",
@@ -665,78 +688,80 @@
             "vanilla": "原版"
         }
     },
+
     "Datapacks": {
         "Metadata": {
             "title": "下载数据包 | MCCreations",
-            "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
+            "description": "下载适用于 Minecraft 的最佳数据包。探索最受欢迎的数据包，准备开始游戏！数据包是 Minecraft 原版游戏中与模组等效的内容。它们可以添加新功能、改变游戏玩法等等！"
         }
     },
+
     "Leaderboards": {
-        "not_found": "Leaderboard Not Found",
-        "rank": "Rank",
-        "player": "Player",
-        "time": "Time",
-        "score": "Score",
-        "date": "Date",
-        "device": "Device",
-        "location": "Location",
-        "submit_time": "Submit Your Time",
-        "submit_score": "Submit Your Score",
-        "submit_time_description": "Your time was {hours} hours, {minutes} minutes, {seconds} seconds and {ticks} ticks",
-        "submit_score_description": "Your score was {score}",
-        "submit": "Submit",
-        "username": "Username"
+        "not_found": "排行榜未找到",
+        "rank": "排名",
+        "player": "玩家",
+        "time": "用时",
+        "score": "得分",
+        "date": "日期",
+        "device": "设备",
+        "location": "位置",
+        "submit_time": "提交您的用时",
+        "submit_score": "提交您的得分",
+        "submit_time_description": "您的用时为 {hours} 小时 {minutes} 分 {seconds} 秒 {ticks} 游戏刻",
+        "submit_score_description": "您的得分为 {score}",
+        "submit": "提交",
+        "username": "昵称"
     },
+
     "Profile": {
-        "follow": "Follow",
-        "unfollow": "Unfollow",
+        "follow": "关注",
+        "unfollow": "取消关注",
         "Widgets": {
             "Discord": {
                 "title": "Discord",
-                "edit_title": "Edit Discord Widget",
-                "server_id": "Server ID"
+                "edit_title": "编辑 Discord 小组件",
+                "server_id": "服务器 ID"
             },
             "FeaturedCreation": {
-                "title": "Featured Creation",
-                "edit_title": "Edit Featured Creation Widget",
-                "type": "Type",
-                "slug": "Slug"
+                "title": "精选作品",
+                "edit_title": "编辑精选作品小组件",
+                "type": "类型",
+                "slug": "路径别名"
             },
             "Image": {
-                "edit_title": "Edit Image Widget",
-                "image": "Image",
-                "title": "Title"
+                "edit_title": "编辑图片小组件",
+                "image": "图片",
+                "title": "标题"
             },
             "Showcase": {
-                "title": "Creations",
-                "edit_title": "Edit Showcase Widget",
-                "type": "Type"
+                "title": "作品",
+                "edit_title": "编辑作品展示小组件",
+                "type": "类型"
             },
             "SupportSite": {
-                "title": "Support Site",
-                "edit_title": "Edit Support Site Widget"
+                "title": "支持站点",
+                "edit_title": "编辑支持站点小组件"
             },
             "Text": {
-                "edit_title": "Edit Text Widget",
-                "text": "Text",
-                "title": "Title"
+                "edit_title": "编辑文本小组件",
+                "text": "文本",
+                "title": "标题"
             },
             "Twitch": {
                 "title": "Twitch",
-                "edit_title": "Edit Twitch Widget",
-                "handle": "Twitch Username"
+                "edit_title": "编辑 Twitch 小组件",
+                "handle": "Twitch 用户名"
             },
             "Wall": {
-                "title": "Wall",
-                "edit_title": "Edit Wall Widget"
+                "title": "留言墙",
+                "edit_title": "编辑留言墙小组件"
             },
             "Youtube": {
                 "title": "YouTube",
-                "edit_title": "Edit YouTube Widget",
-                "handle": "YouTube Handle"
+                "edit_title": "编辑 YouTube 小组件",
+                "handle": "YouTube 用户名"
             },
-            "delete_widget": "Delete Widget"
+            "delete_widget": "删除小组件"
         }
-    },
-    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}"
+    }
 }
