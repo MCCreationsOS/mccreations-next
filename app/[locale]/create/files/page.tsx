@@ -3,6 +3,8 @@
 import { convertToCollection, createEmptyCreation, updateContent } from "@/app/api/content";
 import { useTokenOrKey } from "@/app/api/hooks/users";
 import { ContentTypes, IContentDoc, IFile } from "@/app/api/types";
+import { Button } from "@/components/ui/button";
+import VersionManager from "@/components/VersionManager/VersionManager";
 import { useForm } from "@tanstack/react-form";
 // import MainButton from "@/components/Buttons/MainButton";
 // import VersionManager from "@/components/FormInputs/VersionUploader/VersionManager";
@@ -20,24 +22,16 @@ export default function Versions({params}: {params: Params}) {
     const {token} = useTokenOrKey();
     const t = useTranslations()
     const router = useRouter()
-    const form = useForm({
-        defaultValues: {
-            files: creation.files
-        },
-        onSubmit: (data) => {
-            saveVersionsForm(data.value.files)
-        }
-    })  
     
-    const saveVersionsForm = (versions: IFile[]) => {
+    const saveVersionsForm = (versions: string) => {
         if(!creation || 'error' in creation) return;
 
         let newCreation = {
             ...creation
         }
-        newCreation.files = versions
+        newCreation.files = JSON.parse(versions)
         
-        newCreation.files.sort((a, b) => {
+        newCreation.files?.sort((a, b) => {
             return b.createdDate - a.createdDate
         })
 
@@ -52,15 +46,9 @@ export default function Versions({params}: {params: Params}) {
     }
 
     return <>
-        {/* <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(creation?.files)} onVersionsChanged={saveVersionsForm} />
-        <MainButton onClick={() => {router.push('/create/images')}}>{t('Create.next')}</MainButton> */}
-        <form onSubmit={(e) => {
-            e.preventDefault()
-            form.handleSubmit()
-        }} className="flex flex-col gap-4 max-w-2xl">
-            <form.Field name="files" children={(field) => (
-                // <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(creation?.files)} onVersionsChanged={saveVersionsForm} />
-            )} />
-        </form>
+        <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(creation.files)} onVersionsChanged={saveVersionsForm} />
+        <Button onClick={() => {
+            router.push(`/${params.locale}/create/images`)
+        }}><span>{t('Create.next')}</span></Button>
     </>
 }
