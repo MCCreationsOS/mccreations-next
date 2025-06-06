@@ -2,10 +2,10 @@
 
 import { getUser } from "@/app/api/auth";
 import { useToken, useUser } from "@/app/api/hooks/users";
-import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react";
+import { toast } from "sonner";
 import { mutate } from "swr";
 
 export default function OauthHandlerPage() {
@@ -258,17 +258,15 @@ export default function OauthHandlerPage() {
                 signInWithDiscord(code).then(data => {
                     router.push('/')
                 }).catch(error => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                        router.push('/')
-                    }))
+                    toast.error(<>{t('Pages.Auth.OAuth_Handler.error')}</>)
+                    router.push('/')
                 });
             } else {
                 addDiscordProvider(code).then(data => {
                     router.push('/')
                 }).catch(error => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                        router.push('/')
-                    }))
+                    toast.error(<>{t('Pages.Auth.OAuth_Handler.error')}</>)
+                    router.push('/')
                 });
             }
         } else if(provider === 'github') {
@@ -277,17 +275,15 @@ export default function OauthHandlerPage() {
                 signInWithGithub(code + "").then(data => {
                     router.push('/')
                 }).catch(error => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                        router.push("/")
-                    }))
+                    toast.error(<>{t('Pages.Auth.OAuth_Handler.error')}</>)
+                    router.push('/')
                 });
             } else {
                 addGithubProvider(code + "").then(data => {
                     router.push('/')
                 }).catch(error => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                        router.push("/")
-                    }))
+                    toast.error(<>{t('Pages.Auth.OAuth_Handler.error')}</>)
+                    router.push('/')
                 });
             }
         } else if(provider === 'google') {
@@ -302,17 +298,15 @@ export default function OauthHandlerPage() {
                     signInWithGoogle(params.access_token).then(data => {
                         router.push('/')
                     }).catch(error => {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                            router.push("/")
-                        }))
+                        toast.error(<>{t('Pages.Auth.OAuth_Handler.error')}</>)
+                        router.push('/')
                     });
                 } else {
                     addGoogleProvider(params.access_token).then(data => {
                         router.push('/')
                     }).catch(error => {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                            router.push("/")
-                        }))
+                        toast.error(<>{t('Pages.Auth.OAuth_Handler.error')}</>)
+                        router.push('/')
                     });
                 }
             } else {
@@ -324,17 +318,15 @@ export default function OauthHandlerPage() {
                 signInWithMicrosoft(code).then(data => {
                     router.push('/')
                 }).catch(error => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                        router.push("/")
-                    }))
+                    toast.error(<>{t('Pages.Auth.OAuth_Handler.error')}</>)
+                    router.push('/')
                 });
             } else {
                 addMicrosoftProvider(code).then(data => {
                     router.push('/')
                 }).catch(error => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Auth.OAuth.PopupMessage.error'), () => {
-                        router.push("/")
-                    }))
+                    toast.error(<>{t('Pages.Auth.OAuth_Handler.error')}</>)
+                    router.push('/')
                 });
             }
         } else {
@@ -351,7 +343,7 @@ export default function OauthHandlerPage() {
         <>
             <div className="popup_page">
                 <div className="popup centered_content small">
-                    {t('Auth.OAuth.loading')}
+                    {t('Pages.Auth.OAuth_Handler.loading')}
                 </div>
             </div>
         </>
