@@ -33,18 +33,18 @@ export async function generateMetadata({params}: {params: Params}) {
 
     if (MinecraftVersions.includes(criteria)) {
         return {
-            title: `Minecraft ${criteria} ${t(content_type, {count: 2})} | MCCreations`,
-            description: `Browse ${t(content_type, {count: 2})} for Minecraft ${criteria} on MCCreations`,
-            keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), t('Content.Metadata.Tags.minecraft_version', {minecraft_version: criteria})],
+            title: t('Pages.Content.[content_type].[criteria].title', {content_type: content_type, minecraft_version: criteria}),
+            description: t('Pages.Content.[content_type].[criteria].description', {content_type: content_type, minecraft_version: criteria}),
+            keywords: [t('Pages.Content.[content_type].[criteria].Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.[content_type].[criteria].Keywords.games'), t('Pages.Content.[content_type].[criteria].Keywords.gaming'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_map'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_creations'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_version', {minecraft_version: criteria})],
             publisher: "MCCreations",
         }
     }
 
     if (AllTags.includes(criteria)) {
         return {
-            title: `${t(`Creation.Tags.${criteria}`)} ${t(content_type, {count: 2})} | MCCreations`,
-            description: `Browse ${criteria} ${t(content_type, {count: 2})}s on MCCreations`,
-            keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), t(`Creation.Tags.${criteria}`)],
+            title: t('Pages.Content.[content_type].[criteria].title', {content_type: content_type, criteria: criteria}),
+            description: t('Pages.Content.[content_type].[criteria].description', {content_type: content_type, criteria: criteria}),
+            keywords: [t('Pages.Content.[content_type].[criteria].Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.[content_type].[criteria].Keywords.games'), t('Pages.Content.[content_type].[criteria].Keywords.gaming'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_map'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_creations'), t(`Creation.Tags.${criteria}`)],
             publisher: "MCCreations",
         }
     }
