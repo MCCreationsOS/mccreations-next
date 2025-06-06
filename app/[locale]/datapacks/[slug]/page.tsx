@@ -1,7 +1,6 @@
-import '../../styles/mapPage.css'
-import { searchContent, fetchDatapack } from '@/app/api/content';
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
-import { ICreator, IFile, IContentDoc, CollectionNames, Locales } from '@/app/api/types';
+import { fetchDatapack } from '@/app/api/content'
+import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
+import { ICreator, IContentDoc, CollectionNames } from '@/app/api/types'
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
 import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
