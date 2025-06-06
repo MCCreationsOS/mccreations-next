@@ -1,6 +1,6 @@
 import { convertToCollection, searchContent } from "@/app/api/content";
 import { AllTags, ContentTypes, MinecraftVersions, SortOptions, StatusOptions } from "@/app/api/types";
-import ContentSearchPage from "@/components/Content/Search/ContentSearchPage";
+import ContentSearchPage from "@/components/Creations/Search/ContentSearchPage";
 import { unstable_setRequestLocale } from "next-intl/server";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { Suspense } from "react";
@@ -28,6 +28,10 @@ export default async function Page({params}: {params: Params}) {
         status = StatusOptions.Approved
         include = criteria
         search = ""
+    }
+    
+    if(search === "") {
+        search = criteria
     }
     
     switch (criteria) {
@@ -75,9 +79,6 @@ export default async function Page({params}: {params: Params}) {
             break
     }
 
-    if(search === "") {
-        search = criteria
-    }
 
     // defaultContent = (await searchContent({contentType: convertToCollection(contentType), sort: sort, status: status, includeTags: include, excludeTags: "", limit: 20, page: 0}, false)).documents
     
