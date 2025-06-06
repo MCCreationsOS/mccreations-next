@@ -1,7 +1,4 @@
 {
-    "_id": {
-        "$oid": "67254c06fbd562c74b56caea"
-    },
     "language_name": "English",
     "language_code": "en-US",
     "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
@@ -10,6 +7,37 @@
     "creator": "{count, plural, =0 {Creators} =1 {Creator} other {Creators}}",
     "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
     "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
+    "Pages": {
+        "Auth": {
+            "OAuth_Handler": {
+                "error": "There was an error communicating with our API. Please report this with the link above",
+                "loading": "Signing you in!"
+            }
+        },
+        "Comments": {
+            "[_id]": {
+                "loading": "Loading Comment..."
+            }
+        },
+        "Content": {
+            "[content_type]": {
+                "[criteria]": {
+                    "title": "Browse and Search for Minecraft {content_type}",
+                    "blurb": "Find amazing new Minecraft {content_type} for your next adventure!",
+                    "description": "Minecraft {content_type} are custom worlds created by players or developers that offer unique experiences beyond the standard game. These {content_type} can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced {content_type}-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft {content_type} have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players.",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Map",
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}"
+                    }
+                }
+            }
+        }
+        
+    },
     "Creations": {
         "Search": {
             "SearchPage": {

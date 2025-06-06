@@ -57,7 +57,9 @@ export default async function ContentSearchPage({searchParams, collectionName, p
                     <h2>{t('Content.maps_not_found')}</h2>
                 </div>
             )}
-            <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
+            <div className="relative">
+                <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
+            </div>
         </div>
     )
 }
