@@ -1,5 +1,4 @@
 import { IUser } from "@/app/api/types";
-import { ProfileLayout } from "@/components/Profile/CustomizableProfileArea";
 
 export async function getUser(authorization?: string) {
     if(authorization) {
@@ -54,7 +53,7 @@ export async function deleteUser(authorization: string) {
 
 // export async function 
 
-export async function updateProfile(authorization: string, banner?: string, icon?: string, username?: string, about?: string) {
+export async function updateProfile(authorization: string, banner?: string, icon?: string, username?: string, about?: string, customCss?: string) {
     try {
         fetch(`${process.env.DATA_URL}/user/updateProfile`, {
             method: 'POST',
@@ -66,7 +65,8 @@ export async function updateProfile(authorization: string, banner?: string, icon
                 banner: banner,
                 icon: icon,
                 username: username,
-                about: about
+                about: about,
+                customCSS: customCss
             }),
             cache: 'no-store'
         })
@@ -75,21 +75,37 @@ export async function updateProfile(authorization: string, banner?: string, icon
     }
 }
 
-export async function updateProfileLayout(authorization: string, layout: ProfileLayout) {
+export async function updateSocialLinks(authorization: string, socialLinks: {link: string, name: string}[]) {
     try {
-        fetch(`${process.env.DATA_URL}/user/updateProfileLayout`, {
+        fetch(`${process.env.DATA_URL}/user/updateSocialLinks`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': authorization
             },
-            body: JSON.stringify({profileLayout: layout}),
+            body: JSON.stringify({links: socialLinks}),
             cache: 'no-store'
         })
     } catch(e) {
         console.error(e)
     }
 }
+
+// export async function updateProfileLayout(authorization: string, layout: ProfileLayout) {
+//     try {
+//         fetch(`${process.env.DATA_URL}/user/updateProfileLayout`, {
+//             method: 'POST',
+//             headers: {
+//                 'Content-Type': 'application/json',
+//                 'Authorization': authorization
+//             },
+//             body: JSON.stringify({profileLayout: layout}),
+//             cache: 'no-store'
+//         })
+//     } catch(e) {
+//         console.error(e)
+//     }
+// }
 
 export async function sendPasswordResetEmail(email: string) {
     try {

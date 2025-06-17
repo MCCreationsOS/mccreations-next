@@ -37,7 +37,7 @@ import {useTranslations} from 'next-intl';
 import { useForm } from '@tanstack/react-form';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import ImageDropzone from '../old/FormInputs/ImageDropzone/ImageDropzone';
+import ImageDropzone from '../ImageDropzone';
 
 export type InsertImagePayload = Readonly<ImagePayload>;
 

@@ -6,7 +6,7 @@ import FormComponent from "@/components/Form/Form";
 import { Edit } from "lucide-react"
 import styles from './ProfileStyle.module.css'
 import { updateProfile } from "@/app/api/auth";
-import ImageInput from "../FormInputs/ImageDropzone";
+import ImageInput from "../../ImageDropzone";
 import { PopupMessage, PopupMessageType } from "../PopupMessage/PopupMessage";
 import {useTranslations} from 'next-intl';
 import { useToken, useUser } from "@/app/api/hooks/users";

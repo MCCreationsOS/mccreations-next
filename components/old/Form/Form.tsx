@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react";
-import ImageDropzone, { UploadedImageRepresentation } from "../FormInputs/ImageDropzone/ImageDropzone";
+import ImageDropzone, { UploadedImageRepresentation } from "../../ImageDropzone";
 import styles from './Form.module.css'
 import CreatorSelector from "../FormInputs/CreatorSelector/CreatorSelector";
 import FileDropzone from "../../VersionManager/FileUpload";

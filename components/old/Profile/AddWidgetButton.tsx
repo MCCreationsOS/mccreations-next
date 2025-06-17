@@ -10,7 +10,7 @@ import Text from "../FormInputs/Text";
 import Select from "../FormInputs/Select";
 import { ProfileWidgetType } from "./CustomizableProfileArea";
 import RichTextInput from "../FormInputs/RichText";
-import ImageInput from "../FormInputs/ImageDropzone";
+import ImageInput from "../../ImageDropzone";
 import { FormInput } from "../FormInputs";
 import { useProfileLayoutStore } from "@/app/api/creators";
 import { useToken, useUser } from "@/app/api/hooks/users";

@@ -7,9 +7,9 @@ import { FileRejection, useDropzone } from 'react-dropzone'
 import { UploadCloud } from 'lucide-react'
 import styles from './ImageDropzone.module.css'
 import upload from '@/app/api/upload'
-import { PopupMessage, PopupMessageType } from '../../PopupMessage/PopupMessage'
 import { useTranslations } from 'next-intl'
 import { useToken } from '@/app/api/hooks/users'
+import { toast } from 'sonner'
 
 /**
  * The representation of an uploaded image
@@ -40,7 +40,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
             upload(acceptedFiles, token).then(uploadedFiles => {
                 if(files) {
                     files.forEach(uploadedFile => {
-                        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', {file: uploadedFile.name})))
+                        toast.success(t('Form.Shared.uploaded', {file: uploadedFile.name}))
                     })
 
                     if(allowMultiple) {
@@ -89,7 +89,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                             break;
                     }
                 })
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, message))
+                toast.error(message)
             })
         }
     }, [])
@@ -109,6 +109,9 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
             if(files && files.length > 0) {
                 setFiles(files);
             }
+        }
+        if(presetImage) {
+            setFiles([{url: presetImage, name: presetImage}])
         }
     }, [])
 

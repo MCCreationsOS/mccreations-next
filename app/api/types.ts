@@ -1,4 +1,3 @@
-import { ProfileLayout } from "@/components/Profile/CustomizableProfileArea";
 
 /** 
  * All sort options supported by the API
@@ -216,10 +215,11 @@ export interface IUser {
         link: string,
         name: string
     }]
-    profileLayout?: ProfileLayout,
+    // profileLayout?: ProfileLayout,
     settings?: CreatorSettings,
     followers?: string[],
-    following?: string[]
+    following?: string[],
+    customCSS?: string
 }
 
 export interface CreatorSettings {

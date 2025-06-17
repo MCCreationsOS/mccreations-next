@@ -21,5 +21,5 @@ export default function SubscribeButton({handle}: {handle: string}) {
 
     if(user?.handle === handle) return null
     if(user?.following?.includes(handle)) return <Button variant="secondary" onClick={handleUnsubscribe}>{t('Profile.unfollow')}</Button>
-    return <Button onClick={handleSubscribe}>{t('Profile.follow')}</Button>
+    return <Button onClick={handleSubscribe}><span>{t('Profile.follow')}</span></Button>
 }

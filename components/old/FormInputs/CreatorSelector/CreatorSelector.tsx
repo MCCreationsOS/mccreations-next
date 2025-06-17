@@ -6,7 +6,7 @@ import { Plus } from "lucide-react"
 import { Popup } from "../../Popup/Popup"
 import FormComponent from "../../Form/Form"
 import Text from "../Text"
-import ImageInput from "../ImageDropzone"
+import ImageInput from "../../../ImageDropzone"
 import {useTranslations} from 'next-intl';
 import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import { FormInput } from ".."
