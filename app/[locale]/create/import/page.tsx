@@ -3,15 +3,17 @@
 import { createEmptyCreation, importContent } from "@/app/api/content"
 import { useToken } from "@/app/api/hooks/users"
 import { IContentDoc } from "@/app/api/types"
-import FormComponent from "@/components/Form/Form"
-import Select from "@/components/FormInputs/Select"
-import Text from '@/components/FormInputs/Text'
-import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
 import { useTranslations } from "next-intl"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useSessionStorage } from "usehooks-ts"
 import styles from "../create.module.css"
+import { toast } from "sonner"
+import { useForm } from "@tanstack/react-form"
+import { Input } from "@/components/ui/input"
+import { Select, SelectValue, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select"
+import { Button } from "@/components/ui/button"
+import { ChevronRight } from "lucide-react"
 
 export default function Import() {
     const [importing, setImporting] = useState<boolean>(false)
@@ -22,6 +24,15 @@ export default function Import() {
     const [creation, setCreation] = useSessionStorage<IContentDoc>('tempCreation', createEmptyCreation())
     const router = useRouter()
     const t = useTranslations();
+    const form = useForm({
+        defaultValues: {
+            link: "",
+            type: "Maps"
+        },
+        onSubmit: async (values) => {
+            await onMapImport(values.value.link, values.value.type)
+        }
+    })
 
 
     const onMapImport = async (link?: string, type?: string) => {
@@ -30,7 +41,7 @@ export default function Import() {
             setMessage(t('Create.Import.importing'))
             let res = await importContent(link, type, token)
             if(typeof res === 'object' && 'error' in res) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, res.error))
+                toast.error(res.error)
                 setImporting(false)
             } else {
                 const decoder = new TextDecoder()
@@ -46,7 +57,7 @@ export default function Import() {
                                 setProgress(json.data.progress)
                                 break
                             case 'error':
-                                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, json.data))
+                                toast.error(json.data)
                                 setImporting(false)
                                 break
                             case 'complete':
@@ -68,13 +79,13 @@ export default function Import() {
                         processChunk(value)
                     }
                 } else {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Create.Import.Importing.error')))
+                    toast.error(t('Create.Import.Importing.error'))
                     setImporting(false)
                 }
             }
 
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Navigation.ImportForm.missing_link')))
+            toast.error(t('Navigation.ImportForm.missing_link'))
         }
 
 
@@ -87,13 +98,36 @@ export default function Import() {
                 <progress className={styles.progress} value={progress} max={100} />
             </div>
         </div>}
-        {!importing && <FormComponent id={"importForm"}
-        onSave={(inputs) => {
-            onMapImport(inputs[1], inputs[0])
-        }}  options={{saveButtonContent:t('Create.next')}}>
+        {!importing && <form onSubmit={e => {
+            e.preventDefault()
+            e.stopPropagation()
+            form.handleSubmit()
+        }}  className="flex flex-col gap-4 max-w-2xl">
+            <form.Field name="link" children={(field) => <Input type="text" defaultValue={field.state.value} onChange={(e) => {
+                field.handleChange(e.target.value)
+            }} placeholder={t('Pages.Create.Import.link_placeholder')} />} />
+            <form.Field name="type" children={(field) => <Select defaultValue={field.state.value} onValueChange={(value) => {
+                field.handleChange(value)
+            }}>
+                <SelectTrigger>
+                    <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value="Maps">{t('map', { count: 1 })}</SelectItem>
+                    <SelectItem value="datapacks">{t('datapack', {count: 1})}</SelectItem>
+                    <SelectItem value="resourcepacks">{t('resourcepack', {count: 1})}</SelectItem>
+                </SelectContent>
+            </Select>} />
+            <Button type="submit"><span>{t('Pages.Create.next')}</span><ChevronRight/></Button>
+        </form>}
+        {// <FormComponent id={"importForm"}
+        // onSave={(inputs) => {
+        //     onMapImport(inputs[1], inputs[0])
+        // }}  options={{saveButtonContent:t('Create.next')}}>
 
-            <Select name={t('Navigation.ImportForm.type')} defaultValue="Maps" options={[{name: t('map', { count: 1 }), value: 'Maps'}, {name: t('datapack', {count: 1}), value: "datapacks"}, {name: t('resourcepack', {count: 1}), value: 'resourcepacks'}]} />
-            <Text type="text" name={t('Navigation.ImportForm.link')} placeholder={t('Navigation.ImportForm.link_placeholder')} description={t('Create.Import.Link.description')} />
-        </FormComponent>}
+        //     <Select name={t('Navigation.ImportForm.type')} defaultValue="Maps" options={[{name: t('map', { count: 1 }), value: 'Maps'}, {name: t('datapack', {count: 1}), value: "datapacks"}, {name: t('resourcepack', {count: 1}), value: 'resourcepacks'}]} />
+        //     <Text type="text" name={t('Navigation.ImportForm.link')} placeholder={t('Navigation.ImportForm.link_placeholder')} description={t('Create.Import.Link.description')} />
+        // </FormComponent>
+        }
     </>
 }

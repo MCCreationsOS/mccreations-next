@@ -155,13 +155,13 @@ export default function CreateBasicInfo() {
         form.handleSubmit()
     }} className="flex flex-col gap-4 max-w-2xl">
         <form.Field name="slug" children={(field) => (
-            <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Slug" />
+            <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.Create.Details.slug')} />
         )} />
         {/* <form.Field name="creators" children={(field) => (
             // <CreatorSelector value={field.state.value} />
         )} /> */}
         <form.Field name="videoUrl" children={(field) => (
-            <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Video URL" />
+            <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.Create.Details.video_url')} />
         )} />
         <form.Field name="description" children={(field) => (
             <RichText sendOnChange={(v) => {field.handleChange(v)}} initialValue={field.state.value} />
@@ -169,7 +169,7 @@ export default function CreateBasicInfo() {
         <form.Field name="tags" children={(field) => (
             <TagInput tags={tags} creation={creation} onChange={field.handleChange} />
         )} />
-        <Button type="submit" className="w-fit"><span>{t('Create.next')}</span><ChevronRight/></Button>
+        <Button type="submit" className="w-fit"><span>{t('Pages.Create.next')}</span><ChevronRight/></Button>
     </form>
     // return <FormComponent id="general" onSave={saveGeneralForm} options={{saveButtonContent: t('Create.next')}}> 
     //             {/* <Text type="text" name={t('Content.Edit.title')} description={t('Content.Edit.title_description')} value={creation?.title} /> */}
@@ -212,16 +212,16 @@ function TagInput({tags, creation, onChange}: {tags: Tags | {error: string}, cre
 
     return <Popover onOpenChange={setShowSuggestions} open={showSuggestions}>
             <PopoverTrigger asChild>
-                <div className="flex flex-row gap-2 px-2 py-1 border">
-                    <Label className="text-md font-medium">{tagInput.split(',').map(tag => {
-                        if(tag.length === 0) return null;
-                        return <Button type="button" variant="ghost" key={tag} className="text-sm border py-0 px-2" onClick={() => {removeTag(tag)}}>{t(`Creation.Tags.${tag as TagKeys}`)}</Button>
-                    })}</Label>
-                    <Input className="border-none" type="text" value={search} onChange={(e) => {setSearch(e.target.value); setShowSuggestions(true)}} onKeyDown={(e) => {
+                <div className="flex flex-row gap-2 px-2 py-1 border overflow-auto">
+                    <Input className="border-none min-w-[100px]" type="text" value={search} onChange={(e) => {setSearch(e.target.value); setShowSuggestions(true)}} onKeyDown={(e) => {
                         if(e.key === 'Enter') {
                             addTag(bestSuggestion)
                         }
                     }} placeholder="Start typing to search for tags..." />
+                    <Label className="text-md font-medium">{tagInput.split(',').map(tag => {
+                        if(tag.length === 0) return null;
+                        return <Button type="button" variant="ghost" key={tag} className="text-sm border py-0 px-2" onClick={() => {removeTag(tag)}}>{t(`Creation.Tags.${tag as TagKeys}`)}</Button>
+                    })}</Label>
                 </div>
             </PopoverTrigger>
             <PopoverContent onOpenAutoFocus={(e) => {e.preventDefault()}} className="max-h-[25vh] overflow-y-auto">

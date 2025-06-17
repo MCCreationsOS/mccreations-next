@@ -57,12 +57,12 @@ export default function CreateBasicInfo() {
             form.handleSubmit()
         }} className="flex flex-col gap-4 max-w-2xl">
             <form.Field name="title" children={(field) => (
-                <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Title" />
+                <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.Create.BasicInfo.title')} />
             )} />
             <form.Field name="type" children={(field) => (
-                <Select name={t('Navigation.CreateForm.type')} defaultValue="map" value={field.state.value} onValueChange={(value) => {field.handleChange(value)}}>
+                <Select name="type" defaultValue="map" value={field.state.value} onValueChange={(value) => {field.handleChange(value)}}>
                     <SelectTrigger>
-                        <SelectValue placeholder={t('Navigation.CreateForm.type')} />
+                        <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                         <SelectItem value="map" className="hover:bg-white/40 cursor-pointer">{t('map', { count: 1 })}</SelectItem>
@@ -72,9 +72,9 @@ export default function CreateBasicInfo() {
                 </Select>
             )} />
             <form.Field name="shortDescription" children={(field) => (
-                <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Short Description" />
+                <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.Create.BasicInfo.short_description')} />
             )} />
-            <Button type="submit" className="w-fit"><span>{t('Create.next')}</span><ChevronRight/></Button>
+            <Button type="submit" className="w-fit"><span>{t('Pages.Create.next')}</span><ChevronRight/></Button>
         </form>
         {/* <FormComponent id={"createForm"} onSave={(inputs) => {
             onMapCreate(inputs[0], inputs[1] as ContentTypes, inputs[2])

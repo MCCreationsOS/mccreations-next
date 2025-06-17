@@ -49,6 +49,6 @@ export default function Versions({params}: {params: Params}) {
         <VersionManager collectionName={collectionName} presetVersions={JSON.stringify(creation.files)} onVersionsChanged={saveVersionsForm} />
         <Button onClick={() => {
             router.push(`/${params.locale}/create/images`)
-        }}><span>{t('Create.next')}</span></Button>
+        }}><span>{t('Pages.Create.next')}</span></Button>
     </>
 }
