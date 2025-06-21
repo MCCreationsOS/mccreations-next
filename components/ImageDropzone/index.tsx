@@ -4,12 +4,14 @@ import { FilePreview } from '@/app/api/types'
 import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
-import { UploadCloud } from 'lucide-react'
+import { Plus, UploadCloud, X } from 'lucide-react'
 import styles from './ImageDropzone.module.css'
 import upload from '@/app/api/upload'
 import { useTranslations } from 'next-intl'
 import { useToken } from '@/app/api/hooks/users'
 import { toast } from 'sonner'
+import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from 'react-beautiful-dnd'
+import { Button } from '../ui/button'
 
 /**
  * The representation of an uploaded image
@@ -129,14 +131,28 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
         setRejected(files => files.filter(({ file }) => file.name !== name))
     }
 
+    const onDragEnd = useCallback((result: DropResult, provided: ResponderProvided) => {
+        if(result.destination?.index) {
+            moveFile(result.source.index, result.destination.index)
+        }
+      }, []);
+
+      const moveFile = (from: number, to: number) => {
+        setFiles(prevFiles => {
+            const newFiles = [...prevFiles]
+            newFiles.splice(to, 0, newFiles.splice(from, 1)[0])
+            return newFiles
+        })
+    }
+
     return (
-        <>
+        <div className='flex flex-col md:flex-row gap-4 w-[100%] overflow-auto'>
             <form>
-                <div {...getRootProps()}>
+                <div {...getRootProps()} className='max-w-[300px] h-[150px] w-fit min-w-[150px] mx-auto'>
                     <input {...getInputProps({ name: 'file' })} />
-                    <div className={styles.single_dropzone}>
-                        <Image className={styles.image_preview} src={(files[files.length - 1] && files[files.length - 1].url) ? files[files.length - 1].url : "/defaultBanner.png"} width={1920} height={1080} alt=''></Image>
-                        <div className={styles.image_overlay}>
+                    <div className="max-w-[300px] h-[150px] w-fit min-w-[150px] relative group">
+                        <Image className="object-cover hover:opacity-50 max-w-[300px] h-[150px] w-fit" src={(files[files.length - 1] && files[files.length - 1].url) ? files[files.length - 1].url : "/defaultBanner.png"} width={1920} height={1080} alt=''></Image>
+                        <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black/50 p-4">
                             <UploadCloud></UploadCloud>
                             {isDragActive ? (
                                 <span>{t('Form.Images.hovering_drop')}</span>
@@ -147,16 +163,41 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                     </div>
                 </div>
             </form>
-            {(allowMultiple) ? <div className={styles.uploaded_images}>
-                {files.map((file, idx) => {
-                    return (
-                        <div key={file.url} className={styles.uploaded_image_wrapper} onClick={(e) => {removeFile(file.name)}}>
-                            <Image className={styles.uploaded_image} src={(file.url) ? file.url : (presetImage) ? presetImage : ""} width={150} height={150} alt={`${file.url.substring(file.url.lastIndexOf('/') + 1)}`}></Image>
+            {(allowMultiple) ? 
+             <DragDropContext onDragEnd={onDragEnd}>
+                <Droppable droppableId="droppable" direction="horizontal">
+                {(provided, snapshot) => (
+                        <div ref={provided.innerRef} className="flex flex-row gap-2 overflow-auto flex-nowrap" {...provided.droppableProps}>
+                            {files.map((file, idx) =>
+                                (
+                                    <Draggable key={`image-${file.name.substring(file.name.lastIndexOf('/') + 1, file.name.length - 4)}`} draggableId={`image-${file.name.substring(file.name.lastIndexOf('/') + 1, file.name.length - 4)}`} index={idx}>
+                                        {(provided, snapshot) => (
+                                            <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
+                                                <GalleryImage url={file.url} name={file.name} removeFile={removeFile} />
+                                            </div>
+                                        )}
+                                    </Draggable>
+                                )
+                            )}
+                            {provided.placeholder}
                         </div>
-                    )
-                })}
-            </div> : <></>}
-        </>
+                    )}
+                </Droppable>
+                <input type='hidden' name='files' value={JSON.stringify(files)} />
+            </DragDropContext>
+            : <></>}
+        </div>
+    )
+}
+
+
+export function GalleryImage({url, name, removeFile}: {url: string, name: string, removeFile: (name: string) => void}) {
+    
+    return (
+        <div className="max-w-[300px] h-[150px] w-fit min-w-[150px] relative group">
+            <Image className="object-cover hover:opacity-50 max-w-[300px] h-[150px] w-fit" src={url} width={150} height={150} alt={`${url.substring(url.lastIndexOf('/') + 1)}`}></Image>
+            <Button className="absolute top-2 right-2 hidden group-hover:flex" variant="destructive" size="icon" onClick={() => removeFile(name)}><X className='w-4 h-4'/></Button>
+        </div>
     )
 }
 

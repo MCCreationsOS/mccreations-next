@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, } from "react"
+import { useEffect, useState, } from "react"
 import Image from "next/image"
 import { IUser, UserTypes } from "@/app/api/types"
 import { Bell, LogIn, LogOut, Settings, Table, User } from "lucide-react"
@@ -20,8 +20,8 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSepara
 export default function UserOptions() {
     const isClient = useIsClient()
     const {user, setUser, isLoading} = useUser()
-    const {notifications} = useNotifications(0)
     const {token, setToken} = useToken()
+    const [isOpen, setIsOpen] = useState(false)
     const router = useRouter();
     let t = useTranslations();
 
@@ -48,7 +48,7 @@ export default function UserOptions() {
     }
 
     if(!user || !user._id || user.username === "" || isLoading) {
-        return <DropdownMenu>
+        return <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
                 <Button variant="secondary" className="flex items-center gap-2">
                     <User className="h-5 w-5" />
@@ -58,7 +58,7 @@ export default function UserOptions() {
             <DropdownMenuContent>
                 <div className="border-2 border-white/15">
                     <DropdownMenuItem>
-                        <Link href="/signin">
+                        <Link href="/signin" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full">
                                 <LogIn /> {t("Menu.UserOptions.sign_in")}
                             </Button>
@@ -70,7 +70,7 @@ export default function UserOptions() {
     }
 
     return (
-        <DropdownMenu>
+        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
                 <Button variant="secondary" className="flex items-center gap-2">
                     <User className="h-5 w-5" />
@@ -80,49 +80,52 @@ export default function UserOptions() {
             <DropdownMenuContent>
                 <div className="border-2 border-white/15 p-0">
                     <DropdownMenuItem className="px-2 pt-2 pb-0">
-                        <Link href={`/creator/${user.handle}`} className="w-full flex items-center gap-2">
+                        <Link href={`/creator/${user.handle}`} className="w-full flex items-center gap-2" onClick={() => setIsOpen(false)}>
                             <Image className="icon rounded-full w-8 h-8 object-cover" src={(user.iconURL) ? user.iconURL : "/defaultLogo.png"} alt="User Icon" width={40} height={40}/>
                             <p className="display_name">{user.username}</p>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator></DropdownMenuSeparator>
                     <DropdownMenuItem className="p-0 justify-start">
-                        <Link href="/dashboard/notifications" className="w-full">
+                        <Link href="/dashboard/notifications" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
                                 <Bell /> {t("Menu.UserOptions.notifications")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="p-0 justify-start">
-                        <Link href={`/creator/${user.handle}`} className="w-full">
+                        <Link href={`/creator/${user.handle}`} className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
                                 <User /> {t('Menu.UserOptions.profile')}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="p-0 justify-start">
-                        <Link href="/dashboard" className="w-full">
+                        <Link href="/dashboard" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
                                 <Table /> {t("Menu.UserOptions.dashboard")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
                     {user.type === UserTypes.Admin && <DropdownMenuItem className="p-0 justify-start">
-                        <Link href="/admin_dashboard" className="w-full">
+                        <Link href="/admin_dashboard" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
                                 <Table /> {t("Menu.UserOptions.admin")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>}
                     <DropdownMenuItem className="p-0 justify-start">
-                        <Link href="/settings" className="w-full">
+                        <Link href="/settings" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
                                 <Settings /> {t("Menu.UserOptions.settings")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="p-0 justify-start">
-                        <Button variant="ghost" className="w-full justify-start" onClick={signOut}>
+                        <Button variant="ghost" className="w-full justify-start" onClick={() => {
+                            signOut()
+                            setIsOpen(false)
+                        }}>
                             <LogOut /> {t("Menu.UserOptions.sign_out")}
                         </Button>
                     </DropdownMenuItem>

@@ -186,7 +186,7 @@ export interface IFile {
     worldUrl?: string,
     resourceUrl?: string,
     dataUrl?: string,
-    minecraftVersion: string,
+    minecraftVersion: string | string[],
     contentVersion?: string
     changelog?: string,
     extraFiles?: NewFile[],

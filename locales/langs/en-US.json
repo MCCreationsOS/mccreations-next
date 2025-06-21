@@ -78,7 +78,9 @@
                 "unknown": "Importing from unknown host",
                 "MinecraftMaps": "Importing from Minecraft Maps",
                 "Modrinth": "Importing from Modrinth",
-                "link_placeholder": "Link to import from"
+                "link_placeholder": "Link to import from",
+                "link_description": "Link to the creation you want to import. This can be a link to a Planet Minecraft page, or a Modrinth page.",
+                "link_label": "Link"
             },
             "BasicInfo": {
                 "title": "Title",
@@ -88,11 +90,80 @@
             "Details": {
                 "title": "Details",
                 "slug": "Slug",
+                "creators": "Creators",
                 "video_url": "Video URL",
-                "description": "Description"
+                "description": "Description",
+                "tags": "Tags"
+            }
+        },
+        "Datapacks": {
+            "[slug]": {
+                "Metadata": {
+                    "not_found_title": "Data Pack Not Found",
+                    "not_found_description": "This data pack does not exist on MCCreations",
+                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_datapack": "Minecraft Data Pack",
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "Mods",
+                        "minecraft_mods": "Minecraft Mods",
+                        "minecraft_but": "Minecraft But",
+                        "minecraft_survival": "Minecraft Survival"
+                    }
+                }
+            }
+        },
+        "Maps": {
+            "[slug]": {
+                "Metadata": {
+                    "not_found_title": "Map Not Found",
+                    "not_found_description": "This map does not exist on MCCreations",
+                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Map",
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "maps": "Maps",
+                        "minecraft_games": "Minecraft Games",
+                        "download": "Free Minecraft Maps",
+                        "minecraft_adventure": "Minecraft Adventure",
+                        "minecraft_parkour": "Minecraft Parkour",
+                        "minecraft_pvp": "Minecraft PvP",
+                        "minecraft_skyblock": "Minecraft Skyblock",
+                        "minecraft_survival": "Minecraft Survival",
+                        "minecraft_creative": "Minecraft Creative",
+                        "minecraft_minigames": "Minecraft Minigames"
+                    }
+                }
+            }
+        },
+        "Resourcepacks": {
+            "[slug]": {
+                "Metadata": {
+                    "not_found_title": "Resource Pack Not Found",
+                    "not_found_description": "This resource pack does not exist on MCCreations",
+                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_resourcepack": "Minecraft Resource Pack",
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "Mods",
+                        "minecraft_mods": "Minecraft Mods",
+                        "minecraft_hd": "Minecraft HD"
+                    }
+                }
             }
         }
-        
     },
     "Creations": {
         "Search": {
@@ -466,11 +537,11 @@
     "error": "Error",
     "events": "Events",
     "VersionManager": {
-        "title": "Version Manager",
-        "add_version": "Add Version",
+        "title": "Files",
+        "add_version": "Upload File",
         "Version": {
-            "back_to_versions": "Back to Versions",
-            "edit": "Edit Version",
+            "back_to_versions": "Back to Files",
+            "edit": "Edit File",
             "version_number": "Version Number",
             "minecraft_version": "Minecraft Version",
             "Bedrock": "Bedrock",
@@ -485,7 +556,7 @@
                 "required_description": "Causes this file to be automatically downloaded with the main file",
                 "upload_file": "Upload File"
             },
-            "save": "Save Version",
+            "save": "Save File",
             "cancel": "Cancel",
             "delete": "Delete",
             "add_file": "Add File",

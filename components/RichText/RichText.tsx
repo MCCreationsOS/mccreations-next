@@ -79,6 +79,7 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
       editor.update(() => {
         try {
           if(html.length === 0) return;
+          console.log(html)
           const parser = new DOMParser();
           const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
           
@@ -91,7 +92,7 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
           console.error(e);
         }
       });
-    }, [])
+    }, [html])
     return <></>;
 }
 

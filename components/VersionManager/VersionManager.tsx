@@ -12,6 +12,8 @@ import { useForm } from "@tanstack/react-form"
 import FileDropzone from "./FileUpload"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
+import { getMinecraftVersions } from "@/app/api/minecraftVersions"
 
 export default function VersionManager({ onVersionsChanged, collectionName, presetVersions }: { onVersionsChanged: (versions: string) => void, collectionName: CollectionNames, presetVersions?: string }) {
     const [versions, setVersions] = useState<IFile[]>([])
@@ -31,7 +33,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
     const editForm = useForm({
         defaultValues: {
             contentVersion: "",
-            minecraftVersion: "",
+            minecraftVersion: [] as string[],
             bedrock: false,
             url: ""
         },
@@ -50,20 +52,17 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
         if (presetVersions) {
             setVersions(JSON.parse(presetVersions))
         }
-        if(versions.length === 0) {
-            setAddVersionDialogOpen(true)
-        }
         setLoaded(true)
     }, [])
 
     useEffect(() => {
         setIdx(versions.indexOf(renderVersion!))
         editForm.setFieldValue("contentVersion", renderVersion?.contentVersion || "")
-        editForm.setFieldValue("minecraftVersion", renderVersion?.minecraftVersion || "")
+        editForm.setFieldValue("minecraftVersion", typeof renderVersion?.minecraftVersion === "string" ? [renderVersion.minecraftVersion] : renderVersion?.minecraftVersion || [])
         editForm.setFieldValue("url", renderVersion?.url || "")
     }, [renderVersion])
 
-    const saveVersion = (contentVersion: string, minecraftVersion: string, bedrock: boolean, url: string) => {
+    const saveVersion = (contentVersion: string, minecraftVersion: string | string[], bedrock: boolean, url: string) => {
         let v: IFile = { ...renderVersion! };
         v.contentVersion = contentVersion
         v.minecraftVersion = minecraftVersion
@@ -124,7 +123,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
 
     if (renderVersion) {
         return <div className="flex flex-col gap-4">
-                <h2 className="text-2xl font-bold">{t('VersionManager.Version.edit', {version: renderVersion.contentVersion})}</h2>
+                <Label>{t('VersionManager.Version.edit', {version: renderVersion.contentVersion})}</Label>
                 <Button variant="secondary" onClick={() => {setRenderVersion(undefined)}} className="w-fit"><ArrowLeft /><span>{t('VersionManager.Version.back_to_versions')}</span></Button>
                 <form onSubmit={e => {
                     e.preventDefault()
@@ -141,7 +140,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                     <editForm.Field name="minecraftVersion" children={(field) => (
                         <div className="flex flex-col gap-2">
                             <Label htmlFor={field.name}>{t('VersionManager.Version.minecraft_version')}</Label>
-                            <Input id={field.name} name={field.name} defaultValue={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+                            <MinecraftVersionInput version={renderVersion} onChange={(v) => field.handleChange(v.split(","))} />
                             {!field.state.meta.isValid && <p className="text-red-500">{field.state.meta.errors.join(", ")}</p>}
                         </div>
                     )}/>
@@ -170,8 +169,17 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
 
     return (
         <div>
-            <h2 className="text-2xl font-bold mb-2">{t('VersionManager.title')}</h2>
+            <Label className="mb-2">{t('VersionManager.title')}</Label>
             <div className="flex flex-col gap-2">
+                <div className="flex flex-row flex-wrap gap-2">
+                    {versions && versions.map((version, idx) => {
+                        return (
+                            <Button variant="secondary" key={`version_${version.createdDate}`} onClick={() => {
+                                setRenderVersion(version)
+                            }}><span>{version.contentVersion}</span>  <Edit /></Button>
+                        )
+                    })}
+                </div>
                 <div>
                     <Dialog open={addVersionDialogOpen} onOpenChange={setAddVersionDialogOpen}>
                         <DialogTrigger><Button variant="secondary" type="button"><span>{t('VersionManager.add_version')}</span></Button></DialogTrigger>
@@ -198,15 +206,6 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                         </DialogContent>
                     </Dialog>
                 </div>
-                <div className="flex flex-row flex-wrap gap-2">
-                    {versions && versions.map((version, idx) => {
-                        return (
-                            <Button variant="secondary" key={`version_${version.createdDate}`} onClick={() => {
-                                setRenderVersion(version)
-                            }}><span>{version.contentVersion}</span>  <Edit /></Button>
-                        )
-                    })}
-                </div>
             </div>
         </div>
     )
@@ -214,4 +213,133 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
 
 export function isBedrockType(type: string) {
     return type === "bedrock_map" || type === 'bedrock_resourcepack' || type === "addon" || type === "behavior_pack"
+}
+
+function MinecraftVersionInput({
+    version,
+    onChange,
+}: {
+    version: IFile;
+    onChange: (version: string) => void;
+}) {
+    const [versionInput, setVersionInput] = useState(typeof version.minecraftVersion === "string" ? version.minecraftVersion : version.minecraftVersion.join(","));
+    const [search, setSearch] = useState("");
+    const [bestSuggestion, setBestSuggestion] = useState("");
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const t = useTranslations();
+
+    const addTag = (tag: string) => {
+        if (versionInput.split(",").includes(tag)) return;
+        if (tag.length < 2) return;
+        setVersionInput(versionInput + "," + tag);
+        setSearch("");
+        onChange(versionInput);
+    };
+
+    const removeTag = (tag: string) => {
+        setVersionInput(versionInput.replace("," + tag, ""));
+        onChange(versionInput);
+    };
+
+    return (
+        <Popover onOpenChange={setShowSuggestions} open={showSuggestions}>
+            <PopoverTrigger asChild>
+                <div className="flex flex-row gap-2 px-2 py-1 border overflow-auto">
+                    <Input
+                        className="border-none min-w-[100px]"
+                        type="text"
+                        value={search}
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                            setShowSuggestions(true);
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                addTag(bestSuggestion);
+                            }
+                        }}
+                        placeholder="Start typing to search for versions..."
+                    />
+                    <Label className="text-md font-medium">
+                        {versionInput.split(",").map((version) => {
+                            if (version.length === 0) return null;
+                            return (
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    key={version}
+                                    className="text-sm border py-0 px-2"
+                                    onClick={() => {
+                                        removeTag(version);
+                                    }}
+                                >
+                                    {version}
+                                </Button>
+                            );
+                        })}
+                    </Label>
+                </div>
+            </PopoverTrigger>
+            <PopoverContent
+                onOpenAutoFocus={(e) => {
+                    e.preventDefault();
+                }}
+                className="max-h-[25vh] overflow-y-auto"
+            >
+                <div className="flex flex-col gap-2">
+                    <VersionSearch
+                        search={search}
+                        onSelect={addTag}
+                        onBestSuggestionChanged={setBestSuggestion}
+                    />
+                </div>
+            </PopoverContent>
+        </Popover>
+    );
+}
+
+function VersionSearch({
+    search,
+    onBestSuggestionChanged,
+    onSelect,
+}: {
+    search: string;
+    onBestSuggestionChanged: (tag: string) => void;
+    onSelect: (tag: string) => void;
+}) {
+    const t = useTranslations();
+    const [versions, setVersions] = useState<string[]>([])
+
+    useEffect(() => {
+        getMinecraftVersions(search, ["release", "snapshot"]).then((versions) => {
+            setVersions(versions.documents.map((v: any) => v.id))
+        })
+    }, [search])
+
+    return (
+        <div className="flex flex-wrap gap-2 border-2 border-white/15 p-1">
+            {versions
+                .filter((version) =>
+                    version.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((version, index) => {
+                    if (index === 0) {
+                        onBestSuggestionChanged(version);
+                    }
+                    return (
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            key={version}
+                            className="text-sm border py-0 px-2"
+                            onClick={() => {
+                                onSelect(version);
+                            }}
+                        >
+                            {version}
+                        </Button>
+                    );
+                })}
+        </div>
+    );
 }
