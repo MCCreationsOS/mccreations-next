@@ -11,7 +11,7 @@ export default function RecommendedCreations({creation}: {creation: IContentDoc}
     return (
         <div>
             <h2>Other {t(`Creation.Tags.${tag}`)} Creations</h2>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-2xs">
                 {creations.slice(0, 3).map(creation => <CreationCard creation={creation} key={creation._id} playlist="" index={0} priority={false}/>)}
             </div>
         </div>

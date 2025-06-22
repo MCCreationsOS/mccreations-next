@@ -5,19 +5,9 @@ import { useCreation } from "@/app/api/hooks/creations"
 import { ContentTypes, Locales, Translation, UserTypes } from "@/app/api/types"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useTranslations } from "next-intl"
-import SecondaryButton from "@/components/Buttons/SecondaryButton"
-import { Popup } from "@/components/Popup/Popup"
-import FormComponent from "@/components/Form/Form"
 import { mutate } from "swr"
-import Select from "@/components/FormInputs/Select"
-import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
-import WarningButton from "@/components/Buttons/WarningButton"
 import Link from "next/link"
 import styles from "../edit.module.css"
-import { FormInput } from "@/components/FormInputs"
-import Text from "@/components/FormInputs/Text"
-import RichTextInput from "@/components/FormInputs/RichText"
-import Checkbox from "@/components/FormInputs/Checkbox"
 import { useUser } from "@/app/api/hooks/users"
 import { useRouter } from "next/navigation"
 
@@ -47,7 +37,7 @@ export default function Translations({params}: {params: Params}) {
         </div>
     }
     return <>
-            <SecondaryButton onClick={() => {
+            {/* <SecondaryButton onClick={() => {
                 Popup.createPopup({title: t('Content.Edit.add_translation'), content: <FormComponent id="add_translation" onSave={(inputs) => {
                     let newCreation = {
                         ...creation
@@ -106,7 +96,6 @@ export default function Translations({params}: {params: Params}) {
                     <RichTextInput id={`edit_translation_${lang}`} name={t('Content.Edit.description')} value={creation.translations![lang].description}/>
                     <Checkbox name={t('Content.Edit.translation_approved')} value={`${creation.translations![lang].approved}`}/>
                 </FormComponent></div>
-            })}
-            </div>
+            })} */}
         </>
 }

@@ -117,6 +117,75 @@
                 }
             }
         },
+        "Edit": {
+            "Warnings": {
+                "title_too_short": {
+                    "title": "Title Too Short",
+                    "description": "The title must be at least 3 characters long"
+                },
+                "short_description_too_short": {
+                    "title": "Short Description Too Short",
+                    "description": "The short description must be at least 3 characters long"
+                },
+                "short_description_too_long": {
+                    "title": "Short Description Too Long",
+                    "description": "The short description must be less than 100 characters long"
+                },
+                "slug_too_short": {
+                    "title": "Slug Too Short",
+                    "description": "The slug must be at least 2 characters long"
+                },
+                "slug_too_long": {
+                    "title": "Slug Too Long",
+                    "description": "The slug must be less than 50 characters long"
+                },
+                "slug_invalid_characters": {
+                    "title": "Slug Invalid Characters",
+                    "description": "The slug can only include letters, numbers and _"
+                },
+                "creator_too_short": {
+                    "title": "Too Few Creators",
+                    "description": "The creation must have at least 1 creator"
+                },
+                "invalid_video_url": {
+                    "title": "Invalid Video URL",
+                    "description": "The video URL must be a valid YouTube URL"
+                },
+                "description_too_short": {
+                    "title": "Description Too Short",
+                    "description": "The description must be at least 10 characters long"
+                },
+                "tags_too_short": {
+                    "title": "Too Few Tags",
+                    "description": "The creation must have at least 1 tag"
+                }
+            },
+            "Messages": {
+                "translations_saved": "Translations saved successfully",
+                "general_saved": "Creation saved successfully"
+            },
+            "General": {
+                "tab_title": "General",
+                "title": "Title",
+                "slug": "Slug",
+                "short_description": "Short Description",
+                "creators": "Creators",
+                "video_url": "Video URL",
+                "description": "Description",
+                "tags": "Tags",
+                "files": "Files",
+                "images": "Images",
+                "save": "Save"
+            },
+            "Translations": {
+                "tab_title": "Translations",
+                "add_translation": "Add Translation",
+                "remove_translation": "Remove Translation",
+                "select_language": "Select a Language",
+                "approved": "Approved",
+                "save": "Save"
+            }
+        },
         "Maps": {
             "[slug]": {
                 "Metadata": {

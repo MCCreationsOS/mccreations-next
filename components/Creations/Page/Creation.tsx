@@ -49,8 +49,43 @@ export default function Creation({creation, collectionName}: {creation: IContent
         videoID = creation.videoUrl.substring(creation.videoUrl.lastIndexOf("/") + 1)
     }
 
+    let jsonLd = {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: creation.title,
+        applicationCategory: "Game",
+        operatingSystem: "Windows, macOS, Linux",
+        description: creation.shortDescription || creation.description.substring(0, 160),
+        datePublished: new Date(creation.createdDate).toISOString(),
+        dateModified: new Date(creation.updatedDate ?? creation.createdDate).toISOString(),
+        author: {
+          "@type": "Person",
+          name: creation.creators && creation.creators.length > 0 ? creation.creators[0].username : "Unknown",
+        },
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+          availability: "https://schema.org/InStock",
+        },
+        image: creation.images && creation.images.length > 0 ? creation.images[0] : undefined,
+        downloadUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/creations/${collectionName}/${creation.slug}/download`,
+      }
+
+      if(creation.rating > 0 && creation.ratings && creation.ratings.length > 0) {
+        // @ts-ignore
+        jsonLd.aggregateRating = {
+                "@type": "AggregateRating",
+                ratingValue: creation.rating.toFixed(1),
+                ratingCount: creation.ratings?.length || 0,
+                bestRating: "5",
+                worstRating: "1",
+        }
+      }
+
     return (
         <div>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
             <div className="w-full max-h-96 relative">
                 <div className="w-full max-h-96 object-cover object-center hidden md:block">
                     <Image className="w-full max-h-96 object-cover object-center opacity-20" width={1920} height={1080} src={creation.images[0]} alt=""></Image>
