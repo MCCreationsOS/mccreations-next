@@ -34,7 +34,7 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
         return (
             <div className='flex flex-row gap-2'>
                 <Link className="flex-1 flex flex-row gap-2 items-center" href={`/creator/${c.handle}`}>
-                    <Image src={c.iconURL ?? "/defaultLogo.png"} width={50} height={50} className="rounded-full w-9 h-9 object-cover" alt={t('Creator.logo_alt', {username: c.username})}></Image>
+                    <Image src={c.iconURL ?? "/defaultLogo.png"} width={50} height={50} className="rounded-full w-[50px] h-[50px] object-cover" alt={t('Creator.logo_alt', {username: c.username})}></Image>
                     <div>
                         {c.username}
                     </div>
