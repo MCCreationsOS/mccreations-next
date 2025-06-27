@@ -3,10 +3,10 @@ import { fetchDatapack, fetchMap } from "@/app/api/content"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import Image from "next/image"
 import styles from '../../leaderboard.module.css'
-import Rating from "@/components/Rating"
-import DownloadButton from "@/components/Buttons/DownloadButton"
 import Link from "next/link"
 import { getFormatter, getTranslations } from "next-intl/server"
+import DownloadButton from "@/components/ui/client_buttons/DownloadButton"
+import Rating from "@/components/Creations/Page/Rating"
 
 export default async function Page({params}: {params: Params}) {
     const t = await getTranslations();
@@ -52,7 +52,7 @@ export default async function Page({params}: {params: Params}) {
                         <h1 className={styles.title}>{creation?.title ?? title}</h1>
                         <div className='map_download_stack'>
                             {(creation?.files) ? <DownloadButton contentType={creation.type} slug={creation.slug} file={creation.files[0]} />: <></>}
-                            {creation && <Rating value={creation.rating} content={creation} />}
+                            {creation && <Rating value={creation.rating} currentRating={creation.rating} ratings={creation.ratings} onRate={() => {}} canChange={false} showCount={false} />}
                         </div>
                     </div>
                 </div>
@@ -75,7 +75,7 @@ export default async function Page({params}: {params: Params}) {
                         <Link href={(creation) ? `/${creation.type}s/${creation.slug}` : ""}><h1 className={styles.title}>{creation?.title ?? title}</h1></Link>
                             <div className='map_download_stack'>
                                 {(creation?.files) ? <DownloadButton contentType={creation.type} slug={creation.slug} file={creation.files[0]} />: <></>}
-                                {creation && <Rating value={creation.rating} content={creation} />}
+                                {creation && <Rating value={creation.rating} currentRating={creation.rating} ratings={creation.ratings} onRate={() => {}} canChange={false} showCount={false} />}
                             </div>
                         </div>
                     </div>
