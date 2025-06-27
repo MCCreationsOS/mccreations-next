@@ -2,87 +2,132 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { resetPassword } from "@/app/api/auth";
-import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage";
-import MainButton from "@/components/Buttons/MainButton";
 import {useTranslations} from 'next-intl';
-import PopupComponent from "@/components/Popup/Popup";
-import FormComponent from "@/components/Form/Form";
-import Text from "@/components/FormInputs/Text";
+import { toast } from "sonner";
+import { useForm } from "@tanstack/react-form";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 export default function Page() {
     const params = useSearchParams()
     const router = useRouter();
     const t = useTranslations()
+    const form = useForm({
+        defaultValues: {
+            password: "",
+            password2: ""
+        },
+        onSubmit: (values) => {
+            updatePassword(values.value.password, values.value.password2)
+        }
+    })
 
     let token: string | null
     
     token = params.get('token')
     if(!token) {
-        PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('ResetPassword.token_error'), () => {
-            router.back()
-        }))
+        toast.promise(
+            new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve(true)
+                }, 1000)
+            }),
+            {
+                loading: t('ResetPassword.token_error'),
+                success: () => {
+                    router.back()
+                    return null
+                }
+            }
+        )
         return;
     }
 
-    const updatePassword = async (inputs: string[]) => {
-        const password = inputs[0]
-        const password2 = inputs[1]
+    const updatePassword = async (password: string, password2: string) => {
         token = params.get('token')
         if(!token) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('ResetPassword.token_error'), () => {
-                router.back()
-            }))
+            toast.promise(
+                new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve(true)
+                    }, 1000)
+                }),
+                {
+                    loading: t('ResetPassword.token_error'),
+                    success: () => {
+                        router.back()
+                        return null
+                    }
+                }
+            )
             return;
         }
         if(password === password2) {
             if(!password || password.length < 9) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('ResetPassword.password_length')))
+                toast.error(t('ResetPassword.password_length'))
                 return;
             }
     
             let regex = /[0-9]/g, m;
             m = regex.exec(password)
             if(!m) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('ResetPassword.password_number')))
+                toast.error(t('ResetPassword.password_number'))
                 return;
             }
 
             let error = await resetPassword(token!, password)
             if(error) {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, error))
+                toast.error(error)
             }
             router.push("/signin")
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('ResetPassword.passwords_not_same')))
+            toast.error(t('ResetPassword.passwords_not_same'))
             return;
         }
     }
 
     return (
-        <div className="popup_page">
-            <PopupComponent>
-                <h2>{t('ResetPassword.title')}</h2>
-                <FormComponent id="reset_password_form" onSave={updatePassword} options={{saveButtonContent: t('ResetPassword.reset')}}>
-                    <Text type="password" name={t('ResetPassword.new_password')}></Text>
-                    <Text type="password" name={t('ResetPassword.retype_password')}></Text>
-                </FormComponent>
-            </PopupComponent>
+        <div className="w-1/2 mx-auto my-10">
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                form.handleSubmit(updatePassword);
+            }} className="flex flex-col gap-4">
+                <form.Field name="password" children={(field) => (
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="password">{t('ResetPassword.new_password')}</Label>
+                        <Input id="password" name="password" type="password" autoComplete="password" placeholder={t('ResetPassword.new_password')} onChange={(e) => {field.handleChange(e.target.value)}} />
+                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                    </div>
+                )} validators={{
+                    onSubmit: ({value}) => {
+                        let regex = /[0-9]/g;
+                        let m = regex.exec(value)
+                        if(!m) {
+                            return 'Password must contain a number'
+                        }
+                        return (!value) ?
+                        'Password is required' :
+                        value.length < 9 ?
+                        'Password must be at least 9 characters long' :
+                        undefined
+                    }
+                }}/>
+                <form.Field name="password2" children={(field) => (
+                    <div className="flex flex-col gap-2">
+                        <Label htmlFor="password2">{t('ResetPassword.retype_password')}</Label>
+                        <Input id="password2" name="password2" type="password" autoComplete="password" placeholder={t('ResetPassword.retype_password')} onChange={(e) => {field.handleChange(e.target.value)}} />
+                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                    </div>
+                )} validators={{
+                    onSubmit: ({value}) => {
+                        if(value !== form.state.values.password) {
+                            return 'Passwords do not match'
+                        }
+                    }
+                }}/>
+                <Button type="submit" className="w-fit">{t('ResetPassword.reset')}</Button>
+            </form>
         </div>
-        // <div className="popup_page">
-        //     <div className="centered_content small popup">
-        //         <h2>{t('ResetPassword.title')}</h2>
-        //         <form>
-        //             <div className='field'>
-        //                 <p className='label'>{t('ResetPassword.new_password')}</p>
-        //                 <input className='input wide' type='password' autoComplete="password" name='password' placeholder={t('ResetPassword.new_password')} onChange={(e) => {setPassword(e.target.value)}}></input>
-        //             </div>
-        //             <div className='field'>
-        //                 <p className='label'>{t('ResetPassword.retype_password')}</p>
-        //                 <input className='input wide' type='password' autoComplete="password" name='password' placeholder={t('ResetPassword.new_password')} onChange={(e) => {setPassword2(e.target.value)}}></input>
-        //             </div>
-        //             <MainButton onClick={updatePassword}>{t('ResetPassword.reset')}</MainButton>
-        //         </form>
-        //     </div>
-        // </div>
     )
 }
