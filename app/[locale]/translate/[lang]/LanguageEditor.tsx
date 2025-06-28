@@ -67,9 +67,9 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
     return (
         <>
         <Tabs defaultValue="code">
-            <TabsList>
-                <TabsTrigger value="code">Code</TabsTrigger>
-                <TabsTrigger value="visual">Visual</TabsTrigger>
+            <TabsList className="w-full justify-around">
+                <TabsTrigger value="code" className="w-full">Code</TabsTrigger>
+                <TabsTrigger value="visual" className="w-full">Visual</TabsTrigger>
             </TabsList>
             <TabsContent value="code">
                 <form onSubmit={e => {
@@ -122,7 +122,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                                     <TableRow key={key}>
                                         <TableCell className="w-[200px] overflow-x-auto">{key}</TableCell>
                                         <TableCell className="max-w-[200px] overflow-x-auto">{formattedEnglishLanguage[key]}</TableCell>
-                                        <TableCell><Input type="text" className="w-full" defaultValue={formattedEditingLanguage[key]} onChange={(e) => {
+                                        <TableCell className={formattedEditingLanguage[key] === formattedEnglishLanguage[key] ? "bg-[#ffee0033]" : ""}><Input type="text" className="w-full" defaultValue={formattedEditingLanguage[key]} onChange={(e) => {
                                             const newEditingLanguage = {...formattedEditingLanguage}
                                             newEditingLanguage[key] = e.target.value
                                             form.setFieldValue("language", JSON.stringify(newEditingLanguage))

@@ -232,6 +232,18 @@
                     }
                 }
             }
+        },
+        "Translate": {
+            "title": "Translate",
+            "help": "<link>For help, click here</link>",
+            "AddLanguage": {
+                "title": "Add Language",
+                "language_placeholder": "en-US",
+                "language_description": "This should be an <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct.",
+                "add": "Add"
+            },
+            "language": "Language",
+            "language_missing": "Is your language missing? Click here to add it."
         }
     },
     "Creations": {

@@ -48,6 +48,10 @@ import type {
   import {useSharedHistoryContext} from '../HistoryContext';
 import ImageResizer from './ImageResizer';
 import {useTranslations} from 'next-intl';
+
+function ErrorBoundary({children, onError}: {children: React.ReactNode, onError: (error: Error) => void}) {
+  return null
+}
   
   const imageCache = new Set();
   
@@ -418,7 +422,7 @@ import {useTranslations} from 'next-intl';
                 <RichTextPlugin
                   contentEditable={<ContentEditable className="editor-input" />}
                   placeholder={<div className="editor-placeholder">{t('Form.RichText.placeholder')}</div>}
-                  ErrorBoundary={LexicalErrorBoundary}
+                  ErrorBoundary={ErrorBoundary}
                 />
               </LexicalNestedComposer>
             </div>

@@ -68,6 +68,10 @@ function onError(error: any) {
     console.error(error);
 }
 
+function ErrorBoundary({children, onError}: {children: React.ReactNode, onError: (error: Error) => void}) {
+  return null
+}
+
 /**
  * Load preset HTML into the editor
  * @param html The HTML string to load 
@@ -130,7 +134,7 @@ export default function RichText({ sendOnChange, initialValue, className }: { se
                     <RichTextPlugin
                         contentEditable={<ContentEditable className={`min-h-[200px] px-3 py-1 ${className}`} />}
                         placeholder={<div className="editor-placeholder">{t('Form.RichText.placeholder')}</div>}
-                        ErrorBoundary={LexicalErrorBoundary}
+                        ErrorBoundary={ErrorBoundary}
                     />
                 </div>
             </div>
