@@ -3,16 +3,15 @@
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { deleteUser } from "@/app/api/auth"
-import { PopupMessage, PopupMessageType } from "@/components/PopupMessage/PopupMessage"
-import { Popup } from "@/components/Popup/Popup";
-import FormComponent from "@/components/Form/Form";
-import SecondaryButton from "@/components/Buttons/SecondaryButton"
-import WarningButton from "@/components/Buttons/WarningButton"
-import Text from "@/components/FormInputs/Text"
 import {useTranslations} from 'next-intl';
 import styles from "../AccountSidebar.module.css"
 import { useToken, useUser } from "@/app/api/hooks/users"
 import { UserTypes } from "@/app/api/types"
+import { toast } from "sonner";
+import { useForm } from "@tanstack/react-form";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 export default function AccountPage() {
     const [triedDeleteAccount, setTriedDeleteAccount] = useState(false)
@@ -20,6 +19,39 @@ export default function AccountPage() {
     const router = useRouter();
     const t = useTranslations()
     const {token} = useToken()
+    const usernameForm = useForm({
+        defaultValues: {
+            username: user?.username ?? ""
+        },
+        onSubmit: async ({value}) => {
+            await updateUsername(value.username)
+        }
+    })
+    const handleForm = useForm({
+        defaultValues: {
+            handle: user?.handle ?? ""
+        },
+        onSubmit: async ({value}) => {
+            await updateHandle(value.handle)
+        }
+    })
+    const emailForm = useForm({
+        defaultValues: {
+            email: user?.email ?? ""
+        },
+        onSubmit: async ({value}) => {
+            await updateEmail(value.email)
+        }
+    })
+    const passwordForm = useForm({
+        defaultValues: {
+            password: "",
+            confirmPassword: ""
+        },
+        onSubmit: async ({value}) => {
+            await updatePassword(value.password, value.confirmPassword)
+        }
+    })
 
     if(error) return <div className="centered_content">{t('Account.PopupMessage.error')}</div>
     if(isLoading) return <div className="centered_content">{t('Account.PopupMessage.loading')}</div>
@@ -28,89 +60,89 @@ export default function AccountPage() {
         return
     }
 
-    const updateHandle = (inputs: string[]) => {
+    const updateHandle = (handle: string) => {
         fetch(`${process.env.DATA_URL}/user/updateHandle`, {
             method: 'POST',
             headers: {
                 authorization: token!,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({handle: inputs[0]})
+            body: JSON.stringify({handle: handle})
         }).then((res) => {
             res.json().then(data => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
+                toast.error(data.error) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.handle_updated', {handle: inputs[0]}))) 
-                setUser({...user, handle: inputs[0]})
-                localStorage?.setItem('user', JSON.stringify({...user, handle: inputs[0]}))
+                toast.success(t('Account.PopupMessage.handle_updated', {handle: handle})) 
+                setUser({...user, handle: handle})
+                localStorage?.setItem('user', JSON.stringify({...user, handle: handle}))
             })
         }).catch(e => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
+            toast.error(t('Account.PopupMessage.error')) 
             console.log(e)
         })
     }
 
-    const updateUsername = (inputs: string[]) => {
+    const updateUsername = (username: string) => {
         fetch(`${process.env.DATA_URL}/user/updateProfile`, {
             method: 'POST',
             headers: {
                 authorization: token!,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({username: inputs[0]})
+            body: JSON.stringify({username: username})
         }).then((res) => {
             res.json().then(data => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
+                toast.error(data.error) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.username_updated', {username: inputs[0]}))) 
-                setUser({...user, username: inputs[0]})
-                localStorage?.setItem('user', JSON.stringify({...user, username: inputs[0]}))
+                toast.success(t('Account.PopupMessage.username_updated', {username: username})) 
+                setUser({...user, username: username})
+                localStorage?.setItem('user', JSON.stringify({...user, username: username}))
             })
         }).catch(e => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
+            toast.error(t('Account.PopupMessage.error')) 
             console.log(e)
         })
     }
 
-    const updateEmail = (inputs: string[]) => {
+    const updateEmail = (email: string) => {
         fetch(`${process.env.DATA_URL}/user/updateEmail`, {
             method: 'POST',
             headers: {
                 authorization: token!,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({email: inputs[0]})
+            body: JSON.stringify({email: email})
         }).then((res) => {
             res.json().then(data => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
+                toast.error(data.error) 
             }).catch(e => {
-                PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.email_updated', {email: inputs[0]}))) 
-                setUser({...user, email: inputs[0]})
-                localStorage?.setItem('user', JSON.stringify({...user, email: inputs[0]}))
+                toast.success(t('Account.PopupMessage.email_updated', {email: email})) 
+                setUser({...user, email: email})
+                localStorage?.setItem('user', JSON.stringify({...user, email: email}))
             })
         }).catch(e => {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.error'))) 
+            toast.error(t('Account.PopupMessage.error')) 
         })
     }
 
-    const updatePassword = (inputs: string[]) => {
-        if(inputs[0] === inputs[1] && inputs[0]) {
+    const updatePassword = (password: string, confirmPassword: string) => {
+        if(password === confirmPassword && password) {
             fetch(`${process.env.DATA_URL}/user/updatePassword`, {
                 method: 'POST',
                 headers: {
                     authorization: token!,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({password: inputs[0]})
+                body: JSON.stringify({password: password})
             }).then((res) => {
                 res.json().then(data => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, data.error)) 
+                    toast.error(data.error) 
                 }).catch(e => {
-                    PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.password_updated')))
+                    toast.success(t('Account.PopupMessage.password_updated'))
                 })
             })
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.passwords_not_match')))
+            toast.error(t('Account.PopupMessage.passwords_not_match'))
         }
         
     }
@@ -118,11 +150,11 @@ export default function AccountPage() {
     const deleteAccount = () => {
         if(!triedDeleteAccount) {
             setTriedDeleteAccount(true)
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Warning, t('Account.PopupMessage.delete_account_warning'))) 
+            toast.warning(t('Account.PopupMessage.delete_account_warning')) 
         } else if(!token) {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, t('Account.PopupMessage.delete_account_auth_error'))) 
+            toast.error(t('Account.PopupMessage.delete_account_auth_error')) 
         } else {
-            PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Account.PopupMessage.delete_account_success')))
+            toast.success(t('Account.PopupMessage.delete_account_success'))
             deleteUser(token!)
             setUser({_id: "", username: "", email: "", type: UserTypes.Account })
             router.push("/")
@@ -130,52 +162,195 @@ export default function AccountPage() {
     }
 
     return (
-        <div className="popup_page">
-            <div className={styles.account_content}>
-                <h2>{t('Account.settings')}</h2>
-                <div className="settings_option">
-                    <div className="text">
-                        <h3>{t('Account.Shared.username')}</h3>
-                        <p>{user.username}</p>
-                    </div>
-                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeUsername"} onSave={updateUsername}>
-                        <Text name={t('Account.Popup.new_username')} placeholder={user.username} />
-                    </FormComponent>, title: t('Account.Popup.change_username')})}}>{t('Account.Popup.change_username')}</SecondaryButton>
+        <div className="flex flex-col gap-4 w-full max-w-100">
+            <h2>{t('Account.settings')}</h2>
+            <div className="flex flex-row gap-4 items-center">
+                <div className="flex flex-col gap-2 flex-1">
+                    <h3 className="text-md font-bold">{t('Account.Shared.username')}</h3>
+                    <p className="text-sm">{user.username}</p>
                 </div>
-                <div className="settings_option">
-                    <div className="text">
-                        <h3>{t('Account.Shared.handle')}</h3>
-                        <p>{user.handle}</p>
-                    </div>
-                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeHandle"} onSave={updateHandle}>
-                        <Text name={t('Account.Popup.new_handle')} placeholder={user.handle} />
-                    </FormComponent>, title: t('Account.Popup.change_handle')})}}>{t('Account.Popup.change_handle')}</SecondaryButton>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="secondary"><span>{t('Account.Popup.change_username')}</span></Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>{t('Account.Popup.change_username')}</DialogTitle>
+                        </DialogHeader>
+                        <form onSubmit={(e) => {
+                            e.preventDefault()
+                            usernameForm.handleSubmit()
+                        }} className="flex flex-col gap-2">
+                            <usernameForm.Field name="username" children={(field) => (
+                                <Input
+                                    value={field.state.value}
+                                    onChange={(e) => {
+                                        field.handleChange(e.target.value)
+                                    }}
+                                    placeholder={t('Account.Popup.new_username')}
+                                />
+                            )}/>
+                            <Button type="submit" className="w-full"><span>{t('Account.Popup.change_username')}</span></Button>
+                        </form>
+                    </DialogContent>
+                </Dialog>
+            </div>
+            <div className="flex flex-row gap-4 items-center">
+                <div className="flex flex-col gap-2 flex-1">
+                    <h3 className="text-md font-bold">{t('Account.Shared.handle')}</h3>
+                    <p className="text-sm">{user.handle}</p>
                 </div>
-                    <div className="settings_option">
-                    <div className="text">
-                        <h3>{t('Account.Shared.email')}</h3>
-                        <p>{user.email}</p>
-                    </div>
-                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeEmail"} onSave={updateEmail}>
-                        <Text name={t('Account.Popup.new_email')} placeholder={user.email} />    
-                    </FormComponent>, title: t('Account.Popup.change_email')})}}>{t('Account.Popup.change_email')}</SecondaryButton>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="secondary"><span>{t('Account.Popup.change_handle')}</span></Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>{t('Account.Popup.change_handle')}</DialogTitle>
+                        </DialogHeader>
+                        <form onSubmit={(e) => {
+                            e.preventDefault()
+                            handleForm.handleSubmit()
+                        }} className="flex flex-col gap-2">
+                            <handleForm.Field name="handle" children={(field) => (
+                                <Input
+                                    value={field.state.value}
+                                    onChange={(e) => {
+                                        field.handleChange(e.target.value)
+                                    }}
+                                    placeholder={t('Account.Popup.new_handle')}
+                                />
+                            )}/>
+                            <Button type="submit" className="w-full"><span>{t('Account.Popup.change_handle')}</span></Button>
+                        </form>
+                    </DialogContent>
+                </Dialog>
+            </div>
+            <div className="flex flex-row gap-4 items-center">
+                <div className="flex flex-col gap-2 flex-1">
+                    <h3 className="text-md font-bold">{t('Account.Shared.email')}</h3>
+                    <p className="text-sm">{user.email}</p>
                 </div>
-                <div className="settings_option">
-                    <div className="text">
-                        <h3>{t('Account.Shared.password')}</h3>   
-                    </div>
-                    <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id="changePassword" onSave={updatePassword}>
-                        <Text name={t('Account.Popup.new_password')} type="password" />
-                        <Text name={t('Account.Popup.confirm_password')} type="password" />    
-                    </FormComponent>, title: t('Account.Popup.change_password')})}}>{t('Account.Popup.change_password')}</SecondaryButton>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="secondary"><span>{t('Account.Popup.change_email')}</span></Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>{t('Account.Popup.change_email')}</DialogTitle>
+                        </DialogHeader>
+                        <form onSubmit={(e) => {
+                            e.preventDefault()
+                            emailForm.handleSubmit()
+                        }} className="flex flex-col gap-2">
+                            <emailForm.Field name="email" children={(field) => (
+                                <Input
+                                    value={field.state.value}
+                                    onChange={(e) => {
+                                        field.handleChange(e.target.value)
+                                    }}
+                                    placeholder={t('Account.Popup.new_email')}
+                                />
+                            )}/>
+                            <Button type="submit" className="w-full"><span>{t('Account.Popup.change_email')}</span></Button>
+                        </form>
+                    </DialogContent>
+                </Dialog>
+            </div>
+            <div className="flex flex-row gap-4 items-center">
+                <div className="flex flex-col gap-2 flex-1">
+                    <h3 className="text-md font-bold">{t('Account.Shared.password')}</h3>
+                    <p className="text-sm">{user.password}</p>
                 </div>
-                <div className="settings_option">
-                    <div className="text">
-                        <h3>{t('Account.delete_account')}</h3>
-                    </div>
-                    <WarningButton onClick={deleteAccount}>{t('Account.delete_account')}</WarningButton>
+                <Dialog>
+                    <DialogTrigger asChild>
+                        <Button variant="secondary"><span>{t('Account.Popup.change_password')}</span></Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                        <DialogHeader>
+                            <DialogTitle>{t('Account.Popup.change_password')}</DialogTitle>
+                        </DialogHeader>
+                        <form onSubmit={(e) => {
+                            e.preventDefault()
+                            passwordForm.handleSubmit()
+                        }} className="flex flex-col gap-2">
+                            <passwordForm.Field name="password" children={(field) => (
+                                <Input
+                                    value={field.state.value}
+                                    onChange={(e) => {
+                                        field.handleChange(e.target.value)
+                                    }}
+                                    placeholder={t('Account.Popup.new_password')}
+                                />
+                            )}/>
+                            <passwordForm.Field name="confirmPassword" children={(field) => (
+                                <Input
+                                    value={field.state.value}
+                                    onChange={(e) => {
+                                        field.handleChange(e.target.value)
+                                    }}
+                                    placeholder={t('Account.Popup.confirm_password')}
+                                />
+                            )}/>
+                            <Button type="submit" className="w-full"><span>{t('Account.Popup.change_password')}</span></Button>
+                        </form>
+                    </DialogContent>
+                </Dialog>
+            </div>
+            <div className="flex flex-row gap-4 items-center">
+                <div className="flex flex-col gap-2 flex-1">
+                    <h3 className="text-md font-bold">{t('Account.delete_account')}</h3>
                 </div>
+                <Button variant="secondary" onClick={deleteAccount}><span>{t('Account.delete_account')}</span></Button>
             </div>
         </div>
+
+        // <div className="popup_page">
+        //     <div className={styles.account_content}>
+        //         <h2>{t('Account.settings')}</h2>
+        //         <div className="settings_option">
+        //             <div className="text">
+        //                 <h3>{t('Account.Shared.username')}</h3>
+        //                 <p>{user.username}</p>
+        //             </div>
+        //             <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeUsername"} onSave={updateUsername}>
+        //                 <Text name={t('Account.Popup.new_username')} placeholder={user.username} />
+        //             </FormComponent>, title: t('Account.Popup.change_username')})}}>{t('Account.Popup.change_username')}</SecondaryButton>
+        //         </div>
+        //         <div className="settings_option">
+        //             <div className="text">
+        //                 <h3>{t('Account.Shared.handle')}</h3>
+        //                 <p>{user.handle}</p>
+        //             </div>
+        //             <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeHandle"} onSave={updateHandle}>
+        //                 <Text name={t('Account.Popup.new_handle')} placeholder={user.handle} />
+        //             </FormComponent>, title: t('Account.Popup.change_handle')})}}>{t('Account.Popup.change_handle')}</SecondaryButton>
+        //         </div>
+        //             <div className="settings_option">
+        //             <div className="text">
+        //                 <h3>{t('Account.Shared.email')}</h3>
+        //                 <p>{user.email}</p>
+        //             </div>
+        //             <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id={"changeEmail"} onSave={updateEmail}>
+        //                 <Text name={t('Account.Popup.new_email')} placeholder={user.email} />    
+        //             </FormComponent>, title: t('Account.Popup.change_email')})}}>{t('Account.Popup.change_email')}</SecondaryButton>
+        //         </div>
+        //         <div className="settings_option">
+        //             <div className="text">
+        //                 <h3>{t('Account.Shared.password')}</h3>   
+        //             </div>
+        //             <SecondaryButton onClick={() => {Popup.createPopup({content: <FormComponent id="changePassword" onSave={updatePassword}>
+        //                 <Text name={t('Account.Popup.new_password')} type="password" />
+        //                 <Text name={t('Account.Popup.confirm_password')} type="password" />    
+        //             </FormComponent>, title: t('Account.Popup.change_password')})}}>{t('Account.Popup.change_password')}</SecondaryButton>
+        //         </div>
+        //         <div className="settings_option">
+        //             <div className="text">
+        //                 <h3>{t('Account.delete_account')}</h3>
+        //             </div>
+        //             <WarningButton onClick={deleteAccount}>{t('Account.delete_account')}</WarningButton>
+        //         </div>
+        //     </div>
+        // </div>
     )
 }

@@ -1,19 +1,16 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { CreatorSettings, IUser, NotificationOption } from "@/app/api/types"
+import { CreatorSettings, NotificationOption } from "@/app/api/types"
 import { useRouter } from "next/navigation"
-import { deleteUser, getUser, subscribeToPushNotifications, updateNotificationSettings } from "@/app/api/auth"
+import { subscribeToPushNotifications, updateNotificationSettings } from "@/app/api/auth"
 import { useTranslations } from 'next-intl';
 import styles from "../AccountSidebar.module.css"
-import { DropDownItem } from "@/components/FormInputs/RichText/DropDown"
 import { base64ToArrayBuffer } from 'base64-u8array-arraybuffer'
 import { useToken, useUserSettings, useUser } from "@/app/api/hooks/users"
-import dynamic from "next/dynamic";
 import { Share } from "lucide-react"
-import SecondaryButton from "@/components/Buttons/SecondaryButton"
-
-const DropDown = dynamic(() => import("@/components/FormInputs/RichText/DropDown"), { ssr: false })
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
 
 
 export default function NotificationsPage() {
@@ -79,15 +76,20 @@ export default function NotificationsPage() {
     }
 
     function NotificationOptionDropdown({ type, value }: { type: keyof CreatorSettings['notifications'], value: NotificationOption }) {
-        return <DropDown buttonLabel={t(`Account.Notifications.${value}`)} buttonClassName={`options_dropdown_button ${styles.dropdown_button}`} className={"options_dropdown"}>
-            <DropDownItem className={`option_button ${styles.dropdown_item}`} onClick={() => handleUpdate(type, "push_only")}>{t('Account.Notifications.push_only')}</DropDownItem>
-            <DropDownItem className={`option_button ${styles.dropdown_item}`} onClick={() => handleUpdate(type, "push_email_daily")}>{t('Account.Notifications.push_email_daily')}</DropDownItem>
-            <DropDownItem className={`option_button ${styles.dropdown_item}`} onClick={() => handleUpdate(type, "push_email_weekly")}>{t('Account.Notifications.push_email_weekly')}</DropDownItem>
-            <DropDownItem className={`option_button ${styles.dropdown_item}`} onClick={() => handleUpdate(type, "email_daily")}>{t('Account.Notifications.email_daily')}</DropDownItem>
-            <DropDownItem className={`option_button ${styles.dropdown_item}`} onClick={() => handleUpdate(type, "email_weekly")}>{t('Account.Notifications.email_weekly')}</DropDownItem>
-            <DropDownItem className={`option_button ${styles.dropdown_item}`} onClick={() => handleUpdate(type, "dashboard_only")}>{t('Account.Notifications.dashboard_only')}</DropDownItem>
-            <DropDownItem className={`option_button ${styles.dropdown_item}`} onClick={() => handleUpdate(type, "none")}>{t('Account.Notifications.none')}</DropDownItem>
-        </DropDown>
+        return <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="secondary"><span>{t(`Account.Notifications.${value}`)}</span></Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "push_only")}>{t('Account.Notifications.push_only')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "push_email_daily")}>{t('Account.Notifications.push_email_daily')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "push_email_weekly")}>{t('Account.Notifications.push_email_weekly')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "email_daily")}>{t('Account.Notifications.email_daily')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "email_weekly")}>{t('Account.Notifications.email_weekly')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "dashboard_only")}>{t('Account.Notifications.dashboard_only')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "none")}>{t('Account.Notifications.none')}</DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
     }
 
     const InstallPrompt = () => {
@@ -117,15 +119,14 @@ export default function NotificationsPage() {
                     </p>
                 )}
                 {!isIOS && !pushSubscription && (
-                    <SecondaryButton onClick={subscribeToPush}>{t('Account.Notifications.add_to_this_device')}</SecondaryButton>
+                    <Button variant="secondary" onClick={subscribeToPush}><span>{t('Account.Notifications.add_to_this_device')}</span></Button>
                 )}
             </div>
         )
     }
 
     return (
-        <div className="popup_page">
-            <div className={styles.account_content}>
+            <div className="flex flex-col gap-4 w-full max-w-100">
                 <h2>{t('Account.Notifications.title')}</h2>
                 <div className="settings_option">
                     <div className="text">
@@ -159,6 +160,5 @@ export default function NotificationsPage() {
                 </div>
                 <InstallPrompt />
             </div>
-        </div>
     )
 }
