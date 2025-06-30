@@ -151,7 +151,7 @@ function CommentForm(props: CommentProps | ReplyProps) {
     )
 }
 
-function Comment({comment}: {comment: IComment}) {
+export function Comment({comment}: {comment: IComment}) {
     const {creator} = useCreator(comment.handle)
     const [replying, setReplying] = useState(false)
     const [showReplies, setShowReplies] = useState(false)

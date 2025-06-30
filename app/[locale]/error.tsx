@@ -1,9 +1,6 @@
 'use client' // Error components must be Client Components
 
-import MenuSkeleton from '@/components/skeletons/MenuSkeleton'
 import { useEffect } from 'react'
-import { sendLog } from '@/app/api/logging'
-import WarningButton from '@/components/Buttons/WarningButton'
 import { useTranslations } from 'next-intl'
 import { Link } from '../api/navigation'
 

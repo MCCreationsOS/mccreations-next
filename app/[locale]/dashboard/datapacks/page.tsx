@@ -1,8 +1,6 @@
 'use client'
 
-import { CollectionNames, IContentDoc, IUser } from "@/app/api/types";
-import Menu from "@/components/Menu/Navbar";
-import Tabs from "@/components/Tabs/Tabs";
+import { CollectionNames } from "@/app/api/types";
 import Table from "@/components/Dashboard/Dashboard";
 import {useTranslations} from 'next-intl';
 

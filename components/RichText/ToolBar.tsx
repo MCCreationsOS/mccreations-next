@@ -37,17 +37,14 @@ import {
     Image,
     Italic,
     List,
-    Minus,
     PaintBucket,
     Pilcrow,
-    Plus,
     Redo,
     Strikethrough,
     Underline,
     Undo,
 } from "lucide-react";
 import { INSERT_COLLAPSIBLE_COMMAND } from "./SpoilerPlugin";
-import DropdownColorPicker from "./DropdownColorPicker";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import ColorPicker from "./ColorPicker";

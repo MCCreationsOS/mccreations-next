@@ -2,13 +2,15 @@
 import { useRouter } from "next/navigation";
 import { SiDiscord, SiFacebook, SiGithub, SiGoogle, SiMicrosoft } from '@icons-pack/react-simple-icons'
 import { Link } from "@/app/api/navigation";
-import { UserTypes } from "@/app/api/types";
+import { SortOptions, UserTypes } from "@/app/api/types";
 import {useTranslations} from 'next-intl';
 import { Button } from "@/components/ui/button";
-import { SignInBackground } from "../signin/page";
 import { toast } from "sonner";
 import { useForm } from "@tanstack/react-form";
 import { Input } from "@/components/ui/input";
+import { useCreations } from "@/app/api/hooks/creations";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function SignUp() {
     const router = useRouter();
@@ -92,7 +94,7 @@ export default function SignUp() {
 
     return (
         <div className="h-full relative">
-        <SignInBackground />
+        <SignUpBackground />
         <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 absolute top-0 left-1/2 -translate-x-1/2 border-2 border-black">
             <h2 className="text-2xl font-bold mb-2">{t('Account.Shared.providers')}</h2>
             <div className="flex flex-row flex-wrap gap-2 mb-5">
@@ -183,5 +185,31 @@ export default function SignUp() {
             </div>
         </div>
        
+    )
+}
+
+function SignUpBackground() {
+    const {creations} = useCreations({status: 2, contentType: "content", limit: 20, page: 0, sort: SortOptions.HighestDownloads})
+    const [index, setIndex] = useState(0)
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex((index + 1) % creations.length)
+        }, 5000)
+        return () => clearInterval(interval)
+    }, [creations, index])
+    
+    return (
+        <div className="w-full min-h-[700px] aspect-video relative">
+            {creations.map((creation, i) => (
+                <div key={i} className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>
+                    <Image key={i} src={creation.images[0]} alt={creation.title} fill className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 object-cover blur-sm`} />
+                    <div className="absolute bottom-0 left-0 bg-black/50 p-4">
+                        <h1 className="text-white text-xl font-bold">{creation.title}</h1>
+                        <p className="text-sm">By {creation.creators.map((creator) => creator.username).join(", ")}</p>
+                    </div>
+                </div>
+            ))}
+        </div>
     )
 }

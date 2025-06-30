@@ -15,10 +15,10 @@ import { Select, SelectValue, SelectTrigger, SelectContent, SelectItem } from "@
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { CreateDetails, Files, Images, Required } from "../page"
+import { CreateDetails, Files, Images, Required } from "../formElements"
 import { Label } from "@/components/ui/label"
 
-export default function Page() {
+export default function ImportPage() {
     const [creation, setCreation] = useSessionStorage<IContentDoc>(
         "tempCreation",
         createEmptyCreation()
@@ -84,7 +84,7 @@ export default function Page() {
     );
 }
 
-export function Import() {
+function Import() {
     const [importing, setImporting] = useState<boolean>(false)
     const [message, setMessage] = useState<string | null>("Importing...")
     const [options, setOptions] = useState<any>()
@@ -193,14 +193,5 @@ export function Import() {
             </Select>} />
             <Button type="submit" className="w-fit" disabled={importing}><span>{t('Pages.Create.next')}</span><ChevronRight/></Button>
         </form>}
-        {// <FormComponent id={"importForm"}
-        // onSave={(inputs) => {
-        //     onMapImport(inputs[1], inputs[0])
-        // }}  options={{saveButtonContent:t('Create.next')}}>
-
-        //     <Select name={t('Navigation.ImportForm.type')} defaultValue="Maps" options={[{name: t('map', { count: 1 }), value: 'Maps'}, {name: t('datapack', {count: 1}), value: "datapacks"}, {name: t('resourcepack', {count: 1}), value: 'resourcepacks'}]} />
-        //     <Text type="text" name={t('Navigation.ImportForm.link')} placeholder={t('Navigation.ImportForm.link_placeholder')} description={t('Create.Import.Link.description')} />
-        // </FormComponent>
-        }
     </>
 }

@@ -1,0 +1,707 @@
+import { getCreator } from "@/app/api/community";
+import { convertToCollection, createEmptyCreation, createNewContent, updateContent } from "@/app/api/content";
+import { useTags } from "@/app/api/hooks/creations";
+import { useToken, useTokenOrKey } from "@/app/api/hooks/users";
+import { ContentTypes, IContentDoc, ICreator, IUser, TagKeys, Tags } from "@/app/api/types";
+import ImageDropzone, { UploadedImageRepresentation } from "@/components/ImageDropzone";
+import RichText from "@/components/RichText/RichText";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import VersionManager from "@/components/VersionManager/VersionManager";
+import { useForm } from "@tanstack/react-form";
+import { ChevronRight, Plus, Trash } from "lucide-react";
+import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import { useSessionStorage } from "usehooks-ts";
+
+export function Files({ handleNext }: { handleNext: () => void }) {
+    const [creation, setCreation] = useSessionStorage<IContentDoc>(
+        "tempCreation",
+        createEmptyCreation()
+    );
+    const contentType = creation.type;
+    const collectionName = convertToCollection(contentType);
+    const { token } = useTokenOrKey();
+    const t = useTranslations();
+
+    const saveVersionsForm = (versions: string) => {
+        if (!creation || "error" in creation) return;
+
+        let newCreation = {
+            ...creation,
+        };
+        newCreation.files = JSON.parse(versions);
+
+        newCreation.files?.sort((a, b) => {
+            return b.createdDate - a.createdDate;
+        });
+
+        updateContent(newCreation, token, collectionName)
+            .then(() => {
+                setCreation(newCreation);
+                toast.success(t("Content.Edit.PopupMessage.versions_saved"));
+            })
+            .catch((e) => {
+                toast.error(e.error);
+            });
+    };
+
+    return (
+        <>
+            <VersionManager
+                collectionName={collectionName}
+                presetVersions={JSON.stringify(creation.files)}
+                onVersionsChanged={saveVersionsForm}
+            />
+            <Button onClick={handleNext} className="w-fit mt-2">
+                <span>{t("Pages.Create.next")}</span>
+                <ChevronRight />
+            </Button>
+        </>
+    );
+}
+
+export function Images({ handleNext }: { handleNext: () => void }) {
+    const [creation, setCreation] = useSessionStorage<IContentDoc>(
+        "tempCreation",
+        createEmptyCreation()
+    );
+    const contentType = creation.type;
+    const collectionName = convertToCollection(contentType);
+    const { token } = useTokenOrKey();
+    const t = useTranslations();
+    const router = useRouter();
+    const form = useForm({
+        defaultValues: {
+            images: creation.images,
+        },
+    });
+
+    const saveImagesForm = (files: UploadedImageRepresentation[]) => {
+        if (!creation || "error" in creation) return;
+
+        let newCreation = {
+            ...creation,
+        };
+        newCreation.images = files.map((f) => f.url);
+        updateContent(newCreation, token, collectionName)
+            .then(() => {
+                setCreation(newCreation);
+                toast.success(t("Content.Edit.PopupMessage.images_saved"));
+            })
+            .catch((e) => {
+                toast.error(e.error);
+            });
+    };
+
+    return (
+        <div className="flex flex-col gap-4 max-w-2xl">
+            <ImageDropzone
+                onImagesUploaded={saveImagesForm}
+                presetFiles={JSON.stringify(
+                    creation?.images?.map((image) => {
+                        return { url: image, name: image };
+                    })
+                )}
+                allowMultiple={true}
+            />
+            <Button onClick={handleNext} className="w-fit">
+                <span>{t("Pages.Create.finish")}</span>
+                <ChevronRight />
+            </Button>
+        </div>
+    );
+}
+
+
+export function Required() {
+    return (
+        <span className="text-red-500">*</span>
+    )
+}
+
+export function CreateBasicInfo() {
+    const { token } = useToken();
+    const [creation, setCreation] = useSessionStorage<IContentDoc>(
+        "tempCreation",
+        createEmptyCreation()
+    );
+    const t = useTranslations();
+    const form = useForm({
+        defaultValues: {
+            title: "",
+            type: "map",
+            shortDescription: "",
+        },
+        onSubmit: (data) => {
+            onMapCreate(
+                data.value.title,
+                data.value.type as ContentTypes,
+                data.value.shortDescription
+            );
+        },
+    });
+
+    const onMapCreate = (
+        title?: string,
+        type?: ContentTypes,
+        shortDescription?: string
+    ) => {
+        if (!title) toast(t("Navigation.CreateForm.missing_title"));
+        if (!type) toast(t("Navigation.CreateForm.missing_type"));
+        if (!shortDescription)
+            toast(t("Navigation.CreateForm.missing_short_description"));
+
+        setCreation({
+            ...creation,
+            title: title!,
+            type: type!,
+            shortDescription: shortDescription!,
+            slug:
+                creation.slug ??
+                encodeURIComponent(title!.toLowerCase().replace(/ /g, "-")),
+        });
+
+        createNewContent(title!, type!, shortDescription!, token).then(
+            (key) => {
+                if ("error" in key) {
+                    toast(key.error);
+                    return;
+                }
+                if (key && "key" in key) {
+                    sessionStorage.setItem("temp_key", key.key);
+                }
+                setCreation({ ...creation, ...key.creation });
+                // handleNext();
+            }
+        );
+    };
+
+    return (
+        <>
+            <form
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    form.handleSubmit();
+                }}
+                className="flex flex-col gap-4 max-w-2xl"
+            >
+                <form.Field
+                    name="title"
+                    children={(field) => (
+                        <div className="flex flex-col gap-1">
+                            <Label htmlFor="title">{t("Pages.Create.BasicInfo.title")} <Required /></Label>
+                            <Input
+                                type="text"
+                                name="title"
+                                value={field.state.value}
+                                onBlur={field.handleBlur}
+                                onChange={(e) => {
+                                    field.handleChange(e.target.value);
+                                }}
+                                placeholder={t("Pages.Create.BasicInfo.title")}
+                            />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                        </div>
+                    )}
+                    validators={{
+                        onSubmit: ({value}) => {
+                            if(value.length < 3) {
+                                return t("Navigation.CreateForm.title_too_short")
+                            }
+                        }
+                    }}
+                />
+                <form.Field
+                    name="type"
+                    children={(field) => (
+                        <div className="flex flex-col gap-1">
+                            <Label htmlFor="type">{t("Pages.Create.BasicInfo.type")} <Required /></Label>
+                            <Select
+                                name="type"
+                                defaultValue="map"
+                                value={field.state.value}
+                                onValueChange={(value) => {
+                                    field.handleChange(value);
+                                }}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem
+                                        value="map"
+                                        className="hover:bg-white/40 cursor-pointer"
+                                    >
+                                        {t("map", { count: 1 })}
+                                    </SelectItem>
+                                    <SelectItem
+                                        value="datapack"
+                                        className="hover:bg-white/40 cursor-pointer"
+                                    >
+                                        {t("datapack", { count: 1 })}
+                                    </SelectItem>
+                                    <SelectItem
+                                        value="resourcepack"
+                                        className="hover:bg-white/40 cursor-pointer"
+                                    >
+                                        {t("resourcepack", { count: 1 })}
+                                    </SelectItem>
+                                </SelectContent>
+                            </Select>
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                        </div>
+                    )}
+                />
+                <form.Field
+                    name="shortDescription"
+                    children={(field) => (
+                        <div className="flex flex-col gap-1">
+                            <Label htmlFor="shortDescription">{t("Pages.Create.BasicInfo.short_description")} <Required /></Label>
+                            <Input
+                                type="text"
+                                name="shortDescription"
+                                value={field.state.value}
+                                onBlur={field.handleBlur}
+                                onChange={(e) => {
+                                    field.handleChange(e.target.value);
+                                }}
+                                placeholder={t(
+                                    "Pages.Create.BasicInfo.short_description"
+                                )}
+                            />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                        </div>
+                    )}
+                    validators={{
+                        onSubmit: ({value}) => {
+                            if(value.length < 20) {
+                                return t("Navigation.CreateForm.short_description_too_short")
+                            } else if(value.length > 100) {
+                                return t("Navigation.CreateForm.short_description_too_long")
+                            }
+                        }
+                    }}
+                />
+                <Button type="submit" className="w-fit">
+                    <span>{t("Pages.Create.next")}</span>
+                    <ChevronRight />
+                </Button>
+            </form>
+        </>
+    );
+}
+
+export function CreateDetails({ handleNext }: { handleNext: () => void }) {
+    const [creation, setCreation] = useSessionStorage<IContentDoc>(
+        "tempCreation",
+        createEmptyCreation()
+    );
+    const contentType = creation.type;
+    const collectionName = convertToCollection(contentType);
+    const { token } = useTokenOrKey();
+    const { tags } = useTags(contentType);
+    const t = useTranslations();
+    const form = useForm({
+        defaultValues: {
+            slug: creation.slug,
+            creators: creation.creators,
+            videoUrl: creation.videoUrl,
+            description: creation.description,
+            tags: creation.tags?.join(","),
+        },
+        onSubmit: (data) => {
+            saveGeneralForm(
+                data.value.slug,
+                data.value.creators,
+                data.value.description,
+                data.value.tags,
+                data.value.videoUrl
+            );
+        },
+    });
+
+    let showLeaderboardsHelp =
+        creation.extraFeatures?.leaderboards.use !== false;
+
+    const saveGeneralForm = (
+        slug: string,
+        creators: ICreator[],
+        description: string,
+        tags: string,
+        videoUrl?: string
+    ) => {
+        return new Promise<void>((resolve, reject) => {
+            if (!creation || "error" in creation) return;
+            if (slug.length < 2) {
+                toast.error(t("Content.Warnings.slug_too_short.description"));
+                return;
+            }
+
+            let newCreation = {
+                ...creation,
+            };
+
+            if (slug) {
+                newCreation.slug = encodeURI(slug);
+            } else {
+                toast.error(t("Content.Warnings.slug_too_short.description"));
+            }
+
+            if (creators) {
+                newCreation.creators = creators;
+            } else {
+                toast.error(
+                    t("Content.Warnings.creator_too_short.description")
+                );
+            }
+
+            if (videoUrl) {
+                newCreation.videoUrl = videoUrl;
+            }
+
+            if (description) {
+                newCreation.description = description + "";
+            } else {
+                toast.error(
+                    t("Content.Warnings.description_too_short.description")
+                );
+            }
+
+            if (tags) {
+                newCreation.tags = tags.split(",");
+                newCreation.tags = newCreation.tags.filter(
+                    (tag) => tag.length > 0
+                );
+                newCreation.tags = newCreation.tags?.filter((tag, index) => {
+                    return newCreation.tags?.indexOf(tag) === index;
+                });
+            } else {
+                toast.error(t("Content.Warnings.tags_too_short.description"));
+            }
+
+            updateContent(newCreation, token, collectionName)
+                .then((result) => {
+                    if (result.error) {
+                        toast.error(result.error.toString());
+                        return;
+                    }
+
+                    handleNext();
+
+                    setCreation(newCreation);
+                    toast.success(t("Content.Edit.PopupMessage.general_saved"));
+                    resolve();
+                })
+                .catch((e) => {
+                    toast.error(e.error);
+                    reject();
+                });
+        });
+    };
+    return (
+        <form
+            onSubmit={(e) => {
+                e.preventDefault();
+                form.handleSubmit();
+            }}
+            className="flex flex-col gap-4 max-w-2xl"
+        >
+            <form.Field
+                name="slug"
+                children={(field) => (
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="slug">{t("Pages.Create.Details.slug")} <Required /></Label>
+                        <Input
+                            type="text"
+                            name="slug"
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            onChange={(e) => {
+                                field.handleChange(e.target.value);
+                            }}
+                                placeholder={t("Pages.Create.Details.slug")}
+                            />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                    </div>
+                )}
+                validators={{
+                    onSubmit: ({value}) => {
+                        if(value.length < 5) {
+                            return t("Navigation.CreateForm.slug_too_short")
+                        } else if(value.length > 50) {
+                            return t("Navigation.CreateForm.slug_too_long")
+                        }
+                    }
+                }}
+            />
+            <form.Field name="creators" children={(field) => (
+                <div className="flex flex-col gap-1">
+                    <Label htmlFor="creators">{t("Pages.Create.Details.creators")} <Required /></Label>
+                    <CreatorInput creators={field.state.value} onChange={field.handleChange} />
+                    {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                </div>
+             )} />
+            <form.Field
+                name="videoUrl"
+                children={(field) => (
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="videoUrl">{t("Pages.Create.Details.video_url")}</Label>
+                        <Input
+                            type="text"
+                            name="videoUrl"
+                            value={field.state.value}
+                            onBlur={field.handleBlur}
+                            onChange={(e) => {
+                                field.handleChange(e.target.value);
+                            }}
+                            placeholder={t("Pages.Create.Details.video_url")}
+                            />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                    </div>
+                )}
+                validators={{
+                    onSubmit: ({value}) => {
+                        if(value) {
+                            if(!value.includes("https://www.youtube.com/watch?v=") && !value.includes("https://youtu.be/")) {
+                                return t("Navigation.CreateForm.invalid_video_url")
+                            }
+                        }
+                    }
+                }}
+            />
+            <form.Field
+                name="description"
+                children={(field) => (
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="description">{t("Pages.Create.Details.description")} <Required /></Label>
+                        <RichText
+                            sendOnChange={(v) => {
+                                field.handleChange(v);
+                            }}
+                                initialValue={field.state.value}
+                            />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                    </div>
+                )}
+                validators={{
+                    onSubmit: ({value}) => {
+                        if(value.length < 50) {
+                            return t("Navigation.CreateForm.description_too_short")
+                        }
+                    }
+                }}
+            />
+            <form.Field
+                name="tags"
+                children={(field) => (
+                    <div className="flex flex-col gap-1">
+                        <Label htmlFor="tags">{t("Pages.Create.Details.tags")} <Required /></Label>
+                        <TagInput
+                            tags={tags}
+                            creation={creation}
+                                onChange={field.handleChange}
+                            />
+                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                    </div>
+                )}
+                validators={{
+                    onSubmit: ({value}) => {
+                        if(value.length < 1) {
+                            return t("Navigation.CreateForm.tags_too_short")
+                        }
+                    }
+                }}
+            />
+            <Button type="submit" className="w-fit">
+                <span>{t("Pages.Create.next")}</span>
+                <ChevronRight />
+            </Button>
+        </form>
+    );
+}
+
+export function CreatorInput({creators, onChange}: {creators: ICreator[], onChange: (creators: ICreator[]) => void}) {
+    return (
+        <div className="flex flex-col gap-2">
+            {creators?.map((creator, index) => (
+                <div key={index} className="flex flex-row gap-2 items-center">
+                    <CreatorAvatar creator={creator} />
+                    <Input type="text" value={creator.username} onChange={(e) => {
+                        onChange(creators.map((c, i) => i === index ? { ...c, username: e.target.value } : c))
+                    }} placeholder="Username" />
+                    <Input type="text" value={creator.handle} onChange={(e) => {
+                        onChange(creators.map((c, i) => i === index ? { ...c, handle: e.target.value } : c))
+                    }} placeholder="Handle" />
+                    <Button variant="destructive" type="button" onClick={() => {
+                        onChange(creators.filter((_, i) => i !== index))
+                    }}><Trash /></Button>
+                </div>
+            ))}
+            <Button variant="secondary" className="w-fit" type="button" onClick={() => {
+                onChange([...creators, {
+                    username: "",
+                    handle: ""
+                }])
+            }}><Plus /> <span>Add Creator</span></Button>
+        </div>
+    )
+}
+
+export function CreatorAvatar({creator}: {creator: ICreator}) {
+    const [fullCreator, setFullCreator] = useState<IUser | undefined>(undefined);
+    useEffect(() => {
+        getCreator(creator.handle ?? creator.username).then((c) => {
+            setFullCreator(c);
+        })
+    }, [creator])
+    return (
+        <Avatar className="w-7 h-7">
+            <AvatarImage src={fullCreator?.iconURL} />
+            <AvatarFallback>
+                {creator.username.charAt(0)}
+            </AvatarFallback>
+        </Avatar>
+    )
+}
+
+export function TagInput({
+    tags,
+    creation,
+    onChange,
+}: {
+    tags: Tags | { error: string };
+    creation: IContentDoc;
+    onChange: (tags: string) => void;
+}) {
+    const [tagInput, setTagInput] = useState(creation.tags?.join(",") ?? "");
+    const [search, setSearch] = useState("");
+    const [bestSuggestion, setBestSuggestion] = useState("");
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    const t = useTranslations();
+
+    const addTag = (tag: string) => {
+        if (tagInput.split(",").includes(tag)) return;
+        if (tag.length < 2) return;
+        setTagInput(tagInput + "," + tag);
+        setSearch("");
+        onChange(tagInput);
+    };
+
+    const removeTag = (tag: string) => {
+        setTagInput(tagInput.replace("," + tag, ""));
+        onChange(tagInput);
+    };
+
+    return (
+        <Popover onOpenChange={setShowSuggestions} open={showSuggestions}>
+            <PopoverTrigger asChild>
+                <div className="flex flex-row gap-2 px-2 py-1 border overflow-auto">
+                    <Input
+                        className="border-none min-w-[100px]"
+                        type="text"
+                        value={search}
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                            setShowSuggestions(true);
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                addTag(bestSuggestion);
+                            }
+                        }}
+                        placeholder="Start typing to search for tags..."
+                    />
+                    <Label className="text-md font-medium">
+                        {tagInput.split(",").map((tag) => {
+                            if (tag.length === 0) return null;
+                            return (
+                                <Button
+                                    type="button"
+                                    variant="ghost"
+                                    key={tag}
+                                    className="text-sm border py-0 px-2"
+                                    onClick={() => {
+                                        removeTag(tag);
+                                    }}
+                                >
+                                    {t(`Creation.Tags.${tag as TagKeys}`)}
+                                </Button>
+                            );
+                        })}
+                    </Label>
+                </div>
+            </PopoverTrigger>
+            <PopoverContent
+                onOpenAutoFocus={(e) => {
+                    e.preventDefault();
+                }}
+                className="max-h-[25vh] overflow-y-auto"
+            >
+                <div className="flex flex-col gap-2">
+                    <TagSearch
+                        tags={tags}
+                        search={search}
+                        onSelect={addTag}
+                        onBestSuggestionChanged={setBestSuggestion}
+                    />
+                </div>
+            </PopoverContent>
+        </Popover>
+    );
+}
+
+export function TagSearch({
+    tags,
+    search,
+    onBestSuggestionChanged,
+    onSelect,
+}: {
+    tags: Tags | { error: string };
+    search: string;
+    onBestSuggestionChanged: (tag: string) => void;
+    onSelect: (tag: string) => void;
+}) {
+    const t = useTranslations();
+    const fTags: string[] = [];
+    if (tags && "genre" in tags) {
+        Object.keys(tags).forEach((category) => {
+            tags[category].forEach((tag) => {
+                fTags.push(tag);
+            });
+        });
+    }
+    return (
+        <div className="flex flex-wrap gap-2 border-2 border-white/15 p-1">
+            {fTags
+                .filter((tag) =>
+                    tag.toLowerCase().includes(search.toLowerCase())
+                )
+                .map((tag, index) => {
+                    if (index === 0) {
+                        onBestSuggestionChanged(tag);
+                    }
+                    return (
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            key={tag}
+                            className="text-sm border py-0 px-2"
+                            onClick={() => {
+                                onSelect(tag);
+                            }}
+                        >
+                            {t(`Creation.Tags.${tag as TagKeys}`)}
+                        </Button>
+                    );
+                })}
+        </div>
+    );
+}
+

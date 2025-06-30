@@ -355,7 +355,7 @@ export function errorCheckContent(content: IContentDoc) {
         errors.push({error: "Content.Warnings.no_files.description", field: "files"})
     }
 
-    if(!Creation.Tags || Creation.Tags.length === 0) {
+    if(!content.tags || content.tags.length === 0) {
         errors.push({error: "Content.Warnings.no_tags.description", field: "tags"})
     }
 

@@ -1,7 +1,7 @@
 'use client'
 
 import { useComment } from "@/app/api/hooks/comments";
-import CommentCard from "@/components/Comment/CommentCard";
+import { Comment } from "@/components/Creations/Page/Comments";
 import { useTranslations } from "next-intl";
 
 
@@ -13,7 +13,7 @@ export default function CommentPage({params: {locale, _id}}: {params: {locale: s
 
     return (
         <div className="centered_content">
-            <CommentCard comment={comment} contentType="wall" handle={comment.slug} canReply={true} />
+            <Comment comment={comment} />
         </div>
     )
 

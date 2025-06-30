@@ -7,7 +7,6 @@ import styles from './SearchBar.module.css'
 import {useTranslations} from 'next-intl';
 import { useGridView } from "@/app/api/hooks/grids";
 import { Button } from "@/components/ui/button";
-import BulkDownloadButton from "@/components/ui/client_buttons/BulkDownloadButton";
 import { Filter, Grid, List, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";

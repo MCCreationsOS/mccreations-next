@@ -166,7 +166,7 @@ export default function SignIn() {
     )
 }
 
-export function SignInBackground() {
+function SignInBackground() {
     const {creations} = useCreations({status: 2, contentType: "content", limit: 20, page: 0, sort: SortOptions.HighestDownloads})
     const [index, setIndex] = useState(0)
 

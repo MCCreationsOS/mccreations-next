@@ -4,7 +4,6 @@ import { readAllNotifications, readNotification } from "@/app/api/auth";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import styles from "../dashboard.module.css"
 import { useNotifications } from "@/app/api/hooks/notifications";
 import { mutate } from "swr";
 import { useUser, useToken } from "@/app/api/hooks/users";

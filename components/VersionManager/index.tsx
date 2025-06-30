@@ -1,7 +1,6 @@
 'use client'
 
 import FileDropzone from "./FileUpload"
-// import styles from '../Input.module.css'
 import { useState } from "react"
 
 export interface VersionUploaderProps {
