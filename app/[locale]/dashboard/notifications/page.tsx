@@ -10,7 +10,7 @@ import { useUser, useToken } from "@/app/api/hooks/users";
 import { Button } from "@/components/ui/button";
 import PageNavigator from "@/components/Creations/Search/Navigator";
 import { INotification } from "@/app/api/types";
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 
 export default function Notifications() {
     const page = parseInt(useSearchParams().get("page") ?? "0")
@@ -32,9 +32,9 @@ export default function Notifications() {
 
     return <div className="flex flex-col gap-0 relative">
             <h3 className="text-2xl font-bold mb-2">{t('notification', {count : 2})}</h3>
-            <Button variant="secondary" className="absolute right-0" onClick={readAll}><span className="text-sm">{t('Account.Notifications.read_all')}</span></Button>
+            <Button variant="secondary" className="absolute right-0" onClick={readAll}><span className="text-sm">{t('Pages.Dashboard.Notifications.read_all')}</span></Button>
             {notifications?.map(notification => <Notification notification={notification} />)}
-            {notifications?.length === 0 && <p>{t('Account.Notifications.no_notifications')}</p>}
+            {notifications?.length === 0 && <p>{t('Pages.Dashboard.Notifications.no_notifications')}</p>}
             {notifications && notifications.length > 0 && <PageNavigator page={page} pages={Math.ceil(total ?? 0 / 20.0)} />}
     </div>
 }

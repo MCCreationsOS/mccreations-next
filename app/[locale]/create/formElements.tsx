@@ -45,7 +45,7 @@ export function Files({ handleNext }: { handleNext: () => void }) {
         updateContent(newCreation, token, collectionName)
             .then(() => {
                 setCreation(newCreation);
-                toast.success(t("Content.Edit.PopupMessage.versions_saved"));
+                toast.success(t("Pages.Create.Files.saved"));
             })
             .catch((e) => {
                 toast.error(e.error);
@@ -93,7 +93,7 @@ export function Images({ handleNext }: { handleNext: () => void }) {
         updateContent(newCreation, token, collectionName)
             .then(() => {
                 setCreation(newCreation);
-                toast.success(t("Content.Edit.PopupMessage.images_saved"));
+                toast.success(t("Pages.Create.Images.saved"));
             })
             .catch((e) => {
                 toast.error(e.error);
@@ -153,10 +153,10 @@ export function CreateBasicInfo() {
         type?: ContentTypes,
         shortDescription?: string
     ) => {
-        if (!title) toast(t("Navigation.CreateForm.missing_title"));
-        if (!type) toast(t("Navigation.CreateForm.missing_type"));
+        if (!title) toast.error(t("Pages.Create.BasicInfo.missing_title"));
+        if (!type) toast.error(t("Pages.Create.BasicInfo.missing_type"));
         if (!shortDescription)
-            toast(t("Navigation.CreateForm.missing_short_description"));
+            toast.error(t("Pages.Create.BasicInfo.missing_short_description"));
 
         setCreation({
             ...creation,
@@ -213,7 +213,7 @@ export function CreateBasicInfo() {
                     validators={{
                         onSubmit: ({value}) => {
                             if(value.length < 3) {
-                                return t("Navigation.CreateForm.title_too_short")
+                                return t("Pages.Create.BasicInfo.title_too_short")
                             }
                         }
                     }}
@@ -282,9 +282,9 @@ export function CreateBasicInfo() {
                     validators={{
                         onSubmit: ({value}) => {
                             if(value.length < 20) {
-                                return t("Navigation.CreateForm.short_description_too_short")
+                                return t("Pages.Create.BasicInfo.short_description_too_short")
                             } else if(value.length > 100) {
-                                return t("Navigation.CreateForm.short_description_too_long")
+                                return t("Pages.Create.BasicInfo.short_description_too_long")
                             }
                         }
                     }}
@@ -340,7 +340,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
         return new Promise<void>((resolve, reject) => {
             if (!creation || "error" in creation) return;
             if (slug.length < 2) {
-                toast.error(t("Content.Warnings.slug_too_short.description"));
+                toast.error(t("Pages.Create.Details.missing_slug"));
                 return;
             }
 
@@ -351,14 +351,14 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
             if (slug) {
                 newCreation.slug = encodeURI(slug);
             } else {
-                toast.error(t("Content.Warnings.slug_too_short.description"));
+                toast.error(t("Pages.Create.Details.missing_slug"));
             }
 
             if (creators) {
                 newCreation.creators = creators;
             } else {
                 toast.error(
-                    t("Content.Warnings.creator_too_short.description")
+                    t("Pages.Create.Details.missing_creators")
                 );
             }
 
@@ -370,7 +370,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                 newCreation.description = description + "";
             } else {
                 toast.error(
-                    t("Content.Warnings.description_too_short.description")
+                    t("Pages.Create.Details.missing_description")
                 );
             }
 
@@ -383,7 +383,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     return newCreation.tags?.indexOf(tag) === index;
                 });
             } else {
-                toast.error(t("Content.Warnings.tags_too_short.description"));
+                toast.error(t("Pages.Create.Details.missing_tags"));
             }
 
             updateContent(newCreation, token, collectionName)
@@ -396,7 +396,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     handleNext();
 
                     setCreation(newCreation);
-                    toast.success(t("Content.Edit.PopupMessage.general_saved"));
+                    toast.success(t("Pages.Create.Details.saved"));
                     resolve();
                 })
                 .catch((e) => {
@@ -434,9 +434,11 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                 validators={{
                     onSubmit: ({value}) => {
                         if(value.length < 5) {
-                            return t("Navigation.CreateForm.slug_too_short")
+                            return t("Pages.Create.Details.slug_too_short")
                         } else if(value.length > 50) {
-                            return t("Navigation.CreateForm.slug_too_long")
+                            return t("Pages.Create.Details.slug_too_long")
+                        } else if(!/^[a-zA-Z0-9_-]+$/.test(value)) {
+                            return t("Pages.Create.Details.slug_invalid_characters")
                         }
                     }
                 }}
@@ -447,7 +449,15 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     <CreatorInput creators={field.state.value} onChange={field.handleChange} />
                     {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                 </div>
-             )} />
+             )} 
+             validators={{
+                onSubmit: ({value}) => {
+                    if(value.length < 1) {
+                        return t("Pages.Create.Details.creator_too_short")
+                    }
+                }
+             }}
+            />
             <form.Field
                 name="videoUrl"
                 children={(field) => (
@@ -470,7 +480,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     onSubmit: ({value}) => {
                         if(value) {
                             if(!value.includes("https://www.youtube.com/watch?v=") && !value.includes("https://youtu.be/")) {
-                                return t("Navigation.CreateForm.invalid_video_url")
+                                return t("Pages.Create.Details.invalid_video_url")
                             }
                         }
                     }
@@ -485,7 +495,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                             sendOnChange={(v) => {
                                 field.handleChange(v);
                             }}
-                                initialValue={field.state.value}
+                                initialValue={creation.description}
                             />
                             {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                     </div>
@@ -493,7 +503,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                 validators={{
                     onSubmit: ({value}) => {
                         if(value.length < 50) {
-                            return t("Navigation.CreateForm.description_too_short")
+                            return t("Pages.Create.Details.description_too_short")
                         }
                     }
                 }}
@@ -514,7 +524,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                 validators={{
                     onSubmit: ({value}) => {
                         if(value.length < 1) {
-                            return t("Navigation.CreateForm.tags_too_short")
+                            return t("Pages.Create.Details.tags_too_short")
                         }
                     }
                 }}
@@ -528,6 +538,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
 }
 
 export function CreatorInput({creators, onChange}: {creators: ICreator[], onChange: (creators: ICreator[]) => void}) {
+    const t = useTranslations();
     return (
         <div className="flex flex-col gap-2">
             {creators?.map((creator, index) => (
@@ -535,10 +546,10 @@ export function CreatorInput({creators, onChange}: {creators: ICreator[], onChan
                     <CreatorAvatar creator={creator} />
                     <Input type="text" value={creator.username} onChange={(e) => {
                         onChange(creators.map((c, i) => i === index ? { ...c, username: e.target.value } : c))
-                    }} placeholder="Username" />
+                    }} placeholder={t("Pages.Create.Details.CreatorInput.username")} />
                     <Input type="text" value={creator.handle} onChange={(e) => {
                         onChange(creators.map((c, i) => i === index ? { ...c, handle: e.target.value } : c))
-                    }} placeholder="Handle" />
+                    }} placeholder={t("Pages.Create.Details.CreatorInput.handle")} />
                     <Button variant="destructive" type="button" onClick={() => {
                         onChange(creators.filter((_, i) => i !== index))
                     }}><Trash /></Button>
@@ -549,7 +560,7 @@ export function CreatorInput({creators, onChange}: {creators: ICreator[], onChan
                     username: "",
                     handle: ""
                 }])
-            }}><Plus /> <span>Add Creator</span></Button>
+            }}><Plus /> <span>{t("Pages.Create.Details.CreatorInput.add")}</span></Button>
         </div>
     )
 }
@@ -616,7 +627,7 @@ export function TagInput({
                                 addTag(bestSuggestion);
                             }
                         }}
-                        placeholder="Start typing to search for tags..."
+                        placeholder={t("Pages.Create.Details.TagInput.placeholder")}
                     />
                     <Label className="text-md font-medium">
                         {tagInput.split(",").map((tag) => {

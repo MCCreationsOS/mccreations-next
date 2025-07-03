@@ -18,7 +18,7 @@ import {
     TableRow,
   } from "@/components/ui/table"
 import Image from "next/image";
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import { Button } from "../ui/button";
 import { ImageIcon, Edit, Trash, MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";

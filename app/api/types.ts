@@ -361,8 +361,6 @@ export const AllTags = [
     "other"    
 ]
 
-export const Locales = ["en-US", 'zh-CN', 'ru-RU', 'fr-FR', 'de-DE', 'es-ES', 'ja-JP', 'ko-KR']
-export type Locale = "en-US" | 'zh-CN' | 'ru-RU' | 'fr-FR' | 'de-DE' | 'es-ES' | 'ja-JP' | 'ko-KR'
 /**
  * An array representing all existing Minecraft Versions.
  */

@@ -9,7 +9,7 @@ import PageNavigator from "./Navigator";
 import { makeSentenceCase } from "@/app/api/utils"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
-export default async function ContentSearchPage({searchParams, collectionName, pathname}: {searchParams: {page: string, search: string, sort: string, status: string, includeTags: string, excludeTags: string}, collectionName: CollectionNames, pathname: string}) {
+export default async function CreationSearchPage({searchParams, collectionName, pathname}: {searchParams: {page: string, search: string, sort: string, status: string, includeTags: string, excludeTags: string}, collectionName: CollectionNames, pathname: string}) {
     const t = await getTranslations()
     let contentType = convertToType(collectionName)
     let page = 0
@@ -31,12 +31,12 @@ export default async function ContentSearchPage({searchParams, collectionName, p
     return (
         <div>
             <div className="mb-4 mt-2 p-2">
-                <h1 className="text-2xl font-bold">{t(`Creations.Search.SearchPage.${contentType}.title`)}</h1>
+                <h1 className="text-2xl font-bold">{t(`Components.Creations.Search.Headers.${contentType}.title`)}</h1>
                 <Collapsible>
-                    <CollapsibleTrigger><p className="text-sm text-gray-500">{t(`Creations.Search.SearchPage.${contentType}.blurb`)}</p></CollapsibleTrigger>
+                    <CollapsibleTrigger><p className="text-sm text-gray-500">{t(`Components.Creations.Search.Headers.${contentType}.blurb`)}</p></CollapsibleTrigger>
                     <CollapsibleContent>
                     <p className="text-sm text-gray-500">
-                        {t(`Creations.Search.SearchPage.${contentType}.description`)}
+                        {t(`Components.Creations.Search.Headers.${contentType}.description`)}
                     </p>
                     </CollapsibleContent>
                 </Collapsible>
@@ -47,14 +47,14 @@ export default async function ContentSearchPage({searchParams, collectionName, p
                     <SidebarFilters contentType={collectionName} tags={tags} />
                     <div>
                         <SearchAndFilter searchParams={searchParams} tags={tags}/>
-                        <ContentGrid content={creations} enableSelection={true} enableAds={true} showCategory={true}></ContentGrid>
+                        <ContentGrid content={creations} enableSelection={true} enableAds={true} showCategory={true} playlist={collectionName}></ContentGrid>
                         { creations && pages > 1 &&  (<PageNavigator page={page} pages={pages} className="mt-4" />) }
                     </div>
                 </div>
             )}
             { !creations || creations.length === 0 && (
                 <div className="no_comments">
-                    <h2>{t('Content.maps_not_found')}</h2>
+                    <h2>{t('Components.Creations.Page.not_found', {content_type: t(contentType, {count: 1})})}</h2>
                 </div>
             )}
             <div className="relative">

@@ -78,16 +78,16 @@ export default function NotificationsPage() {
     function NotificationOptionDropdown({ type, value }: { type: keyof CreatorSettings['notifications'], value: NotificationOption }) {
         return <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <Button variant="secondary"><span>{t(`Account.Notifications.${value}`)}</span></Button>
+                <Button variant="secondary"><span>{t(`Pages.Settings.Notifications.${value}`)}</span></Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
-                <DropdownMenuItem onClick={() => handleUpdate(type, "push_only")}>{t('Account.Notifications.push_only')}</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleUpdate(type, "push_email_daily")}>{t('Account.Notifications.push_email_daily')}</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleUpdate(type, "push_email_weekly")}>{t('Account.Notifications.push_email_weekly')}</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleUpdate(type, "email_daily")}>{t('Account.Notifications.email_daily')}</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleUpdate(type, "email_weekly")}>{t('Account.Notifications.email_weekly')}</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleUpdate(type, "dashboard_only")}>{t('Account.Notifications.dashboard_only')}</DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleUpdate(type, "none")}>{t('Account.Notifications.none')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "push_only")}>{t('Pages.Settings.Notifications.push_only')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "push_email_daily")}>{t('Pages.Settings.Notifications.push_email_daily')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "push_email_weekly")}>{t('Pages.Settings.Notifications.push_email_weekly')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "email_daily")}>{t('Pages.Settings.Notifications.email_daily')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "email_weekly")}>{t('Pages.Settings.Notifications.email_weekly')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "dashboard_only")}>{t('Pages.Settings.Notifications.dashboard_only')}</DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleUpdate(type, "none")}>{t('Pages.Settings.Notifications.none')}</DropdownMenuItem>
             </DropdownMenuContent>
         </DropdownMenu>
     }
@@ -112,14 +112,14 @@ export default function NotificationsPage() {
             <div>
                 {isIOS && (
                     <p>
-                        {t.rich('Account.Notifications.install_ios_instructions', {icon: (chunks) => <span role="img" aria-label="share icon">
+                        {t.rich('Pages.Settings.Notifications.install_ios_instructions', {icon: (chunks) => <span role="img" aria-label="share icon">
                             {' '}
                             <Share />{' '}
                         </span>})}
                     </p>
                 )}
                 {!isIOS && !pushSubscription && (
-                    <Button variant="secondary" onClick={subscribeToPush}><span>{t('Account.Notifications.add_to_this_device')}</span></Button>
+                    <Button variant="secondary" onClick={subscribeToPush}><span>{t('Pages.Settings.Notifications.add_to_this_device')}</span></Button>
                 )}
             </div>
         )
@@ -127,34 +127,34 @@ export default function NotificationsPage() {
 
     return (
             <div className="flex flex-col gap-4 w-full max-w-100">
-                <h2>{t('Account.Notifications.title')}</h2>
+                <h2>{t('Pages.Settings.Notifications.title')}</h2>
                 <div className="settings_option">
                     <div className="text">
-                        <p>{t('Account.Notifications.comment')}</p>
+                        <p>{t('Pages.Settings.Notifications.comment')}</p>
                     </div>
                     <NotificationOptionDropdown type="comment" value={comment} />
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <p>{t('Account.Notifications.reply')}</p>
+                        <p>{t('Pages.Settings.Notifications.reply')}</p>
                     </div>
                     <NotificationOptionDropdown type="reply" value={reply} />
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <p>{t('Account.Notifications.follow')}</p>
+                        <p>{t('Pages.Settings.Notifications.follow')}</p>
                     </div>
                     <NotificationOptionDropdown type="follow" value={follow} />
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <p>{t('Account.Notifications.rating')}</p>
+                        <p>{t('Pages.Settings.Notifications.rating')}</p>
                     </div>
                     <NotificationOptionDropdown type="rating" value={rating} />
                 </div>
                 <div className="settings_option">
                     <div className="text">
-                        <p>{t('Account.Notifications.translation')}</p>
+                        <p>{t('Pages.Settings.Notifications.translation')}</p>
                     </div>
                     <NotificationOptionDropdown type="translation" value={translation} />
                 </div>

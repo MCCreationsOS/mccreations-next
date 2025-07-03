@@ -11,7 +11,7 @@ import { useUser, useToken } from "@/app/api/hooks/users";
 import { useIsClient } from "usehooks-ts";
 import { useNotifications } from "@/app/api/hooks/notifications"
 import { Button } from "../ui/button"
-import { Link } from "@/app/api/navigation"
+import { Link } from "@/i18n/navigation"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 
 /**

@@ -14,7 +14,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { useSessionStorage } from "usehooks-ts";
-import { CreateBasicInfo, CreateDetails, Images } from "./formElements";
+import { CreateBasicInfo, CreateDetails, Files, Images } from "./formElements";
+import { useTranslations } from "next-intl";
 
 export default function Page() {
     const [creation, setCreation] = useSessionStorage<IContentDoc>(
@@ -27,6 +28,7 @@ export default function Page() {
     const contentType = creation.type;
     const collectionName = convertToCollection(contentType);
     const router = useRouter();
+    const t = useTranslations();
 
     const handleTabChange = (tab: string) => {
         setActiveTab(tab);
@@ -60,10 +62,10 @@ export default function Page() {
         <div className="w-1/2 mx-auto mt-5 p-5">
             <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsList className="w-full">
-                    <TabsTrigger value="basic_info" className="w-1/4">Basic Info</TabsTrigger>
-                    <TabsTrigger value="details" className="w-1/4">Details</TabsTrigger>
-                    <TabsTrigger value="files" className="w-1/4">Files</TabsTrigger>
-                    <TabsTrigger value="images" className="w-1/4">Images</TabsTrigger>
+                    <TabsTrigger value="basic_info" className="w-1/4">{t('Pages.Create.BasicInfo.title')}</TabsTrigger>
+                    <TabsTrigger value="details" className="w-1/4">{t('Pages.Create.Details.title')}</TabsTrigger>
+                    <TabsTrigger value="files" className="w-1/4">{t('Pages.Create.Files.title')}</TabsTrigger>
+                    <TabsTrigger value="images" className="w-1/4">{t('Pages.Create.Images.title')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="basic_info">
                     <CreateBasicInfo  />
@@ -72,7 +74,7 @@ export default function Page() {
                     <CreateDetails handleNext={handleNext} />
                 </TabsContent>
                 <TabsContent value="files">
-                    {/* <Files handleNext={handleNext} /> */}
+                    <Files handleNext={handleNext} />
                 </TabsContent>
                 <TabsContent value="images">
                     <Images handleNext={handleNext} />

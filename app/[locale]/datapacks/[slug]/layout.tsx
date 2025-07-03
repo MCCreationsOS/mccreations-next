@@ -2,9 +2,10 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import Menu from '@/components/Menu/Navbar'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
-import { unstable_setRequestLocale } from 'next-intl/server'
+import { setRequestLocale } from 'next-intl/server'
 import { searchContent } from '@/app/api/content'
-import { CollectionNames, IContentDoc, Locales } from '@/app/api/types'
+import { CollectionNames, IContentDoc } from '@/app/api/types'
+import { routing } from '@/i18n/routing'
 
 export const dynamicParams = true
 export const revalidate = 86_400
@@ -15,7 +16,7 @@ export async function generateStaticParams() {
       slug: map.slug
   }))
   let params = []
-  for (let locale of Locales) {
+  for (let locale of routing.locales) {
       for (let map of mapParams) {
           params.push({
               locale: locale,
@@ -29,7 +30,7 @@ export async function generateStaticParams() {
 
  
 export default function DatapackPageLayout({ children, params }: {children: React.ReactNode, params: Params}) {
-  unstable_setRequestLocale(params.locale)
+  setRequestLocale(params.locale)
 
  return (
         <Suspense>

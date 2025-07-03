@@ -1,7 +1,7 @@
 'use client'
 import { useRouter } from "next/navigation";
 import { SiDiscord, SiFacebook, SiGithub, SiGoogle, SiMicrosoft } from '@icons-pack/react-simple-icons'
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import { SortOptions, UserTypes } from "@/app/api/types";
 import {useTranslations} from 'next-intl';
 import { Button } from "@/components/ui/button";
@@ -51,12 +51,12 @@ export default function SignUp() {
                     router.push('/signin')
                     return;
                 } else {
-                    toast(t('SignUp.error'))
+                    toast(t('Pages.SignUp.error'))
                     return;
                 }
             })
         }).catch(error => {
-            toast(t('SignUp.error'))
+            toast(t('Pages.SignUp.error'))
             return;
         })
     }
@@ -96,59 +96,59 @@ export default function SignUp() {
         <div className="h-full relative">
         <SignUpBackground />
         <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 absolute top-0 left-1/2 -translate-x-1/2 border-2 border-black">
-            <h2 className="text-2xl font-bold mb-2">{t('Account.Shared.providers')}</h2>
+            <h2 className="text-2xl font-bold mb-2">{t('Pages.SignUp.providers')}</h2>
             <div className="flex flex-row flex-wrap gap-2 mb-5">
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Account.Shared.Providers.google')}</span></Button>
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><SiDiscord /><span>{t('Account.Shared.Providers.discord')}</span></Button>
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><SiGithub /><span>{t('Account.Shared.Providers.github')}</span></Button>
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><SiMicrosoft /><span>{t('Account.Shared.Providers.microsoft')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Pages.SignUp.Providers.google')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><SiDiscord /><span>{t('Pages.SignUp.Providers.discord')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><SiGithub /><span>{t('Pages.SignUp.Providers.github')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><SiMicrosoft /><span>{t('Pages.SignUp.Providers.microsoft')}</span></Button>
             </div>
-            <h2 className="text-2xl font-bold mb-2">{t('SignUp.title')}</h2>
+            <h2 className="text-2xl font-bold mb-2">{t('Pages.SignUp.title')}</h2>
             <form onSubmit={(e) => {e.preventDefault(); form.handleSubmit()}} className="flex flex-col gap-2">
                 <form.Field name="username" children={(field) => (
                         <>
-                            <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Username" />
+                            <Input type="text" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.SignUp.username_placeholder')} />
                             {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                         </>
                     )}  validators={{
                         onChange: ({value}) => {
                             if(value.length < 3) {
-                                return 'Username must be at least 3 characters long'
+                                return t('Pages.SignUp.username_too_short')
                             }
                             let regex = /[A-Za-z0-9_]*/g, m;
                             m = regex.exec(value)
                             if(!m || m[0] !== m.input) {
-                                return 'Invalid characters'
+                                return t('Pages.SignUp.username_invalid_characters')
                             }
                         },
                         onSubmit: ({value}) => {
                             if(value.length < 3) {
-                                return 'Username must be at least 3 characters long'
+                                return t('Pages.SignUp.username_too_short')
                             }
                         }
                     }}/>
                 <form.Field name="email" children={(field) => (
                     <>
-                        <Input type="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Email" />
+                        <Input type="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.SignUp.email_placeholder')} />
                         {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                     </>
                 )}  validators={{
                     onChange: ({value}) => {
                         if(value.length < 3) {
-                            return 'Email must be at least 3 characters long'
+                            return t('Pages.SignUp.email_invalid')
                         }
                         let regex = /[A-Za-z0-9_]*/g, m;
                         m = regex.exec(value)
                         if(!m || m[0] !== m.input) {
-                            return 'Invalid characters'
+                            return t('Pages.SignUp.email_invalid')
                         }
                         if(!value.includes('@') || !value.includes('.')) {
-                            return 'Invalid email'
+                            return t('Pages.SignUp.email_invalid')
                         }
                     },
                     onSubmit: ({value}) => {
                         if(value.length < 3) {
-                            return 'Email must be at least 3 characters long'
+                            return t('Pages.SignUp.email_invalid')
                         }
                     }
                 }}/>
@@ -162,25 +162,25 @@ export default function SignUp() {
                         let regex = /[0-9]/g;
                         let m = regex.exec(value)
                         if(!m) {
-                            return 'Password must contain a number'
+                            return t('Pages.SignUp.password_no_number')
                         }
                         (!value) ?
-                        'Password is required' :
+                        t('Pages.SignUp.password_required') :
                         value.length < 9 ?
-                        'Password must be at least 9 characters long' :
+                        t('Pages.SignUp.password_too_short') :
                         undefined
                     },
                     onSubmit: ({value}) => {
                         if(value.length < 9) {
-                            return 'Password must be at least 9 characters long'
+                            return t('Pages.SignUp.password_too_short')
                         }
                     }
                 }}/>
-                <Button><span>{t('SignIn.button')}</span></Button>
+                <Button><span>{t('Pages.SignUp.button')}</span></Button>
             </form>
             <div className="flex flex-row gap-4 mt-2">
-                <Link className="text-sm hover:underline" href="/signup">{t('SignIn.no_account')}</Link>
-                <Link className="text-sm hover:underline" href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
+                <Link className="text-sm hover:underline" href="/signup">{t('Pages.SignUp.already_have_account')}</Link>
+                <Link className="text-sm hover:underline" href="/signin/reset" >{t('Pages.SignUp.forgot_password')}</Link>
                 </div>
             </div>
         </div>

@@ -15,7 +15,7 @@ import { searchContent } from "@/app/api/content";
 import Grid from "@/components/Creations/Grid";
 import SubscribeButton from "@/components/ui/client_buttons/SubscribeButton";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import { EditAbout, EditCustomCss, EditProfileImages, EditSocialLinks } from "./creatorEdit";
 import dompurify from "isomorphic-dompurify";
 
@@ -24,35 +24,42 @@ interface CreatorPageProps {
 }
 
 export async function generateMetadata({ params }: CreatorPageProps): Promise<Metadata> {
+    const t = await getTranslations()
     try {
         const creator = await getCreator(params.handle)
 
         if (!creator) {
         return {
-            title: "Creator Not Found",
-            description: "The requested creator could not be found.",
+            title: t("Pages.Creator.handle.Metadata.title_not_found"),
+            description: t("Pages.Creator.handle.Metadata.description_not_found"),
+            keywords: [t("Pages.Creator.handle.Metadata.Keywords.minecraft"), t("Pages.Creator.handle.Metadata.Keywords.games"), t("Pages.Creator.handle.Metadata.Keywords.gaming"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_map"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_datapack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_resourcepack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_creations"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_version", {minecraft_version: creator.minecraftVersion})],
+            publisher: "MCCreations",
         }
         }
 
         return {
-        title: `${creator.username} - Minecraft Creator`,
-        description: `Check out ${creator.username}'s Minecraft maps, datapacks, and resource packs. Browse their collection and download their creations.`,
+        title: t("Pages.Creator.handle.Metadata.title", {username: creator.username}),
+        description: t("Pages.Creator.handle.Metadata.description", {username: creator.username}),
         alternates: {
             canonical: `/creator/${params.handle}`,
         },
         openGraph: {
-            title: `${creator.username} - Minecraft Creator`,
-            description: `Check out ${creator.username}'s Minecraft maps, datapacks, and resource packs. Browse their collection and download their creations.`,
+            title: t("Pages.Creator.handle.Metadata.title", {username: creator.username}),
+            description: t("Pages.Creator.handle.Metadata.description", {username: creator.username}),
             url: `/creator/${params.handle}`,
             type: "profile",
             images: creator.iconURL ? [{ url: creator.iconURL, width: 200, height: 200 }] : undefined,
         },
+        keywords: [t("Pages.Creator.handle.Metadata.Keywords.minecraft"), t("Pages.Creator.handle.Metadata.Keywords.games"), t("Pages.Creator.handle.Metadata.Keywords.gaming"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_map"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_datapack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_resourcepack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_creations")],
+        publisher: "MCCreations",
         }
     } catch (error) {
         console.error("Error generating metadata:", error)
         return {
-        title: "Minecraft Map Creator",
-        description: "View this creator's Minecraft maps and other creations.",
+        title: t("Pages.Creator.handle.Metadata.title_not_found"),
+        description: t("Pages.Creator.handle.Metadata.description_not_found"),
+        keywords: [t("Pages.Creator.handle.Metadata.Keywords.minecraft"), t("Pages.Creator.handle.Metadata.Keywords.games"), t("Pages.Creator.handle.Metadata.Keywords.gaming"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_map"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_datapack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_resourcepack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_creations")],
+        publisher: "MCCreations",
         }
     }
 }
@@ -108,6 +115,7 @@ function CreatorProfileSkeleton() {
 }
 
 async function CreatorProfile({ handle }: { handle: string }) {
+    const t = await getTranslations()
     try {
         const creator = await getCreator(handle)
 
@@ -125,7 +133,7 @@ async function CreatorProfile({ handle }: { handle: string }) {
                 <div className="relative w-full h-48 overflow-hidden mb-16 border-white/15 border-2">
                     <Image
                         src={creator.bannerURL || "/placeholder.svg"}
-                        alt={`${creator.username}'s banner`}
+                        alt={t("Pages.Creator.handle.banner", {username: creator.username})}
                         fill
                         className="object-cover"
                         priority
@@ -140,7 +148,7 @@ async function CreatorProfile({ handle }: { handle: string }) {
                 <Avatar className="w-24 h-24 border-4 border-white">
                 <AvatarImage
                     src={creator.iconURL || `https://api.dicebear.com/6.x/initials/svg?seed=${creator.username}`}
-                    alt={creator.username}
+                    alt={t("Pages.Creator.handle.icon", {username: creator.username})}
                 />
                 <AvatarFallback>{(creator.username ?? "Unknown").charAt(0)}</AvatarFallback>
                 </Avatar>
@@ -164,13 +172,13 @@ async function CreatorProfile({ handle }: { handle: string }) {
                 <div className="space-y-4">
                     <div className="flex items-center text-muted-foreground">
                     <Users className="h-4 w-4 mr-2" />
-                    <span>{creator.followers?.length || 0} followers</span>
+                    <span>{t("Pages.Creator.handle.followers", {count: creator.followers?.length || 0})}</span>
                     </div>
                 </div>
 
                 {creator.about && (
                     <div>
-                    <h2 className="font-semibold mb-2">About</h2>
+                    <h2 className="font-semibold mb-2">{t("Pages.Creator.handle.about")}</h2>
                     <p className="text-sm whitespace-pre-line" dangerouslySetInnerHTML={{__html: dompurify.sanitize(creator.about)}}></p>
                     <EditAbout params={{handle}} />
                     </div>
@@ -205,9 +213,9 @@ async function CreatorProfile({ handle }: { handle: string }) {
             <div className="md:w-2/3">
                 <Tabs defaultValue="maps">
                     <TabsList className="mb-6">
-                        <TabsTrigger value="maps">Maps</TabsTrigger>
-                        <TabsTrigger value="datapacks">Datapacks</TabsTrigger>
-                        <TabsTrigger value="resourcepacks">Resource Packs</TabsTrigger>
+                        <TabsTrigger value="maps">{t("map", {count: 2})}</TabsTrigger>
+                        <TabsTrigger value="datapacks">{t("datapack", {count: 2})}</TabsTrigger>
+                        <TabsTrigger value="resourcepacks">{t("resourcepack", {count: 2})}</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="maps">
@@ -251,12 +259,13 @@ return (
 }
 
 async function CreatorMaps({ handle }: { handle: string }) {
+    const t = await getTranslations()
     const maps = (await searchContent({creators: [handle], contentType: CollectionNames.Maps, limit: 10, page: 0}, false)).documents
 
     if (maps.length === 0) {
         return (
         <div className="text-center py-12 bg-muted">
-            <p>This creator hasn't published any maps yet.</p>
+            <p>{t("Pages.Creator.handle.no_creations", {content_type: t("map", {count: 2})})}</p>
         </div>
         )
     }
@@ -265,12 +274,13 @@ async function CreatorMaps({ handle }: { handle: string }) {
 }
 
 async function CreatorDatapacks({ handle }: { handle: string }) {
+    const t = await getTranslations()
     const datapacks = (await searchContent({creators: [handle], contentType: CollectionNames.Datapacks, limit: 10, page: 0}, false)).documents
 
     if (datapacks.length === 0) {
         return (
         <div className="text-center py-12 bg-muted">
-            <p>This creator hasn't published any data packs yet.</p>
+            <p>{t("Pages.Creator.handle.no_creations", {content_type: t("datapack", {count: 2})})}</p>
         </div>
         )
     }
@@ -279,12 +289,13 @@ async function CreatorDatapacks({ handle }: { handle: string }) {
 }
 
 async function CreatorResourcepacks({ handle }: { handle: string }) {
+    const t = await getTranslations()
     const resourcepacks = (await searchContent({creators: [handle], contentType: CollectionNames.Resourcepacks, limit: 10, page: 0}, false)).documents
 
     if (resourcepacks.length === 0) {
         return (
         <div className="text-center py-12 bg-muted">
-            <p>This creator hasn't published any resource packs yet.</p>
+            <p>{t("Pages.Creator.handle.no_creations", {content_type: t("resourcepack", {count: 2})})}</p>
         </div>
         )
     }

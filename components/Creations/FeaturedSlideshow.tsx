@@ -6,7 +6,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { Download, Star } from "lucide-react";
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 
 export default function FeaturedSlideshow({creations}: {creations: IContentDoc[]}) {
     const [currentSlide, setCurrentSlide] = useState(0)

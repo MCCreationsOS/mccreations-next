@@ -10,15 +10,17 @@ export default function FeedGrid({content, linkTo, cards, enableSelection, enabl
     }
     
     return (
-        <div className={(cards) ? 'content_grid ' + cards : 'content_grid'}>
-            {content && content.map((content: IContentDoc | IComment, idx: number) => {
-                if('comment' in content) {
-                    return <Comment key={content._id} comment={content} />
-                }
-                if('images' in content) {
-                    return <CreationCard adPosition={adPosition} key={content._id} creation={content} priority={true} playlist={"none"} index={idx} linkTo={linkTo} enableSelection={enableSelection}></CreationCard>
-                }
-            })}
-        </div>
+        <div className="@container">
+                <div className="grid grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 gap-2 w-full">
+                    {content && content.map((content: IContentDoc | IComment, idx: number) => {
+                        if('comment' in content) {
+                            return <Comment key={content._id} comment={content} />
+                        }
+                        if('images' in content) {
+                            return <CreationCard adPosition={adPosition} key={content._id} creation={content} priority={true} playlist={"feed"} index={idx} linkTo={linkTo} enableSelection={enableSelection}></CreationCard>
+                        }
+                    })}
+                </div>
+            </div>
     )
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import { Menu, Upload, User } from "lucide-react";
 import { Sheet, SheetTrigger, SheetContent } from "../ui/sheet";
 import { Button } from "../ui/button";

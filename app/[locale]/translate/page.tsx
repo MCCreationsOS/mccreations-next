@@ -1,12 +1,12 @@
 'use client'
 
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
-import { Locales } from "@/app/api/types";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTitle, DialogContent, DialogHeader, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
+import { routing } from "@/i18n/routing";
 
 
 export default function Page() {
@@ -19,7 +19,7 @@ export default function Page() {
                 <h1 className="text-2xl font-bold">{t('Pages.Translate.title')}</h1>
                 <p className="text-sm">{t.rich('Pages.Translate.help', { link: (chunks) => <Link target="_blank" rel="noopener noreferrer" className="underline" href="https://youtu.be/lhZTkbkuORI">{chunks}</Link>})}</p>
                 <div className="flex flex-row gap-2">
-                    {Locales.map((lang) => (
+                    {routing.locales.map((lang) => (
                         <Button key={lang} variant="secondary" onClick={() => {
                             window.location.href = `/translate/${lang}`
                         }}>{lang}</Button>

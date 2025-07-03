@@ -376,7 +376,7 @@ export function errorCheckContent(content: IContentDoc) {
     return errors
 }
 
-export async function updateTranslation(slug: string, type: CollectionNames, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
+export async function updateTranslation(slug: string, type: ContentTypes, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/creations/${slug}/translate`, { 
             method: 'POST',

@@ -2,29 +2,35 @@ import { Suspense } from 'react'
 import Footer from '@/components/Footer/Footer'
 import { Metadata } from 'next'
 import Loading from './loading'
+import { getTranslations } from 'next-intl/server'
 export const dynamic = "force-dynamic"
 
-export const metadata: Metadata = {
-  metadataBase: new URL('https://mccreations.net'),
-  title: "Download Minecraft Maps | MCCreations",
-  description: "Download the latest verified Minecraft Maps on MCCreations! Minecraft Maps are custom worlds created by the community. They can be anything from an adventure map to a parkour map to a minigame and more!",
-  twitter: {
-    title: "Download Minecraft Maps | MCCreations",
-    description: "Download the latest verified Minecraft Maps on MCCreations!",
-    card: "summary_large_image",
-    images: [
-      "https://mccreations.net/defaultBanner.png"
-    ]
-  },
-  openGraph: {
-    title: "Download Minecraft Maps | MCCreations",
-    description: "Download the latest verified Minecraft Maps on MCCreations!",
-    images: [
-      "https://mccreations.net/defaultBanner.png"
-    ],
-    siteName: "MCCreations",
-    type: "website",
-    url: "https://mccreations.net/maps"
+export async function generateMetadata() {
+  const t = await getTranslations("Pages.Maps.Metadata")
+  return {
+    metadataBase: new URL('https://mccreations.net'),
+    title: t("title"),
+    description: t("description"),
+    keywords: [t("Keywords.minecraft"), t("Keywords.games"), t("Keywords.gaming"), t("Keywords.minecraft_map"), t("Keywords.minecraft_creations"), t("Keywords.minecraft_version"), t("Keywords.maps"), t("Keywords.minecraft_games"), t("Keywords.download"), t("Keywords.minecraft_adventure"), t("Keywords.minecraft_parkour"), t("Keywords.minecraft_pvp"), t("Keywords.minecraft_skyblock"), t("Keywords.minecraft_survival"), t("Keywords.minecraft_creative"), t("Keywords.minecraft_minigames")],
+    publisher: "MCCreations",
+    twitter: {
+      title: t("title"),
+      description: t("description"),
+      card: "summary_large_image",
+      images: [
+        "https://mccreations.net/defaultBanner.png"
+      ]
+    },
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      images: [
+        "https://mccreations.net/defaultBanner.png"
+      ],
+      siteName: "MCCreations",
+      type: "website",
+      url: "https://mccreations.net/maps"
+    }
   }
 }
  

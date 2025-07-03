@@ -7,12 +7,12 @@ import { useTranslations } from "next-intl";
 
 export default function CommentPage({params: {locale, _id}}: {params: {locale: string, _id: string}}) {
     const {comment, isLoading, error} = useComment(_id)
-    const t = useTranslations('Pages.Comments.[_id]')
+    const t = useTranslations('Pages.Comments._id')
 
     if(!comment || isLoading) return <div>{t('loading')}</div>
 
     return (
-        <div className="centered_content">
+        <div className="w-1/2 mx-auto my-10">
             <Comment comment={comment} />
         </div>
     )

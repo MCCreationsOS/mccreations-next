@@ -5,6 +5,7 @@ import { ContentTypes, IFile, NewFile } from "@/app/api/types";
 import { useTranslations } from "next-intl";
 import { Button } from "../button";
 import { Download } from "lucide-react";
+import { track } from "@vercel/analytics/react";
 
 export default function DownloadButton({slug, file, contentType, className}: {slug: string, file: IFile, contentType: ContentTypes, className?: string }) {
     const t = useTranslations()
@@ -12,6 +13,7 @@ export default function DownloadButton({slug, file, contentType, className}: {sl
     if(!file) return <></>
 
     const downloadButtonClicked = async () => {
+        track("download_button_clicked", {creation: slug, type: contentType})
         await downloadCreation(slug, collectionName)
 
         let files: NewFile[] = [{url: file.url ?? file.worldUrl ?? file.dataUrl ?? file.resourceUrl ?? "", required: true, type: file.type}]

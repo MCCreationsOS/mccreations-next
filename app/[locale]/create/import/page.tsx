@@ -29,6 +29,7 @@ export default function ImportPage() {
     const contentType = creation.type;
     const collectionName = convertToCollection(contentType);
     const router = useRouter();
+    const t = useTranslations();
 
     const handleTabChange = (tab: string) => {
         setActiveTab(tab);
@@ -62,10 +63,10 @@ export default function ImportPage() {
         <div className="w-1/2 mx-auto mt-5 p-5">
             <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsList className="w-full">
-                    <TabsTrigger value="import" className="w-1/4">Import</TabsTrigger>
-                    <TabsTrigger value="details" className="w-1/4">Details</TabsTrigger>
-                    <TabsTrigger value="files" className="w-1/4">Files</TabsTrigger>
-                    <TabsTrigger value="images" className="w-1/4">Images</TabsTrigger>
+                    <TabsTrigger value="import" className="w-1/4">{t('Pages.Create.Import.title')}</TabsTrigger>
+                    <TabsTrigger value="details" className="w-1/4">{t('Pages.Create.Import.details')}</TabsTrigger>
+                    <TabsTrigger value="files" className="w-1/4">{t('Pages.Create.Import.files')}</TabsTrigger>
+                    <TabsTrigger value="images" className="w-1/4">{t('Pages.Create.Import.images')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="import">
                     <Import />
@@ -107,7 +108,7 @@ function Import() {
     const onMapImport = async (link?: string, type?: string) => {
         if(link && type) {
             setImporting(true)
-            setMessage(t('Create.Import.importing'))
+            setMessage(t('Pages.Create.Import.importing'))
             let res = await importContent(link, type, token)
             if(typeof res === 'object' && 'error' in res) {
                 toast.error(res.error)
@@ -148,13 +149,13 @@ function Import() {
                         processChunk(value)
                     }
                 } else {
-                    toast.error(t('Create.Import.Importing.error'))
+                    toast.error(t('Pages.Create.Import.Importing.error'))
                     setImporting(false)
                 }
             }
 
         } else {
-            toast.error(t('Navigation.ImportForm.missing_link'))
+            toast.error(t('Pages.Create.Import.missing_link'))
         }
 
 

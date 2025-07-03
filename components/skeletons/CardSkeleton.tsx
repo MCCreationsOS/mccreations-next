@@ -1,4 +1,4 @@
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import Image from "next/image";
 import { shimmer, toBase64 } from "./imageShimmer";
 import styles from "@/components/Creations/Cards/Card.module.css"

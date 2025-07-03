@@ -15,12 +15,12 @@
             }
         },
         "Comments": {
-            "[_id]": {
+            "_id": {
                 "loading": "Loading Comment..."
             }
         },
         "Creator": {
-            "[handle]": {
+            "handle": {
                 "CreatorEdit": {
                     "EditProfileImages": {
                         "title": "Edit Profile Images",
@@ -47,12 +47,32 @@
                         "save": "Save",
                         "cancel": "Cancel"
                     }
-                }
+                },
+                "Metadata": {
+                    "title": "{username} - Minecraft Creator",
+                    "title_not_found": "Creator Not Found",
+                    "description": "Check out {username}'s Minecraft maps, datapacks, and resource packs. Browse their collection and download their creations.",
+                    "description_not_found": "The requested creator could not be found.",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Map",
+                        "minecraft_datapack": "Minecraft Data Pack",
+                        "minecraft_resourcepack": "Minecraft Resource Pack",
+                        "minecraft_creations": "Minecraft Creations"
+                    }
+                },
+                "banner": "{username}'s Banner",
+                "icon": "{username}'s Icon",
+                "followers": "{count, plural, =0 {No followers} =1 {1 follower} other {# followers}}",
+                "about": "About",
+                "no_creations": "This creator hasn't published any {content_type} yet."
             }
         },
         "Content": {
-            "[content_type]": {
-                "[criteria]": {
+            "content_type": {
+                "criteria": {
                     "title": "Browse and Search for Minecraft {content_type}",
                     "blurb": "Find amazing new Minecraft {content_type} for your next adventure!",
                     "description": "Minecraft {content_type} are custom worlds created by players or developers that offer unique experiences beyond the standard game. These {content_type} can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced {content_type}-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft {content_type} have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players.",
@@ -80,12 +100,20 @@
                 "Modrinth": "Importing from Modrinth",
                 "link_placeholder": "Link to import from",
                 "link_description": "Link to the creation you want to import. This can be a link to a Planet Minecraft page, or a Modrinth page.",
-                "link_label": "Link"
+                "link_label": "Link",
+                "title": "Import",
+                "missing_link": "No link provided"
             },
             "BasicInfo": {
                 "title": "Title",
                 "type": "Type",
-                "short_description": "Short Description"
+                "short_description": "Short Description",
+                "missing_title": "No title provided",
+                "missing_type": "No type provided",
+                "missing_short_description": "No short description provided",
+                "title_too_short": "Title must be at least 3 characters long",
+                "short_description_too_short": "Short description must be at least 20 characters long",
+                "short_description_too_long": "Short description must be less than 100 characters long"
             },
             "Details": {
                 "title": "Details",
@@ -93,11 +121,44 @@
                 "creators": "Creators",
                 "video_url": "Video URL",
                 "description": "Description",
-                "tags": "Tags"
+                "tags": "Tags",
+                "missing_slug": "No slug provided",
+                "missing_creators": "No creators provided",
+                "missing_description": "No description provided",
+                "missing_tags": "No tags provided",
+                "slug_too_short": "Slug must be at least 5 characters long",
+                "slug_too_long": "Slug must be less than 50 characters long",
+                "slug_invalid_characters": "Slug can only include letters, numbers and _",
+                "creator_too_short": "Must have at least 1 creator",
+                "invalid_video_url": "Invalid video URL",
+                "description_too_short": "Description must be at least 10 characters long",
+                "tags_too_short": "Must have at least 1 tag",
+                "saved": "Details saved successfully",
+                "CreatorInput": {
+                    "username": "Username",
+                    "handle": "Handle",
+                    "add": "Add Creator"
+                },
+                "TagInput": {
+                    "placeholder": "Start typing to search for tags..."
+                }
+            },
+            "Files": {
+                "saved": "Files saved successfully"
+            },
+            "Images": {
+                "saved": "Images saved successfully"
+            }
+        },
+        "Dashboard": {
+            "title": "Dashboard",
+            "Notifications": {
+                "read_all": "Mark all as read",
+                "no_notifications": "No notifications yet!"
             }
         },
         "Datapacks": {
-            "[slug]": {
+            "slug": {
                 "Metadata": {
                     "not_found_title": "Data Pack Not Found",
                     "not_found_description": "This data pack does not exist on MCCreations",
@@ -114,80 +175,127 @@
                         "minecraft_but": "Minecraft But",
                         "minecraft_survival": "Minecraft Survival"
                     }
+                },
+                "not_found_title": "Data Pack Not Found",
+                "not_found_description": "This data pack does not exist on MCCreations"
+            },
+            "Metadata": {
+                "title": "Find and Download Data Packs",
+                "description": "Download the latest verified Data Packs on MCCreations! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_datapack": "Minecraft Data Pack",
+                    "minecraft_creations": "Minecraft Creations",
+                    "mods": "Mods",
+                    "minecraft_mods": "Minecraft Mods",
+                    "minecraft_but": "Minecraft But",
+                    "minecraft_survival": "Minecraft Survival"
                 }
             }
         },
         "Edit": {
-            "Warnings": {
-                "title_too_short": {
-                    "title": "Title Too Short",
-                    "description": "The title must be at least 3 characters long"
-                },
-                "short_description_too_short": {
-                    "title": "Short Description Too Short",
-                    "description": "The short description must be at least 3 characters long"
-                },
-                "short_description_too_long": {
-                    "title": "Short Description Too Long",
-                    "description": "The short description must be less than 100 characters long"
-                },
-                "slug_too_short": {
-                    "title": "Slug Too Short",
-                    "description": "The slug must be at least 2 characters long"
-                },
-                "slug_too_long": {
-                    "title": "Slug Too Long",
-                    "description": "The slug must be less than 50 characters long"
-                },
-                "slug_invalid_characters": {
-                    "title": "Slug Invalid Characters",
-                    "description": "The slug can only include letters, numbers and _"
-                },
-                "creator_too_short": {
-                    "title": "Too Few Creators",
-                    "description": "The creation must have at least 1 creator"
-                },
-                "invalid_video_url": {
-                    "title": "Invalid Video URL",
-                    "description": "The video URL must be a valid YouTube URL"
-                },
-                "description_too_short": {
-                    "title": "Description Too Short",
-                    "description": "The description must be at least 10 characters long"
-                },
-                "tags_too_short": {
-                    "title": "Too Few Tags",
-                    "description": "The creation must have at least 1 tag"
+            "contentType": {
+                "slug": {
+                    "Warnings": {
+                        "title_too_short": {
+                            "title": "Title Too Short",
+                            "description": "The title must be at least 3 characters long"
+                        },
+                        "short_description_too_short": {
+                            "title": "Short Description Too Short",
+                            "description": "The short description must be at least 3 characters long"
+                        },
+                        "short_description_too_long": {
+                            "title": "Short Description Too Long",
+                            "description": "The short description must be less than 100 characters long"
+                        },
+                        "slug_too_short": {
+                            "title": "Slug Too Short",
+                            "description": "The slug must be at least 2 characters long"
+                        },
+                        "slug_too_long": {
+                            "title": "Slug Too Long",
+                            "description": "The slug must be less than 50 characters long"
+                        },
+                        "slug_invalid_characters": {
+                            "title": "Slug Invalid Characters",
+                            "description": "The slug can only include letters, numbers and _"
+                        },
+                        "creator_too_short": {
+                            "title": "Too Few Creators",
+                            "description": "The creation must have at least 1 creator"
+                        },
+                        "invalid_video_url": {
+                            "title": "Invalid Video URL",
+                            "description": "The video URL must be a valid YouTube URL"
+                        },
+                        "description_too_short": {
+                            "title": "Description Too Short",
+                            "description": "The description must be at least 10 characters long"
+                        },
+                        "tags_too_short": {
+                            "title": "Too Few Tags",
+                            "description": "The creation must have at least 1 tag"
+                        }
+                    },
+                    "Messages": {
+                        "translations_saved": "Translations saved successfully",
+                        "general_saved": "Creation saved successfully"
+                    },
+                    "General": {
+                        "tab_title": "General",
+                        "title": "Title",
+                        "slug": "Slug",
+                        "short_description": "Short Description",
+                        "creators": "Creators",
+                        "video_url": "Video URL",
+                        "description": "Description",
+                        "tags": "Tags",
+                        "files": "Files",
+                        "images": "Images",
+                        "save": "Save"
+                    },
+                    "Translations": {
+                        "tab_title": "Translations",
+                        "add_translation": "Add Translation",
+                        "remove_translation": "Remove Translation",
+                        "select_language": "Select a Language",
+                        "approved": "Approved",
+                        "save": "Save"
+                    }
                 }
-            },
-            "Messages": {
-                "translations_saved": "Translations saved successfully",
-                "general_saved": "Creation saved successfully"
-            },
-            "General": {
-                "tab_title": "General",
-                "title": "Title",
-                "slug": "Slug",
-                "short_description": "Short Description",
-                "creators": "Creators",
-                "video_url": "Video URL",
-                "description": "Description",
-                "tags": "Tags",
-                "files": "Files",
-                "images": "Images",
-                "save": "Save"
-            },
-            "Translations": {
-                "tab_title": "Translations",
-                "add_translation": "Add Translation",
-                "remove_translation": "Remove Translation",
-                "select_language": "Select a Language",
-                "approved": "Approved",
-                "save": "Save"
+            }
+        },
+        "Feed": {
+            "not_found_title": "No Feed Found",
+            "not_found_description": "Sign in and subscribe to creators to see your feed!"
+        },
+        "Leaderboards": {
+            "contentType": {
+                "slug": {
+                    "Submit": {
+                        "submit_time": "Submit Your Time",
+                        "submit_score": "Submit Your Score",
+                        "submit_time_description": "Your time was {hours} hours, {minutes} minutes, {seconds} seconds and {ticks} ticks",
+                        "submit_score_description": "Your score was {score}",
+                        "submit": "Submit",
+                        "username": "Username"
+                    },
+                    "not_found": "Leaderboard Not Found",
+                    "rank": "Rank",
+                    "player": "Player",
+                    "time": "Time",
+                    "score": "Score",
+                    "date": "Date",
+                    "device": "Device",
+                    "location": "Location"
+                }
             }
         },
         "Maps": {
-            "[slug]": {
+            "slug": {
                 "Metadata": {
                     "not_found_title": "Map Not Found",
                     "not_found_description": "This map does not exist on MCCreations",
@@ -211,10 +319,48 @@
                         "minecraft_minigames": "Minecraft Minigames"
                     }
                 }
+            },
+            "Metadata": {
+                "title": "Find and Download Minecraft Maps",
+                "description": "Download the latest verified Minecraft maps on MCCreations! Minecraft maps are custom worlds created by players or developers that offer unique experiences beyond the standard game. These maps can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced map-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft maps have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps",
+                    "minecraft_adventure": "Minecraft Adventure",
+                    "minecraft_parkour": "Minecraft Parkour",
+                    "minecraft_pvp": "Minecraft PvP",
+                    "minecraft_skyblock": "Minecraft Skyblock",
+                    "minecraft_survival": "Minecraft Survival",
+                    "minecraft_creative": "Minecraft Creative",
+                    "minecraft_minigames": "Minecraft Minigames"
+                }
             }
         },
+        "NotFound": {
+            "title": "Page Not Found",
+            "description": "The page you are looking for does not exist.",
+            "button": "Go to Home"
+        },
+        "ResetPassword": {
+            "token_error": "No token found, returning to previous page",
+            "new_password": "New Password",
+            "retype_password": "Retype Password",
+            "password_length": "Password must be 10 or more characters",
+            "password_number": "Password must include at least one number",
+            "passwords_not_same": "Passwords are not the same",
+            "password_required": "Password is required",
+            "reset": "Reset",
+            "title": "Reset Password"
+        },
         "Resourcepacks": {
-            "[slug]": {
+            "slug": {
                 "Metadata": {
                     "not_found_title": "Resource Pack Not Found",
                     "not_found_description": "This resource pack does not exist on MCCreations",
@@ -231,6 +377,152 @@
                         "minecraft_hd": "Minecraft HD"
                     }
                 }
+            },
+            "Metadata": {
+                "title": "Find and Download Minecraft Resource Packs",
+                "description": "Download the latest verified Minecraft resource packs on MCCreations! Minecraft resource packs are customizable collections of files that change the game's visuals and sounds, allowing players to personalize their gaming experience. They can modify textures, models, music, and sound effects, transforming the look and feel of the game. Since their introduction, resource packs have played a significant role in the Minecraft community, enabling creators to express their creativity and share their unique visions with others. Over the years, they have become a cornerstone of Minecraft's modding culture, fostering a vibrant community of artists and players who continually push the boundaries of what's possible in the game.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_resourcepack": "Minecraft Resource Pack",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "mods": "Mods",
+                    "minecraft_mods": "Minecraft Mods",
+                    "minecraft_hd": "Minecraft HD"
+                }
+            }
+        },
+        "Settings": {
+            "Account": {
+                "loading": "Loading account settings...",
+                "error": "There was an error loading your account settings. Please report this issue using the link above",
+                "handle_updated": "Handle updated successfully to {handle}",
+                "username_updated": "Username updated successfully to {username}",
+                "email_updated": "Email updated successfully to {email}",
+                "password_updated": "Password updated successfully",
+                "passwords_not_match": "Passwords do not match",
+                "delete_account_warning": "Click again to delete your account. This is permanent!",
+                "delete_account_auth_error": "Authorization Error. Please sign in again",
+                "delete_account_error": "There was an error deleting your account. Please report this issue using the link above",
+                "delete_account_success": "Account successfully deleted",
+                "title": "Account Settings",
+                "username": "Username",
+                "handle": "Handle",
+                "email": "Email",
+                "password": "Password",
+                "confirm_password": "Confirm Password",
+                "change_password": "Change Password",
+                "change_username": "Change Username",
+                "change_handle": "Change Handle",
+                "change_email": "Change Email",
+                "delete_account": "Delete Account",
+                "new_username": "New Username",
+                "new_handle": "New Handle",
+                "new_email": "New Email",
+                "new_password": "New Password"
+            },
+            "Notifications": {
+                "title": "Notification Settings",
+                "comment": "New Comments",
+                "like": "Like Notifications",
+                "reply": "New Replies",
+                "email_daily": "Email Daily",
+                "email_weekly": "Email Weekly",
+                "push_only": "Push Only",
+                "push_email_daily": "Push & Email Daily",
+                "push_email_weekly": "Push & Email Weekly",
+                "dashboard_only": "Dashboard Only",
+                "none": "None",
+                "translation": "New Creation Translations",
+                "rating": "New Creation Ratings",
+                "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
+                "add_to_this_device": "Subscribe to Push Notifications Here",
+                "follow": "Following Posts"
+            },
+            "title": "Settings",
+            "account_menu_item": "Account",
+            "notifications_menu_item": "Notifications",
+            "profile_menu_item": "Profile"
+        },
+        "SignIn": {
+            "Reset": {
+                "title": "Reset Password",
+                "email": "Email",
+                "email_placeholder": "steve@minecraft.net",
+                "send_reset_email": "Send Reset Email"
+            },
+            "Metadata": {
+                "title": "Sign In",
+                "description": "Sign in to your account on MCCreations to upload your Minecraft Maps, Data Packs, Resource Packs, and more!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps"
+                }
+            },
+            "error": "There was an error. Please report this issue using the link above.",
+            "providers": "Sign in with...",
+            "email_title": "Sign in with email",
+            "email_placeholder": "steve@minecraft.net",
+            "email_required": "Email is required",
+            "email_invalid": "Email is not a valid email address",
+            "password_required": "Password is required",
+            "password_invalid": "Password is not a valid password",
+            "password_too_short": "Password must be 10 or more characters",
+            "button": "Sign In",
+            "no_account": "Don't have an account?",
+            "forgot_password": "Forgot your password?",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            }
+        },
+        "SignUp": {
+            "Metadata": {
+                "title": "Sign Up",
+                "description": "Sign up to MCCreations to upload your Minecraft Maps, Data Packs, Resource Packs, and more!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps"
+                }
+            },
+            "error": "There was an error creating your account. Please report this issue using the link above.",
+            "username_invalid_characters": "Username can only include letters, numbers and _",
+            "username_too_short": "Username must be at least 3 characters",
+            "username_required": "Username is required",
+            "username_placeholder": "Username",
+            "email_placeholder": "Email",
+            "email_invalid": "Email is not a valid email address",
+            "email_required": "Email is required",
+            "password_required": "Password is required",
+            "password_no_number": "Password must include at least one number",
+            "password_too_short": "Password must be 10 or more characters",
+            "button": "Sign Up",
+            "providers": "Sign up with...",
+            "already_have_account": "Already have an account?",
+            "forgot_password": "Forgot your password?",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
             }
         },
         "Translate": {
@@ -243,27 +535,265 @@
                 "add": "Add"
             },
             "language": "Language",
-            "language_missing": "Is your language missing? Click here to add it."
+            "language_missing": "Is your language missing? Click here to add it.",
+            "lang": {
+                "saved": "Language saved successfully",
+                "approved": "Language approved",
+                "code": "Code",
+                "visual": "Visual",
+                "save": "Save",
+                "approve": "Approve",
+                "cancel": "Cancel",
+                "back": "Back",
+                "key": "Key",
+                "english": "English",
+                "translation": "Translation"
+            },
+            "Metadata": {
+                "title": "Translate",
+                "description": "Help translate MCCreations into your language and help bring the Minecraft community around the globe together!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps"
+                }
+            }
+        },
+        "Error": {
+            "title": "Something went wrong!",
+            "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
+            "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
+        },
+        "Home": {
+            "Metadata": {
+                "title": "The greatest Minecraft Maps, Data Packs, and Resource Packs from the Minecraft Community",
+                "description": "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps"
+                }
+            },
+            "blurb": "Minecraft Maps, Data Packs, Resource Packs, and more from the Minecraft Community around the world!",
+            "recently_updated": "Or, find something new!",
+            "view_all": "Search for..."
         }
     },
-    "Creations": {
-        "Search": {
-            "SearchPage": {
-                "map": {
-                    "title": "Browse and Search for Minecraft Maps",
-                    "blurb": "Find amazing new Minecraft maps for your next adventure!",
-                    "description": "Minecraft maps are custom worlds created by players or developers that offer unique experiences beyond the standard game. These maps can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced map-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft maps have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players."
+    "Components": {
+        "AdUnits": {
+            "behind_text": "Ads help keep MCCreations creating cool things! Please consider disabling your ad blocker for this site :)"
+        },
+        "Creations": {
+            "Cards": {
+                "logo_alt_text": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
+                "by": "by {creator}",
+                "by_joiner": ", "
+            },
+            "Page": {
+                "Comments": {
+                    "username_placeholder": "Username",
+                    "comment_placeholder": "Comment",
+                    "send": "Send",
+                    "username_required": "Username is required",
+                    "username_too_short": "Username must be at least 3 characters",
+                    "rating_out_of_range": "Rating must be between 0 and 5",
+                    "comment_required": "Comment is required",
+                    "comment_too_short": "Comment must be at least 10 characters",
+                    "show_more": "Show {showMore}",
+                    "reply": "Reply",
+                    "replies": "{count, plural, =0 {No replies yet} =1 {1 reply} other {# replies}}",
+                    "permalink": "Copy comment permalink",
+                    "permalink_copied": "Comment permalink copied to clipboard",
+                    "delete": "Delete comment",
+                    "deleted": "Comment deleted successfully"
                 },
-                "datapack": {
-                    "title": "Browse and Search for Minecraft Data Packs",
-                    "blurb": "Find tools, challenges and more for your Minecraft adventures!",
-                    "description": "Minecraft data packs are essentially mods for vanilla Minecraft. They enhance gameplay by adding new features, mechanics, and experiences. They can transform the game with new challenges, quests, and even entirely new game modes. Since their introduction, data packs have become a beloved tool for creators, allowing the community to innovate and expand the possibilities of Minecraft, fostering a rich ecosystem of creativity and collaboration."
+                "CreationOptions": {
+                    "button": "Options",
+                    "translate": "Translate",
+                    "translateDescription": "Translate the creation to another language.",
+                    "language": "Language",
+                    "languagePlaceholder": "Select a language",
+                    "title": "Title",
+                    "shortDescription": "Short Description",
+                    "description": "Description",
+                    "submit": "Submit",
+                    "cancel": "Cancel"
                 },
-                "resourcepack": {
-                    "title": "Browse and Search for Minecraft Resource Packs",
-                    "blurb": "Change up or enhance the look of Minecraft!",
-                    "description": "Minecraft resource packs are customizable collections of files that change the game's visuals and sounds, allowing players to personalize their gaming experience. They can modify textures, models, music, and sound effects, transforming the look and feel of the game. Since their introduction, resource packs have played a significant role in the Minecraft community, enabling creators to express their creativity and share their unique visions with others. Over the years, they have become a cornerstone of Minecraft's modding culture, fostering a vibrant community of artists and players who continually push the boundaries of what's possible in the game."
-                }
+                "Sidebar": {
+                    "downloads": "Downloads",
+                    "created_date": "Created Date",
+                    "updated_date": "Updated Date"
+                },
+                "Rating": {
+                    "1": "1 Star",
+                    "2": "2 Stars",
+                    "3": "3 Stars",
+                    "4": "4 Stars",
+                    "5": "5 Stars"
+                },
+                "not_found": "{content_type} not found",
+                "not_found_description": "This {content_type} does not exist on MCCreations",
+                "logo_alt": "The logo for {title}, a Minecraft {type}",
+                "images_alt": "Image {index} of {total} for {title}",
+                "recommended_creations": "Other {tag} Creations"
+            },
+            "Search": {
+                "Headers": {
+                    "map": {
+                        "title": "Browse and Search for Minecraft Maps",
+                        "blurb": "Find amazing new Minecraft maps for your next adventure!",
+                        "description": "Minecraft maps are custom worlds created by players or developers that offer unique experiences beyond the standard game. These maps can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced map-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft maps have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players."
+                    },
+                    "datapack": {
+                        "title": "Browse and Search for Minecraft Data Packs",
+                        "blurb": "Find tools, challenges and more for your Minecraft adventures!",
+                        "description": "Minecraft data packs are essentially mods for vanilla Minecraft. They enhance gameplay by adding new features, mechanics, and experiences. They can transform the game with new challenges, quests, and even entirely new game modes. Since their introduction, data packs have become a beloved tool for creators, allowing the community to innovate and expand the possibilities of Minecraft, fostering a rich ecosystem of creativity and collaboration."
+                    },
+                    "resourcepack": {
+                        "title": "Browse and Search for Minecraft Resource Packs",
+                        "blurb": "Change up or enhance the look of Minecraft!",
+                        "description": "Minecraft resource packs are customizable collections of files that change the game's visuals and sounds, allowing players to personalize their gaming experience. They can modify textures, models, music, and sound effects, transforming the look and feel of the game. Since their introduction, resource packs have played a significant role in the Minecraft community, enabling creators to express their creativity and share their unique visions with others. Over the years, they have become a cornerstone of Minecraft's modding culture, fostering a vibrant community of artists and players who continually push the boundaries of what's possible in the game."
+                    }
+                },
+                "search": "Search",
+                "clear_filters": "Clear Filters",
+                "sort_by": "Sort By",
+                "Sort": {
+                    "title_ascending": "Title Ascending",
+                    "title_descending": "Title Descending",
+                    "creator_ascending": "Creator Ascending",
+                    "creator_descending": "Creator Descending",
+                    "newest": "Newest",
+                    "oldest": "Oldest",
+                    "highest_rated": "Highest Rated",
+                    "lowest_rated": "Lowest Rated",
+                    "highest_downloads": "Most Downloads",
+                    "lowest_downloads": "Least Downloads",
+                    "updated": "Recently Updated"
+                },
+                "Status": {
+                    "unapproved": "Published",
+                    "approved": "Verified",
+                    "featured": "Featured"
+                },
+                "TagDropdown": {
+                    "include": "Include {tag}",
+                    "exclude": "Exclude {tag}",
+                    "any": "Any",
+                    "and": "& ",
+                    "and_exclude": "and exclude {tag}"
+                },
+                "Navigator": {
+                    "previous": "Previous",
+                    "next": "Next"
+                },
+                "status": "Status",
+                "tags": "Tags",
+                "search_placeholder": "Search title, creator, version, etc."
+            },
+            "Tags": {
+                "genre": "Genre",
+                "subgenre": "Subgenre",
+                "difficulty": "Difficulty",
+                "length": "Length",
+                "resolution": "Resolution",
+                "theme": "Theme",
+                "chill": "Chill",
+                "easy": "Easy",
+                "hard": "Hard",
+                "hardcore": "Hardcore",
+                "normal": "Normal",
+                "adventure": "Adventure",
+                "build": "Build",
+                "creative": "Creative",
+                "game": "Game",
+                "other": "Other",
+                "overhaul": "Overhaul",
+                "parkour": "Parkour",
+                "puzzle": "Puzzle",
+                "qol": "Quality of Life",
+                "realistic": "Realistic",
+                "simple": "Simple",
+                "survival": "Survival",
+                "themed": "Themed",
+                "tool": "Tool",
+                "utility": "Utility",
+                "long": "Long",
+                "medium": "Medium",
+                "short": "Short",
+                "1024x +": "1024x +",
+                "128x": "128x",
+                "16x": "16x",
+                "256x": "256x",
+                "32x": "32x",
+                "512x": "512x",
+                "64x": "64x",
+                "8x": "8x",
+                "blocks": "Blocks",
+                "bosses": "Bosses",
+                "cartoon": "Cartoon",
+                "challenge": "Challenge",
+                "city": "City",
+                "co-op": "Co-op",
+                "cosmetic": "Cosmetic",
+                "crafting": "Crafting",
+                "CTM": "CTM",
+                "dropper": "Dropper",
+                "elytra": "Elytra",
+                "entities": "Entities",
+                "episodic": "Episodic",
+                "escape": "Escape",
+                "exploration": "Exploration",
+                "faithful": "Faithful",
+                "finding": "Finding",
+                "font": "Font",
+                "funny": "Funny",
+                "GUI": "GUI",
+                "horror": "Horror",
+                "items": "Items",
+                "language": "Language",
+                "magic": "Magic",
+                "maze": "Maze",
+                "mobs": "Mobs",
+                "models": "Models",
+                "multiplayer": "Multiplayer",
+                "music": "Music",
+                "park": "Park",
+                "PVE": "PvE",
+                "PVP": "PvP",
+                "RPG": "RPG",
+                "shaders": "Shaders",
+                "singleplayer": "Singleplayer",
+                "skybox": "Skybox",
+                "smooth": "Smooth",
+                "sound": "Sound",
+                "tech": "Tech",
+                "tools": "Tools",
+                "trivia": "Trivia",
+                "tweak": "Tweak",
+                "unfair": "Unfair",
+                "weapons": "Weapons",
+                "anime": "Anime",
+                "fantasy": "Fantasy",
+                "medieval": "Medieval",
+                "modern": "Modern",
+                "sci-fi": "Sci-Fi",
+                "vanilla": "Vanilla",
+                "player_count_2": "2 Players",
+                "player_count_3": "3 Players",
+                "player_count_4+": "4+ Players"
             }
         }
     },
@@ -426,16 +956,6 @@
         "comments": "Comments",
         "actions": "Actions"
     },
-    "ResetPassword": {
-        "token_error": "No token found, returning to previous page",
-        "new_password": "New Password",
-        "retype_password": "Retype Password",
-        "password_length": "Password must be 10 or more characters",
-        "password_number": "Password must include at least one number",
-        "passwords_not_same": "Passwords are not the same",
-        "reset": "Reset",
-        "title": "Reset Password"
-    },
     "SignIn": {
         "Reset": {
             "title": "Reset Password",
@@ -474,14 +994,6 @@
         "title": "Something went wrong!",
         "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
         "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
-    },
-    "Home": {
-        "blurb": "Minecraft Maps, Data Packs, Resource Packs, and more from the Minecraft Community around the world!",
-        "recently_updated": "Or, find something new!",
-        "view_all": "Search for..."
-    },
-    "Ads": {
-        "behind_text": "Ads help keep MCCreations creating cool things! Please consider disabling your ad blocker for this site :)"
     },
     "Buttons": {
         "BulkDownload": {
@@ -592,27 +1104,6 @@
             "spoiler": "Add Spoiler",
             "font_size": "Font Size"
         }
-    },
-    "SearchAndFilter": {
-        "search": "Search",
-        "clear_filters": "Clear Filters",
-        "sort_by": "Sort By",
-        "Sort": {
-            "title_ascending": "Title Ascending",
-            "title_descending": "Title Descending",
-            "creator_ascending": "Creator Ascending",
-            "creator_descending": "Creator Descending",
-            "newest": "Newest",
-            "oldest": "Oldest",
-            "highest_rated": "Highest Rated",
-            "lowest_rated": "Lowest Rated",
-            "highest_downloads": "Most Downloads",
-            "lowest_downloads": "Least Downloads",
-            "updated": "Recently Updated"
-        },
-        "status": "Status",
-        "tags": "Tags",
-        "search_placeholder": "Search title, creator, version, etc."
     },
     "brand": "MCCreations",
     "error": "Error",
@@ -819,98 +1310,6 @@
             "3": "3 out of 5 stars",
             "4": "4 out of 5 stars",
             "5": "5 out of 5 stars"
-        },
-        "Tags": {
-            "genre": "Genre",
-            "subgenre": "Subgenre",
-            "difficulty": "Difficulty",
-            "length": "Length",
-            "resolution": "Resolution",
-            "theme": "Theme",
-            "chill": "Chill",
-            "easy": "Easy",
-            "hard": "Hard",
-            "hardcore": "Hardcore",
-            "normal": "Normal",
-            "adventure": "Adventure",
-            "build": "Build",
-            "creative": "Creative",
-            "game": "Game",
-            "other": "Other",
-            "overhaul": "Overhaul",
-            "parkour": "Parkour",
-            "puzzle": "Puzzle",
-            "qol": "Quality of Life",
-            "realistic": "Realistic",
-            "simple": "Simple",
-            "survival": "Survival",
-            "themed": "Themed",
-            "tool": "Tool",
-            "utility": "Utility",
-            "long": "Long",
-            "medium": "Medium",
-            "short": "Short",
-            "1024x +": "1024x +",
-            "128x": "128x",
-            "16x": "16x",
-            "256x": "256x",
-            "32x": "32x",
-            "512x": "512x",
-            "64x": "64x",
-            "8x": "8x",
-            "blocks": "Blocks",
-            "bosses": "Bosses",
-            "cartoon": "Cartoon",
-            "challenge": "Challenge",
-            "city": "City",
-            "co-op": "Co-op",
-            "cosmetic": "Cosmetic",
-            "crafting": "Crafting",
-            "CTM": "CTM",
-            "dropper": "Dropper",
-            "elytra": "Elytra",
-            "entities": "Entities",
-            "episodic": "Episodic",
-            "escape": "Escape",
-            "exploration": "Exploration",
-            "faithful": "Faithful",
-            "finding": "Finding",
-            "font": "Font",
-            "funny": "Funny",
-            "GUI": "GUI",
-            "horror": "Horror",
-            "items": "Items",
-            "language": "Language",
-            "magic": "Magic",
-            "maze": "Maze",
-            "mobs": "Mobs",
-            "models": "Models",
-            "multiplayer": "Multiplayer",
-            "music": "Music",
-            "park": "Park",
-            "PVE": "PvE",
-            "PVP": "PvP",
-            "RPG": "RPG",
-            "shaders": "Shaders",
-            "singleplayer": "Singleplayer",
-            "skybox": "Skybox",
-            "smooth": "Smooth",
-            "sound": "Sound",
-            "tech": "Tech",
-            "tools": "Tools",
-            "trivia": "Trivia",
-            "tweak": "Tweak",
-            "unfair": "Unfair",
-            "weapons": "Weapons",
-            "anime": "Anime",
-            "fantasy": "Fantasy",
-            "medieval": "Medieval",
-            "modern": "Modern",
-            "sci-fi": "Sci-Fi",
-            "vanilla": "Vanilla",
-            "player_count_2": "2 Players",
-            "player_count_3": "3 Players",
-            "player_count_4+": "4+ Players"
         }
     },
     "Datapacks": {
@@ -918,22 +1317,6 @@
             "title": "Download Data Packs | MCCreations",
             "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
         }
-    },
-    "Leaderboards": {
-        "not_found": "Leaderboard Not Found",
-        "rank": "Rank",
-        "player": "Player",
-        "time": "Time",
-        "score": "Score",
-        "date": "Date",
-        "device": "Device",
-        "location": "Location",
-        "submit_time": "Submit Your Time",
-        "submit_score": "Submit Your Score",
-        "submit_time_description": "Your time was {hours} hours, {minutes} minutes, {seconds} seconds and {ticks} ticks",
-        "submit_score_description": "Your score was {score}",
-        "submit": "Submit",
-        "username": "Username"
     },
     "Profile": {
         "follow": "Follow",

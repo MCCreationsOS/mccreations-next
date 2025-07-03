@@ -16,10 +16,11 @@ import 'prismjs/themes/prism-tomorrow.css'
 import { useTranslations } from "next-intl";
 
 export function EditProfileImages({params}: {params: {handle: string}}) {
-    const t = useTranslations("Pages.Creator.[handle].CreatorEdit.EditProfileImages")
+    const t = useTranslations("Pages.Creator.handle.CreatorEdit.EditProfileImages")
     const [open, setOpen] = useState(false)
     const {user} = useUser()
     const {token} = useToken()
+    
     const form = useForm({
         defaultValues: {
             banner: user?.bannerURL,
@@ -80,7 +81,7 @@ export function EditProfileImages({params}: {params: {handle: string}}) {
 }
 
 export function EditAbout({params}: {params: {handle: string}}) {
-    const t = useTranslations("Pages.Creator.[handle].CreatorEdit.EditAbout")
+    const t = useTranslations("Pages.Creator.handle.CreatorEdit.EditAbout")
     const [open, setOpen] = useState(false)
     const {user} = useUser()
     const {token} = useToken()
@@ -113,7 +114,7 @@ export function EditAbout({params}: {params: {handle: string}}) {
                         form.handleSubmit()
                     }} className="flex flex-col gap-2 w-md">
                         <form.Field name="about" children={(field) => (
-                            <RichText initialValue={field.state.value} sendOnChange={(value) => {
+                            <RichText initialValue={user?.about} sendOnChange={(value) => {
                                 field.handleChange(value)
                             }}/>
                         )}/>
@@ -132,7 +133,7 @@ export function EditAbout({params}: {params: {handle: string}}) {
 }
 
 export function EditSocialLinks({params}: {params: {handle: string}}) {
-    const t = useTranslations("Pages.Creator.[handle].CreatorEdit.EditSocialLinks")
+    const t = useTranslations("Pages.Creator.handle.CreatorEdit.EditSocialLinks")
     const [open, setOpen] = useState(false)
     const {user} = useUser()
     const {token} = useToken()
@@ -196,7 +197,7 @@ export function EditSocialLinks({params}: {params: {handle: string}}) {
 }
 
 export function EditCustomCss({params}: {params: {handle: string}}) {
-    const t = useTranslations("Pages.Creator.[handle].CreatorEdit.EditCustomCss")
+    const t = useTranslations("Pages.Creator.handle.CreatorEdit.EditCustomCss")
     const [open, setOpen] = useState(false)
     const {user} = useUser()
     const {token} = useToken()

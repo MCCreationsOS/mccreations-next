@@ -1,7 +1,7 @@
 import Menu from "@/components/Menu/Navbar";
 import { Metadata } from "next";
 import Image from 'next/image'
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 
 export const metadata: Metadata = {
     metadataBase: new URL('https://mccreations.net'),

@@ -1,7 +1,7 @@
 'use client'
 
 import { ContentTypes, ICreator, IUser } from "@/app/api/types";
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import {useTranslations} from 'next-intl';
 import { useUser } from "@/app/api/hooks/users";
 import { Button } from "../button";

@@ -1,7 +1,7 @@
-const createNextIntlPlugin = require('next-intl/plugin')
-
-const withNextIntl = createNextIntlPlugin('./locales/i18n.ts');
-
+const createNextIntlPlugin = require('next-intl/plugin');
+ 
+const withNextIntl = createNextIntlPlugin();
+ 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   headers: async () => [

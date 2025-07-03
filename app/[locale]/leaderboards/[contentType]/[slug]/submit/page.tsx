@@ -33,23 +33,23 @@ export default function Page({params}: { params: Params}) {
 
     return (
         <div className="centered_content">
-            {score_type === "time" && <h2>{t('Leaderboards.submit_time')}</h2>}
-            {score_type !== "time" && <h2>{t('Leaderboards.submit_score')}</h2>}
-            {score_type === "time" && <p>{t('Leaderboards.submit_time_description', {hours: Math.floor(score / 60 / 60 / 20), minutes: Math.floor((score / 60 / 20) % 60), seconds: Math.floor((score / 20) % 60), ticks: Math.floor(score % 20)})}</p>}
-            {score_type !== "time" && <p>{t('Leaderboards.submit_score_description', {score: score})}</p>}
+            {score_type === "time" && <h2>{t('Pages.Leaderboards.contentType.slug.Submit.submit_time')}</h2>}
+            {score_type !== "time" && <h2>{t('Pages.Leaderboards.contentType.slug.Submit.submit_score')}</h2>}
+            {score_type === "time" && <p>{t('Pages.Leaderboards.contentType.slug.Submit.submit_time_description', {hours: Math.floor(score / 60 / 60 / 20), minutes: Math.floor((score / 60 / 20) % 60), seconds: Math.floor((score / 20) % 60), ticks: Math.floor(score % 20)})}</p>}
+            {score_type !== "time" && <p>{t('Pages.Leaderboards.contentType.slug.Submit.submit_score_description', {score: score})}</p>}
             <form onSubmit={(e) => {
                 e.preventDefault();
                 form.handleSubmit(sendScore);
             }}>
                 <form.Field name="username" children={(field) => (
                     <div className="flex flex-col gap-2">
-                        <Label htmlFor="username">{t('Leaderboards.username')}</Label>
+                        <Label htmlFor="username">{t('Pages.Leaderboards.contentType.slug.Submit.username')}</Label>
                         <Input id="username" name="username" defaultValue={field.state.value} onChange={(e) => {
                             field.handleChange(e.target.value);
                         }} />
                     </div>
                 )} />
-                <Button type="submit" className="w-fit">{t('Leaderboards.submit')}</Button>
+                <Button type="submit" className="w-fit">{t('Pages.Leaderboards.contentType.slug.Submit.submit')}</Button>
             </form>
         </div>
     )

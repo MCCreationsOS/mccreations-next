@@ -2,7 +2,7 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import { SiDiscord, SiGithub, SiGoogle, SiMicrosoft } from "@icons-pack/react-simple-icons";
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import { SortOptions, StatusOptions, UserTypes } from "../../api/types";
 import { sendLog } from "@/app/api/logging";
 import {useTranslations} from 'next-intl';
@@ -57,12 +57,12 @@ export default function SignIn() {
                         return;
                     }
                 }).catch(e => {
-                    toast.error(t('SignIn.error'))
+                    toast.error(t('Pages.SignIn.error'))
                     return;
                 })
             }).catch(error => {
                 sendLog("Sign in with email", error)
-                toast.error(t('SignIn.error'))
+                toast.error(t('Pages.SignIn.error'))
                 return;
             })
     }
@@ -108,58 +108,58 @@ export default function SignIn() {
         <div className="h-full relative">
             <SignInBackground />
             <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 absolute top-0 left-1/2 -translate-x-1/2 border-2 border-black">
-                <h2 className="text-2xl font-bold mb-2">{t('Account.Shared.providers')}</h2>
+                <h2 className="text-2xl font-bold mb-2">{t('Pages.SignIn.providers')}</h2>
                 <div className="flex flex-row flex-wrap gap-2 mb-5">
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Account.Shared.Providers.google')}</span></Button>
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><SiDiscord /><span>{t('Account.Shared.Providers.discord')}</span></Button>
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><SiGithub /><span>{t('Account.Shared.Providers.github')}</span></Button>
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><SiMicrosoft /><span>{t('Account.Shared.Providers.microsoft')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Pages.SignIn.Providers.google')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><SiDiscord /><span>{t('Pages.SignIn.Providers.discord')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><SiGithub /><span>{t('Pages.SignIn.Providers.github')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><SiMicrosoft /><span>{t('Pages.SignIn.Providers.microsoft')}</span></Button>
                 </div>
-                <h2 className="text-2xl font-bold mb-2">{t('SignIn.email_title')}</h2>
+                <h2 className="text-2xl font-bold mb-2">{t('Pages.SignIn.email_title')}</h2>
                 <form onSubmit={(e) => {e.preventDefault(); form.handleSubmit()}} className="flex flex-col gap-2">
                     <form.Field name="email" children={(field) => (
                         <>
-                            <Input type="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Email" />
+                            <Input type="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.SignIn.email_placeholder')} />
                             {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                         </>
                     )}  validators={{
                         onChange: ({value}) => {
                             (!value) ?
-                            'Email is required' :
+                            t('Pages.SignIn.email_required') :
                             value.length < 3 ?
-                            'Email must be at least 3 characters long' :
+                            t('Pages.SignIn.email_invalid') :
                             undefined
                         },
                         onSubmit: ({value}) => {
                             if(value.length < 3) {
-                                return 'Email must be at least 3 characters long'
+                                return t('Pages.SignIn.email_invalid')
                             }
                         }
                     }}/>
                     <form.Field name="password" children={(field) => (
                         <>
-                            <Input type="password" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Password" />
+                            <Input type="password" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="" />
                             {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                         </>
                     )}  validators={{
                         onChange: ({value}) => {
                             (!value) ?
-                            'Password is required' :
+                            t('Pages.SignIn.password_required') :
                             value.length < 3 ?
-                            'Password must be at least 3 characters long' :
+                            t('Pages.SignIn.password_invalid') :
                             undefined
                         },
                         onSubmit: ({value}) => {
                             if(value.length < 3) {
-                                return 'Password must be at least 3 characters long'
+                                return t('Pages.SignIn.password_invalid')
                             }
                         }
                     }}/>
-                    <Button><span>{t('SignIn.button')}</span></Button>
+                    <Button><span>{t('Pages.SignIn.button')}</span></Button>
                 </form>
                 <div className="flex flex-row gap-4 mt-2">
-                    <Link className="text-sm hover:underline" href="/signup">{t('SignIn.no_account')}</Link>
-                    <Link className="text-sm hover:underline" href="/signin/reset" >{t('Account.Shared.forgot_password')}</Link>
+                    <Link className="text-sm hover:underline" href="/signup">{t('Pages.SignIn.no_account')}</Link>
+                    <Link className="text-sm hover:underline" href="/signin/reset" >{t('Pages.SignIn.forgot_password')}</Link>
                 </div>
             </div>
         </div>

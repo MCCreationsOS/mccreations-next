@@ -57,7 +57,7 @@ export default async function Page({params}: {params: Params}) {
                     </div>
                 </div>
                 <div>
-                    <h3 className={styles.title}>{t('Leaderboards.not_found')}</h3>
+                    <h3 className={styles.title}>{t('Pages.Leaderboards.contentType.slug.not_found')}</h3>
                 </div>
             </div>
 
@@ -82,12 +82,12 @@ export default async function Page({params}: {params: Params}) {
                     <table className={styles.leaderboard_table}>
                         <thead>
                             <tr>
-                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.rank')}</th>
-                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.player')}</th>
-                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.time')}</th>
-                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.date')}</th>
-                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.device')}</th>
-                                <th className={styles.leaderboard_table_data}>{t('Leaderboards.location')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Pages.Leaderboards.contentType.slug.rank')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Pages.Leaderboards.contentType.slug.player')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Pages.Leaderboards.contentType.slug.time')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Pages.Leaderboards.contentType.slug.date')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Pages.Leaderboards.contentType.slug.device')}</th>
+                                <th className={styles.leaderboard_table_data}>{t('Pages.Leaderboards.contentType.slug.location')}</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -1,5 +1,5 @@
 'use client'
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import { toast } from 'sonner';
 import { useForm } from '@tanstack/react-form';
 import { Button } from '@/components/ui/button';
@@ -9,10 +9,12 @@ import CodeEditor from '@/components/RichText/CodeEditor';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableHead, TableRow, TableHeader, TableBody, TableCell } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
+import { useTranslations } from "next-intl";
 
 type Language = {[key: string]: string}
 
 export default function LanguageEditor({englishLanguage, editingLanguage, langKey}: {englishLanguage: string, editingLanguage: string, langKey: string}) {
+    const t = useTranslations()
     const {user} = useUser();
     const form = useForm({
         defaultValues: {
@@ -49,7 +51,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
             body: language
         }).then(() => {
             //PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Translation successfully sent"))
-            toast.success("Translation successfully sent")
+            toast.success(t("Pages.Translate.lang.saved"))
         })
     }
 
@@ -60,7 +62,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                 'Content-Type': 'application/json'
             }
         }).then(() => {
-            toast.success("Translation approved")
+            toast.success(t("Pages.Translate.lang.approved"))
         })
     }
 
@@ -68,8 +70,8 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
         <>
         <Tabs defaultValue="code">
             <TabsList className="w-full justify-around">
-                <TabsTrigger value="code" className="w-full">Code</TabsTrigger>
-                <TabsTrigger value="visual" className="w-full">Visual</TabsTrigger>
+                <TabsTrigger value="code" className="w-full">{t("Pages.Translate.lang.code")}</TabsTrigger>
+                <TabsTrigger value="visual" className="w-full">{t("Pages.Translate.lang.visual")}</TabsTrigger>
             </TabsList>
             <TabsContent value="code">
                 <form onSubmit={e => {
@@ -94,15 +96,15 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                         </div>
                     )}/>
                     <div className="flex flex-row gap-2 my-4 justify-center">
-                        <Button type="submit">Save</Button>
+                        <Button type="submit">{t("Pages.Translate.lang.save")}</Button>
                         <Button type="button" variant="secondary" onClick={() => {
                             form.reset()
-                        }}>Cancel</Button>
-                        <Link href={`/translate`}><Button type="button" variant="secondary">Back</Button></Link>
+                        }}>{t("Pages.Translate.lang.cancel")}</Button>
+                        <Link href={`/translate`}><Button type="button" variant="secondary">{t("Pages.Translate.lang.back")}</Button></Link>
                         {user?.type === UserTypes.Admin && (
                             <Button type="button" variant="secondary" onClick={() => {
                                 saveLanguage(form.state.values.language)
-                            }}>Approve</Button>
+                            }}>{t("Pages.Translate.lang.approve")}</Button>
                         )}
                     </div>
                 </form>
@@ -112,9 +114,9 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                     <Table>
                         <TableHeader>
                             <TableRow>
-                                <TableHead>Key</TableHead>
-                                <TableHead>English</TableHead>
-                                <TableHead>Translation</TableHead>
+                                <TableHead>{t("Pages.Translate.lang.key")}</TableHead>
+                                <TableHead>{t("Pages.Translate.lang.english")}</TableHead>
+                                <TableHead>{t("Pages.Translate.lang.translation")}</TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
@@ -135,15 +137,15 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                 <div className="flex flex-row gap-2 my-4 justify-center">
                         <Button type="submit" onClick={() => {
                             form.handleSubmit()
-                        }}>Save</Button>
+                        }}>{t('Pages.Translate.lang.save')}</Button>
                         <Button type="button" variant="secondary" onClick={() => {
                             form.reset()
-                        }}>Cancel</Button>
-                        <Link href={`/translate`}><Button type="button" variant="secondary">Back</Button></Link>
+                        }}>{t('Pages.Translate.lang.cancel')}</Button>
+                        <Link href={`/translate`}><Button type="button" variant="secondary">{t('Pages.Translate.lang.back')}</Button></Link>
                         {user?.type === UserTypes.Admin && (
                             <Button type="button" variant="secondary" onClick={() => {
                                 saveLanguage(form.state.values.language)
-                            }}>Approve</Button>
+                            }}>{t('Pages.Translate.lang.approve')}</Button>
                         )}
                     </div>
             </TabsContent>

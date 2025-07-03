@@ -1,6 +1,6 @@
-import { Locales, MinecraftVersions, SortOptions, StatusOptions, AllTags, ContentTypes } from "@/app/api/types"
+import { MinecraftVersions, SortOptions, StatusOptions, AllTags, ContentTypes } from "@/app/api/types"
 import Menu from "@/components/Menu/Navbar"
-import { getTranslations, unstable_setRequestLocale } from "next-intl/server"
+import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { Suspense } from "react"
 
@@ -33,18 +33,18 @@ export async function generateMetadata({params}: {params: Params}) {
 
     if (MinecraftVersions.includes(criteria)) {
         return {
-            title: t('Pages.Content.[content_type].[criteria].title', {content_type: content_type, minecraft_version: criteria}),
-            description: t('Pages.Content.[content_type].[criteria].description', {content_type: content_type, minecraft_version: criteria}),
-            keywords: [t('Pages.Content.[content_type].[criteria].Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.[content_type].[criteria].Keywords.games'), t('Pages.Content.[content_type].[criteria].Keywords.gaming'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_map'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_creations'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_version', {minecraft_version: criteria})],
+            title: t('Pages.Content.content_type.criteria.title', {content_type: content_type, minecraft_version: criteria}),
+            description: t('Pages.Content.content_type.criteria.description', {content_type: content_type, minecraft_version: criteria}),
+            keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), t('Pages.Content.content_type.criteria.Keywords.minecraft_version', {minecraft_version: criteria})],
             publisher: "MCCreations",
         }
     }
 
     if (AllTags.includes(criteria)) {
         return {
-            title: t('Pages.Content.[content_type].[criteria].title', {content_type: content_type, criteria: criteria}),
-            description: t('Pages.Content.[content_type].[criteria].description', {content_type: content_type, criteria: criteria}),
-            keywords: [t('Pages.Content.[content_type].[criteria].Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.[content_type].[criteria].Keywords.games'), t('Pages.Content.[content_type].[criteria].Keywords.gaming'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_map'), t('Pages.Content.[content_type].[criteria].Keywords.minecraft_creations'), t(`Creation.Tags.${criteria}`)],
+            title: t('Pages.Content.content_type.criteria.title', {content_type: content_type, criteria: criteria}),
+            description: t('Pages.Content.content_type.criteria.description', {content_type: content_type, criteria: criteria}),
+            keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), t(`Creation.Tags.${criteria}`)],
             publisher: "MCCreations",
         }
     }
@@ -54,63 +54,63 @@ export async function generateMetadata({params}: {params: Params}) {
             return {
                 title: `Newest ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse the newest ${t(content_type, {count: 2})} on MCCreations`,
-                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
         case "updated":
             return {
                 title: `Updated ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse recently updated ${t(content_type, {count: 2})} on MCCreations`,
-                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
         case "highest_downloads":
             return {
                 title: `Most Downloaded ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse ${t(content_type, {count: 2})} with the most downloads on MCCreations`,
-                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
         case "highest_rated":
             return {
                 title: `Highest Rated ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse ${t(content_type, {count: 2})} with the highest ratings on MCCreations`,
-                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
         case 1:
             return {
                 title: `Published ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse published ${t(content_type, {count: 2})} on MCCreations`,
-                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
         case 2:
             return {
                 title: `Verified ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse verified ${t(content_type, {count: 2})} on MCCreations`,
-                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
         case 3:
             return {
                 title: `Featured ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse featured ${t(content_type, {count: 2})} on MCCreations`,
-                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations'), criteria],
+                keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
         default:
             return {
                 title: `MCCreations | ${t(content_type, {count: 2})}`,
                 description: `Browse ${t(content_type, {count: 2})} on MCCreations`,
-                keywords: [t('Content.Metadata.Tags.minecraft'), t(content_type, {count: 2}), t('Content.Metadata.Tags.games'), t('Content.Metadata.Tags.gaming'), t('Content.Metadata.Tags.minecraft_map'), t('Content.Metadata.Tags.minecraft_creations')],
+                keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations')],
                 publisher: "MCCreations",
             }
     }
 }
 
 export default function StaticContentPageLayout({ children, params }: {children: React.ReactNode, params: Params}) {
-    unstable_setRequestLocale(params.locale)
+    setRequestLocale(params.locale)
   
    return (
           <Suspense>

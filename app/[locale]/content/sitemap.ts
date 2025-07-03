@@ -1,4 +1,4 @@
-import { AllTags, CollectionNames, ContentTypes, Locales, MinecraftVersions, SortOptions, StatusOptions } from "@/app/api/types"
+import { AllTags, ContentTypes, SortOptions } from "@/app/api/types"
 import { MetadataRoute } from "next"
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

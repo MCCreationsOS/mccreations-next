@@ -99,7 +99,7 @@ export const AdsenseComponent = ({ adClient, adSlot, adFormat, adLayout, width, 
     if (!render) return null;
     return (
         <div>
-            <div className={styles.background}>{t('Ads.behind_text')}</div>
+            <div className={styles.background}>{t('Components.AdUnits.behind_text')}</div>
             <ins className="adsbygoogle"
                 style={{ display: 'block', width: width, height: height, margin: '0 auto' }}
                 data-ad-client={adClient}

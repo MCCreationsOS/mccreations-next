@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import { ICreator } from '@/app/api/types';
 import { getCreator } from '@/app/api/community';
-import { Link } from "@/app/api/navigation";;
+import { Link } from "@/i18n/navigation";;
 import styles from './CreatorCard.module.css';
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';

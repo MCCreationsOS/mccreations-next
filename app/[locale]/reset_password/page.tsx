@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 export default function Page() {
     const params = useSearchParams()
     const router = useRouter();
-    const t = useTranslations()
+    const t = useTranslations("Pages.ResetPassword")
     const form = useForm({
         defaultValues: {
             password: "",
@@ -34,7 +34,7 @@ export default function Page() {
                 }, 1000)
             }),
             {
-                loading: t('ResetPassword.token_error'),
+                loading: t('token_error'),
                 success: () => {
                     router.back()
                     return null
@@ -54,7 +54,7 @@ export default function Page() {
                     }, 1000)
                 }),
                 {
-                    loading: t('ResetPassword.token_error'),
+                    loading: t('token_error'),
                     success: () => {
                         router.back()
                         return null
@@ -65,14 +65,14 @@ export default function Page() {
         }
         if(password === password2) {
             if(!password || password.length < 9) {
-                toast.error(t('ResetPassword.password_length'))
+                toast.error(t('password_length'))
                 return;
             }
     
             let regex = /[0-9]/g, m;
             m = regex.exec(password)
             if(!m) {
-                toast.error(t('ResetPassword.password_number'))
+                toast.error(t('password_number'))
                 return;
             }
 
@@ -82,7 +82,7 @@ export default function Page() {
             }
             router.push("/signin")
         } else {
-            toast.error(t('ResetPassword.passwords_not_same'))
+            toast.error(t('passwords_not_same'))
             return;
         }
     }
@@ -95,8 +95,8 @@ export default function Page() {
             }} className="flex flex-col gap-4">
                 <form.Field name="password" children={(field) => (
                     <div className="flex flex-col gap-2">
-                        <Label htmlFor="password">{t('ResetPassword.new_password')}</Label>
-                        <Input id="password" name="password" type="password" autoComplete="password" placeholder={t('ResetPassword.new_password')} onChange={(e) => {field.handleChange(e.target.value)}} />
+                        <Label htmlFor="password">{t('new_password')}</Label>
+                        <Input id="password" name="password" type="password" autoComplete="password" placeholder={t('new_password')} onChange={(e) => {field.handleChange(e.target.value)}} />
                         {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                     </div>
                 )} validators={{
@@ -104,29 +104,29 @@ export default function Page() {
                         let regex = /[0-9]/g;
                         let m = regex.exec(value)
                         if(!m) {
-                            return 'Password must contain a number'
+                            return t('password_number')
                         }
                         return (!value) ?
-                        'Password is required' :
+                        t('password_required') :
                         value.length < 9 ?
-                        'Password must be at least 9 characters long' :
+                        t('password_length') :
                         undefined
                     }
                 }}/>
                 <form.Field name="password2" children={(field) => (
                     <div className="flex flex-col gap-2">
-                        <Label htmlFor="password2">{t('ResetPassword.retype_password')}</Label>
-                        <Input id="password2" name="password2" type="password" autoComplete="password" placeholder={t('ResetPassword.retype_password')} onChange={(e) => {field.handleChange(e.target.value)}} />
+                        <Label htmlFor="password2">{t('retype_password')}</Label>
+                        <Input id="password2" name="password2" type="password" autoComplete="password" placeholder={t('retype_password')} onChange={(e) => {field.handleChange(e.target.value)}} />
                         {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                     </div>
                 )} validators={{
                     onSubmit: ({value}) => {
                         if(value !== form.state.values.password) {
-                            return 'Passwords do not match'
+                            return t('passwords_not_same')
                         }
                     }
                 }}/>
-                <Button type="submit" className="w-fit">{t('ResetPassword.reset')}</Button>
+                <Button type="submit" className="w-fit">{t('reset')}</Button>
             </form>
         </div>
     )

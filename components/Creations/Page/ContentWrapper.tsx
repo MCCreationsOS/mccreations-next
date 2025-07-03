@@ -35,7 +35,7 @@ export default function MapWrapper({slug, response}: {slug: string, response?: a
              if(error.length > 0) {
                  return (
                      <div className='centered_content'>
-                         <h1>{t('Content.map_not_found')}</h1>
+                         <h1>{t('Components.Creations.Page.not_found', {content_type: t('map', {count: 1})})}</h1>
                          <p>{error}</p>
                      </div>
                  )
@@ -44,8 +44,8 @@ export default function MapWrapper({slug, response}: {slug: string, response?: a
              return (
                  <div className='centered_content'>
      
-                     <h1>{t('Content.map_not_found')}</h1>
-                     <p>{t('Content.map_not_found_description')}</p>
+                     <h1>{t('Components.Creations.Page.not_found', {content_type: t('map', {count: 1})})}</h1>
+                     <p>{t('Components.Creations.Page.not_found_description', {content_type: t('map', {count: 1})})}</p>
                  </div>
              )
          }
@@ -74,7 +74,7 @@ export function DatapackWrapper({slug, response}: {slug: string, response?: any}
             if(error.length > 0) {
                 return (
                     <div className='centered_content'>
-                        <h1>{t('Content.datapack_not_found')}</h1>
+                        <h1>{t('Components.Creations.Page.not_found', {content_type: t('datapack', {count: 1})})}</h1>
                         <p>{error}</p>
                     </div>
                 )
@@ -83,8 +83,8 @@ export function DatapackWrapper({slug, response}: {slug: string, response?: any}
             return (
                 <div className='centered_content'>
     
-                    <h1>{t('Content.datapack_not_found')}</h1>
-                    <p>{t('Content.datapack_not_found_description')}</p>
+                    <h1>{t('Components.Creations.Page.not_found', {content_type: t('datapack', {count: 1})})}</h1>
+                    <p>{t('Components.Creations.Page.not_found_description', {content_type: t('datapack', {count: 1})})}</p>
                 </div>
             )
         }
@@ -113,7 +113,7 @@ export function ResourcepackWrapper({slug, response}: {slug: string, response?: 
              if(error.length > 0) {
                  return (
                      <div className='centered_content'>
-                         <h1>{t('Content.resourcepack_not_found')}</h1>
+                         <h1>{t('Components.Creations.Page.not_found', {content_type: t('resourcepack', {count: 1})})}</h1>
                          <p>{error}</p>
                      </div>
                  )
@@ -122,8 +122,8 @@ export function ResourcepackWrapper({slug, response}: {slug: string, response?: 
              return (
                  <div className='centered_content'>
      
-                     <h1>{t('Content.resourcepack_not_found')}</h1>
-                     <p>{t('Content.resourcepack_not_found_description')}</p>
+                     <h1>{t('Components.Creations.Page.not_found', {content_type: t('resourcepack', {count: 1})})}</h1>
+                     <p>{t('Components.Creations.Page.not_found_description', {content_type: t('resourcepack', {count: 1})})}</p>
                  </div>
              )
          }

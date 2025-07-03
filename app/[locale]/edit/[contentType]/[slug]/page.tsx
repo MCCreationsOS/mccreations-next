@@ -1,44 +1,27 @@
 "use client";
 
 import { CreatorInput, Required, TagInput } from "@/app/[locale]/create/formElements";
-import { getCreator } from "@/app/api/community";
 import {
     convertToCollection,
-    createEmptyCreation,
-    createNewContent,
-    requestApproval,
     updateContent,
 } from "@/app/api/content";
 import { useCreation, useTags } from "@/app/api/hooks/creations";
-import { useToken, useTokenOrKey } from "@/app/api/hooks/users";
+import { useTokenOrKey } from "@/app/api/hooks/users";
 import {
     ContentTypes,
-    IContentDoc,
     ICreator,
     IFile,
-    IUser,
-    Locales,
-    TagKeys,
-    Tags,
     Translation,
 } from "@/app/api/types";
 import ImageDropzone, {
-    UploadedImageRepresentation,
 } from "@/components/ImageDropzone";
 import RichText from "@/components/RichText/RichText";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-    Popover,
-    PopoverContent,
-    PopoverTrigger,
-} from "@/components/ui/popover";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
     Select,
     SelectContent,
@@ -48,14 +31,12 @@ import {
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VersionManager from "@/components/VersionManager/VersionManager";
+import { routing } from "@/i18n/routing";
 import { useForm } from "@tanstack/react-form";
-import { ChevronDown, ChevronRight, Plus, Trash } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useSessionStorage } from "usehooks-ts";
 
 export default function Page({params}: {params: {contentType: ContentTypes, slug: string}}) {
     const contentType = (params.contentType.endsWith("s") ? params.contentType.slice(0, -1) : params.contentType) as ContentTypes;
@@ -375,7 +356,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                         sendOnChange={(v) => {
                                             field.handleChange(v);
                                         }}
-                                            initialValue={field.state.value}
+                                            initialValue={creation.description}
                                         />
                                         {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                 </div>
@@ -545,7 +526,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                             <SelectValue placeholder={t("Pages.Edit.Translations.select_language")} />
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {Locales.map((locale) => (
+                                            {routing.locales.map((locale) => (
                                                 <SelectItem key={locale} value={locale}>{locale}</SelectItem>
                                             ))}
                                         </SelectContent>

@@ -1,4 +1,4 @@
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 import styles from './Footer.module.css'
 import { getTranslations } from "next-intl/server";
 import { Button } from "../ui/button";

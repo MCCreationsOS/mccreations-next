@@ -5,7 +5,7 @@ import MapWrapper, { ResourcepackWrapper } from '@/components/Creations/Page/Con
 import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
 import Creation from '@/components/Creations/Page/Creation';
-import { getLocale, getTranslations, unstable_setRequestLocale } from 'next-intl/server';
+import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 
 export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
     // fetch data
@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     const t = await getTranslations()
     const locale = await getLocale()
     if (!map || typeof map === "string") return {
-        title: t('Pages.Resourcepacks.[slug].Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
+        title: t('Pages.Resourcepacks.slug.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
         openGraph: {
-            title: t('Pages.Resourcepacks.[slug].Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
-            description: t('Pages.Resourcepacks.[slug].Metadata.not_found_description', { content_type: t('resourcepack', {count: 1})}),
+            title: t('Pages.Resourcepacks.slug.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
+            description: t('Pages.Resourcepacks.slug.Metadata.not_found_description', { content_type: t('resourcepack', {count: 1})}),
             images: [
                 {
                     url: "https://mccreations.net/images/logo.png"
@@ -32,14 +32,14 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     if(!map.tags) map.tags = []
 
     return {
-        title: t('Pages.Resourcepacks.[slug].Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}),
+        title: t('Pages.Resourcepacks.slug.Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}),
         description: map.shortDescription,
         authors: (map.creators) ? map.creators.map((creator: ICreator) => { return { name: creator.username } }) : [],
         generator: "MCCreations",
-        keywords: map.tags.concat([t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft'), t('resourcepack', {count: 2}), t('Pages.Resourcepacks.[slug].Metadata.Tags.games'), t('Pages.Resourcepacks.[slug].Metadata.Tags.gaming'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_resourcepack'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_creations'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}), t('Pages.Resourcepacks.[slug].Metadata.Tags.mods'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_mods'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_hd')]),
+        keywords: map.tags.concat([t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft'), t('resourcepack', {count: 2}), t('Pages.Resourcepacks.slug.Metadata.Tags.games'), t('Pages.Resourcepacks.slug.Metadata.Tags.gaming'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_resourcepack'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_creations'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}), t('Pages.Resourcepacks.slug.Metadata.Tags.mods'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_mods'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_hd')]),
         publisher: "MCCreations",
         openGraph: {
-            title: t('Pages.Resourcepacks.[slug].Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}),
+            title: t('Pages.Resourcepacks.slug.Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}),
             description: map.shortDescription,
             images: map.images,
             siteName: "MCCreations",
@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
             authors: (map.creators) ? map.creators.map((creator: ICreator) => { return creator.username }) : [],
             publishedTime: new Date(map.createdDate).toString(),
             modifiedTime: new Date(map.updatedDate + "").toString(),
-            tags: map.tags.concat([t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft'), t('resourcepack', {count: 2}), t('Pages.Resourcepacks.[slug].Metadata.Tags.games'), t('Pages.Resourcepacks.[slug].Metadata.Tags.gaming'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_resourcepack'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_creations'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}), t('Pages.Resourcepacks.[slug].Metadata.Tags.mods'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_mods'), t('Pages.Resourcepacks.[slug].Metadata.Tags.minecraft_hd')]),
+            tags: map.tags.concat([t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft'), t('resourcepack', {count: 2}), t('Pages.Resourcepacks.slug.Metadata.Tags.games'), t('Pages.Resourcepacks.slug.Metadata.Tags.gaming'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_resourcepack'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_creations'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}), t('Pages.Resourcepacks.slug.Metadata.Tags.mods'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_mods'), t('Pages.Resourcepacks.slug.Metadata.Tags.minecraft_hd')]),
             videos: (map.videoUrl) ? [{ url: map.videoUrl }] : []
         }
     }
@@ -57,7 +57,7 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
 
 export default async function Page({params}: {params: Params}) {
     const map = await fetchResourcepack(params.slug)
-    unstable_setRequestLocale(params.locale)
+    setRequestLocale(params.locale)
     const t = await getTranslations()
     
     if(map && '_id' in map) {
@@ -73,8 +73,8 @@ export default async function Page({params}: {params: Params}) {
         return (
             <div className='centered_content'>
 
-                <h1>{t('Creation.resourcepack_not_found')}</h1>
-                <p>{t('Creation.resourcepack_not_found_description')}</p>
+                <h1>{t('Pages.Resourcepacks.slug.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})})}</h1>
+                <p>{t('Pages.Resourcepacks.slug.Metadata.not_found_description', { content_type: t('resourcepack', {count: 1})})}</p>
             </div>
         )
     }

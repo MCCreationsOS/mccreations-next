@@ -20,13 +20,13 @@ export default function ResetPage() {
     return (
         <div className="popup_page">
             <div className="centered_content small popup">
-                <h2>{t('SignIn.Reset.title')}</h2>
+                <h2>{t('Pages.SignIn.Reset.title')}</h2>
                 <form>
                     <div className='field'>
-                        <p className='label'>{t('Account.Shared.email')}</p>
-                        <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('Account.Shared.email_placeholder')} onChange={(e) => {setEmail(e.target.value)}}></input>
+                        <p className='label'>{t('Pages.SignIn.Reset.email')}</p>
+                        <input className='input wide' type='text' autoComplete="email" name='email' placeholder={t('Pages.SignIn.Reset.email_placeholder')} onChange={(e) => {setEmail(e.target.value)}}></input>
                     </div>
-                    <Button onClick={resetPassword}><span>{t('SignIn.Reset.send_reset_email')}</span></Button>
+                    <Button onClick={resetPassword}><span>{t('Pages.SignIn.Reset.send_reset_email')}</span></Button>
                 </form>
             </div>
         </div>

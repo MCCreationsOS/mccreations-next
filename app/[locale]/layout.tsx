@@ -5,7 +5,7 @@ import Footer from '@/components/Footer/Footer'
 import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script'
 import {NextIntlClientProvider} from 'next-intl';
-import { getLocale, getMessages, unstable_setRequestLocale } from 'next-intl/server'
+import { getLocale, getMessages, getTranslations, setRequestLocale } from 'next-intl/server'
 
 import "/node_modules/react-grid-layout/css/styles.css"
 import "/node_modules/react-resizable/css/styles.css"
@@ -13,35 +13,45 @@ import '@/app/globals.css'
 import Menu from '@/components/Menu/Navbar'
 import ServiceWorkerManager from '@/components/ServiceWorkerManager'
 import { Toaster } from '@/components/ui/sonner'
+import { routing } from '@/i18n/routing'
 
-
-export const metadata: Metadata = {
-  metadataBase: new URL('https://mccreations.net'),
-  title: "MCCreations | The greatest Minecraft Maps from the Minecraft Community",
-  description: "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
-  twitter: {
-    title: "MCCreations | The greatest Minecraft Maps from the Minecraft Community",
-    description: "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
-    card: "summary_large_image",
-    images: [
-      "https://mccreations.net/defaultBanner.png"
-    ]
-  },
-  openGraph: {
-    title: "MCCreations | The greatest Minecraft Maps from the Minecraft Community",
-    description: "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
-    images: [
-      "https://mccreations.net/defaultBanner.png"
-    ],
-    siteName: "MCCreations",
-    type: "website",
-    url: "https://mccreations.net"
+export async function generateMetadata() {
+  const t = await getTranslations()
+  return {
+    metadataBase: new URL('https://mccreations.net'),
+    title: t('Pages.Home.Metadata.title'),
+    description: t('Pages.Home.Metadata.description'),
+    twitter: {
+      title: t('Pages.Home.Metadata.title'),
+      description: t('Pages.Home.Metadata.description'),
+      card: "summary_large_image",
+      images: [
+        "https://mccreations.net/defaultBanner.png"
+      ]
+    },
+    openGraph: {
+      title: t('Pages.Home.Metadata.title'),
+      description: t('Pages.Home.Metadata.description'),
+      images: [
+        "https://mccreations.net/defaultBanner.png"
+      ],
+      siteName: "MCCreations",
+      type: "website",
+      url: "https://mccreations.net"
+    },
+    keywords: [t('Pages.Home.Metadata.Keywords.minecraft'), t('Pages.Home.Metadata.Keywords.games'), t('Pages.Home.Metadata.Keywords.gaming'), t('Pages.Home.Metadata.Keywords.minecraft_map'), t('Pages.Home.Metadata.Keywords.minecraft_creations'), t('Pages.Home.Metadata.Keywords.minecraft_version'), t('Pages.Home.Metadata.Keywords.maps'), t('Pages.Home.Metadata.Keywords.minecraft_games'), t('Pages.Home.Metadata.Keywords.download')],
+    publisher: "MCCreations"
   }
+}
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({
+    locale: locale
+  }))
 }
  
 export default async function RootLayout({params: { locale }, children}: {params: {locale: string}, children: React.ReactNode}) {
-  unstable_setRequestLocale(locale)
-  const messages = await getMessages();
+  setRequestLocale(locale)
  return (
 
   <html lang={locale}>
@@ -54,8 +64,8 @@ export default async function RootLayout({params: { locale }, children}: {params
         <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Oxygen:wght@300;400;700&family=Paytone+One&display=swap" rel="stylesheet"></link>
       </head>
       <body id="view">
-        <NextIntlClientProvider messages={messages}>
-          <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333" crossOrigin="anonymous"></Script>
+        <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333" crossOrigin="anonymous"></Script>
+        <NextIntlClientProvider>
           <Menu />
           <Suspense fallback={<Loading />}>
               {children}

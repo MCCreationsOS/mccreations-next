@@ -1,5 +1,5 @@
 import Menu from "@/components/Menu/Navbar";
-import { Link } from "@/app/api/navigation";
+import { Link } from "@/i18n/navigation";
 
 export default function Page() {
     return (<>

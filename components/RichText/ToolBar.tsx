@@ -213,6 +213,7 @@ export default function ToolbarPlugin() {
                 }}
                 className="p-2 m-0 hover:bg-white/10"
                 aria-label={t("Form.RichText.undo")}
+                type="button"
             >
                 <Undo className="w-4 h-4" />
             </button>
@@ -223,6 +224,7 @@ export default function ToolbarPlugin() {
                 }}
                 className="p-2 m-0 hover:bg-white/10"
                 aria-label={t("Form.RichText.redo")}
+                type="button"
             >
                 <Redo className="w-4 h-4" />
             </button>
@@ -235,6 +237,7 @@ export default function ToolbarPlugin() {
                     "p-2 m-0 hover:bg-white/10" + (isBold ? "bg-white/10" : "")
                 }
                 aria-label={t("Form.RichText.bold")}
+                type="button"
             >
                 <Bold className="w-4 h-4" />
             </button>
@@ -247,6 +250,7 @@ export default function ToolbarPlugin() {
                     (isItalic ? "bg-white/10" : "")
                 }
                 aria-label={t("Form.RichText.italic")}
+                type="button"
             >
                 <Italic className="w-4 h-4" />
             </button>
@@ -259,6 +263,7 @@ export default function ToolbarPlugin() {
                     (isUnderline ? "bg-white/10" : "")
                 }
                 aria-label={t("Form.RichText.underline")}
+                type="button"
             >
                 <Underline className="w-4 h-4" />
             </button>
@@ -274,6 +279,7 @@ export default function ToolbarPlugin() {
                     (isStrikethrough ? "bg-white/10" : "")
                 }
                 aria-label={t("Form.RichText.strikethrough")}
+                type="button"
             >
                 <Strikethrough className="w-4 h-4" />
             </button>
@@ -286,13 +292,14 @@ export default function ToolbarPlugin() {
                 }}
                 className={"p-2 m-0 hover:bg-white/10"}
                 aria-label={t("Form.RichText.bullet_list")}
+                type="button"
             >
                 <List className="w-4 h-4" />
             </button>
             <Divider />
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <button className={"p-2 m-0 hover:bg-white/10"}>
+                <button className={"p-2 m-0 hover:bg-white/10"} type="button">
                   <Pilcrow className="w-4 h-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -315,7 +322,7 @@ export default function ToolbarPlugin() {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <button className={"p-2 m-0 hover:bg-white/10"}>
+                <button className={"p-2 m-0 hover:bg-white/10"} type="button">
                   <Baseline className="w-4 h-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -330,7 +337,7 @@ export default function ToolbarPlugin() {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger>
-                <button className={"p-2 m-0 hover:bg-white/10"}>
+                <button className={"p-2 m-0 hover:bg-white/10"} type="button">
                   <PaintBucket className="w-4 h-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -350,7 +357,8 @@ export default function ToolbarPlugin() {
                 }}
                 className="p-2 m-0 hover:bg-white/10"
                 aria-label={t("Form.RichText.left_align")}
-            >
+                type="button"
+                >
                 <AlignLeft className="w-4 h-4" />
             </button>
             <button
@@ -359,7 +367,8 @@ export default function ToolbarPlugin() {
                 }}
                 className="p-2 m-0 hover:bg-white/10"
                 aria-label={t("Form.RichText.center_align")}
-            >
+                type="button"
+                >
                 <AlignCenter className="w-4 h-4" />
             </button>
             <button
@@ -368,7 +377,8 @@ export default function ToolbarPlugin() {
                 }}
                 className="p-2 m-0 hover:bg-white/10"
                 aria-label={t("Form.RichText.right_align")}
-            >
+                type="button"
+                >
                 <AlignRight className="w-4 h-4" />
             </button>
             <button
@@ -377,12 +387,13 @@ export default function ToolbarPlugin() {
                 }}
                 className="p-2 m-0 hover:bg-white/10"
                 aria-label={t("Form.RichText.justify_align")}
-            >
+                type="button"
+                >
                 <AlignJustify className="w-4 h-4" />
             </button>
             <Dialog>
               <DialogTrigger>
-                <button className="p-2 m-0 hover:bg-white/10">
+                <button className="p-2 m-0 hover:bg-white/10" type="button">
                   <Image className="w-4 h-4" />
                 </button>
               </DialogTrigger>
@@ -402,6 +413,7 @@ export default function ToolbarPlugin() {
                 }}
                 aria-label={t("Form.RichText.spoiler")}
                 className="p-2 m-0 hover:bg-white/10"
+                type="button"
             >
                 <FoldVertical className="w-4 h-4" />
             </button>{" "}
