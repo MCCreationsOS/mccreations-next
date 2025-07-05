@@ -123,7 +123,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
 
     if (renderVersion) {
         return <div className="flex flex-col gap-4">
-                <Label>{t('VersionManager.Version.edit', {version: renderVersion.contentVersion})}</Label>
+                <Label>{t('VersionManager.Version.edit', {version: renderVersion.contentVersion ?? "1.0.0"})}</Label>
                 <Button variant="secondary" onClick={() => {setRenderVersion(undefined)}} className="w-fit"><ArrowLeft /><span>{t('VersionManager.Version.back_to_versions')}</span></Button>
                 <form onSubmit={e => {
                     e.preventDefault()
