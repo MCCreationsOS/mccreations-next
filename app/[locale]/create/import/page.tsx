@@ -87,7 +87,7 @@ export default function ImportPage() {
 
 function Import() {
     const [importing, setImporting] = useState<boolean>(false)
-    const [message, setMessage] = useState<string | null>("Importing...")
+    const [message, setMessage] = useState<string>("Importing...")
     const [options, setOptions] = useState<any>()
     const [progress, setProgress] = useState<number>(0)
     const {token} = useToken()
