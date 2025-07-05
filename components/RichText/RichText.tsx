@@ -133,7 +133,7 @@ export default function RichText({ sendOnChange, initialValue, className }: { se
                 <div className={`border-t-1 border-white/15 relative ${className}`}>
                     <RichTextPlugin
                         contentEditable={<ContentEditable className={`min-h-[200px] px-3 py-1 ${className}`} />}
-                        placeholder={<div className="editor-placeholder">{t('Form.RichText.placeholder')}</div>}
+                        placeholder={<div className="editor-placeholder">{t('Components.RichText.placeholder')}</div>}
                         ErrorBoundary={ErrorBoundary}
                     />
                 </div>

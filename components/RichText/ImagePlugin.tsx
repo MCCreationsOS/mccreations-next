@@ -153,8 +153,8 @@ export function InsertImageDialog({
     <>
       {!mode && (
         <div className='flex flex-row gap-2'>
-            <Button variant="secondary" onClick={() => setMode('url')}><span>{t('Form.RichText.ImagePopup.insert_url')}</span></Button>
-            <Button variant="secondary" onClick={() => setMode('file')}><span>{t('Form.RichText.ImagePopup.insert_file')}</span></Button>
+            <Button variant="secondary" onClick={() => setMode('url')}><span>{t('Components.RichText.Images.insert_url')}</span></Button>
+            <Button variant="secondary" onClick={() => setMode('file')}><span>{t('Components.RichText.Images.insert_file')}</span></Button>
         </div>
       )}
       {mode === 'url' && <InsertImageUriDialogBody onClick={onClick} />}

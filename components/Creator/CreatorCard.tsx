@@ -34,7 +34,7 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
         return (
             <div className='flex flex-row gap-2'>
                 <Link className="flex-1 flex flex-row gap-2 items-center" href={`/creator/${c.handle}`}>
-                    <Image src={c.iconURL ?? "/defaultLogo.png"} width={50} height={50} className="rounded-full w-[50px] h-[50px] object-cover" alt={t('Creator.logo_alt', {username: c.username})}></Image>
+                    <Image src={c.iconURL ?? "/defaultLogo.png"} width={50} height={50} className="rounded-full w-[50px] h-[50px] object-cover" alt={t('Pages.Creator.handle.icon', {username: c.username})}></Image>
                     <div>
                         {c.username}
                     </div>
@@ -45,21 +45,17 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>
                         <div className='flex flex-row gap-2 border-2 border-white/15'>
-                            <DropdownMenuItem onClick={handleFollow}>Follow {c.username}</DropdownMenuItem>
+                            <DropdownMenuItem onClick={handleFollow}>{t('Pages.Creator.handle.follow')}</DropdownMenuItem>
                         </div>
                     </DropdownMenuContent>
                 </DropdownMenu>
-                
-                // <DropDown buttonClassName={styles.follow_button} buttonLabel={<Plus />} className='option_dropdown' useButtonWidth={false}>
-                //         <DropDownItem onClick={handleFollow} className='option_button'>Follow {c.username}</DropDownItem>
-                //     </DropDown>
                 }
             </div>
         )
     } else {
         return (
             <div className={styles.card}>
-                <Image src={"/defaultLogo.png"} width={50} height={50} className={styles.logo} alt={t('Creator.logo_alt', {username: creator.username})}></Image>
+                <Image src={"/defaultLogo.png"} width={50} height={50} className={styles.logo} alt={t('Pages.Creator.handle.icon', {username: creator.username})}></Image>
                 <div>
                     {creator.username}
                 </div>

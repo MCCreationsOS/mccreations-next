@@ -22,7 +22,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 if(uploadedFiles) {
                     uploadedFiles.forEach(uploadedFile => {
                         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', { file: uploadedFile.name })))
-                        toast.success(t('Form.Shared.uploaded', { file: uploadedFile.name }))
+                        toast.success(t('Components.Dropzone.uploaded', { file: uploadedFile.name }))
                         setFile(uploadedFile.location)
                     })
                     onFilesUploaded(uploadedFiles.map(file => file.location).join(','))
@@ -33,8 +33,21 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
         if (rejectedFiles?.length) {
             setRejected(previousFiles => [...previousFiles, ...rejectedFiles])
             rejectedFiles.forEach(file => {
-                // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Error, `${file.file.name}${t('Form.Files.invalid_file')}`))
-                toast.error(`${file.file.name}${t('Form.Files.invalid_file')}`)
+                let message = file.file.name
+                file.errors.forEach(error => {
+                    switch (error.code) {
+                        case 'file-invalid-type':
+                            message += t('Components.Dropzone.invalid_type', { type: t('Components.Dropzone.FileTypes.zip') });
+                            break;
+                        case 'file-too-large':
+                            message += t('Components.Dropzone.file_too_large', { size: '2MB' });
+                            break;
+                        default:
+                            message += t('Components.Dropzone.file_unknown');
+                            break;
+                    }
+                })
+                toast.error(message)
             })
         }
     }, [])
@@ -79,17 +92,17 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 <div {...getRootProps()} className="flex flex-col items-center justify-center p-10 mb-3 border border-dashed border-gray-300 w-full">
                     <input {...getInputProps({ name: 'file' })} />
                     <Plus />
-                    <p>{t('Form.Files.drop_zone')}</p>
+                    <p>{t('Components.Dropzone.dropzone')}</p>
                 </div>
-                <p>Or...</p>
+                <p>{t('Components.Dropzone.or')}</p>
                 <div className="mt-3 w-full">
-                    <Label className="text-sm font-medium">{t('Form.Files.link')}</Label>
-                    <Input type="text" name="Link" id="Link" placeholder="https://example.com/file.zip" defaultValue={file} />
+                    <Label className="text-sm font-medium">{t('Components.Dropzone..link')}</Label>
+                    <Input type="text" name="Link" id="Link" placeholder={t('Components.Dropzone.link_placeholder')} defaultValue={file} />
                     <Button variant="secondary" type="button" onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
                         setFile((document.getElementById('Link') as HTMLInputElement).value || "")
-                    }}><span>{t('Form.Files.set_link')}</span></Button>
+                    }}><span>{t('Components.Dropzone..set_link')}</span></Button>
                 </div>
             </div>
         </>

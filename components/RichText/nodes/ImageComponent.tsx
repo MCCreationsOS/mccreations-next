@@ -421,7 +421,7 @@ function ErrorBoundary({children, onError}: {children: React.ReactNode, onError:
                 <HistoryPlugin externalHistoryState={historyState} />
                 <RichTextPlugin
                   contentEditable={<ContentEditable className="editor-input" />}
-                  placeholder={<div className="editor-placeholder">{t('Form.RichText.placeholder')}</div>}
+                  placeholder={<div className="editor-placeholder">{t('Components.RichText.placeholder')}</div>}
                   ErrorBoundary={ErrorBoundary}
                 />
               </LexicalNestedComposer>

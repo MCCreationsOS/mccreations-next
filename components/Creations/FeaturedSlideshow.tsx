@@ -7,10 +7,12 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import { Download, Star } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import { useTranslations } from "next-intl";
 
 export default function FeaturedSlideshow({creations}: {creations: IContentDoc[]}) {
     const [currentSlide, setCurrentSlide] = useState(0)
     const timer = useRef<NodeJS.Timeout | null>(null)
+    const t = useTranslations()
 
     useEffect(() => {
         if(timer.current) {
@@ -44,7 +46,7 @@ export default function FeaturedSlideshow({creations}: {creations: IContentDoc[]
                                             <span className="text-sm flex items-center gap-1"><Download className="w-5 h-5"/> {creation.downloads}</span>
                                             {creation.rating > 0 && <span className="text-sm flex items-center gap-1"><Star className="w-5 h-5"/> {creation.rating * 5}</span>}
                                         </div>
-                                        <p className="text-sm">By {creation.creators.map((creator) => creator.username).join(", ")}</p>
+                                        <p className="text-sm">{t('Components.Creations.Cards.by', {creator: creation.creators.slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner'))})}</p>
                                     </div>
                                 </div>
                             </Link>

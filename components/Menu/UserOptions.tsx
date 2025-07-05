@@ -52,7 +52,7 @@ export default function UserOptions() {
             <DropdownMenuTrigger asChild>
                 <Button variant="secondary" className="flex items-center gap-2">
                     <User className="h-5 w-5" />
-                    <span className="sr-only">Account</span>
+                    <span className="sr-only">{t('Components.Navbar.UserOptions.account')}</span>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -60,7 +60,7 @@ export default function UserOptions() {
                     <DropdownMenuItem>
                         <Link href="/signin" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full">
-                                <LogIn /> {t("Menu.UserOptions.sign_in")}
+                                <LogIn /> {t("Components.Navbar.UserOptions.sign_in")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
@@ -74,7 +74,7 @@ export default function UserOptions() {
             <DropdownMenuTrigger asChild>
                 <Button variant="secondary" className="flex items-center gap-2">
                     <User className="h-5 w-5" />
-                    <span className="sr-only">Account</span>
+                    <span className="sr-only">{t('Components.Navbar.UserOptions.account')}</span>
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent>
@@ -89,35 +89,35 @@ export default function UserOptions() {
                     <DropdownMenuItem className="p-0 justify-start">
                         <Link href="/dashboard/notifications" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
-                                <Bell /> {t("Menu.UserOptions.notifications")}
+                                <Bell /> {t("Components.Navbar.UserOptions.notifications")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="p-0 justify-start">
                         <Link href={`/creator/${user.handle}`} className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
-                                <User /> {t('Menu.UserOptions.profile')}
+                                <User /> {t('Components.Navbar.UserOptions.profile')}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
                     <DropdownMenuItem className="p-0 justify-start">
                         <Link href="/dashboard" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
-                                <Table /> {t("Menu.UserOptions.dashboard")}
+                                <Table /> {t("Components.Navbar.UserOptions.dashboard")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
                     {user.type === UserTypes.Admin && <DropdownMenuItem className="p-0 justify-start">
                         <Link href="/admin_dashboard" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
-                                <Table /> {t("Menu.UserOptions.admin")}
+                                <Table /> {t("Components.Navbar.UserOptions.admin")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>}
                     <DropdownMenuItem className="p-0 justify-start">
                         <Link href="/settings" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">
-                                <Settings /> {t("Menu.UserOptions.settings")}
+                                <Settings /> {t("Components.Navbar.UserOptions.settings")}
                             </Button>
                         </Link>
                     </DropdownMenuItem>
@@ -126,35 +126,11 @@ export default function UserOptions() {
                             signOut()
                             setIsOpen(false)
                         }}>
-                            <LogOut /> {t("Menu.UserOptions.sign_out")}
+                            <LogOut /> {t("Components.Navbar.UserOptions.sign_out")}
                         </Button>
                     </DropdownMenuItem>
                 </div>
             </DropdownMenuContent>
         </DropdownMenu>
-        // <DropDown className="option_dropdown user_menu" buttonClassName="user_menu" buttonLabel={<div className="icon_container"><Image className="icon" src={(user.iconURL) ? user.iconURL : "/defaultLogo.png"} alt="User Icon" width={40} height={40} />{notifications && notifications.length > 0 && notifications.filter((notification) => !notification.read).length > 0 && <div className="notification_indicator"></div>}</div>} useButtonWidth={false}>
-        //     <DropDownItem className="option_button no-flex break-line" onClick={() => {router.push("/creator/"+user.handle)}}>
-        //         <p className="display_name">{user.username}</p>
-        //         <p className="email">{user.email}</p>
-        //     </DropDownItem>
-        //     <DropDownItem className="option_button" onClick={() => {router.push("/dashboard/notifications")}}>
-        //         <Bell /> {t("Menu.UserOptions.notifications")} {notifications && notifications.length > 0 && notifications.filter((notification) => !notification.read).length > 0 && <div className="notification_count">{(notifications.filter((notification) => !notification.read).length < 10) ? notifications.filter((notification) => !notification.read).length : "9+"}</div>}
-        //     </DropDownItem>
-        //     <DropDownItem className="option_button" onClick={() => {router.push("/creator/"+user.handle)}}>
-        //         <User /> {t('Menu.UserOptions.profile')}
-        //     </DropDownItem>
-        //     <DropDownItem className="option_button" onClick={() => {router.push("/dashboard")}}>
-        //         <Table /> {t("Menu.UserOptions.dashboard")}
-        //     </DropDownItem>
-        //     {user.type === UserTypes.Admin && <DropDownItem className="option_button" onClick={() => {router.push("/admin_dashboard")}}>
-        //         <Table /> {t("Menu.UserOptions.admin")}
-        //     </DropDownItem>}
-        //     <DropDownItem className="option_button" onClick={() => {router.push("/settings")}}>
-        //         <Settings /> {t("Menu.UserOptions.settings")}
-        //     </DropDownItem>
-        //     <DropDownItem className="option_button" onClick={signOut}>
-        //         <LogOut /> {t("Menu.UserOptions.sign_out")}
-        //     </DropDownItem>
-        // </DropDown>
     )
 }

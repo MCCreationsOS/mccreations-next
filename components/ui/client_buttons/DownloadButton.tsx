@@ -27,7 +27,7 @@ export default function DownloadButton({slug, file, contentType, className}: {sl
         })
     }
 
-    let text = t('Buttons.download')
+    let text = t('download')
     // if(isBedrockType(file.type)) {
     //     text = t('Buttons.download_bedrock')
     // }

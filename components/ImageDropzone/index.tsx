@@ -42,7 +42,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
             upload(acceptedFiles, token).then(uploadedFiles => {
                 if(files) {
                     files.forEach(uploadedFile => {
-                        toast.success(t('Form.Shared.uploaded', {file: uploadedFile.name}))
+                        toast.success(t('Components.Dropzone.uploaded', {file: uploadedFile.name}))
                     })
 
                     if(allowMultiple) {
@@ -81,13 +81,13 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                 file.errors.forEach(error => {
                     switch (error.code) {
                         case 'file-invalid-type':
-                            message += t('Form.Images.invalid');
+                            message += t('Components.Dropzone.invalid_type', { type: t('Components.Dropzone.FileTypes.image') });
                             break;
                         case 'file-too-large':
-                            message += t('Form.Images.too_large');
+                            message += t('Components.Dropzone.file_too_large', { size: '2MB' });
                             break;
                         default:
-                            message += t('Form.Images.unknown_error');
+                            message += t('Components.Dropzone.file_unknown');
                             break;
                     }
                 })
@@ -155,9 +155,9 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                         <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black/50 p-4">
                             <UploadCloud></UploadCloud>
                             {isDragActive ? (
-                                <span>{t('Form.Images.hovering_drop')}</span>
+                                <span>{t('Components.Dropzone.hovering')}</span>
                             ) : (
-                                <span>{t('Form.Images.drop_zone')}</span>
+                                <span>{t('Components.Dropzone.dropzone')}</span>
                             )}
                         </div>
                     </div>

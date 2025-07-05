@@ -254,7 +254,7 @@ export default function ImageResizer({
           onClick={() => {
             setShowCaption(!showCaption);
           }}>
-          {t('Form.RichText.add_caption')}
+          {t('Components.RichText.Images.add_caption')}
         </button>
       )}
       <div

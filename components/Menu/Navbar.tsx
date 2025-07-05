@@ -30,7 +30,7 @@ export default function Navbar() {
                             className="md:hidden"
                         >
                             <Menu className="h-5 w-5" />
-                            <span className="sr-only">{t("Menu.Navbar.toggle_menu")}</span>
+                            <span className="sr-only">{t("Components.Navbar.toggle_menu")}</span>
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="left" className="p-4 border-2 border-white/15">
@@ -49,28 +49,34 @@ export default function Navbar() {
                         </Link>
                         <nav className="flex flex-col gap-4">
                             <Link href="/" className="text-lg font-medium">
-                                {t("Menu.Navbar.home")}
+                                {t("Components.Navbar.home")}
                             </Link>
                             <Link href="/feed" className="text-lg font-medium">
-                                {t("Menu.Navbar.feed")}
+                                {t("Components.Navbar.feed")}
                             </Link>
                             <Link
-                                href="/creations"
+                                href="/maps"
                                 className="text-lg font-medium"
                             >
-                                {t("Menu.Navbar.creations")}
+                                {t("map", {count: 2})}
                             </Link>
-                            {/* <Link
-                                href="/creators"
+                            <Link
+                                href="/datapacks"
                                 className="text-lg font-medium"
                             >
-                                Creators
-                            </Link> */}
+                                {t("datapack", {count: 2})}
+                            </Link>
+                            <Link
+                                href="/resourcepacks"
+                                className="text-lg font-medium"
+                            >
+                                {t("resourcepack", {count: 2})}
+                            </Link>
                             <Link
                                 href="/create"
                                 className="text-lg font-medium"
                             >
-                                {t("Menu.Navbar.create")}
+                                {t("Components.Navbar.create")}
                             </Link>
                         </nav>
                     </SheetContent>
@@ -95,13 +101,13 @@ export default function Navbar() {
                         <NavigationMenuItem>
                             <Link href="/feed" legacyBehavior passHref>
                                 <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
-                                    {t("Menu.Navbar.feed")}
+                                    {t("Components.Navbar.feed")}
                                 </NavigationMenuLink>
                             </Link>
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>
-                                {t("Menu.Navbar.creations")}
+                                {t("Components.Navbar.creations")}
                             </NavigationMenuTrigger>
                             <NavigationMenuContent>
                                 <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
@@ -125,35 +131,6 @@ export default function Navbar() {
                                 </ul>
                             </NavigationMenuContent>
                         </NavigationMenuItem>
-                        {/* <NavigationMenuItem>
-                  <NavigationMenuTrigger>Versions</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {versions.map((version) => (
-                        <li key={version.title}>
-                          <NavigationMenuLink asChild>
-                            <Link
-                              href={version.href}
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                            >
-                              <div className="text-sm font-medium leading-none">{version.title}</div>
-                              <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                {version.description}
-                              </p>
-                            </Link>
-                          </NavigationMenuLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <Link href="/creators" legacyBehavior passHref>
-                    <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
-                      Creators
-                    </NavigationMenuLink>
-                  </Link>
-                </NavigationMenuItem> */}
                     </NavigationMenuList>
                 </NavigationMenu>
 
@@ -164,7 +141,7 @@ export default function Navbar() {
                     <Button asChild className="hidden md:flex gap-0">
                         <Link href="/create">
                             <Upload className="mr-2 h-4 w-4" />
-                            <span>{t("Menu.Navbar.create")}</span>
+                            <span>{t("Components.Navbar.create")}</span>
                         </Link>
                     </Button>
                 </div>
@@ -176,17 +153,17 @@ export default function Navbar() {
 const creations = [
     {
         title: "map",
-        description: "Menu.Navbar.maps_blurb",
+        description: "Components.Navbar.maps_blurb",
         href: "/maps",
     },
     {
         title: "datapack",
-        description: "Menu.Navbar.datapacks_blurb",
+        description: "Components.Navbar.datapacks_blurb",
         href: "/datapacks",
     },
     {
         title: "resourcepack",
-        description: "Menu.Navbar.resourcepacks_blurb",
+        description: "Components.Navbar.resourcepacks_blurb",
         href: "/resourcepacks",
     },
 ];

@@ -147,7 +147,7 @@ export default function CodeEditor({ sendOnChange, initialValue, editable = true
             <div className={`border-1 border-white/15 ${className}`}>
                 <RichTextPlugin
                     contentEditable={<ContentEditable className={`min-h-[200px] px-3 py-1 w-content`} defaultValue={initialValue} spellCheck={false} wrap='off'/>}
-                    placeholder={<div className="editor-placeholder">{t('Form.RichText.placeholder')}</div>}
+                    placeholder={<div className="editor-placeholder">{t('Components.RichText.placeholder')}</div>}
                     ErrorBoundary={ErrorBoundary}
                 />
             </div>

@@ -1,7 +1,7 @@
 'use client'
 
 import { CollectionNames} from "../../api/types";
-import Table from "@/components/Dashboard/Dashboard";
+import Table from "@/app/[locale]/dashboard/dashboardTable";
 import {useTranslations} from 'next-intl';
 
 export default function Page() {

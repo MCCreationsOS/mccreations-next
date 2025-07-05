@@ -8,7 +8,7 @@ import { approveContent, convertToType, deleteContent } from "@/app/api/content"
 import {useTranslations} from 'next-intl';
 import { useToken, useUser } from "@/app/api/hooks/users";
 import { useCreations } from "@/app/api/hooks/creations";
-import PageNavigator from "../Creations/Search/Navigator";
+import PageNavigator from "../../../components/Creations/Search/Navigator";
 import {
     Table,
     TableBody,
@@ -19,12 +19,12 @@ import {
   } from "@/components/ui/table"
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
-import { Button } from "../ui/button";
+import { Button } from "../../../components/ui/button";
 import { ImageIcon, Edit, Trash, MoreHorizontal } from "lucide-react";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
 import { useIsClient } from "usehooks-ts";
 
-export default function Dashboard({collectionName}: {collectionName: CollectionNames}) {
+export default function dashboardTable({collectionName}: {collectionName: CollectionNames}) {
     const client = useIsClient()
     const {user, isLoading} = useUser(true)
     const {token} = useToken()
@@ -38,10 +38,7 @@ export default function Dashboard({collectionName}: {collectionName: CollectionN
     const handleDelete = (slug: string) => {
         if(!deleting) {
             setDeleting(true)
-            toast(t('Dashboard.delete_content'))
-            // PopupMessage.addMessage({type: PopupMessageType.Warning, message: t('Dashboard.delete_content'), time: 10000, endAction() {
-            //     setDeleting(false)
-            // },})
+            toast(t('Pages.Dashboard.delete_content'))
         } else {
             deleteContent(slug, token, collectionName)
             setDeleting(false)
@@ -56,7 +53,7 @@ export default function Dashboard({collectionName}: {collectionName: CollectionN
     }
 
     if(isLoading) {
-        return <div className="centered_content">{t('Dashboard.loading')}</div>
+        return <div className="centered_content">{t('Pages.Dashboard.loading')}</div>
     }
     
 
@@ -65,14 +62,14 @@ export default function Dashboard({collectionName}: {collectionName: CollectionN
             <Table>
                 <TableHeader>
                     <TableRow>
-                        <TableHead>{t('Dashboard.info')}</TableHead>
-                        <TableHead>{t('Dashboard.status')}</TableHead>
-                        <TableHead>{t('Dashboard.created_date')}</TableHead>
-                        <TableHead>{t('Dashboard.updated_date')}</TableHead>
-                        <TableHead>{t('Dashboard.downloads')}</TableHead>
-                        <TableHead>{t('Dashboard.rating')}</TableHead>
-                        <TableHead>{t('Dashboard.comments')}</TableHead>
-                        {user?.type === UserTypes.Admin && <TableHead>{t('Dashboard.actions')}</TableHead>}
+                        <TableHead>{t('Pages.Dashboard.info')}</TableHead>
+                        <TableHead>{t('Pages.Dashboard.status')}</TableHead>
+                        <TableHead>{t('Pages.Dashboard.created_date')}</TableHead>
+                        <TableHead>{t('Pages.Dashboard.updated_date')}</TableHead>
+                        <TableHead>{t('Pages.Dashboard.downloads')}</TableHead>
+                        <TableHead>{t('Pages.Dashboard.rating')}</TableHead>
+                        <TableHead>{t('Pages.Dashboard.comments')}</TableHead>
+                        {user?.type === UserTypes.Admin && <TableHead>{t('Pages.Dashboard.actions')}</TableHead>}
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -87,9 +84,9 @@ export default function Dashboard({collectionName}: {collectionName: CollectionN
                                         <Link href={`/edit/${collectionName.toLowerCase()}/${creation.slug}`}><h2 className="text-md font-bold">{creation.title}</h2></Link>
                                         <p className="text-sm text-muted-foreground line-clamp-2">{creation.shortDescription}</p>
                                         <div className="flex flex-row items-center gap-2 mt-2">
-                                            <Link href={`/edit/${collectionName.toLowerCase()}/${creation.slug}`}><Button size="icon" variant="secondary"><Edit /></Button></Link>
-                                            <Link href={`/${collectionName.toLowerCase()}/${creation.slug}`}><Button size="icon" variant="secondary"><ImageIcon /></Button></Link>
-                                            <Button onClick={() => handleDelete(creation.slug)} size="icon" variant="destructive"><Trash /></Button>
+                                            <Link href={`/edit/${collectionName.toLowerCase()}/${creation.slug}`}><Button size="icon" variant="secondary"><Edit /></Button><span className="sr-only">{t('Pages.Dashboard.edit')}</span></Link>
+                                            <Link href={`/${collectionName.toLowerCase()}/${creation.slug}`}><Button size="icon" variant="secondary"><ImageIcon /></Button><span className="sr-only">{t('Pages.Dashboard.view')}</span></Link>
+                                            <Button onClick={() => handleDelete(creation.slug)} size="icon" variant="destructive"><Trash /><span className="sr-only">{t('Pages.Dashboard.delete')}</span></Button>
                                         </div>
                                     </div>
                                 </div>

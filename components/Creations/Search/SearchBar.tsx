@@ -41,7 +41,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
             tags[category].forEach((tag) => {
                 if(includeTags.includes(tag)) {
                     if(tag_dropdown_names[category] == t('Components.Creations.Search.TagDropdown.any')) {
-                        tag_dropdown_names[category] = t('Components.Creations.Search.TagDropdown.include', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
+                        tag_dropdown_names[category] = t('Components.Creations.Search.TagDropdown.include_tag', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
                     } else {
                         tag_dropdown_names[category] += ` ${t('Components.Creations.Search.TagDropdown.and')} ${t(`Components.Creations.Tags.${tag as TagKeys}`)}`
                     }
@@ -51,7 +51,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
             tags[category].forEach((tag) => {
                 if(excludeTags.includes(tag)) {
                     if(tag_dropdown_names[category] == t('Components.Creations.Search.TagDropdown.any')) {
-                        tag_dropdown_names[category] = t('Components.Creations.Search.TagDropdown.exclude', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
+                        tag_dropdown_names[category] = t('Components.Creations.Search.TagDropdown.exclude_tag', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
                     } else if(tag_dropdown_names[category].includes(t('Components.Creations.Search.TagDropdown.include')) && !tag_dropdown_names[category].includes(t('Components.Creations.Search.TagDropdown.exclude'))) {
                         tag_dropdown_names[category] += t('Components.Creations.Search.TagDropdown.and_exclude', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
                     } else {
