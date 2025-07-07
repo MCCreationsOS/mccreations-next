@@ -102,14 +102,16 @@ export default function CreationCard(props: IContentCardProps) {
         })
     }
 
+    const minecraftVersion = (props.creation.files && props.creation.files.length > 0) ? props.creation.files[0].minecraftVersion as string : ""
+
     return (
         <>
         <div className="bg-card border-gray-950 border-2 card-shadow group transition-all duration-200 group-hover:bg-card-hover relative overflow-hidden" id={props.playlist + "_" + props.index} >
             <Link href={`/${(props.linkTo) ? props.linkTo : props.creation.type + "s"}/${props.creation.slug}`} onClick={() => {track("creation_card_logo_clicked", {playlist: props.playlist})}}>
             <div className="overflow-hidden aspect-video relative border-gray-950 border-b-2">
-                    <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 border-b object-cover aspect-video" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Components.Creations.Cards.logo_alt', {title: props.creation.title, type: props.creation.type, minecraft_version: (props.creation.files && props.creation.files.length > 0) ? ( typeof props.creation.files[0].minecraftVersion === 'string' ? props.creation.files[0].minecraftVersion : props.creation.files[0].minecraftVersion.join(", ")) : "", creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
+                    <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 border-b object-cover aspect-video" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Components.Creations.Cards.logo_alt_text', {title: props.creation.title, type: props.creation.type, minecraft_version: minecraftVersion, creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
                     <div className="absolute bottom-1 right-1 flex flex-row gap-1">
-                        <Badge>{props.creation.files && props.creation.files.length > 0 ? props.creation.files[0].minecraftVersion : ""}</Badge>
+                        <Badge>{minecraftVersion}</Badge>
                         {
                             !props.showCategory && (
                                 (props.creation.type === "map") ? <><Badge variant="secondary">{t('map', {count: 1})}</Badge></> : 

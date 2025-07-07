@@ -99,7 +99,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                     <Image className="w-full max-h-96 object-cover object-center opacity-20" width={1920} height={1080} src={creation.images[0]} alt={t('Components.Creations.Page.logo_alt', {title: title, type: t(creation.type, {count: 1})})}></Image>
                 </div>
                 <div className="w-full h-full object-cover object-center aspect-video z-2 mx-auto md:absolute md:top-5">
-                    <Image className="max-w-xl w-full mx-auto object-cover object-center" width={1280} height={720} src={creation.images[0]} alt={t('Components.Creations.Page.logo_alt', {title: title, type: t(creation.type, {count: 1})})} priority></Image>
+                    <Image className="max-w-xl w-full mx-auto object-cover object-center aspect-video" width={1280} height={720} src={creation.images[0]} alt={t('Components.Creations.Page.logo_alt', {title: title, type: t(creation.type, {count: 1})})} priority></Image>
                 </div>
                 <div className="w-full h-8 object-cover object-center aspect-video z-2 hidden md:flex md:absolute md:bottom-[-15px] gap-1 justify-center">
                     {creation.files[0]?.minecraftVersion && <Badge className="text-md">{creation.files[0].minecraftVersion}</Badge>}
@@ -154,7 +154,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                             </div>
                             <hr className="my-2"></hr>
                         </div>
-                    <RecommendedCreations creation={creation}/>
+                    {creation.tags && creation.tags.length > 0 && <RecommendedCreations creation={creation}/>}
                     </div>
                 </div>
                 <div className="mt-5">

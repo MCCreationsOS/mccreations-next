@@ -892,6 +892,20 @@
                 "add_caption": "Add a caption",
                 "insert_url": "Insert Image URL",
                 "insert_file": "Insert Image File"
+            },
+            "Toolbar": {
+                "undo": "Undo",
+                "redo": "Redo",
+                "bold": "Bold",
+                "italic": "Italic",
+                "underline": "Underline",
+                "strikethrough": "Strikethrough",
+                "bullet_list": "Bullet List",
+                "left_align": "Left Align",
+                "center_align": "Center Align",
+                "right_align": "Right Align",
+                "justify_align": "Justify Align",
+                "spoiler": "Spoiler"
             }
         },
         "VersionManager": {

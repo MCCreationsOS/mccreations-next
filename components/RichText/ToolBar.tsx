@@ -212,7 +212,7 @@ export default function ToolbarPlugin() {
                     editor.dispatchCommand(UNDO_COMMAND, undefined);
                 }}
                 className="p-2 m-0 hover:bg-white/10"
-                aria-label={t("Form.RichText.undo")}
+                aria-label={t("Components.RichText.Toolbar.undo")}
                 type="button"
             >
                 <Undo className="w-4 h-4" />
@@ -223,7 +223,7 @@ export default function ToolbarPlugin() {
                     editor.dispatchCommand(REDO_COMMAND, undefined);
                 }}
                 className="p-2 m-0 hover:bg-white/10"
-                aria-label={t("Form.RichText.redo")}
+                aria-label={t("Components.RichText.Toolbar.redo")}
                 type="button"
             >
                 <Redo className="w-4 h-4" />
@@ -236,7 +236,7 @@ export default function ToolbarPlugin() {
                 className={
                     "p-2 m-0 hover:bg-white/10" + (isBold ? "bg-white/10" : "")
                 }
-                aria-label={t("Form.RichText.bold")}
+                aria-label={t("Components.RichText.Toolbar.bold")}
                 type="button"
             >
                 <Bold className="w-4 h-4" />
@@ -249,7 +249,7 @@ export default function ToolbarPlugin() {
                     "p-2 m-0 hover:bg-white/10" +
                     (isItalic ? "bg-white/10" : "")
                 }
-                aria-label={t("Form.RichText.italic")}
+                aria-label={t("Components.RichText.Toolbar.italic")}
                 type="button"
             >
                 <Italic className="w-4 h-4" />
@@ -262,7 +262,7 @@ export default function ToolbarPlugin() {
                     "p-2 m-0 hover:bg-white/10" +
                     (isUnderline ? "bg-white/10" : "")
                 }
-                aria-label={t("Form.RichText.underline")}
+                aria-label={t("Components.RichText.Toolbar.underline")}
                 type="button"
             >
                 <Underline className="w-4 h-4" />
@@ -278,7 +278,7 @@ export default function ToolbarPlugin() {
                     "p-2 m-0 hover:bg-white/10" +
                     (isStrikethrough ? "bg-white/10" : "")
                 }
-                aria-label={t("Form.RichText.strikethrough")}
+                aria-label={t("Components.RichText.Toolbar.strikethrough")}
                 type="button"
             >
                 <Strikethrough className="w-4 h-4" />
@@ -291,7 +291,7 @@ export default function ToolbarPlugin() {
                     );
                 }}
                 className={"p-2 m-0 hover:bg-white/10"}
-                aria-label={t("Form.RichText.bullet_list")}
+                aria-label={t("Components.RichText.Toolbar.bullet_list")}
                 type="button"
             >
                 <List className="w-4 h-4" />
@@ -356,7 +356,7 @@ export default function ToolbarPlugin() {
                     editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "left");
                 }}
                 className="p-2 m-0 hover:bg-white/10"
-                aria-label={t("Form.RichText.left_align")}
+                aria-label={t("Components.RichText.Toolbar.left_align")}
                 type="button"
                 >
                 <AlignLeft className="w-4 h-4" />
@@ -366,7 +366,7 @@ export default function ToolbarPlugin() {
                     editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "center");
                 }}
                 className="p-2 m-0 hover:bg-white/10"
-                aria-label={t("Form.RichText.center_align")}
+                aria-label={t("Components.RichText.Toolbar.center_align")}
                 type="button"
                 >
                 <AlignCenter className="w-4 h-4" />
@@ -376,7 +376,7 @@ export default function ToolbarPlugin() {
                     editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "right");
                 }}
                 className="p-2 m-0 hover:bg-white/10"
-                aria-label={t("Form.RichText.right_align")}
+                aria-label={t("Components.RichText.Toolbar.right_align")}
                 type="button"
                 >
                 <AlignRight className="w-4 h-4" />
@@ -386,7 +386,7 @@ export default function ToolbarPlugin() {
                     editor.dispatchCommand(FORMAT_ELEMENT_COMMAND, "justify");
                 }}
                 className="p-2 m-0 hover:bg-white/10"
-                aria-label={t("Form.RichText.justify_align")}
+                aria-label={t("Components.RichText.Toolbar.justify_align")}
                 type="button"
                 >
                 <AlignJustify className="w-4 h-4" />
@@ -411,7 +411,7 @@ export default function ToolbarPlugin() {
                         undefined
                     );
                 }}
-                aria-label={t("Form.RichText.spoiler")}
+                aria-label={t("Components.RichText.Toolbar.spoiler")}
                 className="p-2 m-0 hover:bg-white/10"
                 type="button"
             >
