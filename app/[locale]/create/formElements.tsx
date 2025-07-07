@@ -642,7 +642,7 @@ export function TagInput({
                                         removeTag(tag);
                                     }}
                                 >
-                                    {t(`Creation.Tags.${tag as TagKeys}`)}
+                                    {t(`Components.Creations.Tags.${tag as TagKeys}`)}
                                 </Button>
                             );
                         })}
@@ -708,7 +708,7 @@ export function TagSearch({
                                 onSelect(tag);
                             }}
                         >
-                            {t(`Creation.Tags.${tag as TagKeys}`)}
+                            {t(`Components.Creations.Tags.${tag as TagKeys}`)}
                         </Button>
                     );
                 })}

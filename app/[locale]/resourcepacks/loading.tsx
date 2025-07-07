@@ -8,12 +8,12 @@ export default async function Loading() {
     const t = await getTranslations()
     return <div>
         <div className="mb-4 mt-2 p-2">
-            <h1 className="text-2xl font-bold">{t(`Creations.Search.SearchPage.resourcepack.title`)}</h1>
+            <h1 className="text-2xl font-bold">{t(`Components.Creations.Search.Headers.resourcepack.title`)}</h1>
             <Collapsible>
-                <CollapsibleTrigger><p className="text-sm text-gray-500">{t(`Creations.Search.SearchPage.resourcepack.blurb`)}</p></CollapsibleTrigger>
+                <CollapsibleTrigger><p className="text-sm text-gray-500">{t(`Components.Creations.Search.Headers.resourcepack.blurb`)}</p></CollapsibleTrigger>
                 <CollapsibleContent>
                 <p className="text-sm text-gray-500">
-                    {t(`Creations.Search.SearchPage.resourcepack.description`)}
+                    {t(`Components.Creations.Search.Headers.resourcepack.description`)}
                 </p>
                 </CollapsibleContent>
             </Collapsible>

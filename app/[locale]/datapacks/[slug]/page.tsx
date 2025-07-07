@@ -72,8 +72,8 @@ export default async function Page({params}: {params: Params}) {
         return (
             <div className='centered_content'>
 
-                <h1>{t('Pages.Datapacks.slug.not_found_title')}</h1>
-                <p>{t('Pages.Datapacks.slug.not_found_description')}</p>
+                <h1>{t('Pages.Datapacks.slug.Metadata.not_found_title')}</h1>
+                <p>{t('Pages.Datapacks.slug.Metadata.not_found_description')}</p>
             </div>
         )
     }

@@ -9,7 +9,7 @@ export default async function SearchAndFilterSkeleton() {
     return (
         <div className="w-full max-w-screen-md mx-auto p-2">
             <div className="flex flex-row gap-2 w-full mb-2">
-                <Input type="text" placeholder={t('SearchAndFilter.search_placeholder')} className="w-full"></Input>
+                <Input type="text" placeholder={t('Components.Creations.Search.search_placeholder')} className="w-full"></Input>
                 <Button><Search /></Button>
                 <Button className="filter md:hidden"><Filter /></Button>
                 {/* <BulkDownloadButton /> */}

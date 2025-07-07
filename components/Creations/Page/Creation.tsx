@@ -108,7 +108,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                                 (creation.type === "datapack") ? <><Link href={`/${creation.type}s`}><Badge variant="secondary" className="text-md">{t('datapack', {count: 1})}</Badge></Link></> : 
                                 <><Link href={`/${creation.type}s`}><Badge variant="secondary" className="text-md">{t('resourcepack', {count: 1})}</Badge></Link></>
                         }
-                        {creation.tags && creation.tags.length > 0 && <>{creation.tags.slice(0, 6).map(tag => tag ? <Link href={`/${creation.type}s?includeTags=${tag}`}><Badge key={tag} variant="secondary" className="text-md">{t(`Creation.Tags.${tag}`)}</Badge></Link> : <></>)}</>}
+                        {creation.tags && creation.tags.length > 0 && <>{creation.tags.slice(0, 6).map(tag => tag ? <Link href={`/${creation.type}s?includeTags=${tag}`}><Badge key={tag} variant="secondary" className="text-md">{t(`Components.Creations.Tags.${tag}`)}</Badge></Link> : <></>)}</>}
                 </div>
             </div>
             <div className="max-w-4xl mx-auto mt-3 md:mt-10">

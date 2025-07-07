@@ -64,9 +64,9 @@ export default function ImportPage() {
             <Tabs value={activeTab} onValueChange={setActiveTab}>
                 <TabsList className="w-full">
                     <TabsTrigger value="import" className="w-1/4">{t('Pages.Create.Import.title')}</TabsTrigger>
-                    <TabsTrigger value="details" className="w-1/4">{t('Pages.Create.Import.details')}</TabsTrigger>
-                    <TabsTrigger value="files" className="w-1/4">{t('Pages.Create.Import.files')}</TabsTrigger>
-                    <TabsTrigger value="images" className="w-1/4">{t('Pages.Create.Import.images')}</TabsTrigger>
+                    <TabsTrigger value="details" className="w-1/4">{t('Pages.Create.Details.title')}</TabsTrigger>
+                    <TabsTrigger value="files" className="w-1/4">{t('Pages.Create.Files.title')}</TabsTrigger>
+                    <TabsTrigger value="images" className="w-1/4">{t('Pages.Create.Images.title')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="import">
                     <Import />

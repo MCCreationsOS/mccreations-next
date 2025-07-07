@@ -108,7 +108,7 @@
                 "missing_link": "No link provided"
             },
             "BasicInfo": {
-                "title": "Title",
+                "title": "Basic Info",
                 "type": "Type",
                 "short_description": "Short Description",
                 "missing_title": "No title provided",
@@ -147,9 +147,11 @@
                 }
             },
             "Files": {
+                "title": "Files",
                 "saved": "Files saved successfully"
             },
             "Images": {
+                "title": "Images",
                 "saved": "Images saved successfully"
             }
         },
@@ -191,9 +193,7 @@
                         "minecraft_but": "Minecraft But",
                         "minecraft_survival": "Minecraft Survival"
                     }
-                },
-                "not_found_title": "Data Pack Not Found",
-                "not_found_description": "This data pack does not exist on MCCreations"
+                }
             },
             "Metadata": {
                 "title": "Find and Download Data Packs",
@@ -725,6 +725,7 @@
                 "genre": "Genre",
                 "subgenre": "Subgenre",
                 "difficulty": "Difficulty",
+                "player_count": "Player Count",
                 "length": "Length",
                 "resolution": "Resolution",
                 "theme": "Theme",

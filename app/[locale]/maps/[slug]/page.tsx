@@ -74,8 +74,8 @@ export default async function Page({ params }: { params: Params }) {
         return (
             <div className='centered_content'>
 
-                <h1>{t('Creation.map_not_found')}</h1>
-                <p>{t('Creation.map_not_found_description')}</p>
+                <h1>{t('Pages.Maps.slug.Metadata.not_found_title')}</h1>
+                <p>{t('Pages.Maps.slug.Metadata.not_found_description')}</p>
             </div>
         )
     }

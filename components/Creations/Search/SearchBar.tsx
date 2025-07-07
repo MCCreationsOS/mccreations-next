@@ -163,7 +163,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
                         )
                     })}
                     <div className="clear_filters">
-                        <Button variant="destructive" onClick={() => {setSearch(""); setSort(SortOptions.Newest); setStatus(StatusOptions.Unapproved); setExcludeTags([]); setIncludeTags([])}}><span className="w-31">{t('SearchAndFilter.clear_filters')}</span></Button>
+                        <Button variant="destructive" onClick={() => {setSearch(""); setSort(SortOptions.Newest); setStatus(StatusOptions.Unapproved); setExcludeTags([]); setIncludeTags([])}}><span className="w-31">{t('Components.Creations.Search.clear_filters')}</span></Button>
                     </div>
             </div>
         </div>

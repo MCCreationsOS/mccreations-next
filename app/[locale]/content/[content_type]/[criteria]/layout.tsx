@@ -44,7 +44,7 @@ export async function generateMetadata({params}: {params: Params}) {
         return {
             title: t('Pages.Content.content_type.criteria.title', {content_type: content_type, criteria: criteria}),
             description: t('Pages.Content.content_type.criteria.description', {content_type: content_type, criteria: criteria}),
-            keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), t(`Creation.Tags.${criteria}`)],
+            keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), t(`Components.Creations.Tags.${criteria}`)],
             publisher: "MCCreations",
         }
     }

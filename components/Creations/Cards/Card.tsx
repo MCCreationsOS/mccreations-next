@@ -115,7 +115,7 @@ export default function CreationCard(props: IContentCardProps) {
                                 (props.creation.type === "map") ? <><Badge variant="secondary">{t('map', {count: 1})}</Badge></> : 
                                 (props.creation.type === 'datapack') ? <><Badge variant="secondary">{t('datapack', {count: 1})}</Badge></> : 
                                 <><Badge variant="secondary">{t('resourcepack', {count: 1})}</Badge></>) }
-                            {props.showCategory && props.creation.tags && props.creation.tags.length > 0 && <>{props.creation.tags.slice(0, 2).map(tag => tag ? <Badge variant="secondary">{t(`Creation.Tags.${tag}`)}</Badge> : <></>)}</>}
+                            {props.showCategory && props.creation.tags && props.creation.tags.length > 0 && <>{props.creation.tags.slice(0, 2).map(tag => tag ? <Badge variant="secondary">{t(`Components.Creations.Tags.${tag}`)}</Badge> : <></>)}</>}
                     </div>
                 </div>
             </Link>

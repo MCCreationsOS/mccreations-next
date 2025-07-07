@@ -10,7 +10,7 @@ export default function RecommendedCreations({creation}: {creation: IContentDoc}
     const {creations} = useCreations({limit: 4, includeTags: tag, contentType: "content"}, {search: creation.title, contentType: "content", limit: 1})
     return (
         <div>
-            <h2>{t('Components.Creations.Page.recommended_creations', {tag: t(`Creation.Tags.${tag}`)})}</h2>
+            <h2>{t('Components.Creations.Page.recommended_creations', {tag: t(`Components.Creations.Tags.${tag}`)})}</h2>
             <div className="flex flex-col gap-4 w-2xs">
                 {creations.slice(0, 3).map(creation => <CreationCard creation={creation} key={creation._id} playlist="" index={0} priority={false}/>)}
             </div>
