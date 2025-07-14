@@ -1,742 +1,942 @@
-{
-    "_id": {
-        "$oid": "67254b21fbd562c74b56cae8"
-    },
-    "language_name": "Русский (Россия)",
+﻿{
+    "language_name": "Русский",
     "language_code": "ru-RU",
-    "map": "{count, plural, =0 {Карты} =1 {Карта} other {Карты}}",
-    "datapack": "{count, plural, =0 {Датапаки} =1 {Датапак} other {Датапаки}}",
-    "resourcepack": "{count, plural, =0 {Ресурспаки} =1 {Ресурспак} other {Ресурспаки}}",
-    "comment": "{count, plural, =0 {Комментарии} =1 {Комментарий} other {Комментарии}}",
-    "Status": {
-        "approved": "Verified",
-        "draft": "Draft",
-        "featured": "Featured",
-        "unapproved": "Опубликовано"
-    },
-    "Account": {
-        "settings": "Настройки аккаунта",
-        "delete_account": "Удалить аккаунт",
-        "Popup": {
-            "new_username": "New Username",
-            "change_username": "Поменять название аккаунта",
-            "new_handle": "New Handle",
-            "change_handle": "Change Handle",
-            "new_email": "Новая почта",
-            "change_email": "Поменять почту",
+    "map": "{count, plural, =0 {карт} =1 {карта} few {карты} many {карт} other {карты}}",
+    "datapack": "{count, plural, =0 {наборов данных} =1 {набор данных} few {набора данных} many {наборов данных} other {набора данных}}",
+    "resourcepack": "{count, plural, =0 {наборов ресурсов} =1 {набор ресурсов} few {набора ресурсов} many {наборов ресурсов} other {набора ресурсов}}",
+    "creator": "{count, plural, =0 {создателей} =1 {создатель} few {создателя} many {создателей} other {создателя}}",
+    "comment": "{count, plural, =0 {комментариев} =1 {комментарий} few {комментария} many {комментариев} other {комментария}}",
+    "notification": "{count, plural, =0 {уведомлений} =1 {уведомление} few {уведомления} many {уведомлений} other {уведомления}}",
+    "download": "Загрузить",
+    "Pages": {
+        "Auth": {
+            "OAuth_Handler": {
+                "error": "При связи с нашим API произошла ошибка. Сообщите об этом по ссылке выше",
+                "loading": "Вы входите в систему!"
+            }
+        },
+        "Comments": {
+            "_id": {
+                "loading": "Загрузка комментария..."
+            }
+        },
+        "Creator": {
+            "handle": {
+                "CreatorEdit": {
+                    "EditProfileImages": {
+                        "title": "Редактировать изображения профиля",
+                        "button": "Редактировать",
+                        "banner": "Баннер",
+                        "icon": "Значок",
+                        "save": "Сохранить",
+                        "cancel": "Отмена"
+                    },
+                    "EditAbout": {
+                        "title": "Редактировать информацию",
+                        "save": "Сохранить",
+                        "cancel": "Отмена"
+                    },
+                    "EditSocialLinks": {
+                        "title": "Редактировать ссылки на соцсети",
+                        "add": "Добавить ссылку на соцсеть",
+                        "remove": "Удалить",
+                        "save": "Сохранить",
+                        "cancel": "Отмена"
+                    },
+                    "EditCustomCss": {
+                        "title": "Изменить пользовательский CSS",
+                        "save": "Сохранить",
+                        "cancel": "Отмена"
+                    }
+                },
+                "Metadata": {
+                    "title": "{username} – Создатель Minecraft",
+                    "title_not_found": "Создатель не найден",
+                    "description": "Посмотрите карты, наборы данных и ресурсов Minecraft от {username}. Просмотрите всю коллекцию и загрузите понравившиеся материалы.",
+                    "description_not_found": "Запрашиваемый создатель не найден.",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "Игра",
+                        "gaming": "Игры",
+                        "minecraft_map": "Карта Майнкрафт",
+                        "minecraft_datapack": "Набор данных Майнкрафт",
+                        "minecraft_resourcepack": "Набор ресурсов Майнкрафт",
+                        "minecraft_creations": "Шедевры Майнкрафт"
+                    }
+                },
+                "banner": "Баннер {username}",
+                "icon": "Значок {username}",
+                "followers": "{count, plural, =0 {Нет подписчиков} =1 {1 подписчик} other {# чел. подписчиков}}",
+                "about": "Информация",
+                "no_creations": "{content_type}: этот создатель еще не публиковал.",
+                "follow": "Подписаться",
+                "unfollow": "Отписаться"
+            }
+        },
+        "Content": {
+            "content_type": {
+                "criteria": {
+                    "title": "Просмотреть и искать {content_type} Minecraft",
+                    "blurb": "Найдите новые потрясающие {content_type} Minecraft для следующего приключения!",
+                    "description": "{content_type} Minecraft — это пользовательские миры, созданные игроками или разработчиками. Их использование выходит за рамки стандартной игры. Эти {content_type} могут варьироваться от простых испытаний с паркуром до сложных приключенческих историй, квестов с головоломками или даже воссоздания локаций реального мира. С первых дней существования Minecraft сообщество пользователей увлеклось созданием {content_type} как формой творческого самовыражения, что привело к насыщенной истории инноваций и сотрудничества. Прошли годы, и теперь {content_type} Minecraft является неотъемлемой частью сообщества, демонстрируя безграничные возможности игры и способствуя развитию динамичной экосистемы создателей и игроков.",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "Игра",
+                        "gaming": "Игры",
+                        "minecraft_map": "Карта Майнкрафт",
+                        "minecraft_creations": "Шедевры Майнкрафт",
+                        "minecraft_version": "Minecraft {minecraft_version}"
+                    }
+                }
+            }
+        },
+        "Create": {
+            "next": "Далее",
+            "finish": "Готово",
+            "save": "Сохранить",
+            "Import": {
+                "PMC": "Импорт с Планеты Minecraft",
+                "downloading": "Загрузка творения с {host}",
+                "preroll": "Ожидание рекламы...",
+                "unknown": "Импорт с неизвестного хоста",
+                "MinecraftMaps": "Импорт из карт Minecraft",
+                "Modrinth": "Импорт с Modrinth",
+                "link_placeholder": "Ссылка для импорта с",
+                "link_description": "Ссылка на творение, которое вы хотите импортировать. Это может быть ссылка на страницу Планеты Minecraft или страницу Modrinth.",
+                "link_label": "Ссылка",
+                "title": "Импорт",
+                "missing_link": "Ссылка не указана"
+            },
+            "BasicInfo": {
+                "title": "Основная информация",
+                "type": "Тип",
+                "short_description": "Краткое описание",
+                "missing_title": "Не указано название",
+                "missing_type": "Не указан тип",
+                "missing_short_description": "Не указано краткое описание",
+                "title_too_short": "Название должно содержать не менее 3 символов",
+                "short_description_too_short": "Краткое описание должно содержать не менее 20 символов",
+                "short_description_too_long": "Краткое описание должно содержать менее 100 символов"
+            },
+            "Details": {
+                "title": "Подробности",
+                "slug": "Слаг",
+                "creators": "Создатели",
+                "video_url": "URL видео",
+                "description": "Описание",
+                "tags": "Теги",
+                "missing_slug": "Не указан слаг",
+                "missing_creators": "Не указаны создатели",
+                "missing_description": "Не указано описание",
+                "missing_tags": "Не указаны теги",
+                "slug_too_short": "Слаг должен содержать не менее 5 символов",
+                "slug_too_long": "Слаг должен содержать менее 50 символов",
+                "slug_invalid_characters": "Слаг может содержать только буквы, цифры и _",
+                "creator_too_short": "Должен быть минимум 1 создатель",
+                "invalid_video_url": "Недействительная URL видео",
+                "description_too_short": "Описание должно содержать не менее 10 символов",
+                "tags_too_short": "Должен быть минимум 1 тег",
+                "saved": "Подробности сохранены",
+                "CreatorInput": {
+                    "username": "Имя пользователя",
+                    "handle": "Ник",
+                    "add": "Добавить создателя"
+                },
+                "TagInput": {
+                    "placeholder": "Начните ввод для поиска тегов..."
+                }
+            },
+            "Files": {
+                "title": "Файлы",
+                "saved": "Файлы сохранены"
+            },
+            "Images": {
+                "title": "Изображения",
+                "saved": "Изображения сохранены"
+            }
+        },
+        "Dashboard": {
+            "title": "Информационная панель",
+            "Notifications": {
+                "read_all": "Отметить все прочитанными",
+                "no_notifications": "Уведомлений нет!"
+            },
+            "delete_creation": "Щелкните еще раз, чтобы удалить это творение. Отменить это действие будет невозможно!",
+            "loading": "Загрузка...",
+            "info": "Информация",
+            "status": "Статус",
+            "created_date": "Дата создания",
+            "updated_date": "Дата обновления",
+            "downloads": "Загрузки",
+            "rating": "Оценка",
+            "comments": "Комментарии",
+            "actions": "Действия",
+            "edit": "Редактировать",
+            "view": "Посмотреть",
+            "delete": "Удалить"
+        },
+        "Datapacks": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Набор данных не найден",
+                    "not_found_description": "Этот набор данных не существует на MCCreations",
+                    "title": "{content_type} {title} от {creator} для Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Игра",
+                        "gaming": "Игры",
+                        "minecraft_datapack": "Набор данных Майнкрафт",
+                        "minecraft_creations": "Шедевры Майнкрафт",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "Моды",
+                        "minecraft_mods": "Моды Майнкрафт",
+                        "minecraft_but": "Майнкрафт, но",
+                        "minecraft_survival": "Выживание Майнкрафт"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Найти и загрузить наборы данных",
+                "description": "Загружайте новейшие проверенные наборы данных на MCCreations! Набор данных — классический аналог модов для Minecraft. Они способны добавлять новые функции, менять сам подход к процессу игры и много чего еще!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Игра",
+                    "gaming": "Игры",
+                    "minecraft_datapack": "Набор данных Майнкрафт",
+                    "minecraft_creations": "Шедевры Майнкрафт",
+                    "mods": "Моды",
+                    "minecraft_mods": "Моды Майнкрафт",
+                    "minecraft_but": "Майнкрафт, но",
+                    "minecraft_survival": "Выживание Майнкрафт"
+                }
+            }
+        },
+        "Edit": {
+            "contentType": {
+                "slug": {
+                    "Warnings": {
+                        "title_too_short": {
+                            "title": "Название слишком короткое",
+                            "description": "Название должно содержать не менее 3 символов"
+                        },
+                        "short_description_too_short": {
+                            "title": "Краткое описание слишком короткое",
+                            "description": "Краткое описание должно содержать не менее 3 символов"
+                        },
+                        "short_description_too_long": {
+                            "title": "Краткое описание слишком длинное",
+                            "description": "Краткое описание должно содержать менее 100 символов"
+                        },
+                        "slug_too_short": {
+                            "title": "Слаг слишком короткий",
+                            "description": "Слаг должен содержать не менее 2 символов"
+                        },
+                        "slug_too_long": {
+                            "title": "Слаг слишком длинный",
+                            "description": "Слаг должен содержать менее 50 символов"
+                        },
+                        "slug_invalid_characters": {
+                            "title": "Слаг содержит недопустимые символы",
+                            "description": "Слаг может содержать только буквы, цифры и _"
+                        },
+                        "creator_too_short": {
+                            "title": "Слишком мало создателей",
+                            "description": "У творения должен быть минимум 1 создатель"
+                        },
+                        "invalid_video_url": {
+                            "title": "Недействительная URL видео",
+                            "description": "URL видео должна быть рабочей ссылкой YouTube"
+                        },
+                        "description_too_short": {
+                            "title": "Описание слишком короткое",
+                            "description": "Описание должно содержать не менее 10 символов"
+                        },
+                        "tags_too_short": {
+                            "title": "Слишком мало тегов",
+                            "description": "У творения должен быть минимум 1 тег"
+                        }
+                    },
+                    "Messages": {
+                        "translations_saved": "Переводы сохранены",
+                        "general_saved": "Творение сохранено"
+                    },
+                    "General": {
+                        "tab_title": "Общая информация",
+                        "title": "Название",
+                        "slug": "Слаг",
+                        "short_description": "Краткое описание",
+                        "creators": "Создатели",
+                        "video_url": "URL видео",
+                        "description": "Описание",
+                        "tags": "Теги",
+                        "files": "Файлы",
+                        "images": "Изображения",
+                        "save": "Сохранить"
+                    },
+                    "Translations": {
+                        "tab_title": "Переводы",
+                        "add_translation": "Добавить перевод",
+                        "remove_translation": "Удалить перевод",
+                        "select_language": "Выбрать язык",
+                        "approved": "Одобрено",
+                        "save": "Сохранить"
+                    }
+                }
+            }
+        },
+        "Feed": {
+            "not_found_title": "Лента не найдена",
+            "not_found_description": "Войдите и подпишитесь на создателей, чтобы увидеть свою ленту!"
+        },
+        "Leaderboards": {
+            "contentType": {
+                "slug": {
+                    "Submit": {
+                        "submit_time": "Отправьте свое время",
+                        "submit_score": "Отправьте свой счет",
+                        "submit_time_description": "Ваше время: {hours} ч., {minutes} мин., {seconds} сек. и {ticks} ед. тактов",
+                        "submit_score_description": "Ваш счет: {score}",
+                        "submit": "Отправить",
+                        "username": "Имя пользователя"
+                    },
+                    "not_found": "Таблица лидеров не найдена",
+                    "rank": "Рейтинг",
+                    "player": "Игрок",
+                    "time": "Время",
+                    "score": "Счет",
+                    "date": "Дата",
+                    "device": "Устройство",
+                    "location": "Место"
+                }
+            }
+        },
+        "Maps": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Карта не найдена",
+                    "not_found_description": "Эта карта не существует на MCCreations",
+                    "title": "{content_type} {title} от {creator} для Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Игра",
+                        "gaming": "Игры",
+                        "minecraft_map": "Карта Майнкрафт",
+                        "minecraft_creations": "Шедевры Майнкрафт",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "maps": "Карты",
+                        "minecraft_games": "Игры Майнкрафт",
+                        "download": "Бесплатные карты Майнкрафт",
+                        "minecraft_adventure": "Приключение Майнкрафт",
+                        "minecraft_parkour": "Паркур Майнкрафт",
+                        "minecraft_pvp": "Майнкрафт ПВП",
+                        "minecraft_skyblock": "Скайблок Майнкрафт",
+                        "minecraft_survival": "Выживание Майнкрафт",
+                        "minecraft_creative": "Творческий режим Майнкрафт",
+                        "minecraft_minigames": "Мини-игры Майнкрафт"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Найти и загрузить карты Майнкрафт",
+                "description": "Загружайте новейшие проверенные карты Minecraft на MCCreations! Карты Minecraft — это пользовательские миры, созданные игроками или разработчиками. Их использование выходит за рамки стандартной игры. Эти карты могут варьироваться от простых испытаний с паркуром до сложных приключенческих историй, квестов с головоломками или даже воссоздания локаций реального мира. С первых дней существования Minecraft сообщество пользователей увлеклось созданием карт как формой творческого самовыражения, что привело к насыщенной истории инноваций и сотрудничества. С течением времени карты Minecraft стали неотъемлемой частью сообщества, демонстрируя безграничные возможности игры и способствуя развитию динамичной экосистемы создателей и игроков.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Игра",
+                    "gaming": "Игры",
+                    "minecraft_map": "Карта Майнкрафт",
+                    "minecraft_creations": "Шедевры Майнкрафт",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Карты",
+                    "minecraft_games": "Игры Майнкрафт",
+                    "download": "Бесплатные карты Майнкрафт",
+                    "minecraft_adventure": "Приключение Майнкрафт",
+                    "minecraft_parkour": "Паркур Майнкрафт",
+                    "minecraft_pvp": "Майнкрафт ПВП",
+                    "minecraft_skyblock": "Скайблок Майнкрафт",
+                    "minecraft_survival": "Выживание Майнкрафт",
+                    "minecraft_creative": "Творческий режим Майнкрафт",
+                    "minecraft_minigames": "Мини-игры Майнкрафт"
+                }
+            }
+        },
+        "NotFound": {
+            "title": "Страница не найдена",
+            "description": "Страница, которую вы ищете, не существует.",
+            "button": "На главную"
+        },
+        "ResetPassword": {
+            "token_error": "Токен не найден, выполняется возврат на предыдущую страницу",
             "new_password": "Новый пароль",
-            "confirm_password": "Подвердить пароль",
-            "change_password": "Поменять пароль"
+            "retype_password": "Введите пароль еще раз",
+            "password_length": "Пароль должен содержать не менее 10 символов",
+            "password_number": "Пароль должен содержать минимум одну цифру",
+            "passwords_not_same": "Пароли не совпадают",
+            "password_required": "Требуется пароль",
+            "reset": "Сброс",
+            "title": "Сбросить пароль"
         },
-        "PopupMessage": {
-            "email_updated": "Email updated successfully to {email}",
-            "handle_updated": "Handle updated successfully to {handle}",
-            "username_updated": "Username updated successfully to {username}",
-            "password_updated": "Пароль удачно сохранён",
-            "passwords_not_match": "Пароли не совпадают",
-            "delete_account_warning": "Click again to delete your account. This is permanent!",
-            "delete_account_auth_error": "Ошибка авторизации. Пожалуйста войдите в аккаунт ещё раз",
-            "delete_account_error": "There was an error deleting your account. Please report this issue using the link above",
-            "delete_account_success": "Account successfully deleted",
-            "error": "There was an error. Please report this issue using the link above"
+        "Resourcepacks": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Набор ресурсов не найден",
+                    "not_found_description": "Этот набор ресурсов не существует на MCCreations",
+                    "title": "{content_type} {title} от {creator} для Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Игра",
+                        "gaming": "Игры",
+                        "minecraft_resourcepack": "Набор ресурсов Майнкрафт",
+                        "minecraft_creations": "Шедевры Майнкрафт",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "Моды",
+                        "minecraft_mods": "Моды Майнкрафт",
+                        "minecraft_hd": "Майнкрафт HD"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Найти и загрузить наборы ресурсов Minecraft",
+                "description": "Загружайте новейшие проверенные наборы ресурсов Minecraft на MCCreations! Наборы ресурсов Minecraft — это настраиваемые коллекции файлов, изменяющих визуальное оформление и звуки игры, что позволяет игрокам настраивать игру под себя. Они могут изменять текстуры, модели, музыку и звуковые эффекты, преобразуя внешний вид игры и ощущения от нее. С момента своего появления наборы ресурсов сыграли важную роль в сообществе Minecraft, позволяя создателям реализовывать свой творческий потенциал и делиться своими уникальными идеями с другими. За многие годы они стали краеугольным камнем культуры модов в Minecraft, способствуя развитию динамичного сообщества художников и игроков, которые постоянно расширяют пределы возможностей в игре.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Игра",
+                    "gaming": "Игры",
+                    "minecraft_resourcepack": "Набор ресурсов Майнкрафт",
+                    "minecraft_creations": "Шедевры Майнкрафт",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "mods": "Моды",
+                    "minecraft_mods": "Моды Майнкрафт",
+                    "minecraft_hd": "Майнкрафт HD"
+                }
+            }
         },
-        "Shared": {
-            "username": "Username",
-            "username_placeholder": "Steve",
-            "handle": "Handle",
-            "handle_placeholder": "steve",
-            "email": "Почта",
+        "Settings": {
+            "Account": {
+                "loading": "Загрузка параметров учетной записи...",
+                "error": "При загрузке параметров учетной записи произошла ошибка. Сообщите об этой проблеме по ссылке выше",
+                "handle_updated": "Ник изменен на {handle}",
+                "username_updated": "Имя пользователя изменено на {username}",
+                "email_updated": "Эл. почта изменена на {email}",
+                "password_updated": "Пароль обновлен",
+                "passwords_not_match": "Пароли не совпадают",
+                "delete_account_warning": "Щелкните еще раз, чтобы удалить свою учетную запись. Отменить это действие будет невозможно!",
+                "delete_account_auth_error": "Ошибка авторизации. Повторите вход в систему",
+                "delete_account_error": "При удалении учетной записи произошла ошибка. Сообщите об этой проблеме по ссылке выше",
+                "delete_account_success": "Учетная запись удалена",
+                "title": "Параметры учетной записи",
+                "username": "Имя пользователя",
+                "handle": "Ник",
+                "email": "Эл. почта",
+                "password": "Пароль",
+                "confirm_password": "Подтвердить пароль",
+                "change_password": "Изменить пароль",
+                "change_username": "Изменить имя пользователя",
+                "change_handle": "Изменить ник",
+                "change_email": "Изменить эл. почту",
+                "delete_account": "Удалить учетную запись",
+                "new_username": "Новое имя пользователя",
+                "new_handle": "Новый ник",
+                "new_email": "Новая эл. почта",
+                "new_password": "Новый пароль"
+            },
+            "Notifications": {
+                "title": "Параметры уведомлений",
+                "comment": "Новые комментарии",
+                "like": "Уведомления об отметках «Нравится»",
+                "reply": "Новые ответы",
+                "email_daily": "Сообщение эл. почты раз в день",
+                "email_weekly": "Сообщение эл. почты раз в неделю",
+                "push_only": "Только push-уведомление",
+                "push_email_daily": "Push-уведомление и сообщение эл. почты раз в день",
+                "push_email_weekly": "Push-уведомление и сообщение эл. почты раз в неделю",
+                "dashboard_only": "Только информационная панель",
+                "none": "Нет",
+                "translation": "Переводы нового творения",
+                "rating": "Оценки нового творения",
+                "install_ios_instructions": "Для использования push-уведомлений на iOS коснитесь кнопки «Поделиться» <icon></icon>, а затем «Добавить на главный экран».",
+                "add_to_this_device": "Подпишитесь на push-уведомления здесь",
+                "follow": "Отслеживаемые публикации"
+            },
+            "title": "Параметры",
+            "account_menu_item": "Учетная запись",
+            "notifications_menu_item": "Уведомления",
+            "profile_menu_item": "Профиль"
+        },
+        "SignIn": {
+            "Reset": {
+                "title": "Сбросить пароль",
+                "email": "Эл. почта",
+                "email_placeholder": "steve@minecraft.net",
+                "send_reset_email": "Отправить письмо для сброса пароля"
+            },
+            "Metadata": {
+                "title": "Войти",
+                "description": "Войдите в свою учетную запись на MCCreations, чтобы загружать свои карты, наборы данных, наборы ресурсов Minecraft и многое другое!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Игра",
+                    "gaming": "Игры",
+                    "minecraft_map": "Карта Майнкрафт",
+                    "minecraft_creations": "Шедевры Майнкрафт",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Карты",
+                    "minecraft_games": "Игры Майнкрафт",
+                    "download": "Бесплатные карты Майнкрафт"
+                }
+            },
+            "error": "Произошла ошибка. Сообщите об этой проблеме по ссылке выше.",
+            "providers": "Войти с помощью...",
+            "email_title": "Войти с помощью эл. почты",
             "email_placeholder": "steve@minecraft.net",
-            "password": "Пароль",
+            "email_required": "Требуется эл. почта",
+            "email_invalid": "Недопустимый адрес электронной почты",
+            "password_required": "Требуется пароль",
+            "password_invalid": "Недопустимый пароль",
+            "password_too_short": "Пароль должен содержать не менее 10 символов",
+            "button": "Войти",
+            "no_account": "Нет учетной записи?",
+            "forgot_password": "Забыли пароль?",
             "Providers": {
                 "discord": "Discord",
                 "github": "Github",
                 "google": "Google",
                 "microsoft": "Microsoft"
-            },
-            "forgot_password": "Забыли ваш пароль?",
-            "providers": "Sign in with..."
+            }
         },
-        "Notifications": {
-            "title": "Notification Settings",
-            "comment": "New Comments",
-            "like": "Like Notifications",
-            "reply": "New Replies",
-            "email_daily": "Email Daily",
-            "email_weekly": "Email Weekly",
-            "push_only": "Push Only",
-            "push_email_daily": "Push & Email Daily",
-            "push_email_weekly": "Push & Email Weekly",
-            "dashboard_only": "Dashboard Only",
-            "none": "None",
-            "translation": "New Creation Translations",
-            "rating": "New Creation Ratings",
-            "no_notifications": "No notifications yet!",
-            "read_all": "Mark all as read",
-            "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
-            "add_to_this_device": "Subscribe to Push Notifications Here",
-            "NewComment": {
-                "title": "New Comment",
-                "body": "{username} posted a new comment on your {content_type} {title}."
+        "SignUp": {
+            "Metadata": {
+                "title": "Регистрация",
+                "description": "Создайте учетную запись на MCCreations, чтобы загружать свои карты, наборы данных, наборы ресурсов Minecraft и многое другое!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Игра",
+                    "gaming": "Игры",
+                    "minecraft_map": "Карта Майнкрафт",
+                    "minecraft_creations": "Шедевры Майнкрафт",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Карты",
+                    "minecraft_games": "Игры Майнкрафт",
+                    "download": "Бесплатные карты Майнкрафт"
+                }
             },
-            "NewReply": {
-                "title": "New Reply",
-                "body": "{username} replied to your comment."
+            "error": "При создании учетной записи произошла ошибка. Сообщите об этой проблеме по ссылке выше.",
+            "username_invalid_characters": "Имя пользователя может содержать только буквы, цифры и _",
+            "username_too_short": "Имя пользователя должно содержать не менее 3 символов",
+            "username_required": "Требуется имя пользователя",
+            "username_placeholder": "Имя пользователя",
+            "email_placeholder": "Эл. почта",
+            "email_invalid": "Недопустимый адрес электронной почты",
+            "email_required": "Требуется эл. почта",
+            "password_required": "Требуется пароль",
+            "password_no_number": "Пароль должен содержать минимум одну цифру",
+            "password_too_short": "Пароль должен содержать не менее 10 символов",
+            "button": "Регистрация",
+            "providers": "Зарегистрироваться с помощью...",
+            "already_have_account": "Уже есть учетная запись?",
+            "forgot_password": "Забыли пароль?",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            }
+        },
+        "Translate": {
+            "title": "Перевести",
+            "help": "<link>Нужна помощь? Нажмите здесь</link>",
+            "AddLanguage": {
+                "title": "Добавить язык",
+                "language_placeholder": "en-US",
+                "language_description": "Необходимо указать <link>код языка по ISO 639</link>, и далее <link2>код региона по ISO 3166-1</link2>. Если вы не находите своего языка, придумайте что-нибудь! Идеальная точность не требуется.",
+                "add": "Добавить"
             },
-            "NewPost": {
-                "title": "New Post",
-                "body": "{username} posted a new {content_type}."
+            "language": "Язык",
+            "language_missing": "Вашего языка нет? Щелкните здесь, чтобы добавить.",
+            "lang": {
+                "saved": "Язык сохранен",
+                "approved": "Язык одобрен",
+                "code": "Код",
+                "visual": "Визуальный редактор",
+                "save": "Сохранить",
+                "approve": "Одобрить",
+                "cancel": "Отмена",
+                "back": "Назад",
+                "key": "ID",
+                "english": "Английский",
+                "translation": "Перевод"
             },
-            "NewRating": {
-                "title": "New Rating",
-                "body": "{content_type} received a new rating of {rating} stars."
+            "Metadata": {
+                "title": "Перевести",
+                "description": "Помогите перевести MCCreations на свой язык и объединить сообщество Minecraft по всему миру!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Игра",
+                    "gaming": "Игры",
+                    "minecraft_map": "Карта Майнкрафт",
+                    "minecraft_creations": "Шедевры Майнкрафт",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Карты",
+                    "minecraft_games": "Игры Майнкрафт",
+                    "download": "Бесплатные карты Майнкрафт"
+                }
+            }
+        },
+        "Error": {
+            "title": "Что-то пошло не так.",
+            "description": "Возможно, грязь на микросхемы налипла... Сообщите об этой проблеме по ссылкам ниже и попробуйте еще раз чуть позже.",
+            "report": "Сообщите об этой проблеме с помощью <form>этой формы</form>, <github>на нашей странице Github</github> или <link>присоединяйтесь к нашему Discord</link>, чтобы сообщить там."
+        },
+        "Home": {
+            "Metadata": {
+                "title": "Самые лучшие карты, наборы данных и наборы ресурсов Minecraft от сообщества Minecraft",
+                "description": "MCCreations — это неофициальный фанатский веб-сайт, где вы можете найти самые новые и самые лучшие карты, наборы данных и наборы ресурсов Minecaft!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Игра",
+                    "gaming": "Игры",
+                    "minecraft_map": "Карта Майнкрафт",
+                    "minecraft_creations": "Шедевры Майнкрафт",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Карты",
+                    "minecraft_games": "Игры Майнкрафт",
+                    "download": "Бесплатные карты Майнкрафт"
+                }
             },
-            "NewTranslation": {
-                "title": "New Translation",
-                "body": "{username} translated your {content_type} into {language}."
-            },
-            "follow": "Following Posts"
+            "blurb": "Карты, наборы данных, наборы ресурсов Minecraft и многое другое от сообщества Minecraft по всему миру!",
+            "recently_updated": "Или найдите что-то новенькое!",
+            "view_all": "Ищите..."
         }
     },
-    "Auth": {
-        "OAuth": {
-            "PopupMessage": {
-                "error": "There was an error communicating with our API. Please report this with the link above"
+    "Components": {
+        "AdUnits": {
+            "behind_text": "Реклама помогает MCCreations и дальше делать классные штуки! Если вы отключите блокировщик рекламы на этом сайте, будет здорово :)"
+        },
+        "Creations": {
+            "Cards": {
+                "logo_alt_text": "Логотип для {title}, {type} Minecraft для Minecraft {minecraft_version} от {creator} на MCCreations",
+                "by": "от {creator}",
+                "by_joiner": ", "
             },
-            "loading": "Signing you in!"
-        }
-    },
-    "Comments": {
-        "loading": "Загрузка комментария..."
-    },
-    "Creator": {
-        "Metadata": {
-            "not_found_title": "Создатель не найден",
-            "not_found_description": "This creator does not exist on MCCreations",
-            "title": "{username} on MCCreations",
-            "description": "View {username}'s Minecraft Maps, Data Packs, Resource Packs, and more on MCCreations"
+            "Page": {
+                "Comments": {
+                    "username_placeholder": "Имя пользователя",
+                    "comment_placeholder": "Комментарий",
+                    "send": "Отправить",
+                    "username_required": "Требуется имя пользователя",
+                    "username_too_short": "Имя пользователя должно содержать не менее 3 символов",
+                    "rating_out_of_range": "Оценка может быть от 0 до 5",
+                    "comment_required": "Требуется комментарий",
+                    "comment_too_short": "Комментарий должен содержать не менее 10 символов",
+                    "show_more": "Показать больше // Показать меньше",
+                    "reply": "Ответить",
+                    "replies": "{count, plural, =0 {Пока ответов нет} =1 {1 ответ} other {# шт. ответов}}",
+                    "permalink": "Скопировать постоянную ссылку комментария",
+                    "permalink_copied": "Постоянная ссылка комментария скопирована в буфер обмена",
+                    "delete": "Удалить комментарий",
+                    "deleted": "Комментарий удален"
+                },
+                "CreationOptions": {
+                    "button": "Опции",
+                    "translate": "Перевести",
+                    "translateDescription": "Перевести это творение на другой язык.",
+                    "language": "Язык",
+                    "languagePlaceholder": "Выбрать язык",
+                    "title": "Название",
+                    "shortDescription": "Краткое описание",
+                    "description": "Описание",
+                    "submit": "Отправить",
+                    "cancel": "Отмена"
+                },
+                "Sidebar": {
+                    "downloads": "Загрузки",
+                    "created_date": "Дата создания",
+                    "updated_date": "Дата обновления"
+                },
+                "Rating": {
+                    "1": "1 звезда",
+                    "2": "2 звезды",
+                    "3": "3 звезды",
+                    "4": "4 звезды",
+                    "5": "5 звезд"
+                },
+                "not_found": "{content_type} — не найдено",
+                "not_found_description": "{content_type} не существует на MCCreations",
+                "logo_alt": "Логотип для {title}, {type} Minecraft",
+                "images_alt": "Изображение {index} из {total} для {title}",
+                "recommended_creations": "Другие творения с тегом «{tag}»"
+            },
+            "Search": {
+                "Headers": {
+                    "map": {
+                        "title": "Просмотреть и искать карты Minecraft",
+                        "blurb": "Найдите новые потрясающие карты Minecraft для следующего приключения!",
+                        "description": "Карты Minecraft — это пользовательские миры, созданные игроками или разработчиками. Их использование выходит за рамки стандартной игры. Эти карты могут варьироваться от простых испытаний с паркуром до сложных приключенческих историй, квестов с головоломками или даже воссоздания локаций реального мира. С первых дней существования Minecraft сообщество пользователей увлеклось созданием карт как формой творческого самовыражения, что привело к насыщенной истории инноваций и сотрудничества. С течением времени карты Minecraft стали неотъемлемой частью сообщества, демонстрируя безграничные возможности игры и способствуя развитию динамичной экосистемы создателей и игроков."
+                    },
+                    "datapack": {
+                        "title": "Просмотреть и искать наборы данных Minecraft",
+                        "blurb": "Находите инструменты, испытания и прочее для своих приключений в Minecraft!",
+                        "description": "Наборы данных Minecraft — это по сути моды для классической версии Minecraft. Они усовершенствуют процесс игры, добавляя новые функции, механики и опыт. Они могут преобразовать игру новыми испытаниями, квестами и даже совершенно новыми режимами игры. С момента своего появления наборы данных стали любимым инструментом создателей, которые позволяют сообществу внедрять инновации и расширять возможности Minecraft, способствуя развитию обширной экосистемы творчества и сотрудничества."
+                    },
+                    "resourcepack": {
+                        "title": "Просмотреть и искать наборы ресурсов Minecraft",
+                        "blurb": "Изменяйте или улучшайте внешний вид Minecraft!",
+                        "description": "Наборы ресурсов Minecraft — это настраиваемые коллекции файлов, изменяющих визуальное оформление и звуки игры, что позволяет игрокам настраивать игру под себя. Они могут изменять текстуры, модели, музыку и звуковые эффекты, преобразуя внешний вид игры и ощущения от нее. С момента своего появления наборы ресурсов сыграли важную роль в сообществе Minecraft, позволяя создателям реализовывать свой творческий потенциал и делиться своими уникальными идеями с другими. За многие годы они стали краеугольным камнем культуры модов в Minecraft, способствуя развитию динамичного сообщества художников и игроков, которые постоянно расширяют пределы возможностей в игре."
+                    }
+                },
+                "search": "Поиск",
+                "clear_filters": "Очистить фильтры",
+                "sort_by": "Сортировать по",
+                "Sort": {
+                    "title_ascending": "Название А-Я",
+                    "title_descending": "Название Я-А",
+                    "creator_ascending": "Создатель А-Я",
+                    "creator_descending": "Создатель Я-А",
+                    "newest": "Самые новые",
+                    "oldest": "Самые старые",
+                    "highest_rated": "С максимальной оценкой",
+                    "lowest_rated": "С минимальной оценкой",
+                    "highest_downloads": "Наиболее загружаемые",
+                    "lowest_downloads": "Наименее загружаемые",
+                    "updated": "Недавно обновленные"
+                },
+                "Status": {
+                    "unapproved": "Опубликованные",
+                    "approved": "Проверенные",
+                    "featured": "Рекомендованные"
+                },
+                "TagDropdown": {
+                    "include_tag": "Содержит тег «{tag}»",
+                    "exclude_tag": "Не содержит тег «{tag}»",
+                    "include": "Содержит",
+                    "exclude": "Не содержит",
+                    "any": "Любой",
+                    "and": "И ",
+                    "and_exclude": "и не содержит тег «{tag}»"
+                },
+                "Navigator": {
+                    "previous": "Назад",
+                    "next": "Далее"
+                },
+                "status": "Статус",
+                "tags": "Теги",
+                "search_placeholder": "Искать по названию, создателю, версии и проч."
+            },
+            "Tags": {
+                "genre": "Жанр",
+                "subgenre": "Поджанр",
+                "difficulty": "Сложность",
+                "player_count": "Количество игроков",
+                "length": "Длительность",
+                "resolution": "Разрешение",
+                "theme": "Тема",
+                "chill": "Расслаблено",
+                "easy": "Просто",
+                "hard": "Сложно",
+                "hardcore": "Сверхсложно",
+                "normal": "Обычно",
+                "adventure": "Приключения",
+                "build": "Строительство",
+                "creative": "Творческий режим",
+                "game": "Игра",
+                "other": "Другое",
+                "overhaul": "Переработка",
+                "parkour": "Паркур",
+                "puzzle": "Головоломка",
+                "qol": "Улучшение качества жизни",
+                "realistic": "Реалистичный",
+                "simple": "Простой",
+                "survival": "Выживание",
+                "themed": "Тематический",
+                "tool": "Инструмент",
+                "utility": "Полезности",
+                "long": "Долгая",
+                "medium": "Средняя",
+                "short": "Короткая",
+                "1024x +": "1024x +",
+                "128x": "128x",
+                "16x": "16x",
+                "256x": "256x",
+                "32x": "32x",
+                "512x": "512x",
+                "64x": "64x",
+                "8x": "8x",
+                "blocks": "Блоки",
+                "bosses": "Боссы",
+                "cartoon": "Мультяшная",
+                "challenge": "Испытание",
+                "city": "Город",
+                "co-op": "Кооперация",
+                "cosmetic": "Косметика",
+                "crafting": "Изготовление",
+                "CTM": "CTM",
+                "dropper": "Дроппер",
+                "elytra": "Элитра",
+                "entities": "Сущности",
+                "episodic": "Эпизодический",
+                "escape": "Побег",
+                "exploration": "Исследование",
+                "faithful": "Добросовестный",
+                "finding": "Поиск",
+                "font": "Шрифт",
+                "funny": "Веселье",
+                "GUI": "Графический интерфейс",
+                "horror": "Ужасы",
+                "items": "Предметы",
+                "language": "Язык",
+                "magic": "Магия",
+                "maze": "Лабиринт",
+                "mobs": "Мобы",
+                "models": "Модели",
+                "multiplayer": "Многопользовательская игра",
+                "music": "Музыка",
+                "park": "Парк",
+                "PVE": "PvE",
+                "PVP": "PvP",
+                "RPG": "РПГ",
+                "shaders": "Шейдеры",
+                "singleplayer": "Одиночная игра",
+                "skybox": "Скайбокс",
+                "smooth": "Гладкий",
+                "sound": "Звук",
+                "tech": "Технология",
+                "tools": "Инструменты",
+                "trivia": "Викторина",
+                "tweak": "Твик",
+                "unfair": "Нечестные",
+                "weapons": "Оружие",
+                "anime": "Аниме",
+                "fantasy": "Фэнтези",
+                "medieval": "Средневековье",
+                "modern": "Современные",
+                "sci-fi": "Научная фантастика",
+                "vanilla": "Классический",
+                "player_count_2": "2 игрока",
+                "player_count_3": "3 игрока",
+                "player_count_4+": "4+ игроков"
+            }
         },
-        "Edit": {
-            "about": "About",
-            "banner": "Изменить баннер",
-            "logo": "Изменить иконку",
-            "title": "Обновить профиль",
-            "saved": "Profile saved successfully"
+        "Footer": {
+            "about": "Информация о веб-сайте",
+            "contact": "Контакты",
+            "discord": "Discord",
+            "join_community": "Станьте частью сообщества",
+            "legal_contact": "Юридическая информация и контакты",
+            "privacy": "Политика конфиденциальности",
+            "request_data": "Запросить данные",
+            "twitter": "Twitter",
+            "bluesky": "Bluesky",
+            "youtube": "Youtube",
+            "updates": "Обновления",
+            "Splashes": {
+                "1": "Мы во всем мире!",
+                "2": "Это веб-сайт!",
+                "3": "Что-то сломалось.",
+                "4": "Я нижняя панель!",
+                "5": "Майнкрафт очень крут, да?",
+                "6": "Творим ради победы!",
+                "7": "Кто это вообще читает?",
+                "8": "А есть бутерброд у кого-нибудь?",
+                "9": "Вносите свой вклад на Github!",
+                "10": "Вы знали, что это все случайный выбор?"
+            },
+            "mojang_disclamer": "НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНЫМ ПРОДУКТОМ MINECRAFT. НЕ УТВЕРЖДЕНО КОМПАНИЕЙ MOJANG И НИКАК С НЕЙ НЕ СВЯЗАНО.",
+            "open_source": "MCCreations — <link>открытый ресурс</link>. Начните активно участвовать уже сегодня!",
+            "copyright": "© Ben Meier/CrazyCowMM"
         },
-        "not_found": "Creator Not Found",
-        "logo_alt": "{username}'s logo"
-    },
-    "Dashboard": {
-        "title": "Ваш контент",
-        "info": "Информация",
-        "status": "Статус",
-        "created_date": "Дата создания",
-        "updated_date": "Updated Date",
-        "downloads": "Скачиваний",
-        "rating": "Рейтинг",
-        "view": "View Content",
-        "edit": "Изменить",
-        "delete": "Удалить"
-    },
-    "ResetPassword": {
-        "token_error": "No token found, returning to previous page",
-        "new_password": "Новый пароль",
-        "retype_password": "Retype Password",
-        "password_length": "Password must be 10 or more characters",
-        "password_number": "Password must include at least one number",
-        "passwords_not_same": "Пароли не совпадают",
-        "reset": "Reset",
-        "title": "Reset Password"
-    },
-    "SignIn": {
-        "Reset": {
-            "title": "Reset Password",
-            "send_reset_email": "Send Reset Email"
+        "Dropzone": {
+            "uploaded": "Загружено: {file}",
+            "uploading": "Загружается: {file}",
+            "invalid_file_type": "Недопустимый тип файла. Загрузите файл {file_type}.",
+            "file_too_large": "Файл слишком большой. Загрузите файл меньше {max_size}.",
+            "file_unknown": "Произошла ошибка. Повторите попытку.",
+            "dropzone": "Перетащите файлы сюда или щелкните для их загрузки",
+            "hovering": "Перетащите файлы сюда для загрузки",
+            "FileTypes": {
+                "image": "изображение",
+                "zip": "zip, mcworld, mcpack, mctemplate или mcaddon"
+            },
+            "or": "Или...",
+            "link": "Ссылка на файл",
+            "link_placeholder": "https://example.com/file.zip",
+            "set_link": "Установить ссылку"
         },
-        "PopupMessage": {
-            "error": "There was an error. Please report this issue using the link above."
-        },
-        "email_title": "Sign in with email",
-        "button": "Sign In",
-        "no_account": "Не имеете аккаунт?"
-    },
-    "SignUp": {
-        "title": "Sign Up",
-        "email_invalid": "Email is not a valid email address",
-        "password_no_number": "Password must include at least one number",
-        "password_too_short": "Password must be 10 or more characters",
-        "username_invalid_characters": "Username can only include letters, numbers and _",
-        "username_too_short": "Username must be at least 3 characters",
-        "button": "Sign Up",
-        "already_have_account": "Уже есть аккаунт?",
-        "error": "There was an error creating your account. Please report this issue using the link above."
-    },
-    "Translate": {
-        "title": "Перевести",
-        "help": "<link>For help, click here</link>",
-        "AddLanguage": {
-            "title": "Добавить язык",
-            "language_placeholder": "en-US",
-            "language_description": "An <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct."
-        },
-        "language": "Язык",
-        "language_missing": "Нет вашего языка? Нажмите сюда, чтобы добавить."
-    },
-    "Error": {
-        "title": "Something went wrong!",
-        "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
-        "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
-    },
-    "Home": {
-        "Playlists": {
-            "new_content": "Новый контент",
-            "updated_content": "Недавно обновлено",
-            "parkour": "Паркур: Прыгайте к победе!",
-            "adventure": "Приключение: Изучайте неизведанное",
-            "puzzle": "Пазл: Используйте свой мозг",
-            "highly_rated": "Высокий рейтинг",
-            "popular": "Популярный контент"
-        },
-        "ViewAll": "Find More..."
-    },
-    "Ads": {
-        "behind_text": "Рекламы помогают продолжать MCCreations создавать крутые штуки! Пожалуйста рассмотрите возможность выключения блокировщика рекламы для этого сайта :)"
-    },
-    "Buttons": {
-        "BulkDownload": {
-            "text": "BULK",
-            "no_selection": "No content selected for download"
-        },
-        "download": "Download",
-        "download_bedrock": "Download for Bedrock",
-        "edit": "Edit"
-    },
-    "CommentForm": {
-        "sent": "Комментарий отправлен",
-        "title": "Оставить комментарий",
-        "comment": "Комментарий",
-        "send": "Send"
-    },
-    "Comment": {
-        "permalink": "Copy comment permalink",
-        "expand": "Видеть больше",
-        "collapse": "Видеть меньше",
-        "reply": "Reply",
-        "like": "Like",
-        "delete": "Delete"
-    },
-    "CommentsList": {
-        "title": "Комметарии",
-        "no_comments": "Будьте первым комментатором!",
-        "none_yet": "Ещё нет!",
-        "loading": "Loading Comments..."
-    },
-    "FeaturedSlideshow": {
-        "see_more": "Download"
-    },
-    "Footer": {
-        "about": "About",
-        "contact": "Contact",
-        "discord": "Discord",
-        "join_community": "Стань частью сообщества",
-        "legal_contact": "Legal and Contact",
-        "privacy": "Privacy Policy",
-        "request_data": "Request Data",
-        "twitter": "Twitter",
-        "bluesky": "Bluesky",
-        "youtube": "Youtube",
-        "updates": "Обновления",
-        "Splashes": {
-            "1": "Gone Global!",
-            "2": "Это сайт!",
-            "3": "Things are broken.",
-            "4": "I'm a footer!",
-            "5": "Minecraft довольно крутой, не так ли?",
-            "6": "Creativity for the win!",
-            "7": "Кто это вообще читает?",
-            "8": "Anyone got a sandwich?",
-            "9": "Contribute on Github!",
-            "10": "Did you know that this is random?"
-        },
-        "mojang_disclamer": "НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНЫМ ПРОДУКТОМ MINECRAFT. НЕ ОДОБРЕН ИЛИ СВЯЗАН С MOJANG.",
-        "open_source": "MCCreations is <link>open source</link>. Contribute today!",
-        "copyright": "© Ben Meier/CrazyCowMM"
-    },
-    "Form": {
-        "save": "Сохранить",
-        "CreatorSelector": {
-            "title": "Создатели",
-            "add_creator": "Добавить создателя",
-            "confirm_remove": "Нажмите ещё раз, чтобы удалить этого создателя",
-            "username_description": "The name to display on MCCreations.",
-            "handle_description": "If the creator has an account on MCCreations, enter their handle here to have their profile linked."
-        },
-        "Shared": {
-            "uploaded": "Загружено {file}",
-            "uploading": " Started Uploading {file}",
-            "upload_failed": " Failed to upload {file}"
-        },
-        "Images": {
-            "drop_zone": "Drag and Drop an image here, or click to select one.",
-            "hovering_drop": "Drop here!",
-            "invalid": " Failed to upload because the file is not a valid image.",
-            "too_large": " Failed to upload because the file is too large.",
-            "unknown_error": " Failed to upload because of an unknown error."
-        },
-        "Files": {
-            "drop_zone": "Drag and Drop a file here, or click to select one.",
-            "invalid_file": " Failed to upload because the file is not a valid zip archive."
+        "Navbar": {
+            "LanguageSwitcher": {
+                "current_language": "Английский",
+                "help_translate": "Помочь перевести"
+            },
+            "UserOptions": {
+                "sign_in": "Войти",
+                "sign_out": "Выйти",
+                "dashboard": "Информационная панель",
+                "notifications": "Уведомления",
+                "profile": "Профиль",
+                "settings": "Параметры",
+                "admin": "Администратор",
+                "account": "Учетная запись"
+            },
+            "toggle_menu": "Переключение меню",
+            "home": "На главную",
+            "feed": "Лента",
+            "creations": "Творения",
+            "maps_blurb": "От головоломок и приключений к многопользовательскому сумасшествию.",
+            "datapacks_blurb": "Измените свой мир, добавьте привкус испытаний или небольшой твик.",
+            "resourcepacks_blurb": "Исследуйте дивный новый мир, или просто добавьте немного новой музыки.",
+            "creators": "Создатели",
+            "create": "Создать",
+            "account": "Учетная запись"
         },
         "RichText": {
-            "ImagePopup": {
-                "alt_text": "Alt Text",
-                "image_url": "Image URL",
-                "insert_file": "Insert Image File",
-                "insert_url": "Insert Image URL"
+            "placeholder": "Начните вводить здесь...",
+            "Images": {
+                "add_caption": "Добавить заголовок",
+                "insert_url": "Вставить URL изображения",
+                "insert_file": "Вставить файл изображения"
             },
-            "placeholder": "Start writing!",
-            "undo": "Undo",
-            "redo": "Redo",
-            "bold": "Bold",
-            "italic": "Italic",
-            "underline": "Underline",
-            "strikethrough": "Strikethrough",
-            "bullet_list": "Add Unordered List",
-            "justify_align": "Justify Align",
-            "left_align": "Left Align",
-            "center_align": "Center Align",
-            "right_align": "Right Align",
-            "image": "Insert Image",
-            "add_caption": "Add Caption",
-            "spoiler": "Add Spoiler",
-            "font_size": "Font Size"
+            "Toolbar": {
+                "undo": "Отменить",
+                "redo": "Повторить",
+                "bold": "Жирный",
+                "italic": "Курсив",
+                "underline": "Подчеркнутый",
+                "strikethrough": "Зачеркнутый",
+                "bullet_list": "Маркированный список",
+                "left_align": "Выравнивание влево",
+                "center_align": "Выравнивание по центру",
+                "right_align": "Выравнивание вправо",
+                "justify_align": "Выравнивание по ширине",
+                "spoiler": "Спойлер"
+            }
+        },
+        "VersionManager": {
+            "title": "Файлы",
+            "add_version": "Загрузить файл",
+            "Version": {
+                "back_to_versions": "Назад к файлам",
+                "edit": "Изменить файл",
+                "version_number": "Номер версии",
+                "minecraft_version": "Версия Minecraft",
+                "Bedrock": "Bedrock",
+                "Bedrock_description": "Это файл для Bedrock Edition?",
+                "MainFile": {
+                    "link": "Ссылка на основной файл"
+                },
+                "ExtraFiles": {
+                    "file_type": "Тип файла",
+                    "link": "Ссылка",
+                    "required": "Обязательно",
+                    "required_description": "Приводит к автоматической загрузке этого файла с основным файлом",
+                    "upload_file": "Загрузить файл"
+                },
+                "save": "Сохранить файл",
+                "cancel": "Отмена",
+                "delete": "Удалить",
+                "add_file": "Добавить файл",
+                "add_file_description": "Добавьте любые дополнительные файлы, необходимые для этого творения, например, наборы ресурсов"
+            }
         }
-    },
-    "Navigation": {
-        "CreateForm": {
-            "title": "Создать",
-            "missing_title": "A title must be included to save content",
-            "missing_short_description": "A short description must be included to save content",
-            "missing_type": "A type must be selected to save content",
-            "type": "Тип"
-        },
-        "ImportForm": {
-            "title": "Import",
-            "description": "Import your existing content from Planet Minecraft, MinecraftMaps.com or Modrinth below.",
-            "link": "Ссылка",
-            "link_placeholder": "https://planetminecraft.com/project/...",
-            "missing_link": "Ссылка должна быть добавлена для добавления контента",
-            "type": "Тип"
-        },
-        "UserOptions": {
-            "sign_in": "Sign In",
-            "sign_out": "Sign Out",
-            "dashboard": "Dashboard",
-            "profile": "Профиль",
-            "settings": "Настройки",
-            "admin": "Администратор",
-            "notifications": "Notifications"
-        },
-        "badge": "Бета",
-        "beta_warning": "MCCreations is currently in beta. Please leave any feedback or report any issues using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there.",
-        "home": "Главная",
-        "feed": "Feed",
-        "forums": "Forums",
-        "marketplace": "Marketplace",
-        "creations": "Creations",
-        "helpTranslate": "Help Translate",
-        "language": "Русский (Россия)",
-        "create": "Create"
-    },
-    "SearchAndFilter": {
-        "search": "Искать",
-        "clear_filters": "Очистить фильтры",
-        "sort_by": "Сортировать по:",
-        "Sort": {
-            "title_ascending": "Title Ascending",
-            "title_descending": "Title Descending",
-            "creator_ascending": "Creator Ascending",
-            "creator_descending": "Creator Descending",
-            "newest": "Новейшее",
-            "oldest": "Старейшее",
-            "highest_rated": "Highest Rated",
-            "lowest_rated": "Lowest Rated",
-            "highest_downloads": "Most Downloads",
-            "lowest_downloads": "Least Downloads",
-            "updated": "Недавно обновлено"
-        },
-        "status": "Статус",
-        "tags": "Тэги",
-        "search_placeholder": "Ищите название, создателя, версию и так далее."
     },
     "brand": "MCCreations",
     "error": "Ошибка",
-    "events": "События",
-    "VersionManager": {
-        "title": "Менеджер версий",
-        "add_version": "Добавить версию",
-        "Version": {
-            "back_to_versions": "Вернуться к версиям",
-            "edit": "Изменить версию",
-            "version_number": "Номер версии",
-            "minecraft_version": "Версия Minecraft",
-            "Bedrock": "Bedrock",
-            "Bedrock_description": "Является ли это файлом для Bedrock Edition",
-            "MainFile": {
-                "link": "Main File Link"
-            },
-            "ExtraFiles": {
-                "file_type": "Тип файла",
-                "link": "Ссылка",
-                "required": "Required",
-                "required_description": "Causes this file to be automatically downloaded with the main file",
-                "upload_file": "Загрузить файл"
-            },
-            "save": "Сохранить версию",
-            "cancel": "Cancel",
-            "delete": "Удалить",
-            "add_file": "Добавить файл",
-            "add_file_description": "Add any extra files required for this creation, like resourcepacks"
-        }
-    },
-    "Content": {
-        "affiliate": "Получите сервер для этого {type} со скидкой 25%",
-        "leaderboards": "Таблица лидеров",
-        "files": "Files",
-        "info": "Информация",
-        "logo_alt": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
-        "by": "by {creator}",
-        "by_joiner": ", ",
-        "Sidebar": {
-            "creators": "Создатели",
-            "stats": "Статистика",
-            "created_date": "Дата создания",
-            "updated_date": "Дата обновления",
-            "downloads": "Скачиваний",
-            "ratings": "Рейтинг",
-            "minecraft_version": "Версия Minecraft",
-            "files": "Файлы",
-            "tags": "Tags"
-        },
-        "Files": {
-            "name": "Название",
-            "date": "Дата",
-            "minecraft_version": "Версия Minecraft",
-            "download": "Скачать",
-            "loading": "Загрузка..."
-        },
-        "Warnings": {
-            "count": "Сообщения: ",
-            "no_title": {
-                "title": "Нет названия",
-                "description": "Контент обязан иметь название"
-            },
-            "no_description": {
-                "title": "Нет описания",
-                "description": "Описание обязательно"
-            },
-            "no_short_description": {
-                "title": "No Short Description",
-                "description": "A short Description is required"
-            },
-            "no_tags": {
-                "title": "No Genre Tag",
-                "description": "Content must have at least one a tag"
-            },
-            "no_minecraft_version": {
-                "title": "Нет Minecraft версии",
-                "description": "Контент обязан иметь версию Minecraft"
-            },
-            "no_creators": {
-                "title": "Нет создателей",
-                "description": "Контент обязан иметь как минимум одного создателя"
-            },
-            "no_files": {
-                "title": "Нет файлов",
-                "description": "Контент обязан иметь как минимум один файл"
-            },
-            "no_images": {
-                "title": "Нет изображений",
-                "description": "Контент обязан иметь как минимум одно изображение."
-            },
-            "short_description_too_short": {
-                "title": "Описание слишком которкое",
-                "description": "Ваше описание должно содержать как минимум 40 символов"
-            },
-            "description_too_short": {
-                "title": "Description Too Short",
-                "description": "Your description needs to be at least 100 characters"
-            },
-            "external_images": {
-                "title": "Images From External Sources",
-                "description": "You have images that are from external sources. This means that MCCreations cannot guarantee they will continue to work in the future, or will be accessible by all users. We highly recommend you upload these images instead."
-            },
-            "few_images": {
-                "title": "Слишком мало изображений",
-                "description": "More images help people get a better idea of what your content is about. It is recommended you upload at least 4 including your logo."
-            },
-            "not_linked": {
-                "title": "Not Linked to an Account",
-                "description": "This content is not linked to an account on MCCreations. This means that your access to edit this content will expire in 24 hours. It is recommended to upload content with an account so you can retain access to all features."
-            },
-            "no_download_link": {
-                "title": "No Download Link",
-                "description": "At least one download link is required"
-            },
-            "slug_too_short": {
-                "title": "Slug Too Short",
-                "description": "Your slug needs to be at least 2 characters"
-            }
-        },
-        "Edit": {
-            "editing": "Editing {title}",
-            "status": "Статус:",
-            "request_approval": "Publish",
-            "general": "Главное",
-            "title": "Название",
-            "title_description": "The primary name of your creation. Should be short and sweet!",
-            "slug": "Slug",
-            "slug_description": "The unique identifier for your creation. This will be used in the URL, like mccreations.net/maps/your-slug",
-            "short_description": "Короткое описание",
-            "short_description_description": "A short summary of your creation. This will be used in search results and previews.",
-            "video_url": "URL видео",
-            "video_url_description": "A link to a video of your creation. This will replace your logo on the creation page with an embedded video.",
-            "description": "Описание",
-            "description_description": "A longer description of your creation. This will be used on the main page of your creation.",
-            "Tags": {
-                "genre_description": "The primary category of your creation. This gives users a very general idea of how your creation plays.",
-                "subgenre_description": "The secondary category of your creation. This gives users a more specific idea of the contents of your creation.",
-                "difficulty_description": "Сложность вашего создания.",
-                "length_description": "Длина вашего создания",
-                "resolution_description": "Разрешение вашего создания.",
-                "theme_description": "Тема вашего создания."
-            },
-            "extra_features": "Дополнительные функции",
-            "ExtraFeatures": {
-                "Leaderboards": {
-                    "help": "Learn how to setup MCCreations Leaderboards <link>here</link>. Note that leaderboards are only available for Java Edition at this time.",
-                    "title": "Таблицы лидеров",
-                    "message_text": "Message Text",
-                    "message_text_description": "Text to display to tell players to submit their score. This is sent in game when your creation ends.",
-                    "message_format": "Extra Formatting",
-                    "message_format_description": "Extra formatting to add to the tellraw message. Should be formatted like \"color\":\"green\", \"bold\": true"
-                }
-            },
-            "images": "Изображения",
-            "versions": "Версии",
-            "translations": "Переводы",
-            "add_translation": "Добавить перевод",
-            "translation_languages": "Языки",
-            "translation_languages_description": "Нет вашего языка? Нажмите сюда, что добавить.",
-            "delete_translation": "Delete",
-            "translation_approved": "Approved",
-            "PopupMessage": {
-                "general_saved": "Content info saved successfully",
-                "images_saved": "Изображения удачно сохранены",
-                "translations_saved": "Перевод удачно сохранён",
-                "versions_saved": "Versions saved successfully",
-                "requested_approval": "Content has been requested for approval"
-            }
-        },
-        "translate": "Перевести {title}",
-        "translate_button": "Перевести страницу {type}",
-        "Metadata": {
-            "title_not_found": "{content_type} Not Found",
-            "description_not_found": "This {content_type} does not exist on MCCreations",
-            "title": "{title} {content_type} for Minecraft {minecraft_version} by {creator} on MCCreations",
-            "Tags": {
-                "minecraft": "Minecraft",
-                "games": "games",
-                "gaming": "gaming",
-                "minecraft_creations": "Minecraft создания",
-                "minecraft_version": "Minecraft {minecraft_version}",
-                "minecraft_datapack": "Minecraft датапак",
-                "minecraft_map": "Minecraft карта",
-                "minecraft_resourcepack": "Minecraft ресурспак",
-                "mods": "Моды",
-                "minecraft_mods": "Minecraft моды",
-                "minecraft_but": "Minecraft, но",
-                "minecraft_survival": "Minecraft выживание"
-            }
-        },
-        "datapack_not_found": "Датапак не найден",
-        "datapack_not_found_description": "This datapack does not exist or you do not have permission to view it",
-        "datapacks_not_found": "Датапаки не найдены",
-        "maps_not_found": "Карты не найдены",
-        "map_not_found": "Карта не найдена",
-        "map_not_found_description": "This map does not exist or you do not have permission to view it",
-        "resourcepack_not_found": "Ресурспак не найден",
-        "resourcepack_not_found_description": "This resourcepack does not exist or you do not have permission to view it",
-        "resourcepacks_not_found": "Ресурспаки не найдены",
-        "Rating": {
-            "1": "1 из 5 звёзд",
-            "2": "2 из 5 звёзд",
-            "3": "3 из 5 звёзд",
-            "4": "4 из 5 звёзд",
-            "5": "5 из 5 звёзд"
-        },
-        "Tags": {
-            "genre": "Жанр",
-            "subgenre": "Сабжанр",
-            "difficulty": "Сложность",
-            "length": "Длительность",
-            "resolution": "Разрешение",
-            "theme": "Тема",
-            "chill": "Простейшая",
-            "easy": "Простая",
-            "hard": "Тяжёлая",
-            "hardcore": "Сложнейшая",
-            "normal": "Нормальная",
-            "adventure": "Приключение",
-            "build": "Постройка",
-            "creative": "Creative",
-            "game": "Игра",
-            "other": "Другое",
-            "overhaul": "Улучшение",
-            "parkour": "Паркур",
-            "puzzle": "Puzzle",
-            "qol": "Качество жизни",
-            "realistic": "Реалистичное",
-            "simple": "Простое",
-            "survival": "Выживание",
-            "themed": "Themed",
-            "tool": "Tool",
-            "utility": "Utility",
-            "long": "Долгая",
-            "medium": "Средняя",
-            "short": "Короткая",
-            "1024x +": "1024x +",
-            "128x": "128x",
-            "16x": "16x",
-            "256x": "256x",
-            "32x": "32x",
-            "512x": "512x",
-            "64x": "64x",
-            "8x": "8x",
-            "blocks": "Блоки",
-            "bosses": "Боссы",
-            "cartoon": "Cartoon",
-            "challenge": "Челлендж",
-            "city": "Город",
-            "co-op": "Co-op",
-            "cosmetic": "Cosmetic",
-            "crafting": "Crafting",
-            "CTM": "CTM",
-            "dropper": "Дроппер",
-            "elytra": "Elytra",
-            "entities": "Сущности",
-            "episodic": "Episodic",
-            "escape": "Побег",
-            "exploration": "Exploration",
-            "faithful": "Faithful",
-            "finding": "Поиск",
-            "font": "Шрифт",
-            "funny": "Смешной",
-            "GUI": "GUI",
-            "horror": "Хоррор",
-            "items": "Предметы",
-            "language": "Язык",
-            "magic": "Магия",
-            "maze": "Лабиринт",
-            "mobs": "Мобы",
-            "models": "Модели",
-            "multiplayer": "Многопользовательская игра",
-            "music": "Музыка",
-            "park": "Парк",
-            "PVE": "PvE",
-            "PVP": "PvP",
-            "RPG": "RPG",
-            "shaders": "Шейдеры",
-            "singleplayer": "Одиночная игра",
-            "skybox": "Skybox",
-            "smooth": "Гладкие",
-            "sound": "Гладкий",
-            "tech": "Tech",
-            "tools": "Tools",
-            "trivia": "Trivia",
-            "tweak": "Tweak",
-            "unfair": "Unfair",
-            "weapons": "Оружия",
-            "anime": "Аниме",
-            "fantasy": "Фантастическое",
-            "medieval": "Средневековое",
-            "modern": "Современное",
-            "sci-fi": "Sci-Fi",
-            "vanilla": "Vanilla"
-        }
-    },
-    "Datapacks": {
-        "Metadata": {
-            "title": "Скачать датапаки | MCCreations",
-            "description": "Download the best Data Packs for Minecraft. Explore the most popular Data Packs and get ready to play! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!"
-        }
-    },
-    "Leaderboards": {
-        "not_found": "Таблица лидеров не найдена",
-        "rank": "Ранк",
-        "player": "Игрок",
-        "time": "Time",
-        "score": "Score",
-        "date": "Дата",
-        "device": "Device",
-        "location": "Location",
-        "submit_time": "Submit Your Time",
-        "submit_score": "Submit Your Score",
-        "submit_time_description": "Your time was {hours} hours, {minutes} minutes, {seconds} seconds and {ticks} ticks",
-        "submit_score_description": "Your score was {score}",
-        "submit": "Submit",
-        "username": "Username"
-    },
-    "Profile": {
-        "Widgets": {
-            "Discord": {
-                "title": "Discord",
-                "edit_title": "Edit Discord Widget",
-                "server_id": "ID сервера"
-            },
-            "FeaturedCreation": {
-                "title": "Featured Creation",
-                "edit_title": "Edit Featured Creation Widget",
-                "type": "Тип",
-                "slug": "Slug"
-            },
-            "Image": {
-                "edit_title": "Edit Image Widget",
-                "image": "Image",
-                "title": "Название"
-            },
-            "Showcase": {
-                "title": "Создания",
-                "edit_title": "Edit Showcase Widget",
-                "type": "Тип"
-            },
-            "SupportSite": {
-                "title": "Поддержать сайт",
-                "edit_title": "Edit Support Site Widget"
-            },
-            "Text": {
-                "edit_title": "Edit Text Widget",
-                "text": "Текст",
-                "title": "Название"
-            },
-            "Twitch": {
-                "title": "Twitch",
-                "edit_title": "Edit Twitch Widget",
-                "handle": "Twitch Username"
-            },
-            "Wall": {
-                "title": "Стена",
-                "edit_title": "Edit Wall Widget"
-            },
-            "Youtube": {
-                "title": "YouTube",
-                "edit_title": "Edit YouTube Widget",
-                "handle": "YouTube Handle"
-            },
-            "delete_widget": "Delete Widget"
-        },
-        "follow": "Follow",
-        "unfollow": "Unfollow"
-    },
-    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}"
+    "events": "Мероприятия"
 }

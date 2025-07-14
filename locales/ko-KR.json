@@ -1,760 +1,942 @@
 {
-    "_id": {
-        "$oid": "67254c06fbd562c74b56caea"
-    },
     "language_name": "한국어",
     "language_code": "ko-KR",
     "map": "{count, plural, =0 {맵} =1 {맵} other {맵}}",
-    "datapack": "{count, plural, =0 {데이터팩} =1 {데이터팩} other {데이터팩}}",
-    "resourcepack": "{count, plural, =0 {리소스팩} =1 {리소스팩} other {리소스팩}}",
+    "datapack": "{count, plural, =0 {데이터 팩} =1 {데이터 팩} other {데이터 팩}}",
+    "resourcepack": "{count, plural, =0 {리소스 팩} =1 {리소스 팩} other {리소스 팩}}",
+    "creator": "{count, plural, =0 {제작자} =1 {제작자} other {제작자}}",
     "comment": "{count, plural, =0 {댓글} =1 {댓글} other {댓글}}",
     "notification": "{count, plural, =0 {알림} =1 {알림} other {알림}}",
-    "Creations": {
-        "Search": {
-            "SearchPage": {
-                "map": {
-                    "title": "마인크래프트 맵 찾아보기",
-                    "blurb": "다음 모험을 위한 멋진 새로운 마인크래프트 맵을 찾아보세요!",
-                    "description": "마인크래프트 맵은 플레이어와 개발자가 만든 커스텀 월드로, 기본 게임을 넘어선 독특한 경험을 제공합니다. 이 맵들은 간단한 파쿠르 도전부터 복잡한 어드벤처 스토리, 퍼즐 해결 퀘스트, 심지어는 실제 세계의 장소를 재현한 것까지 다양합니다. 마인크래프트 초기부터 커뮤니티는 맵 제작을 창의적 표현의 한 형태로 받아들여 풍부한 혁신과 협력의 역사를 쌓아왔습니다. 수년에 걸쳐 마인크래프트 맵은 커뮤니티의 필수 요소가 되어 게임의 무한한 가능성을 보여주고 크리에이터와 플레이어의 활기찬 생태계를 육성하고 있습니다."
-                },
-                "datapack": {
-                    "title": "마인크래프트 데이터팩 찾아보기",
-                    "blurb": "다음 모험을 위한 멋진 새로운 마인크래프트 데이터팩을 찾아보세요!",
-                    "description": "마인크래프트 데이터팩은 새로운 기능을 추가하거나 게임 플레이 방식을 변경할 수 있는 커스텀 콘텐츠입니다! 이는 마인크래프트 모드의 바닐라 버전과 같습니다. 새로운 기능을 추가하거나 게임 플레이 방식을 변경할 수 있습니다!"
-                },
-                "resourcepack": {
-                    "title": "마인크래프트 리소스팩 찾아보기",
-                    "blurb": "다음 모험을 위한 멋진 새로운 마인크래프트 리소스팩을 찾아보세요!",
-                    "description": "마인크래프트 리소스팩은 마인크래프트의 모습과 분위기를 바꾸는 커스텀 콘텐츠입니다. 텍스처, 모델, 사운드, 음악 등을 변경할 수 있습니다!"
-                }
+    "download": "다운로드",
+    "Pages": {
+      "Auth": {
+        "OAuth_Handler": {
+          "error": "API와의 통신 중 오류가 발생했습니다. 위 링크를 통해 신고해 주세요",
+          "loading": "로그인 중입니다!"
+        }
+      },
+      "Comments": {
+        "_id": {
+          "loading": "댓글 로딩 중..."
+        }
+      },
+      "Creator": {
+        "handle": {
+          "CreatorEdit": {
+            "EditProfileImages": {
+              "title": "프로필 이미지 편집",
+              "button": "편집",
+              "banner": "배너",
+              "icon": "아이콘",
+              "save": "저장",
+              "cancel": "취소"
+            },
+            "EditAbout": {
+              "title": "소개 편집",
+              "save": "저장",
+              "cancel": "취소"
+            },
+            "EditSocialLinks": {
+              "title": "소셜 링크 편집",
+              "add": "소셜 링크 추가",
+              "remove": "제거",
+              "save": "저장",
+              "cancel": "취소"
+            },
+            "EditCustomCss": {
+              "title": "사용자 정의 CSS 편집",
+              "save": "저장",
+              "cancel": "취소"
             }
+          },
+          "Metadata": {
+            "title": "{username} - 마인크래프트 제작자",
+            "title_not_found": "제작자를 찾을 수 없음",
+            "description": "{username}의 마인크래프트 맵, 데이터팩, 리소스 팩을 확인하세요. 컬렉션을 둘러보고 창작물을 다운로드하세요.",
+            "description_not_found": "요청한 제작자를 찾을 수 없습니다.",
+            "Keywords": {
+              "minecraft": "마인크래프트",
+              "games": "게임",
+              "gaming": "게이밍",
+              "minecraft_map": "마인크래프트 맵",
+              "minecraft_datapack": "마인크래프트 데이터 팩",
+              "minecraft_resourcepack": "마인크래프트 리소스 팩",
+              "minecraft_creations": "마인크래프트 창작물"
+            }
+          },
+          "banner": "{username}의 배너",
+          "icon": "{username}의 아이콘",
+          "followers": "{count, plural, =0 {팔로워 없음} =1 {팔로워 1명} other {팔로워 #명}}",
+          "about": "소개",
+          "no_creations": "이 제작자는 아직 {content_type}을(를) 게시하지 않았습니다.",
+          "follow": "팔로우",
+          "unfollow": "언팔로우"
         }
-    },
-    "Menu": {
-        "Navbar": {
-            "home": "홈",
-            "feed": "피드",
-            "creations": "작품",
-            "maps_blurb": "퍼즐부터 어드벤처, 멀티플레이어의 흥분까지.",
-            "datapacks_blurb": "세상을 바꾸고, 작은 도전을 추가하고, 작은 조정을 해보세요.",
-            "resourcepacks_blurb": "완전히 새로운 세상을 탐험하거나 새로운 음악을 추가하세요.",
-            "creators": "크리에이터",
-            "create": "만들기",
-            "account": "계정",
-            "toggle_menu": "메뉴 토글"
-        },
-        "LanguageSwitcher": {
-            "language": "한국어",
-            "helpTranslate": "번역 도와주기"
-        },
-        "UserOptions": {
-            "sign_in": "로그인",
-            "sign_out": "로그아웃",
-            "dashboard": "대시보드",
-            "notifications": "알림",
-            "profile": "프로필",
-            "settings": "설정",
-            "admin": "관리자"
+      },
+      "Content": {
+        "content_type": {
+          "criteria": {
+            "title": "마인크래프트 {content_type} 탐색 및 검색",
+            "blurb": "다음 모험을 위한 놀라운 새로운 마인크래프트 {content_type}을(를) 찾아보세요!",
+            "description": "마인크래프트 {content_type}은(는) 플레이어나 개발자가 만든 사용자 정의 월드로, 표준 게임을 넘어서는 독특한 경험을 제공합니다. 이러한 {content_type}은(는) 간단한 파쿠르 도전부터 복잡한 모험 스토리, 퍼즐 해결 퀘스트, 심지어 실제 장소의 재현까지 다양합니다. 마인크래프트 초기부터 커뮤니티는 {content_type} 제작을 창의적 표현의 한 형태로 받아들여, 혁신과 협력의 풍부한 역사를 이끌어냈습니다. 수년에 걸쳐 마인크래프트 {content_type}은(는) 커뮤니티의 필수 요소가 되어 게임의 무한한 가능성을 보여주고 제작자와 플레이어의 활기찬 생태계를 조성하고 있습니다.",
+            "Keywords": {
+              "minecraft": "마인크래프트",
+              "games": "게임",
+              "gaming": "게이밍",
+              "minecraft_map": "마인크래프트 맵",
+              "minecraft_creations": "마인크래프트 창작물",
+              "minecraft_version": "마인크래프트 {minecraft_version}"
+            }
+          }
         }
-    },
-    "Status": {
-        "approved": "검증됨",
-        "draft": "임시저장",
-        "featured": "추천",
-        "unapproved": "공개됨"
-    },
-    "Account": {
-        "settings": "계정 설정",
-        "delete_account": "계정 삭제",
-        "Popup": {
-            "new_username": "새 사용자 이름",
-            "change_username": "사용자 이름 변경",
-            "new_handle": "새 핸들",
-            "change_handle": "핸들 변경",
-            "new_email": "새 이메일",
-            "change_email": "이메일 변경",
-            "new_password": "새 비밀번호",
-            "confirm_password": "비밀번호 확인",
-            "change_password": "비밀번호 변경"
+      },
+      "Create": {
+        "next": "다음",
+        "finish": "완료",
+        "save": "저장",
+        "Import": {
+          "PMC": "Planet Minecraft에서 가져오는 중",
+          "downloading": "{host}에서 창작물 다운로드 중",
+          "preroll": "프리롤 광고 대기 중...",
+          "unknown": "알 수 없는 호스트에서 가져오는 중",
+          "MinecraftMaps": "Minecraft Maps에서 가져오는 중",
+          "Modrinth": "Modrinth에서 가져오는 중",
+          "link_placeholder": "가져올 링크",
+          "link_description": "가져오려는 창작물의 링크입니다. Planet Minecraft 페이지나 Modrinth 페이지의 링크일 수 있습니다.",
+          "link_label": "링크",
+          "title": "가져오기",
+          "missing_link": "링크가 제공되지 않음"
         },
-        "PopupMessage": {
-            "email_updated": "이메일이 {email}로 성공적으로 업데이트되었습니다",
-            "handle_updated": "핸들이 {handle}로 성공적으로 업데이트되었습니다",
-            "username_updated": "사용자 이름이 {username}으로 성공적으로 업데이트되었습니다",
-            "password_updated": "비밀번호가 성공적으로 업데이트되었습니다",
-            "passwords_not_match": "비밀번호가 일치하지 않습니다",
-            "delete_account_warning": "계정을 삭제하려면 다시 한 번 클릭하세요. 이는 영구적입니다!",
-            "delete_account_auth_error": "인증 오류. 다시 로그인해주세요",
-            "delete_account_error": "계정 삭제 중 오류가 발생했습니다. 위의 링크를 사용하여 이 문제를 보고해주세요",
-            "delete_account_success": "계정이 성공적으로 삭제되었습니다",
-            "error": "오류가 발생했습니다. 위의 링크를 사용하여 이 문제를 보고해주세요"
+        "BasicInfo": {
+          "title": "기본 정보",
+          "type": "유형",
+          "short_description": "간단한 설명",
+          "missing_title": "제목이 제공되지 않음",
+          "missing_type": "유형이 제공되지 않음",
+          "missing_short_description": "간단한 설명이 제공되지 않음",
+          "title_too_short": "제목은 최소 3자 이상이어야 합니다",
+          "short_description_too_short": "간단한 설명은 최소 20자 이상이어야 합니다",
+          "short_description_too_long": "간단한 설명은 100자 미만이어야 합니다"
         },
-        "Shared": {
-            "username": "사용자 이름",
-            "username_placeholder": "Steve",
+        "Details": {
+          "title": "세부사항",
+          "slug": "슬러그",
+          "creators": "제작자",
+          "video_url": "동영상 URL",
+          "description": "설명",
+          "tags": "태그",
+          "missing_slug": "슬러그가 제공되지 않음",
+          "missing_creators": "제작자가 제공되지 않음",
+          "missing_description": "설명이 제공되지 않음",
+          "missing_tags": "태그가 제공되지 않음",
+          "slug_too_short": "슬러그는 최소 5자 이상이어야 합니다",
+          "slug_too_long": "슬러그는 50자 미만이어야 합니다",
+          "slug_invalid_characters": "슬러그는 문자, 숫자, _만 포함할 수 있습니다",
+          "creator_too_short": "최소 1명의 제작자가 있어야 합니다",
+          "invalid_video_url": "유효하지 않은 동영상 URL",
+          "description_too_short": "설명은 최소 10자 이상이어야 합니다",
+          "tags_too_short": "최소 1개의 태그가 있어야 합니다",
+          "saved": "세부사항이 성공적으로 저장되었습니다",
+          "CreatorInput": {
+            "username": "사용자명",
             "handle": "핸들",
-            "handle_placeholder": "steve",
-            "email": "이메일",
-            "email_placeholder": "steve@minecraft.net",
-            "password": "비밀번호",
-            "Providers": {
-                "discord": "Discord",
-                "github": "Github",
-                "google": "Google",
-                "microsoft": "Microsoft"
-            },
-            "forgot_password": "비밀번호를 잊으셨나요?",
-            "providers": "다음으로 로그인..."
+            "add": "제작자 추가"
+          },
+          "TagInput": {
+            "placeholder": "태그를 검색하려면 입력하세요..."
+          }
         },
-        "Notifications": {
-            "title": "알림 설정",
-            "comment": "새 댓글",
-            "like": "좋아요 알림",
-            "reply": "새 답글",
-            "email_daily": "매일 이메일",
-            "email_weekly": "매주 이메일",
-            "push_only": "푸시만",
-            "push_email_daily": "푸시 & 매일 이메일",
-            "push_email_weekly": "푸시 & 매주 이메일",
-            "dashboard_only": "대시보드만",
-            "none": "없음",
-            "translation": "새 작품의 번역",
-            "rating": "새 작품의 평가",
-            "no_notifications": "아직 알림이 없습니다!",
-            "read_all": "모두 읽음",
-            "install_ios_instructions": "iOS에서 푸시 알림을 사용하려면 <icon></icon>공유 버튼을 탭하고 '홈 화면에 추가'를 선택하세요.",
-            "add_to_this_device": "여기서 푸시 알림 구독하기",
-            "NewComment": {
-                "title": "새 댓글",
-                "body": "{username}님이 귀하의 {content_type} {title}에 새 댓글을 남겼습니다."
-            },
-            "NewReply": {
-                "title": "새 답글",
-                "body": "{username}님이 귀하의 댓글에 답글을 남겼습니다."
-            },
-            "NewPost": {
-                "title": "새 게시물",
-                "body": "{username}님이 새 {content_type}을(를) 게시했습니다."
-            },
-            "NewRating": {
-                "title": "새 평가",
-                "body": "{content_type}이(가) {rating}점의 새 평가를 받았습니다."
-            },
-            "NewTranslation": {
-                "title": "새 번역",
-                "body": "{username}님이 귀하의 {content_type}을(를) {language}로 번역했습니다."
-            },
-            "follow": "게시물 팔로우"
+        "Files": {
+          "title": "파일",
+          "saved": "파일이 성공적으로 저장되었습니다"
+        },
+        "Images": {
+          "title": "이미지",
+          "saved": "이미지가 성공적으로 저장되었습니다"
         }
-    },
-    "Auth": {
-        "OAuth": {
-            "PopupMessage": {
-                "error": "API와 통신 중 오류가 발생했습니다. 위의 링크를 사용하여 이 문제를 보고해주세요"
-            },
-            "loading": "로그인 중!"
-        }
-    },
-    "Comments": {
-        "loading": "댓글을 불러오는 중..."
-    },
-    "Creator": {
-        "Metadata": {
-            "not_found_title": "크리에이터를 찾을 수 없습니다",
-            "not_found_description": "이 크리에이터는 MCCreations에 존재하지 않습니다",
-            "title": "MCCreations의 {username}",
-            "description": "MCCreations에서 {username}의 마인크래프트 맵, 데이터팩, 리소스팩 등을 둘러보세요"
-        },
-        "Edit": {
-            "about": "소개",
-            "banner": "배너 변경",
-            "logo": "아이콘 변경",
-            "title": "프로필 업데이트",
-            "saved": "프로필이 성공적으로 저장되었습니다"
-        },
-        "not_found": "크리에이터를 찾을 수 없습니다",
-        "logo_alt": "{username}의 로고"
-    },
-    "Dashboard": {
+      },
+      "Dashboard": {
         "title": "대시보드",
+        "Notifications": {
+          "read_all": "모두 읽음으로 표시",
+          "no_notifications": "아직 알림이 없습니다!"
+        },
+        "delete_creation": "다시 클릭하면 이 창작물이 삭제됩니다. 이는 영구적입니다!",
+        "loading": "로딩 중...",
         "info": "정보",
         "status": "상태",
-        "created_date": "생성일",
-        "updated_date": "수정일",
+        "created_date": "생성 날짜",
+        "updated_date": "업데이트 날짜",
         "downloads": "다운로드",
-        "rating": "평가",
-        "view": "콘텐츠 보기",
+        "rating": "평점",
+        "comments": "댓글",
+        "actions": "작업",
         "edit": "편집",
+        "view": "보기",
         "delete": "삭제"
-    },
-    "ResetPassword": {
-        "token_error": "토큰을 찾을 수 없습니다. 이전 페이지로 돌아갑니다",
+      },
+      "Datapacks": {
+        "slug": {
+          "Metadata": {
+            "not_found_title": "데이터 팩을 찾을 수 없음",
+            "not_found_description": "이 데이터 팩은 MCCreations에 존재하지 않습니다",
+            "title": "마인크래프트 {minecraft_version}용 {creator}의 {title} {content_type}",
+            "Tags": {
+              "minecraft": "마인크래프트",
+              "games": "게임",
+              "gaming": "게이밍",
+              "minecraft_datapack": "마인크래프트 데이터 팩",
+              "minecraft_creations": "마인크래프트 창작물",
+              "minecraft_version": "마인크래프트 {minecraft_version}",
+              "mods": "모드",
+              "minecraft_mods": "마인크래프트 모드",
+              "minecraft_but": "마인크래프트 But",
+              "minecraft_survival": "마인크래프트 생존"
+            }
+          }
+        },
+        "Metadata": {
+          "title": "데이터 팩 찾기 및 다운로드",
+          "description": "MCCreations에서 최신 검증된 데이터 팩을 다운로드하세요! 데이터 팩은 마인크래프트용 바닐라 모드와 같습니다. 새로운 기능을 추가하고, 게임 플레이 방식을 변경하는 등의 역할을 합니다!",
+          "Keywords": {
+            "minecraft": "마인크래프트",
+            "games": "게임",
+            "gaming": "게이밍",
+            "minecraft_datapack": "마인크래프트 데이터 팩",
+            "minecraft_creations": "마인크래프트 창작물",
+            "mods": "모드",
+            "minecraft_mods": "마인크래프트 모드",
+            "minecraft_but": "마인크래프트 But",
+            "minecraft_survival": "마인크래프트 생존"
+          }
+        }
+      },
+      "Edit": {
+        "contentType": {
+          "slug": {
+            "Warnings": {
+              "title_too_short": {
+                "title": "제목이 너무 짧음",
+                "description": "제목은 최소 3자 이상이어야 합니다"
+              },
+              "short_description_too_short": {
+                "title": "간단한 설명이 너무 짧음",
+                "description": "간단한 설명은 최소 3자 이상이어야 합니다"
+              },
+              "short_description_too_long": {
+                "title": "간단한 설명이 너무 김",
+                "description": "간단한 설명은 100자 미만이어야 합니다"
+              },
+              "slug_too_short": {
+                "title": "슬러그가 너무 짧음",
+                "description": "슬러그는 최소 2자 이상이어야 합니다"
+              },
+              "slug_too_long": {
+                "title": "슬러그가 너무 김",
+                "description": "슬러그는 50자 미만이어야 합니다"
+              },
+              "slug_invalid_characters": {
+                "title": "슬러그에 유효하지 않은 문자",
+                "description": "슬러그는 문자, 숫자, _만 포함할 수 있습니다"
+              },
+              "creator_too_short": {
+                "title": "제작자 수 부족",
+                "description": "창작물에는 최소 1명의 제작자가 있어야 합니다"
+              },
+              "invalid_video_url": {
+                "title": "유효하지 않은 동영상 URL",
+                "description": "동영상 URL은 유효한 YouTube URL이어야 합니다"
+              },
+              "description_too_short": {
+                "title": "설명이 너무 짧음",
+                "description": "설명은 최소 10자 이상이어야 합니다"
+              },
+              "tags_too_short": {
+                "title": "태그 수 부족",
+                "description": "창작물에는 최소 1개의 태그가 있어야 합니다"
+              }
+            },
+            "Messages": {
+              "translations_saved": "번역이 성공적으로 저장되었습니다",
+              "general_saved": "창작물이 성공적으로 저장되었습니다"
+            },
+            "General": {
+              "tab_title": "일반",
+              "title": "제목",
+              "slug": "슬러그",
+              "short_description": "간단한 설명",
+              "creators": "제작자",
+              "video_url": "동영상 URL",
+              "description": "설명",
+              "tags": "태그",
+              "files": "파일",
+              "images": "이미지",
+              "save": "저장"
+            },
+            "Translations": {
+              "tab_title": "번역",
+              "add_translation": "번역 추가",
+              "remove_translation": "번역 제거",
+              "select_language": "언어 선택",
+              "approved": "승인됨",
+              "save": "저장"
+            }
+          }
+        }
+      },
+      "Feed": {
+        "not_found_title": "피드를 찾을 수 없음",
+        "not_found_description": "로그인하고 제작자를 구독하여 피드를 확인하세요!"
+      },
+      "Leaderboards": {
+        "contentType": {
+          "slug": {
+            "Submit": {
+              "submit_time": "시간 제출",
+              "submit_score": "점수 제출",
+              "submit_time_description": "당신의 시간은 {hours}시간 {minutes}분 {seconds}초 {ticks}틱이었습니다",
+              "submit_score_description": "당신의 점수는 {score}였습니다",
+              "submit": "제출",
+              "username": "사용자명"
+            },
+            "not_found": "리더보드를 찾을 수 없음",
+            "rank": "순위",
+            "player": "플레이어",
+            "time": "시간",
+            "score": "점수",
+            "date": "날짜",
+            "device": "기기",
+            "location": "위치"
+          }
+        }
+      },
+      "Maps": {
+        "slug": {
+          "Metadata": {
+            "not_found_title": "맵을 찾을 수 없음",
+            "not_found_description": "이 맵은 MCCreations에 존재하지 않습니다",
+            "title": "마인크래프트 {minecraft_version}용 {creator}의 {title} {content_type}",
+            "Tags": {
+              "minecraft": "마인크래프트",
+              "games": "게임",
+              "gaming": "게이밍",
+              "minecraft_map": "마인크래프트 맵",
+              "minecraft_creations": "마인크래프트 창작물",
+              "minecraft_version": "마인크래프트 {minecraft_version}",
+              "maps": "맵",
+              "minecraft_games": "마인크래프트 게임",
+              "download": "무료 마인크래프트 맵",
+              "minecraft_adventure": "마인크래프트 어드벤처",
+              "minecraft_parkour": "마인크래프트 파쿠르",
+              "minecraft_pvp": "마인크래프트 PvP",
+              "minecraft_skyblock": "마인크래프트 스카이블록",
+              "minecraft_survival": "마인크래프트 생존",
+              "minecraft_creative": "마인크래프트 크리에이티브",
+              "minecraft_minigames": "마인크래프트 미니게임"
+            }
+          }
+        },
+        "Metadata": {
+          "title": "마인크래프트 맵 찾기 및 다운로드",
+          "description": "MCCreations에서 최신 검증된 마인크래프트 맵을 다운로드하세요! 마인크래프트 맵은 플레이어나 개발자가 만든 사용자 정의 월드로, 표준 게임을 넘어서는 독특한 경험을 제공합니다. 이러한 맵은 간단한 파쿠르 도전부터 복잡한 모험 스토리, 퍼즐 해결 퀘스트, 심지어 실제 장소의 재현까지 다양합니다. 마인크래프트 초기부터 커뮤니티는 맵 제작을 창의적 표현의 한 형태로 받아들여, 혁신과 협력의 풍부한 역사를 이끌어냈습니다. 수년에 걸쳐 마인크래프트 맵은 커뮤니티의 필수 요소가 되어 게임의 무한한 가능성을 보여주고 제작자와 플레이어의 활기찬 생태계를 조성하고 있습니다.",
+          "Keywords": {
+            "minecraft": "마인크래프트",
+            "games": "게임",
+            "gaming": "게이밍",
+            "minecraft_map": "마인크래프트 맵",
+            "minecraft_creations": "마인크래프트 창작물",
+            "minecraft_version": "마인크래프트 {minecraft_version}",
+            "maps": "맵",
+            "minecraft_games": "마인크래프트 게임",
+            "download": "무료 마인크래프트 맵",
+            "minecraft_adventure": "마인크래프트 어드벤처",
+            "minecraft_parkour": "마인크래프트 파쿠르",
+            "minecraft_pvp": "마인크래프트 PvP",
+            "minecraft_skyblock": "마인크래프트 스카이블록",
+            "minecraft_survival": "마인크래프트 생존",
+            "minecraft_creative": "마인크래프트 크리에이티브",
+            "minecraft_minigames": "마인크래프트 미니게임"
+          }
+        }
+      },
+      "NotFound": {
+        "title": "페이지를 찾을 수 없음",
+        "description": "찾고 있는 페이지가 존재하지 않습니다.",
+        "button": "홈으로 이동"
+      },
+      "ResetPassword": {
+        "token_error": "토큰을 찾을 수 없어 이전 페이지로 돌아갑니다",
         "new_password": "새 비밀번호",
         "retype_password": "비밀번호 재입력",
         "password_length": "비밀번호는 10자 이상이어야 합니다",
-        "password_number": "비밀번호에는 최소 1개의 숫자가 포함되어야 합니다",
+        "password_number": "비밀번호에는 최소 하나의 숫자가 포함되어야 합니다",
         "passwords_not_same": "비밀번호가 일치하지 않습니다",
+        "password_required": "비밀번호가 필요합니다",
         "reset": "재설정",
         "title": "비밀번호 재설정"
-    },
-    "SignIn": {
+      },
+      "Resourcepacks": {
+        "slug": {
+          "Metadata": {
+            "not_found_title": "리소스 팩을 찾을 수 없음",
+            "not_found_description": "이 리소스 팩은 MCCreations에 존재하지 않습니다",
+            "title": "마인크래프트 {minecraft_version}용 {creator}의 {title} {content_type}",
+            "Tags": {
+              "minecraft": "마인크래프트",
+              "games": "게임",
+              "gaming": "게이밍",
+              "minecraft_resourcepack": "마인크래프트 리소스 팩",
+              "minecraft_creations": "마인크래프트 창작물",
+              "minecraft_version": "마인크래프트 {minecraft_version}",
+              "mods": "모드",
+              "minecraft_mods": "마인크래프트 모드",
+              "minecraft_hd": "마인크래프트 HD"
+            }
+          }
+        },
+        "Metadata": {
+          "title": "마인크래프트 리소스 팩 찾기 및 다운로드",
+          "description": "MCCreations에서 최신 검증된 마인크래프트 리소스 팩을 다운로드하세요! 마인크래프트 리소스 팩은 게임의 시각적 요소와 사운드를 변경하는 사용자 정의 파일 모음으로, 플레이어가 게임 경험을 개인화할 수 있게 해줍니다. 텍스처, 모델, 음악, 음향 효과를 수정하여 게임의 모양과 느낌을 변화시킬 수 있습니다. 도입 이후 리소스 팩은 마인크래프트 커뮤니티에서 중요한 역할을 해왔으며, 제작자들이 창의성을 표현하고 고유한 비전을 다른 사람들과 공유할 수 있게 해줍니다. 수년에 걸쳐 리소스 팩은 마인크래프트 모딩 문화의 초석이 되어, 게임에서 가능한 것의 경계를 지속적으로 밀어내는 활기찬 아티스트와 플레이어 커뮤니티를 조성하고 있습니다.",
+          "Keywords": {
+            "minecraft": "마인크래프트",
+            "games": "게임",
+            "gaming": "게이밍",
+            "minecraft_resourcepack": "마인크래프트 리소스 팩",
+            "minecraft_creations": "마인크래프트 창작물",
+            "minecraft_version": "마인크래프트 {minecraft_version}",
+            "mods": "모드",
+            "minecraft_mods": "마인크래프트 모드",
+            "minecraft_hd": "마인크래프트 HD"
+          }
+        }
+      },
+      "Settings": {
+        "Account": {
+          "loading": "계정 설정 로딩 중...",
+          "error": "계정 설정을 로드하는 중 오류가 발생했습니다. 위 링크를 사용하여 이 문제를 신고해 주세요",
+          "handle_updated": "핸들이 {handle}로 성공적으로 업데이트되었습니다",
+          "username_updated": "사용자명이 {username}으로 성공적으로 업데이트되었습니다",
+          "email_updated": "이메일이 {email}로 성공적으로 업데이트되었습니다",
+          "password_updated": "비밀번호가 성공적으로 업데이트되었습니다",
+          "passwords_not_match": "비밀번호가 일치하지 않습니다",
+          "delete_account_warning": "다시 클릭하면 계정이 삭제됩니다. 이는 영구적입니다!",
+          "delete_account_auth_error": "인증 오류입니다. 다시 로그인해 주세요",
+          "delete_account_error": "계정 삭제 중 오류가 발생했습니다. 위 링크를 사용하여 이 문제를 신고해 주세요",
+          "delete_account_success": "계정이 성공적으로 삭제되었습니다",
+          "title": "계정 설정",
+          "username": "사용자명",
+          "handle": "핸들",
+          "email": "이메일",
+          "password": "비밀번호",
+          "confirm_password": "비밀번호 확인",
+          "change_password": "비밀번호 변경",
+          "change_username": "사용자명 변경",
+          "change_handle": "핸들 변경",
+          "change_email": "이메일 변경",
+          "delete_account": "계정 삭제",
+          "new_username": "새 사용자명",
+          "new_handle": "새 핸들",
+          "new_email": "새 이메일",
+          "new_password": "새 비밀번호"
+        },
+        "Notifications": {
+          "title": "알림 설정",
+          "comment": "새 댓글",
+          "like": "좋아요 알림",
+          "reply": "새 답글",
+          "email_daily": "매일 이메일",
+          "email_weekly": "매주 이메일",
+          "push_only": "푸시만",
+          "push_email_daily": "푸시 + 매일 이메일",
+          "push_email_weekly": "푸시 + 매주 이메일",
+          "dashboard_only": "대시보드만",
+          "none": "없음",
+          "translation": "새 창작물 번역",
+          "rating": "새 창작물 평점",
+          "install_ios_instructions": "iOS에서 푸시 알림을 사용하려면 <icon></icon> 공유 버튼을 탭한 다음 \"홈 화면에 추가\"를 선택하세요.",
+          "add_to_this_device": "여기서 푸시 알림 구독",
+          "follow": "팔로잉 게시물"
+        },
+        "title": "설정",
+        "account_menu_item": "계정",
+        "notifications_menu_item": "알림",
+        "profile_menu_item": "프로필"
+      },
+      "SignIn": {
         "Reset": {
-            "title": "비밀번호 재설정",
-            "send_reset_email": "재설정 이메일 보내기"
+          "title": "비밀번호 재설정",
+          "email": "이메일",
+          "email_placeholder": "steve@minecraft.net",
+          "send_reset_email": "재설정 이메일 보내기"
         },
-        "PopupMessage": {
-            "error": "오류가 발생했습니다. 위의 링크를 사용하여 이 문제를 보고해주세요."
+        "Metadata": {
+          "title": "로그인",
+          "description": "MCCreations 계정에 로그인하여 마인크래프트 맵, 데이터 팩, 리소스 팩 등을 업로드하세요!",
+          "Keywords": {
+            "minecraft": "마인크래프트",
+            "games": "게임",
+            "gaming": "게이밍",
+            "minecraft_map": "마인크래프트 맵",
+            "minecraft_creations": "마인크래프트 창작물",
+            "minecraft_version": "마인크래프트 {minecraft_version}",
+            "maps": "맵",
+            "minecraft_games": "마인크래프트 게임",
+            "download": "무료 마인크래프트 맵"
+          }
         },
+        "error": "오류가 발생했습니다. 위 링크를 사용하여 이 문제를 신고해 주세요.",
+        "providers": "다음으로 로그인...",
         "email_title": "이메일로 로그인",
-        "button": "로그인",
-        "no_account": "계정이 없으신가요?"
-    },
-    "SignUp": {
-        "title": "회원가입",
+        "email_placeholder": "steve@minecraft.net",
+        "email_required": "이메일이 필요합니다",
         "email_invalid": "이메일이 유효한 이메일 주소가 아닙니다",
-        "password_no_number": "비밀번호에는 최소 1개의 숫자가 포함되어야 합니다",
+        "password_required": "비밀번호가 필요합니다",
+        "password_invalid": "비밀번호가 유효한 비밀번호가 아닙니다",
         "password_too_short": "비밀번호는 10자 이상이어야 합니다",
-        "username_invalid_characters": "사용자 이름에는 문자, 숫자, _만 포함할 수 있습니다",
-        "username_too_short": "사용자 이름은 3자 이상이어야 합니다",
+        "button": "로그인",
+        "no_account": "계정이 없으신가요?",
+        "forgot_password": "비밀번호를 잊으셨나요?",
+        "Providers": {
+          "discord": "Discord",
+          "github": "Github",
+          "google": "Google",
+          "microsoft": "Microsoft"
+        }
+      },
+      "SignUp": {
+        "Metadata": {
+          "title": "회원가입",
+          "description": "MCCreations에 가입하여 마인크래프트 맵, 데이터 팩, 리소스 팩 등을 업로드하세요!",
+          "Keywords": {
+            "minecraft": "마인크래프트",
+            "games": "게임",
+            "gaming": "게이밍",
+            "minecraft_map": "마인크래프트 맵",
+            "minecraft_creations": "마인크래프트 창작물",
+            "minecraft_version": "마인크래프트 {minecraft_version}",
+            "maps": "맵",
+            "minecraft_games": "마인크래프트 게임",
+            "download": "무료 마인크래프트 맵"
+          }
+        },
+        "error": "계정 생성 중 오류가 발생했습니다. 위 링크를 사용하여 이 문제를 신고해 주세요.",
+        "username_invalid_characters": "사용자명은 문자, 숫자, _만 포함할 수 있습니다",
+        "username_too_short": "사용자명은 최소 3자 이상이어야 합니다",
+        "username_required": "사용자명이 필요합니다",
+        "username_placeholder": "사용자명",
+        "email_placeholder": "이메일",
+        "email_invalid": "이메일이 유효한 이메일 주소가 아닙니다",
+        "email_required": "이메일이 필요합니다",
+        "password_required": "비밀번호가 필요합니다",
+        "password_no_number": "비밀번호에는 최소 하나의 숫자가 포함되어야 합니다",
+        "password_too_short": "비밀번호는 10자 이상이어야 합니다",
         "button": "회원가입",
+        "providers": "다음으로 가입...",
         "already_have_account": "이미 계정이 있으신가요?",
-        "error": "계정 생성 중 오류가 발생했습니다. 위의 링크를 사용하여 이 문제를 보고해주세요."
-    },
-    "Translate": {
+        "forgot_password": "비밀번호를 잊으셨나요?",
+        "Providers": {
+          "discord": "Discord",
+          "github": "Github",
+          "google": "Google",
+          "microsoft": "Microsoft"
+        }
+      },
+      "Translate": {
         "title": "번역",
-        "help": "<link>도움말 보기</link>",
+        "help": "<link>도움이 필요하시면 여기를 클릭하세요</link>",
         "AddLanguage": {
-            "title": "언어 추가",
-            "language_placeholder": "ko-KR",
-            "language_description": "<link>ISO 639 언어 코드</link> 뒤에 <link2>ISO 3166-1 지역 코드</link2>가 옵니다. 언어를 찾을 수 없는 경우 적절한 것을 생각해보세요! 정확할 필요는 없습니다."
+          "title": "언어 추가",
+          "language_placeholder": "en-US",
+          "language_description": "이것은 <link>ISO 639 언어 코드</link> 다음에 <link2>ISO 3166-1 지역 코드</link2>가 와야 합니다. 언어를 찾을 수 없다면 임의로 만드세요! 엄격하게 정확할 필요는 없습니다.",
+          "add": "추가"
         },
         "language": "언어",
-        "language_missing": "언어를 찾을 수 없나요? 여기를 클릭하여 추가하세요."
-    },
-    "Error": {
-        "title": "문제가 발생했습니다!",
-        "description": "회로에 먼지가 들어간 것 같습니다! 아래 링크를 사용하여 이 문제를 보고하고 나중에 다시 시도해주세요.",
-        "report": "이 문제를 <form>이 양식</form>, <github>Github 페이지</github>, 또는 <link>Discord에 참여</link>하여 보고해주세요."
-    },
-    "Home": {
-        "blurb": "전 세계 마인크래프트 커뮤니티의 맵, 데이터팩, 리소스팩 등!",
-        "recently_updated": "최근 업데이트된 작품",
-        "view_all": "더 보기..."
-    },
-    "Ads": {
-        "behind_text": "광고는 MCCreations가 멋진 것을 만드는 데 도움을 줍니다! 이 사이트의 광고 차단기를 비활성화하는 것을 고려해주세요 :)"
-    },
-    "Buttons": {
-        "BulkDownload": {
-            "text": "일괄",
-            "no_selection": "다운로드할 콘텐츠가 선택되지 않았습니다"
+        "language_missing": "언어가 없나요? 여기를 클릭하여 추가하세요.",
+        "lang": {
+          "saved": "언어가 성공적으로 저장되었습니다",
+          "approved": "언어 승인됨",
+          "code": "코드",
+          "visual": "시각적",
+          "save": "저장",
+          "approve": "승인",
+          "cancel": "취소",
+          "back": "뒤로",
+          "key": "키",
+          "english": "영어",
+          "translation": "번역"
         },
-        "download": "다운로드",
-        "download_bedrock": "Bedrock용으로 다운로드",
-        "edit": "편집"
+        "Metadata": {
+          "title": "번역",
+          "description": "MCCreations를 당신의 언어로 번역하여 전 세계 마인크래프트 커뮤니티를 하나로 모으는 데 도움을 주세요!",
+          "Keywords": {
+            "minecraft": "마인크래프트",
+            "games": "게임",
+            "gaming": "게이밍",
+            "minecraft_map": "마인크래프트 맵",
+            "minecraft_creations": "마인크래프트 창작물",
+            "minecraft_version": "마인크래프트 {minecraft_version}",
+            "maps": "맵",
+            "minecraft_games": "마인크래프트 게임",
+            "download": "무료 마인크래프트 맵"
+          }
+        }
+      },
+      "Error": {
+        "title": "문제가 발생했습니다!",
+        "description": "회로에 흙이 끼인 것 같습니다! 아래 링크를 사용하여 신고하고 나중에 다시 시도해 주세요.",
+        "report": "<form>이 양식</form>, <github>GitHub 페이지</github>를 통해 또는 <link>Discord에 참여</link>하여 이 문제를 신고해 주세요."
+      },
+      "Home": {
+        "Metadata": {
+          "title": "마인크래프트 커뮤니티의 최고의 마인크래프트 맵, 데이터 팩, 리소스 팩",
+          "description": "MCCreations는 최신 최고의 마인크래프트 맵, 데이터팩, 리소스팩을 찾을 수 있는 비공식 팬 사이트입니다!",
+          "Keywords": {
+            "minecraft": "마인크래프트",
+            "games": "게임",
+            "gaming": "게이밍",
+            "minecraft_map": "마인크래프트 맵",
+            "minecraft_creations": "마인크래프트 창작물",
+            "minecraft_version": "마인크래프트 {minecraft_version}",
+            "maps": "맵",
+            "minecraft_games": "마인크래프트 게임",
+            "download": "무료 마인크래프트 맵"
+          }
+        },
+        "blurb": "전 세계 마인크래프트 커뮤니티의 마인크래프트 맵, 데이터 팩, 리소스 팩 등!",
+        "recently_updated": "또는 새로운 것을 찾아보세요!",
+        "view_all": "검색..."
+      }
     },
-    "CommentForm": {
-        "sent": "댓글이 전송되었습니다",
-        "title": "댓글 남기기",
-        "comment": "댓글",
-        "send": "전송"
-    },
-    "Comment": {
-        "permalink": "댓글의 영구 링크 복사",
-        "expand": "더 보기",
-        "collapse": "접기",
-        "reply": "답글",
-        "like": "좋아요",
-        "delete": "삭제"
-    },
-    "CommentsList": {
-        "title": "댓글",
-        "no_comments": "첫 댓글을 남겨보세요!",
-        "none_yet": "아직 없습니다!",
-        "loading": "댓글을 불러오는 중..."
-    },
-    "FeaturedSlideshow": {
-        "see_more": "다운로드"
-    },
-    "Footer": {
+    "Components": {
+      "AdUnits": {
+        "behind_text": "광고는 MCCreations가 멋진 것들을 만드는 데 도움이 됩니다! 이 사이트에서 광고 차단기를 비활성화하는 것을 고려해 주세요 :)"
+      },
+      "Creations": {
+        "Cards": {
+          "logo_alt_text": "MCCreations의 {creator}가 만든 마인크래프트 {minecraft_version}용 마인크래프트 {type} {title}의 로고",
+          "by": "{creator} 제작",
+          "by_joiner": ", "
+        },
+        "Page": {
+          "Comments": {
+            "username_placeholder": "사용자명",
+            "comment_placeholder": "댓글",
+            "send": "보내기",
+            "username_required": "사용자명이 필요합니다",
+            "username_too_short": "사용자명은 최소 3자 이상이어야 합니다",
+            "rating_out_of_range": "평점은 0과 5 사이여야 합니다",
+            "comment_required": "댓글이 필요합니다",
+            "comment_too_short": "댓글은 최소 10자 이상이어야 합니다",
+            "show_more": "{showMore} 보기",
+            "reply": "답글",
+            "replies": "{count, plural, =0 {아직 답글 없음} =1 {답글 1개} other {답글 #개}}",
+            "permalink": "댓글 고유링크 복사",
+            "permalink_copied": "댓글 고유링크가 클립보드에 복사되었습니다",
+            "delete": "댓글 삭제",
+            "deleted": "댓글이 성공적으로 삭제되었습니다"
+          },
+          "CreationOptions": {
+            "button": "옵션",
+            "translate": "번역",
+            "translateDescription": "창작물을 다른 언어로 번역합니다.",
+            "language": "언어",
+            "languagePlaceholder": "언어 선택",
+            "title": "제목",
+            "shortDescription": "간단한 설명",
+            "description": "설명",
+            "submit": "제출",
+            "cancel": "취소"
+          },
+          "Sidebar": {
+            "downloads": "다운로드",
+            "created_date": "생성 날짜",
+            "updated_date": "업데이트 날짜"
+          },
+          "Rating": {
+            "1": "별 1개",
+            "2": "별 2개",
+            "3": "별 3개",
+            "4": "별 4개",
+            "5": "별 5개"
+          },
+          "not_found": "{content_type}을(를) 찾을 수 없음",
+          "not_found_description": "이 {content_type}은(는) MCCreations에 존재하지 않습니다",
+          "logo_alt": "마인크래프트 {type} {title}의 로고",
+          "images_alt": "{title}의 이미지 {index}/{total}",
+          "recommended_creations": "다른 {tag} 창작물"
+        },
+        "Search": {
+          "Headers": {
+            "map": {
+              "title": "마인크래프트 맵 탐색 및 검색",
+              "blurb": "다음 모험을 위한 놀라운 새로운 마인크래프트 맵을 찾아보세요!",
+              "description": "마인크래프트 맵은 플레이어나 개발자가 만든 사용자 정의 월드로, 표준 게임을 넘어서는 독특한 경험을 제공합니다. 이러한 맵은 간단한 파쿠르 도전부터 복잡한 모험 스토리, 퍼즐 해결 퀘스트, 심지어 실제 장소의 재현까지 다양합니다. 마인크래프트 초기부터 커뮤니티는 맵 제작을 창의적 표현의 한 형태로 받아들여, 혁신과 협력의 풍부한 역사를 이끌어냈습니다. 수년에 걸쳐 마인크래프트 맵은 커뮤니티의 필수 요소가 되어 게임의 무한한 가능성을 보여주고 제작자와 플레이어의 활기찬 생태계를 조성하고 있습니다."
+            },
+            "datapack": {
+              "title": "마인크래프트 데이터 팩 탐색 및 검색",
+              "blurb": "마인크래프트 모험을 위한 도구, 도전 등을 찾아보세요!",
+              "description": "마인크래프트 데이터 팩은 본질적으로 바닐라 마인크래프트용 모드입니다. 새로운 기능, 메커니즘, 경험을 추가하여 게임플레이를 향상시킵니다. 새로운 도전, 퀘스트, 심지어 완전히 새로운 게임 모드로 게임을 변화시킬 수 있습니다. 도입 이후 데이터 팩은 제작자들에게 사랑받는 도구가 되어, 커뮤니티가 혁신하고 마인크래프트의 가능성을 확장할 수 있게 하며, 창의성과 협력의 풍부한 생태계를 조성하고 있습니다."
+            },
+            "resourcepack": {
+              "title": "마인크래프트 리소스 팩 탐색 및 검색",
+              "blurb": "마인크래프트의 모양을 바꾸거나 향상시키세요!",
+              "description": "마인크래프트 리소스 팩은 게임의 시각적 요소와 사운드를 변경하는 사용자 정의 파일 모음으로, 플레이어가 게임 경험을 개인화할 수 있게 해줍니다. 텍스처, 모델, 음악, 음향 효과를 수정하여 게임의 모양과 느낌을 변화시킬 수 있습니다. 도입 이후 리소스 팩은 마인크래프트 커뮤니티에서 중요한 역할을 해왔으며, 제작자들이 창의성을 표현하고 고유한 비전을 다른 사람들과 공유할 수 있게 해줍니다. 수년에 걸쳐 리소스 팩은 마인크래프트 모딩 문화의 초석이 되어, 게임에서 가능한 것의 경계를 지속적으로 밀어내는 활기찬 아티스트와 플레이어 커뮤니티를 조성하고 있습니다."
+            }
+          },
+          "search": "검색",
+          "clear_filters": "필터 지우기",
+          "sort_by": "정렬 기준",
+          "Sort": {
+            "title_ascending": "제목 오름차순",
+            "title_descending": "제목 내림차순",
+            "creator_ascending": "제작자 오름차순",
+            "creator_descending": "제작자 내림차순",
+            "newest": "최신순",
+            "oldest": "오래된 순",
+            "highest_rated": "최고 평점",
+            "lowest_rated": "최저 평점",
+            "highest_downloads": "다운로드 많은 순",
+            "lowest_downloads": "다운로드 적은 순",
+            "updated": "최근 업데이트"
+          },
+          "Status": {
+            "unapproved": "게시됨",
+            "approved": "검증됨",
+            "featured": "추천"
+          },
+          "TagDropdown": {
+            "include_tag": "{tag} 포함",
+            "exclude_tag": "{tag} 제외",
+            "include": "포함",
+            "exclude": "제외",
+            "any": "모든",
+            "and": "& ",
+            "and_exclude": "그리고 {tag} 제외"
+          },
+          "Navigator": {
+            "previous": "이전",
+            "next": "다음"
+          },
+          "status": "상태",
+          "tags": "태그",
+          "search_placeholder": "제목, 제작자, 버전 등 검색..."
+        },
+        "Tags": {
+          "genre": "장르",
+          "subgenre": "하위 장르",
+          "difficulty": "난이도",
+          "player_count": "플레이어 수",
+          "length": "길이",
+          "resolution": "해상도",
+          "theme": "테마",
+          "chill": "편안함",
+          "easy": "쉬움",
+          "hard": "어려움",
+          "hardcore": "하드코어",
+          "normal": "보통",
+          "adventure": "어드벤처",
+          "build": "건축",
+          "creative": "크리에이티브",
+          "game": "게임",
+          "other": "기타",
+          "overhaul": "전면 개편",
+          "parkour": "파쿠르",
+          "puzzle": "퍼즐",
+          "qol": "삶의 질",
+          "realistic": "현실적",
+          "simple": "단순함",
+          "survival": "생존",
+          "themed": "테마",
+          "tool": "도구",
+          "utility": "유틸리티",
+          "long": "긴",
+          "medium": "중간",
+          "short": "짧은",
+          "1024x +": "1024x +",
+          "128x": "128x",
+          "16x": "16x",
+          "256x": "256x",
+          "32x": "32x",
+          "512x": "512x",
+          "64x": "64x",
+          "8x": "8x",
+          "blocks": "블록",
+          "bosses": "보스",
+          "cartoon": "만화",
+          "challenge": "도전",
+          "city": "도시",
+          "co-op": "협동",
+          "cosmetic": "외관",
+          "crafting": "제작",
+          "CTM": "CTM",
+          "dropper": "드로퍼",
+          "elytra": "엘리트라",
+          "entities": "엔티티",
+          "episodic": "에피소드",
+          "escape": "탈출",
+          "exploration": "탐험",
+          "faithful": "페이스풀",
+          "finding": "찾기",
+          "font": "폰트",
+          "funny": "재미있는",
+          "GUI": "GUI",
+          "horror": "공포",
+          "items": "아이템",
+          "language": "언어",
+          "magic": "마법",
+          "maze": "미로",
+          "mobs": "몹",
+          "models": "모델",
+          "multiplayer": "멀티플레이어",
+          "music": "음악",
+          "park": "공원",
+          "PVE": "PvE",
+          "PVP": "PvP",
+          "RPG": "RPG",
+          "shaders": "셰이더",
+          "singleplayer": "싱글플레이어",
+          "skybox": "스카이박스",
+          "smooth": "부드러운",
+          "sound": "사운드",
+          "tech": "기술",
+          "tools": "도구",
+          "trivia": "퀴즈",
+          "tweak": "조정",
+          "unfair": "불공정",
+          "weapons": "무기",
+          "anime": "애니메이션",
+          "fantasy": "판타지",
+          "medieval": "중세",
+          "modern": "현대",
+          "sci-fi": "SF",
+          "vanilla": "바닐라",
+          "player_count_2": "2인용",
+          "player_count_3": "3인용",
+          "player_count_4+": "4인 이상"
+        }
+      },
+      "Footer": {
         "about": "소개",
         "contact": "연락처",
         "discord": "Discord",
         "join_community": "커뮤니티 참여",
-        "legal_contact": "법적 연락처",
-        "privacy": "개인정보 처리방침",
+        "legal_contact": "법적 사항 및 연락처",
+        "privacy": "개인정보 보호정책",
         "request_data": "데이터 요청",
         "twitter": "Twitter",
         "bluesky": "Bluesky",
         "youtube": "Youtube",
         "updates": "업데이트",
         "Splashes": {
-            "1": "글로벌이 되었습니다!",
-            "2": "웹사이트입니다!",
-            "3": "뭔가 고장났습니다.",
-            "4": "저는 푸터입니다!",
-            "5": "마인크래프트는 꽤 멋지죠.",
-            "6": "창의성이 승리합니다!",
-            "7": "누가 이것을 읽고 있을까요?",
-            "8": "누가 샌드위치 가지고 있나요?",
-            "9": "Github에서 기여하세요!",
-            "10": "이것이 무작위라는 것을 알고 계셨나요?"
+          "1": "글로벌 출시!",
+          "2": "웹사이트입니다!",
+          "3": "뭔가 망가졌네요.",
+          "4": "저는 푸터입니다!",
+          "5": "마인크래프트 정말 멋지죠.",
+          "6": "창의성이 승리!",
+          "7": "누가 이걸 읽나요?",
+          "8": "누구 샌드위치 있나요?",
+          "9": "GitHub에서 기여하세요!",
+          "10": "이게 랜덤이라는 걸 알고 계셨나요?"
         },
-        "mojang_disclamer": "공식 MINECRAFT 제품이 아닙니다. MOJANG에서 승인하거나 관련되지 않았습니다.",
-        "open_source": "MCCreations는 <link>오픈소스</link>입니다. 지금 바로 기여하세요!",
+        "mojang_disclamer": "공식 마인크래프트 제품이 아닙니다. MOJANG에서 승인하거나 관련되지 않았습니다.",
+        "open_source": "MCCreations는 <link>오픈 소스</link>입니다. 오늘 기여하세요!",
         "copyright": "© Ben Meier/CrazyCowMM"
-    },
-    "Form": {
-        "save": "저장",
-        "CreatorSelector": {
-            "title": "크리에이터",
-            "add_creator": "크리에이터 추가",
-            "confirm_remove": "이 크리에이터를 삭제하려면 다시 한 번 클릭하세요",
-            "username_description": "MCCreations에 표시되는 이름.",
-            "handle_description": "크리에이터가 MCCreations에 계정이 있는 경우, 여기에 핸들을 입력하여 프로필을 연결합니다."
+      },
+      "Dropzone": {
+        "uploaded": "{file} 업로드됨",
+        "uploading": "{file} 업로드 중",
+        "invalid_file_type": "유효하지 않은 파일 형식입니다. {file_type} 파일을 업로드해 주세요.",
+        "file_too_large": "파일이 너무 큽니다. {max_size}보다 작은 파일을 업로드해 주세요.",
+        "file_unknown": "오류가 발생했습니다. 다시 시도해 주세요.",
+        "dropzone": "파일을 여기에 드롭하거나 클릭하여 업로드",
+        "hovering": "파일을 여기에 드롭하여 업로드",
+        "FileTypes": {
+          "image": "이미지",
+          "zip": "zip, mcworld, mcpack, mctemplate 또는 mcaddon"
         },
-        "Shared": {
-            "uploaded": "{file}이(가) 업로드되었습니다",
-            "uploading": "{file} 업로드를 시작했습니다",
-            "upload_failed": "{file} 업로드에 실패했습니다"
+        "or": "또는...",
+        "link": "파일 링크",
+        "link_placeholder": "https://example.com/file.zip",
+        "set_link": "링크 설정"
+      },
+      "Navbar": {
+        "LanguageSwitcher": {
+          "current_language": "영어",
+          "help_translate": "번역 도움"
         },
+        "UserOptions": {
+          "sign_in": "로그인",
+          "sign_out": "로그아웃",
+          "dashboard": "대시보드",
+          "notifications": "알림",
+          "profile": "프로필",
+          "settings": "설정",
+          "admin": "관리자",
+          "account": "계정"
+        },
+        "toggle_menu": "메뉴 토글",
+        "home": "홈",
+        "feed": "피드",
+        "creations": "창작물",
+        "maps_blurb": "퍼즐부터 어드벤처, 멀티플레이어 광란까지.",
+        "datapacks_blurb": "세상을 바꾸고, 약간의 도전을 추가하거나, 작은 조정을 하세요.",
+        "resourcepacks_blurb": "완전히 새로운 세계를 탐험하거나 새로운 음악을 추가하세요.",
+        "creators": "제작자",
+        "create": "제작",
+        "account": "계정"
+      },
+      "RichText": {
+        "placeholder": "여기에 입력하세요...",
         "Images": {
-            "drop_zone": "이미지를 여기에 끌어다 놓거나 클릭하여 선택하세요.",
-            "hovering_drop": "여기에 놓으세요!",
-            "invalid": "파일이 유효한 이미지가 아니어서 업로드할 수 없습니다.",
-            "too_large": "파일이 2MB보다 커서 업로드할 수 없습니다.",
-            "unknown_error": "알 수 없는 오류로 인해 업로드할 수 없습니다."
+          "add_caption": "캡션 추가",
+          "insert_url": "이미지 URL 삽입",
+          "insert_file": "이미지 파일 삽입"
         },
-        "Files": {
-            "drop_zone": "파일을 여기에 끌어다 놓거나 클릭하여 선택하세요.",
-            "invalid_file": "파일이 유효한 zip 아카이브가 아니어서 업로드할 수 없습니다."
-        },
-        "RichText": {
-            "ImagePopup": {
-                "alt_text": "대체 텍스트",
-                "image_url": "이미지 URL",
-                "insert_file": "이미지 파일 삽입",
-                "insert_url": "이미지 URL 삽입"
-            },
-            "placeholder": "작성 시작!",
-            "undo": "실행 취소",
-            "redo": "다시 실행",
-            "bold": "굵게",
-            "italic": "기울임",
-            "underline": "밑줄",
-            "strikethrough": "취소선",
-            "bullet_list": "글머리 기호 목록 추가",
-            "justify_align": "양쪽 정렬",
-            "left_align": "왼쪽 정렬",
-            "center_align": "가운데 정렬",
-            "right_align": "오른쪽 정렬",
-            "image": "이미지 삽입",
-            "add_caption": "캡션 추가",
-            "spoiler": "스포일러 추가",
-            "font_size": "글꼴 크기"
+        "Toolbar": {
+          "undo": "실행 취소",
+          "redo": "다시 실행",
+          "bold": "굵게",
+          "italic": "기울임",
+          "underline": "밑줄",
+          "strikethrough": "취소선",
+          "bullet_list": "불릿 목록",
+          "left_align": "왼쪽 정렬",
+          "center_align": "가운데 정렬",
+          "right_align": "오른쪽 정렬",
+          "justify_align": "양쪽 정렬",
+          "spoiler": "스포일러"
         }
-    },
-    "SearchAndFilter": {
-        "search": "검색",
-        "clear_filters": "필터 지우기",
-        "sort_by": "정렬",
-        "Sort": {
-            "title_ascending": "제목 오름차순",
-            "title_descending": "제목 내림차순",
-            "creator_ascending": "크리에이터 오름차순",
-            "creator_descending": "크리에이터 내림차순",
-            "newest": "최신순",
-            "oldest": "오래된순",
-            "highest_rated": "평가 높은순",
-            "lowest_rated": "평가 낮은순",
-            "highest_downloads": "다운로드 많은순",
-            "lowest_downloads": "다운로드 적은순",
-            "updated": "최근 업데이트순"
-        },
-        "status": "상태",
-        "tags": "태그",
-        "search_placeholder": "제목, 크리에이터, 버전 등으로 검색"
+      },
+      "VersionManager": {
+        "title": "파일",
+        "add_version": "파일 업로드",
+        "Version": {
+          "back_to_versions": "파일로 돌아가기",
+          "edit": "파일 편집",
+          "version_number": "버전 번호",
+          "minecraft_version": "마인크래프트 버전",
+          "Bedrock": "베드락",
+          "Bedrock_description": "이 파일이 베드락 에디션용인가요",
+          "MainFile": {
+            "link": "메인 파일 링크"
+          },
+          "ExtraFiles": {
+            "file_type": "파일 형식",
+            "link": "링크",
+            "required": "필수",
+            "required_description": "이 파일이 메인 파일과 함께 자동으로 다운로드되도록 합니다",
+            "upload_file": "파일 업로드"
+          },
+          "save": "파일 저장",
+          "cancel": "취소",
+          "delete": "삭제",
+          "add_file": "파일 추가",
+          "add_file_description": "이 창작물에 필요한 추가 파일(예: 리소스팩)을 추가합니다"
+        }
+      }
     },
     "brand": "MCCreations",
     "error": "오류",
-    "events": "이벤트",
-    "VersionManager": {
-        "title": "버전 관리",
-        "add_version": "버전 추가",
-        "Version": {
-            "back_to_versions": "버전으로 돌아가기",
-            "edit": "버전 편집",
-            "version_number": "버전 번호",
-            "minecraft_version": "마인크래프트 버전",
-            "Bedrock": "Bedrock",
-            "Bedrock_description": "이 파일은 Bedrock 에디션용인가요",
-            "MainFile": {
-                "link": "메인 파일 링크"
-            },
-            "ExtraFiles": {
-                "file_type": "파일 유형",
-                "link": "링크",
-                "required": "필수",
-                "required_description": "이 파일을 메인 파일과 함께 자동으로 다운로드합니다",
-                "upload_file": "파일 업로드"
-            },
-            "save": "버전 저장",
-            "cancel": "취소",
-            "delete": "삭제",
-            "add_file": "파일 추가",
-            "add_file_description": "리소스팩 등, 이 작품에 필요한 추가 파일을 추가하세요"
-        }
-    },
-    "Content": {
-        "affiliate": "이 {type}용 서버를 25% 할인받으세요",
-        "leaderboards": "리더보드",
-        "files": "파일",
-        "info": "정보",
-        "logo_alt": "{title}의 로고, {creator}의 마인크래프트 {minecraft_version}용 마인크래프트 {type}, MCCreations",
-        "by": "{creator} 제작",
-        "by_joiner": ", ",
-        "Sidebar": {
-            "creators": "크리에이터",
-            "stats": "통계",
-            "created_date": "생성일",
-            "updated_date": "수정일",
-            "downloads": "다운로드",
-            "ratings": "평가",
-            "minecraft_version": "마인크래프트 버전",
-            "files": "파일",
-            "tags": "태그"
-        },
-        "Files": {
-            "name": "이름",
-            "date": "날짜",
-            "minecraft_version": "마인크래프트 버전",
-            "download": "다운로드",
-            "loading": "불러오는 중..."
-        },
-        "Warnings": {
-            "count": "메시지:",
-            "no_title": {
-                "title": "제목 없음",
-                "description": "콘텐츠에는 제목이 필요합니다"
-            },
-            "no_description": {
-                "title": "설명 없음",
-                "description": "설명이 필요합니다"
-            },
-            "no_short_description": {
-                "title": "짧은 설명 없음",
-                "description": "짧은 설명이 필요합니다"
-            },
-            "no_tags": {
-                "title": "태그 없음",
-                "description": "콘텐츠에는 최소 1개의 태그가 필요합니다"
-            },
-            "no_minecraft_version": {
-                "title": "마인크래프트 버전 없음",
-                "description": "콘텐츠에는 마인크래프트 버전이 필요합니다"
-            },
-            "no_creators": {
-                "title": "크리에이터 없음",
-                "description": "콘텐츠에는 최소 1명의 크리에이터가 필요합니다"
-            },
-            "no_files": {
-                "title": "파일 없음",
-                "description": "콘텐츠에는 최소 1개의 파일이 필요합니다"
-            },
-            "no_images": {
-                "title": "이미지 없음",
-                "description": "콘텐츠에는 최소 1개의 이미지가 필요합니다."
-            },
-            "short_description_too_short": {
-                "title": "짧은 설명이 너무 짧습니다",
-                "description": "짧은 설명은 40자 이상이어야 합니다"
-            },
-            "description_too_short": {
-                "title": "설명이 너무 짧습니다",
-                "description": "설명은 100자 이상이어야 합니다"
-            },
-            "external_images": {
-                "title": "외부 소스의 이미지",
-                "description": "외부 소스의 이미지가 있습니다. 이는 MCCreations가 앞으로도 계속 작동할 것과 모든 사용자가 접근할 수 있을 것을 보장할 수 없다는 것을 의미합니다. 대신 이러한 이미지를 업로드하는 것을 강력히 권장합니다."
-            },
-            "few_images": {
-                "title": "이미지가 매우 적습니다",
-                "description": "더 많은 이미지는 사람들이 귀하의 콘텐츠를 더 잘 이해하는 데 도움이 됩니다. 로고를 포함하여 최소 4개의 이미지를 업로드하는 것을 권장합니다."
-            },
-            "not_linked": {
-                "title": "계정에 연결되지 않음",
-                "description": "이 콘텐츠는 MCCreations 계정에 연결되어 있지 않습니다. 이는 이 콘텐츠를 편집하기 위한 접근 권한이 24시간 후에 만료된다는 것을 의미합니다. 모든 기능에 접근할 수 있도록 계정으로 콘텐츠를 업로드하는 것을 권장합니다."
-            },
-            "no_download_link": {
-                "title": "다운로드 링크 없음",
-                "description": "최소 1개의 다운로드 링크가 필요합니다"
-            },
-            "slug_too_short": {
-                "title": "슬러그가 너무 짧습니다",
-                "description": "슬러그는 2자 이상이어야 합니다"
-            }
-        },
-        "Edit": {
-            "editing": "{title} 편집",
-            "status": "상태:",
-            "request_approval": "공개",
-            "general": "일반",
-            "title": "제목",
-            "title_description": "귀하의 작품의 주요 이름. 짧고 간결해야 합니다!",
-            "slug": "슬러그",
-            "slug_description": "귀하의 작품의 고유 식별자. URL에서 사용됩니다 (예: mccreations.net/maps/your-slug)",
-            "short_description": "짧은 설명",
-            "short_description_description": "귀하의 작품의 짧은 요약. 검색 결과와 미리보기에서 사용됩니다.",
-            "video_url": "동영상 URL",
-            "video_url_description": "귀하의 작품의 동영상 링크. 작품 페이지의 로고를 임베드된 동영상으로 대체합니다.",
-            "description": "설명",
-            "description_description": "귀하의 작품의 더 긴 설명. 작품의 메인 페이지에서 사용됩니다.",
-            "Tags": {
-                "genre_description": "귀하의 작품의 주요 카테고리. 사용자에게 작품의 플레이 방식에 대한 매우 일반적인 아이디어를 제공합니다.",
-                "subgenre_description": "귀하의 작품의 2차 카테고리. 사용자에게 작품의 내용에 대한 더 구체적인 아이디어를 제공합니다.",
-                "difficulty_description": "귀하의 작품의 난이도.",
-                "length_description": "귀하의 작품의 길이.",
-                "resolution_description": "귀하의 리소스팩의 해상도.",
-                "theme_description": "귀하의 작품의 테마."
-            },
-            "extra_features": "추가 기능",
-            "ExtraFeatures": {
-                "Leaderboards": {
-                    "help": "MCCreations 리더보드 설정 방법을 <link>여기</link>에서 알아보세요. 현재 리더보드는 Java 에디션에서만 사용 가능하다는 점에 유의하세요.",
-                    "title": "리더보드",
-                    "message_text": "메시지 텍스트",
-                    "message_text_description": "플레이어에게 점수를 제출하도록 알리는 데 사용되는 텍스트. 이는 작품이 끝날 때 게임 내에서 전송됩니다.",
-                    "message_format": "추가 형식",
-                    "message_format_description": "tellraw 메시지에 추가할 추가 형식. \"color\":\"green\", \"bold\": true와 같이 형식화해야 합니다"
-                }
-            },
-            "images": "이미지",
-            "versions": "버전",
-            "translations": "번역",
-            "add_translation": "번역 추가",
-            "translation_languages": "언어",
-            "translation_languages_description": "언어를 찾을 수 없나요? 여기를 클릭하여 추가하세요.",
-            "delete_translation": "삭제",
-            "translation_approved": "승인됨",
-            "PopupMessage": {
-                "general_saved": "콘텐츠 정보가 성공적으로 저장되었습니다",
-                "images_saved": "이미지가 성공적으로 저장되었습니다",
-                "translations_saved": "번역이 성공적으로 저장되었습니다",
-                "versions_saved": "버전이 성공적으로 저장되었습니다",
-                "requested_approval": "콘텐츠가 공개되었고 검증을 기다리고 있습니다"
-            }
-        },
-        "translate": "{title} 번역",
-        "translate_button": "{type} 페이지 번역",
-        "Metadata": {
-            "title_not_found": "{content_type}을(를) 찾을 수 없습니다",
-            "description_not_found": "이 {content_type}은(는) MCCreations에 존재하지 않습니다",
-            "title": "{creator}의 마인크래프트 {minecraft_version}용 {title} {content_type}, MCCreations",
-            "Tags": {
-                "minecraft": "마인크래프트",
-                "games": "게임",
-                "gaming": "게이밍",
-                "minecraft_creations": "마인크래프트 작품",
-                "minecraft_version": "마인크래프트 {minecraft_version}",
-                "minecraft_datapack": "마인크래프트 데이터팩",
-                "minecraft_map": "마인크래프트 맵",
-                "minecraft_resourcepack": "마인크래프트 리소스팩",
-                "mods": "모드",
-                "minecraft_mods": "마인크래프트 모드",
-                "minecraft_but": "마인크래프트지만",
-                "minecraft_survival": "마인크래프트 서바이벌"
-            }
-        },
-        "datapack_not_found": "데이터팩을 찾을 수 없습니다",
-        "datapack_not_found_description": "이 데이터팩은 존재하지 않거나 볼 권한이 없습니다",
-        "datapacks_not_found": "데이터팩을 찾을 수 없습니다",
-        "maps_not_found": "맵을 찾을 수 없습니다",
-        "map_not_found": "맵을 찾을 수 없습니다",
-        "map_not_found_description": "이 맵은 존재하지 않거나 볼 권한이 없습니다",
-        "resourcepack_not_found": "리소스팩을 찾을 수 없습니다",
-        "resourcepack_not_found_description": "이 리소스팩은 존재하지 않거나 볼 권한이 없습니다",
-        "resourcepacks_not_found": "리소스팩을 찾을 수 없습니다",
-        "Rating": {
-            "1": "5점 만점에 1점",
-            "2": "5점 만점에 2점",
-            "3": "5점 만점에 3점",
-            "4": "5점 만점에 4점",
-            "5": "5점 만점에 5점"
-        },
-        "Tags": {
-            "genre": "장르",
-            "subgenre": "서브장르",
-            "difficulty": "난이도",
-            "length": "길이",
-            "resolution": "해상도",
-            "theme": "테마",
-            "chill": "여유",
-            "easy": "쉬움",
-            "hard": "어려움",
-            "hardcore": "하드코어",
-            "normal": "보통",
-            "adventure": "어드벤처",
-            "build": "건축",
-            "creative": "크리에이티브",
-            "game": "게임",
-            "other": "기타",
-            "overhaul": "오버홀",
-            "parkour": "파쿠르",
-            "puzzle": "퍼즐",
-            "qol": "생활의 질",
-            "realistic": "리얼리스틱",
-            "simple": "심플",
-            "survival": "서바이벌",
-            "themed": "테마",
-            "tool": "도구",
-            "utility": "유틸리티",
-            "long": "긴",
-            "medium": "중간",
-            "short": "짧은",
-            "1024x +": "1024x +",
-            "128x": "128x",
-            "16x": "16x",
-            "256x": "256x",
-            "32x": "32x",
-            "512x": "512x",
-            "64x": "64x",
-            "8x": "8x",
-            "blocks": "블록",
-            "bosses": "보스",
-            "cartoon": "카툰",
-            "challenge": "챌린지",
-            "city": "도시",
-            "co-op": "협동",
-            "cosmetic": "코스메틱",
-            "crafting": "제작",
-            "CTM": "CTM",
-            "dropper": "드롭퍼",
-            "elytra": "엘리트라",
-            "entities": "엔티티",
-            "episodic": "에피소드",
-            "escape": "탈출",
-            "exploration": "탐험",
-            "faithful": "Faithful",
-            "finding": "발견",
-            "font": "폰트",
-            "funny": "재미있는",
-            "GUI": "GUI",
-            "horror": "호러",
-            "items": "아이템",
-            "language": "언어",
-            "magic": "마법",
-            "maze": "미로",
-            "mobs": "몹",
-            "models": "모델",
-            "multiplayer": "멀티플레이어",
-            "music": "음악",
-            "park": "공원",
-            "PVE": "PvE",
-            "PVP": "PvP",
-            "RPG": "RPG",
-            "shaders": "셰이더",
-            "singleplayer": "싱글플레이어",
-            "skybox": "스카이박스",
-            "smooth": "스무스",
-            "sound": "사운드",
-            "tech": "테크",
-            "tools": "도구",
-            "trivia": "트리비아",
-            "tweak": "트윅",
-            "unfair": "불공정",
-            "weapons": "무기",
-            "anime": "애니메",
-            "fantasy": "판타지",
-            "medieval": "중세",
-            "modern": "모던",
-            "sci-fi": "SF",
-            "vanilla": "바닐라"
-        }
-    },
-    "Datapacks": {
-        "Metadata": {
-            "title": "데이터팩 다운로드 | MCCreations",
-            "description": "마인크래프트의 최고의 데이터팩을 다운로드하세요. 가장 인기 있는 데이터팩을 탐색하고 플레이할 준비를 하세요! 데이터팩은 마인크래프트 모드의 바닐라 버전과 같습니다. 새로운 기능을 추가하거나 게임 플레이 방식을 변경할 수 있습니다!"
-        }
-    },
-    "Leaderboards": {
-        "not_found": "리더보드를 찾을 수 없습니다",
-        "rank": "순위",
-        "player": "플레이어",
-        "time": "시간",
-        "score": "점수",
-        "date": "날짜",
-        "device": "기기",
-        "location": "위치",
-        "submit_time": "시간 제출",
-        "submit_score": "점수 제출",
-        "submit_time_description": "귀하의 시간은 {hours}시간 {minutes}분 {seconds}초 {ticks}틱이었습니다",
-        "submit_score_description": "귀하의 점수는 {score}점이었습니다",
-        "submit": "제출",
-        "username": "사용자 이름"
-    },
-    "Profile": {
-        "follow": "팔로우",
-        "unfollow": "언팔로우",
-        "Widgets": {
-            "Discord": {
-                "title": "Discord",
-                "edit_title": "Discord 위젯 편집",
-                "server_id": "서버 ID"
-            },
-            "FeaturedCreation": {
-                "title": "추천 작품",
-                "edit_title": "추천 작품 위젯 편집",
-                "type": "유형",
-                "slug": "슬러그"
-            },
-            "Image": {
-                "edit_title": "이미지 위젯 편집",
-                "image": "이미지",
-                "title": "제목"
-            },
-            "Showcase": {
-                "title": "작품",
-                "edit_title": "쇼케이스 위젯 편집",
-                "type": "유형"
-            },
-            "SupportSite": {
-                "title": "지원 사이트",
-                "edit_title": "지원 사이트 위젯 편집"
-            },
-            "Text": {
-                "edit_title": "텍스트 위젯 편집",
-                "text": "텍스트",
-                "title": "제목"
-            },
-            "Twitch": {
-                "title": "Twitch",
-                "edit_title": "Twitch 위젯 편집",
-                "handle": "Twitch 사용자 이름"
-            },
-            "Wall": {
-                "title": "벽",
-                "edit_title": "벽 위젯 편집"
-            },
-            "Youtube": {
-                "title": "YouTube",
-                "edit_title": "YouTube 위젯 편집",
-                "handle": "YouTube 핸들"
-            },
-            "delete_widget": "위젯 삭제"
-        }
-    },
-    "Create": {
-        "next": "다음",
-        "finish": "완료",
-        "save": "저장",
-        "Import": {
-            "PMC": "Planet Minecraft에서 가져오기",
-            "downloading": "{host}에서 작품을 다운로드 중",
-            "preroll": "프리롤 광고 대기 중...",
-            "unknown": "알 수 없는 호스트에서 가져오기",
-            "MinecraftMaps": "Minecraft Maps에서 가져오기",
-            "Modrinth": "Modrinth에서 가져오기"
-        }
-    }
-} 
+    "events": "이벤트"
+  }

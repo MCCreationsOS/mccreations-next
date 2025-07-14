@@ -1,767 +1,942 @@
 {
     "language_name": "简体中文",
-    "language_code": "zh_CN",
-
-    "map": "{count, plural, =0 {地图} =1 {地图} other {地图}}",
-    "datapack": "{count, plural, =0 {数据包} =1 {数据包} other {数据包}}",
-    "resourcepack": "{count, plural, =0 {资源包} =1 {资源包} other {资源包}}",
-    "comment": "{count, plural, =0 {评论} =1 {评论} other {评论}}",
-    "notification": "{count, plural, =0 {通知} =1 {通知} other {通知}}",
-
-    "Status": {
-        "approved": "已验证",
-        "draft": "草稿",
-        "featured": "精选",
-        "unapproved": "已发布"
-    },
-
-    "Account": {
-        "settings": "账户设置",
-        "delete_account": "删除账户",
-
-        "Popup": {
-            "new_username": "新昵称",
-            "change_username": "更改昵称",
-            "new_handle": "新用户名",
-            "change_handle": "更改用户名",
-            "new_email": "新邮箱",
-            "change_email": "更改邮箱",
-            "new_password": "新密码",
-            "confirm_password": "再次确认密码",
-            "change_password": "更改密码"
+    "language_code": "zh-CN",
+    "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
+    "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
+    "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
+    "creator": "{count, plural, =0 {Creators} =1 {Creator} other {Creators}}",
+    "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
+    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
+    "download": "Download",
+    "Pages": {
+        "Auth": {
+            "OAuth_Handler": {
+                "error": "There was an error communicating with our API. Please report this with the link above",
+                "loading": "Signing you in!"
+            }
         },
-
-        "PopupMessage": {
-            "email_updated": "邮箱已成功更新为 {email}",
-            "handle_updated": "用户名已成功更新为 {handle}",
-            "username_updated": "昵称已成功更新为 {username}",
-            "password_updated": "密码已成功更新",
-            "passwords_not_match": "密码不匹配",
-            "delete_account_warning": "再次点击以删除您的账户。这是永久的！",
-            "delete_account_auth_error": "授权错误。请重新登录",
-            "delete_account_error": "删除账户时出现错误。请通过以上链接报告问题",
-            "delete_account_success": "已成功删除账户",
-            "error": "发生错误。请通过以上链接报告问题"
+        "Comments": {
+            "_id": {
+                "loading": "Loading Comment..."
+            }
         },
-
-        "Shared": {
-            "username": "昵称",
-            "username_placeholder": "Steve",
-            "handle": "用户名",
-            "handle_placeholder": "steve",
-            "email": "邮箱",
+        "Creator": {
+            "handle": {
+                "CreatorEdit": {
+                    "EditProfileImages": {
+                        "title": "Edit Profile Images",
+                        "button": "Edit",
+                        "banner": "Banner",
+                        "icon": "Icon",
+                        "save": "Save",
+                        "cancel": "Cancel"
+                    },
+                    "EditAbout": {
+                        "title": "Edit About",
+                        "save": "Save",
+                        "cancel": "Cancel"
+                    },
+                    "EditSocialLinks": {
+                        "title": "Edit Social Links",
+                        "add": "Add Social Link",
+                        "remove": "Remove",
+                        "save": "Save",
+                        "cancel": "Cancel"
+                    },
+                    "EditCustomCss": {
+                        "title": "Edit Custom CSS",
+                        "save": "Save",
+                        "cancel": "Cancel"
+                    }
+                },
+                "Metadata": {
+                    "title": "{username} - Minecraft Creator",
+                    "title_not_found": "Creator Not Found",
+                    "description": "Check out {username}'s Minecraft maps, datapacks, and resource packs. Browse their collection and download their creations.",
+                    "description_not_found": "The requested creator could not be found.",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Map",
+                        "minecraft_datapack": "Minecraft Data Pack",
+                        "minecraft_resourcepack": "Minecraft Resource Pack",
+                        "minecraft_creations": "Minecraft Creations"
+                    }
+                },
+                "banner": "{username}'s Banner",
+                "icon": "{username}'s Icon",
+                "followers": "{count, plural, =0 {No followers} =1 {1 follower} other {# followers}}",
+                "about": "About",
+                "no_creations": "This creator hasn't published any {content_type} yet.",
+                "follow": "Follow",
+                "unfollow": "Unfollow"
+            }
+        },
+        "Content": {
+            "content_type": {
+                "criteria": {
+                    "title": "Browse and Search for Minecraft {content_type}",
+                    "blurb": "Find amazing new Minecraft {content_type} for your next adventure!",
+                    "description": "Minecraft {content_type} are custom worlds created by players or developers that offer unique experiences beyond the standard game. These {content_type} can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced {content_type}-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft {content_type} have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players.",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Map",
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}"
+                    }
+                }
+            }
+        },
+        "Create": {
+            "next": "Next",
+            "finish": "Finish",
+            "save": "Save",
+            "Import": {
+                "PMC": "Importing from Planet Minecraft",
+                "downloading": "Downloading creation from {host}",
+                "preroll": "Waiting for Preroll Ad...",
+                "unknown": "Importing from unknown host",
+                "MinecraftMaps": "Importing from Minecraft Maps",
+                "Modrinth": "Importing from Modrinth",
+                "link_placeholder": "Link to import from",
+                "link_description": "Link to the creation you want to import. This can be a link to a Planet Minecraft page, or a Modrinth page.",
+                "link_label": "Link",
+                "title": "Import",
+                "missing_link": "No link provided"
+            },
+            "BasicInfo": {
+                "title": "Basic Info",
+                "type": "Type",
+                "short_description": "Short Description",
+                "missing_title": "No title provided",
+                "missing_type": "No type provided",
+                "missing_short_description": "No short description provided",
+                "title_too_short": "Title must be at least 3 characters long",
+                "short_description_too_short": "Short description must be at least 20 characters long",
+                "short_description_too_long": "Short description must be less than 100 characters long"
+            },
+            "Details": {
+                "title": "Details",
+                "slug": "Slug",
+                "creators": "Creators",
+                "video_url": "Video URL",
+                "description": "Description",
+                "tags": "Tags",
+                "missing_slug": "No slug provided",
+                "missing_creators": "No creators provided",
+                "missing_description": "No description provided",
+                "missing_tags": "No tags provided",
+                "slug_too_short": "Slug must be at least 5 characters long",
+                "slug_too_long": "Slug must be less than 50 characters long",
+                "slug_invalid_characters": "Slug can only include letters, numbers and _",
+                "creator_too_short": "Must have at least 1 creator",
+                "invalid_video_url": "Invalid video URL",
+                "description_too_short": "Description must be at least 10 characters long",
+                "tags_too_short": "Must have at least 1 tag",
+                "saved": "Details saved successfully",
+                "CreatorInput": {
+                    "username": "Username",
+                    "handle": "Handle",
+                    "add": "Add Creator"
+                },
+                "TagInput": {
+                    "placeholder": "Start typing to search for tags..."
+                }
+            },
+            "Files": {
+                "title": "Files",
+                "saved": "Files saved successfully"
+            },
+            "Images": {
+                "title": "Images",
+                "saved": "Images saved successfully"
+            }
+        },
+        "Dashboard": {
+            "title": "Dashboard",
+            "Notifications": {
+                "read_all": "Mark all as read",
+                "no_notifications": "No notifications yet!"
+            },
+            "delete_creation": "Click again to delete this creation. This is permanent!",
+            "loading": "Loading...",
+            "info": "Info",
+            "status": "Status",
+            "created_date": "Created Date",
+            "updated_date": "Updated Date",
+            "downloads": "Downloads",
+            "rating": "Rating",
+            "comments": "Comments",
+            "actions": "Actions",
+            "edit": "Edit",
+            "view": "View",
+            "delete": "Delete"
+        },
+        "Datapacks": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Data Pack Not Found",
+                    "not_found_description": "This data pack does not exist on MCCreations",
+                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_datapack": "Minecraft Data Pack",
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "Mods",
+                        "minecraft_mods": "Minecraft Mods",
+                        "minecraft_but": "Minecraft But",
+                        "minecraft_survival": "Minecraft Survival"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Find and Download Data Packs",
+                "description": "Download the latest verified Data Packs on MCCreations! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_datapack": "Minecraft Data Pack",
+                    "minecraft_creations": "Minecraft Creations",
+                    "mods": "Mods",
+                    "minecraft_mods": "Minecraft Mods",
+                    "minecraft_but": "Minecraft But",
+                    "minecraft_survival": "Minecraft Survival"
+                }
+            }
+        },
+        "Edit": {
+            "contentType": {
+                "slug": {
+                    "Warnings": {
+                        "title_too_short": {
+                            "title": "Title Too Short",
+                            "description": "The title must be at least 3 characters long"
+                        },
+                        "short_description_too_short": {
+                            "title": "Short Description Too Short",
+                            "description": "The short description must be at least 3 characters long"
+                        },
+                        "short_description_too_long": {
+                            "title": "Short Description Too Long",
+                            "description": "The short description must be less than 100 characters long"
+                        },
+                        "slug_too_short": {
+                            "title": "Slug Too Short",
+                            "description": "The slug must be at least 2 characters long"
+                        },
+                        "slug_too_long": {
+                            "title": "Slug Too Long",
+                            "description": "The slug must be less than 50 characters long"
+                        },
+                        "slug_invalid_characters": {
+                            "title": "Slug Invalid Characters",
+                            "description": "The slug can only include letters, numbers and _"
+                        },
+                        "creator_too_short": {
+                            "title": "Too Few Creators",
+                            "description": "The creation must have at least 1 creator"
+                        },
+                        "invalid_video_url": {
+                            "title": "Invalid Video URL",
+                            "description": "The video URL must be a valid YouTube URL"
+                        },
+                        "description_too_short": {
+                            "title": "Description Too Short",
+                            "description": "The description must be at least 10 characters long"
+                        },
+                        "tags_too_short": {
+                            "title": "Too Few Tags",
+                            "description": "The creation must have at least 1 tag"
+                        }
+                    },
+                    "Messages": {
+                        "translations_saved": "Translations saved successfully",
+                        "general_saved": "Creation saved successfully"
+                    },
+                    "General": {
+                        "tab_title": "General",
+                        "title": "Title",
+                        "slug": "Slug",
+                        "short_description": "Short Description",
+                        "creators": "Creators",
+                        "video_url": "Video URL",
+                        "description": "Description",
+                        "tags": "Tags",
+                        "files": "Files",
+                        "images": "Images",
+                        "save": "Save"
+                    },
+                    "Translations": {
+                        "tab_title": "Translations",
+                        "add_translation": "Add Translation",
+                        "remove_translation": "Remove Translation",
+                        "select_language": "Select a Language",
+                        "approved": "Approved",
+                        "save": "Save"
+                    }
+                }
+            }
+        },
+        "Feed": {
+            "not_found_title": "No Feed Found",
+            "not_found_description": "Sign in and subscribe to creators to see your feed!"
+        },
+        "Leaderboards": {
+            "contentType": {
+                "slug": {
+                    "Submit": {
+                        "submit_time": "Submit Your Time",
+                        "submit_score": "Submit Your Score",
+                        "submit_time_description": "Your time was {hours} hours, {minutes} minutes, {seconds} seconds and {ticks} ticks",
+                        "submit_score_description": "Your score was {score}",
+                        "submit": "Submit",
+                        "username": "Username"
+                    },
+                    "not_found": "Leaderboard Not Found",
+                    "rank": "Rank",
+                    "player": "Player",
+                    "time": "Time",
+                    "score": "Score",
+                    "date": "Date",
+                    "device": "Device",
+                    "location": "Location"
+                }
+            }
+        },
+        "Maps": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Map Not Found",
+                    "not_found_description": "This map does not exist on MCCreations",
+                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Map",
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "maps": "Maps",
+                        "minecraft_games": "Minecraft Games",
+                        "download": "Free Minecraft Maps",
+                        "minecraft_adventure": "Minecraft Adventure",
+                        "minecraft_parkour": "Minecraft Parkour",
+                        "minecraft_pvp": "Minecraft PvP",
+                        "minecraft_skyblock": "Minecraft Skyblock",
+                        "minecraft_survival": "Minecraft Survival",
+                        "minecraft_creative": "Minecraft Creative",
+                        "minecraft_minigames": "Minecraft Minigames"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Find and Download Minecraft Maps",
+                "description": "Download the latest verified Minecraft maps on MCCreations! Minecraft maps are custom worlds created by players or developers that offer unique experiences beyond the standard game. These maps can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced map-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft maps have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps",
+                    "minecraft_adventure": "Minecraft Adventure",
+                    "minecraft_parkour": "Minecraft Parkour",
+                    "minecraft_pvp": "Minecraft PvP",
+                    "minecraft_skyblock": "Minecraft Skyblock",
+                    "minecraft_survival": "Minecraft Survival",
+                    "minecraft_creative": "Minecraft Creative",
+                    "minecraft_minigames": "Minecraft Minigames"
+                }
+            }
+        },
+        "NotFound": {
+            "title": "Page Not Found",
+            "description": "The page you are looking for does not exist.",
+            "button": "Go to Home"
+        },
+        "ResetPassword": {
+            "token_error": "No token found, returning to previous page",
+            "new_password": "New Password",
+            "retype_password": "Retype Password",
+            "password_length": "Password must be 10 or more characters",
+            "password_number": "Password must include at least one number",
+            "passwords_not_same": "Passwords are not the same",
+            "password_required": "Password is required",
+            "reset": "Reset",
+            "title": "Reset Password"
+        },
+        "Resourcepacks": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Resource Pack Not Found",
+                    "not_found_description": "This resource pack does not exist on MCCreations",
+                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Games",
+                        "gaming": "Gaming",
+                        "minecraft_resourcepack": "Minecraft Resource Pack",
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "Mods",
+                        "minecraft_mods": "Minecraft Mods",
+                        "minecraft_hd": "Minecraft HD"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Find and Download Minecraft Resource Packs",
+                "description": "Download the latest verified Minecraft resource packs on MCCreations! Minecraft resource packs are customizable collections of files that change the game's visuals and sounds, allowing players to personalize their gaming experience. They can modify textures, models, music, and sound effects, transforming the look and feel of the game. Since their introduction, resource packs have played a significant role in the Minecraft community, enabling creators to express their creativity and share their unique visions with others. Over the years, they have become a cornerstone of Minecraft's modding culture, fostering a vibrant community of artists and players who continually push the boundaries of what's possible in the game.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_resourcepack": "Minecraft Resource Pack",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "mods": "Mods",
+                    "minecraft_mods": "Minecraft Mods",
+                    "minecraft_hd": "Minecraft HD"
+                }
+            }
+        },
+        "Settings": {
+            "Account": {
+                "loading": "Loading account settings...",
+                "error": "There was an error loading your account settings. Please report this issue using the link above",
+                "handle_updated": "Handle updated successfully to {handle}",
+                "username_updated": "Username updated successfully to {username}",
+                "email_updated": "Email updated successfully to {email}",
+                "password_updated": "Password updated successfully",
+                "passwords_not_match": "Passwords do not match",
+                "delete_account_warning": "Click again to delete your account. This is permanent!",
+                "delete_account_auth_error": "Authorization Error. Please sign in again",
+                "delete_account_error": "There was an error deleting your account. Please report this issue using the link above",
+                "delete_account_success": "Account successfully deleted",
+                "title": "Account Settings",
+                "username": "Username",
+                "handle": "Handle",
+                "email": "Email",
+                "password": "Password",
+                "confirm_password": "Confirm Password",
+                "change_password": "Change Password",
+                "change_username": "Change Username",
+                "change_handle": "Change Handle",
+                "change_email": "Change Email",
+                "delete_account": "Delete Account",
+                "new_username": "New Username",
+                "new_handle": "New Handle",
+                "new_email": "New Email",
+                "new_password": "New Password"
+            },
+            "Notifications": {
+                "title": "Notification Settings",
+                "comment": "New Comments",
+                "like": "Like Notifications",
+                "reply": "New Replies",
+                "email_daily": "Email Daily",
+                "email_weekly": "Email Weekly",
+                "push_only": "Push Only",
+                "push_email_daily": "Push & Email Daily",
+                "push_email_weekly": "Push & Email Weekly",
+                "dashboard_only": "Dashboard Only",
+                "none": "None",
+                "translation": "New Creation Translations",
+                "rating": "New Creation Ratings",
+                "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
+                "add_to_this_device": "Subscribe to Push Notifications Here",
+                "follow": "Following Posts"
+            },
+            "title": "Settings",
+            "account_menu_item": "Account",
+            "notifications_menu_item": "Notifications",
+            "profile_menu_item": "Profile"
+        },
+        "SignIn": {
+            "Reset": {
+                "title": "Reset Password",
+                "email": "Email",
+                "email_placeholder": "steve@minecraft.net",
+                "send_reset_email": "Send Reset Email"
+            },
+            "Metadata": {
+                "title": "Sign In",
+                "description": "Sign in to your account on MCCreations to upload your Minecraft Maps, Data Packs, Resource Packs, and more!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps"
+                }
+            },
+            "error": "There was an error. Please report this issue using the link above.",
+            "providers": "Sign in with...",
+            "email_title": "Sign in with email",
             "email_placeholder": "steve@minecraft.net",
-            "password": "密码",
+            "email_required": "Email is required",
+            "email_invalid": "Email is not a valid email address",
+            "password_required": "Password is required",
+            "password_invalid": "Password is not a valid password",
+            "password_too_short": "Password must be 10 or more characters",
+            "button": "Sign In",
+            "no_account": "Don't have an account?",
+            "forgot_password": "Forgot your password?",
             "Providers": {
                 "discord": "Discord",
                 "github": "Github",
                 "google": "Google",
                 "microsoft": "Microsoft"
-            },
-            "forgot_password": "忘记密码？",
-            "providers": "以……登录"
-        },
-
-        "Notifications": {
-            "title": "通知设置",
-            "comment": "新评论",
-            "like": "点赞通知",
-            "reply": "新回复",
-            "subscription": "新订阅内容",
-            "email_daily": "每日邮件",
-            "email_weekly": "每周邮件",
-            "push_only": "仅推送通知",
-            "push_email_daily": "推送和每日邮件",
-            "push_email_weekly": "推送和每周邮件",
-            "dashboard_only": "仅仪表盘显示",
-            "none": "无",
-            "translation": "新作品翻译",
-            "rating": "新作品评分",
-            "no_notifications": "暂无通知！",
-            "read_all": "全部标记为已读",
-            "install_ios_instructions": "要在 iOS 上使用推送通知，请点击 <icon></icon> 分享按钮，然后选择“添加到主屏幕”。",
-            "add_to_this_device": "在此订阅推送通知",
-
-            "NewComment": {
-                "title": "新评论：",
-                "body": "{username} 在您的 {content_type} {title} 上发表了新评论。"
-            },
-            "NewReply": {
-                "title": "新回复：",
-                "body": "{username} 回复了您的评论。"
-            },
-            "NewPost": {
-                "title": "新{content_type}发布：",
-                "body": "{username} 发布了新的 {content_type}。"
-            },
-            "NewRating": {
-                "title": "新评分：",
-                "body": "您的 {content_type} 收到了新的 {rating} 星评分。"
-            },
-            "NewTranslation": {
-                "title": "新翻译：",
-                "body": "{username} 已将您的 {content_type} 翻译成 {language}。"
-            }
-        }
-    },
-
-    "Auth": {
-        "OAuth": {
-            "PopupMessage": {
-                "error": "与我们的 API 通信时发生错误。请通过上方链接中报告此问题"
-            },
-            "loading": "你已登录！"
-        }
-    },
-
-    "Comments": {
-        "loading": "评论加载中……"
-    },
-
-    "Creator": {
-        "Metadata": {
-            "not_found_title": "未找到创作者",
-            "not_found_description": "MCCreations 中不存在该创作者",
-            "title": "MCCreations 中的 {username}",
-            "description": "查看 {username} 在 MCCreations 上发布的 Minecraft 地图、数据包、资源包及更多精彩内容"
-        },
-        "Edit": {
-            "about": "关于",
-            "banner": "更换横幅",
-            "logo": "更换图标",
-            "title": "更新个人资料",
-            "saved": "已成功保存个人资料"
-        },
-        "not_found": "未找到创作者",
-        "logo_alt": "{username} 的徽标"
-    },
-
-    "Dashboard": {
-        "title": "仪表盘",
-        "info": "信息",
-        "status": "状态",
-        "created_date": "创建日期",
-        "updated_date": "更新日期",
-        "downloads": "下载次数",
-        "rating": "评分",
-        "view": "查看内容",
-        "edit": "编辑",
-        "delete": "删除"
-    },
-
-    "ResetPassword": {
-        "token_error": "未找到 token ，返回上一页",
-        "new_password": "新密码",
-        "retype_password": "重新输入密码",
-        "password_length": "密码需要至少十个字符",
-        "password_number": "密码需要至少一个数字",
-        "passwords_not_same": "两次输入的密码不一致",
-        "reset": "重置",
-        "title": "重置密码"
-    },
-
-    "SignIn": {
-        "Reset": {
-            "title": "重置密码",
-            "send_reset_email": "发送重置邮件"
-        },
-        "PopupMessage": {
-            "error": "出现错误。请使用上面的链接报告此问题。"
-        },
-        "email_title": "以邮箱登录",
-        "button": "登录",
-        "no_account": "没有账户？"
-    },
-
-    "SignUp": {
-        "title": "注册",
-        "email_invalid": "邮箱地址无效",
-        "password_no_number": "密码需要至少包含一个数字",
-        "password_too_short": "密码需要至少十个字符",
-        "username_invalid_characters": "昵称中只能包含字母，数字及下划线",
-        "username_too_short": "昵称需要至少三个字符",
-        "button": "注册",
-        "already_have_account": "已有账户？",
-        "error": "创建账户时出现错误。请通过以上链接报告问题。"
-    },
-
-    "Translate": {
-        "title": "翻译",
-        "help": "<link>想获得帮助？点击此处</link>",
-        "AddLanguage": {
-            "title": "添加语言",
-            "language_placeholder": "en-US",
-            "language_description": "<link>ISO 639 代码</link>后接 <link2>ISO 3166 代码</link2>。如果你没有找到你的语言，可以自己编！是否严格正确并不重要。"
-        },
-        "language": "语言",
-        "language_missing": "缺少你的语言？点击这里以添加。"
-    },
-
-    "Error": {
-        "title": "发生错误！",
-        "description": "看来我们的电路里可能染了一些灰尘！请使用下方链接以报告问题，并稍后再试。",
-        "report": "使用<form>此表格</form>报告问题，<github>通过我们的 Github 页面</github>或<link>加入我们的 Discord</link> 以报告该问题。"
-    },
-
-    "Home": {
-        "Playlists": {
-            "new_content": "新内容",
-            "updated_content": "最近更新",
-            "parkour": "跑酷：跳向胜利！",
-            "adventure": "冒险：探索未知",
-            "puzzle": "解密：开发大脑",
-            "highly_rated": "评分较高",
-            "popular": "流行"
-        },
-        "ViewAll": "发现更多……"
-    },
-
-    "Ads": {
-        "behind_text": "广告能帮助 MCCreations 继续创造超酷的内容！请考虑在本网站禁用广告拦截器。:)"
-    },
-
-    "Buttons": {
-        "BulkDownload": {
-            "text": "批量",
-            "no_selection": "未选择供下载的内容"
-        },
-        "download": "下载",
-        "download_bedrock": "供基岩版下载",
-        "edit": "编辑"
-    },
-
-    "CommentForm": {
-        "sent": "评论已发送",
-        "title": "发表评论",
-        "comment": "评论",
-        "send": "发送"
-    },
-
-    "Comment": {
-        "permalink": "复制永久评论链接",
-        "expand": "展开",
-        "collapse": "折叠",
-        "reply": "回复",
-        "like": "赞",
-        "delete": "删除"
-    },
-    
-    "CommentsList": {
-        "title": "评论",
-        "no_comments": "成为第一个评论的人！",
-        "none_yet": "尚无评论！",
-        "loading": "评论加载中……"
-    },
-
-    "FeaturedSlideshow": {
-        "see_more": "下载"
-    },
-
-    "Footer": {
-        "about": "关于",
-        "contact": "联系",
-        "discord": "Discord",
-        "join_community": "加入社区",
-        "legal_contact": "法律与联系",
-        "privacy": "隐私政策",
-        "request_data": "请求数据",
-        "twitter": "Twitter",
-        "bluesky": "Bluesky",
-        "youtube": "Youtube",
-        "updates": "更新",
-        "Splashes": {
-            "1": "走向全球！",
-            "2": "这是一个网站！",
-            "3": "有些东西坏掉了。",
-            "4": "我是页脚！",
-            "5": "Minecraft 很酷，对吧。",
-            "6": "创意至上！",
-            "7": "谁会看这些啊？",
-            "8": "有人带三明治了吗？",
-            "9": "在 Github 上贡献代码！",
-            "10": "你知道这些是随机的吗？"
-        },
-        "mojang_disclamer": "不是官方 Minecraft 产品。未经 Mojang 批准，也与 Mojang 无关联。",
-        "open_source": "MCCreations 是<link>开源的</link>。欢迎贡献！",
-        "copyright": "© Ben Meier/CrazyCowMM"
-    },
-
-    "Form": {
-        "save": "保存",
-        "CreatorSelector": {
-            "title": "创作者",
-            "add_creator": "添加创作者",
-            "confirm_remove": "再次点击以移除此创作者",
-            "username_description": "在 MCCreations 上显示的名称。",
-            "handle_description": "如果创作者已有 MCCreations 账户，请在此处输入用户名以链接至个人资料。"
-        },
-        "Shared": {
-            "uploaded": "已上传 {file}",
-            "uploading": " 开始上传 {file}",
-            "upload_failed": " 上传 {file} 失败"
-        },
-        "Images": {
-            "drop_zone": "拖放图片到此处，或点击选择图片。",
-            "hovering_drop": "松开它！",
-            "invalid": "上传失败，因为文件不是有效的图片。",
-            "too_large": "上传失败，因为文件过大。",
-            "unknown_error": " 上传失败，因为发生了未知错误。"
-        },
-        "Files": {
-            "drop_zone": "拖放文件到此处，或点击选择文件。",
-            "invalid_file": " 上传失败，因为文件不是有效的压缩包。"
-        },
-        "RichText": {
-            "ImagePopup": {
-                "alt_text": "Alt 文本",
-                "image_url": "图片 URL",
-                "insert_file": "插入图片文件",
-                "insert_url": "插入图片 URL"
-            },
-            "placeholder": "开始编写！",
-            "undo": "撤销",
-            "redo": "重做",
-            "bold": "粗体",
-            "italic": "斜体",
-            "underline": "下划线",
-            "strikethrough": "删除线",
-            "bullet_list": "添加无序列表",
-            "justify_align": "两端对齐",
-            "left_align": "左对齐",
-            "center_align": "居中对齐",
-            "right_align": "右对齐",
-            "image": "插入图片",
-            "add_caption": "添加图注",
-            "spoiler": "添加剧透",
-            "font_size": "字号"
-        }
-    },
-
-    "Navigation": {
-        "CreateForm": {
-            "title": "创建",
-            "missing_title": "必须包含标题才能保存内容",
-            "missing_short_description": "必须包含简短描述才能保存内容",
-            "missing_type": "必须选择类型才能保存内容",
-            "type": "类型"
-        },
-        "ImportForm": {
-            "title": "导入",
-            "description": "从 Planet Minecraft，MinecraftMaps.com 或 Modrinth 导入您的现有内容。",
-            "link": "链接",
-            "link_placeholder": "https://planetminecraft.com/project/...",
-            "missing_link": "必须添加链接才能导入内容",
-            "type": "类型"
-        },
-        "UserOptions": {
-            "sign_in": "登录",
-            "sign_out": "退出",
-            "dashboard": "仪表盘",
-            "notifications": "通知",
-            "profile": "个人资料",
-            "settings": "设置",
-            "admin": "管理员"
-        },
-        "badge": "测试版",
-        "beta_warning": "MCCreations 目前仍处于 beta 版。请使用该<form>表格</form>，<github>通过我们的 Github page</github>，或<link>加入我们的 Discord</link>以留下反馈或报告问题。",
-        "home": "首页",
-        "feed": "Feed"
-    },
-
-    "SearchAndFilter": {
-        "search": "搜索",
-        "clear_filters": "清除筛选",
-        "sort_by": "排序方式",
-        "Sort": {
-            "title_ascending": "标题升序",
-            "title_descending": "标题降序",
-            "creator_ascending": "创作者升序",
-            "creator_descending": "创作者降序",
-            "newest": "最新",
-            "oldest": "最旧",
-            "highest_rated": "评分最高",
-            "lowest_rated": "评分最低",
-            "highest_downloads": "下载最多",
-            "lowest_downloads": "下载最少",
-            "updated": "最近更新"
-        },
-        "status": "状态",
-        "tags": "标签",
-        "search_placeholder": "搜索标题、创作者、版本等"
-    },
-
-    
-    "brand": "MCCreations",
-    "error": "错误",
-    "events": "事件",
-
-    "VersionManager": {
-        "title": "版本管理",
-        "add_version": "添加版本",
-        "Version": {
-            "back_to_versions": "上个版本",
-            "edit": "编辑版本",
-            "version_number": "版本号",
-            "minecraft_version": "Minecraft 版本",
-            "Bedrock": "基岩版",
-            "Bedrock_description": "此文件是否用于基岩版",
-            "MainFile": {
-                "link": "主文件链接"
-            },
-            "ExtraFiles": {
-                "file_type": "文件类型",
-                "link": "链接",
-                "required": "必需",
-                "required_description": "勾选后，此文件将随主文件一同自动下载。",
-                "upload_file": "上传文件"
-            },
-            "save": "保存版本",
-            "cancel": "关闭",
-            "delete": "删除",
-            "add_file": "添加文件",
-            "add_file_description": "添加该作品所需的额外文件，如资源包"
-        }
-    },
-
-    "Content": {
-        "affiliate": "以25%的折扣购买{type}服务器",
-        "leaderboards": "排行榜",
-        "files": "文件",
-        "info": "信息",
-        "logo_alt": "{title} 的徽标：由 {creator} 创作的Minecraft{minecraft_version}版{type}，发布于 MCCreations。",
-        "by": "{creator} 创作",
-        "by_joiner": ", ",
-        "Sidebar": {
-            "creators": "创作者",
-            "stats": "统计",
-            "created_date": "创建日期",
-            "updated_date": "更新日期",
-            "downloads": "下载次数",
-            "ratings": "评分",
-            "minecraft_version": "Minecraft 版本",
-            "files": "文件"
-        },
-        "Files": {
-            "name": "名称",
-            "date": "更新日期",
-            "minecraft_version": "Minecraft 版本",
-            "download": "下载",
-            "loading": "加载中……"
-        },
-        "Warnings": {
-            "count": "消息：",
-            "no_title": {
-                "title": "无标题",
-                "description": "内容必须有一个标题"
-            },
-            "no_description": {
-                "title": "无描述",
-                "description": "需要一个描述"
-            },
-            "no_short_description": {
-                "title": "无简短描述",
-                "description": "需要一个简短描述"
-            },
-            "no_tags": {
-                "title": "无标签",
-                "description": "内容必须至少有一个标签"
-            },
-            "no_minecraft_version": {
-                "title": "无 Minecraft 版本",
-                "description": "内容必须有 Minecraft 版本"
-            },
-            "no_creators": {
-                "title": "无创作者",
-                "description": "内容必须至少有一个创作者"
-            },
-            "no_files": {
-                "title": "无文件",
-                "description": "内容必须至少有一个文件"
-            },
-            "no_images": {
-                "title": "无图片",
-                "description": "内容必须至少有一张图片。"
-            },
-            "short_description_too_short": {
-                "title": "简短描述过短",
-                "description": "您的简短描述需要至少 40 个字符"
-            },
-            "description_too_short": {
-                "title": "描述过短",
-                "description": "您的描述需要至少 100 个字符"
-            },
-            "external_images": {
-                "title": "来自外部来源的图片",
-                "description": "您有来自外部来源的图片。这意味着 MCCreations 无法保证这些图片未来仍有效，或所有用户都仍能访问。我们强烈建议您改为上传这些图片（而不是使用外部链接）。"
-            },
-            "few_images": {
-                "title": "图片过少",
-                "description": "更多的图片可以帮助人们更好地了解您的内容。建议您上传至少 4 张图片，包括您的徽标。"
-            },
-            "not_linked": {
-                "title": "未绑定至账户",
-                "description": "该内容未链接到 MCCreations 上的账户。这意味着您编辑该内容的权限将在24小时内过期。建议您使用账户上传内容，以便保留所有功能访问权限。"
-            },
-            "no_download_link": {
-                "title": "无下载链接",
-                "description": "至少需要一个下载链接"
-            },
-            "slug_too_short": {
-                "title": "路径别名过短",
-                "description": "您的路径别名至少需要 2 个字符"
             }
         },
-        "Edit": {
-            "editing": "编辑 {title} 中",
-            "status": "状态：",
-            "request_approval": "发布",
-            "general": "常规",
-            "title": "标题",
-            "title_description": "您的作品的主要名称。应简洁明了！",
-            "slug": "路径别名",
-            "slug_description": "您的作品的唯一标识符。它将用于 URL，例如 mccreations.net/maps/your-slug",
-            "short_description": "简短描述",
-            "short_description_description": "您的作品的简短摘要。将用于搜索结果和预览。",
-            "video_url": "视频 URL",
-            "video_url_description": "您的作品的视频链接。这将在作品页面用嵌入式视频替换您的徽标。",
-            "description": "描述",
-            "description_description": "您的作品的详细描述。将用于您作品的主页。",
-            "Tags": {
-                "genre_description": "您的作品的主要类别。这能让用户大致了解您作品的玩法。",
-                "subgenre_description": "您的作品的次要类别。这能让用户更具体地了解您作品的内容。",
-                "difficulty_description": "您的作品的难度。",
-                "length_description": "您的作品的长度。",
-                "resolution_description": "您的资源包的分辨率。",
-                "theme_description": "您的作品的主题。"
-            },
-            "extra_features": "额外功能",
-            "ExtraFeatures": {
-                "Leaderboards": {
-                    "help": "点击<link>此处</link>了解如何设置 MCCreations 排行榜。请注意，排行榜目前仅适用于 Java 版。",
-                    "title": "排行榜",
-                    "message_text": "消息文本",
-                    "message_text_description": "用于提示玩家提交分数的显示文本。此消息将在您的作品结束时在游戏中发送。",
-                    "message_format": "额外格式",
-                    "message_format_description": "添加到 tellraw 消息的额外格式。格式应如：\"color\":\"green\", \"bold\": true"
+        "SignUp": {
+            "Metadata": {
+                "title": "Sign Up",
+                "description": "Sign up to MCCreations to upload your Minecraft Maps, Data Packs, Resource Packs, and more!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps"
                 }
             },
-            "images": "图片",
-            "versions": "版本",
-            "translations": "翻译",
-            "add_translation": "添加翻译",
-            "translation_languages": "语言",
-            "translation_languages_description": "缺少您的语言？点击此处添加。",
-            "delete_translation": "删除翻译",
-            "translation_approved": "已批准",
-            "PopupMessage": {
-                "general_saved": "内容信息保存成功",
-                "images_saved": "图片保存成功",
-                "translations_saved": "翻译保存成功",
-                "versions_saved": "版本保存成功",
-                "requested_approval": "内容已发布并等待验证"
+            "error": "There was an error creating your account. Please report this issue using the link above.",
+            "username_invalid_characters": "Username can only include letters, numbers and _",
+            "username_too_short": "Username must be at least 3 characters",
+            "username_required": "Username is required",
+            "username_placeholder": "Username",
+            "email_placeholder": "Email",
+            "email_invalid": "Email is not a valid email address",
+            "email_required": "Email is required",
+            "password_required": "Password is required",
+            "password_no_number": "Password must include at least one number",
+            "password_too_short": "Password must be 10 or more characters",
+            "button": "Sign Up",
+            "providers": "Sign up with...",
+            "already_have_account": "Already have an account?",
+            "forgot_password": "Forgot your password?",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
             }
         },
-        "translate": "翻译 {title}",
-        "translate_button": "翻译 {type} 页面",
-        "Metadata": {
-            "title_not_found": "{content_type} 未找到",
-            "description_not_found": "此 {content_type} 在 MCCreations 上不存在",
-            "title": "{title} - 由 {creator} 为 Minecraft {minecraft_version} 创作的 {content_type}，发布于 MCCreations",
+        "Translate": {
+            "title": "Translate",
+            "help": "<link>For help, click here</link>",
+            "AddLanguage": {
+                "title": "Add Language",
+                "language_placeholder": "en-US",
+                "language_description": "This should be an <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct.",
+                "add": "Add"
+            },
+            "language": "Language",
+            "language_missing": "Is your language missing? Click here to add it.",
+            "lang": {
+                "saved": "Language saved successfully",
+                "approved": "Language approved",
+                "code": "Code",
+                "visual": "Visual",
+                "save": "Save",
+                "approve": "Approve",
+                "cancel": "Cancel",
+                "back": "Back",
+                "key": "Key",
+                "english": "English",
+                "translation": "Translation"
+            },
+            "Metadata": {
+                "title": "Translate",
+                "description": "Help translate MCCreations into your language and help bring the Minecraft community around the globe together!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps"
+                }
+            }
+        },
+        "Error": {
+            "title": "Something went wrong!",
+            "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
+            "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
+        },
+        "Home": {
+            "Metadata": {
+                "title": "The greatest Minecraft Maps, Data Packs, and Resource Packs from the Minecraft Community",
+                "description": "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Games",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Map",
+                    "minecraft_creations": "Minecraft Creations",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Maps",
+                    "minecraft_games": "Minecraft Games",
+                    "download": "Free Minecraft Maps"
+                }
+            },
+            "blurb": "Minecraft Maps, Data Packs, Resource Packs, and more from the Minecraft Community around the world!",
+            "recently_updated": "Or, find something new!",
+            "view_all": "Search for..."
+        }
+    },
+    "Components": {
+        "AdUnits": {
+            "behind_text": "Ads help keep MCCreations creating cool things! Please consider disabling your ad blocker for this site :)"
+        },
+        "Creations": {
+            "Cards": {
+                "logo_alt_text": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
+                "by": "by {creator}",
+                "by_joiner": ", "
+            },
+            "Page": {
+                "Comments": {
+                    "username_placeholder": "Username",
+                    "comment_placeholder": "Comment",
+                    "send": "Send",
+                    "username_required": "Username is required",
+                    "username_too_short": "Username must be at least 3 characters",
+                    "rating_out_of_range": "Rating must be between 0 and 5",
+                    "comment_required": "Comment is required",
+                    "comment_too_short": "Comment must be at least 10 characters",
+                    "show_more": "Show {showMore}",
+                    "reply": "Reply",
+                    "replies": "{count, plural, =0 {No replies yet} =1 {1 reply} other {# replies}}",
+                    "permalink": "Copy comment permalink",
+                    "permalink_copied": "Comment permalink copied to clipboard",
+                    "delete": "Delete comment",
+                    "deleted": "Comment deleted successfully"
+                },
+                "CreationOptions": {
+                    "button": "Options",
+                    "translate": "Translate",
+                    "translateDescription": "Translate the creation to another language.",
+                    "language": "Language",
+                    "languagePlaceholder": "Select a language",
+                    "title": "Title",
+                    "shortDescription": "Short Description",
+                    "description": "Description",
+                    "submit": "Submit",
+                    "cancel": "Cancel"
+                },
+                "Sidebar": {
+                    "downloads": "Downloads",
+                    "created_date": "Created Date",
+                    "updated_date": "Updated Date"
+                },
+                "Rating": {
+                    "1": "1 Star",
+                    "2": "2 Stars",
+                    "3": "3 Stars",
+                    "4": "4 Stars",
+                    "5": "5 Stars"
+                },
+                "not_found": "{content_type} not found",
+                "not_found_description": "This {content_type} does not exist on MCCreations",
+                "logo_alt": "The logo for {title}, a Minecraft {type}",
+                "images_alt": "Image {index} of {total} for {title}",
+                "recommended_creations": "Other {tag} Creations"
+            },
+            "Search": {
+                "Headers": {
+                    "map": {
+                        "title": "Browse and Search for Minecraft Maps",
+                        "blurb": "Find amazing new Minecraft maps for your next adventure!",
+                        "description": "Minecraft maps are custom worlds created by players or developers that offer unique experiences beyond the standard game. These maps can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced map-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft maps have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players."
+                    },
+                    "datapack": {
+                        "title": "Browse and Search for Minecraft Data Packs",
+                        "blurb": "Find tools, challenges and more for your Minecraft adventures!",
+                        "description": "Minecraft data packs are essentially mods for vanilla Minecraft. They enhance gameplay by adding new features, mechanics, and experiences. They can transform the game with new challenges, quests, and even entirely new game modes. Since their introduction, data packs have become a beloved tool for creators, allowing the community to innovate and expand the possibilities of Minecraft, fostering a rich ecosystem of creativity and collaboration."
+                    },
+                    "resourcepack": {
+                        "title": "Browse and Search for Minecraft Resource Packs",
+                        "blurb": "Change up or enhance the look of Minecraft!",
+                        "description": "Minecraft resource packs are customizable collections of files that change the game's visuals and sounds, allowing players to personalize their gaming experience. They can modify textures, models, music, and sound effects, transforming the look and feel of the game. Since their introduction, resource packs have played a significant role in the Minecraft community, enabling creators to express their creativity and share their unique visions with others. Over the years, they have become a cornerstone of Minecraft's modding culture, fostering a vibrant community of artists and players who continually push the boundaries of what's possible in the game."
+                    }
+                },
+                "search": "Search",
+                "clear_filters": "Clear Filters",
+                "sort_by": "Sort By",
+                "Sort": {
+                    "title_ascending": "Title Ascending",
+                    "title_descending": "Title Descending",
+                    "creator_ascending": "Creator Ascending",
+                    "creator_descending": "Creator Descending",
+                    "newest": "Newest",
+                    "oldest": "Oldest",
+                    "highest_rated": "Highest Rated",
+                    "lowest_rated": "Lowest Rated",
+                    "highest_downloads": "Most Downloads",
+                    "lowest_downloads": "Least Downloads",
+                    "updated": "Recently Updated"
+                },
+                "Status": {
+                    "unapproved": "Published",
+                    "approved": "Verified",
+                    "featured": "Featured"
+                },
+                "TagDropdown": {
+                    "include_tag": "Include {tag}",
+                    "exclude_tag": "Exclude {tag}",
+                    "include": "Include",
+                    "exclude": "Exclude",
+                    "any": "Any",
+                    "and": "& ",
+                    "and_exclude": "and exclude {tag}"
+                },
+                "Navigator": {
+                    "previous": "Previous",
+                    "next": "Next"
+                },
+                "status": "Status",
+                "tags": "Tags",
+                "search_placeholder": "Search title, creator, version, etc."
+            },
             "Tags": {
-                "minecraft": "Minecraft",
-                "games": "games",
-                "gaming": "gaming",
-                "minecraft_creations": "Minecraft 作品",
-                "minecraft_version": "Minecraft {minecraft_version}",
-                "minecraft_datapack": "Minecraft 数据包",
-                "minecraft_map": "Minecraft 地图",
-                "minecraft_resourcepack": "Minecraft 资源包",
-                "mods": "Mods",
-                "minecraft_mods": "Minecraft Mods",
-                "minecraft_but": "Minecraft but",
-                "minecraft_survival": "Minecraft 生存"
+                "genre": "Genre",
+                "subgenre": "Subgenre",
+                "difficulty": "Difficulty",
+                "player_count": "Player Count",
+                "length": "Length",
+                "resolution": "Resolution",
+                "theme": "Theme",
+                "chill": "Chill",
+                "easy": "Easy",
+                "hard": "Hard",
+                "hardcore": "Hardcore",
+                "normal": "Normal",
+                "adventure": "Adventure",
+                "build": "Build",
+                "creative": "Creative",
+                "game": "Game",
+                "other": "Other",
+                "overhaul": "Overhaul",
+                "parkour": "Parkour",
+                "puzzle": "Puzzle",
+                "qol": "Quality of Life",
+                "realistic": "Realistic",
+                "simple": "Simple",
+                "survival": "Survival",
+                "themed": "Themed",
+                "tool": "Tool",
+                "utility": "Utility",
+                "long": "Long",
+                "medium": "Medium",
+                "short": "Short",
+                "1024x +": "1024x +",
+                "128x": "128x",
+                "16x": "16x",
+                "256x": "256x",
+                "32x": "32x",
+                "512x": "512x",
+                "64x": "64x",
+                "8x": "8x",
+                "blocks": "Blocks",
+                "bosses": "Bosses",
+                "cartoon": "Cartoon",
+                "challenge": "Challenge",
+                "city": "City",
+                "co-op": "Co-op",
+                "cosmetic": "Cosmetic",
+                "crafting": "Crafting",
+                "CTM": "CTM",
+                "dropper": "Dropper",
+                "elytra": "Elytra",
+                "entities": "Entities",
+                "episodic": "Episodic",
+                "escape": "Escape",
+                "exploration": "Exploration",
+                "faithful": "Faithful",
+                "finding": "Finding",
+                "font": "Font",
+                "funny": "Funny",
+                "GUI": "GUI",
+                "horror": "Horror",
+                "items": "Items",
+                "language": "Language",
+                "magic": "Magic",
+                "maze": "Maze",
+                "mobs": "Mobs",
+                "models": "Models",
+                "multiplayer": "Multiplayer",
+                "music": "Music",
+                "park": "Park",
+                "PVE": "PvE",
+                "PVP": "PvP",
+                "RPG": "RPG",
+                "shaders": "Shaders",
+                "singleplayer": "Singleplayer",
+                "skybox": "Skybox",
+                "smooth": "Smooth",
+                "sound": "Sound",
+                "tech": "Tech",
+                "tools": "Tools",
+                "trivia": "Trivia",
+                "tweak": "Tweak",
+                "unfair": "Unfair",
+                "weapons": "Weapons",
+                "anime": "Anime",
+                "fantasy": "Fantasy",
+                "medieval": "Medieval",
+                "modern": "Modern",
+                "sci-fi": "Sci-Fi",
+                "vanilla": "Vanilla",
+                "player_count_2": "2 Players",
+                "player_count_3": "3 Players",
+                "player_count_4+": "4+ Players"
             }
         },
-        "datapack_not_found": "数据包未找到",
-        "datapack_not_found_description": "该数据包不存在，或者您没有权限查看它",
-        "datapacks_not_found": "未找到数据包",
-        "maps_not_found": "未找到地图",
-        "map_not_found": "地图未找到",
-        "map_not_found_description": "该地图不存在，或者您没有权限查看它",
-        "resourcepack_not_found": "资源包未找到",
-        "resourcepack_not_found_description": "该资源包不存在，或者您没有权限查看它",
-        "resourcepacks_not_found": "未找到资源包",
-        "Rating": {
-            "1": "1 星（满分5星）",
-            "2": "2 星（满分5星）",
-            "3": "3 星（满分5星）",
-            "4": "4 星（满分5星）",
-            "5": "5 星（满分5星）"
+        "Footer": {
+            "about": "About",
+            "contact": "Contact",
+            "discord": "Discord",
+            "join_community": "Join the Community",
+            "legal_contact": "Legal and Contact",
+            "privacy": "Privacy Policy",
+            "request_data": "Request Data",
+            "twitter": "Twitter",
+            "bluesky": "Bluesky",
+            "youtube": "Youtube",
+            "updates": "Updates",
+            "Splashes": {
+                "1": "Gone Global!",
+                "2": "It's a website!",
+                "3": "Things are broken.",
+                "4": "I'm a footer!",
+                "5": "Minecraft is pretty cool huh.",
+                "6": "Creativity for the win!",
+                "7": "Who reads these?",
+                "8": "Anyone got a sandwich?",
+                "9": "Contribute on Github!",
+                "10": "Did you know that this is random?"
+            },
+            "mojang_disclamer": "NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.",
+            "open_source": "MCCreations is <link>open source</link>. Contribute today!",
+            "copyright": "© Ben Meier/CrazyCowMM"
         },
-        "Tags": {
-            "genre": "类型",
-            "subgenre": "子类",
-            "difficulty": "难度",
-            "length": "长度",
-            "resolution": "分辨率",
-            "theme": "主题",
-            "chill": "休闲",
-            "easy": "简单",
-            "hard": "困难",
-            "hardcore": "硬核",
-            "normal": "普通",
-            "adventure": "冒险",
-            "build": "建造",
-            "creative": "创造",
-            "game": "游戏",
-            "other": "其他",
-            "overhaul": "改革",
-            "parkour": "跑酷",
-            "puzzle": "解密",
-            "qol": "生活质量",
-            "realistic": "现实",
-            "simple": "简单",
-            "survival": "生存",
-            "themed": "主题",
-            "tool": "工具",
-            "utility": "实用",
-            "long": "长",
-            "medium": "中",
-            "short": "短",
-            "1024x +": "1024x +",
-            "128x": "128x",
-            "16x": "16x",
-            "256x": "256x",
-            "32x": "32x",
-            "512x": "512x",
-            "64x": "64x",
-            "8x": "8x",
-            "blocks": "方块",
-            "bosses": "Boss",
-            "cartoon": "卡通",
-            "challenge": "挑战",
-            "city": "城市",
-            "co-op": "合作",
-            "cosmetic": "外观",
-            "crafting": "合成",
-            "CTM": "CTM",
-            "dropper": "掉落",
-            "elytra": "鞘翅",
-            "entities": "实体",
-            "episodic": "系列",
-            "escape": "逃脱",
-            "exploration": "探索",
-            "faithful": "Faithful",
-            "finding": "搜寻",
-            "font": "字体",
-            "funny": "搞笑",
-            "GUI": "GUI",
-            "horror": "恐怖",
-            "items": "物品",
-            "language": "语言",
-            "magic": "魔法",
-            "maze": "迷宫",
-            "mobs": "生物",
-            "models": "模型",
-            "multiplayer": "多人游戏",
-            "music": "音乐",
-            "park": "公园",
-            "PVE": "PvE",
-            "PVP": "PvP",
-            "RPG": "RPG",
-            "shaders": "着色器",
-            "singleplayer": "单人游戏",
-            "skybox": "天空盒",
-            "smooth": "平滑",
-            "sound": "声音",
-            "tech": "科技",
-            "tools": "工具",
-            "trivia": "问答",
-            "tweak": "微调",
-            "unfair": "非对称",
-            "weapons": "武器",
-            "anime": "动漫",
-            "fantasy": "幻想",
-            "medieval": "中世纪",
-            "modern": "现代",
-            "sci-fi": "科幻",
-            "vanilla": "原版"
+        "Dropzone": {
+            "uploaded": "Uploaded {file}",
+            "uploading": "Uploading {file}",
+            "invalid_file_type": "Invalid file type. Please upload a {file_type} file.",
+            "file_too_large": "File is too large. Please upload a file smaller than {max_size}.",
+            "file_unknown": "An error occurred, please try again.",
+            "dropzone": "Drop your files here or click to upload",
+            "hovering": "Drop your files here to upload",
+            "FileTypes": {
+                "image": "image",
+                "zip": "zip, mcworld, mcpack, mctemplate or mcaddon"
+            },
+            "or": "Or...",
+            "link": "Link to File",
+            "link_placeholder": "https://example.com/file.zip",
+            "set_link": "Set Link"
+        },
+        "Navbar": {
+            "LanguageSwitcher": {
+                "current_language": "English",
+                "help_translate": "Help Translate"
+            },
+            "UserOptions": {
+                "sign_in": "Sign In",
+                "sign_out": "Sign Out",
+                "dashboard": "Dashboard",
+                "notifications": "Notifications",
+                "profile": "Profile",
+                "settings": "Settings",
+                "admin": "Admin",
+                "account": "Account"
+            },
+            "toggle_menu": "Toggle Menu",
+            "home": "Home",
+            "feed": "Feed",
+            "creations": "Creations",
+            "maps_blurb": "From puzzles to adventures to multiplayer madness.",
+            "datapacks_blurb": "Change your world, add a little challenge, or make a small tweak.",
+            "resourcepacks_blurb": "Explore a whole new world, or just add some new music.",
+            "creators": "Creators",
+            "create": "Create",
+            "account": "Account"
+        },
+        "RichText": {
+            "placeholder": "Start typing here...",
+            "Images": {
+                "add_caption": "Add a caption",
+                "insert_url": "Insert Image URL",
+                "insert_file": "Insert Image File"
+            },
+            "Toolbar": {
+                "undo": "Undo",
+                "redo": "Redo",
+                "bold": "Bold",
+                "italic": "Italic",
+                "underline": "Underline",
+                "strikethrough": "Strikethrough",
+                "bullet_list": "Bullet List",
+                "left_align": "Left Align",
+                "center_align": "Center Align",
+                "right_align": "Right Align",
+                "justify_align": "Justify Align",
+                "spoiler": "Spoiler"
+            }
+        },
+        "VersionManager": {
+            "title": "Files",
+            "add_version": "Upload File",
+            "Version": {
+                "back_to_versions": "Back to Files",
+                "edit": "Edit File",
+                "version_number": "Version Number",
+                "minecraft_version": "Minecraft Version",
+                "Bedrock": "Bedrock",
+                "Bedrock_description": "Is this file for the Bedrock Edition",
+                "MainFile": {
+                    "link": "Main File Link"
+                },
+                "ExtraFiles": {
+                    "file_type": "File Type",
+                    "link": "Link",
+                    "required": "Required",
+                    "required_description": "Causes this file to be automatically downloaded with the main file",
+                    "upload_file": "Upload File"
+                },
+                "save": "Save File",
+                "cancel": "Cancel",
+                "delete": "Delete",
+                "add_file": "Add File",
+                "add_file_description": "Add any extra files required for this creation, like resourcepacks"
+            }
         }
     },
-
-    "Datapacks": {
-        "Metadata": {
-            "title": "下载数据包 | MCCreations",
-            "description": "下载适用于 Minecraft 的最佳数据包。探索最受欢迎的数据包，准备开始游戏！数据包是 Minecraft 原版游戏中与模组等效的内容。它们可以添加新功能、改变游戏玩法等等！"
-        }
-    },
-
-    "Leaderboards": {
-        "not_found": "排行榜未找到",
-        "rank": "排名",
-        "player": "玩家",
-        "time": "用时",
-        "score": "得分",
-        "date": "日期",
-        "device": "设备",
-        "location": "位置",
-        "submit_time": "提交您的用时",
-        "submit_score": "提交您的得分",
-        "submit_time_description": "您的用时为 {hours} 小时 {minutes} 分 {seconds} 秒 {ticks} 游戏刻",
-        "submit_score_description": "您的得分为 {score}",
-        "submit": "提交",
-        "username": "昵称"
-    },
-
-    "Profile": {
-        "follow": "关注",
-        "unfollow": "取消关注",
-        "Widgets": {
-            "Discord": {
-                "title": "Discord",
-                "edit_title": "编辑 Discord 小组件",
-                "server_id": "服务器 ID"
-            },
-            "FeaturedCreation": {
-                "title": "精选作品",
-                "edit_title": "编辑精选作品小组件",
-                "type": "类型",
-                "slug": "路径别名"
-            },
-            "Image": {
-                "edit_title": "编辑图片小组件",
-                "image": "图片",
-                "title": "标题"
-            },
-            "Showcase": {
-                "title": "作品",
-                "edit_title": "编辑作品展示小组件",
-                "type": "类型"
-            },
-            "SupportSite": {
-                "title": "支持站点",
-                "edit_title": "编辑支持站点小组件"
-            },
-            "Text": {
-                "edit_title": "编辑文本小组件",
-                "text": "文本",
-                "title": "标题"
-            },
-            "Twitch": {
-                "title": "Twitch",
-                "edit_title": "编辑 Twitch 小组件",
-                "handle": "Twitch 用户名"
-            },
-            "Wall": {
-                "title": "留言墙",
-                "edit_title": "编辑留言墙小组件"
-            },
-            "Youtube": {
-                "title": "YouTube",
-                "edit_title": "编辑 YouTube 小组件",
-                "handle": "YouTube 用户名"
-            },
-            "delete_widget": "删除小组件"
-        }
-    }
+    "brand": "MCCreations",
+    "error": "Error",
+    "events": "Events"
 }

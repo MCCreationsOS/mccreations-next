@@ -1,0 +1,942 @@
+{
+    "language_name": "हिन्दी",
+    "language_code": "hi-IN",
+    "map": "{count, plural, =0 {मैप} =1 {मैप} other {मैप}}",
+    "datapack": "{count, plural, =0 {डेटा पैक} =1 {डेटा पैक} other {डेटा पैक}}",
+    "resourcepack": "{count, plural, =0 {संसाधन पैक} =1 {संसाधन पैक} other {संसाधन पैक}}",
+    "creator": "{count, plural, =0 {क्रिएटर} =1 {क्रिएटर} other {क्रिएटर}}",
+    "comment": "{count, plural, =0 {कमेंट} =1 {कमेंट} other {कमेंट}}",
+    "notification": "{count, plural, =0 {नोटिफ़िकेशन} =1 {नोटिफ़िकेशन} other {नोटिफ़िकेशन}}",
+    "download": "डाउनलोड",
+    "Pages": {
+        "Auth": {
+            "OAuth_Handler": {
+                "error": "हमारे API के साथ संचार करते समय त्रुटि हुई। कृपया ऊपर दिए गए लिंक से इसकी रिपोर्ट करें",
+                "loading": "आपको साइन इन कर रहा हूँ!"
+            }
+        },
+        "Comments": {
+            "_id": {
+                "loading": "टिप्पणी लोड हो रही है..."
+            }
+        },
+        "Creator": {
+            "handle": {
+                "CreatorEdit": {
+                    "EditProfileImages": {
+                        "title": "प्रोफ़ाइल चित्र एडिट करें",
+                        "button": "एडिट करें",
+                        "banner": "बैनर",
+                        "icon": "आइकन",
+                        "save": "सेव करें",
+                        "cancel": "कैंसल करें"
+                    },
+                    "EditAbout": {
+                        "title": "एडिट अबाउट",
+                        "save": "सेव",
+                        "cancel": "कैंसल"
+                    },
+                    "EditSocialLinks": {
+                        "title": "सोशल लिंक एडिट करें",
+                        "add": "सोशल लिंक जोड़ें",
+                        "remove": "हटाएं",
+                        "save": "सेव करें",
+                        "cancel": "कैंसल करें"
+                    },
+                    "EditCustomCss": {
+                        "title": "एडिट कस्टम CSS",
+                        "save": "सेव करें",
+                        "cancel": "कैंसल करें"
+                    }
+                },
+                "Metadata": {
+                    "title": "{username} - Minecraft निर्माता",
+                    "title_not_found": "निर्माता नहीं मिला",
+                    "description": "{username} के Minecraft मैप, डेटापैक और संसाधन पैक देखें। उनके कलेक्शन को ब्राउज़ करें और उनकी कृतियों को डाउनलोड करें।",
+                    "description_not_found": "अनुरोधित निर्माता नहीं मिल सका।",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "गेम्स",
+                        "gaming": "गेमिंग",
+                        "minecraft_map": "Minecraft मैप",
+                        "minecraft_datapack": "Minecraft डाटा पैक",
+                        "minecraft_resourcepack": "Minecraft संसाधन पैक",
+                        "minecraft_creations": "Minecraft कृतियाँ"
+                    }
+                },
+                "banner": "{username} का बैनर",
+                "icon": "{username} का आइकन",
+                "followers": "{count, plural, =0 {No followers} =1 {1 follower} other {# followers}}",
+                "about": "के बारे में",
+                "no_creations": "इस निर्माता ने अभी तक कोई {content_type} प्रकाशित नहीं किया है।",
+                "follow": "फॉलो करें",
+                "unfollow": "अनफॉलो करें"
+            }
+        },
+        "Content": {
+            "content_type": {
+                "criteria": {
+                    "title": "Minecraft {content_type} ब्राउज़ करें और खोजें",
+                    "blurb": "अपने अगले साहसिक कार्य के लिए अद्भुत नए Minecraft {content_type} खोजें!",
+                    "description": "Minecraft {content_type} खिलाड़ियों या डेवलपर्स द्वारा बनाई गई कस्टम दुनियाएं हैं जो मानक गेम से परे अद्वितीय अनुभव प्रदान करती हैं। ये {content_type} सरल पार्कौर चुनौतियों से लेकर जटिल साहसिक कहानियों, पहेली सुलझाने वाले अभियानों या यहां तक कि वास्तविक दुनिया के स्थानों के पुनर्निर्माण तक हो सकते हैं। Minecraft के शुरुआती दिनों से ही, समुदाय ने रचनात्मक अभिव्यक्ति के रूप में {content_type}-निर्माण को अपनाया है, जिससे नवाचार और सहयोग का एक समृद्ध इतिहास बना है। पिछले कुछ वर्षों में, Minecraft {content_type} समुदाय में एक प्रमुख घटक बन गया है, जो गेम  की असीमित संभावनाओं को प्रदर्शित करता है और रचनाकारों और खिलाड़ियों के एक जीवंत इकोसिस्टम को बढ़ावा देता है।",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "गेम्स",
+                        "gaming": "गेमिंग ",
+                        "minecraft_map": "Minecraft मैप",
+                        "minecraft_creations": "Minecraft क्रिएशन्स",
+                        "minecraft_version": "Minecraft {minecraft_version}"
+                    }
+                }
+            }
+        },
+        "Create": {
+            "next": "अगला",
+            "finish": "खत्म करें",
+            "save": "सेव करें",
+            "Import": {
+                "PMC": "Minecraft ग्रह से इंपोर्ट कर रहे हैं",
+                "downloading": "{host} से क्रिएशन डाउनलोड हो रहा है",
+                "preroll": "प्रीरोल विज्ञापन की प्रतीक्षा में...",
+                "unknown": "अज्ञात होस्ट से इंपोर्ट हो रहा है",
+                "MinecraftMaps": "मैप से इंपोर्ट हो रहा है",
+                "Modrinth": "Modrinth से इंपोर्ट हो रहा है",
+                "link_placeholder": "इंपोर्ट करने के लिए लिंक",
+                "link_description": "उस क्रिएशन का लिंक जिसे आप इंपोर्ट करना चाहते हैं। यह प्लैनेट Minecraft पेज या Modrinth पेक का लिंक हो सकता है।",
+                "link_label": "लिंक करें",
+                "title": "इंपोर्ट करें",
+                "missing_link": "कोई लिंक नहीं दिया गया"
+            },
+            "BasicInfo": {
+                "title": "बुनियादी जानकारी",
+                "type": "प्रकार",
+                "short_description": "संक्षिप्त वर्णन",
+                "missing_title": "कोई शीर्षक नहीं दिया गया",
+                "missing_type": "कोई प्रकार नहीं दिया गया",
+                "missing_short_description": "कोई संक्षिप्त विवरण नहीं दिया गया",
+                "title_too_short": "शीर्षक कम से कम 3 अक्षरों का होना चाहिए",
+                "short_description_too_short": "संक्षिप्त विवरण कम से कम 20 अक्षरों का होना चाहिए",
+                "short_description_too_long": "संक्षिप्त विवरण 100 अक्षरों से कम लंबा होना चाहिए"
+            },
+            "Details": {
+                "title": "विवरण",
+                "slug": "स्लग",
+                "creators": "क्रिएटर",
+                "video_url": "वीडियो URL",
+                "description": "विवरण",
+                "tags": "टैग",
+                "missing_slug": "कोई स्लग उपलब्ध नहीं कराया गया",
+                "missing_creators": "कोई क्रिएटर उपलब्ध नहीं कराया गया",
+                "missing_description": "कोई विवरण नहीं दिया गया",
+                "missing_tags": "कोई टैग नहीं दिया गया",
+                "slug_too_short": "स्लग कम से कम 5 अक्षरों का होना चाहिए",
+                "slug_too_long": "स्लग 50 अक्षरों से कम लंबा होना चाहिए",
+                "slug_invalid_characters": "स्लग में केवल अक्षर, संख्याएं और _ शामिल हो सकते हैं",
+                "creator_too_short": "कम से कम 1 क्रिएटर होना चाहिए",
+                "invalid_video_url": "अमान्य वीडियो URL",
+                "description_too_short": "विवरण कम से कम 10 अक्षरों का होना चाहिए",
+                "tags_too_short": "कम से कम 1 टैग होना चाहिए",
+                "saved": "विवरण सफलतापूर्वक सेव किया गया",
+                "CreatorInput": {
+                    "username": "उपयोगकर्ता नाम",
+                    "handle": "हैंडल",
+                    "add": "क्रिएटर जोड़ें"
+                },
+                "TagInput": {
+                    "placeholder": "टैग खोजने के लिए टाइप करना शुरू करें..."
+                }
+            },
+            "Files": {
+                "title": "फ़ाइलें",
+                "saved": "फ़ाइलें सफलतापूर्वक सेव की गईं"
+            },
+            "Images": {
+                "title": "इमेजेस",
+                "saved": "इमेजेस सफलतापूर्वक सेव की गईं"
+            }
+        },
+        "Dashboard": {
+            "title": "डैशबोर्ड",
+            "Notifications": {
+                "read_all": "सभी को पढ़ा हुआ मार्क करें",
+                "no_notifications": "अभी तक कोई सूचना नहीं!"
+            },
+            "delete_creation": "इस क्रिएशन को हटाने के लिए दोबारा क्लिक करें। यह स्थायी है!",
+            "loading": "लोड हो रहा है...",
+            "info": "जानकारी",
+            "status": "स्टेटस",
+            "created_date": "बनाने की तारीख",
+            "updated_date": "अपडेट करने की तारीख",
+            "downloads": "डाउनलोड",
+            "rating": "रेटिंग",
+            "comments": "कमेंट",
+            "actions": "कार्रवाई",
+            "edit": "एडिट करें",
+            "view": "देखें",
+            "delete": "हटाएं"
+        },
+        "Datapacks": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "डेटा पैक नहीं मिला",
+                    "not_found_description": "यह डेटा पैक MCCreations पर उपलब्ध नहीं है",
+                    "title": "{title} {content_type} {creator} द्वारा Minecraft {minecraft_version} के लिए",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "गेम्स",
+                        "gaming": "गेमिंग",
+                        "minecraft_datapack": "Minecraft डेटा पैक",
+                        "minecraft_creations": "Minecraft क्रिएशन्स",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "मॉड",
+                        "minecraft_mods": "Minecraft मॉड",
+                        "minecraft_but": "Minecraft बट",
+                        "minecraft_survival": "Minecraft सर्वाइवल"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "डेटा पैक खोजें और डाउनलोड करें",
+                "description": "MCCreations पर नवीनतम सत्यापित डेटा पैक डाउनलोड करें!डेटा पैक, Minecraft के लिए मॉड के समतुल्य हैं। वे नई फीचर्स जोड़ सकते हैं, गेम खेलने का तरीका बदल सकते हैं, और भी बहुत कुछ!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "गेम्स",
+                    "gaming": "गेमिंग",
+                    "minecraft_datapack": "Minecraft डेटा पैक",
+                    "minecraft_creations": "Minecraft क्रिएशन्स",
+                    "mods": "मॉड",
+                    "minecraft_mods": "Minecraft मॉड",
+                    "minecraft_but": "Minecraft बट",
+                    "minecraft_survival": "Minecraft सर्वाइवल"
+                }
+            }
+        },
+        "Edit": {
+            "contentType": {
+                "slug": {
+                    "Warnings": {
+                        "title_too_short": {
+                            "title": "शीर्षक बहुत छोटा है",
+                            "description": "शीर्षक कम से कम 3 अक्षरों का होना चाहिए"
+                        },
+                        "short_description_too_short": {
+                            "title": "संक्षिप्त विवरण बहुत छोटा है",
+                            "description": "संक्षिप्त विवरण कम से कम 3 अक्षरों का होना चाहिए"
+                        },
+                        "short_description_too_long": {
+                            "title": "संक्षिप्त विवरण बहुत लंबा है",
+                            "description": "संक्षिप्त विवरण 100 अक्षरों से कम लंबा होना चाहिए"
+                        },
+                        "slug_too_short": {
+                            "title": "स्लग बहुत छोटा है",
+                            "description": "स्लग कम से कम 2 अक्षरों का होना चाहिए"
+                        },
+                        "slug_too_long": {
+                            "title": "स्लग बहुत लंबा है",
+                            "description": "स्लग 50 अक्षरों से कम लंबा होना चाहिए"
+                        },
+                        "slug_invalid_characters": {
+                            "title": "स्लग में अमान्य अक्षर",
+                            "description": "स्लग में केवल अक्षर, संख्याएं और _ शामिल हो सकते हैं"
+                        },
+                        "creator_too_short": {
+                            "title": "बहुत कम क्रिएटर",
+                            "description": "क्रिएशन में कम से कम 1 क्रिएटर होना चाहिए"
+                        },
+                        "invalid_video_url": {
+                            "title": "अमान्य वीडियो URL",
+                            "description": "वीडियो URL एक मान्य YouTube URL होना चाहिए"
+                        },
+                        "description_too_short": {
+                            "title": "विवरण बहुत छोटा है",
+                            "description": "विवरण कम से कम 10 अक्षरों का होना चाहिए"
+                        },
+                        "tags_too_short": {
+                            "title": "बहुत कम टैग",
+                            "description": "क्रिएशन में कम से कम 1 टैग होना चाहिए"
+                        }
+                    },
+                    "Messages": {
+                        "translations_saved": "अनुवाद सफलतापूर्वक सेव किए गए",
+                        "general_saved": "क्रिएशन सफलतापूर्वक सेव किया गया"
+                    },
+                    "General": {
+                        "tab_title": "सामान्य",
+                        "title": "शीर्षक",
+                        "slug": "स्लग",
+                        "short_description": "संक्षिप्त वर्णन",
+                        "creators": "क्रिएटर",
+                        "video_url": "वीडियो URL",
+                        "description": "विवरण",
+                        "tags": "टैग",
+                        "files": "फ़ाइलें",
+                        "images": "इमेजेस",
+                        "save": "सेव करें"
+                    },
+                    "Translations": {
+                        "tab_title": "अनुवाद",
+                        "add_translation": "अनुवाद जोड़ें",
+                        "remove_translation": "अनुवाद हटाएँ",
+                        "select_language": "भाषा चुनें",
+                        "approved": "अनुमोदित",
+                        "save": "सेव करें"
+                    }
+                }
+            }
+        },
+        "Feed": {
+            "not_found_title": "कोई फ़ीड नहीं मिली",
+            "not_found_description": "साइन इन करें और अपना फ़ीड देखने के लिए क्रिएटर्स की सदस्यता लें!"
+        },
+        "Leaderboards": {
+            "contentType": {
+                "slug": {
+                    "Submit": {
+                        "submit_time": "अपना समय सबमिट करें",
+                        "submit_score": "अपना स्कोर सबमिट करें",
+                        "submit_time_description": "आपका समय {hours} घंटे, {minutes} मिनट, {seconds} सेकंड और {ticks} टिक था",
+                        "submit_score_description": "आपका स्कोर {score} था",
+                        "submit": "सबमिट करें",
+                        "username": "उपयोगकर्ता नाम"
+                    },
+                    "not_found": "लीडरबोर्ड नहीं मिला",
+                    "rank": "रैंक",
+                    "player": "खिलाड़ी",
+                    "time": "समय",
+                    "score": "स्कोर",
+                    "date": "तारीख",
+                    "device": "डिवाइस",
+                    "location": "लोकेशन"
+                }
+            }
+        },
+        "Maps": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "मैप नहीं मिला",
+                    "not_found_description": "यह मैप MCCreations पर मौजूद नहीं है",
+                    "title": "{title} {content_type} {creator} द्वारा Minecraft {minecraft_version} के लिए",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "गेसं",
+                        "gaming": "गेमिंग",
+                        "minecraft_map": "Minecraft मैप",
+                        "minecraft_creations": "Minecraft क्रिएशन्स",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "maps": "मैप",
+                        "minecraft_games": "Minecraft गेम्स",
+                        "download": "मुफ़्त Minecraft मैप",
+                        "minecraft_adventure": "Minecraft एडवेंचर",
+                        "minecraft_parkour": "Minecraft पार्कौर",
+                        "minecraft_pvp": "Minecraft PvP",
+                        "minecraft_skyblock": "Minecraft स्काईब्लॉक",
+                        "minecraft_survival": "Minecraft सर्वाइवल",
+                        "minecraft_creative": "Minecraft क्रिएटिव",
+                        "minecraft_minigames": "Minecraft मिनी गेम्स"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Minecraft मैप खोजें और डाउनलोड करें",
+                "description": "MCCreations पर नवीनतम सत्यापित Minecraft मैप डाउनलोड करें!माइनक्राफ्ट मैप खिलाड़ियों या डेवलपर्स द्वारा बनाए गए कस्टम वर्ल्ड हैं जो मानक गेम से परे अद्वितीय अनुभव प्रदान करते हैं। ये मैप सरल पार्कौर चुनौतियों से लेकर पेचीदा साहसिक कहानियों, पहेली सुलझाने वाले अभियानों या यहां तक कि असली दुनिया के स्थानों के पुनर्निर्माण तक हो सकते हैं।. Minecraft के शुरुआती दिनों से ही समुदाय ने मैप बनाने को रचनात्मक अभिव्यक्ति के रूप में अपनाया है, जिससे नवाचार और सहयोग का एक समृद्ध इतिहास बना है। पिछले कुछ वर्षों में, Minecraft मैप समुदाय में एक प्रमुख घटक बन गए हैं, जो गेम की असीमित संभावनाओं को प्रदर्शित करते हैं और रचनाकारों और खिलाड़ियों के एक जीवंत इकोसिस्टम को बढ़ावा देते हैं।",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "गेम्स",
+                    "gaming": "गेमिंग",
+                    "minecraft_map": "Minecraft मैप",
+                    "minecraft_creations": "Minecraft क्रिएशन्स",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "मैप",
+                    "minecraft_games": "Minecraft गेम्स",
+                    "download": "मुफ़्त Minecraft मैप",
+                    "minecraft_adventure": "Minecraft एडवेंचर",
+                    "minecraft_parkour": "Minecraft पार्कौर",
+                    "minecraft_pvp": "Minecraft PvP",
+                    "minecraft_skyblock": "Minecraft स्काईब्लॉक",
+                    "minecraft_survival": "Minecraft सर्वाइवल",
+                    "minecraft_creative": "Minecraft क्रिएटिव",
+                    "minecraft_minigames": "Minecraft मिनी गेम्स"
+                }
+            }
+        },
+        "NotFound": {
+            "title": "पेज नहीं मिला",
+            "description": "आप जिस पेज को खोज रहे हैं वह मौजूद नहीं है।",
+            "button": "होम पर जाएँ"
+        },
+        "ResetPassword": {
+            "token_error": "कोई टोकन नहीं मिला, पिछले पेज पर वापस जा रहे हैं",
+            "new_password": "नया पासवर्ड",
+            "retype_password": "पासवर्ड फिर से टाइप करें",
+            "password_length": "पासवर्ड 10 या अधिक अक्षरों का होना चाहिए",
+            "password_number": "पासवर्ड में कम से कम एक अंक होना आवश्यक है",
+            "passwords_not_same": "पासवर्ड एक जैसे नहीं हैं",
+            "password_required": "पासवर्ड आवश्यक है",
+            "reset": "रीसेट करें",
+            "title": "पासवर्ड रीसेट करें"
+        },
+        "Resourcepacks": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "संसाधन पैक नहीं मिला",
+                    "not_found_description": "यह संसाधन पैक MCCreations पर मौजूद नहीं है",
+                    "title": "{title} {content_type} {creator} द्वारा Minecraft {minecraft_version} के लिए",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "गेम्स",
+                        "gaming": "गेमिंग",
+                        "minecraft_resourcepack": "Minecraft संसाधन पैक",
+                        "minecraft_creations": "Minecraft क्रिएशन्स",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "मॉड",
+                        "minecraft_mods": "Minecraft मॉड",
+                        "minecraft_hd": "Minecraft HD"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Minecraft संसाधन पैक खोजें और डाउनलोड करें",
+                "description": "MCCreations पर नवीनतम सत्यापित Minecraft संसाधन पैक डाउनलोड करें!Minecraft संसाधन पैक फ़ाइलों का अनुकूलन योग्य कलेक्शन है जो गेम के दृश्यों और ध्वनियों को बदलते हैं, जिससे खिलाड़ियों को अपने गेमिंग अनुभव को निजीकृत करने की सुविधा मिलती है। वे बनावट, मॉडल, म्यूज़िक और साउंड इफेक्ट को बदल सकते हैं, जिससे गेम का स्वरूप और अनुभव बदल जाता है। अपनी शुरुआत के बाद से, संसाधन पैक ने Minecraft समुदाय में एक महत्वपूर्ण भूमिका निभाई है, जिससे क्रिएटरों को अपनी रचनात्मकता व्यक्त करने और दूसरों के साथ अपने अद्वितीय दृष्टिकोण को साझा करने में मदद मिली है। पिछले कुछ वर्षों में, वे Minecraft के मॉडिंग कल्चर की आधारशिला बन गए हैं, और कलाकारों और खिलाड़ियों के एक जीवंत समुदाय को बढ़ावा दे रहे हैं, जो गेम में संभावनाओं की सीमाओं को लगातार आगे बढ़ाते रहते हैं।",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "गेम्स",
+                    "gaming": "गेमिंग",
+                    "minecraft_resourcepack": "Minecraft संसाधन पैक",
+                    "minecraft_creations": "Minecraft क्रिएशन्स",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "mods": "मॉड",
+                    "minecraft_mods": "Minecraft मॉड",
+                    "minecraft_hd": "Minecraft HD"
+                }
+            }
+        },
+        "Settings": {
+            "Account": {
+                "loading": "अकाउंट सेटिंग्स लोड हो रही हैं...",
+                "error": "आपकी अकाउंट सेटिंग्स लोड करते समय कोई त्रुटि हुई। कृपया ऊपर दिए गए लिंक का इस्तेमाल करके इस समस्या की रिपोर्ट करें",
+                "handle_updated": "हैंडल को सफलतापूर्वक {handle} में अपडेट किया गया",
+                "username_updated": "उपयोगकर्ता नाम सफलतापूर्वक {username} में अपडेट किया गया",
+                "email_updated": "ईमेल सफलतापूर्वक {email} में अपडेट की गई",
+                "password_updated": "पासवर्ड सफलतापूर्वक अपडेट किया गया",
+                "passwords_not_match": "पासवर्ड मेल नहीं खाते",
+                "delete_account_warning": "अपना अकाउंट हटाने के लिए दोबारा क्लिक करें। यह स्थायी है!",
+                "delete_account_auth_error": "प्राधिकरण त्रुटि। कृपया दोबारा साइन इन करें",
+                "delete_account_error": "आपका अकाउंट हटाते समय एक त्रुटि हुई। कृपया ऊपर दिए गए लिंक का इस्तेमाल करके इस समस्या की रिपोर्ट करें",
+                "delete_account_success": "अकाउंट सफलतापूर्वक हटा दिया गया",
+                "title": "अकाउंट सेटिंग्स",
+                "username": "उपयोगकर्ता नाम",
+                "handle": "हैंडल",
+                "email": "ईमेल",
+                "password": "पासवर्ड",
+                "confirm_password": "पासवर्ड की पुष्टि करें",
+                "change_password": "पासवर्ड बदलें",
+                "change_username": "उपयोगकर्ता नाम बदलें",
+                "change_handle": "हैंडल बदलें",
+                "change_email": "ईमेल बदलें",
+                "delete_account": "अकाउंट हटाएं",
+                "new_username": "नया उपयोगकर्ता नाम",
+                "new_handle": "नया हैंडल",
+                "new_email": "नया ईमेल",
+                "new_password": "नया पासवर्ड"
+            },
+            "Notifications": {
+                "title": "नोटिफिकेशन सेटिंग्स",
+                "comment": "नए कमेंट",
+                "like": "लाइक नोटिफिकेशन",
+                "reply": "नए जवाब",
+                "email_daily": "दैनिक ईमेल",
+                "email_weekly": "साप्ताहिक ईमेल",
+                "push_only": "पुश ऑनली",
+                "push_email_daily": "पुश और ईमेल दैनिक",
+                "push_email_weekly": "पुश और ईमेल साप्ताहिक",
+                "dashboard_only": "केवल डैशबोर्ड",
+                "none": "कोई नहीं",
+                "translation": "नई क्रिएशन के अनुवाद",
+                "rating": "नई क्रिएशन के रेटिंग",
+                "install_ios_instructions": "iOS पर पुश नोटिफ़िकेशन का इस्तेमाल करने के लिए, tap the <icon></icon> शेयर बटन पर टैप करें और फिर \"होम स्क्रीन में जोड़ें\" पर टैप करें।",
+                "add_to_this_device": "यहां पुश नोटिफिकेशन की सदस्यता लें",
+                "follow": "पोस्ट फॉलो कर रहे हैं"
+            },
+            "title": "सेटिंग्स",
+            "account_menu_item": "अकाउंट",
+            "notifications_menu_item": "नोटिफिकेशन",
+            "profile_menu_item": "प्रोफ़ाइल"
+        },
+        "SignIn": {
+            "Reset": {
+                "title": "पासवर्ड रीसेट करें",
+                "email": "ईमेल",
+                "email_placeholder": "steve@minecraft.net",
+                "send_reset_email": "रीसेट ईमेल भेजें"
+            },
+            "Metadata": {
+                "title": "साइन इन करें",
+                "description": "अपने Minecraft मैप, डेटा पैक, संसाधन पैक, और बहुत कुछ अपलोड करने के लिए MCCreations पर अपने अकाउंट में साइन इन करें!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "गेम्स",
+                    "gaming": "गेमिंग",
+                    "minecraft_map": "Minecraft मैप",
+                    "minecraft_creations": "Minecraft क्रिएशन्स",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "मैप",
+                    "minecraft_games": "Minecraft गेम्स",
+                    "download": "मुफ़्त Minecraft मैप"
+                }
+            },
+            "error": "एक त्रुटि हुई। कृपया उपरोक्त लिंक का इस्तेमाल करके इस समस्या की रिपोर्ट करें।",
+            "providers": "... के साथ साइन इन करें",
+            "email_title": "ईमेल से साइन इन करें",
+            "email_placeholder": "steve@minecraft.net",
+            "email_required": "ईमेल आवश्यक है",
+            "email_invalid": "ईमेल एक मान्य ईमेल पता नहीं है",
+            "password_required": "पासवर्ड आवश्यक है",
+            "password_invalid": "पासवर्ड वैध पासवर्ड नहीं है",
+            "password_too_short": "पासवर्ड 10 या अधिक अक्षरों का होना चाहिए",
+            "button": "साइन इन करें",
+            "no_account": "क्या आपके पास अकाउंट नहीं है?",
+            "forgot_password": "अपना पासवर्ड भूल गए?",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            }
+        },
+        "SignUp": {
+            "Metadata": {
+                "title": "साइन अप करें",
+                "description": "अपने Minecraft मैप, डेटा पैक, संसाधन पैक वगैरह अपलोड करने के लिए MCCreations पर साइन अप करें!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "गेम्स",
+                    "gaming": "गेमिंग",
+                    "minecraft_map": "Minecraft मैप",
+                    "minecraft_creations": "Minecraft क्रिएशन्स",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "मैप",
+                    "minecraft_games": "Minecraft गेम्स",
+                    "download": "मुफ़्त Minecraft मैप"
+                }
+            },
+            "error": "आपका अकाउंट बनाने में कोई त्रुटि हुई है। कृपया उपरोक्त लिंक का इस्तेमाल करके इस समस्या की रिपोर्ट करें।",
+            "username_invalid_characters": "उपयोगकर्ता नाम में केवल अक्षर, संख्याएं और _ शामिल हो सकते हैं",
+            "username_too_short": "उपयोगकर्ता नाम कम से कम 3 अक्षरों का होना चाहिए",
+            "username_required": "उपयोगकर्ता नाम आवश्यक है",
+            "username_placeholder": "उपयोगकर्ता नाम",
+            "email_placeholder": "ईमेल",
+            "email_invalid": "ईमेल एक मान्य ईमेल पता नहीं है",
+            "email_required": "ईमेल आवश्यक है",
+            "password_required": "पासवर्ड आवश्यक है",
+            "password_no_number": "पासवर्ड में कम से कम एक अंक होना आवश्यक है",
+            "password_too_short": "पासवर्ड 10 या उससे अधिक अक्षरों का होना चाहिए",
+            "button": "साइन अप करें",
+            "providers": "... के साथ साइन अप करें",
+            "already_have_account": "क्या आपके पास पहले से एक अकाउंट मौजूद है?",
+            "forgot_password": "अपना पासवर्ड भूल गए?",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            }
+        },
+        "Translate": {
+            "title": "अनुवाद करें",
+            "help": "<link>सहायता के लिए, यहां क्लिक करें</link>",
+            "AddLanguage": {
+                "title": "भाषा जोड़ें",
+                "language_placeholder": "en-US",
+                "language_description": "यह <link>ISO 639 भाषा कोड </link> उसके बाद <link2>ISO 3166-1 रीजन कोड</link2> होना चाहिए। अगर आपको अपनी भाषा नहीं मिल रही है, तो कुछ भी चुन लें! यह महत्वपूर्ण नहीं है कि यह पूरी तरह सही हो।",
+                "add": "जोड़ें"
+            },
+            "language": "भाषा",
+            "language_missing": "क्या आपकी भाषा गायब है? इसे शामिल करने के लिए यहां क्लिक करें।",
+            "lang": {
+                "saved": "भाषा सफलतापूर्वक सेव की गई",
+                "approved": "भाषा अनुमोदित की गई",
+                "code": "कोड",
+                "visual": "दृश्य",
+                "save": "सेव करें",
+                "approve": "अनुमोदित करें",
+                "cancel": "कैंसल करें",
+                "back": "वापस जाएं",
+                "key": "मुख्य",
+                "english": "अंग्रेज़ी",
+                "translation": "अनुवाद"
+            },
+            "Metadata": {
+                "title": "अनुवाद करें",
+                "description": "MCCreations को अपनी भाषा में अनुवाद करने में सहायता करें और दुनिया भर में Minecraft समुदाय को एक साथ लाने में सहायता करें!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "गेम्स",
+                    "gaming": "गेमिंग",
+                    "minecraft_map": "Minecraft मैप",
+                    "minecraft_creations": "Minecraft क्रिएशन्स",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "मैप",
+                    "minecraft_games": "Minecraft गेम्स",
+                    "download": "मुफ़्त Minecraft मैप"
+                }
+            }
+        },
+        "Error": {
+            "title": "कुछ गड़बड़ हो गई!",
+            "description": "ऐसा लगता है कि हमारे सर्किट में कुछ गंदगी फंस गई है! कृपया नीचे दिए गए लिंक का इस्तेमाल करके इसकी रिपोर्ट करें और बाद में दोबारा कोशिश करें।",
+            "report": "इस समस्या की रिपोर्ट <form>इस फ़ॉर्म</form> का इस्तेमाल करके, <github>हमारे Github पेज के जरिए</github>, या <link>हमारे Discord में शामिल होकर</link> वहाँ रिपोर्ट करें।"
+        },
+        "Home": {
+            "Metadata": {
+                "title": "Minecraft समुदाय के सबसे बेहतरीन Minecraft मैप, डेटा पैक और संसाधन पैक",
+                "description": "MCCreations एक अनौपचारिक प्रशंसक साइट है जहाँ आप नवीनतम और बेहतरीन Minecaft मैप, डेटा पैक और संसाधन पैक पा सकते हैं!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "गेम्स",
+                    "gaming": "गेमिंग",
+                    "minecraft_map": "Minecraft मैप",
+                    "minecraft_creations": "Minecraft क्रिएशन्स",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "मैप",
+                    "minecraft_games": "Minecraft गेम्स",
+                    "download": "मुफ़्त Minecraft मैप"
+                }
+            },
+            "blurb": "दुनिया भर के Minecraft समुदाय से Minecraft मैप, डेटा पैक, संसाधन पैक और बहुत कुछ!",
+            "recently_updated": "या फिर कुछ नया खोजें!",
+            "view_all": "... को खोजें"
+        }
+    },
+    "Components": {
+        "AdUnits": {
+            "behind_text": "विज्ञापन MCCreations को शानदार चीजें बनाने में मदद करते हैं! कृपया इस साइट के लिए अपने विज्ञापन अवरोधक को अक्षम करने पर विचार करें :)"
+        },
+        "Creations": {
+            "Cards": {
+                "logo_alt_text": "{title} का लोगो, MCCreations पर {creator} द्वारा Minecraft {minecraft_version} के लिए एक Minecraft {type}",
+                "by": "{creator} द्वारा",
+                "by_joiner": ", "
+            },
+            "Page": {
+                "Comments": {
+                    "username_placeholder": "उपयोगकर्ता नाम",
+                    "comment_placeholder": "कमेंट करें",
+                    "send": "भेजें",
+                    "username_required": "उपयोगकर्ता नाम आवश्यक है",
+                    "username_too_short": "उपयोगकर्ता नाम कम से कम 3 अक्षरों का होना चाहिए",
+                    "rating_out_of_range": "रेटिंग 0 और 5 के बीच होनी चाहिए",
+                    "comment_required": "कमेंट आवश्यक है",
+                    "comment_too_short": "कमेंट कम से कम 10 अक्षरों का होना चाहिए",
+                    "show_more": "{showMore} दिखाएं",
+                    "reply": "जवाब",
+                    "replies": "{count, plural, =0 {अभी तक कोई जवाब नहीं} =1 {1 जवाब} other {# जवाब}}",
+                    "permalink": "कमेंट का स्थायी लिंक कॉपी करें",
+                    "permalink_copied": "कमेंट का स्थायी लिंक क्लिपबोर्ड पर कॉपी किया गया",
+                    "delete": "कमेंट हटाएं",
+                    "deleted": "कमेंट सफलतापूर्वक हटा दिया गया"
+                },
+                "CreationOptions": {
+                    "button": "विकल्प",
+                    "translate": "अनुवाद करें",
+                    "translateDescription": "क्रिएशन का किसी अन्य भाषा में अनुवाद करें।",
+                    "language": "भाषा",
+                    "languagePlaceholder": "भाषा चुनें",
+                    "title": "शीर्षक",
+                    "shortDescription": "संक्षिप्त वर्णन",
+                    "description": "विवरण",
+                    "submit": "सबमिट करें",
+                    "cancel": "कैंसल करें"
+                },
+                "Sidebar": {
+                    "downloads": "डाउनलोड",
+                    "created_date": "बनाने की तारीख",
+                    "updated_date": "अपडेट करने की तारीख"
+                },
+                "Rating": {
+                    "1": "1 स्टार",
+                    "2": "2 स्टार",
+                    "3": "3 स्टार",
+                    "4": "4 स्टार",
+                    "5": "5 स्टार"
+                },
+                "not_found": "{content_type} नहीं मिला",
+                "not_found_description": "यह {content_type} MCCreations पर मौजूद नहीं है",
+                "logo_alt": "{title} का लोगो, एक Minecraft {type}",
+                "images_alt": "{title} के लिए {total} में से इमेज {index}",
+                "recommended_creations": "अन्य {tag} क्रिएशन्स"
+            },
+            "Search": {
+                "Headers": {
+                    "map": {
+                        "title": "Minecraft मैप ब्राउज़ करें और खोजें",
+                        "blurb": "अपने अगले साहसिक कार्य के लिए अद्भुत नए Minecraft मैप खोजें!",
+                        "description": "Minecraft मैप खिलाड़ियों या डेवलपर्स द्वारा बनाए गए कस्टम वर्ल्ड हैं जो मानक गेम से परे अद्वितीय अनुभव प्रदान करते हैं। ये मैप सरल पार्कौर चुनौतियों से लेकर पेचीदा साहसिक कहानियों, पहेली सुलझाने वाले अभियानों या यहां तक कि असली दुनिया के स्थानों के पुनर्निर्माण तक हो सकते हैं।. Minecraft के शुरुआती दिनों से ही समुदाय ने मैप बनाने को रचनात्मक अभिव्यक्ति के रूप में अपनाया है, जिससे नवाचार और सहयोग का एक समृद्ध इतिहास बना है। पिछले कुछ वर्षों में, Minecraft मैप समुदाय में एक प्रमुख घटक बन गए हैं, जो गेम की असीमित संभावनाओं को प्रदर्शित करते हैं और रचनाकारों और खिलाड़ियों के एक जीवंत इकोसिस्टम को बढ़ावा देते हैं।"
+                    },
+                    "datapack": {
+                        "title": "Minecraft डेटा पैक ब्राउज़ करें और खोजें",
+                        "blurb": "अपने Minecraft रोमांच के लिए उपकरण, चुनौतियां और अधिक खोजें!",
+                        "description": "Minecraft डेटा पैक मूलतः वेनिला Minecraft के लिए मॉड हैं। वे नई फीचर्स, मकैनिक्स और अनुभव जोड़कर गेमप्ले को बेहतर बनाते हैं। वे नई चुनौतियों, खोजों और यहां तक कि पूरी तरह से नए गेम मोड के साथ गेम को बदल सकते हैं। अपनी शुरुआत के बाद से, डेटा पैक क्रिएटरों के लिए एक प्रिय उपकरण बन गया है, जिससे समुदाय को Minecraft की संभावनाओं को नया रूप देने और विस्तार करने का अवसर मिला है, जिससे रचनात्मकता और सहयोग का एक समृद्ध इकोसिस्टम विकसित हुआ है।"
+                    },
+                    "resourcepack": {
+                        "title": "Minecraft संसाधन पैक ब्राउज़ करें और खोजें",
+                        "blurb": "Minecraft के स्वरूप को बदलें या निखारें!",
+                        "description": "Minecraft संसाधन पैक फ़ाइलों का अनुकूलन योग्य कलेक्शन है जो गेम के दृश्यों और ध्वनियों को बदलते हैं, जिससे खिलाड़ियों को अपने गेमिंग अनुभव को निजीकृत करने की सुविधा मिलती है। वे बनावट, मॉडल, म्यूज़िक और साउंड इफेक्ट को बदल सकते हैं, जिससे गेम का स्वरूप और अनुभव बदल जाता है। अपनी शुरुआत के बाद से, संसाधन पैक ने Minecraft समुदाय में एक महत्वपूर्ण भूमिका निभाई है, जिससे क्रिएटरों को अपनी रचनात्मकता व्यक्त करने और दूसरों के साथ अपने अद्वितीय दृष्टिकोण को साझा करने में मदद मिली है। पिछले कुछ वर्षों में, वे Minecraft के मॉडिंग कल्चर की आधारशिला बन गए हैं, और कलाकारों और खिलाड़ियों के एक जीवंत समुदाय को बढ़ावा दे रहे हैं, जो गेम में संभावनाओं की सीमाओं को लगातार आगे बढ़ाते रहते हैं।"
+                    }
+                },
+                "search": "खोजें",
+                "clear_filters": "फ़िल्टर हटाएं",
+                "sort_by": "इसके द्वारा सॉर्ट करें",
+                "Sort": {
+                    "title_ascending": "बढ़ते क्रम में शीर्षक",
+                    "title_descending": "घटते क्रम में शीर्षक",
+                    "creator_ascending": "बढ़ते क्रम में क्रिएटर",
+                    "creator_descending": "घटते क्रम में क्रिएटर",
+                    "newest": "नवीनतम",
+                    "oldest": "सबसे पुराने",
+                    "highest_rated": "सबसे ज्यादा रेटिंग",
+                    "lowest_rated": "सबसे कम रेटिंग",
+                    "highest_downloads": "सर्वाधिक डाउनलोड",
+                    "lowest_downloads": "सबसे कम डाउनलोड",
+                    "updated": "हाल ही में अपडेट किया गया"
+                },
+                "Status": {
+                    "unapproved": "प्रकाशित",
+                    "approved": "सत्यापित",
+                    "featured": "फीचर्ड"
+                },
+                "TagDropdown": {
+                    "include_tag": "{tag} शामिल करें",
+                    "exclude_tag": "{tag} शामिल नहीं करें",
+                    "include": "शामिल करें",
+                    "exclude": "शामिल नहीं करें",
+                    "any": "कोई",
+                    "and": "और ",
+                    "and_exclude": "और {tag} शामिल नहीं करें"
+                },
+                "Navigator": {
+                    "previous": "पिछला",
+                    "next": "अगला"
+                },
+                "status": "स्टेटस",
+                "tags": "टैग",
+                "search_placeholder": "शीर्षक, क्रिएटर, वर्ज़न आदि खोजें।"
+            },
+            "Tags": {
+                "genre": "शैली",
+                "subgenre": "उप-शैली",
+                "difficulty": "कठिनाई",
+                "player_count": "खिलाड़ियों की संख्या",
+                "length": "लंबाई",
+                "resolution": "रेज़ोल्यूशन",
+                "theme": "थीम",
+                "chill": "चिल",
+                "easy": "आसान",
+                "hard": "मुश्किल",
+                "hardcore": "कट्टर",
+                "normal": "सामान्य",
+                "adventure": "साहसिक काम",
+                "build": "निर्माण",
+                "creative": "रचनात्मक",
+                "game": "गेम",
+                "other": "अन्य",
+                "overhaul": "ओवरहाल",
+                "parkour": "पारकौर",
+                "puzzle": "पहेली",
+                "qol": "जीवन स्तर",
+                "realistic": "यथार्थवादी",
+                "simple": "सरल",
+                "survival": "सर्वाइवल",
+                "themed": "थीम पर आधारित",
+                "tool": "टूल",
+                "utility": "यूटिलिटी",
+                "long": "लंबा",
+                "medium": "मध्यम",
+                "short": "छोटा",
+                "1024x +": "1024x +",
+                "128x": "128x",
+                "16x": "16x",
+                "256x": "256x",
+                "32x": "32x",
+                "512x": "512x",
+                "64x": "64x",
+                "8x": "8x",
+                "blocks": "ब्लॉक",
+                "bosses": "बॉस",
+                "cartoon": "कार्टून",
+                "challenge": "चुनौती",
+                "city": "शहर",
+                "co-op": "सहकारिता",
+                "cosmetic": "कॉस्मेटिक",
+                "crafting": "शिल्पकला",
+                "CTM": "CTM",
+                "dropper": "ड्रॉपर",
+                "elytra": "एलीट्रा",
+                "entities": "इकाइयां",
+                "episodic": "प्रासंगिक",
+                "escape": "पलायन",
+                "exploration": "अन्वेषण",
+                "faithful": "वफादार",
+                "finding": "खोज",
+                "font": "फ़ॉन्ट",
+                "funny": "मज़ेदार",
+                "GUI": "GUI",
+                "horror": "डरावनी",
+                "items": "आइटम",
+                "language": "भाषा",
+                "magic": "जादू",
+                "maze": "भूलभुलैया",
+                "mobs": "भीड़",
+                "models": "मॉडल",
+                "multiplayer": "मल्टीप्लेयर",
+                "music": "म्यूज़िक",
+                "park": "पार्क",
+                "PVE": "PvE",
+                "PVP": "PvP",
+                "RPG": "RPG",
+                "shaders": "शेडर",
+                "singleplayer": "एकल खिलाड़ी",
+                "skybox": "स्काईबॉक्स",
+                "smooth": "चिकना",
+                "sound": "साउंड",
+                "tech": "तकनीक",
+                "tools": "टूल्स",
+                "trivia": "सामान्य ज्ञान",
+                "tweak": "ट्वीक",
+                "unfair": "अनुचित",
+                "weapons": "हथियार",
+                "anime": "एनीमे",
+                "fantasy": "कल्पना",
+                "medieval": "मध्यकालीन",
+                "modern": "आधुनिक",
+                "sci-fi": "विज्ञान-कथा",
+                "vanilla": "वेनिला",
+                "player_count_2": "2 खिलाड़ी",
+                "player_count_3": "3 खिलाड़ी",
+                "player_count_4+": "4+ खिलाड़ी"
+            }
+        },
+        "Footer": {
+            "about": "के बारे में",
+            "contact": "संपर्क",
+            "discord": "Discord",
+            "join_community": "समुदाय में शामिल हों",
+            "legal_contact": "कानूनी और संपर्क",
+            "privacy": "गोपनीयता नीति",
+            "request_data": "डेटा का अनुरोध करें",
+            "twitter": "Twitter",
+            "bluesky": "Bluesky",
+            "youtube": "Youtube",
+            "updates": "अपडेट",
+            "Splashes": {
+                "1": "वैश्विक हो गया!",
+                "2": "यह एक वेबसाइट है!",
+                "3": "चीजें टूट गई हैं।",
+                "4": "मैं एक फुटर हूँ!",
+                "5": "Minecraft बहुत बढ़िया है।",
+                "6": "जीत के लिए रचनात्मकता!",
+                "7": "इन्हें कौन पढ़ता है?",
+                "8": "किसी के पास सैंडविच है?",
+                "9": "Github पर योगदान करें!",
+                "10": "क्या आप जानते हैं कि यह रैंडम है?"
+            },
+            "mojang_disclamer": "आधिकारिक Minecraft उत्पाद नहीं है। MOJANG द्वारा अनुमोदित या उससे संबद्ध नहीं है।",
+            "open_source": "MCCreations <link>ओपन सोर्स</link> है। आज ही योगदान करें!",
+            "copyright": "© बेन मेयर/CrazyCowMM"
+        },
+        "Dropzone": {
+            "uploaded": "{file} अपलोड की गई",
+            "uploading": "{file} अपलोड हो रही है",
+            "invalid_file_type": "अमान्य फ़ाइल प्रकार। कृपया  {file_type} फ़ाइल अपलोड करें।",
+            "file_too_large": "फ़ाइल बहुत बड़ी है। कृपया {max_size} से छोटी फ़ाइल अपलोड करें।",
+            "file_unknown": "कोई त्रुटि हुई, कृपया दोबारा कोशिश करें।",
+            "dropzone": "अपनी फ़ाइलें यहां ड्रॉप करें या अपलोड करने के लिए क्लिक करें",
+            "hovering": "अपलोड करने के लिए अपनी फ़ाइलें यहां ड्रॉप करें",
+            "FileTypes": {
+                "image": "इमेज",
+                "zip": "zip, mcworld, mcpack, mctemplate or mcaddon"
+            },
+            "or": "या...",
+            "link": "फ़ाइल का लिंक",
+            "link_placeholder": "https://example.com/file.zip",
+            "set_link": "Link सेट करें"
+        },
+        "Navbar": {
+            "LanguageSwitcher": {
+                "current_language": "अंग्रेज़ी",
+                "help_translate": "अनुवाद में सहायता करें"
+            },
+            "UserOptions": {
+                "sign_in": "साइन इन करें",
+                "sign_out": "साइन आउट करें",
+                "dashboard": "डैशबोर्ड",
+                "notifications": "नोटिफ़िकेशन",
+                "profile": "प्रोफ़ाइल",
+                "settings": "सेटिंग्स",
+                "admin": "ऐड्मिन",
+                "account": "अकाउंट"
+            },
+            "toggle_menu": "टॉगल मेनू",
+            "home": "होम",
+            "feed": "फ़ीड",
+            "creations": "क्रिएशन्स",
+            "maps_blurb": "पहेलियों से लेकर रोमांच और मल्टीप्लेयर पागलपन तक।",
+            "datapacks_blurb": "अपनी दुनिया बदलें, थोड़ी चुनौती जोड़ें, या थोड़ा बदलाव करें।",
+            "resourcepacks_blurb": "एक पूरी नई दुनिया एक्सप्लोर करें या बस कुछ नया म्यूज़िक जोड़ें।",
+            "creators": "क्रिएटर",
+            "create": "बनाएं",
+            "account": "अकाउंट"
+        },
+        "RichText": {
+            "placeholder": "यहां टाइप करना शुरू करें...",
+            "Images": {
+                "add_caption": "कैप्शन जोड़ें",
+                "insert_url": "इमेज URL डालें",
+                "insert_file": "इमेज फ़ाइल डालें"
+            },
+            "Toolbar": {
+                "undo": "पूर्ववत करें",
+                "redo": "फिर से करें",
+                "bold": "बोल्ड",
+                "italic": "इटैलिक",
+                "underline": "अंडरलाइन",
+                "strikethrough": "स्ट्राइकथ्रू",
+                "bullet_list": "बुलेट सूची",
+                "left_align": "बाएं अलाइन करें",
+                "center_align": "सेंटर अलाइन करें",
+                "right_align": "दाएं अलाइन करें",
+                "justify_align": "जस्टिफाई अलाइन करें",
+                "spoiler": "स्पॉइलर"
+            }
+        },
+        "VersionManager": {
+            "title": "फ़ाइलें",
+            "add_version": "फ़ाइल अपलोड करें",
+            "Version": {
+                "back_to_versions": "फ़ाइलों पर वापस जाएँ",
+                "edit": "फ़ाइल एडिट करें",
+                "version_number": "वर्ज़न नंबर",
+                "minecraft_version": "Minecraft वर्ज़न",
+                "Bedrock": "बेडरॉक",
+                "Bedrock_description": "क्या यह फ़ाइल बेडरॉक संस्करण के लिए है?",
+                "MainFile": {
+                    "link": "मुख्य फ़ाइल लिंक"
+                },
+                "ExtraFiles": {
+                    "file_type": "फ़ाइल प्रकार",
+                    "link": "लिंक",
+                    "required": "आवश्यक",
+                    "required_description": "इस फ़ाइल को मुख्य फ़ाइल के साथ अपने आप डाउनलोड किया जाता है",
+                    "upload_file": "फ़ाइल अपलोड करें"
+                },
+                "save": "फ़ाइल सेव करें",
+                "cancel": "कैंसल करें",
+                "delete": "हटाएं",
+                "add_file": "फ़ाइल जोड़ें",
+                "add_file_description": "इस क्रिएशन के लिए आवश्यक कोई भी अतिरिक्त फ़ाइलें जोड़ें, जैसे कि संसाधन पैक"
+            }
+        }
+    },
+    "brand": "MCCreations",
+    "error": "त्रुटि",
+    "events": "इवेंट"
+}

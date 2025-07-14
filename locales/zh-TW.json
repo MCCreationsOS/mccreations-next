@@ -1,6 +1,6 @@
 {
-    "language_name": "English",
-    "language_code": "en-US",
+    "language_name": "繁體中文",
+    "language_code": "zh-TW",
     "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
     "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
     "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
@@ -109,7 +109,6 @@
             },
             "BasicInfo": {
                 "title": "Basic Info",
-                "title_input": "Title",
                 "type": "Type",
                 "short_description": "Short Description",
                 "missing_title": "No title provided",
