@@ -7,207 +7,207 @@
     "creator": "{count, plural, =0 {Creators} =1 {Creator} other {Creators}}",
     "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
     "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
-    "download": "Download",
+    "download": "下載",
     "Pages": {
         "Auth": {
             "OAuth_Handler": {
-                "error": "There was an error communicating with our API. Please report this with the link above",
-                "loading": "Signing you in!"
+                "error": "與我們的API通訊時發生錯誤。請使用上方的連結回報此問題。",
+                "loading": "正在登入﹗"
             }
         },
         "Comments": {
             "_id": {
-                "loading": "Loading Comment..."
+                "loading": "正在載入評論…"
             }
         },
         "Creator": {
             "handle": {
                 "CreatorEdit": {
                     "EditProfileImages": {
-                        "title": "Edit Profile Images",
-                        "button": "Edit",
-                        "banner": "Banner",
-                        "icon": "Icon",
-                        "save": "Save",
-                        "cancel": "Cancel"
+                        "title": "編輯個人檔案圖片",
+                        "button": "編輯",
+                        "banner": "橫幅",
+                        "icon": "圖標",
+                        "save": "儲存",
+                        "cancel": "取消"
                     },
                     "EditAbout": {
-                        "title": "Edit About",
-                        "save": "Save",
-                        "cancel": "Cancel"
+                        "title": "編輯簡介",
+                        "save": "儲存",
+                        "cancel": "取消"
                     },
                     "EditSocialLinks": {
-                        "title": "Edit Social Links",
-                        "add": "Add Social Link",
-                        "remove": "Remove",
-                        "save": "Save",
-                        "cancel": "Cancel"
+                        "title": "編輯社交媒體連結",
+                        "add": "新增社交媒體連結",
+                        "remove": "移除",
+                        "save": "儲存",
+                        "cancel": "取消"
                     },
                     "EditCustomCss": {
-                        "title": "Edit Custom CSS",
-                        "save": "Save",
-                        "cancel": "Cancel"
+                        "title": "編輯自訂CSS",
+                        "save": "儲存",
+                        "cancel": "取消"
                     }
                 },
                 "Metadata": {
-                    "title": "{username} - Minecraft Creator",
-                    "title_not_found": "Creator Not Found",
-                    "description": "Check out {username}'s Minecraft maps, datapacks, and resource packs. Browse their collection and download their creations.",
-                    "description_not_found": "The requested creator could not be found.",
+                    "title": "{username} — Minecraft創作者",
+                    "title_not_found": "找不到創作者",
+                    "description": "查看{username}的Minecraft地圖、資料包、及資源包。瀏覽此創作者的系列及下載其作品。",
+                    "description_not_found": "找不到此創作者。",
                     "Keywords": {
                         "minecraft": "Minecraft",
-                        "games": "Games",
-                        "gaming": "Gaming",
-                        "minecraft_map": "Minecraft Map",
-                        "minecraft_datapack": "Minecraft Data Pack",
-                        "minecraft_resourcepack": "Minecraft Resource Pack",
-                        "minecraft_creations": "Minecraft Creations"
+                        "games": "遊戲",
+                        "gaming": "gaming",
+                        "minecraft_map": "Minecraft地圖",
+                        "minecraft_datapack": "Minecraft資料包",
+                        "minecraft_resourcepack": "Minecraft資源包",
+                        "minecraft_creations": "Minecraft作品"
                     }
                 },
-                "banner": "{username}'s Banner",
-                "icon": "{username}'s Icon",
-                "followers": "{count, plural, =0 {No followers} =1 {1 follower} other {# followers}}",
-                "about": "About",
-                "no_creations": "This creator hasn't published any {content_type} yet.",
-                "follow": "Follow",
-                "unfollow": "Unfollow"
+                "banner": "{username}的橫幅",
+                "icon": "{username}的圖標",
+                "followers": "{count, plural, =0 {No followers} =1 {1 follower} 其他 {# followers}}",
+                "about": "簡介",
+                "no_creations": "此創作者尚未發佈任何{content_type}。",
+                "follow": "追蹤",
+                "unfollow": "取消追蹤"
             }
         },
         "Content": {
             "content_type": {
                 "criteria": {
-                    "title": "Browse and Search for Minecraft {content_type}",
-                    "blurb": "Find amazing new Minecraft {content_type} for your next adventure!",
-                    "description": "Minecraft {content_type} are custom worlds created by players or developers that offer unique experiences beyond the standard game. These {content_type} can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced {content_type}-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft {content_type} have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players.",
+                    "title": "瀏覽及搜尋Minecraft{content_type}",
+                    "blurb": "為您下一趟冒險搜尋全新Minecraft{content_type}﹗",
+                    "description": "Minecraft{content_type}是由玩家或開發者所創造的自訂世界，提供標準遊戲以外的獨特體驗。這些{content_type}非常多元化，包括簡單的跑酷挑戰、複雜的冒險故事及解謎任務，甚至是重塑現實世界地點。在Minecraft世界誕生之初，社群便將{content_type}創作作為創意表達形式，促成了後來數之不盡的創新與合作。在過去多年期間，Minecraft{content_type}已慢慢成為了社群中的主要元素，充分體現了Minecraft的無限可能，孕育出蓬勃的玩家及創作者生態圈。",
                     "Keywords": {
                         "minecraft": "Minecraft",
-                        "games": "Games",
-                        "gaming": "Gaming",
-                        "minecraft_map": "Minecraft Map",
-                        "minecraft_creations": "Minecraft Creations",
-                        "minecraft_version": "Minecraft {minecraft_version}"
+                        "games": "遊戲",
+                        "gaming": "gaming",
+                        "minecraft_map": "Minecraft地圖",
+                        "minecraft_creations": "Minecraft作品",
+                        "minecraft_version": "Minecraft{minecraft_version}"
                     }
                 }
             }
         },
         "Create": {
-            "next": "Next",
-            "finish": "Finish",
-            "save": "Save",
+            "next": "下一步",
+            "finish": "結束",
+            "save": "儲存",
             "Import": {
-                "PMC": "Importing from Planet Minecraft",
-                "downloading": "Downloading creation from {host}",
-                "preroll": "Waiting for Preroll Ad...",
-                "unknown": "Importing from unknown host",
-                "MinecraftMaps": "Importing from Minecraft Maps",
-                "Modrinth": "Importing from Modrinth",
-                "link_placeholder": "Link to import from",
-                "link_description": "Link to the creation you want to import. This can be a link to a Planet Minecraft page, or a Modrinth page.",
-                "link_label": "Link",
-                "title": "Import",
-                "missing_link": "No link provided"
+                "PMC": "從Planet Minecraft匯入",
+                "downloading": "從{host}下載作品",
+                "preroll": "正等候前導廣告…",
+                "unknown": "從不明主機下載",
+                "MinecraftMaps": "從Minecraft地圖匯入",
+                "Modrinth": "從Modrinth匯入",
+                "link_placeholder": "匯入連結",
+                "link_description": "前往您想匯入的作品的連結，例如連結至Planet Minecraft或Modrinth page頁面。",
+                "link_label": "連結",
+                "title": "匯入",
+                "missing_link": "沒有提供連結"
             },
             "BasicInfo": {
-                "title": "Basic Info",
-                "type": "Type",
-                "short_description": "Short Description",
-                "missing_title": "No title provided",
-                "missing_type": "No type provided",
-                "missing_short_description": "No short description provided",
-                "title_too_short": "Title must be at least 3 characters long",
-                "short_description_too_short": "Short description must be at least 20 characters long",
-                "short_description_too_long": "Short description must be less than 100 characters long"
+                "title": "標題",
+                "type": "類型",
+                "short_description": "簡短描述",
+                "missing_title": "沒有提供標題",
+                "missing_type": "沒有提供類型",
+                "missing_short_description": "沒有提供簡短描述",
+                "title_too_short": "標題最少需要3個字元",
+                "short_description_too_short": "簡短描述最少需要20個字元",
+                "short_description_too_long": "簡短描述必須少於100個字元"
             },
             "Details": {
-                "title": "Details",
-                "slug": "Slug",
-                "creators": "Creators",
-                "video_url": "Video URL",
-                "description": "Description",
-                "tags": "Tags",
-                "missing_slug": "No slug provided",
-                "missing_creators": "No creators provided",
-                "missing_description": "No description provided",
-                "missing_tags": "No tags provided",
-                "slug_too_short": "Slug must be at least 5 characters long",
-                "slug_too_long": "Slug must be less than 50 characters long",
-                "slug_invalid_characters": "Slug can only include letters, numbers and _",
-                "creator_too_short": "Must have at least 1 creator",
-                "invalid_video_url": "Invalid video URL",
-                "description_too_short": "Description must be at least 10 characters long",
-                "tags_too_short": "Must have at least 1 tag",
-                "saved": "Details saved successfully",
+                "title": "詳細資訊",
+                "slug": "Slug（網址末段）",
+                "creators": "創作者",
+                "video_url": "影片URL",
+                "description": "描述",
+                "tags": "標籤",
+                "missing_slug": "沒有提供slug",
+                "missing_creators": "沒有提供創作者",
+                "missing_description": "沒有提供描述",
+                "missing_tags": "沒有提供標籤",
+                "slug_too_short": "Slug最少需要5個字元",
+                "slug_too_long": "Slug必須少於50個字元",
+                "slug_invalid_characters": "Slug只能包含字母、數字及_",
+                "creator_too_short": "最少需要1名創作者",
+                "invalid_video_url": "影片URL無效",
+                "description_too_short": "描述最少需要10個字元",
+                "tags_too_short": "最少需要1個標籤",
+                "saved": "詳細資訊儲存成功",
                 "CreatorInput": {
-                    "username": "Username",
-                    "handle": "Handle",
-                    "add": "Add Creator"
+                    "username": "用戶名稱",
+                    "handle": "帳戶名稱",
+                    "add": "新增創作者"
                 },
                 "TagInput": {
-                    "placeholder": "Start typing to search for tags..."
+                    "placeholder": "請鍵入以搜尋標籤"
                 }
             },
             "Files": {
-                "title": "Files",
-                "saved": "Files saved successfully"
+                "title": "檔案",
+                "saved": "檔案儲存成功"
             },
             "Images": {
-                "title": "Images",
-                "saved": "Images saved successfully"
+                "title": "圖片",
+                "saved": "圖片儲存成功"
             }
         },
         "Dashboard": {
-            "title": "Dashboard",
+            "title": "控制面板",
             "Notifications": {
-                "read_all": "Mark all as read",
-                "no_notifications": "No notifications yet!"
+                "read_all": "全部標記為已讀",
+                "no_notifications": "暫時未有通知﹗"
             },
-            "delete_creation": "Click again to delete this creation. This is permanent!",
-            "loading": "Loading...",
-            "info": "Info",
-            "status": "Status",
-            "created_date": "Created Date",
-            "updated_date": "Updated Date",
-            "downloads": "Downloads",
-            "rating": "Rating",
-            "comments": "Comments",
-            "actions": "Actions",
-            "edit": "Edit",
-            "view": "View",
-            "delete": "Delete"
+            "delete_creation": "再次點按以刪除此作品。注意，作品將被永久刪除﹗",
+            "loading": "載入中",
+            "info": "資訊",
+            "status": "狀態",
+            "created_date": "創作日期",
+            "updated_date": "更新日期",
+            "downloads": "下載",
+            "rating": "評分",
+            "comments": "評論",
+            "actions": "操作",
+            "edit": "編輯",
+            "view": "查看",
+            "delete": "刪除"
         },
         "Datapacks": {
             "slug": {
                 "Metadata": {
-                    "not_found_title": "Data Pack Not Found",
-                    "not_found_description": "This data pack does not exist on MCCreations",
-                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "not_found_title": "找不到資料包",
+                    "not_found_description": "MCCreations站內並沒有此資料包",
+                    "title": "{creator}為Minecraft{minecraft_version}創作的{title}{content_type}",
                     "Tags": {
                         "minecraft": "Minecraft",
-                        "games": "Games",
-                        "gaming": "Gaming",
-                        "minecraft_datapack": "Minecraft Data Pack",
-                        "minecraft_creations": "Minecraft Creations",
-                        "minecraft_version": "Minecraft {minecraft_version}",
-                        "mods": "Mods",
-                        "minecraft_mods": "Minecraft Mods",
+                        "games": "遊戲",
+                        "gaming": "gaming",
+                        "minecraft_datapack": "Minecraft資料包",
+                        "minecraft_creations": "Minecraft作品",
+                        "minecraft_version": "Minecraft{minecraft_version}",
+                        "mods": "模組",
+                        "minecraft_mods": "Minecraft模組",
                         "minecraft_but": "Minecraft But",
-                        "minecraft_survival": "Minecraft Survival"
+                        "minecraft_survival": "Minecraft生存"
                     }
                 }
             },
             "Metadata": {
-                "title": "Find and Download Data Packs",
-                "description": "Download the latest verified Data Packs on MCCreations! Data Packs are the vanilla equivalent of mods for Minecraft. They can add new features, change the way the game is played, and more!",
+                "title": "尋找及下載資料包",
+                "description": "在MCCreations下載最新的認證資料包吧！資料包是Minecraft原版遊戲中，類似Mod（模組）的自訂遊戲選擇，能添加新功能及改變遊戲玩法等，帶來更多變化！",
                 "Keywords": {
                     "minecraft": "Minecraft",
-                    "games": "Games",
-                    "gaming": "Gaming",
-                    "minecraft_datapack": "Minecraft Data Pack",
-                    "minecraft_creations": "Minecraft Creations",
-                    "mods": "Mods",
-                    "minecraft_mods": "Minecraft Mods",
+                    "games": "遊戲",
+                    "gaming": "gaming",
+                    "minecraft_datapack": "Minecraft資料包",
+                    "minecraft_creations": "Minecraft作品",
+                    "mods": "模組",
+                    "minecraft_mods": "Minecraft模組",
                     "minecraft_but": "Minecraft But",
-                    "minecraft_survival": "Minecraft Survival"
+                    "minecraft_survival": "Minecraft生存"
                 }
             }
         },
@@ -216,286 +216,286 @@
                 "slug": {
                     "Warnings": {
                         "title_too_short": {
-                            "title": "Title Too Short",
-                            "description": "The title must be at least 3 characters long"
+                            "title": "標題太短",
+                            "description": "標題最少需要3個字元"
                         },
                         "short_description_too_short": {
-                            "title": "Short Description Too Short",
-                            "description": "The short description must be at least 3 characters long"
+                            "title": "簡短描述太短",
+                            "description": "簡短描述最少需要3個字元"
                         },
                         "short_description_too_long": {
-                            "title": "Short Description Too Long",
-                            "description": "The short description must be less than 100 characters long"
+                            "title": "簡短描述太長",
+                            "description": "簡短描述必須少於100個字元"
                         },
                         "slug_too_short": {
-                            "title": "Slug Too Short",
-                            "description": "The slug must be at least 2 characters long"
+                            "title": "Slug太短",
+                            "description": "Slug最少需要2個字元"
                         },
                         "slug_too_long": {
-                            "title": "Slug Too Long",
-                            "description": "The slug must be less than 50 characters long"
+                            "title": "Slug太長",
+                            "description": "Slug必須少於50個字元"
                         },
                         "slug_invalid_characters": {
-                            "title": "Slug Invalid Characters",
-                            "description": "The slug can only include letters, numbers and _"
+                            "title": "Slug含有無效字元",
+                            "description": "Slug只能包含字母、數字及_"
                         },
                         "creator_too_short": {
-                            "title": "Too Few Creators",
-                            "description": "The creation must have at least 1 creator"
+                            "title": "創作者太少",
+                            "description": "作品最少必須有1名創作者"
                         },
                         "invalid_video_url": {
-                            "title": "Invalid Video URL",
-                            "description": "The video URL must be a valid YouTube URL"
+                            "title": "影片URL無效",
+                            "description": "影片URL必須為有效的Youtube URL"
                         },
                         "description_too_short": {
-                            "title": "Description Too Short",
-                            "description": "The description must be at least 10 characters long"
+                            "title": "描述太短",
+                            "description": "描述最少需要10個字元"
                         },
                         "tags_too_short": {
-                            "title": "Too Few Tags",
-                            "description": "The creation must have at least 1 tag"
+                            "title": "標籤太少",
+                            "description": "作品最少必須有1個標籤"
                         }
                     },
                     "Messages": {
-                        "translations_saved": "Translations saved successfully",
-                        "general_saved": "Creation saved successfully"
+                        "translations_saved": "翻譯儲存成功",
+                        "general_saved": "作品儲存成功"
                     },
                     "General": {
-                        "tab_title": "General",
-                        "title": "Title",
-                        "slug": "Slug",
-                        "short_description": "Short Description",
-                        "creators": "Creators",
-                        "video_url": "Video URL",
-                        "description": "Description",
-                        "tags": "Tags",
-                        "files": "Files",
-                        "images": "Images",
-                        "save": "Save"
+                        "tab_title": "一般",
+                        "title": "標題",
+                        "slug": "Slug（網址末段）",
+                        "short_description": "簡短描述",
+                        "creators": "創作者",
+                        "video_url": "影片URL",
+                        "description": "描述",
+                        "tags": "標籤",
+                        "files": "檔案",
+                        "images": "圖片",
+                        "save": "儲存"
                     },
                     "Translations": {
-                        "tab_title": "Translations",
-                        "add_translation": "Add Translation",
-                        "remove_translation": "Remove Translation",
-                        "select_language": "Select a Language",
-                        "approved": "Approved",
-                        "save": "Save"
+                        "tab_title": "翻譯",
+                        "add_translation": "新增翻譯",
+                        "remove_translation": "移除翻譯",
+                        "select_language": "選擇語言",
+                        "approved": "已核准",
+                        "save": "儲存"
                     }
                 }
             }
         },
         "Feed": {
-            "not_found_title": "No Feed Found",
-            "not_found_description": "Sign in and subscribe to creators to see your feed!"
+            "not_found_title": "找不到動態消息",
+            "not_found_description": "登入及訂閱創作者以查看動態消息！"
         },
         "Leaderboards": {
             "contentType": {
                 "slug": {
                     "Submit": {
-                        "submit_time": "Submit Your Time",
-                        "submit_score": "Submit Your Score",
-                        "submit_time_description": "Your time was {hours} hours, {minutes} minutes, {seconds} seconds and {ticks} ticks",
-                        "submit_score_description": "Your score was {score}",
-                        "submit": "Submit",
-                        "username": "Username"
+                        "submit_time": "呈交您的完成時間",
+                        "submit_score": "呈交您的分數",
+                        "submit_time_description": "您的完成時間為{hours}小時{minutes}分{seconds}秒{ticks}刻",
+                        "submit_score_description": "您的分數是{score}",
+                        "submit": "呈交",
+                        "username": "用戶名稱"
                     },
-                    "not_found": "Leaderboard Not Found",
-                    "rank": "Rank",
-                    "player": "Player",
-                    "time": "Time",
-                    "score": "Score",
-                    "date": "Date",
-                    "device": "Device",
-                    "location": "Location"
+                    "not_found": "找不到排行榜",
+                    "rank": "排名",
+                    "player": "玩家",
+                    "time": "完成時間",
+                    "score": "分數",
+                    "date": "日期",
+                    "device": "裝置",
+                    "location": "地點"
                 }
             }
         },
         "Maps": {
             "slug": {
                 "Metadata": {
-                    "not_found_title": "Map Not Found",
-                    "not_found_description": "This map does not exist on MCCreations",
-                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "not_found_title": "找不到地圖",
+                    "not_found_description": "MCCreations站內並沒有此地圖",
+                    "title": "{creator}為Minecraft{minecraft_version}創作的{title}{content_type}",
                     "Tags": {
                         "minecraft": "Minecraft",
-                        "games": "Games",
-                        "gaming": "Gaming",
-                        "minecraft_map": "Minecraft Map",
-                        "minecraft_creations": "Minecraft Creations",
-                        "minecraft_version": "Minecraft {minecraft_version}",
-                        "maps": "Maps",
-                        "minecraft_games": "Minecraft Games",
-                        "download": "Free Minecraft Maps",
-                        "minecraft_adventure": "Minecraft Adventure",
-                        "minecraft_parkour": "Minecraft Parkour",
+                        "games": "遊戲",
+                        "gaming": "gaming",
+                        "minecraft_map": "Minecraft地圖",
+                        "minecraft_creations": "Minecraft作品",
+                        "minecraft_version": "Minecraft{minecraft_version}",
+                        "maps": "地圖",
+                        "minecraft_games": "Minecraft遊戲",
+                        "download": "免費Minecraft地圖",
+                        "minecraft_adventure": "Minecraft冒險",
+                        "minecraft_parkour": "Minecraft跑酷",
                         "minecraft_pvp": "Minecraft PvP",
                         "minecraft_skyblock": "Minecraft Skyblock",
-                        "minecraft_survival": "Minecraft Survival",
-                        "minecraft_creative": "Minecraft Creative",
-                        "minecraft_minigames": "Minecraft Minigames"
+                        "minecraft_survival": "Minecraft生存",
+                        "minecraft_creative": "Minecraft創造",
+                        "minecraft_minigames": "Minecraft迷你遊戲"
                     }
                 }
             },
             "Metadata": {
-                "title": "Find and Download Minecraft Maps",
-                "description": "Download the latest verified Minecraft maps on MCCreations! Minecraft maps are custom worlds created by players or developers that offer unique experiences beyond the standard game. These maps can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced map-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft maps have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players.",
+                "title": "尋找及下載Minecraft地圖",
+                "description": "在MCCreations下載最新的認證Minecraft地圖吧！Minecraft地圖是由玩家或開發者所創造的自訂世界，提供標準遊戲以外的獨特體驗。這些地圖非常多元化，包括簡單的跑酷挑戰、複雜的冒險故事及解謎任務，甚至是重塑現實世界地點。在Minecraft世界誕生之初，社群便將地圖製作作為創意表達形式，促成了後來數之不盡的創新與合作。在過去多年期間，Minecraft地圖已慢慢成為了社群中的主要元素，充分體現了Minecraft的無限可能，孕育出蓬勃的玩家及創作者生態圈。",
                 "Keywords": {
                     "minecraft": "Minecraft",
-                    "games": "Games",
-                    "gaming": "Gaming",
-                    "minecraft_map": "Minecraft Map",
-                    "minecraft_creations": "Minecraft Creations",
-                    "minecraft_version": "Minecraft {minecraft_version}",
-                    "maps": "Maps",
-                    "minecraft_games": "Minecraft Games",
-                    "download": "Free Minecraft Maps",
-                    "minecraft_adventure": "Minecraft Adventure",
-                    "minecraft_parkour": "Minecraft Parkour",
+                    "games": "遊戲",
+                    "gaming": "gaming",
+                    "minecraft_map": "Minecraft地圖",
+                    "minecraft_creations": "Minecraft作品",
+                    "minecraft_version": "Minecraft{minecraft_version}",
+                    "maps": "地圖",
+                    "minecraft_games": "Minecraft遊戲",
+                    "download": "免費Minecraft地圖",
+                    "minecraft_adventure": "Minecraft冒險",
+                    "minecraft_parkour": "Minecraft跑酷",
                     "minecraft_pvp": "Minecraft PvP",
                     "minecraft_skyblock": "Minecraft Skyblock",
-                    "minecraft_survival": "Minecraft Survival",
-                    "minecraft_creative": "Minecraft Creative",
-                    "minecraft_minigames": "Minecraft Minigames"
+                    "minecraft_survival": "Minecraft生存",
+                    "minecraft_creative": "Minecraft創造",
+                    "minecraft_minigames": "Minecraft迷你遊戲"
                 }
             }
         },
         "NotFound": {
-            "title": "Page Not Found",
-            "description": "The page you are looking for does not exist.",
-            "button": "Go to Home"
+            "title": "找不到頁面",
+            "description": "您尋找的頁面並不存在",
+            "button": "此往首頁"
         },
         "ResetPassword": {
-            "token_error": "No token found, returning to previous page",
-            "new_password": "New Password",
-            "retype_password": "Retype Password",
-            "password_length": "Password must be 10 or more characters",
-            "password_number": "Password must include at least one number",
-            "passwords_not_same": "Passwords are not the same",
-            "password_required": "Password is required",
-            "reset": "Reset",
-            "title": "Reset Password"
+            "token_error": "找不到憑證，返回上一頁",
+            "new_password": "新密碼",
+            "retype_password": "重新輸入密碼",
+            "password_length": "密碼最少必須有10個字元",
+            "password_number": "密碼最少必須包括1個數字",
+            "passwords_not_same": "兩組密碼並不相符",
+            "password_required": "必須輸入密碼",
+            "reset": "重設",
+            "title": "重設密碼"
         },
         "Resourcepacks": {
             "slug": {
                 "Metadata": {
-                    "not_found_title": "Resource Pack Not Found",
-                    "not_found_description": "This resource pack does not exist on MCCreations",
-                    "title": "{title} {content_type} by {creator} for Minecraft {minecraft_version}",
+                    "not_found_title": "找不到資源包",
+                    "not_found_description": "MCCreations站內並沒有此資源包",
+                    "title": "{creator}為Minecraft{minecraft_version}創作的{title}{content_type}",
                     "Tags": {
                         "minecraft": "Minecraft",
-                        "games": "Games",
-                        "gaming": "Gaming",
-                        "minecraft_resourcepack": "Minecraft Resource Pack",
-                        "minecraft_creations": "Minecraft Creations",
-                        "minecraft_version": "Minecraft {minecraft_version}",
-                        "mods": "Mods",
-                        "minecraft_mods": "Minecraft Mods",
-                        "minecraft_hd": "Minecraft HD"
+                        "games": "遊戲",
+                        "gaming": "gaming",
+                        "minecraft_resourcepack": "Minecraft資源包",
+                        "minecraft_creations": "Minecraft作品",
+                        "minecraft_version": "Minecraft{minecraft_version}",
+                        "mods": "模組",
+                        "minecraft_mods": "Minecraft模組",
+                        "minecraft_hd": "MinecraftHD"
                     }
                 }
             },
             "Metadata": {
-                "title": "Find and Download Minecraft Resource Packs",
-                "description": "Download the latest verified Minecraft resource packs on MCCreations! Minecraft resource packs are customizable collections of files that change the game's visuals and sounds, allowing players to personalize their gaming experience. They can modify textures, models, music, and sound effects, transforming the look and feel of the game. Since their introduction, resource packs have played a significant role in the Minecraft community, enabling creators to express their creativity and share their unique visions with others. Over the years, they have become a cornerstone of Minecraft's modding culture, fostering a vibrant community of artists and players who continually push the boundaries of what's possible in the game.",
+                "title": "尋找及下載Minecraft資源包",
+                "description": "在MCCreations下載最新的認證Minecraft資源包吧﹗Minecraft資源包是可自訂的檔案集合，能改變遊戲的視覺和音效，讓玩家擁有個人化的遊戲體驗。玩家可以調整遊戲中的材質、模型、音樂和音效，以改變遊戲的外觀和感覺。自推出以來，資源包便在Minecraft社群擔任了重要的角色，讓無數創作者能夠發揮創意，及向其他人分享自己的獨特奇想。多年來，資源包已經成為Minecraft模組製作文化的基石，孕育出蓬勃的藝術家及玩家社群，持續為遊戲挖開更大潛力，拓展全新界限。",
                 "Keywords": {
                     "minecraft": "Minecraft",
-                    "games": "Games",
-                    "gaming": "Gaming",
-                    "minecraft_resourcepack": "Minecraft Resource Pack",
-                    "minecraft_creations": "Minecraft Creations",
-                    "minecraft_version": "Minecraft {minecraft_version}",
-                    "mods": "Mods",
-                    "minecraft_mods": "Minecraft Mods",
-                    "minecraft_hd": "Minecraft HD"
+                    "games": "遊戲",
+                    "gaming": "gaming",
+                    "minecraft_resourcepack": "Minecraft資源包",
+                    "minecraft_creations": "Minecraft作品",
+                    "minecraft_version": "Minecraft{minecraft_version}",
+                    "mods": "模組",
+                    "minecraft_mods": "Minecraft模組",
+                    "minecraft_hd": "MinecraftHD"
                 }
             }
         },
         "Settings": {
             "Account": {
-                "loading": "Loading account settings...",
-                "error": "There was an error loading your account settings. Please report this issue using the link above",
-                "handle_updated": "Handle updated successfully to {handle}",
-                "username_updated": "Username updated successfully to {username}",
-                "email_updated": "Email updated successfully to {email}",
-                "password_updated": "Password updated successfully",
-                "passwords_not_match": "Passwords do not match",
-                "delete_account_warning": "Click again to delete your account. This is permanent!",
-                "delete_account_auth_error": "Authorization Error. Please sign in again",
-                "delete_account_error": "There was an error deleting your account. Please report this issue using the link above",
-                "delete_account_success": "Account successfully deleted",
-                "title": "Account Settings",
-                "username": "Username",
-                "handle": "Handle",
-                "email": "Email",
-                "password": "Password",
-                "confirm_password": "Confirm Password",
-                "change_password": "Change Password",
-                "change_username": "Change Username",
-                "change_handle": "Change Handle",
-                "change_email": "Change Email",
-                "delete_account": "Delete Account",
-                "new_username": "New Username",
-                "new_handle": "New Handle",
-                "new_email": "New Email",
-                "new_password": "New Password"
+                "loading": "正在載入帳戶設定…",
+                "error": "載入帳戶設定時出現錯誤。請使用上方的連結回報此問題。",
+                "handle_updated": "帳戶名稱成功更新至{handle}",
+                "username_updated": "用戶名稱成功更新至{username}",
+                "email_updated": "電子郵件成功更新至{email}",
+                "password_updated": "密碼已成功更新",
+                "passwords_not_match": "密碼並不相符",
+                "delete_account_warning": "再次點按以刪除您的帳戶。注意，帳戶將被永久刪除﹗",
+                "delete_account_auth_error": "授權錯誤，請再次登入",
+                "delete_account_error": "刪除帳戶時出現錯誤。請使用上方的連結回報此問題",
+                "delete_account_success": "已成功刪除帳戶",
+                "title": "帳戶設定",
+                "username": "用戶名稱",
+                "handle": "帳戶名稱",
+                "email": "電子郵件",
+                "password": "密碼",
+                "confirm_password": "確認密碼",
+                "change_password": "更改密碼",
+                "change_username": "更改用戶名稱",
+                "change_handle": "更改帳戶名稱",
+                "change_email": "更改電子郵件",
+                "delete_account": "刪除帳戶",
+                "new_username": "新用戶名稱",
+                "new_handle": "新帳戶名稱",
+                "new_email": "新電子郵件",
+                "new_password": "新密碼"
             },
             "Notifications": {
-                "title": "Notification Settings",
-                "comment": "New Comments",
-                "like": "Like Notifications",
-                "reply": "New Replies",
-                "email_daily": "Email Daily",
-                "email_weekly": "Email Weekly",
-                "push_only": "Push Only",
-                "push_email_daily": "Push & Email Daily",
-                "push_email_weekly": "Push & Email Weekly",
-                "dashboard_only": "Dashboard Only",
-                "none": "None",
-                "translation": "New Creation Translations",
-                "rating": "New Creation Ratings",
-                "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
-                "add_to_this_device": "Subscribe to Push Notifications Here",
-                "follow": "Following Posts"
+                "title": "通知設定",
+                "comment": "新評論",
+                "like": "點讚通知",
+                "reply": "新回覆",
+                "email_daily": "每日電子郵件通知",
+                "email_weekly": "每週電子郵件通知",
+                "push_only": "只接收推播通知",
+                "push_email_daily": "推播及每日電子郵件通知",
+                "push_email_weekly": "推播及每週電子郵件通知",
+                "dashboard_only": "只接收控制面板通知",
+                "none": "不接收任何通知",
+                "translation": "新作品翻譯",
+                "rating": "新作品評分",
+                "install_ios_instructions": "如要在iOS使用推播通知，請點按<icon></icon>分享按鈕，然後按 \"加入主畫面\"。",
+                "add_to_this_device": "在此訂閱推播通知",
+                "follow": "追蹤中的貼文通知"
             },
-            "title": "Settings",
-            "account_menu_item": "Account",
-            "notifications_menu_item": "Notifications",
-            "profile_menu_item": "Profile"
+            "title": "設定",
+            "account_menu_item": "帳戶",
+            "notifications_menu_item": "通知",
+            "profile_menu_item": "個人檔案"
         },
         "SignIn": {
             "Reset": {
-                "title": "Reset Password",
-                "email": "Email",
+                "title": "重設密碼",
+                "email": "電子郵件",
                 "email_placeholder": "steve@minecraft.net",
-                "send_reset_email": "Send Reset Email"
+                "send_reset_email": "傳送重設密碼電子郵件"
             },
             "Metadata": {
-                "title": "Sign In",
-                "description": "Sign in to your account on MCCreations to upload your Minecraft Maps, Data Packs, Resource Packs, and more!",
+                "title": "登入",
+                "description": "登入您的MCCreations帳戶，以上傳您的Minecraft地圖、資料包、資源包及其他作品！",
                 "Keywords": {
                     "minecraft": "Minecraft",
-                    "games": "Games",
-                    "gaming": "Gaming",
-                    "minecraft_map": "Minecraft Map",
-                    "minecraft_creations": "Minecraft Creations",
-                    "minecraft_version": "Minecraft {minecraft_version}",
-                    "maps": "Maps",
-                    "minecraft_games": "Minecraft Games",
-                    "download": "Free Minecraft Maps"
+                    "games": "遊戲",
+                    "gaming": "gaming",
+                    "minecraft_map": "Minecraft地圖",
+                    "minecraft_creations": "Minecraft作品",
+                    "minecraft_version": "Minecraft{minecraft_version}",
+                    "maps": "地圖",
+                    "minecraft_games": "Minecraft遊戲",
+                    "download": "免費Minecraft地圖"
                 }
             },
-            "error": "There was an error. Please report this issue using the link above.",
-            "providers": "Sign in with...",
-            "email_title": "Sign in with email",
+            "error": "出現錯誤。請使用上方的連結回報此問題。",
+            "providers": "使用以下其中一種方式登入",
+            "email_title": "使用電子郵件登入",
             "email_placeholder": "steve@minecraft.net",
-            "email_required": "Email is required",
-            "email_invalid": "Email is not a valid email address",
-            "password_required": "Password is required",
-            "password_invalid": "Password is not a valid password",
-            "password_too_short": "Password must be 10 or more characters",
-            "button": "Sign In",
-            "no_account": "Don't have an account?",
-            "forgot_password": "Forgot your password?",
+            "email_required": "必須輸入電子郵件",
+            "email_invalid": "電子郵件地址無效",
+            "password_required": "必須輸入密碼",
+            "password_invalid": "密碼無效",
+            "password_too_short": "密碼最少必須有10個字元",
+            "button": "登入",
+            "no_account": "未有帳戶？",
+            "forgot_password": "忘記密碼？",
             "Providers": {
                 "discord": "Discord",
                 "github": "Github",
@@ -505,35 +505,35 @@
         },
         "SignUp": {
             "Metadata": {
-                "title": "Sign Up",
-                "description": "Sign up to MCCreations to upload your Minecraft Maps, Data Packs, Resource Packs, and more!",
+                "title": "註冊",
+                "description": "註冊MCCreations帳戶，以上傳您的Minecraft地圖、資料包、資源包及其他作品！",
                 "Keywords": {
                     "minecraft": "Minecraft",
-                    "games": "Games",
-                    "gaming": "Gaming",
-                    "minecraft_map": "Minecraft Map",
-                    "minecraft_creations": "Minecraft Creations",
-                    "minecraft_version": "Minecraft {minecraft_version}",
-                    "maps": "Maps",
-                    "minecraft_games": "Minecraft Games",
-                    "download": "Free Minecraft Maps"
+                    "games": "遊戲",
+                    "gaming": "gaming",
+                    "minecraft_map": "Minecraft地圖",
+                    "minecraft_creations": "Minecraft作品",
+                    "minecraft_version": "Minecraft{minecraft_version}",
+                    "maps": "地圖",
+                    "minecraft_games": "Minecraft遊戲",
+                    "download": "免費Minecraft地圖"
                 }
             },
-            "error": "There was an error creating your account. Please report this issue using the link above.",
-            "username_invalid_characters": "Username can only include letters, numbers and _",
-            "username_too_short": "Username must be at least 3 characters",
-            "username_required": "Username is required",
-            "username_placeholder": "Username",
-            "email_placeholder": "Email",
-            "email_invalid": "Email is not a valid email address",
-            "email_required": "Email is required",
-            "password_required": "Password is required",
-            "password_no_number": "Password must include at least one number",
-            "password_too_short": "Password must be 10 or more characters",
-            "button": "Sign Up",
-            "providers": "Sign up with...",
-            "already_have_account": "Already have an account?",
-            "forgot_password": "Forgot your password?",
+            "error": "建立帳戶時出現錯誤。請使用上方的連結回報此問題。",
+            "username_invalid_characters": "用戶名稱只能包括字母、數字及_",
+            "username_too_short": "用戶名稱最少需要3個字元",
+            "username_required": "必須輸入用戶名稱",
+            "username_placeholder": "用戶名稱",
+            "email_placeholder": "電子郵件",
+            "email_invalid": "電子郵件地址無效",
+            "email_required": "必須輸入電",
+            "password_required": "必須輸入密碼",
+            "password_no_number": "密碼最少必須包括1個數字",
+            "password_too_short": "密碼最少必須有10個字元",
+            "button": "註冊",
+            "providers": "使用以下其中一種方式註冊",
+            "already_have_account": "已經有帳戶？",
+            "forgot_password": "忘記密碼？",
             "Providers": {
                 "discord": "Discord",
                 "github": "Github",
@@ -542,216 +542,216 @@
             }
         },
         "Translate": {
-            "title": "Translate",
-            "help": "<link>For help, click here</link>",
+            "title": "翻譯",
+            "help": "<link>如需協助，請按此處</link>",
             "AddLanguage": {
-                "title": "Add Language",
-                "language_placeholder": "en-US",
-                "language_description": "This should be an <link>ISO 639 language code</link> followed by an <link2>ISO 3166-1 Region code</link2>. If you can't find your language, make something up! It's not important that this is strictly correct.",
-                "add": "Add"
+                "title": "新增語言",
+                "language_placeholder": "zh-TW",
+                "language_description": "此代碼的前半部分應該是<link>ISO 639語言代碼</link>，後半部分則是<link2>ISO 3166-1國家地區代碼</link2>如果您找不到所需語言的代碼，可先隨便填寫！即使此一欄並非完全正確，也不是大問題。",
+                "add": "新增"
             },
-            "language": "Language",
-            "language_missing": "Is your language missing? Click here to add it.",
+            "language": "語言",
+            "language_missing": "沒有您的語言嗎？請點按此處以新增。",
             "lang": {
-                "saved": "Language saved successfully",
-                "approved": "Language approved",
-                "code": "Code",
-                "visual": "Visual",
-                "save": "Save",
-                "approve": "Approve",
-                "cancel": "Cancel",
-                "back": "Back",
-                "key": "Key",
-                "english": "English",
-                "translation": "Translation"
+                "saved": "語言儲存成功",
+                "approved": "語言已核准",
+                "code": "代碼模式",
+                "visual": "簡易模式",
+                "save": "儲存",
+                "approve": "核准",
+                "cancel": "取消",
+                "back": "返回",
+                "key": "鍵值",
+                "english": "英文",
+                "translation": "翻譯"
             },
             "Metadata": {
-                "title": "Translate",
-                "description": "Help translate MCCreations into your language and help bring the Minecraft community around the globe together!",
+                "title": "翻譯",
+                "description": "幫忙把MCCreations翻譯至您的語言，讓全球各地的Minecraft社群聚首一堂吧！",
                 "Keywords": {
                     "minecraft": "Minecraft",
-                    "games": "Games",
-                    "gaming": "Gaming",
-                    "minecraft_map": "Minecraft Map",
-                    "minecraft_creations": "Minecraft Creations",
-                    "minecraft_version": "Minecraft {minecraft_version}",
-                    "maps": "Maps",
-                    "minecraft_games": "Minecraft Games",
-                    "download": "Free Minecraft Maps"
+                    "games": "遊戲",
+                    "gaming": "gaming",
+                    "minecraft_map": "Minecraft地圖",
+                    "minecraft_creations": "Minecraft作品",
+                    "minecraft_version": "Minecraft{minecraft_version}",
+                    "maps": "地圖",
+                    "minecraft_games": "Minecraft遊戲",
+                    "download": "免費Minecraft地圖"
                 }
             }
         },
         "Error": {
-            "title": "Something went wrong!",
-            "description": "Looks like we might have gotten some dirt stuck in our circuits! Please report this using the links below and try again later.",
-            "report": "Report this issue using <form>this form</form>, <github>through our Github page</github>, or <link>join our Discord</link> to report it there."
+            "title": "出現錯誤！",
+            "description": "我們的電路中似乎沾了些泥垢！請使用下方的連結回報此問題，並於稍後再試一次。",
+            "report": "請使用<form>這份表格</form>、<github>前往我們的Github頁面</github>、或<link>加入我們的Discord伺服器</link>，以回報此問題。"
         },
         "Home": {
             "Metadata": {
-                "title": "The greatest Minecraft Maps, Data Packs, and Resource Packs from the Minecraft Community",
-                "description": "MCCreations is an unofficial fan site where you can find the latest and greatest Minecaft maps, datapacks and resourcepacks!",
+                "title": "Minecraft社群中最棒的Minecraft地圖、資料包和資源包",
+                "description": "MCCreations是非官方的粉絲創作分享網站，您可在這裡下載最新及最棒的Minecraft地圖、資料包和資源包！",
                 "Keywords": {
                     "minecraft": "Minecraft",
-                    "games": "Games",
-                    "gaming": "Gaming",
-                    "minecraft_map": "Minecraft Map",
-                    "minecraft_creations": "Minecraft Creations",
-                    "minecraft_version": "Minecraft {minecraft_version}",
-                    "maps": "Maps",
-                    "minecraft_games": "Minecraft Games",
-                    "download": "Free Minecraft Maps"
+                    "games": "遊戲",
+                    "gaming": "gaming",
+                    "minecraft_map": "Minecraft地圖",
+                    "minecraft_creations": "Minecraft作品",
+                    "minecraft_version": "Minecraft{minecraft_version}",
+                    "maps": "地圖",
+                    "minecraft_games": "Minecraft遊戲",
+                    "download": "免費Minecraft地圖"
                 }
             },
-            "blurb": "Minecraft Maps, Data Packs, Resource Packs, and more from the Minecraft Community around the world!",
-            "recently_updated": "Or, find something new!",
-            "view_all": "Search for..."
+            "blurb": "全球Minecraft社群創作分享網站：下載地圖、資料包、資源包及其他精彩內容！",
+            "recently_updated": "或挖掘新事物！",
+            "view_all": "搜尋…"
         }
     },
     "Components": {
         "AdUnits": {
-            "behind_text": "Ads help keep MCCreations creating cool things! Please consider disabling your ad blocker for this site :)"
+            "behind_text": "廣告收益是支持MCCreations持續創作的動力！建議暫時關閉廣告阻擋器，感謝支持～ :)"
         },
         "Creations": {
             "Cards": {
-                "logo_alt_text": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
-                "by": "by {creator}",
-                "by_joiner": ", "
+                "logo_alt_text": "{title}的標誌—由{creator}為Minecraft{minecraft_version}創作的Minecraft{type}，上傳於MCCreations",
+                "by": "由{creator}創作",
+                "by_joiner": "、"
             },
             "Page": {
                 "Comments": {
-                    "username_placeholder": "Username",
-                    "comment_placeholder": "Comment",
-                    "send": "Send",
-                    "username_required": "Username is required",
-                    "username_too_short": "Username must be at least 3 characters",
-                    "rating_out_of_range": "Rating must be between 0 and 5",
-                    "comment_required": "Comment is required",
-                    "comment_too_short": "Comment must be at least 10 characters",
-                    "show_more": "Show {showMore}",
-                    "reply": "Reply",
-                    "replies": "{count, plural, =0 {No replies yet} =1 {1 reply} other {# replies}}",
-                    "permalink": "Copy comment permalink",
-                    "permalink_copied": "Comment permalink copied to clipboard",
-                    "delete": "Delete comment",
-                    "deleted": "Comment deleted successfully"
+                    "username_placeholder": "用戶名稱",
+                    "comment_placeholder": "評論",
+                    "send": "傳送",
+                    "username_required": "必須輸入用戶名稱",
+                    "username_too_short": "用戶名稱最少需要3個字元",
+                    "rating_out_of_range": "評分必須為0至5",
+                    "comment_required": "必須輸入評論",
+                    "comment_too_short": "評論最少需要10個字元",
+                    "show_more": "顯示{showMore}",
+                    "reply": "回覆",
+                    "replies": "{count, plural, =0 {No replies yet} =1 {1 reply} 其他 {# replies}}",
+                    "permalink": "複製評論的固定連結",
+                    "permalink_copied": "評論的固定連結已複製至剪貼簿",
+                    "delete": "刪除評論",
+                    "deleted": "已成功刪除評論"
                 },
                 "CreationOptions": {
-                    "button": "Options",
-                    "translate": "Translate",
-                    "translateDescription": "Translate the creation to another language.",
-                    "language": "Language",
-                    "languagePlaceholder": "Select a language",
-                    "title": "Title",
-                    "shortDescription": "Short Description",
-                    "description": "Description",
-                    "submit": "Submit",
-                    "cancel": "Cancel"
+                    "button": "選項",
+                    "translate": "翻譯",
+                    "translateDescription": "把作品翻譯至另一語言",
+                    "language": "語言",
+                    "languagePlaceholder": "選擇語言",
+                    "title": "標題",
+                    "shortDescription": "簡短描述",
+                    "description": "描述",
+                    "submit": "呈交",
+                    "cancel": "取消"
                 },
                 "Sidebar": {
-                    "downloads": "Downloads",
-                    "created_date": "Created Date",
-                    "updated_date": "Updated Date"
+                    "downloads": "下載",
+                    "created_date": "建立日期",
+                    "updated_date": "更新日期"
                 },
                 "Rating": {
-                    "1": "1 Star",
-                    "2": "2 Stars",
-                    "3": "3 Stars",
-                    "4": "4 Stars",
-                    "5": "5 Stars"
+                    "1": "1星",
+                    "2": "2星",
+                    "3": "3星",
+                    "4": "4星",
+                    "5": "5星"
                 },
-                "not_found": "{content_type} not found",
-                "not_found_description": "This {content_type} does not exist on MCCreations",
-                "logo_alt": "The logo for {title}, a Minecraft {type}",
-                "images_alt": "Image {index} of {total} for {title}",
-                "recommended_creations": "Other {tag} Creations"
+                "not_found": "找不到{content_type}",
+                "not_found_description": "MCCreations站內並沒有此{content_type}",
+                "logo_alt": "{title}的標誌，Minecraft{type}",
+                "images_alt": "{title}總共{total}張圖片的第{index}張",
+                "recommended_creations": "其他{tag}作品"
             },
             "Search": {
                 "Headers": {
                     "map": {
-                        "title": "Browse and Search for Minecraft Maps",
-                        "blurb": "Find amazing new Minecraft maps for your next adventure!",
-                        "description": "Minecraft maps are custom worlds created by players or developers that offer unique experiences beyond the standard game. These maps can range from simple parkour challenges to complex adventure stories, puzzle-solving quests, or even recreations of real-world locations. Since the early days of Minecraft, the community has embraced map-making as a form of creative expression, leading to a rich history of innovation and collaboration. Over the years, Minecraft maps have become a staple in the community, showcasing the limitless possibilities of the game and fostering a vibrant ecosystem of creators and players."
+                        "title": "瀏覽及搜尋Minecraft地圖",
+                        "blurb": "為您下一趟冒險搜尋全新Minecraft地圖吧！",
+                        "description": "Minecraft地圖是由玩家或開發者所創造的自訂世界，提供標準遊戲以外的獨特體驗。這些地圖非常多元化，包括簡單的跑酷挑戰、複雜的冒險故事及解謎任務，甚至是重塑現實世界地點。在Minecraft世界誕生之初，社群便將地圖製作作為創意表達形式，促成了後來數之不盡的創新與合作。在過去多年期間，Minecraft地圖已慢慢成為了社群中的主要元素，充分體現了Minecraft的無限可能，孕育出蓬勃的玩家及創作者生態圈。"
                     },
                     "datapack": {
-                        "title": "Browse and Search for Minecraft Data Packs",
-                        "blurb": "Find tools, challenges and more for your Minecraft adventures!",
-                        "description": "Minecraft data packs are essentially mods for vanilla Minecraft. They enhance gameplay by adding new features, mechanics, and experiences. They can transform the game with new challenges, quests, and even entirely new game modes. Since their introduction, data packs have become a beloved tool for creators, allowing the community to innovate and expand the possibilities of Minecraft, fostering a rich ecosystem of creativity and collaboration."
+                        "title": "瀏覽及搜尋Minecraft資料包",
+                        "blurb": "為您的Minecraft冒險尋找各種工具、挑戰及更多精彩內容！",
+                        "description": "Minecraft資料包相當於Minecraft原版遊戲的內建Mod（模組），能透過增加新功能、機制和體驗，大大提升遊戲樂趣。Minecraft資料包能帶來新挑戰和任務，甚至全新遊戲模式，徹底改變核心玩法。自推出以來，資料包便成為創作者深愛的工具，推動社群持續創新，為Minecraft世界開鑿無限可能，孕育出充滿創意與合作的生態圈。"
                     },
                     "resourcepack": {
-                        "title": "Browse and Search for Minecraft Resource Packs",
-                        "blurb": "Change up or enhance the look of Minecraft!",
-                        "description": "Minecraft resource packs are customizable collections of files that change the game's visuals and sounds, allowing players to personalize their gaming experience. They can modify textures, models, music, and sound effects, transforming the look and feel of the game. Since their introduction, resource packs have played a significant role in the Minecraft community, enabling creators to express their creativity and share their unique visions with others. Over the years, they have become a cornerstone of Minecraft's modding culture, fostering a vibrant community of artists and players who continually push the boundaries of what's possible in the game."
+                        "title": "瀏覽及搜尋Minecraft資源包",
+                        "blurb": "改變或提升Minecraft的外觀！",
+                        "description": "Minecraft資源包是可自訂的檔案集合，能改變遊戲的視覺和音效，讓玩家擁有個人化的遊戲體驗。玩家可以調整遊戲中的材質、模型、音樂和音效，以改變遊戲的外觀和感覺。自推出以來，資源包便在Minecraft社群擔任了重要的角色，讓無數創作者能夠發揮創意，及向其他人分享自己的獨特奇想。多年來，資源包已經成為Minecraft模組製作文化的基石，孕育出蓬勃的藝術家及玩家社群，持續為遊戲挖開更大潛力，拓展全新界限。"
                     }
                 },
-                "search": "Search",
-                "clear_filters": "Clear Filters",
-                "sort_by": "Sort By",
+                "search": "搜尋",
+                "clear_filters": "清空篩選器",
+                "sort_by": "排序方式",
                 "Sort": {
-                    "title_ascending": "Title Ascending",
-                    "title_descending": "Title Descending",
-                    "creator_ascending": "Creator Ascending",
-                    "creator_descending": "Creator Descending",
-                    "newest": "Newest",
-                    "oldest": "Oldest",
-                    "highest_rated": "Highest Rated",
-                    "lowest_rated": "Lowest Rated",
-                    "highest_downloads": "Most Downloads",
-                    "lowest_downloads": "Least Downloads",
-                    "updated": "Recently Updated"
+                    "title_ascending": "標題(A>Z)",
+                    "title_descending": "標題(Z>A)",
+                    "creator_ascending": "創作者(A>Z)",
+                    "creator_descending": "創作者(Z>A)",
+                    "newest": "最新",
+                    "oldest": "最舊",
+                    "highest_rated": "評分最高",
+                    "lowest_rated": "評分最低",
+                    "highest_downloads": "下載次數最多",
+                    "lowest_downloads": "下載次數最少",
+                    "updated": "最近更新"
                 },
                 "Status": {
-                    "unapproved": "Published",
-                    "approved": "Verified",
-                    "featured": "Featured"
+                    "unapproved": "已發佈",
+                    "approved": "已審核",
+                    "featured": "精選"
                 },
                 "TagDropdown": {
-                    "include_tag": "Include {tag}",
-                    "exclude_tag": "Exclude {tag}",
-                    "include": "Include",
-                    "exclude": "Exclude",
-                    "any": "Any",
-                    "and": "& ",
-                    "and_exclude": "and exclude {tag}"
+                    "include_tag": "包括{tag}",
+                    "exclude_tag": "不包括{tag}",
+                    "include": "包括",
+                    "exclude": "不包括",
+                    "any": "任何",
+                    "and": "及",
+                    "and_exclude": "及不包括{tag}"
                 },
                 "Navigator": {
-                    "previous": "Previous",
-                    "next": "Next"
+                    "previous": "上一頁",
+                    "next": "下一頁"
                 },
-                "status": "Status",
-                "tags": "Tags",
-                "search_placeholder": "Search title, creator, version, etc."
+                "status": "狀態",
+                "tags": "標籤",
+                "search_placeholder": "搜尋標題、創作者、版本等"
             },
             "Tags": {
-                "genre": "Genre",
-                "subgenre": "Subgenre",
-                "difficulty": "Difficulty",
-                "player_count": "Player Count",
-                "length": "Length",
-                "resolution": "Resolution",
-                "theme": "Theme",
-                "chill": "Chill",
-                "easy": "Easy",
-                "hard": "Hard",
-                "hardcore": "Hardcore",
-                "normal": "Normal",
-                "adventure": "Adventure",
-                "build": "Build",
-                "creative": "Creative",
-                "game": "Game",
-                "other": "Other",
-                "overhaul": "Overhaul",
-                "parkour": "Parkour",
-                "puzzle": "Puzzle",
-                "qol": "Quality of Life",
-                "realistic": "Realistic",
-                "simple": "Simple",
-                "survival": "Survival",
-                "themed": "Themed",
-                "tool": "Tool",
-                "utility": "Utility",
-                "long": "Long",
-                "medium": "Medium",
-                "short": "Short",
+                "genre": "類型",
+                "subgenre": "子類型",
+                "difficulty": "難度",
+                "player_count": "玩家人數",
+                "length": "長度",
+                "resolution": "解析度",
+                "theme": "主題",
+                "chill": "休閒",
+                "easy": "簡單",
+                "hard": "困難",
+                "hardcore": "極限",
+                "normal": "普通",
+                "adventure": "冒險",
+                "build": "建造",
+                "creative": "創意",
+                "game": "遊戲",
+                "other": "其他",
+                "overhaul": "改造",
+                "parkour": "跑酷",
+                "puzzle": "解謎",
+                "qol": "遊戲體驗",
+                "realistic": "逼真",
+                "simple": "簡單",
+                "survival": "生存",
+                "themed": "主題",
+                "tool": "工具",
+                "utility": "實用",
+                "long": "長",
+                "medium": "中",
+                "short": "短",
                 "1024x +": "1024x +",
                 "128x": "128x",
                 "16x": "16x",
@@ -760,183 +760,183 @@
                 "512x": "512x",
                 "64x": "64x",
                 "8x": "8x",
-                "blocks": "Blocks",
-                "bosses": "Bosses",
-                "cartoon": "Cartoon",
-                "challenge": "Challenge",
-                "city": "City",
-                "co-op": "Co-op",
-                "cosmetic": "Cosmetic",
-                "crafting": "Crafting",
+                "blocks": "方塊",
+                "bosses": "Boss生物",
+                "cartoon": "卡通",
+                "challenge": "挑戰",
+                "city": "城市",
+                "co-op": "多人合作",
+                "cosmetic": "裝飾",
+                "crafting": "合成",
                 "CTM": "CTM",
-                "dropper": "Dropper",
-                "elytra": "Elytra",
-                "entities": "Entities",
-                "episodic": "Episodic",
-                "escape": "Escape",
-                "exploration": "Exploration",
-                "faithful": "Faithful",
-                "finding": "Finding",
-                "font": "Font",
-                "funny": "Funny",
+                "dropper": "投擲器",
+                "elytra": "鞘翅",
+                "entities": "實體",
+                "episodic": "章節式",
+                "escape": "逃脫",
+                "exploration": "探險",
+                "faithful": "忠於原版",
+                "finding": "探尋",
+                "font": "字體",
+                "funny": "搞笑",
                 "GUI": "GUI",
-                "horror": "Horror",
-                "items": "Items",
-                "language": "Language",
-                "magic": "Magic",
-                "maze": "Maze",
-                "mobs": "Mobs",
-                "models": "Models",
-                "multiplayer": "Multiplayer",
-                "music": "Music",
-                "park": "Park",
+                "horror": "恐怖",
+                "items": "物品",
+                "language": "語言",
+                "magic": "魔法",
+                "maze": "迷宮",
+                "mobs": "生物",
+                "models": "模型",
+                "multiplayer": "多人模式",
+                "music": "音樂",
+                "park": "公園",
                 "PVE": "PvE",
                 "PVP": "PvP",
                 "RPG": "RPG",
-                "shaders": "Shaders",
-                "singleplayer": "Singleplayer",
-                "skybox": "Skybox",
-                "smooth": "Smooth",
-                "sound": "Sound",
-                "tech": "Tech",
-                "tools": "Tools",
-                "trivia": "Trivia",
-                "tweak": "Tweak",
-                "unfair": "Unfair",
-                "weapons": "Weapons",
-                "anime": "Anime",
-                "fantasy": "Fantasy",
-                "medieval": "Medieval",
-                "modern": "Modern",
-                "sci-fi": "Sci-Fi",
-                "vanilla": "Vanilla",
-                "player_count_2": "2 Players",
-                "player_count_3": "3 Players",
-                "player_count_4+": "4+ Players"
+                "shaders": "著色器",
+                "singleplayer": "單人模式",
+                "skybox": "天空盒",
+                "smooth": "平滑",
+                "sound": "聲音",
+                "tech": "科技",
+                "tools": "工具",
+                "trivia": "冷知識",
+                "tweak": "微調",
+                "unfair": "不公平",
+                "weapons": "武器",
+                "anime": "動漫",
+                "fantasy": "奇幻",
+                "medieval": "中世紀",
+                "modern": "現代",
+                "sci-fi": "科幻",
+                "vanilla": "原版",
+                "player_count_2": "2人遊玩",
+                "player_count_3": "3人遊玩",
+                "player_count_4+": "4+人遊玩"
             }
         },
         "Footer": {
-            "about": "About",
-            "contact": "Contact",
+            "about": "關於",
+            "contact": "聯絡",
             "discord": "Discord",
-            "join_community": "Join the Community",
-            "legal_contact": "Legal and Contact",
-            "privacy": "Privacy Policy",
-            "request_data": "Request Data",
-            "twitter": "Twitter",
+            "join_community": "加入社群",
+            "legal_contact": "法律及聯絡",
+            "privacy": "隱私政策",
+            "request_data": "要求資料",
+            "twitter": "推特/X",
             "bluesky": "Bluesky",
             "youtube": "Youtube",
-            "updates": "Updates",
+            "updates": "更新",
             "Splashes": {
-                "1": "Gone Global!",
-                "2": "It's a website!",
-                "3": "Things are broken.",
-                "4": "I'm a footer!",
-                "5": "Minecraft is pretty cool huh.",
-                "6": "Creativity for the win!",
-                "7": "Who reads these?",
-                "8": "Anyone got a sandwich?",
-                "9": "Contribute on Github!",
-                "10": "Did you know that this is random?"
+                "1": "我們衝向全球囉！",
+                "2": "嘿，這是個超讚的網站！",
+                "3": "糟糕，某些功能壞掉了…",
+                "4": "我是個頁尾~",
+                "5": "Minecraft超酷的，對吧？",
+                "6": "創意就是王道！",
+                "7": "真的會有人認真看這裡嗎？",
+                "8": "有人有三明治嗎？",
+                "9": "來Github貢獻您的創意吧！",
+                "10": "您知道這訊息是隨機出現的嗎？"
             },
-            "mojang_disclamer": "NOT AN OFFICIAL MINECRAFT PRODUCT. NOT APPROVED BY OR ASSOCIATED WITH MOJANG.",
-            "open_source": "MCCreations is <link>open source</link>. Contribute today!",
-            "copyright": "© Ben Meier/CrazyCowMM"
+            "mojang_disclamer": "非官方MINECRAFT產品。未經MOJANG核准，與MOJANG沒有關聯。",
+            "open_source": "MCCreations是<link>開源網站</link>。立即作出貢獻吧！",
+            "copyright": "版權所有 © Ben Meier/CrazyCowMM"
         },
         "Dropzone": {
-            "uploaded": "Uploaded {file}",
-            "uploading": "Uploading {file}",
-            "invalid_file_type": "Invalid file type. Please upload a {file_type} file.",
-            "file_too_large": "File is too large. Please upload a file smaller than {max_size}.",
-            "file_unknown": "An error occurred, please try again.",
-            "dropzone": "Drop your files here or click to upload",
-            "hovering": "Drop your files here to upload",
+            "uploaded": "已上傳{file}",
+            "uploading": "正在上傳{file}",
+            "invalid_file_type": "檔案格式無效。請上傳{file_type}檔案。",
+            "file_too_large": "檔案太大。請上傳小於{max_size}的檔案。",
+            "file_unknown": "出現錯誤，請再試一次。",
+            "dropzone": "拖曳檔案到這裡或點按以上傳",
+            "hovering": "拖曳檔案到這裡以上傳",
             "FileTypes": {
-                "image": "image",
-                "zip": "zip, mcworld, mcpack, mctemplate or mcaddon"
+                "image": "圖片",
+                "zip": "zip、mcworld、mcpack、mctemplate或mcaddon"
             },
-            "or": "Or...",
-            "link": "Link to File",
+            "or": "或可以…",
+            "link": "提供檔案連結",
             "link_placeholder": "https://example.com/file.zip",
-            "set_link": "Set Link"
+            "set_link": "設定連結"
         },
         "Navbar": {
             "LanguageSwitcher": {
-                "current_language": "English",
-                "help_translate": "Help Translate"
+                "current_language": "正體中文",
+                "help_translate": "協助翻譯"
             },
             "UserOptions": {
-                "sign_in": "Sign In",
-                "sign_out": "Sign Out",
-                "dashboard": "Dashboard",
-                "notifications": "Notifications",
-                "profile": "Profile",
-                "settings": "Settings",
-                "admin": "Admin",
-                "account": "Account"
+                "sign_in": "登入",
+                "sign_out": "登出",
+                "dashboard": "控制面板",
+                "notifications": "通知",
+                "profile": "個人檔案",
+                "settings": "設定",
+                "admin": "管理員",
+                "account": "帳戶"
             },
-            "toggle_menu": "Toggle Menu",
-            "home": "Home",
-            "feed": "Feed",
-            "creations": "Creations",
-            "maps_blurb": "From puzzles to adventures to multiplayer madness.",
-            "datapacks_blurb": "Change your world, add a little challenge, or make a small tweak.",
-            "resourcepacks_blurb": "Explore a whole new world, or just add some new music.",
-            "creators": "Creators",
-            "create": "Create",
-            "account": "Account"
+            "toggle_menu": "切換選單",
+            "home": "首頁",
+            "feed": "動態消息",
+            "creations": "作品",
+            "maps_blurb": "從解謎、冒險，以至多人混戰地圖。",
+            "datapacks_blurb": "改變您的世界、增添小挑戰，或只是作出微調。",
+            "resourcepacks_blurb": "探索全新世界，或只是增添新音樂。",
+            "creators": "創作者",
+            "create": "創造",
+            "account": "帳戶"
         },
         "RichText": {
-            "placeholder": "Start typing here...",
+            "placeholder": "在這裡開始輸入…",
             "Images": {
-                "add_caption": "Add a caption",
-                "insert_url": "Insert Image URL",
-                "insert_file": "Insert Image File"
+                "add_caption": "新增圖片描述",
+                "insert_url": "插入圖片URL",
+                "insert_file": "插入圖片檔案"
             },
             "Toolbar": {
-                "undo": "Undo",
-                "redo": "Redo",
-                "bold": "Bold",
-                "italic": "Italic",
-                "underline": "Underline",
-                "strikethrough": "Strikethrough",
-                "bullet_list": "Bullet List",
-                "left_align": "Left Align",
-                "center_align": "Center Align",
-                "right_align": "Right Align",
-                "justify_align": "Justify Align",
-                "spoiler": "Spoiler"
+                "undo": "復原",
+                "redo": "取消復原",
+                "bold": "粗體",
+                "italic": "斜體",
+                "underline": "底線",
+                "strikethrough": "刪除線",
+                "bullet_list": "項目符號",
+                "left_align": "靠左對齊",
+                "center_align": "置中對齊",
+                "right_align": "靠右對齊",
+                "justify_align": "左右對齊",
+                "spoiler": "暴雷"
             }
         },
         "VersionManager": {
-            "title": "Files",
-            "add_version": "Upload File",
+            "title": "檔案",
+            "add_version": "上傳檔案",
             "Version": {
-                "back_to_versions": "Back to Files",
-                "edit": "Edit File",
-                "version_number": "Version Number",
-                "minecraft_version": "Minecraft Version",
-                "Bedrock": "Bedrock",
-                "Bedrock_description": "Is this file for the Bedrock Edition",
+                "back_to_versions": "返回檔案",
+                "edit": "編輯檔案",
+                "version_number": "版本編號",
+                "minecraft_version": "Minecraft版本",
+                "Bedrock": "基岩版",
+                "Bedrock_description": "這個檔案是否屬於基岩版",
                 "MainFile": {
-                    "link": "Main File Link"
+                    "link": "主檔連結"
                 },
                 "ExtraFiles": {
-                    "file_type": "File Type",
-                    "link": "Link",
-                    "required": "Required",
-                    "required_description": "Causes this file to be automatically downloaded with the main file",
-                    "upload_file": "Upload File"
+                    "file_type": "檔案格式",
+                    "link": "連結",
+                    "required": "必須",
+                    "required_description": "讓此檔案與主檔一起自動下載",
+                    "upload_file": "上傳檔案"
                 },
-                "save": "Save File",
-                "cancel": "Cancel",
-                "delete": "Delete",
-                "add_file": "Add File",
-                "add_file_description": "Add any extra files required for this creation, like resourcepacks"
+                "save": "儲存檔案",
+                "cancel": "取消",
+                "delete": "刪除",
+                "add_file": "新增檔案",
+                "add_file_description": "新增此作品的任何必須額外檔案，例如資源包"
             }
         }
     },
     "brand": "MCCreations",
-    "error": "Error",
-    "events": "Events"
+    "error": "錯誤",
+    "events": "活動"
 }

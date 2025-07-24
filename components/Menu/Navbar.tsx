@@ -58,19 +58,19 @@ export default function Navbar() {
                                 href="/maps"
                                 className="text-lg font-medium"
                             >
-                                {t("map", {count: 2})}
+                                {t("Components.Navbar.Creations.maps")}
                             </Link>
                             <Link
                                 href="/datapacks"
                                 className="text-lg font-medium"
                             >
-                                {t("datapack", {count: 2})}
+                                {t("Components.Navbar.Creations.datapacks")}
                             </Link>
                             <Link
                                 href="/resourcepacks"
                                 className="text-lg font-medium"
                             >
-                                {t("resourcepack", {count: 2})}
+                                {t("Components.Navbar.Creations.resourcepacks")}
                             </Link>
                             <Link
                                 href="/create"
@@ -110,13 +110,13 @@ export default function Navbar() {
                                 {t("Components.Navbar.creations")}
                             </NavigationMenuTrigger>
                             <NavigationMenuContent>
-                                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                                <ul className="grid w-[400px] gap-1 p-4 md:w-[600px] md:grid-cols-2 lg:w-[700px]">
                                     {creations.map((creation) => (
                                         <li key={creation.title}>
                                             <NavigationMenuLink asChild>
                                                 <Link
                                                     href={creation.href}
-                                                    className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                                    className="block select-none space-y-2 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                                 >
                                                     <div className="text-sm font-medium leading-none">
                                                         {t(`${creation.title}`, {count: 2})}
@@ -152,18 +152,18 @@ export default function Navbar() {
 
 const creations = [
     {
-        title: "map",
-        description: "Components.Navbar.maps_blurb",
+        title: "Components.Navbar.Creations.maps",
+        description: "Components.Navbar.Creations.maps_blurb",
         href: "/maps",
     },
     {
-        title: "datapack",
-        description: "Components.Navbar.datapacks_blurb",
+        title: "Components.Navbar.Creations.datapacks",
+        description: "Components.Navbar.Creations.datapacks_blurb",
         href: "/datapacks",
     },
     {
-        title: "resourcepack",
-        description: "Components.Navbar.resourcepacks_blurb",
+        title: "Components.Navbar.Creations.resourcepacks",
+        description: "Components.Navbar.Creations.resourcepacks_blurb",
         href: "/resourcepacks",
     },
 ];

@@ -880,9 +880,14 @@
             "home": "Home",
             "feed": "Feed",
             "creations": "Creations",
-            "maps_blurb": "From puzzles to adventures to multiplayer madness.",
-            "datapacks_blurb": "Change your world, add a little challenge, or make a small tweak.",
-            "resourcepacks_blurb": "Explore a whole new world, or just add some new music.",
+            "Creations": {
+                "maps": "Maps",
+                "datapacks": "Data Packs",
+                "resourcepacks": "Resource Packs",
+                "maps_blurb": "From puzzles to adventures to multiplayer madness.",
+                "datapacks_blurb": "Change your world, add a little challenge, or make a small tweak.",
+                "resourcepacks_blurb": "Explore a whole new world, or just add some new music."
+            },
             "creators": "Creators",
             "create": "Create",
             "account": "Account"
