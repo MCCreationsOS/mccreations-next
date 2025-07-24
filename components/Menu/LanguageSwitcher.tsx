@@ -22,9 +22,9 @@ export default function LanguageSwitcher() {
                 <div className="border-2 border-white/15 p-1">
                     <DropdownMenuItem className="p-0"><Link href="/" locale="en-US" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">English</Button></Link></DropdownMenuItem>
                     <DropdownMenuItem className="p-0"><Link href="/" locale="zh-CN" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">简体中文</Button></Link></DropdownMenuItem>
+                    <DropdownMenuItem className="p-0"><Link href="/" locale="zh-TW" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">繁體中文</Button></Link></DropdownMenuItem>
+                    <DropdownMenuItem className="p-0"><Link href="/" locale="hi-IN" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">हिंदी</Button></Link></DropdownMenuItem>
                     <DropdownMenuItem className="p-0"><Link href="/" locale="fr-FR" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">Français</Button></Link></DropdownMenuItem>
-                    <DropdownMenuItem className="p-0"><Link href="/" locale="de-DE" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">Deutsch</Button></Link></DropdownMenuItem>
-                    <DropdownMenuItem className="p-0"><Link href="/" locale="es-ES" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">Español</Button></Link></DropdownMenuItem>
                     <DropdownMenuItem className="p-0"><Link href="/" locale="ja-JP" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">日本語</Button></Link></DropdownMenuItem>
                     <DropdownMenuItem className="p-0"><Link href="/" locale="ko-KR" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">한국어</Button></Link></DropdownMenuItem>
                     <DropdownMenuItem className="p-0"><Link href="/" locale="ru-RU" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">Русский (Россия)</Button></Link></DropdownMenuItem>
