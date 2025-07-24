@@ -879,9 +879,14 @@
         "home": "홈",
         "feed": "피드",
         "creations": "창작물",
-        "maps_blurb": "퍼즐부터 어드벤처, 멀티플레이어 광란까지.",
-        "datapacks_blurb": "세상을 바꾸고, 약간의 도전을 추가하거나, 작은 조정을 하세요.",
-        "resourcepacks_blurb": "완전히 새로운 세계를 탐험하거나 새로운 음악을 추가하세요.",
+        "Creations": {
+            "maps": "맵",
+            "maps_blurb": "퍼즐부터 어드벤처, 멀티플레이어 광란까지.",
+            "datapacks": "데이터 팩",
+            "datapacks_blurb": "세상을 바꾸고, 약간의 도전을 추가하거나, 작은 조정을 하세요.",
+            "resourcepacks": "리소스 팩",
+            "resourcepacks_blurb": "완전히 새로운 세계를 탐험하거나 새로운 음악을 추가하세요."
+        },
         "creators": "제작자",
         "create": "제작",
         "account": "계정"

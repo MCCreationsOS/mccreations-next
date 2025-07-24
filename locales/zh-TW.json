@@ -1,12 +1,12 @@
 {
     "language_name": "繁體中文",
     "language_code": "zh-TW",
-    "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
-    "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
-    "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
-    "creator": "{count, plural, =0 {Creators} =1 {Creator} other {Creators}}",
-    "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
-    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
+    "map": "{count, plural, =0 {地圖} =1 {地圖} other {地圖}}",
+    "datapack": "{count, plural, =0 {資料包} =1 {資料包} other {資料包}}",
+    "resourcepack": "{count, plural, =0 {資源包} =1 {資源包} other {資源包}}",
+    "creator": "{count, plural, =0 {開發者} =1 {開發者} other {開發者}}",
+    "comment": "{count, plural, =0 {評論} =1 {評論} other {評論}}",
+    "notification": "{count, plural, =0 {通知} =1 {通知} other {通知}}",
     "download": "下載",
     "Pages": {
         "Auth": {
@@ -879,9 +879,14 @@
             "home": "首頁",
             "feed": "動態消息",
             "creations": "作品",
-            "maps_blurb": "從解謎、冒險，以至多人混戰地圖。",
-            "datapacks_blurb": "改變您的世界、增添小挑戰，或只是作出微調。",
-            "resourcepacks_blurb": "探索全新世界，或只是增添新音樂。",
+            "Creations": {
+                "maps": "地圖",
+                "maps_blurb": "從解謎、冒險，以至多人混戰地圖。",
+                "datapacks": "資料包",
+                "datapacks_blurb": "改變您的世界、增添小挑戰，或只是作出微調。",
+                "resourcepacks": "資源包",
+                "resourcepacks_blurb": "探索全新世界，或只是增添新音樂。"
+            },
             "creators": "創作者",
             "create": "創造",
             "account": "帳戶"

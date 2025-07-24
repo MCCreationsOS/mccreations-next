@@ -1,12 +1,12 @@
 {
     "language_name": "简体中文",
-    "language_code": "zh-TW",
-    "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
-    "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
-    "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
-    "creator": "{count, plural, =0 {Creators} =1 {Creator} other {Creators}}",
-    "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
-    "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
+    "language_code": "zh-CN",
+    "map": "{count, plural, =0 {地图} =1 {地图} other {地图}}",
+    "datapack": "{count, plural, =0 {数据包} =1 {数据包} other {数据包}}",
+    "resourcepack": "{count, plural, =0 {资源包} =1 {资源包} other {资源包}}",
+    "creator": "{count, plural, =0 {开发者} =1 {开发者} other {开发者}}",
+    "comment": "{count, plural, =0 {评论} =1 {评论} other {评论}}",
+    "notification": "{count, plural, =0 {通知} =1 {通知} other {通知}}",
     "download": "下载",
     "Pages": {
         "Auth": {
@@ -879,9 +879,14 @@
             "home": "首页",
             "feed": "动态消息",
             "creations": "作品",
-            "maps_blurb": "从解谜、冒险，到多人混战地图。",
-            "datapacks_blurb": "改变您的世界、增添小挑战，或只是作出微调。",
-            "resourcepacks_blurb": "探索全新世界，或只是增添新音乐。",
+            "Creations": {
+                "maps": "地图",
+                "maps_blurb": "从解谜、冒险，到多人混战地图。",
+                "datapacks": "数据包",
+                "datapacks_blurb": "改变您的世界、增添小挑战，或只是作出微调。",
+                "resourcepacks": "资源包",
+                "resourcepacks_blurb": "探索全新世界，或只是增添新音乐。"
+            },
             "creators": "开发者",
             "create": "创造",
             "account": "账户"

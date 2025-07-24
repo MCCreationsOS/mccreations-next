@@ -880,9 +880,14 @@
             "home": "ホーム",
             "feed": "フィード",
             "creations": "クリエイション",
-            "maps_blurb": "パズルからアドベンチャー、マルチプレイヤーの狂気まで。",
-            "datapacks_blurb": "世界を変えたり、少しチャレンジを加えたり、小さな調整を加えよう。",
-            "resourcepacks_blurb": "まったく新しい世界を探検したり、新しい音楽を追加したり。",
+            "Creations": {
+                "maps": "マップ",
+                "maps_blurb": "パズルからアドベンチャー、マルチプレイヤーの狂気まで。",
+                "datapacks": "データパック",
+                "datapacks_blurb": "世界を変えたり、少しチャレンジを加えたり、小さな調整を加えよう。",
+                "resourcepacks": "リソースパック",
+                "resourcepacks_blurb": "まったく新しい世界を探検したり、新しい音楽を追加したり。"
+            },
             "creators": "クリエイター",
             "create": "作成",
             "account": "アカウント"

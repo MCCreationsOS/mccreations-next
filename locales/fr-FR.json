@@ -879,9 +879,14 @@
             "home": "Accueil",
             "feed": "Fil",
             "creations": "Créations",
-            "maps_blurb": "Des énigmes aux aventures en passant par la folie multijoueur.",
-            "datapacks_blurb": "Changez votre monde, ajoutez un petit défi ou apportez une petite modification.",
-            "resourcepacks_blurb": "Explorez un tout nouveau monde ou ajoutez simplement de la musique.",
+            "Creations": {
+                "maps": "Cartes",
+                "maps_blurb": "Des énigmes aux aventures en passant par la folie multijoueur.",
+                "datapacks": "Packs de données",
+                "datapacks_blurb": "Changez votre monde, ajoutez un petit défi ou apportez une petite modification.",
+                "resourcepacks": "Packs de texture",
+                "resourcepacks_blurb": "Explorez un tout nouveau monde ou ajoutez simplement de la musique."
+            },
             "creators": "Créateurs",
             "create": "Créer",
             "account": "Compte"
