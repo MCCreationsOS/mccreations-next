@@ -24,10 +24,10 @@
             "handle": {
                 "CreatorEdit": {
                     "EditProfileImages": {
-                        "title": "编辑个人信息图片",
+                        "title": "编辑个人资料图片",
                         "button": "编辑",
                         "banner": "横幅",
-                        "icon": "图标",
+                        "icon": "头像",
                         "save": "保存",
                         "cancel": "取消"
                     },
@@ -65,7 +65,7 @@
                     }
                 },
                 "banner": "{username}的横幅",
-                "icon": "{username}的图标",
+                "icon": "{username}的头像",
                 "followers": "{count, plural, =0 {No followers} =1 {1 follower} 其他 {# followers}}",
                 "about": "简介",
                 "no_creations": "此开发者尚未发布任何{content_type}。",
@@ -460,7 +460,7 @@
             "title": "设置",
             "account_menu_item": "账户",
             "notifications_menu_item": "通知",
-            "profile_menu_item": "个人信息"
+            "profile_menu_item": "个人资料"
         },
         "SignIn": {
             "Reset": {
@@ -648,7 +648,7 @@
                     "cancel": "取消"
                 },
                 "Sidebar": {
-                    "downloads": "下载",
+                    "downloads": "下载次数",
                     "created_date": "建立日期",
                     "updated_date": "更新日期"
                 },
@@ -826,7 +826,7 @@
             "twitter": "推特/X",
             "bluesky": "Bluesky",
             "youtube": "Youtube",
-            "updates": "更新",
+            "updates": "最新动态",
             "Splashes": {
                 "1": "我们冲向全球啦！",
                 "2": "嘿，这是个超棒的网站！",
@@ -870,7 +870,7 @@
                 "sign_out": "登出",
                 "dashboard": "控制面板",
                 "notifications": "通知",
-                "profile": "个人信息",
+                "profile": "个人资料",
                 "settings": "设置",
                 "admin": "管理员",
                 "account": "账户"
@@ -881,11 +881,11 @@
             "creations": "作品",
             "Creations": {
                 "maps": "地图",
-                "maps_blurb": "从解谜、冒险，到多人混战地图。",
+                "maps_blurb": "解谜、冒险，以至多人混战地图等。",
                 "datapacks": "数据包",
-                "datapacks_blurb": "改变您的世界、增添小挑战，或只是作出微调。",
+                "datapacks_blurb": "改变您的世界、增加小挑战，或者只是做些小调整。",
                 "resourcepacks": "资源包",
-                "resourcepacks_blurb": "探索全新世界，或只是增添新音乐。"
+                "resourcepacks_blurb": "探索全新世界，或单纯是增添新音乐。"
             },
             "creators": "开发者",
             "create": "创造",

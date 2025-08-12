@@ -533,6 +533,7 @@
             "password_too_short": "Password must be 10 or more characters",
             "button": "Sign Up",
             "providers": "Sign up with...",
+            "title": "Sign Up",
             "already_have_account": "Already have an account?",
             "forgot_password": "Forgot your password?",
             "Providers": {

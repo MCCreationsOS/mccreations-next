@@ -1,4 +1,4 @@
-﻿{
+{
     "language_name": "Русский",
     "language_code": "ru-RU",
     "map": "{count, plural, =0 {карт} =1 {карта} few {карты} many {карт} other {карты}}",

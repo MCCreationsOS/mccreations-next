@@ -4,7 +4,7 @@
     "map": "{count, plural, =0 {地圖} =1 {地圖} other {地圖}}",
     "datapack": "{count, plural, =0 {資料包} =1 {資料包} other {資料包}}",
     "resourcepack": "{count, plural, =0 {資源包} =1 {資源包} other {資源包}}",
-    "creator": "{count, plural, =0 {開發者} =1 {開發者} other {開發者}}",
+    "creator": "{count, plural, =0 {創作者} =1 {創作者} other {創作者}}",
     "comment": "{count, plural, =0 {評論} =1 {評論} other {評論}}",
     "notification": "{count, plural, =0 {通知} =1 {通知} other {通知}}",
     "download": "下載",
@@ -27,7 +27,7 @@
                         "title": "編輯個人檔案圖片",
                         "button": "編輯",
                         "banner": "橫幅",
-                        "icon": "圖標",
+                        "icon": "頭像",
                         "save": "儲存",
                         "cancel": "取消"
                     },
@@ -65,7 +65,7 @@
                     }
                 },
                 "banner": "{username}的橫幅",
-                "icon": "{username}的圖標",
+                "icon": "{username}的頭像",
                 "followers": "{count, plural, =0 {No followers} =1 {1 follower} 其他 {# followers}}",
                 "about": "簡介",
                 "no_creations": "此創作者尚未發佈任何{content_type}。",
@@ -648,7 +648,7 @@
                     "cancel": "取消"
                 },
                 "Sidebar": {
-                    "downloads": "下載",
+                    "downloads": "下載次數",
                     "created_date": "建立日期",
                     "updated_date": "更新日期"
                 },
@@ -826,7 +826,7 @@
             "twitter": "推特/X",
             "bluesky": "Bluesky",
             "youtube": "Youtube",
-            "updates": "更新",
+            "updates": "最新資訊",
             "Splashes": {
                 "1": "我們衝向全球囉！",
                 "2": "嘿，這是個超讚的網站！",
@@ -881,11 +881,11 @@
             "creations": "作品",
             "Creations": {
                 "maps": "地圖",
-                "maps_blurb": "從解謎、冒險，以至多人混戰地圖。",
+                "maps_blurb": "解謎、冒險，以至多人混戰地圖等。",
                 "datapacks": "資料包",
-                "datapacks_blurb": "改變您的世界、增添小挑戰，或只是作出微調。",
+                "datapacks_blurb": "改變您的世界、增添小挑戰，或只是做一些小調整。",
                 "resourcepacks": "資源包",
-                "resourcepacks_blurb": "探索全新世界，或只是增添新音樂。"
+                "resourcepacks_blurb": "探索全新世界，或單純是新增音樂。"
             },
             "creators": "創作者",
             "create": "創造",
