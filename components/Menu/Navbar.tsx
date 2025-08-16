@@ -16,13 +16,15 @@ import {
 import UserOptions from "./UserOptions";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslations } from "next-intl";
+import { useState } from "react";
 
 export default function Navbar() {
     const t = useTranslations();
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="flex h-16 items-center px-2">
-                <Sheet>
+                <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
                     <SheetTrigger asChild>
                         <Button
                             variant="ghost"
@@ -48,33 +50,37 @@ export default function Navbar() {
                             </span>
                         </Link>
                         <nav className="flex flex-col gap-4">
-                            <Link href="/" className="text-lg font-medium">
+                            <Link href="/" className="text-lg font-medium" onClick={() => setMobileMenuOpen(false)}>
                                 {t("Components.Navbar.home")}
                             </Link>
-                            <Link href="/feed" className="text-lg font-medium">
+                            <Link href="/feed" className="text-lg font-medium" onClick={() => setMobileMenuOpen(false)}>
                                 {t("Components.Navbar.feed")}
                             </Link>
                             <Link
                                 href="/maps"
                                 className="text-lg font-medium"
+                                onClick={() => setMobileMenuOpen(false)}
                             >
                                 {t("Components.Navbar.Creations.maps")}
                             </Link>
                             <Link
                                 href="/datapacks"
                                 className="text-lg font-medium"
+                                onClick={() => setMobileMenuOpen(false)}
                             >
                                 {t("Components.Navbar.Creations.datapacks")}
                             </Link>
                             <Link
                                 href="/resourcepacks"
                                 className="text-lg font-medium"
+                                onClick={() => setMobileMenuOpen(false)}
                             >
                                 {t("Components.Navbar.Creations.resourcepacks")}
                             </Link>
                             <Link
                                 href="/create"
                                 className="text-lg font-medium"
+                                onClick={() => setMobileMenuOpen(false)}
                             >
                                 {t("Components.Navbar.create")}
                             </Link>

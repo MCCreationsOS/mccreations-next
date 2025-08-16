@@ -112,7 +112,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
             <div className="max-w-4xl mx-auto mt-3 md:mt-10">
                 <div className="flex flex-row gap-4 mb-2">
                     <h1 className="text-4xl font-extrabold flex-1">{title}</h1>
-                    <div className="flex flex-row gap-2">
+                    <div className="flex flex-row gap-2 items-start">
                         {creation.files && creation.files.length > 0 && <DownloadButton slug={creation.slug} file={creation.files[0]} contentType={contentType} className="px-6 py-5"/>}
                         <CreationOptions creation={creation} />
                     </div>

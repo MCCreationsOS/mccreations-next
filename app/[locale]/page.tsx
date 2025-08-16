@@ -36,10 +36,10 @@ export default async function Page(props: { params: Promise<{ locale: string }> 
                 <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"}/>
             </div>
             <h2 className="w-full text-center text-2xl font-bold mt-5 mb-2">{t('Pages.Home.view_all')}</h2>
-            <div className="w-full flex justify-center gap-2 mb-10">
-                <Link href={`/maps`}><Button className="text-xl py-5 px-8"><Map /><span>{t('map', { count: 2})}</span></Button></Link>
-                <Link href={`/datapacks`}><Button className="text-xl py-5 px-8"><Package /><span>{t('datapack', { count: 2})}</span></Button></Link>
-                <Link href={`/resourcepacks`}><Button className="text-xl py-5 px-8"><Layers /><span>{t('resourcepack', { count: 2})}</span></Button></Link>
+            <div className="w-full flex justify-center gap-1 md:gap-2 mb-10">
+                <Link href={`/maps`}><Button className="text-md md:text-xl py-5 px-4 md:px-8"><Map /><span>{t('map', { count: 2})}</span></Button></Link>
+                <Link href={`/datapacks`}><Button className="text-md md:text-xl py-5 px-4 md:px-8"><Package /><span>{t('datapack', { count: 2})}</span></Button></Link>
+                <Link href={`/resourcepacks`}><Button className="text-md md:text-xl py-5 px-4 md:px-8"><Layers /><span>{t('resourcepack', { count: 2})}</span></Button></Link>
             </div>
                 <h2 className="w-full text-center text-2xl font-bold mt-5 mb-2">{t('Pages.Home.recently_updated')}</h2>
             <div className="p-2">

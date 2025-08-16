@@ -56,7 +56,7 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
     } else {
         return (
             <div className={"flex-1 flex flex-row gap-2 items-center"}>
-                <CreatorAvatar creator={{username: creator.username, handle: creator.handle}} size={50} />
+                <CreatorAvatar creator={{username: creator.username, handle: creator.handle}} size={10} />
                 <div>
                     {creator.username}
                 </div>
