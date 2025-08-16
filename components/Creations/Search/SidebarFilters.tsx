@@ -8,14 +8,13 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 
-export default function SidebarFilters({contentType, tags}: {contentType: CollectionNames, tags: {[key: string]: string[]}}) {
+export default function SidebarFilters({contentType, tags, searchParams}: {contentType: CollectionNames, searchParams: { [key: string]: string | number }, tags: {[key: string]: string[]}}) {
     const t = useTranslations()
     const router = useRouter()
-    const searchParams = useSearchParams()
-    const [sort, setSort] = useState<SortOptions>((searchParams.get("sort")) ? searchParams.get("sort")! as SortOptions : SortOptions.Newest)
-    const [status, setStatus] = useState<StatusOptions>((searchParams.get("status")) ? Number.parseInt(searchParams.get("status")!) as StatusOptions : StatusOptions.Unapproved)
-    const [includeTags, setIncludeTags] = useState<string[]>(searchParams.get("includeTags") ? searchParams.get("includeTags")!.split(",") : [])
-    const [excludeTags, setExcludeTags] = useState<string[]>(searchParams.get("excludeTags") ? searchParams.get("excludeTags")!.split(",") : [])
+    const [sort, setSort] = useState<SortOptions>(searchParams.sort as SortOptions)
+    const [status, setStatus] = useState<StatusOptions>(searchParams.status ? Number.parseInt(searchParams.status as string) : StatusOptions.Unapproved)
+    const [includeTags, setIncludeTags] = useState<string[]>(searchParams.includeTags ? (searchParams.includeTags as string).split(",") : [])
+    const [excludeTags, setExcludeTags] = useState<string[]>(searchParams.excludeTags ? (searchParams.excludeTags as string).split(",") : [])
 
     const Tag = ({tag, tagValue}: {tag: string, tagValue: string}) => {
         return (
@@ -39,7 +38,7 @@ export default function SidebarFilters({contentType, tags}: {contentType: Collec
     }, [sort, status, includeTags, excludeTags])
 
     const performSearch = () => {
-        const params = new URLSearchParams(searchParams)
+        const params = new URLSearchParams(window.location.search)
         params.set("sort", sort)
         params.set("status", status.toString())
         params.set("includeTags", includeTags.join(","))
@@ -83,7 +82,7 @@ export default function SidebarFilters({contentType, tags}: {contentType: Collec
             <div className={styles.tags_list}>
                 {tags && Object.keys(tags).map((category, idx) => {
                     return (
-                    <div className="filter_option">
+                    <div className="filter_option" key={category}>
                         <h4>{t(`Components.Creations.Tags.${category as TagCategories}`)}</h4>
                         <div>
                             <div className={styles.tags_list}>

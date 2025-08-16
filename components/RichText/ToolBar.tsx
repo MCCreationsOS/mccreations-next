@@ -198,7 +198,6 @@ export default function ToolbarPlugin() {
       if (blockType !== headingSize) {
         editor.update(() => {
           const selection = $getSelection();
-          console.log(selection);
           $setBlocksType(selection, () => $createHeadingNode(headingSize));
         });
       }

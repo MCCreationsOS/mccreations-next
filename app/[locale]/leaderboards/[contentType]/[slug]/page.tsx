@@ -8,7 +8,8 @@ import { getFormatter, getTranslations } from "next-intl/server"
 import DownloadButton from "@/components/ui/client_buttons/DownloadButton"
 import Rating from "@/components/Creations/Page/Rating"
 
-export default async function Page({params}: {params: Params}) {
+export default async function Page(props: {params: Promise<Params>}) {
+    const params = await props.params;
     const t = await getTranslations();
     const formatter = await getFormatter();
     let leaderboard = await getLeaderboard(params.contentType, params.slug)

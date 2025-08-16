@@ -26,15 +26,25 @@ export async function generateMetadata() {
         type: "website",
         url: "https://mccreations.net/signin"
       },
-      keywords: [t('Pages.SignUp.Metadata.Keywords.minecraft'), t('Pages.SignUp.Metadata.Keywords.games'), t('Pages.SignUp.Metadata.Keywords.gaming'), t('Pages.SignUp.Metadata.Keywords.minecraft_map'), t('Pages.SignUp.Metadata.Keywords.minecraft_creations'), t('Pages.SignUp.Metadata.Keywords.minecraft_version'), t('Pages.SignUp.Metadata.Keywords.maps'), t('Pages.SignUp.Metadata.Keywords.minecraft_games'), t('Pages.SignUp.Metadata.Keywords.download')],
+      keywords: [t('Pages.SignUp.Metadata.Keywords.minecraft'), t('Pages.SignUp.Metadata.Keywords.games'), t('Pages.SignUp.Metadata.Keywords.gaming'), t('Pages.SignUp.Metadata.Keywords.minecraft_map'), t('Pages.SignUp.Metadata.Keywords.minecraft_creations'), t('Pages.SignUp.Metadata.Keywords.minecraft_version', {minecraft_version: "1.21.8"}), t('Pages.SignUp.Metadata.Keywords.maps'), t('Pages.SignUp.Metadata.Keywords.minecraft_games'), t('Pages.SignUp.Metadata.Keywords.download')],
       publisher: "MCCreations"
     }
 }
 
-export default function SignUpLayout({ params: { locale }, children }: { params: { locale: string }, children: React.ReactNode}) {
-    return (
-        <>
-            {children}
-        </>
-    )
+export default async function SignUpLayout(props: { params: Promise<{ locale: string }>, children: React.ReactNode}) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
+  return (
+      <>
+          {children}
+      </>
+  )
 }

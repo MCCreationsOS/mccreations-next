@@ -3,7 +3,7 @@
 import { useEffect, useState, } from "react"
 import Image from "next/image"
 import { IUser, UserTypes } from "@/app/api/types"
-import { Bell, LogIn, LogOut, Settings, Table, User } from "lucide-react"
+import { Bell, LogIn, LogOut, Settings, Table, User, UserPlus } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { getUser } from "@/app/api/auth"
 import { useTranslations } from "next-intl";
@@ -64,6 +64,13 @@ export default function UserOptions() {
                             </Button>
                         </Link>
                     </DropdownMenuItem>
+                    <DropdownMenuItem>
+                        <Link href="/signup" onClick={() => setIsOpen(false)}>
+                            <Button variant="ghost" className="w-full">
+                                <UserPlus /> {t("Components.Navbar.UserOptions.sign_up")}
+                            </Button>
+                        </Link>
+                    </DropdownMenuItem>
                 </div>
             </DropdownMenuContent>
         </DropdownMenu>
@@ -107,13 +114,6 @@ export default function UserOptions() {
                             </Button>
                         </Link>
                     </DropdownMenuItem>
-                    {user.type === UserTypes.Admin && <DropdownMenuItem className="p-0 justify-start">
-                        <Link href="/admin_dashboard" className="w-full" onClick={() => setIsOpen(false)}>
-                            <Button variant="ghost" className="w-full justify-start">
-                                <Table /> {t("Components.Navbar.UserOptions.admin")}
-                            </Button>
-                        </Link>
-                    </DropdownMenuItem>}
                     <DropdownMenuItem className="p-0 justify-start">
                         <Link href="/settings" className="w-full" onClick={() => setIsOpen(false)}>
                             <Button variant="ghost" className="w-full justify-start">

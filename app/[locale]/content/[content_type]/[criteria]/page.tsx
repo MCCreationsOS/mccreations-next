@@ -5,7 +5,8 @@ import { setRequestLocale } from "next-intl/server";
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { Suspense } from "react";
 
-export default async function Page({params}: {params: Params}) {
+export default async function Page(props: {params: Promise<Params>}) {
+    const params = await props.params;
     setRequestLocale(params.locale)
     const criteria = params.criteria
     const contentType = params.content_type as ContentTypes
@@ -13,7 +14,7 @@ export default async function Page({params}: {params: Params}) {
     let status = StatusOptions.Approved
     let include = ""
     let search = ""
-    
+
     let defaultContent = []
 
     if (MinecraftVersions.includes(criteria)) {
@@ -29,11 +30,11 @@ export default async function Page({params}: {params: Params}) {
         include = criteria
         search = ""
     }
-    
+
     if(search === "") {
         search = criteria
     }
-    
+
     switch (criteria) {
         case "newest":
             sort = SortOptions.Newest
@@ -81,7 +82,7 @@ export default async function Page({params}: {params: Params}) {
 
 
     // defaultContent = (await searchContent({contentType: convertToCollection(contentType), sort: sort, status: status, includeTags: include, excludeTags: "", limit: 20, page: 0}, false)).documents
-    
+
     return (
         <CreationSearchPage searchParams={{page: "0", search: search, sort: sort, status: status.toString(), includeTags: include, excludeTags: ""}} collectionName={convertToCollection(contentType)} pathname={`/${params.locale}/content/${contentType}/${criteria}`} />
     )

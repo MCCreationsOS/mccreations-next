@@ -14,7 +14,6 @@ export default function InContentAdUnit() {
         let foundAdUnit = false
         adUnits.forEach(unit => {
             if (!unit.inUse && adUnit.length === 0 && !foundAdUnit) {
-                console.log("Found ad unit not in use")
                 setAdUnit(unit.id)
                 unit.inUse = true
                 foundAdUnit = true
@@ -45,7 +44,6 @@ export const InListAdUnit = () => {
         let foundAdUnit = false
         adUnits.forEach(unit => {
             if (!unit.inUse && adUnit.length === 0 && !foundAdUnit) {
-                console.log("Found ad unit not in use")
                 setAdUnit(unit.id)
                 unit.inUse = true
                 foundAdUnit = true

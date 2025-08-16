@@ -638,6 +638,7 @@
                 "CreationOptions": {
                     "button": "選項",
                     "translate": "翻譯",
+                    "edit": "編輯",
                     "translateDescription": "把作品翻譯至另一語言",
                     "language": "語言",
                     "languagePlaceholder": "選擇語言",
@@ -868,6 +869,7 @@
             "UserOptions": {
                 "sign_in": "登入",
                 "sign_out": "登出",
+                "sign_up": "註冊",
                 "dashboard": "控制面板",
                 "notifications": "通知",
                 "profile": "個人檔案",

@@ -9,7 +9,8 @@ import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<Params> }, parent: ResolvingMetadata): Promise<Metadata> {
+    const params = await props.params;
     // fetch data
     const map: IContentDoc = await fetchMap(params.slug)
 
@@ -56,7 +57,8 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     }
 }
 
-export default async function Page({ params }: { params: Params }) {
+export default async function Page(props: { params: Promise<Params> }) {
+    const params = await props.params;
     const map = await fetchMap(params.slug)
     setRequestLocale(params.locale)
     const t = await getTranslations()
@@ -79,5 +81,4 @@ export default async function Page({ params }: { params: Params }) {
             </div>
         )
     }
-
 }

@@ -12,12 +12,12 @@ import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 
-export default function SearchAndFilter({searchParams, tags}: {searchParams: {page: string, search: string, sort: string, status: string, includeTags: string, excludeTags: string}, tags: {[key: string]: string[]}}) {
+export default function SearchAndFilter({searchParams, tags}: {searchParams: { [key: string]: string | number }, tags: {[key: string]: string[]}}) {
     const [filtering, setFiltering] = useState(false);
     
-    const [search, setSearch] = useState("")
-    const [sort, setSort] = useState<SortOptions>(SortOptions.Newest);
-    const [status, setStatus] = useState(StatusOptions.Unapproved)
+    const [search, setSearch] = useState(searchParams.search as string)
+    const [sort, setSort] = useState<SortOptions>(searchParams.sort as SortOptions)
+    const [status, setStatus] = useState(searchParams.status ? Number.parseInt(searchParams.status as string) : StatusOptions.Unapproved)
     
     const [includeTags, setIncludeTags] = useState<string[]>([])
     const [excludeTags, setExcludeTags] = useState<string[]>([])
@@ -62,21 +62,8 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
         })
     }
 
-    useEffect(() => {
-        if(searchParams.search && (!search || search.length == 0)) {
-            setSearch(searchParams.search)
-        }
-        if(searchParams.sort && sort !== SortOptions.Newest) {
-            setSort(searchParams.sort as SortOptions)
-        }
-        if(searchParams.status && status !== StatusOptions.Unapproved) {
-            setStatus(Number.parseInt(searchParams.status))
-        }
-    }, [])
-    
     const performSearch = () => {
-        console.log(search, sort, status, includeTags, excludeTags)
-        const params = new URLSearchParams(searchParams)
+        const params = new URLSearchParams(window.location.search)
         params.set("search", search)
         params.set("sort", sort)
         params.set("status", status.toString())
@@ -135,7 +122,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: {pa
                     </div>
                     {tags && Object.keys(tags).map((category, idx) => {
                         return (
-                            <div>
+                            <div key={category}>
                                 <DropdownMenu>
                                     <DropdownMenuLabel>{t(`Components.Creations.Tags.${category as TagCategories}`)}</DropdownMenuLabel>
                                     <DropdownMenuTrigger><Button variant="secondary"><span className="w-31">{tag_dropdown_names[category]}</span></Button></DropdownMenuTrigger>

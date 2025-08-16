@@ -29,12 +29,18 @@ export async function generateStaticParams() {
 }
 
  
-export default function DatapackPageLayout({ children, params }: {children: React.ReactNode, params: Params}) {
-  setRequestLocale(params.locale)
+export default async function DatapackPageLayout(props: {children: React.ReactNode, params: Promise<Params>}) {
+    const params = await props.params;
 
- return (
-        <Suspense>
-            {children}
-        </Suspense>
-  )
+    const {
+        children
+    } = props;
+
+    setRequestLocale(params.locale)
+
+    return (
+           <Suspense>
+               {children}
+           </Suspense>
+     )
 }

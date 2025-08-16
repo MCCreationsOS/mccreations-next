@@ -1,6 +1,5 @@
 'use client'
 import { useRouter } from "next/navigation";
-import { SiDiscord, SiFacebook, SiGithub, SiGoogle, SiMicrosoft } from '@icons-pack/react-simple-icons'
 import { Link } from "@/i18n/navigation";
 import { SortOptions, UserTypes } from "@/app/api/types";
 import {useTranslations} from 'next-intl';
@@ -98,10 +97,10 @@ export default function SignUp() {
         <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 absolute top-0 left-1/2 -translate-x-1/2 border-2 border-black">
             <h2 className="text-2xl font-bold mb-2">{t('Pages.SignUp.providers')}</h2>
             <div className="flex flex-row flex-wrap gap-2 mb-5">
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Pages.SignUp.Providers.google')}</span></Button>
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><SiDiscord /><span>{t('Pages.SignUp.Providers.discord')}</span></Button>
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><SiGithub /><span>{t('Pages.SignUp.Providers.github')}</span></Button>
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><SiMicrosoft /><span>{t('Pages.SignUp.Providers.microsoft')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><Image src="/icons/google.png" alt="Google" width={20} height={20} /> <span>{t('Pages.SignUp.Providers.google')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><Image src="/icons/discord.svg" alt="Discord" width={20} height={20} /> <span>{t('Pages.SignUp.Providers.discord')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><Image src="/icons/github.svg" alt="Github" width={20} height={20} /> <span>{t('Pages.SignUp.Providers.github')}</span></Button>
+                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><Image src="/icons/microsoft.svg" alt="Microsoft" width={20} height={20} /> <span>{t('Pages.SignUp.Providers.microsoft')}</span></Button>
             </div>
             <h2 className="text-2xl font-bold mb-2">{t('Pages.SignUp.title')}</h2>
             <form onSubmit={(e) => {e.preventDefault(); form.handleSubmit()}} className="flex flex-col gap-2">
@@ -117,7 +116,7 @@ export default function SignUp() {
                             }
                             let regex = /[A-Za-z0-9_]*/g, m;
                             m = regex.exec(value)
-                            if(!m || m[0] !== m.input) {
+                            if(!m || m[0] !== value) {
                                 return t('Pages.SignUp.username_invalid_characters')
                             }
                         },
@@ -139,7 +138,7 @@ export default function SignUp() {
                         }
                         let regex = /[A-Za-z0-9_]*/g, m;
                         m = regex.exec(value)
-                        if(!m || m[0] !== m.input) {
+                        if(!m || m[0] !== value.split('@')[0]) {
                             return t('Pages.SignUp.email_invalid')
                         }
                         if(!value.includes('@') || !value.includes('.')) {

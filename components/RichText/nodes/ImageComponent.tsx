@@ -40,7 +40,7 @@ import type {
     TextNode,
   } from 'lexical';
   import * as React from 'react';
-  import {Suspense, useCallback, useEffect, useRef, useState} from 'react';
+  import { Suspense, useCallback, useEffect, useRef, useState, type JSX } from 'react';
   
 //   import brokenImage from '../images/image-broken.svg';
   import LinkPlugin from '../LinkPlugin';

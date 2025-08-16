@@ -22,14 +22,15 @@ export async function generateStaticParams() {
     return params
 }
 
-export async function generateMetadata({params}: {params: Params}) {
+export async function generateMetadata(props: {params: Promise<Params>}) {
+    const params = await props.params;
     const t = await getTranslations()
     const criteria = params.criteria
     let content_type = params.content_type
     if(content_type.includes("s")) {
         content_type = content_type.slice(0, -1)
     }
-    
+
 
     if (MinecraftVersions.includes(criteria)) {
         return {
@@ -48,7 +49,7 @@ export async function generateMetadata({params}: {params: Params}) {
             publisher: "MCCreations",
         }
     }
-    
+
     switch (criteria) {
         case "newest":
             return {
@@ -109,12 +110,18 @@ export async function generateMetadata({params}: {params: Params}) {
     }
 }
 
-export default function StaticContentPageLayout({ children, params }: {children: React.ReactNode, params: Params}) {
+export default async function StaticContentPageLayout(props: {children: React.ReactNode, params: Promise<Params>}) {
+    const params = await props.params;
+
+    const {
+        children
+    } = props;
+
     setRequestLocale(params.locale)
-  
-   return (
-          <Suspense>
-              {children}
-          </Suspense>
-  )
+
+    return (
+           <Suspense>
+               {children}
+           </Suspense>
+   )
 }

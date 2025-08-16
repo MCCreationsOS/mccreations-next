@@ -1,6 +1,6 @@
 import { convertToCollection, updateTranslation } from "@/app/api/content";
-import { useToken } from "@/app/api/hooks/users";
-import { IContentDoc } from "@/app/api/types";
+import { useToken, useUser } from "@/app/api/hooks/users";
+import { IContentDoc, UserTypes } from "@/app/api/types";
 import RichText from "@/components/RichText/RichText";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -12,9 +12,11 @@ import { routing } from "@/i18n/routing";
 import { useForm } from "@tanstack/react-form";
 import { EllipsisVertical } from "lucide-react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function CreationOptions({creation}: {creation: IContentDoc}) {
+    const {user} = useUser()
     const [open, setOpen] = useState(false)
     const [locale, setLocale] = useState("en-US")
     const {token} = useToken()
@@ -62,6 +64,13 @@ export default function CreationOptions({creation}: {creation: IContentDoc}) {
                             </Button>
                         </DialogTrigger>
                     </DropdownMenuItem>
+                    {user && (creation.creators.some(creator => creator.handle === user.handle) || creation.owner === user.handle || user.type === UserTypes.Admin) && <DropdownMenuItem>
+                        <Link href={`/edit/${creation.type}/${creation.slug}`} className="w-full">
+                            <Button variant="ghost" type="button">
+                                <span>{t('Components.Creations.Page.CreationOptions.edit')}</span>
+                            </Button>
+                        </Link>
+                    </DropdownMenuItem>}
                 </DropdownMenuContent>
             </DropdownMenu>
             <DialogContent>

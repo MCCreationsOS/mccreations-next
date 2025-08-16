@@ -1,4 +1,5 @@
-'use client'
+'use client';
+import { use } from "react";
 
 import { submitLeaderboard } from "@/app/api/community"
 import { ContentTypes } from "@/app/api/types"
@@ -11,7 +12,8 @@ import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useSearchParams } from "next/navigation"
 import { useRouter } from "next/navigation"
 
-export default function Page({params}: { params: Params}) {
+export default function Page(props: { params: Promise<Params>}) {
+    const params = use(props.params);
     const form = useForm({
         defaultValues: {
             username: ""

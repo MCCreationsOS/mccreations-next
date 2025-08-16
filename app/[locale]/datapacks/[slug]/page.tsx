@@ -7,7 +7,8 @@ import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import Creation from '@/components/Creations/Page/Creation';
 import { DatapackWrapper } from '@/components/Creations/Page/ContentWrapper';
 
-export async function generateMetadata({ params }: { params: Params }, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<Params> }, parent: ResolvingMetadata): Promise<Metadata> {
+    const params = await props.params;
     // fetch data
     const map: IContentDoc = await fetchDatapack(params.slug)
     const t = await getTranslations()
@@ -54,11 +55,12 @@ export async function generateMetadata({ params }: { params: Params }, parent: R
     }
 }
 
-export default async function Page({params}: {params: Params}) {
+export default async function Page(props: {params: Promise<Params>}) {
+    const params = await props.params;
     const map = await fetchDatapack(params.slug)
     setRequestLocale(params.locale)
     const t = await getTranslations()
-    
+
     if(map && typeof map === "object" && "_id" in map) {
         return (
             <Creation creation={map} collectionName={CollectionNames.Datapacks}/>
@@ -77,5 +79,4 @@ export default async function Page({params}: {params: Params}) {
             </div>
         )
     }
-
 }

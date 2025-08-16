@@ -638,6 +638,7 @@
                 "CreationOptions": {
                     "button": "Опции",
                     "translate": "Перевести",
+                    "edit": "Редактировать",
                     "translateDescription": "Перевести это творение на другой язык.",
                     "language": "Язык",
                     "languagePlaceholder": "Выбрать язык",
@@ -868,6 +869,7 @@
             "UserOptions": {
                 "sign_in": "Войти",
                 "sign_out": "Выйти",
+                "sign_up": "Зарегистрироваться",
                 "dashboard": "Информационная панель",
                 "notifications": "Уведомления",
                 "profile": "Профиль",

@@ -28,12 +28,18 @@ export async function generateStaticParams() {
   return params
 }
  
-export default function ResourcepackPageLayout({ children, params }: {children: React.ReactNode, params: Params}) {
- setRequestLocale(params.locale)
+export default async function ResourcepackPageLayout(props: {children: React.ReactNode, params: Promise<Params>}) {
+    const params = await props.params;
 
- return (
-        <Suspense>
-            {children}
-        </Suspense>
-  )
+    const {
+        children
+    } = props;
+
+    setRequestLocale(params.locale)
+
+    return (
+           <Suspense>
+               {children}
+           </Suspense>
+     )
 }

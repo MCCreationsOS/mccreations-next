@@ -22,7 +22,7 @@ import SpoilerPlugin from './SpoilerPlugin';
 import { CollapsibleContainerNode } from './SpoilerPlugin/SpoilerContainerNode';
 import { CollapsibleContentNode } from './SpoilerPlugin/SpoilerContentNode';
 import { CollapsibleTitleNode } from './SpoilerPlugin/SpoilerTitleNode';
-import { useEffect } from 'react';
+import { useEffect, useImperativeHandle, forwardRef, type JSX } from 'react';
 import {HeadingNode} from '@lexical/rich-text'
 
 const theme = {
@@ -73,6 +73,23 @@ function ErrorBoundary({children, onError}: {children: React.ReactNode, onError:
 }
 
 /**
+ * Plugin that provides reset functionality
+ */
+function ResetPlugin({ resetRef }: { resetRef: React.RefObject<{ reset: () => void } | null> }): JSX.Element {
+    const [editor] = useLexicalComposerContext();
+    
+    useImperativeHandle(resetRef, () => ({
+        reset: () => {
+            editor.update(() => {
+                $getRoot().clear();
+            });
+        }
+    }));
+    
+    return <></>;
+}
+
+/**
  * Load preset HTML into the editor
  * @param html The HTML string to load 
  * @returns 
@@ -83,7 +100,6 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
       editor.update(() => {
         try {
           if(html.length === 0) return;
-          console.log(html)
           const parser = new DOMParser();
           const dom = parser.parseFromString(DOMPurify.sanitize(html), "text/html");
           
@@ -104,9 +120,15 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
  * The RichText component is a rich text editor that uses Lexical
  * @param sendOnChange The function to call when the text in the editor changes
  * @param initialValue The initial value of the editor
+ * @param resetRef A ref that can be used to reset the editor content
  * @returns 
  */
-export default function RichText({ sendOnChange, initialValue, className }: { sendOnChange: (state: string) => void, initialValue?: string, className?: string }) {
+export default function RichText({ sendOnChange, initialValue, className, resetRef }: { 
+    sendOnChange: (state: string) => void, 
+    initialValue?: string, 
+    className?: string,
+    resetRef?: React.RefObject<{ reset: () => void } | null>
+}) {
 
     const initialConfig = {
         namespace: 'MyEditor',
@@ -123,7 +145,6 @@ export default function RichText({ sendOnChange, initialValue, className }: { se
             let html = $generateHtmlFromNodes(editor, null);
             sendOnChange(html);
         })
-        console.log(editorState)
     }
 
     return (
@@ -142,6 +163,7 @@ export default function RichText({ sendOnChange, initialValue, className }: { se
             <LexicalAutoLinkPlugin />
             <LinkPlugin />
             <LoadHTMLPlugin html={initialValue || ""} />
+            {resetRef && <ResetPlugin resetRef={resetRef} />}
             <OnChangePlugin onChange={onChange} ignoreSelectionChange={true}/>
             <ImagesPlugin />  
             <ListPlugin />

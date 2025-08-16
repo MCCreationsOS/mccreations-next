@@ -35,10 +35,11 @@ import { routing } from "@/i18n/routing";
 import { useForm } from "@tanstack/react-form";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useState, use } from "react";
 import { toast } from "sonner";
 
-export default function Page({params}: {params: {contentType: ContentTypes, slug: string}}) {
+export default function Page(props: {params: Promise<{contentType: ContentTypes, slug: string}>}) {
+    const params = use(props.params);
     const contentType = (params.contentType.endsWith("s") ? params.contentType.slice(0, -1) : params.contentType) as ContentTypes;
     const {creation} = useCreation(params.slug, contentType);
     const { token } = useTokenOrKey();
@@ -64,14 +65,16 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                 data.value.creators,
                 data.value.description,
                 data.value.tags,
-                data.value.videoUrl
+                data.value.videoUrl,
+                data.value.images,
+                data.value.files
             );
         },
     });
-    const [translations, setTranslations] = useState<string>("{}");
+    const [translations, setTranslations] = useState<string>();
     const [newTranslationOpen, setNewTranslationOpen] = useState(false);
 
-    const parsedTranslations = JSON.parse(translations) as Translation;
+    const parsedTranslations = JSON.parse(translations ?? "{}");
 
     useEffect(() => {
         if(!creation || "error" in creation) return;
@@ -107,7 +110,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
         return new Promise<void>((resolve, reject) => {
             if (!creation || "error" in creation) return;
             if (slug.length < 2) {
-                toast.error(t("Pages.Edit.Warnings.slug_too_short.description"));
+                toast.error(t("Pages.Edit.contentType.slug.Warnings.slug_too_short.description"));
                 return;
             }
 
@@ -118,26 +121,26 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
             if (title) {
                 newCreation.title = title;
             } else {
-                toast.error(t("Pages.Edit.Warnings.title_too_short.description"));
+                toast.error(t("Pages.Edit.contentType.slug.Warnings.title_too_short.description"));
             }
 
             if (shortDescription) {
                 newCreation.shortDescription = shortDescription;
             } else {
-                toast.error(t("Pages.Edit.Warnings.short_description_too_short.description"));
+                toast.error(t("Pages.Edit.contentType.slug.Warnings.short_description_too_short.description"));
             }
 
             if (slug) {
                 newCreation.slug = encodeURI(slug);
             } else {
-                toast.error(t("Pages.Edit.Warnings.slug_too_short.description"));
+                toast.error(t("Pages.Edit.contentType.slug.Warnings.slug_too_short.description"));
             }
 
             if (creators) {
                 newCreation.creators = creators;
             } else {
                 toast.error(
-                    t("Pages.Edit.Warnings.creator_too_short.description")
+                    t("Pages.Edit.contentType.slug.Warnings.creator_too_short.description")
                 );
             }
 
@@ -149,7 +152,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                 newCreation.description = description + "";
             } else {
                 toast.error(
-                    t("Pages.Edit.Warnings.description_too_short.description")
+                    t("Pages.Edit.contentType.slug.Warnings.description_too_short.description")
                 );
             }
 
@@ -162,7 +165,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                     return newCreation.tags?.indexOf(tag) === index;
                 });
             } else {
-                toast.error(t("Pages.Edit.Warnings.tags_too_short.description"));
+                toast.error(t("Pages.Edit.contentType.slug.Warnings.tags_too_short.description"));
             }
 
             if (images) {
@@ -180,7 +183,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                         return;
                     }
 
-                    toast.success(t("Pages.Edit.Messages.general_saved"));
+                    toast.success(t("Pages.Edit.contentType.slug.Messages.general_saved"));
                     resolve();
                 })
                 .catch((e) => {
@@ -203,7 +206,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                         toast.error(result.error.toString());
                         return;
                     }
-                    toast.success(t("Pages.Edit.Messages.translations_saved"));
+                    toast.success(t("Pages.Edit.contentType.slug.Messages.translations_saved"));
                     resolve();
                 })
                 .catch((e) => {
@@ -217,8 +220,8 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
         <div className="max-w-4xl mx-auto my-10">
             <Tabs defaultValue="general">
                 <TabsList className="w-full mb-4">
-                    <TabsTrigger value="general">{t('Pages.Edit.General.tab_title')}</TabsTrigger>
-                    <TabsTrigger value="translations">{t('Pages.Edit.Translations.tab_title')}</TabsTrigger>
+                    <TabsTrigger value="general">{t('Pages.Edit.contentType.slug.General.tab_title')}</TabsTrigger>
+                    <TabsTrigger value="translations">{t('Pages.Edit.contentType.slug.Translations.tab_title')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="general">
                     <form
@@ -232,7 +235,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                 name="title"
                                 children={(field) => (
                                     <div className="flex flex-col gap-1">
-                                        <Label htmlFor="title">{t("Pages.Edit.General.title")} <Required /></Label>
+                                        <Label htmlFor="title">{t("Pages.Edit.contentType.slug.General.title")} <Required /></Label>
                                         <Input
                                             type="text"
                                             name="title"
@@ -241,7 +244,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                             onChange={(e) => {
                                                 field.handleChange(e.target.value);
                                             }}
-                                            placeholder={t("Pages.Edit.General.title")}
+                                            placeholder={t("Pages.Edit.contentType.slug.General.title")}
                                         />
                                         {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                     </div>
@@ -249,7 +252,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                 validators={{
                                     onSubmit: ({value}) => {
                                         if(value.length < 3) {
-                                            return t("Pages.Edit.Warnings.title_too_short.description")
+                                            return t("Pages.Edit.contentType.slug.Warnings.title_too_short.description")
                                         }
                                     }
                                 }}
@@ -258,7 +261,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                             name="slug"
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
-                                    <Label htmlFor="slug">{t("Pages.Edit.General.slug")} <Required /></Label>
+                                    <Label htmlFor="slug">{t("Pages.Edit.contentType.slug.General.slug")} <Required /></Label>
                                     <Input
                                         type="text"
                                         name="slug"
@@ -267,7 +270,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                         onChange={(e) => {
                                             field.handleChange(e.target.value);
                                         }}
-                                            placeholder={t("Pages.Edit.General.slug")}
+                                            placeholder={t("Pages.Edit.contentType.slug.General.slug")}
                                         />
                                         {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                 </div>
@@ -275,9 +278,9 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                             validators={{
                                 onSubmit: ({value}) => {
                                     if(value.length < 5) {
-                                        return t("Pages.Edit.Warnings.slug_too_short.description")
+                                        return t("Pages.Edit.contentType.slug.Warnings.slug_too_short.description")
                                     } else if(value.length > 50) {
-                                        return t("Pages.Edit.Warnings.slug_too_long.description")
+                                        return t("Pages.Edit.contentType.slug.Warnings.slug_too_long.description")
                                     }
                                 }
                             }}
@@ -286,7 +289,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                 name="shortDescription"
                                 children={(field) => (
                                     <div className="flex flex-col gap-1">
-                                        <Label htmlFor="shortDescription">{t("Pages.Edit.General.short_description")} <Required /></Label>
+                                        <Label htmlFor="shortDescription">{t("Pages.Edit.contentType.slug.General.short_description")} <Required /></Label>
                                         <Input
                                             type="text"
                                             name="shortDescription"
@@ -296,7 +299,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                                 field.handleChange(e.target.value);
                                             }}
                                             placeholder={t(
-                                                "Pages.Edit.General.short_description"
+                                                "Pages.Edit.contentType.slug.General.short_description"
                                             )}
                                         />
                                         {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
@@ -305,16 +308,16 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                 validators={{
                                     onSubmit: ({value}) => {
                                         if(value.length < 20) {
-                                            return t("Pages.Edit.Warnings.short_description_too_short.description")
-                                        } else if(value.length > 100) {
-                                            return t("Pages.Edit.Warnings.short_description_too_long.description")
+                                            return t("Pages.Edit.contentType.slug.Warnings.short_description_too_short.description")
+                                        } else if(value.length > 150) {
+                                            return t("Pages.Edit.contentType.slug.Warnings.short_description_too_long.description")
                                         }
                                     }
                                 }}
                             />
                         <generalForm.Field name="creators" children={(field) => (
                             <div className="flex flex-col gap-1">
-                                <Label htmlFor="creators">{t("Pages.Edit.General.creators")} <Required /></Label>
+                                <Label htmlFor="creators">{t("Pages.Edit.contentType.slug.General.creators")} <Required /></Label>
                                 <CreatorInput creators={field.state.value} onChange={field.handleChange} />
                                 {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                             </div>
@@ -323,7 +326,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                             name="videoUrl"
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
-                                    <Label htmlFor="videoUrl">{t("Pages.Edit.General.video_url")}</Label>
+                                    <Label htmlFor="videoUrl">{t("Pages.Edit.contentType.slug.General.video_url")}</Label>
                                     <Input
                                         type="text"
                                         name="videoUrl"
@@ -332,7 +335,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                         onChange={(e) => {
                                             field.handleChange(e.target.value);
                                         }}
-                                        placeholder={t("Pages.Edit.General.video_url")}
+                                        placeholder={t("Pages.Edit.contentType.slug.General.video_url")}
                                         />
                                         {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                 </div>
@@ -341,7 +344,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                 onSubmit: ({value}) => {
                                     if(value) {
                                         if(!value.includes("https://www.youtube.com/watch?v=") && !value.includes("https://youtu.be/")) {
-                                            return t("Pages.Edit.Warnings.invalid_video_url.description")
+                                            return t("Pages.Edit.contentType.slug.Warnings.invalid_video_url.description")
                                         }
                                     }
                                 }
@@ -351,7 +354,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                             name="description"
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
-                                    <Label htmlFor="description">{t("Pages.Edit.General.description")} <Required /></Label>
+                                    <Label htmlFor="description">{t("Pages.Edit.contentType.slug.General.description")} <Required /></Label>
                                     <RichText
                                         sendOnChange={(v) => {
                                             field.handleChange(v);
@@ -364,7 +367,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                             validators={{
                                 onSubmit: ({value}) => {
                                     if(value.length < 50) {
-                                        return t("Pages.Edit.Warnings.description_too_short.description")
+                                        return t("Pages.Edit.contentType.slug.Warnings.description_too_short.description")
                                     }
                                 }
                             }}
@@ -373,7 +376,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                             name="tags"
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
-                                    <Label htmlFor="tags">{t("Pages.Edit.General.tags")} <Required /></Label>
+                                    <Label htmlFor="tags">{t("Pages.Edit.contentType.slug.General.tags")} <Required /></Label>
                                     <TagInput
                                         tags={tags}
                                         creation={creation}
@@ -385,7 +388,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                             validators={{
                                 onSubmit: ({value}) => {
                                     if(value.length < 1) {
-                                        return t("Pages.Edit.Warnings.tags_too_short.description")
+                                        return t("Pages.Edit.contentType.slug.Warnings.tags_too_short.description")
                                     }
                                 }
                             }}
@@ -423,7 +426,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                             )}
                         />
                         <Button type="submit" className="w-fit">
-                            <span>{t("Pages.Edit.General.save")}</span>
+                            <span>{t("Pages.Edit.contentType.slug.General.save")}</span>
                         </Button>
                     </form>
                 </TabsContent>
@@ -442,7 +445,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                 </CollapsibleTrigger>
                                 <CollapsibleContent className="flex flex-col gap-3">
                                     <div className="flex flex-col gap-2">
-                                        <Label htmlFor={`translations.${translation}.title`}>{t("Pages.Edit.General.title")}</Label>
+                                        <Label htmlFor={`translations.${translation}.title`}>{t("Pages.Edit.contentType.slug.General.title")}</Label>
                                         <Input name={`translations.${translation}.title`} type="text" defaultValue={creation.translations?.[translation as keyof Translation]?.title ?? creation.title} 
                                             onChange={(e) => {
                                                 setTranslations(JSON.stringify({
@@ -455,7 +458,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                             }} />
                                     </div>
                                     <div className="flex flex-col gap-2">
-                                        <Label htmlFor={`translations.${translation}.shortDescription`}>{t("Pages.Edit.General.short_description")}</Label>
+                                        <Label htmlFor={`translations.${translation}.shortDescription`}>{t("Pages.Edit.contentType.slug.General.short_description")}</Label>
                                         <Input name={`translations.${translation}.shortDescription`} type="text" defaultValue={creation.translations?.[translation as keyof Translation]?.shortDescription ?? creation.shortDescription} onChange={(e) => {
                                             setTranslations(JSON.stringify({
                                                 ...parsedTranslations,
@@ -467,7 +470,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                         }} />
                                     </div>
                                     <div className="flex flex-col gap-2">
-                                        <Label htmlFor={`translations.${translation}.description`}>{t("Pages.Edit.General.description")}</Label>
+                                        <Label htmlFor={`translations.${translation}.description`}>{t("Pages.Edit.contentType.slug.General.description")}</Label>
                                         <RichText initialValue={creation.translations?.[translation as keyof Translation]?.description ?? creation.description} sendOnChange={(v) => {
                                             setTranslations(JSON.stringify({
                                                 ...parsedTranslations,
@@ -491,24 +494,24 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                                     }
                                                 }));
                                             }} />
-                                            <Label htmlFor={`translations.${translation}.approved`}>{t("Pages.Edit.Translations.approved")}</Label>
+                                            <Label htmlFor={`translations.${translation}.approved`}>{t("Pages.Edit.contentType.slug.Translations.approved")}</Label>
                                     </div>
                                 </CollapsibleContent>
                                 </Collapsible>
                         })}
                         <div className="flex flex-row gap-2">
                             <Button type="submit" className="w-fit">
-                                <span>{t("Pages.Edit.Translations.save")}</span>
+                                <span>{t("Pages.Edit.contentType.slug.Translations.save")}</span>
                             </Button>
                             <Dialog open={newTranslationOpen} onOpenChange={setNewTranslationOpen}>
                                 <DialogTrigger asChild>
                                     <Button type="button" variant="secondary" className="w-fit">
-                                        <span>{t("Pages.Edit.Translations.add_translation")}</span>
+                                        <span>{t("Pages.Edit.contentType.slug.Translations.add_translation")}</span>
                                     </Button>
                                 </DialogTrigger>
                                 <DialogContent>
                                     <DialogHeader>
-                                        <DialogTitle>{t("Pages.Edit.Translations.add_translation")}</DialogTitle>
+                                        <DialogTitle>{t("Pages.Edit.contentType.slug.Translations.add_translation")}</DialogTitle>
                                     </DialogHeader>
                                     <Select onValueChange={(value) => {
                                         setTranslations(JSON.stringify({
@@ -523,7 +526,7 @@ export default function Page({params}: {params: {contentType: ContentTypes, slug
                                         }));
                                     }}>
                                         <SelectTrigger>
-                                            <SelectValue placeholder={t("Pages.Edit.Translations.select_language")} />
+                                            <SelectValue placeholder={t("Pages.Edit.contentType.slug.Translations.select_language")} />
                                         </SelectTrigger>
                                         <SelectContent>
                                             {routing.locales.map((locale) => (

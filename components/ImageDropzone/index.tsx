@@ -10,7 +10,7 @@ import upload from '@/app/api/upload'
 import { useTranslations } from 'next-intl'
 import { useToken } from '@/app/api/hooks/users'
 import { toast } from 'sonner'
-import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from 'react-beautiful-dnd'
+import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from '@hello-pangea/dnd'
 import { Button } from '../ui/button'
 
 /**
@@ -46,12 +46,6 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                     })
 
                     if(allowMultiple) {
-                        onImagesUploaded([
-                            ...files,
-                            ...uploadedFiles.map(file =>
-                                {return { url: file.location, name: file.name }}
-                            )
-                        ]);
                         setFiles(previousFiles => [
                             ...previousFiles,
                             ...uploadedFiles.map(file =>
@@ -59,11 +53,6 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                             )
                         ])
                     } else {
-                        onImagesUploaded([
-                            ...uploadedFiles.map(file =>
-                                {return { url: file.location, name: file.name }}
-                            )
-                        ]);
                         setFiles([
                             ...uploadedFiles.map(file =>
                                 {return { url: file.location, name: file.name }}
@@ -117,6 +106,10 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
         }
     }, [])
 
+    useEffect(() => {
+        onImagesUploaded(files.map(file => ({url: file.url, name: file.name})));
+    }, [files])
+
     const removeFile = (name: string) => {
         setFiles(files => files.filter(file => file.name !== name))
         onImagesUploaded(files.filter(file => file.name !== name));
@@ -138,11 +131,11 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
       }, []);
 
       const moveFile = (from: number, to: number) => {
-        setFiles(prevFiles => {
-            const newFiles = [...prevFiles]
-            newFiles.splice(to, 0, newFiles.splice(from, 1)[0])
-            return newFiles
-        })
+          setFiles(prevFiles => {
+              const newFiles = [...prevFiles]
+              newFiles.splice(to, 0, newFiles.splice(from, 1)[0])
+              return newFiles
+            })
     }
 
     return (
@@ -163,7 +156,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
                     </div>
                 </div>
             </form>
-            {(allowMultiple) ? 
+            {(allowMultiple) ?
              <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="droppable" direction="horizontal">
                 {(provided, snapshot) => (

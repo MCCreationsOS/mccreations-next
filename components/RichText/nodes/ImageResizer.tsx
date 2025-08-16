@@ -2,7 +2,7 @@ import type {LexicalEditor} from 'lexical';
 
 import {calculateZoomLevel} from '@lexical/utils';
 import * as React from 'react';
-import {useRef} from 'react';
+import { useRef, type JSX } from 'react';
 import {useTranslations} from 'next-intl';
 
 function clamp(value: number, min: number, max: number) {

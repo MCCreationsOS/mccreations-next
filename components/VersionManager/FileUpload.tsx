@@ -37,17 +37,16 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 file.errors.forEach(error => {
                     switch (error.code) {
                         case 'file-invalid-type':
-                            message += t('Components.Dropzone.invalid_type', { type: t('Components.Dropzone.FileTypes.zip') });
+                            toast.error(t('Components.Dropzone.invalid_type', { type: t('Components.Dropzone.FileTypes.zip') }))
                             break;
                         case 'file-too-large':
-                            message += t('Components.Dropzone.file_too_large', { size: '2MB' });
+                            toast.error(t('Components.Dropzone.file_too_large', { size: '2MB' }))
                             break;
                         default:
-                            message += t('Components.Dropzone.file_unknown');
+                            toast.error(t('Components.Dropzone.file_unknown'))
                             break;
                     }
                 })
-                toast.error(message)
             })
         }
     }, [])
@@ -96,13 +95,13 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
                 </div>
                 <p>{t('Components.Dropzone.or')}</p>
                 <div className="mt-3 w-full">
-                    <Label className="text-sm font-medium">{t('Components.Dropzone..link')}</Label>
+                    <Label className="text-sm font-medium">{t('Components.Dropzone.link')}</Label>
                     <Input type="text" name="Link" id="Link" placeholder={t('Components.Dropzone.link_placeholder')} defaultValue={file} />
                     <Button variant="secondary" type="button" onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
                         setFile((document.getElementById('Link') as HTMLInputElement).value || "")
-                    }}><span>{t('Components.Dropzone..set_link')}</span></Button>
+                    }}><span>{t('Components.Dropzone.set_link')}</span></Button>
                 </div>
             </div>
         </>

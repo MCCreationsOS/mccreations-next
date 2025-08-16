@@ -4,9 +4,19 @@ import Link from "next/link"
 import styles from "./dashboard.module.css"
 import { Bell, Layers, Map, Package } from "lucide-react"
 
-export default async function Layout({params: {locale}, children}: {params: {locale: string}, children: React.ReactElement}) {
+export default async function Layout(props: {params: Promise<{locale: string}>, children: React.ReactElement<any>}) {
+    const params = await props.params;
+
+    const {
+        locale
+    } = params;
+
+    const {
+        children
+    } = props;
+
     const t = await getTranslations()
-    
+
     return (
         <div className="m-2 flex flex-col md:flex-row gap-10">
             <nav className="md:max-w-[200px] flex md:flex-col flex-row gap-0 border-2 border-black bg-secondary h-fit flex-wrap">

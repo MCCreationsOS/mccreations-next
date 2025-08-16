@@ -640,6 +640,7 @@
                 "CreationOptions": {
                     "button": "Options",
                     "translate": "Translate",
+                    "edit": "Edit",
                     "translateDescription": "Translate the creation to another language.",
                     "language": "Language",
                     "languagePlaceholder": "Select a language",
@@ -870,6 +871,7 @@
             "UserOptions": {
                 "sign_in": "Sign In",
                 "sign_out": "Sign Out",
+                "sign_up": "Sign Up",
                 "dashboard": "Dashboard",
                 "notifications": "Notifications",
                 "profile": "Profile",

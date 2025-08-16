@@ -3,7 +3,8 @@ import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { getTranslations } from "next-intl/server";
 
-export default async function NotFound({ params }: { params: Params}) {
+export default async function NotFound(props: { params: Promise<Params>}) {
+    const params = await props.params;
     setRequestLocale(params.locale)
     const t = await getTranslations("Pages.NotFound")
     return (

@@ -1,11 +1,11 @@
 {
     "language_name": "Français",
     "language_code": "fr-FR",
-    "map": "{count, plural, =0 {Maps} =1 {Map} other {Maps}}",
-    "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack} other {Data Packs}}",
-    "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack} other {Resource Packs}}",
-    "creator": "{count, plural, =0 {Creators} =1 {Creator} other {Creators}}",
-    "comment": "{count, plural, =0 {Comments} =1 {Comment} other {Comments}}",
+    "map": "{count, plural, =0 {Cartes} =1 {Carte} other {Cartes}}",
+    "datapack": "{count, plural, =0 {Packs de données} =1 {Pack de données} other {Packs de données}}",
+    "resourcepack": "{count, plural, =0 {Packs de ressources} =1 {Pack de ressources} other {Packs de ressources}}",
+    "creator": "{count, plural, =0 {Créateurs} =1 {Créateur} other {Créateurs}}",
+    "comment": "{count, plural, =0 {Commentaires} =1 {Commentaire} other {Commentaires}}",
     "notification": "{count, plural, =0 {Notifications} =1 {Notification} other {Notifications}}",
     "download": "Télécharger",
     "Pages": {
@@ -638,6 +638,7 @@
                 "CreationOptions": {
                     "button": "Options",
                     "translate": "Traduire",
+                    "edit": "Modifier",
                     "translateDescription": "Traduire la création dans une autre langue.",
                     "language": "Langue",
                     "languagePlaceholder": "Séléctionner une langue",
@@ -868,6 +869,7 @@
             "UserOptions": {
                 "sign_in": "Se connecter",
                 "sign_out": "Se déconnecter",
+                "sign_up": "S'inscrire",
                 "dashboard": "Tableau de bord",
                 "notifications": "Notifications",
                 "profile": "Profile",

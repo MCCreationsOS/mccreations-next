@@ -9,7 +9,13 @@ import { Button } from "@/components/ui/button";
 import ContentGrid from "@/components/Creations/Grid";
 import FeaturedSlideshow from "@/components/Creations/FeaturedSlideshow";
 
-export default async function Page({ params: { locale } }: { params: { locale: string } }) {
+export default async function Page(props: { params: Promise<{ locale: string }> }) {
+    const params = await props.params;
+
+    const {
+        locale
+    } = params;
+
     const t = await getTranslations();
     let dynamicPlaylists: { name: string, id: string, options: QueryOptions }[] = [{
         name: 'updated_content',

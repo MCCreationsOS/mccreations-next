@@ -123,8 +123,8 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
 
     if (renderVersion) {
         return <div className="flex flex-col gap-4">
-                <Label>{t('VersionManager.Version.edit', {version: renderVersion.contentVersion ?? "1.0.0"})}</Label>
-                <Button variant="secondary" onClick={() => {setRenderVersion(undefined)}} className="w-fit"><ArrowLeft /><span>{t('VersionManager.Version.back_to_versions')}</span></Button>
+                <Label>{t('Components.VersionManager.Version.edit', {version: renderVersion.contentVersion ?? "1.0.0"})}</Label>
+                <Button variant="secondary" onClick={() => {setRenderVersion(undefined)}} className="w-fit"><ArrowLeft /><span>{t('Components.VersionManager.Version.back_to_versions')}</span></Button>
                 <form onSubmit={e => {
                     e.preventDefault()
                     e.stopPropagation()
@@ -132,14 +132,14 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 }} className="flex flex-col gap-4 max-w-2xl">
                     <editForm.Field name="contentVersion" children={(field) => (
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor={field.name}>{t('VersionManager.Version.version_number')}</Label>
+                            <Label htmlFor={field.name}>{t('Components.VersionManager.Version.version_number')}</Label>
                             <Input id={field.name} name={field.name} defaultValue={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
                             {!field.state.meta.isValid && <p className="text-red-500">{field.state.meta.errors.join(", ")}</p>}
                         </div>
                     )}/>
                     <editForm.Field name="minecraftVersion" children={(field) => (
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor={field.name}>{t('VersionManager.Version.minecraft_version')}</Label>
+                            <Label htmlFor={field.name}>{t('Components.VersionManager.Version.minecraft_version')}</Label>
                             <MinecraftVersionInput version={renderVersion} onChange={(v) => field.handleChange(v.split(","))} />
                             {!field.state.meta.isValid && <p className="text-red-500">{field.state.meta.errors.join(", ")}</p>}
                         </div>
@@ -149,19 +149,19 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                     )}/> */}
                     <editForm.Field name="url" children={(field) => (
                         <div className="flex flex-col gap-2">
-                            <Label htmlFor={field.name}>{t('VersionManager.Version.MainFile.link')}</Label>
+                            <Label htmlFor={field.name}>{t('Components.VersionManager.Version.MainFile.link')}</Label>
                             <Input id={field.name} name={field.name} defaultValue={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
                             {!field.state.meta.isValid && <p className="text-red-500">{field.state.meta.errors.join(", ")}</p>}
                         </div>
                     )}/>
                     <div className="flex flex-row gap-2">
-                        <Button type="submit" className="w-fit"><span>{t('VersionManager.Version.save')}</span></Button>
+                        <Button type="submit" className="w-fit"><span>{t('Components.VersionManager.Version.save')}</span></Button>
                         <Button type="button" variant="secondary" className="w-fit" onClick={() => {
                             setRenderVersion(undefined)
-                        }}><span>{t('VersionManager.Version.cancel')}</span></Button>
+                        }}><span>{t('Components.VersionManager.Version.cancel')}</span></Button>
                         <Button type="button" variant="destructive" className="w-fit" onClick={() => {
                             deleteVersion()
-                        }}><span>{t('VersionManager.Version.delete')}</span></Button>
+                        }}><span>{t('Components.VersionManager.Version.delete')}</span></Button>
                     </div>
                 </form>
             </div>
@@ -169,7 +169,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
 
     return (
         <div>
-            <Label className="mb-2">{t('VersionManager.title')}</Label>
+            <Label className="mb-2">{t('Components.VersionManager.title')}</Label>
             <div className="flex flex-col gap-2">
                 <div className="flex flex-row flex-wrap gap-2">
                     {versions && versions.map((version, idx) => {
@@ -182,10 +182,10 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                 </div>
                 <div>
                     <Dialog open={addVersionDialogOpen} onOpenChange={setAddVersionDialogOpen}>
-                        <DialogTrigger><Button variant="secondary" type="button"><span>{t('VersionManager.add_version')}</span></Button></DialogTrigger>
+                        <DialogTrigger><Button variant="secondary" type="button"><span>{t('Components.VersionManager.add_version')}</span></Button></DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
-                                <DialogTitle>{t('VersionManager.add_version')}</DialogTitle>
+                                <DialogTitle>{t('Components.VersionManager.add_version')}</DialogTitle>
                             </DialogHeader>
                             <form onSubmit={e => {
                                 e.preventDefault()
@@ -198,7 +198,6 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                                     </>
                                 )} listeners={{
                                     onChange: (e) => {
-                                        console.log(e)
                                         uploadForm.handleSubmit()
                                     }
                                 }}/>
@@ -228,17 +227,19 @@ function MinecraftVersionInput({
     const [showSuggestions, setShowSuggestions] = useState(false);
     const t = useTranslations();
 
+    useEffect(() => {
+        onChange(versionInput);
+    }, [versionInput])
+
     const addTag = (tag: string) => {
         if (versionInput.split(",").includes(tag)) return;
         if (tag.length < 2) return;
         setVersionInput(versionInput + "," + tag);
         setSearch("");
-        onChange(versionInput);
     };
 
     const removeTag = (tag: string) => {
         setVersionInput(versionInput.replace("," + tag, ""));
-        onChange(versionInput);
     };
 
     return (

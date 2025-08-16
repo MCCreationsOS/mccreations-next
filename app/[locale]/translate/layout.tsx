@@ -25,7 +25,7 @@ export async function generateMetadata() {
         type: "website",
         url: "/translate"
       },
-      keywords: [t('Pages.Translate.Metadata.Keywords.minecraft'), t('Pages.Translate.Metadata.Keywords.games'), t('Pages.Translate.Metadata.Keywords.gaming'), t('Pages.Translate.Metadata.Keywords.minecraft_map'), t('Pages.Translate.Metadata.Keywords.minecraft_creations'), t('Pages.Translate.Metadata.Keywords.minecraft_version'), t('Pages.Translate.Metadata.Keywords.maps'), t('Pages.Translate.Metadata.Keywords.minecraft_games'), t('Pages.Translate.Metadata.Keywords.download')],
+      keywords: [t('Pages.Translate.Metadata.Keywords.minecraft'), t('Pages.Translate.Metadata.Keywords.games'), t('Pages.Translate.Metadata.Keywords.gaming'), t('Pages.Translate.Metadata.Keywords.minecraft_map'), t('Pages.Translate.Metadata.Keywords.minecraft_creations'), t('Pages.Translate.Metadata.Keywords.minecraft_version', {minecraft_version: "1.21.8"}), t('Pages.Translate.Metadata.Keywords.maps'), t('Pages.Translate.Metadata.Keywords.minecraft_games'), t('Pages.Translate.Metadata.Keywords.download')],
       publisher: "MCCreations"
     }
 }

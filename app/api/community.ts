@@ -1,4 +1,3 @@
-import { revalidateTag } from "next/cache";
 import { CollectionNames, ContentTypes, IComment, IContentDoc, Leaderboard, QueryOptions } from "@/app/api/types";
 import { convertToCollection, formatQueryOptions } from "./content";
 
@@ -20,7 +19,6 @@ export async function postRating(rating: number, map: IContentDoc) {
             cache: 'no-store'
         })
         let newRating = (await response.json()).rating as number
-        revalidateTag(map.slug)
         return newRating;
     }
     catch(e) {
@@ -35,9 +33,9 @@ export async function postRating(rating: number, map: IContentDoc) {
  * @param comment The actual comment
  * @param account The UID of the poster of the comment
  */
-export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string, rating?: number) {
+export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string, rating?: number): Promise<IComment | undefined> {
     try {
-        fetch(`${process.env.DATA_URL}/comment`, {
+        const response = await fetch(`${process.env.DATA_URL}/comment`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -55,15 +53,21 @@ export async function postComment(slug: string, content_type: string, username: 
             }),
             cache: 'no-store'
         })
+        
+        if (response.ok) {
+            const createdComment = await response.json() as IComment;
+            return createdComment;
+        }
     }
     catch(e) {
         console.error(e);
     }
+    return undefined;
 }
 
-export async function postReply(comment_id: string, username: string, reply: string, handle: string) {
+export async function postReply(comment_id: string, username: string, reply: string, handle: string): Promise<IComment | undefined> {
     try {
-        fetch(`${process.env.DATA_URL}/comment/${comment_id}/reply`, {
+        const response = await fetch(`${process.env.DATA_URL}/comment/${comment_id}/reply`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -78,10 +82,16 @@ export async function postReply(comment_id: string, username: string, reply: str
             }),
             cache: 'no-store'
         })
+        
+        if (response.ok) {
+            const createdReply = await response.json() as IComment;
+            return createdReply;
+        }
     }
     catch(e) {
         console.error(e);
     }
+    return undefined;
 }
 
 export async function likeComment(comment_id: string, jwt: string = "") {

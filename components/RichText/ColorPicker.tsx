@@ -9,7 +9,7 @@
 import './ColorPicker.css';
 
 import {calculateZoomLevel} from '@lexical/utils';
-import {useEffect, useMemo, useRef, useState} from 'react';
+import { useEffect, useMemo, useRef, useState, type JSX } from 'react';
 import * as React from 'react';
 
 import { Input } from '@/components/ui/input';

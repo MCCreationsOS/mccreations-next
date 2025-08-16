@@ -28,17 +28,27 @@ export async function generateMetadata() {
       type: "website",
       url: "https://mccreations.net/resourcepacks"
     },
-    keywords: [t("Pages.Resourcepacks.Metadata.Keywords.minecraft"), t("Pages.Resourcepacks.Metadata.Keywords.games"), t("Pages.Resourcepacks.Metadata.Keywords.gaming"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_resourcepack"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_creations"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_version"), t("Pages.Resourcepacks.Metadata.Keywords.mods"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_mods"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_hd")],
+    keywords: [t("Pages.Resourcepacks.Metadata.Keywords.minecraft"), t("Pages.Resourcepacks.Metadata.Keywords.games"), t("Pages.Resourcepacks.Metadata.Keywords.gaming"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_resourcepack"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_creations"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_version", {minecraft_version: "1.21.8"}), t("Pages.Resourcepacks.Metadata.Keywords.mods"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_mods"), t("Pages.Resourcepacks.Metadata.Keywords.minecraft_hd")],
     publisher: "MCCreations"
   }
 }
  
-export default function ResourcepacksLayout({ params: { locale }, children }: { params: { locale: string }, children: React.ReactNode}) {
- return (
-    <>
-          <Suspense fallback={<Loading />}>
-              {children}
-          </Suspense>
-    </>
-  )
+export default async function ResourcepacksLayout(props: { params: Promise<{ locale: string }>, children: React.ReactNode}) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
+  return (
+     <>
+           <Suspense fallback={<Loading />}>
+               {children}
+           </Suspense>
+     </>
+   )
 }

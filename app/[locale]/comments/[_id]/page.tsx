@@ -1,11 +1,19 @@
-'use client'
+'use client';
+import { use } from "react";
 
 import { useComment } from "@/app/api/hooks/comments";
 import { Comment } from "@/components/Creations/Page/Comments";
 import { useTranslations } from "next-intl";
 
 
-export default function CommentPage({params: {locale, _id}}: {params: {locale: string, _id: string}}) {
+export default function CommentPage(props: {params: Promise<{locale: string, _id: string}>}) {
+    const params = use(props.params);
+
+    const {
+        locale,
+        _id
+    } = params;
+
     const {comment, isLoading, error} = useComment(_id)
     const t = useTranslations('Pages.Comments._id')
 
@@ -16,5 +24,4 @@ export default function CommentPage({params: {locale, _id}}: {params: {locale: s
             <Comment comment={comment} />
         </div>
     )
-
 }

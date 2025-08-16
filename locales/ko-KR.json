@@ -638,6 +638,7 @@
           "CreationOptions": {
             "button": "옵션",
             "translate": "번역",
+            "edit": "수정",
             "translateDescription": "창작물을 다른 언어로 번역합니다.",
             "language": "언어",
             "languagePlaceholder": "언어 선택",
@@ -868,6 +869,7 @@
         "UserOptions": {
           "sign_in": "로그인",
           "sign_out": "로그아웃",
+          "sign_up": "회원가입",
           "dashboard": "대시보드",
           "notifications": "알림",
           "profile": "프로필",

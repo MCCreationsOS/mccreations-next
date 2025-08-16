@@ -12,6 +12,7 @@ import { Plus, UserPlus } from 'lucide-react';
 import { follow } from '@/app/api/creators';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
+import { CreatorAvatar } from '@/app/[locale]/create/formElements';
 
 /**
  * A card that displays a creator's logo and username
@@ -34,7 +35,7 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
         return (
             <div className='flex flex-row gap-2'>
                 <Link className="flex-1 flex flex-row gap-2 items-center" href={`/creator/${c.handle}`}>
-                    <Image src={c.iconURL ?? "/defaultLogo.png"} width={50} height={50} className="rounded-full w-[50px] h-[50px] object-cover" alt={t('Pages.Creator.handle.icon', {username: c.username})}></Image>
+                    <CreatorAvatar creator={c} size={10} />
                     <div>
                         {c.username}
                     </div>
@@ -54,8 +55,8 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
         )
     } else {
         return (
-            <div className={styles.card}>
-                <Image src={"/defaultLogo.png"} width={50} height={50} className={styles.logo} alt={t('Pages.Creator.handle.icon', {username: creator.username})}></Image>
+            <div className={"flex-1 flex flex-row gap-2 items-center"}>
+                <CreatorAvatar creator={{username: creator.username, handle: creator.handle}} size={50} />
                 <div>
                     {creator.username}
                 </div>

@@ -11,7 +11,7 @@ export async function generateMetadata() {
     metadataBase: new URL('https://mccreations.net'),
     title: t("title"),
     description: t("description"),
-    keywords: [t("Keywords.minecraft"), t("Keywords.games"), t("Keywords.gaming"), t("Keywords.minecraft_map"), t("Keywords.minecraft_creations"), t("Keywords.minecraft_version"), t("Keywords.maps"), t("Keywords.minecraft_games"), t("Keywords.download"), t("Keywords.minecraft_adventure"), t("Keywords.minecraft_parkour"), t("Keywords.minecraft_pvp"), t("Keywords.minecraft_skyblock"), t("Keywords.minecraft_survival"), t("Keywords.minecraft_creative"), t("Keywords.minecraft_minigames")],
+    keywords: [t("Keywords.minecraft"), t("Keywords.games"), t("Keywords.gaming"), t("Keywords.minecraft_map"), t("Keywords.minecraft_creations"), t("Keywords.minecraft_version", {minecraft_version: "1.21.8"}), t("Keywords.maps"), t("Keywords.minecraft_games"), t("Keywords.download"), t("Keywords.minecraft_adventure"), t("Keywords.minecraft_parkour"), t("Keywords.minecraft_pvp"), t("Keywords.minecraft_skyblock"), t("Keywords.minecraft_survival"), t("Keywords.minecraft_creative"), t("Keywords.minecraft_minigames")],
     publisher: "MCCreations",
     twitter: {
       title: t("title"),
@@ -34,7 +34,17 @@ export async function generateMetadata() {
   }
 }
  
-export default function MapsLayout({ params: { locale }, children }: { params: { locale: string }, children: React.ReactNode}) {
+export default async function MapsLayout(props: { params: Promise<{ locale: string }>, children: React.ReactNode}) {
+  const params = await props.params;
+
+  const {
+    locale
+  } = params;
+
+  const {
+    children
+  } = props;
+
   return (
      <>
            <Suspense fallback={<Loading />}>
@@ -42,4 +52,4 @@ export default function MapsLayout({ params: { locale }, children }: { params: {
            </Suspense>
      </>
    )
- }
+}

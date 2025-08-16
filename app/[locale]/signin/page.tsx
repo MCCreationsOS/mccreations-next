@@ -1,7 +1,6 @@
 'use client'
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { SiDiscord, SiGithub, SiGoogle, SiMicrosoft } from "@icons-pack/react-simple-icons";
 import { Link } from "@/i18n/navigation";
 import { SortOptions, StatusOptions, UserTypes } from "../../api/types";
 import { sendLog } from "@/app/api/logging";
@@ -110,10 +109,10 @@ export default function SignIn() {
             <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 absolute top-0 left-1/2 -translate-x-1/2 border-2 border-black">
                 <h2 className="text-2xl font-bold mb-2">{t('Pages.SignIn.providers')}</h2>
                 <div className="flex flex-row flex-wrap gap-2 mb-5">
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><SiGoogle /><span>{t('Pages.SignIn.Providers.google')}</span></Button>
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><SiDiscord /><span>{t('Pages.SignIn.Providers.discord')}</span></Button>
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><SiGithub /><span>{t('Pages.SignIn.Providers.github')}</span></Button>
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><SiMicrosoft /><span>{t('Pages.SignIn.Providers.microsoft')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><Image src="/icons/google.png" alt="Google" width={20} height={20} /> <span>{t('Pages.SignIn.Providers.google')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><Image src="/icons/discord.svg" alt="Discord" width={20} height={20} /> <span>{t('Pages.SignIn.Providers.discord')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><Image src="/icons/github.svg" alt="Github" width={20} height={20} /> <span>{t('Pages.SignIn.Providers.github')}</span></Button>
+                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><Image src="/icons/microsoft.svg" alt="Microsoft" width={20} height={20} /> <span>{t('Pages.SignIn.Providers.microsoft')}</span></Button>
                 </div>
                 <h2 className="text-2xl font-bold mb-2">{t('Pages.SignIn.email_title')}</h2>
                 <form onSubmit={(e) => {e.preventDefault(); form.handleSubmit()}} className="flex flex-col gap-2">

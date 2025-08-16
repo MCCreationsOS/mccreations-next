@@ -41,8 +41,6 @@ export default function Creation({creation, collectionName}: {creation: IContent
     let title = creation.title
     let description = creation.description
     let shortDescription = creation.shortDescription
-
-    console.log(locale)
     
     if(creation.translations && creation.translations[locale] && creation.translations[locale].approved) {
         title = creation.translations[locale].title
@@ -102,7 +100,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                     <Image className="max-w-xl w-full mx-auto object-cover object-center aspect-video" width={1280} height={720} src={creation.images[0]} alt={t('Components.Creations.Page.logo_alt', {title: title, type: t(creation.type, {count: 1})})} priority></Image>
                 </div>
                 <div className="w-full h-8 object-cover object-center aspect-video z-2 hidden md:flex md:absolute md:bottom-[-15px] gap-1 justify-center">
-                    {creation.files[0]?.minecraftVersion && <Badge className="text-md">{creation.files[0].minecraftVersion}</Badge>}
+                    {creation.files && creation.files.length > 0 && creation.files[0].minecraftVersion && <Badge className="text-md">{creation.files[0].minecraftVersion}</Badge>}
                         {
                             (creation.type === "map") ? <><Link href={`/${creation.type}s`}><Badge variant="secondary" className="text-md">{t(creation.type, {count: 1})}</Badge></Link></> : 
                                 (creation.type === "datapack") ? <><Link href={`/${creation.type}s`}><Badge variant="secondary" className="text-md">{t('datapack', {count: 1})}</Badge></Link></> : 
@@ -115,7 +113,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                 <div className="flex flex-row gap-4 mb-2">
                     <h1 className="text-4xl font-extrabold flex-1">{title}</h1>
                     <div className="flex flex-row gap-2">
-                        <DownloadButton slug={creation.slug} file={creation.files[0]} contentType={contentType} className="px-6 py-5"/>
+                        {creation.files && creation.files.length > 0 && <DownloadButton slug={creation.slug} file={creation.files[0]} contentType={contentType} className="px-6 py-5"/>}
                         <CreationOptions creation={creation} />
                     </div>
                 </div>
@@ -157,7 +155,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                     {creation.tags && creation.tags.length > 0 && <RecommendedCreations creation={creation}/>}
                     </div>
                 </div>
-                <div className="mt-5">
+                {creation.images && creation.images.length > 1 && <div className="mt-5">
                     <Carousel plugins={[Autoplay({delay: 4000})]}>
                         <CarouselContent>
                             {creation.images.slice(1, creation.images.length).map(image => <CarouselItem key={image}>
@@ -167,7 +165,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                         <CarouselNext/>
                         <CarouselPrevious/>
                     </Carousel>
-                </div>
+                </div>}
                 <div>
                     <Comments creation={creation} collection={collectionName} />
                 </div>

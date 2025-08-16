@@ -25,18 +25,27 @@ export async function generateMetadata() {
             type: "website",
             url: "https://mccreations.net/datapacks",
         },
-        keywords: [t("Pages.Datapacks.Metadata.Keywords.minecraft"), t("Pages.Datapacks.Metadata.Keywords.games"), t("Pages.Datapacks.Metadata.Keywords.gaming"), t("Pages.Datapacks.Metadata.Keywords.minecraft_datapack"), t("Pages.Datapacks.Metadata.Keywords.minecraft_creations"), t("Pages.Datapacks.Metadata.Keywords.minecraft_version"), t("Pages.Datapacks.Metadata.Keywords.mods"), t("Pages.Datapacks.Metadata.Keywords.minecraft_mods"), t("Pages.Datapacks.Metadata.Keywords.minecraft_but"), t("Pages.Datapacks.Metadata.Keywords.minecraft_survival")],
+        keywords: [t("Pages.Datapacks.Metadata.Keywords.minecraft"), t("Pages.Datapacks.Metadata.Keywords.games"), t("Pages.Datapacks.Metadata.Keywords.gaming"), t("Pages.Datapacks.Metadata.Keywords.minecraft_datapack"), t("Pages.Datapacks.Metadata.Keywords.minecraft_creations"), t("Pages.Datapacks.Metadata.Keywords.minecraft_version", {minecraft_version: "1.21.8"}), t("Pages.Datapacks.Metadata.Keywords.mods"), t("Pages.Datapacks.Metadata.Keywords.minecraft_mods"), t("Pages.Datapacks.Metadata.Keywords.minecraft_but"), t("Pages.Datapacks.Metadata.Keywords.minecraft_survival")],
         publisher: "MCCreations",
     };
 }
 
-export default function DatapacksLayout({
-    params: { locale },
-    children,
-}: {
-    params: { locale: string };
-    children: React.ReactNode;
-}) {
+export default async function DatapacksLayout(
+    props: {
+        params: Promise<{ locale: string }>;
+        children: React.ReactNode;
+    }
+) {
+    const params = await props.params;
+
+    const {
+        locale
+    } = params;
+
+    const {
+        children
+    } = props;
+
     return (
         <>
             <Suspense fallback={<Loading />}>{children}</Suspense>

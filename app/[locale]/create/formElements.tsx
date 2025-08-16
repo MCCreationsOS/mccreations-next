@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import VersionManager from "@/components/VersionManager/VersionManager";
+import { cn } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { ChevronRight, Plus, Trash } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -126,7 +127,7 @@ export function Required() {
     )
 }
 
-export function CreateBasicInfo() {
+export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
     const { token } = useToken();
     const [creation, setCreation] = useSessionStorage<IContentDoc>(
         "tempCreation",
@@ -178,7 +179,7 @@ export function CreateBasicInfo() {
                     sessionStorage.setItem("temp_key", key.key);
                 }
                 setCreation({ ...creation, ...key.creation });
-                // handleNext();
+                handleNext();
             }
         );
     };
@@ -283,7 +284,7 @@ export function CreateBasicInfo() {
                         onSubmit: ({value}) => {
                             if(value.length < 20) {
                                 return t("Pages.Create.BasicInfo.short_description_too_short")
-                            } else if(value.length > 100) {
+                            } else if(value.length > 150) {
                                 return t("Pages.Create.BasicInfo.short_description_too_long")
                             }
                         }
@@ -565,7 +566,7 @@ export function CreatorInput({creators, onChange}: {creators: ICreator[], onChan
     )
 }
 
-export function CreatorAvatar({creator}: {creator: ICreator}) {
+export function CreatorAvatar({creator, size}: {creator: ICreator, size?: number}) {
     const [fullCreator, setFullCreator] = useState<IUser | undefined>(undefined);
     useEffect(() => {
         getCreator(creator.handle ?? creator.username).then((c) => {
@@ -573,7 +574,7 @@ export function CreatorAvatar({creator}: {creator: ICreator}) {
         })
     }, [creator])
     return (
-        <Avatar className="w-7 h-7">
+        <Avatar className={`w-${size ?? 7} h-${size ?? 7}`}>
             <AvatarImage src={fullCreator?.iconURL} />
             <AvatarFallback>
                 {creator.username.charAt(0)}
@@ -597,17 +598,19 @@ export function TagInput({
     const [showSuggestions, setShowSuggestions] = useState(false);
     const t = useTranslations();
 
+    useEffect(() => {
+        onChange(tagInput);
+    }, [tagInput])
+
     const addTag = (tag: string) => {
         if (tagInput.split(",").includes(tag)) return;
         if (tag.length < 2) return;
         setTagInput(tagInput + "," + tag);
         setSearch("");
-        onChange(tagInput);
     };
 
     const removeTag = (tag: string) => {
         setTagInput(tagInput.replace("," + tag, ""));
-        onChange(tagInput);
     };
 
     return (

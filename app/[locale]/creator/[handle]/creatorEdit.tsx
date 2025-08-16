@@ -18,7 +18,7 @@ import { useTranslations } from "next-intl";
 export function EditProfileImages({params}: {params: {handle: string}}) {
     const t = useTranslations("Pages.Creator.handle.CreatorEdit.EditProfileImages")
     const [open, setOpen] = useState(false)
-    const {user} = useUser()
+    const {user, setUser} = useUser()
     const {token} = useToken()
     
     const form = useForm({
@@ -29,6 +29,7 @@ export function EditProfileImages({params}: {params: {handle: string}}) {
         onSubmit: async (values) => {
             await updateProfile(token, values.value.banner, values.value.icon, user?.username, user?.about)
             setOpen(false)
+            setUser({...user!, bannerURL: values.value.banner, iconURL: values.value.icon})
             form.reset()
         }
     })

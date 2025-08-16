@@ -2,11 +2,11 @@
     "language_name": "日本語",
     "language_code": "ja-JP",
     "map": "{count, plural, =0 {マップ} =1 {マップ} other {マップ}}",
-    "datapack": "{count, plural, =0 {Data Packs} =1 {Data Pack}その他の{Data Packs}}",
-    "resourcepack": "{count, plural, =0 {Resource Packs} =1 {Resource Pack}その他の{Resource Packs}}",
-    "creator": "{count, plural, =0 {Creators} =1 {Creator}その他の{Creators}}",
-    "comment": "{count, plural, =0 {Comments} =1 {Comment}その他の{Comments}}",
-    "notification": "{count, plural, =0 {Notifications} =1 {Notification}その他の{Notifications}}",
+    "datapack": "{count, plural, =0 {データパック} =1 {データパック} other {データパック}}",
+    "resourcepack": "{count, plural, =0 {リソースパック} =1 {リソースパック} other {リソースパック}}",
+    "creator": "{count, plural, =0 {クリエイター} =1 {クリエイター} other {クリエイター}}",
+    "comment": "{count, plural, =0 {コメント} =1 {コメント} other {コメント}}",
+    "notification": "{count, plural, =0 {通知} =1 {通知} other {通知}}",
     "download": "ダウンロード",
     "Pages": {
         "Auth": {
@@ -639,6 +639,7 @@
                 "CreationOptions": {
                     "button": "オプション",
                     "translate": "翻訳",
+                    "edit": "編集",
                     "translateDescription": "クリエイションを別の言語に翻訳してください。",
                     "language": "言語",
                     "languagePlaceholder": "言語を選択してください",
@@ -869,6 +870,7 @@
             "UserOptions": {
                 "sign_in": "サインイン",
                 "sign_out": "サインアウト",
+                "sign_up": "サインアップ",
                 "dashboard": "ダッシュボード",
                 "notifications": "通知",
                 "profile": "プロフィール",

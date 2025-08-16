@@ -20,10 +20,11 @@ import { EditAbout, EditCustomCss, EditProfileImages, EditSocialLinks } from "./
 import dompurify from "isomorphic-dompurify";
 
 interface CreatorPageProps {
-    params: { handle: string }
+    params: Promise<{ handle: string }>
 }
 
-export async function generateMetadata({ params }: CreatorPageProps): Promise<Metadata> {
+export async function generateMetadata(props: CreatorPageProps): Promise<Metadata> {
+    const params = await props.params;
     const t = await getTranslations()
     try {
         const creator = await getCreator(params.handle)
@@ -32,7 +33,7 @@ export async function generateMetadata({ params }: CreatorPageProps): Promise<Me
         return {
             title: t("Pages.Creator.handle.Metadata.title_not_found"),
             description: t("Pages.Creator.handle.Metadata.description_not_found"),
-            keywords: [t("Pages.Creator.handle.Metadata.Keywords.minecraft"), t("Pages.Creator.handle.Metadata.Keywords.games"), t("Pages.Creator.handle.Metadata.Keywords.gaming"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_map"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_datapack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_resourcepack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_creations"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_version", {minecraft_version: creator.minecraftVersion})],
+            keywords: [t("Pages.Creator.handle.Metadata.Keywords.minecraft"), t("Pages.Creator.handle.Metadata.Keywords.games"), t("Pages.Creator.handle.Metadata.Keywords.gaming"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_map"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_datapack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_resourcepack"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_creations"), t("Pages.Creator.handle.Metadata.Keywords.minecraft_version", {minecraft_version: "1.21.8"})],
             publisher: "MCCreations",
         }
         }
@@ -64,7 +65,8 @@ export async function generateMetadata({ params }: CreatorPageProps): Promise<Me
     }
 }
 
-export default async function CreatorPage({ params }: CreatorPageProps) {
+export default async function CreatorPage(props: CreatorPageProps) {
+    const params = await props.params;
     const handle = params.handle
 
     return (

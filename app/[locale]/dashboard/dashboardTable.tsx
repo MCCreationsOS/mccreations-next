@@ -47,15 +47,16 @@ export default function dashboardTable({collectionName}: {collectionName: Collec
 
     console.log(user)
 
-    if(!user && client) {
-        router.push("/signin?redirect=dashboard")
-        return null
-    }
-
+    
     if(isLoading) {
         return <div className="centered_content">{t('Pages.Dashboard.loading')}</div>
     }
     
+    // if(!user && client) {
+    //     console.log(user)
+    //     router.push("/signin?redirect=dashboard")
+    //     return null
+    // }
 
     return (
         <>

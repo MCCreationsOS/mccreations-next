@@ -17,16 +17,17 @@ import { getCookie } from '@/app/setCookies'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
+import { CreatorAvatar } from '@/app/[locale]/create/formElements'
 
 export default function Comments({creation, collection}: {creation: IContentDoc, collection: CollectionNames}) {
     const [sort, setSort] = useState(SortOptions.Newest)
-    const {comments} = useComments(creation.slug, collection, sort, 20);
+    const {comments, setComments} = useComments(creation.slug, collection, sort, 20);
     const t = useTranslations();
 
     return (
         <div>
             <h2 className="text-2xl font-bold my-2">Leave a comment</h2>
-            <CommentForm content_type={collection} creation={creation} />
+            <CommentForm content_type={collection} creation={creation} setComments={setComments} comments={comments} sort={sort} />
             <div>
                 <div className='flex flex-row gap-2 w-full'>
                     <h2 className="text-2xl font-bold my-2">Comments</h2>
@@ -49,7 +50,7 @@ export default function Comments({creation, collection}: {creation: IContentDoc,
                 </div>                
                 <div className='flex flex-col gap-2 mb-5'>
                     {comments?.map((comment) => (
-                        <Comment key={comment._id} comment={comment} />
+                        <Comment key={comment._id} comment={comment} setComments={setComments} comments={comments} sort={sort} />
                     ))}
                 </div>
             </div>
@@ -60,14 +61,22 @@ export default function Comments({creation, collection}: {creation: IContentDoc,
 interface CommentProps {
     content_type: CollectionNames
     creation: IContentDoc
+    setComments: (comments: IComment[]) => void
+    comments: IComment[] | undefined
+    sort: SortOptions
 }
 
 interface ReplyProps {
     comment_id: string
+    setComments?: (comments: IComment[]) => void
+    comments?: IComment[] | undefined
+    sort?: SortOptions
 }
 function CommentForm(props: CommentProps | ReplyProps) {
     const t = useTranslations()
     const {user} = useUser()
+    const richTextResetRef = useRef<{ reset: () => void }>(null)
+    
     const form = useForm({
         defaultValues: {
             username: user?.username || '',
@@ -76,7 +85,16 @@ function CommentForm(props: CommentProps | ReplyProps) {
         },
         onSubmit: async (data) => {
             if ('content_type' in props) {
-                postComment(props.creation.slug, props.content_type, data.value.username, data.value.comment, user?.handle || '', data.value.rating)
+                const newComment = await postComment(props.creation.slug, props.content_type, data.value.username, data.value.comment, user?.handle || '', data.value.rating)
+                
+                // Add the new comment to the list immediately
+                if (newComment && props.comments && props.setComments) {
+                    const updatedComments = props.sort === SortOptions.Newest 
+                        ? [newComment, ...props.comments]
+                        : [...props.comments, newComment];
+                    props.setComments(updatedComments);
+                }
+                
                 let cookie = await getCookie("RATED_" + props.creation._id)
                 if(!cookie) {
                     await postRating(data.value.rating, props.creation);
@@ -84,8 +102,25 @@ function CommentForm(props: CommentProps | ReplyProps) {
                 }
             }
             else {
-                postReply(props.comment_id, data.value.username, data.value.comment, user?.handle || '')
+                const newReply = await postReply(props.comment_id, data.value.username, data.value.comment, user?.handle || '')
+                
+                // Add the new reply to the appropriate comment
+                if (newReply && props.comments && props.setComments) {
+                    const updatedComments = props.comments.map(comment => {
+                        if (comment._id === props.comment_id) {
+                            return {
+                                ...comment,
+                                replies: [...(comment.replies || []), newReply]
+                            };
+                        }
+                        return comment;
+                    });
+                    props.setComments(updatedComments);
+                }
             }
+            form.reset();
+            // Reset the RichText editor
+            richTextResetRef.current?.reset();
         },
     })
 
@@ -114,7 +149,7 @@ function CommentForm(props: CommentProps | ReplyProps) {
                     }
                 }
             }}/>
-            <form.Field name="rating" children={(field) => (
+            {'content_type' in props && <form.Field name="rating" children={(field) => (
                 <>
                     <Rating value={field.state.value} currentRating={field.state.value} ratings={[field.state.value]} onRate={field.handleChange}/>
                     {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
@@ -130,10 +165,10 @@ function CommentForm(props: CommentProps | ReplyProps) {
                         return t('Components.Creations.Page.Comments.rating_out_of_range')
                     }
                 }
-            }}/>
+            }}/>}
             <form.Field name="comment" children={(field) => (
                 <>
-                    <RichText sendOnChange={(v) => {field.handleChange(v)}} />
+                    <RichText sendOnChange={(v) => {field.handleChange(v)}} resetRef={richTextResetRef}/>
                     {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                 </>
             )} validators={{
@@ -155,7 +190,12 @@ function CommentForm(props: CommentProps | ReplyProps) {
     )
 }
 
-export function Comment({comment}: {comment: IComment}) {
+export function Comment({comment, setComments, comments, sort}: {
+    comment: IComment
+    setComments?: (comments: IComment[]) => void
+    comments?: IComment[]
+    sort?: SortOptions
+}) {
     const {creator} = useCreator(comment.handle)
     const {user} = useUser()
     const {token} = useToken()
@@ -187,7 +227,7 @@ export function Comment({comment}: {comment: IComment}) {
         <div key={comment._id} className='relative'>
             <div className='border-white/15 border-1 p-2'>
                 <div className='flex flex-row gap-4 items-start'>
-                    <Image src={creator?.iconURL ?? "/mcc_no_scaffold.png"} alt={comment.username} width={32} height={32} className='rounded-full w-9 h-9 object-cover mt-1'/>
+                    <CreatorAvatar creator={creator ?? {username: comment.username, handle: comment.handle}} size={10} />
                     <div>
                         <h3 className='font-bold'>{comment.username}</h3>
                         {rating > 0 && (<Rating className='my-1' value={rating} currentRating={rating} ratings={[rating]} onRate={() => {}}/>)}
@@ -201,7 +241,7 @@ export function Comment({comment}: {comment: IComment}) {
                                 <span className='text-sm'>{t('Components.Creations.Page.Comments.reply')}</span>
                             </Button>
                         </div>
-                        {replying && <CommentForm comment_id={comment._id!} />}
+                        {replying && setComments && comments && sort && <CommentForm comment_id={comment._id!} setComments={setComments} comments={comments} sort={sort} />}
                         {comment.replies && comment.replies.length > 0 && <Collapsible className='' onOpenChange={() => {setReplying(false); setShowReplies(!showReplies)}}>
                             <CollapsibleTrigger className='text-sm text-primary flex flex-row gap-2 items-center p-2 cursor-pointer'>{showReplies ? <ChevronUp className='w-4 h-4' /> : <ChevronDown className='w-4 h-4' />}{t('Components.Creations.Page.Comments.replies', {count: comment.replies?.length})}</CollapsibleTrigger>
                             <CollapsibleContent className='flex flex-col gap-2'>
@@ -247,7 +287,7 @@ function Reply({reply}: {reply: IComment}) {
     return (
         <div key={reply._id} className='ml-4'>
             <div className='flex flex-row gap-4'>
-                <Image src={creator?.iconURL ?? "/mcc_no_scaffold.png"} alt={reply.username} width={32} height={32} className='rounded-full w-9 h-9 object-cover mt-1'/>
+                <CreatorAvatar creator={creator ?? {username: reply.username, handle: reply.handle}} size={10} />
                 <div>
                     <h3 className='font-bold'>{reply.username}</h3>
                     <div dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(reply.comment)}} className="max-w-xl mb-2"></div>

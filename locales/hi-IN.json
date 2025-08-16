@@ -638,6 +638,7 @@
                 "CreationOptions": {
                     "button": "विकल्प",
                     "translate": "अनुवाद करें",
+                    "edit": "संपादित करें",
                     "translateDescription": "क्रिएशन का किसी अन्य भाषा में अनुवाद करें।",
                     "language": "भाषा",
                     "languagePlaceholder": "भाषा चुनें",
@@ -868,6 +869,7 @@
             "UserOptions": {
                 "sign_in": "साइन इन करें",
                 "sign_out": "साइन आउट करें",
+                "sign_up": "साइन अप करें",
                 "dashboard": "डैशबोर्ड",
                 "notifications": "नोटिफ़िकेशन",
                 "profile": "प्रोफ़ाइल",

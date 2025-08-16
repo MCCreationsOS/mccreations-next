@@ -68,7 +68,7 @@ export default function Page() {
                     <TabsTrigger value="images" className="w-1/4">{t('Pages.Create.Images.title')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="basic_info">
-                    <CreateBasicInfo  />
+                    <CreateBasicInfo handleNext={handleNext} />
                 </TabsContent>
                 <TabsContent value="details">
                     <CreateDetails handleNext={handleNext} />

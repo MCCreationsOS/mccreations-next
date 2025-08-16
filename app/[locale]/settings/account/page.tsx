@@ -12,8 +12,10 @@ import { useForm } from "@tanstack/react-form";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useIsClient } from "usehooks-ts";
 
 export default function AccountPage() {
+    const isClient = useIsClient()
     const [triedDeleteAccount, setTriedDeleteAccount] = useState(false)
     const {user, setUser, isLoading, error} = useUser(true)
     const router = useRouter();
@@ -55,7 +57,7 @@ export default function AccountPage() {
 
     if(error) return <div className="centered_content">{t('Pages.Settings.Account.error')}</div>
     if(isLoading) return <div className="centered_content">{t('Pages.Settings.Account.loading')}</div>
-    if(!user) {
+    if(!user && isClient) {
         router.push("/signin?redirect=settings/account")
         return
     }
@@ -78,7 +80,7 @@ export default function AccountPage() {
             })
         }).catch(e => {
             toast.error(t('Pages.Settings.Account.error')) 
-            console.log(e)
+            console.error(e)
         })
     }
 
@@ -100,7 +102,7 @@ export default function AccountPage() {
             })
         }).catch(e => {
             toast.error(t('Pages.Settings.Account.error')) 
-            console.log(e)
+            console.error(e)
         })
     }
 
@@ -277,6 +279,7 @@ export default function AccountPage() {
                             <passwordForm.Field name="password" children={(field) => (
                                 <Input
                                     value={field.state.value}
+                                    type="password"
                                     onChange={(e) => {
                                         field.handleChange(e.target.value)
                                     }}
@@ -286,6 +289,7 @@ export default function AccountPage() {
                             <passwordForm.Field name="confirmPassword" children={(field) => (
                                 <Input
                                     value={field.state.value}
+                                    type="password"
                                     onChange={(e) => {
                                         field.handleChange(e.target.value)
                                     }}

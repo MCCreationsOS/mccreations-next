@@ -21,7 +21,6 @@ export default function DownloadButton({slug, file, contentType, className}: {sl
 
         files.forEach(async (file) => {
             if(!file.required) return
-            console.log(file.url)
             window.open(file.url, '_blank')
             await new Promise(resolve => setTimeout(resolve, 500))
         })

@@ -19,7 +19,7 @@ import {
   LexicalEditor,
   LexicalNode,
 } from 'lexical';
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState, type JSX } from 'react';
 import * as React from 'react';
 
 import landscapeImage from '../../images/landscape.jpg';
