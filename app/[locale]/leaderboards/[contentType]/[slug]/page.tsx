@@ -1,14 +1,14 @@
 import { getLeaderboard } from "@/app/api/community"
 import { fetchDatapack, fetchMap } from "@/app/api/content"
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import Image from "next/image"
 import styles from '../../leaderboard.module.css'
 import Link from "next/link"
 import { getFormatter, getTranslations } from "next-intl/server"
 import DownloadButton from "@/components/ui/client_buttons/DownloadButton"
 import Rating from "@/components/Creations/Page/Rating"
+import { ContentTypes } from "@/app/api/types"
 
-export default async function Page(props: {params: Promise<Params>}) {
+export default async function Page(props: {params: Promise<{locale: string, contentType: ContentTypes, slug: string}>}) {
     const params = await props.params;
     const t = await getTranslations();
     const formatter = await getFormatter();
@@ -16,13 +16,13 @@ export default async function Page(props: {params: Promise<Params>}) {
     let creation = undefined
     let title = ""
     switch (params.contentType) {
-        case 'maps':
+        case 'map':
             let res = await fetchMap(params.slug)
             if('_id' in res) {
                 creation = res
             }
             break;
-        case 'datapacks':
+        case 'datapack':
             creation = await fetchDatapack(params.slug)
             break;
     }

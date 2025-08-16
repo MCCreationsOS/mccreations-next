@@ -2,10 +2,9 @@ import { convertToCollection, searchContent } from "@/app/api/content";
 import { AllTags, ContentTypes, MinecraftVersions, SortOptions, StatusOptions } from "@/app/api/types";
 import CreationSearchPage from "@/components/Creations/Search/CreationSearchPage";
 import { setRequestLocale } from "next-intl/server";
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { Suspense } from "react";
 
-export default async function Page(props: {params: Promise<Params>}) {
+export default async function Page(props: {params: Promise<{locale: string, content_type: string, criteria: string}>}) {
     const params = await props.params;
     setRequestLocale(params.locale)
     const criteria = params.criteria
@@ -60,19 +59,19 @@ export default async function Page(props: {params: Promise<Params>}) {
             include = ""
             search = ""
             break
-        case 1:
+        case "1":
             sort = SortOptions.Newest
             status = StatusOptions.Unapproved
             include = ""
             search = ""
             break
-        case 2:
+        case "2":
             sort = SortOptions.Newest
             status = StatusOptions.Featured
             include = ""
             search = ""
             break
-        case 3:
+        case "3":
             sort = SortOptions.Newest
             status = StatusOptions.Featured
             include = ""
@@ -84,6 +83,6 @@ export default async function Page(props: {params: Promise<Params>}) {
     // defaultContent = (await searchContent({contentType: convertToCollection(contentType), sort: sort, status: status, includeTags: include, excludeTags: "", limit: 20, page: 0}, false)).documents
 
     return (
-        <CreationSearchPage searchParams={{page: "0", search: search, sort: sort, status: status.toString(), includeTags: include, excludeTags: ""}} collectionName={convertToCollection(contentType)} pathname={`/${params.locale}/content/${contentType}/${criteria}`} />
+        <CreationSearchPage searchParams={new Promise((resolve) => resolve({page: "0", search: search, sort: sort, status: status.toString(), includeTags: include, excludeTags: ""}))} collectionName={convertToCollection(contentType)} pathname={`/${params.locale}/content/${contentType}/${criteria}`} />
     )
 }

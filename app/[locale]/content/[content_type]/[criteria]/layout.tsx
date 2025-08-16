@@ -1,7 +1,6 @@
 import { MinecraftVersions, SortOptions, StatusOptions, AllTags, ContentTypes } from "@/app/api/types"
 import Menu from "@/components/Menu/Navbar"
 import { getTranslations, setRequestLocale } from "next-intl/server"
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { Suspense } from "react"
 
 export async function generateStaticParams() {
@@ -22,7 +21,7 @@ export async function generateStaticParams() {
     return params
 }
 
-export async function generateMetadata(props: {params: Promise<Params>}) {
+export async function generateMetadata(props: {params: Promise<{locale: string, content_type: string, criteria: string}>}) {
     const params = await props.params;
     const t = await getTranslations()
     const criteria = params.criteria
@@ -79,21 +78,21 @@ export async function generateMetadata(props: {params: Promise<Params>}) {
                 keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
-        case 1:
+        case "1":
             return {
                 title: `Published ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse published ${t(content_type, {count: 2})} on MCCreations`,
                 keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
-        case 2:
+        case "2":
             return {
                 title: `Verified ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse verified ${t(content_type, {count: 2})} on MCCreations`,
                 keywords: [t('Pages.Content.content_type.criteria.Keywords.minecraft'), t(content_type, {count: 2}), t('Pages.Content.content_type.criteria.Keywords.games'), t('Pages.Content.content_type.criteria.Keywords.gaming'), t('Pages.Content.content_type.criteria.Keywords.minecraft_map'), t('Pages.Content.content_type.criteria.Keywords.minecraft_creations'), criteria],
                 publisher: "MCCreations",
             }
-        case 3:
+        case '3':
             return {
                 title: `Featured ${t(content_type, {count: 2})} for Minecraft | MCCreations`,
                 description: `Browse featured ${t(content_type, {count: 2})} on MCCreations`,
@@ -110,7 +109,7 @@ export async function generateMetadata(props: {params: Promise<Params>}) {
     }
 }
 
-export default async function StaticContentPageLayout(props: {children: React.ReactNode, params: Promise<Params>}) {
+export default async function StaticContentPageLayout(props: {children: React.ReactNode, params: Promise<{locale: string, content_type: string, criteria: string}>}) {
     const params = await props.params;
 
     const {

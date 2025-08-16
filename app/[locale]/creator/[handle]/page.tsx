@@ -1,7 +1,4 @@
 import { getCreator } from "@/app/api/community"
-import Menu from "@/components/Menu/Navbar"
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
-import styles from './CreatorPage.module.css'
 import { CollectionNames, ContentTypes, IUser } from "@/app/api/types";
 import { Metadata, ResolvingMetadata } from "next"
 import { getTranslations } from "next-intl/server"

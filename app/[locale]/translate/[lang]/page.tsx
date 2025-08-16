@@ -1,8 +1,7 @@
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import { getLanguage, getQueuedLanguage } from "@/app/api/translation";
 import LanguageEditor from "./LanguageEditor";
 
-export default async function Page(props: {params: Promise<Params>}) {
+export default async function Page(props: {params: Promise<{locale: string, lang: string}>}) {
     const params = await props.params;
     const englishLanguage = JSON.stringify(await getLanguage("en-US"), null, 2);
     let editingLanguage = JSON.stringify(await getQueuedLanguage(params.lang), null, 2);

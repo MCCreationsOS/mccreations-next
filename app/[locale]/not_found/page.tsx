@@ -1,9 +1,8 @@
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import Link from "next/link";
 import { setRequestLocale } from "next-intl/server";
 import { getTranslations } from "next-intl/server";
 
-export default async function NotFound(props: { params: Promise<Params>}) {
+export default async function NotFound(props: { params: Promise<{locale: string}>}) {
     const params = await props.params;
     setRequestLocale(params.locale)
     const t = await getTranslations("Pages.NotFound")

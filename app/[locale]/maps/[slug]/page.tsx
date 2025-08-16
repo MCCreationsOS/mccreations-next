@@ -1,5 +1,4 @@
 import { fetchMap, searchContent } from '@/app/api/content';
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IFile, IContentDoc, CollectionNames } from '@/app/api/types';
 import MapWrapper from '@/components/Creations/Page/ContentWrapper';
 import { GetStaticPaths, GetStaticProps, Metadata, ResolvingMetadata } from 'next';
@@ -9,7 +8,7 @@ import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata(props: { params: Promise<Params> }, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{locale: string, slug: string}> }, parent: ResolvingMetadata): Promise<Metadata> {
     const params = await props.params;
     // fetch data
     const map: IContentDoc = await fetchMap(params.slug)
@@ -57,7 +56,7 @@ export async function generateMetadata(props: { params: Promise<Params> }, paren
     }
 }
 
-export default async function Page(props: { params: Promise<Params> }) {
+export default async function Page(props: { params: Promise<{locale: string, slug: string}> }) {
     const params = await props.params;
     const map = await fetchMap(params.slug)
     setRequestLocale(params.locale)

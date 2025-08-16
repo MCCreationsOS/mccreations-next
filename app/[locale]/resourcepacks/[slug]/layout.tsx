@@ -2,7 +2,6 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import Menu from '@/components/Menu/Navbar'
 import { setRequestLocale } from 'next-intl/server'
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { searchContent } from '@/app/api/content'
 import { CollectionNames, IContentDoc } from '@/app/api/types'
 import { routing } from '@/i18n/routing'
@@ -28,7 +27,7 @@ export async function generateStaticParams() {
   return params
 }
  
-export default async function ResourcepackPageLayout(props: {children: React.ReactNode, params: Promise<Params>}) {
+export default async function ResourcepackPageLayout(props: {children: React.ReactNode, params: Promise<{locale: string, slug: string}>}) {
     const params = await props.params;
 
     const {

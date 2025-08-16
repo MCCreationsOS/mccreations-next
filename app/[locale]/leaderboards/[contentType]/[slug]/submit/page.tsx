@@ -8,11 +8,10 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useForm } from "@tanstack/react-form"
 import { useTranslations } from "next-intl"
-import { Params } from "next/dist/shared/lib/router/utils/route-matcher"
 import { useSearchParams } from "next/navigation"
 import { useRouter } from "next/navigation"
 
-export default function Page(props: { params: Promise<Params>}) {
+export default function Page(props: { params: Promise<{locale: string, contentType: ContentTypes, slug: string}>}) {
     const params = use(props.params);
     const form = useForm({
         defaultValues: {

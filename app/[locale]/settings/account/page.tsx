@@ -75,7 +75,7 @@ export default function AccountPage() {
                 toast.error(data.error) 
             }).catch(e => {
                 toast.success(t('Pages.Settings.Account.handle_updated', {handle: handle})) 
-                setUser({...user, handle: handle})
+                setUser({...user!, handle: handle})
                 localStorage?.setItem('user', JSON.stringify({...user, handle: handle}))
             })
         }).catch(e => {
@@ -97,7 +97,7 @@ export default function AccountPage() {
                 toast.error(data.error) 
             }).catch(e => {
                 toast.success(t('Pages.Settings.Account.username_updated', {username: username})) 
-                setUser({...user, username: username})
+                setUser({...user!, username: username})
                 localStorage?.setItem('user', JSON.stringify({...user, username: username}))
             })
         }).catch(e => {
@@ -119,7 +119,7 @@ export default function AccountPage() {
                 toast.error(data.error) 
             }).catch(e => {
                 toast.success(t('Pages.Settings.Account.email_updated', {email: email})) 
-                setUser({...user, email: email})
+                setUser({...user!, email: email})
                 localStorage?.setItem('user', JSON.stringify({...user, email: email}))
             })
         }).catch(e => {
@@ -169,7 +169,7 @@ export default function AccountPage() {
             <div className="flex flex-row gap-4 items-center">
                 <div className="flex flex-col gap-2 flex-1">
                     <h3 className="text-md font-bold">{t('Pages.Settings.Account.username')}</h3>
-                    <p className="text-sm">{user.username}</p>
+                    <p className="text-sm">{user?.username}</p>
                 </div>
                 <Dialog>
                     <DialogTrigger asChild>
@@ -200,7 +200,7 @@ export default function AccountPage() {
             <div className="flex flex-row gap-4 items-center">
                 <div className="flex flex-col gap-2 flex-1">
                     <h3 className="text-md font-bold">{t('Pages.Settings.Account.handle')}</h3>
-                    <p className="text-sm">{user.handle}</p>
+                    <p className="text-sm">{user?.handle}</p>
                 </div>
                 <Dialog>
                     <DialogTrigger asChild>
@@ -231,7 +231,7 @@ export default function AccountPage() {
             <div className="flex flex-row gap-4 items-center">
                 <div className="flex flex-col gap-2 flex-1">
                     <h3 className="text-md font-bold">{t('Pages.Settings.Account.email')}</h3>
-                    <p className="text-sm">{user.email}</p>
+                    <p className="text-sm">{user?.email}</p>
                 </div>
                 <Dialog>
                     <DialogTrigger asChild>
@@ -262,7 +262,7 @@ export default function AccountPage() {
             <div className="flex flex-row gap-4 items-center">
                 <div className="flex flex-col gap-2 flex-1">
                     <h3 className="text-md font-bold">{t('Pages.Settings.Account.password')}</h3>
-                    <p className="text-sm">{user.password}</p>
+                    <p className="text-sm">{user?.password}</p>
                 </div>
                 <Dialog>
                     <DialogTrigger asChild>

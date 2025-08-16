@@ -1,5 +1,4 @@
 import { fetchResourcepack } from '@/app/api/content';
-import { Params } from 'next/dist/shared/lib/router/utils/route-matcher';
 import { ICreator, IContentDoc, CollectionNames } from '@/app/api/types';
 import MapWrapper, { ResourcepackWrapper } from '@/components/Creations/Page/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
@@ -7,7 +6,7 @@ import { sendLog } from '@/app/api/logging';
 import Creation from '@/components/Creations/Page/Creation';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 
-export async function generateMetadata(props: { params: Promise<Params> }, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{locale: string, slug: string}> }, parent: ResolvingMetadata): Promise<Metadata> {
     const params = await props.params;
     // fetch data
     const map: IContentDoc = await fetchResourcepack(params.slug)
@@ -58,7 +57,7 @@ export async function generateMetadata(props: { params: Promise<Params> }, paren
     }
 }
 
-export default async function Page(props: {params: Promise<Params>}) {
+export default async function Page(props: {params: Promise<{locale: string, slug: string}>}) {
     const params = await props.params;
     const map = await fetchResourcepack(params.slug)
     setRequestLocale(params.locale)
