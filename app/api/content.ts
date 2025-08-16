@@ -69,7 +69,7 @@ export function formatQueryOptions(queryOptions: QueryOptions) {
  * @returns `documents` An array of map documents
  * @returns `count` The count of maps found by the query
 */
-export async function searchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null) {
+export async function searchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null): Promise<{documents: IContentDoc[], totalCount: number}> {
     queryOptions = formatQueryOptions(queryOptions);
     try {
         let p1 = fetch(`${process.env.DATA_URL}/creations?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creators=${queryOptions.creators?.join(",")}`, {
@@ -106,8 +106,8 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
     } catch(e) {
         console.error("API fetch error! `searchContent` Is it running?: " + e);
         return {
-            error: e,
-            query: queryOptions
+            documents: [],
+            totalCount: 0
         }
     }
 }

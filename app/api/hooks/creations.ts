@@ -26,7 +26,7 @@ export const useCreationSearch = (queryOptions: QueryOptions, filterQuery?: Quer
     const { data, error, isLoading } = useSWR([key, queryOptions, filterQuery], ([key, queryOptions, filterQuery]) => searchCreationsFetcher(key, queryOptions, filterQuery))
     return {
         creations: (data?.documents ?? []) as IContentDoc[],
-        count: data?.count ?? 0,
+        count: data?.totalCount ?? 0,
         isLoading,
         error
     }
