@@ -863,7 +863,7 @@
       },
       "Navbar": {
         "LanguageSwitcher": {
-          "current_language": "영어",
+          "current_language": "한국어",
           "help_translate": "번역 도움"
         },
         "UserOptions": {

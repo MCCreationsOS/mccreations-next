@@ -863,7 +863,7 @@
         },
         "Navbar": {
             "LanguageSwitcher": {
-                "current_language": "Anglais",
+                "current_language": "Français",
                 "help_translate": "Aider à traduire"
             },
             "UserOptions": {

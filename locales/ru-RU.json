@@ -863,7 +863,7 @@
         },
         "Navbar": {
             "LanguageSwitcher": {
-                "current_language": "Английский",
+                "current_language": "Русский",
                 "help_translate": "Помочь перевести"
             },
             "UserOptions": {

@@ -864,7 +864,7 @@
         },
         "Navbar": {
             "LanguageSwitcher": {
-                "current_language": "英語",
+                "current_language": "日本語",
                 "help_translate": "翻訳をサポート"
             },
             "UserOptions": {

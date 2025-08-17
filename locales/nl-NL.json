@@ -1,0 +1,951 @@
+{
+    "language_name": "Nederlands",
+    "language_code": "nl-NL",
+    "map": "{count, plural, =0 {Kaarten} =1 {Kaart} other {Kaarten}}",
+    "datapack": "{count, plural, =0 {Datapakketten} =1 {Datapakket} other {Datapakketten}}",
+    "resourcepack": "{count, plural, =0 {Resourcepakketten} =1 {Resourcepakket} other {Resourcepakketten}}",
+    "creator": "{count, plural, =0 {Makers} =1 {Maker} other {Makers}}",
+    "comment": "{count, plural, =0 {Opmerkingen} =1 {Opmerking} other {Opmerkingen}}",
+    "notification": "{count, plural, =0 {Notificaties} =1 {Notificatie} other {Notificaties}}",
+    "download": "Download",
+    "Pages": {
+        "Auth": {
+            "OAuth_Handler": {
+                "error": "Er is een fout opgetreden tijdens het communiceren met onze API. Rapporteer dit alstublieft met de bovenstaande link",
+                "loading": "Bezig met inloggen!"
+            }
+        },
+        "Comments": {
+            "_id": {
+                "loading": "Opmerking laden..."
+            }
+        },
+        "Creator": {
+            "handle": {
+                "CreatorEdit": {
+                    "EditProfileImages": {
+                        "title": "Profielafbeeldingen bewerken",
+                        "button": "Bewerken",
+                        "banner": "Banner",
+                        "icon": "Icoon",
+                        "save": "Opslaan",
+                        "cancel": "Annuleren"
+                    },
+                    "EditAbout": {
+                        "title": "Over bewerken",
+                        "save": "Opslaan",
+                        "cancel": "Annuleren"
+                    },
+                    "EditSocialLinks": {
+                        "title": "Sociale links bewerken",
+                        "add": "Sociale link toevoegen",
+                        "remove": "Verwijderen",
+                        "save": "Opslaan",
+                        "cancel": "Annuleren"
+                    },
+                    "EditCustomCss": {
+                        "title": "Aangepaste CSS bewerken",
+                        "save": "Opslaan",
+                        "cancel": "Annuleren"
+                    }
+                },
+                "Metadata": {
+                    "title": "{username} - Minecraft Maker",
+                    "title_not_found": "Maker niet gevonden",
+                    "description": "Bekijk {username}'s Minecraft kaarten, datapakketten en resourcepakketten. Blader door hun collectie en download hun creaties.",
+                    "description_not_found": "De opgevraagde maker kon niet worden gevonden.",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "Spellen",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Kaart",
+                        "minecraft_datapack": "Minecraft Datapakket",
+                        "minecraft_resourcepack": "Minecraft Resourcepakket",
+                        "minecraft_creations": "Minecraft Creaties"
+                    }
+                },
+                "banner": "Banner van {username}",
+                "icon": "Icoon van {username}",
+                "followers": "{count, plural, =0 {Geen volgers} =1 {1 volger} other {# volgers}}",
+                "about": "Over",
+                "no_creations": "Deze maker heeft nog geen {content_type} gepubliceerd.",
+                "follow": "Volg",
+                "unfollow": "Niet meer volgen"
+            }
+        },
+        "Content": {
+            "content_type": {
+                "criteria": {
+                    "title": "Blader en zoek naar Minecraft {content_type}",
+                    "blurb": "Vind geweldige nieuwe Minecraft {content_type} voor je volgende avontuur!",
+                    "description": "Minecraft {content_type} zijn aangepaste werelden die door spelers of ontwikkelaars zijn gemaakt en unieke ervaringen bieden die verder gaan dan het standaardspel. Deze {content_type} kunnen variëren van eenvoudige parcours-uitdagingen tot complexe avonturenverhalen, puzzeloplossende zoektochten, of zelfs recreaties van echte locaties. Sinds de vroege dagen van Minecraft heeft de community {content_type}-maken omarmd als een vorm van creatieve expressie, wat heeft geleid tot een rijke geschiedenis van innovatie en samenwerking. Door de jaren heen zijn Minecraft {content_type} een hoofdbestanddeel geworden in de community, die de onbeperkte mogelijkheden van het spel tonen en een levendig ecosysteem van makers en spelers bevorderen.",
+                    "Keywords": {
+                        "minecraft": "Minecraft",
+                        "games": "Spellen",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Kaart",
+                        "minecraft_creations": "Minecraft Creaties",
+                        "minecraft_version": "Minecraft {minecraft_version}"
+                    }
+                }
+            }
+        },
+        "Create": {
+            "next": "Volgende",
+            "finish": "Eindig",
+            "save": "Opslaan",
+            "Import": {
+                "PMC": "Importeren van Planet Minecraft",
+                "downloading": "Creatie aan het downloaden via {host}",
+                "preroll": "Wachten op Preroll Advertentie...",
+                "unknown": "Aan het importeren via onbekende host",
+                "MinecraftMaps": "Aan het importeren via Minecraft Maps",
+                "Modrinth": "Aan het importeren via Modrinth",
+                "link_placeholder": "Link om van te importeren",
+                "link_description": "Link naar de creatie die je wilt importeren. Dit kan een link zijn naar een Planet Minecraft pagina, of een Modrinth pagina.",
+                "link_label": "Link",
+                "title": "Importeren",
+                "missing_link": "Geen link opgegeven"
+            },
+            "BasicInfo": {
+                "title": "Basisinformatie",
+                "title_input": "Titel",
+                "type": "Type",
+                "short_description": "Korte beschrijving",
+                "missing_title": "Geen titel opgegeven",
+                "missing_type": "Geen type opgegeven",
+                "missing_short_description": "Geen korte beschrijving opgegeven",
+                "title_too_short": "Titel moet ten minste 3 karakters lang zijn",
+                "short_description_too_short": "Korte beschrijving moet ten minste 20 karakters lang zijn",
+                "short_description_too_long": "Korte beschrijving moet minder dan 100 karakters lang zijn"
+            },
+            "Details": {
+                "title": "Details",
+                "slug": "Padnaam",
+                "creators": "Makers",
+                "video_url": "Video URL",
+                "description": "Beschrijving",
+                "tags": "Tags",
+                "missing_slug": "Geen padnaam opgegeven",
+                "missing_creators": "Geen makers opgegeven",
+                "missing_description": "Geen beschrijving opgegeven",
+                "missing_tags": "Geen tags opgegeven",
+                "slug_too_short": "Padnaam moet ten minste 5 karakters lang zijn",
+                "slug_too_long": "Padnaam moet minder dan 50 karakters lang zijn",
+                "slug_invalid_characters": "Padnaam kan alleen letters, cijfers en _ bevatten",
+                "creator_too_short": "Moet ten minste 1 maker hebben",
+                "invalid_video_url": "Ongeldige video URL",
+                "description_too_short": "Beschrijving moet ten minste 10 karakters lang zijn",
+                "tags_too_short": "Moet ten minste 1 tag hebben",
+                "saved": "Details succesvol opgeslagen",
+                "CreatorInput": {
+                    "username": "Gebruikersnaam",
+                    "handle": "Gebruikersnaam",
+                    "add": "Maker toevoegen"
+                },
+                "TagInput": {
+                    "placeholder": "Begin met typen om naar tags te zoeken..."
+                }
+            },
+            "Files": {
+                "title": "Bestanden",
+                "saved": "Bestanden succesvol opgeslagen"
+            },
+            "Images": {
+                "title": "Afbeeldingen",
+                "saved": "Afbeeldingen succesvol opgeslagen"
+            }
+        },
+        "Dashboard": {
+            "title": "Dashboard",
+            "Notifications": {
+                "read_all": "Alles als gelezen markeren",
+                "no_notifications": "Nog geen notificaties!"
+            },
+            "delete_creation": "Klik opnieuw om deze creatie te verwijderen. Dit is permanent!",
+            "loading": "Laden...",
+            "info": "Info",
+            "status": "Status",
+            "created_date": "Datum gecreëerd",
+            "updated_date": "Datum aangepast",
+            "downloads": "Downloads",
+            "rating": "Beoordeling",
+            "comments": "Opmerkingen",
+            "actions": "Acties",
+            "edit": "Bewerken",
+            "view": "Bekijken",
+            "delete": "Verwijderen"
+        },
+        "Datapacks": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Datapakket niet gevonden",
+                    "not_found_description": "Dit datapakket bestaat niet op MCCreations",
+                    "title": "{title} {content_type} door {creator} voor Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Spellen",
+                        "gaming": "Gaming",
+                        "minecraft_datapack": "Minecraft Datapakket",
+                        "minecraft_creations": "Minecraft Creaties",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "Mods",
+                        "minecraft_mods": "Minecraft Mods",
+                        "minecraft_but": "Minecraft maar",
+                        "minecraft_survival": "Minecraft Overleving"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Vind en download datapakketten",
+                "description": "Download de nieuwste geverifieerde datapakketten op MCCreations! Datapakketten zijn in feite mods voor vanilla Minecraft. Ze verbeteren de gameplay door nieuwe functies, mechanica en ervaringen toe te voegen. Ze kunnen het spel transformeren met nieuwe uitdagingen, zoektochten en zelfs volledig nieuwe spelmodi. Sinds hun introductie zijn datapakketten een geliefd hulpmiddel geworden voor makers, waardoor de community kan innoveren en de mogelijkheden van Minecraft kan uitbreiden, wat een rijk ecosysteem van creativiteit en samenwerking bevordert.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Spellen",
+                    "gaming": "Gaming",
+                    "minecraft_datapack": "Minecraft Datapakket",
+                    "minecraft_creations": "Minecraft Creaties",
+                    "mods": "Mods",
+                    "minecraft_mods": "Minecraft Mods",
+                    "minecraft_but": "Minecraft maar",
+                    "minecraft_survival": "Minecraft Overleving"
+                }
+            }
+        },
+        "Edit": {
+            "contentType": {
+                "slug": {
+                    "Warnings": {
+                        "title_too_short": {
+                            "title": "Titel te kort",
+                            "description": "De titel moet ten minste 3 karakters lang zijn"
+                        },
+                        "short_description_too_short": {
+                            "title": "Korte beschrijving te kort",
+                            "description": "De korte beschrijving moet ten minste 3 karakters lang zijn"
+                        },
+                        "short_description_too_long": {
+                            "title": "Korte beschrijving te lang",
+                            "description": "De korte beschrijving moet minder dan 100 karakters lang zijn"
+                        },
+                        "slug_too_short": {
+                            "title": "Padnaam te kort",
+                            "description": "De padnaam moet ten minste 2 karakters lang zijn"
+                        },
+                        "slug_too_long": {
+                            "title": "Padnaam te lang",
+                            "description": "De padnaam moet minder dan 50 karakters lang zijn"
+                        },
+                        "slug_invalid_characters": {
+                            "title": "Padnaam ongeldige karakters",
+                            "description": "De padnaam kan alleen letters, cijfers en _ bevatten"
+                        },
+                        "creator_too_short": {
+                            "title": "Te weinig makers",
+                            "description": "De creatie moet ten minste 1 maker hebben"
+                        },
+                        "invalid_video_url": {
+                            "title": "Ongeldige video URL",
+                            "description": "De video URL moet een geldige YouTube URL zijn"
+                        },
+                        "description_too_short": {
+                            "title": "Beschrijving te kort",
+                            "description": "De beschrijving moet ten minste 10 karakters lang zijn"
+                        },
+                        "tags_too_short": {
+                            "title": "Te weinig tags",
+                            "description": "De creatie moet ten minste 1 tag hebben"
+                        }
+                    },
+                    "Messages": {
+                        "translations_saved": "Vertalingen succesvol opgeslagen",
+                        "general_saved": "Creatie succesvol opgeslagen"
+                    },
+                    "General": {
+                        "tab_title": "Algemeen",
+                        "title": "Titel",
+                        "slug": "Padnaam",
+                        "short_description": "Korte beschrijving",
+                        "creators": "Makers",
+                        "video_url": "Video URL",
+                        "description": "Beschrijving",
+                        "tags": "Tags",
+                        "files": "Bestanden",
+                        "images": "Afbeeldingen",
+                        "save": "Opslaan"
+                    },
+                    "Translations": {
+                        "tab_title": "Vertalingen",
+                        "add_translation": "Vertaling toevoegen",
+                        "remove_translation": "Vertaling verwijderen",
+                        "select_language": "Selecteer een taal",
+                        "approved": "Goedgekeurd",
+                        "save": "Opslaan"
+                    }
+                }
+            }
+        },
+        "Feed": {
+            "not_found_title": "Geen feed gevonden",
+            "not_found_description": "Log in en abonneer je op makers om je feed te zien!"
+        },
+        "Leaderboards": {
+            "contentType": {
+                "slug": {
+                    "Submit": {
+                        "submit_time": "Stuur je tijd in",
+                        "submit_score": "Stuur je score in",
+                        "submit_time_description": "Je tijd was {hours} uur, {minutes} minuten, {seconds} seconden en {ticks} tikken",
+                        "submit_score_description": "Je score was {score}",
+                        "submit": "Stuur in",
+                        "username": "Gebruikersnaam"
+                    },
+                    "not_found": "Ranglijst niet gevonden",
+                    "rank": "Rang",
+                    "player": "Speler",
+                    "time": "Tijd",
+                    "score": "Score",
+                    "date": "Datum",
+                    "device": "Apparaat",
+                    "location": "Locatie"
+                }
+            }
+        },
+        "Maps": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Kaart niet gevonden",
+                    "not_found_description": "Deze kaart bestaat niet op MCCreations",
+                    "title": "{title} {content_type} door {creator} voor Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Spellen",
+                        "gaming": "Gaming",
+                        "minecraft_map": "Minecraft Kaart",
+                        "minecraft_creations": "Minecraft Creaties",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "maps": "Kaarten",
+                        "minecraft_games": "Minecraft Spellen",
+                        "download": "Gratis Minecraft Kaarten",
+                        "minecraft_adventure": "Minecraft Avontuur",
+                        "minecraft_parkour": "Minecraft Parcours",
+                        "minecraft_pvp": "Minecraft PvP",
+                        "minecraft_skyblock": "Minecraft Skyblock",
+                        "minecraft_survival": "Minecraft Overleving",
+                        "minecraft_creative": "Minecraft Creatief",
+                        "minecraft_minigames": "Minecraft Minigames"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Vind en download Minecraft kaarten",
+                "description": "Download de nieuwste geverifieerde Minecraft kaarten op MCCreations! Minecraft kaarten zijn aangepaste werelden die door spelers of ontwikkelaars zijn gemaakt en unieke ervaringen bieden die verder gaan dan het standaardspel. Deze kaarten kunnen variëren van eenvoudige parcours-uitdagingen tot complexe avonturenverhalen, puzzeloplossende zoektochten, of zelfs recreaties van echte locaties. Sinds de vroege dagen van Minecraft heeft de community kaartmaken omarmd als een vorm van creatieve expressie, wat heeft geleid tot een rijke geschiedenis van innovatie en samenwerking. Door de jaren heen zijn Minecraft kaarten een hoofdbestanddeel geworden in de community, die de onbeperkte mogelijkheden van het spel tonen en een levendig ecosysteem van makers en spelers bevorderen.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Spellen",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Kaart",
+                    "minecraft_creations": "Minecraft Creaties",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Kaarten",
+                    "minecraft_games": "Minecraft Spellen",
+                    "download": "Gratis Minecraft Kaarten",
+                    "minecraft_adventure": "Minecraft Avontuur",
+                    "minecraft_parkour": "Minecraft Parcours",
+                    "minecraft_pvp": "Minecraft PvP",
+                    "minecraft_skyblock": "Minecraft Skyblock",
+                    "minecraft_survival": "Minecraft Overleving",
+                    "minecraft_creative": "Minecraft Creatief",
+                    "minecraft_minigames": "Minecraft Minigames"
+                }
+            }
+        },
+        "NotFound": {
+            "title": "Pagina niet gevonden",
+            "description": "De pagina die je zoekt bestaat niet.",
+            "button": "Ga naar Home"
+        },
+        "ResetPassword": {
+            "token_error": "Geen token gevonden, teruggaan naar de vorige pagina",
+            "new_password": "Nieuw wachtwoord",
+            "retype_password": "Herhaal wachtwoord",
+            "password_length": "Wachtwoord moet 10 of meer karakters bevatten",
+            "password_number": "Wachtwoord moet ten minste één cijfer bevatten",
+            "passwords_not_same": "Wachtwoorden zijn niet hetzelfde",
+            "password_required": "Wachtwoord is vereist",
+            "reset": "Opnieuw instellen",
+            "title": "Wachtwoord opnieuw instellen"
+        },
+        "Resourcepacks": {
+            "slug": {
+                "Metadata": {
+                    "not_found_title": "Resourcepakket niet gevonden",
+                    "not_found_description": "Dit resourcepakket bestaat niet op MCCreations",
+                    "title": "{title} {content_type} door {creator} voor Minecraft {minecraft_version}",
+                    "Tags": {
+                        "minecraft": "Minecraft",
+                        "games": "Spellen",
+                        "gaming": "Gaming",
+                        "minecraft_resourcepack": "Minecraft Resourcepakket",
+                        "minecraft_creations": "Minecraft Creaties",
+                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "mods": "Mods",
+                        "minecraft_mods": "Minecraft Mods",
+                        "minecraft_hd": "Minecraft HD"
+                    }
+                }
+            },
+            "Metadata": {
+                "title": "Vind en download Minecraft resourcepakketten",
+                "description": "Download de nieuwste geverifieerde Minecraft resourcepakketten op MCCreations! Minecraft resourcepakketten zijn aanpasbare verzamelingen bestanden die de visuele en auditieve elementen van het spel veranderen, waardoor spelers hun gaming-ervaring kunnen personaliseren. Ze kunnen texturen, modellen, muziek en geluidseffecten aanpassen, waardoor de look en feel van het spel wordt getransformeerd. Sinds hun introductie hebben resourcepakketten een belangrijke rol gespeeld in de Minecraft community, waardoor makers hun creativiteit kunnen uiten en hun unieke visies kunnen delen met anderen. Door de jaren heen zijn ze een hoeksteen geworden van Minecraft's modding cultuur, wat een levendige community van artiesten en spelers bevordert die voortdurend de grenzen verleggen van wat mogelijk is in het spel.",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Spellen",
+                    "gaming": "Gaming",
+                    "minecraft_resourcepack": "Minecraft Resourcepakket",
+                    "minecraft_creations": "Minecraft Creaties",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "mods": "Mods",
+                    "minecraft_mods": "Minecraft Mods",
+                    "minecraft_hd": "Minecraft HD"
+                }
+            }
+        },
+        "Settings": {
+            "Account": {
+                "loading": "Accountinstellingen laden...",
+                "error": "Er is een fout opgetreden bij het laden van je accountinstellingen. Rapporteer dit probleem alstublieft via de bovenstaande link",
+                "handle_updated": "Gebruikersnaam succesvol bijgewerkt naar {handle}",
+                "username_updated": "Weergavenaam succesvol bijgewerkt naar {username}",
+                "email_updated": "E-mail succesvol bijgewerkt naar {email}",
+                "password_updated": "Wachtwoord succesvol bijgewerkt",
+                "passwords_not_match": "Wachtwoorden komen niet overeen",
+                "delete_account_warning": "Klik opnieuw om je account te verwijderen. Dit is permanent!",
+                "delete_account_auth_error": "Autorisatiefout. Log alstublieft opnieuw in",
+                "delete_account_error": "Er is een fout opgetreden bij het verwijderen van je account. Rapporteer dit probleem alstublieft via de bovenstaande link",
+                "delete_account_success": "Account succesvol verwijderd",
+                "title": "Accountinstellingen",
+                "username": "Gebruikersnaam",
+                "handle": "Gebruikersnaam",
+                "email": "E-mail",
+                "password": "Wachtwoord",
+                "confirm_password": "Bevestig wachtwoord",
+                "change_password": "Wachtwoord wijzigen",
+                "change_username": "Gebruikersnaam wijzigen",
+                "change_handle": "Gebruikersnaam wijzigen",
+                "change_email": "E-mail wijzigen",
+                "delete_account": "Account verwijderen",
+                "new_username": "Nieuwe gebruikersnaam",
+                "new_handle": "Nieuwe gebruikersnaam",
+                "new_email": "Nieuwe e-mail",
+                "new_password": "Nieuw wachtwoord"
+            },
+            "Notifications": {
+                "title": "Notificatie-instellingen",
+                "comment": "Nieuwe opmerkingen",
+                "like": "Vind-ik-leuk notificaties",
+                "reply": "Nieuwe reacties",
+                "email_daily": "E-mail dagelijks",
+                "email_weekly": "E-mail wekelijks",
+                "push_only": "Alleen push",
+                "push_email_daily": "Push & e-mail dagelijks",
+                "push_email_weekly": "Push & e-mail wekelijks",
+                "dashboard_only": "Alleen dashboard",
+                "none": "Geen",
+                "translation": "Nieuwe creatievertalingen",
+                "rating": "Nieuwe creatiebeoordelingen",
+                "install_ios_instructions": "Om pushnotificaties te gebruiken op iOS, tik op de <icon></icon> deelknop en dan \"Zet op beginscherm\".",
+                "add_to_this_device": "Abonneer hier voor pushnotificaties",
+                "follow": "Posts die je volgt"
+            },
+            "title": "Instellingen",
+            "account_menu_item": "Account",
+            "notifications_menu_item": "Notificaties",
+            "profile_menu_item": "Profiel"
+        },
+        "SignIn": {
+            "Reset": {
+                "title": "Wachtwoord opnieuw instellen",
+                "email": "E-mail",
+                "email_placeholder": "steve@minecraft.net",
+                "send_reset_email": "Stuur herstel e-mail"
+            },
+            "Metadata": {
+                "title": "Inloggen",
+                "description": "Log in op je account op MCCreations om je Minecraft kaarten, datapakketten, resourcepakketten en meer te uploaden!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Spellen",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Kaart",
+                    "minecraft_creations": "Minecraft Creaties",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Kaarten",
+                    "minecraft_games": "Minecraft Spellen",
+                    "download": "Gratis Minecraft Kaarten"
+                }
+            },
+            "error": "Er is een fout opgetreden. Rapporteer dit probleem alstublieft via de bovenstaande link.",
+            "providers": "Log in met...",
+            "email_title": "Log in met e-mail",
+            "email_placeholder": "steve@minecraft.net",
+            "email_required": "E-mail is vereist",
+            "email_invalid": "E-mail is geen geldig e-mailadres",
+            "password_required": "Wachtwoord is vereist",
+            "password_invalid": "Wachtwoord is geen geldig wachtwoord",
+            "password_too_short": "Wachtwoord moet 10 of meer karakters bevatten",
+            "button": "Log in",
+            "no_account": "Nog geen account?",
+            "forgot_password": "Wachtwoord vergeten?",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            }
+        },
+        "SignUp": {
+            "Metadata": {
+                "title": "Aanmelden",
+                "description": "Meld je aan bij MCCreations om je Minecraft kaarten, datapakketten, resourcepakketten en meer te uploaden!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Spellen",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Kaart",
+                    "minecraft_creations": "Minecraft Creaties",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Kaarten",
+                    "minecraft_games": "Minecraft Spellen",
+                    "download": "Gratis Minecraft Kaarten"
+                }
+            },
+            "error": "Er is een fout opgetreden bij het maken van je account. Rapporteer dit probleem alstublieft via de bovenstaande link.",
+            "username_invalid_characters": "Gebruikersnaam kan alleen letters, cijfers en _ bevatten",
+            "username_too_short": "Gebruikersnaam moet ten minste 3 karakters bevatten",
+            "username_required": "Gebruikersnaam is vereist",
+            "username_placeholder": "Gebruikersnaam",
+            "email_placeholder": "E-mail",
+            "email_invalid": "E-mail is geen geldig e-mailadres",
+            "email_required": "E-mail is vereist",
+            "password_required": "Wachtwoord is vereist",
+            "password_no_number": "Wachtwoord moet ten minste één cijfer bevatten",
+            "password_too_short": "Wachtwoord moet 10 of meer karakters bevatten",
+            "button": "Aanmelden",
+            "providers": "Meld je aan met...",
+            "title": "Aanmelden",
+            "already_have_account": "Heb je al een account?",
+            "forgot_password": "Wachtwoord vergeten?",
+            "Providers": {
+                "discord": "Discord",
+                "github": "Github",
+                "google": "Google",
+                "microsoft": "Microsoft"
+            }
+        },
+        "Translate": {
+            "title": "Vertaal",
+            "help": "<link>Voor hulp, klik hier</link>",
+            "AddLanguage": {
+                "title": "Taal toevoegen",
+                "language_placeholder": "nl-NL",
+                "language_description": "Dit moet een <link>ISO 639 taalcodes</link> zijn gevolgd door een <link2>ISO 3166-1 regiocode</link2>. Als je je taal niet kunt vinden, verzin dan maar iets! Het is niet belangrijk dat dit strikt correct is.",
+                "add": "Toevoegen"
+            },
+            "language": "Taal",
+            "language_missing": "Ontbreekt jouw taal? Klik hier om hem toe te voegen.",
+            "lang": {
+                "saved": "Taal succesvol opgeslagen",
+                "approved": "Taal goedgekeurd",
+                "code": "Code",
+                "visual": "Visueel",
+                "save": "Opslaan",
+                "approve": "Goedkeuren",
+                "cancel": "Annuleren",
+                "back": "Terug",
+                "key": "Sleutel",
+                "english": "Engels",
+                "translation": "Vertaling"
+            },
+            "Metadata": {
+                "title": "Vertaal",
+                "description": "Help MCCreations te vertalen naar jouw taal en help de Minecraft community over de hele wereld samen te brengen!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Spellen",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Kaart",
+                    "minecraft_creations": "Minecraft Creaties",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Kaarten",
+                    "minecraft_games": "Minecraft Spellen",
+                    "download": "Gratis Minecraft Kaarten"
+                }
+            }
+        },
+        "Error": {
+            "title": "Er is iets misgegaan!",
+            "description": "Het lijkt erop dat we wat vuil tussen onze circuits hebben gekregen! Rapporteer dit alstublieft via de onderstaande links en probeer het later opnieuw.",
+            "report": "Rapporteer dit probleem met <form>dit formulier</form>, <github>via onze Github pagina</github>, of <link>join onze Discord</link> om het daar te rapporteren."
+        },
+        "Home": {
+            "Metadata": {
+                "title": "De beste Minecraft kaarten, datapakketten en resourcepakketten van de Minecraft community",
+                "description": "MCCreations is een onofficiële fansite waar je de nieuwste en beste Minecraft kaarten, datapakketten en resourcepakketten kunt vinden!",
+                "Keywords": {
+                    "minecraft": "Minecraft",
+                    "games": "Spellen",
+                    "gaming": "Gaming",
+                    "minecraft_map": "Minecraft Kaart",
+                    "minecraft_creations": "Minecraft Creaties",
+                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "maps": "Kaarten",
+                    "minecraft_games": "Minecraft Spellen",
+                    "download": "Gratis Minecraft Kaarten"
+                }
+            },
+            "blurb": "Minecraft kaarten, datapakketten, resourcepakketten en meer van de Minecraft community over de hele wereld!",
+            "recently_updated": "Of, vind iets nieuws!",
+            "view_all": "Zoek naar..."
+        }
+    },
+    "Components": {
+        "AdUnits": {
+            "behind_text": "Advertenties helpen MCCreations coole dingen te maken! Overweeg alsjeblieft om je advertentieblokker uit te schakelen voor deze site :)"
+        },
+        "Creations": {
+            "Cards": {
+                "logo_alt_text": "Het logo voor {title}, een Minecraft {type} voor Minecraft {minecraft_version} door {creator} op MCCreations",
+                "by": "door {creator}",
+                "by_joiner": ", "
+            },
+            "Page": {
+                "Comments": {
+                    "username_placeholder": "Gebruikersnaam",
+                    "comment_placeholder": "Opmerking",
+                    "send": "Stuur",
+                    "username_required": "Gebruikersnaam is vereist",
+                    "username_too_short": "Gebruikersnaam moet ten minste 3 karakters bevatten",
+                    "rating_out_of_range": "Beoordeling moet tussen 0 en 5 liggen",
+                    "comment_required": "Opmerking is vereist",
+                    "comment_too_short": "Opmerking moet ten minste 10 karakters bevatten",
+                    "show_more": "Toon {showMore}",
+                    "reply": "Reageer",
+                    "replies": "{count, plural, =0 {Nog geen reacties} =1 {1 reactie} other {# reacties}}",
+                    "permalink": "Kopieer opmerking permalink",
+                    "permalink_copied": "Opmerking permalink gekopieerd naar klembord",
+                    "delete": "Opmerking verwijderen",
+                    "deleted": "Opmerking succesvol verwijderd"
+                },
+                "CreationOptions": {
+                    "button": "Opties",
+                    "translate": "Vertaal",
+                    "edit": "Bewerken",
+                    "translateDescription": "Vertaal de creatie naar een andere taal.",
+                    "language": "Taal",
+                    "languagePlaceholder": "Selecteer een taal",
+                    "title": "Titel",
+                    "shortDescription": "Korte beschrijving",
+                    "description": "Beschrijving",
+                    "submit": "Indienen",
+                    "cancel": "Annuleren"
+                },
+                "Sidebar": {
+                    "downloads": "Downloads",
+                    "created_date": "Datum gecreëerd",
+                    "updated_date": "Datum aangepast"
+                },
+                "Rating": {
+                    "1": "1 ster",
+                    "2": "2 sterren",
+                    "3": "3 sterren",
+                    "4": "4 sterren",
+                    "5": "5 sterren"
+                },
+                "not_found": "{content_type} niet gevonden",
+                "not_found_description": "Deze {content_type} bestaat niet op MCCreations",
+                "logo_alt": "Het logo voor {title}, een Minecraft {type}",
+                "images_alt": "Afbeelding {index} van {total} voor {title}",
+                "recommended_creations": "Andere {tag} creaties"
+            },
+            "Search": {
+                "Headers": {
+                    "map": {
+                        "title": "Blader en zoek naar Minecraft kaarten",
+                        "blurb": "Vind geweldige nieuwe Minecraft kaarten voor je volgende avontuur!",
+                        "description": "Minecraft kaarten zijn aangepaste werelden die door spelers of ontwikkelaars zijn gemaakt en unieke ervaringen bieden die verder gaan dan het standaardspel. Deze kaarten kunnen variëren van eenvoudige parcours-uitdagingen tot complexe avonturenverhalen, puzzeloplossende zoektochten, of zelfs recreaties van echte locaties. Sinds de vroege dagen van Minecraft heeft de community kaartmaken omarmd als een vorm van creatieve expressie, wat heeft geleid tot een rijke geschiedenis van innovatie en samenwerking. Door de jaren heen zijn Minecraft kaarten een hoofdbestanddeel geworden in de community, die de onbeperkte mogelijkheden van het spel tonen en een levendig ecosysteem van makers en spelers bevorderen."
+                    },
+                    "datapack": {
+                        "title": "Blader en zoek naar Minecraft datapakketten",
+                        "blurb": "Vind gereedschappen, uitdagingen en meer voor je Minecraft avonturen!",
+                        "description": "Minecraft datapakketten zijn in feite mods voor vanilla Minecraft. Ze verbeteren de gameplay door nieuwe functies, mechanica en ervaringen toe te voegen. Ze kunnen het spel transformeren met nieuwe uitdagingen, zoektochten en zelfs volledig nieuwe spelmodi. Sinds hun introductie zijn datapakketten een geliefd hulpmiddel geworden voor makers, waardoor de community kan innoveren en de mogelijkheden van Minecraft kan uitbreiden, wat een rijk ecosysteem van creativiteit en samenwerking bevordert."
+                    },
+                    "resourcepack": {
+                        "title": "Blader en zoek naar Minecraft resourcepakketten",
+                        "blurb": "Verander of verbeter de look van Minecraft!",
+                        "description": "Minecraft resourcepakketten zijn aanpasbare verzamelingen bestanden die de visuele en auditieve elementen van het spel veranderen, waardoor spelers hun gaming-ervaring kunnen personaliseren. Ze kunnen texturen, modellen, muziek en geluidseffecten aanpassen, waardoor de look en feel van het spel wordt getransformeerd. Sinds hun introductie hebben resourcepakketten een belangrijke rol gespeeld in de Minecraft community, waardoor makers hun creativiteit kunnen uiten en hun unieke visies kunnen delen met anderen. Door de jaren heen zijn ze een hoeksteen geworden van Minecraft's modding cultuur, wat een levendige community van artiesten en spelers bevordert die voortdurend de grenzen verleggen van wat mogelijk is in het spel."
+                    }
+                },
+                "search": "Zoek",
+                "clear_filters": "Filters wissen",
+                "sort_by": "Sorteer op",
+                "Sort": {
+                    "title_ascending": "Titel oplopend",
+                    "title_descending": "Titel aflopend",
+                    "creator_ascending": "Maker oplopend",
+                    "creator_descending": "Maker aflopend",
+                    "newest": "Nieuwste",
+                    "oldest": "Oudste",
+                    "highest_rated": "Hoogst beoordeeld",
+                    "lowest_rated": "Laagst beoordeeld",
+                    "highest_downloads": "Meeste downloads",
+                    "lowest_downloads": "Minste downloads",
+                    "updated": "Recent aangepast"
+                },
+                "Status": {
+                    "unapproved": "Gepubliceerd",
+                    "approved": "Geverifieerd",
+                    "featured": "Uitgelicht"
+                },
+                "TagDropdown": {
+                    "include_tag": "Inclusief {tag}",
+                    "exclude_tag": "Exclusief {tag}",
+                    "include": "Inclusief",
+                    "exclude": "Exclusief",
+                    "any": "Elke",
+                    "and": "& ",
+                    "and_exclude": "en exclusief {tag}"
+                },
+                "Navigator": {
+                    "previous": "Vorige",
+                    "next": "Volgende"
+                },
+                "status": "Status",
+                "tags": "Tags",
+                "search_placeholder": "Zoek titel, maker, versie, etc."
+            },
+            "Tags": {
+                "genre": "Genre",
+                "subgenre": "Subgenre",
+                "difficulty": "Moeilijkheidsgraad",
+                "player_count": "Aantal spelers",
+                "length": "Lengte",
+                "resolution": "Resolutie",
+                "theme": "Thema",
+                "chill": "Chill",
+                "easy": "Makkelijk",
+                "hard": "Moeilijk",
+                "hardcore": "Hardcore",
+                "normal": "Normaal",
+                "adventure": "Avontuur",
+                "build": "Bouwwerk",
+                "creative": "Creatief",
+                "game": "Spel",
+                "other": "Ander",
+                "overhaul": "Herziening",
+                "parkour": "Parcours",
+                "puzzle": "Puzzel",
+                "qol": "Levenskwaliteit",
+                "realistic": "Realistisch",
+                "simple": "Simpel",
+                "survival": "Overleving",
+                "themed": "Thematisch",
+                "tool": "Gereedschap",
+                "utility": "Voorziening",
+                "long": "Lang",
+                "medium": "Middelmatig",
+                "short": "Kort",
+                "1024x +": "1024x +",
+                "128x": "128x",
+                "16x": "16x",
+                "256x": "256x",
+                "32x": "32x",
+                "512x": "512x",
+                "64x": "64x",
+                "8x": "8x",
+                "blocks": "Blokken",
+                "bosses": "Bazen",
+                "cartoon": "Cartoon",
+                "challenge": "Challenge",
+                "city": "Stad",
+                "co-op": "Co-op",
+                "cosmetic": "Cosmetisch",
+                "crafting": "Crafting",
+                "CTM": "CTM",
+                "dropper": "Dropper",
+                "elytra": "Elytra",
+                "entities": "Entiteiten",
+                "episodic": "Episodisch",
+                "escape": "Ontsnapping",
+                "exploration": "Verkenning",
+                "faithful": "Trouw",
+                "finding": "Zoekend",
+                "font": "Font",
+                "funny": "Grappig",
+                "GUI": "GUI",
+                "horror": "Horror",
+                "items": "Items",
+                "language": "Taal",
+                "magic": "Magisch",
+                "maze": "Doolhof",
+                "mobs": "Mobs",
+                "models": "Modellen",
+                "multiplayer": "Multiplayer",
+                "music": "Muziek",
+                "park": "Park",
+                "PVE": "PvE",
+                "PVP": "PvP",
+                "RPG": "RPG",
+                "shaders": "Shaders",
+                "singleplayer": "Singleplayer",
+                "skybox": "Luchtdoos",
+                "smooth": "Glad",
+                "sound": "Geluid",
+                "tech": "Tech",
+                "tools": "Gereedschap",
+                "trivia": "Trivia",
+                "tweak": "Aanpassing",
+                "unfair": "Oneerlijk",
+                "weapons": "Wapens",
+                "anime": "Anime",
+                "fantasy": "Fantasie",
+                "medieval": "Middeleeuws",
+                "modern": "Modern",
+                "sci-fi": "Sci-Fi",
+                "vanilla": "Vanilla",
+                "player_count_2": "2 spelers",
+                "player_count_3": "3 spelers",
+                "player_count_4+": "4+ spelers"
+            }
+        },
+        "Footer": {
+            "about": "Over",
+            "contact": "Contact",
+            "discord": "Discord",
+            "join_community": "Join de community",
+            "legal_contact": "Legaal en contact",
+            "privacy": "Privacybeleid",
+            "request_data": "Gegevens aanvragen",
+            "twitter": "Twitter",
+            "bluesky": "Bluesky",
+            "youtube": "Youtube",
+            "updates": "Updates",
+            "Splashes": {
+                "1": "Globaal gegaan!",
+                "2": "'Tis een website!",
+                "3": "Dingen breken.",
+                "4": "Ik ben een footer!",
+                "5": "Minecraft is best wel cool hè.",
+                "6": "Creativiteit voor de winst!",
+                "7": "Wie leest deze überhaupt?",
+                "8": "Heeft iemand een broodje?",
+                "9": "Draag bij op GitHub!",
+                "10": "Wist je dat dit willekeurig is?"
+            },
+            "mojang_disclamer": "GEEN OFFICIEEL MINECRAFT PRODUCT. NIET GOEDGEKEURD DOOR OF GEASSOCIEERD MET MOJANG.",
+            "open_source": "MCCreations is <link>open source</link>. Draag vandaag bij!",
+            "copyright": "© Ben Meier/CrazyCowMM"
+        },
+        "Dropzone": {
+            "uploaded": "{file} geüpload",
+            "uploading": "{file} uploaden",
+            "invalid_file_type": "Ongeldig bestandstype. Upload alstublieft een {file_type} bestand.",
+            "file_too_large": "Bestand is te groot. Upload alstublieft een bestand kleiner dan {max_size}.",
+            "file_unknown": "Er is een fout opgetreden, probeer het opnieuw.",
+            "dropzone": "Sleep je bestanden hierheen of klik om te uploaden",
+            "hovering": "Sleep je bestanden hierheen om te uploaden",
+            "FileTypes": {
+                "image": "afbeelding",
+                "zip": "zip, mcworld, mcpack, mctemplate of mcaddon"
+            },
+            "or": "Of...",
+            "link": "Link naar bestand",
+            "link_placeholder": "https://example.com/file.zip",
+            "set_link": "Link instellen"
+        },
+        "Navbar": {
+            "LanguageSwitcher": {
+                "current_language": "Nederlands",
+                "help_translate": "Help met vertalen"
+            },
+            "UserOptions": {
+                "sign_in": "Log in",
+                "sign_out": "Log uit",
+                "sign_up": "Aanmelden",
+                "dashboard": "Dashboard",
+                "notifications": "Notificaties",
+                "profile": "Profiel",
+                "settings": "Instellingen",
+                "admin": "Admin",
+                "account": "Account"
+            },
+            "toggle_menu": "Menu in-/uitschakelen",
+            "home": "Home",
+            "feed": "Feed",
+            "creations": "Creaties",
+            "Creations": {
+                "maps": "Kaarten",
+                "datapacks": "Datapakketten",
+                "resourcepacks": "Resourcepakketten",
+                "maps_blurb": "Van puzzels tot avonturen tot multiplayer gekte.",
+                "datapacks_blurb": "Verander je wereld, voeg een kleine uitdaging toe, of maak een kleine aanpassing.",
+                "resourcepacks_blurb": "Verken een hele nieuwe wereld, of voeg gewoon wat nieuwe muziek toe."
+            },
+            "creators": "Makers",
+            "create": "Creëer",
+            "account": "Account"
+        },
+        "RichText": {
+            "placeholder": "Begin hier met typen...",
+            "Images": {
+                "add_caption": "Voeg een bijschrift toe",
+                "insert_url": "Afbeelding URL invoegen",
+                "insert_file": "Afbeeldingsbestand invoegen"
+            },
+            "Toolbar": {
+                "undo": "Ongedaan maken",
+                "redo": "Opnieuw doen",
+                "bold": "Vet",
+                "italic": "Cursief",
+                "underline": "Onderlijnen",
+                "strikethrough": "Doorhalen",
+                "bullet_list": "Opsommingstekens",
+                "left_align": "Links uitlijnen",
+                "center_align": "Centreren",
+                "right_align": "Rechts uitlijnen",
+                "justify_align": "Uitvullen",
+                "spoiler": "Spoiler"
+            }
+        },
+        "VersionManager": {
+            "title": "Bestanden",
+            "add_version": "Bestand uploaden",
+            "Version": {
+                "back_to_versions": "Terug naar bestanden",
+                "edit": "Bestand bewerken",
+                "version_number": "Versienummer",
+                "minecraft_version": "Minecraft versie",
+                "Bedrock": "Bedrock",
+                "Bedrock_description": "Is dit bestand voor de Bedrock editie",
+                "MainFile": {
+                    "link": "Hoofdbestand link"
+                },
+                "ExtraFiles": {
+                    "file_type": "Bestandstype",
+                    "link": "Link",
+                    "required": "Vereist",
+                    "required_description": "Zorgt ervoor dat dit bestand automatisch wordt gedownload met het hoofdbestand",
+                    "upload_file": "Bestand uploaden"
+                },
+                "save": "Bestand opslaan",
+                "cancel": "Annuleren",
+                "delete": "Verwijderen",
+                "add_file": "Bestand toevoegen",
+                "add_file_description": "Voeg eventuele extra bestanden toe die vereist zijn voor deze creatie, zoals resourcepakketten"
+            }
+        }
+    },
+    "brand": "MCCreations",
+    "error": "Fout",
+    "events": "Evenementen"
+}
