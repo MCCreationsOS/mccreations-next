@@ -11,7 +11,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return content.documents.map((doc: IContentDoc) => {
         return {
             url: `https://mccreations.net/en-US/datapacks/${doc.slug}`,
-            lastModified: new Date(doc.createdDate).toISOString(),
+            lastModified: new Date().toISOString(),
             changeFrequency: 'weekly',
             alternates: {
                 languages: {
@@ -19,6 +19,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     "en-US": `https://mccreations.net/en-US/datapacks/${doc.slug}`,
                     "zh-CN": `https://mccreations.net/zh-CN/datapacks/${doc.slug}`,
                     "ru-RU": `https://mccreations.net/ru-RU/datapacks/${doc.slug}`,
+                    "nl-NL": `https://mccreations.net/nl-NL/datapacks/${doc.slug}`,
+                    "fr-FR": `https://mccreations.net/fr-FR/datapacks/${doc.slug}`,
+                    "hi-IN": `https://mccreations.net/hi-IN/datapacks/${doc.slug}`,
+                    "ja-JP": `https://mccreations.net/ja-JP/datapacks/${doc.slug}`,
+                    "ko-KR": `https://mccreations.net/ko-KR/datapacks/${doc.slug}`,
+                    "zh-TW": `https://mccreations.net/zh-TW/datapacks/${doc.slug}`,
                 }
             }
         }

@@ -20,6 +20,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                             "en": `https://mccreations.net/en-US/content/${type}/${option}`,
                             "zh-CN": `https://mccreations.net/zh-CN/content/${type}/${option}`,
                             "ru-RU": `https://mccreations.net/ru-RU/content/${type}/${option}`,
+                            "nl-NL": `https://mccreations.net/nl-NL/content/${type}/${option}`,
+                            "fr-FR": `https://mccreations.net/fr-FR/content/${type}/${option}`,
+                            "hi-IN": `https://mccreations.net/hi-IN/content/${type}/${option}`,
+                            "ja-JP": `https://mccreations.net/ja-JP/content/${type}/${option}`,
+                            "ko-KR": `https://mccreations.net/ko-KR/content/${type}/${option}`,
+                            "zh-TW": `https://mccreations.net/zh-TW/content/${type}/${option}`,
                             "en-US": `https://mccreations.net/en-US/content/${type}/${option}`,
                         }
                     }

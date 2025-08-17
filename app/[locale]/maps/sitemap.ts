@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         // console.log(`Generating sitemap for ${doc.slug}`)
         return {
             url: `https://mccreations.net/en-US/maps/${doc.slug}`,
-            lastModified: new Date((doc.updatedDate) ? doc.updatedDate! * 1000 : doc.createdDate * 1000).toISOString(),
+            lastModified: new Date().toISOString(),
             changeFrequency: 'weekly',
             alternates: {
                 languages: {
@@ -20,6 +20,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     "en-US": `https://mccreations.net/en-US/maps/${doc.slug}`,
                     "zh-CN": `https://mccreations.net/zh-CN/maps/${doc.slug}`,
                     "ru-RU": `https://mccreations.net/ru-RU/maps/${doc.slug}`,
+                    "nl-NL": `https://mccreations.net/nl-NL/maps/${doc.slug}`,
+                    "fr-FR": `https://mccreations.net/fr-FR/maps/${doc.slug}`,
+                    "hi-IN": `https://mccreations.net/hi-IN/maps/${doc.slug}`,
+                    "ja-JP": `https://mccreations.net/ja-JP/maps/${doc.slug}`,
+                    "ko-KR": `https://mccreations.net/ko-KR/maps/${doc.slug}`,
+                    "zh-TW": `https://mccreations.net/zh-TW/maps/${doc.slug}`,
                 }
             }
         }

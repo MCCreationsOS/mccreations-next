@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return content.documents.map((doc: IContentDoc) => {
         return {
             url: `https://mccreations.net/en-US/resourcepacks/${doc.slug}`,
-            lastModified: new Date((doc.updatedDate) ? doc.updatedDate! * 1000 : doc.createdDate * 1000).toISOString(),
+            lastModified: new Date().toISOString(),
             changeFrequency: 'weekly',
             alternates: {
                 languages: {
@@ -20,6 +20,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
                     "en-US": `https://mccreations.net/en-US/resourcepacks/${doc.slug}`,
                     "zh-CN": `https://mccreations.net/zh-CN/resourcepacks/${doc.slug}`,
                     "ru-RU": `https://mccreations.net/ru-RU/resourcepacks/${doc.slug}`,
+                    "nl-NL": `https://mccreations.net/nl-NL/resourcepacks/${doc.slug}`,
+                    "fr-FR": `https://mccreations.net/fr-FR/resourcepacks/${doc.slug}`,
+                    "hi-IN": `https://mccreations.net/hi-IN/resourcepacks/${doc.slug}`,
+                    "ja-JP": `https://mccreations.net/ja-JP/resourcepacks/${doc.slug}`,
+                    "ko-KR": `https://mccreations.net/ko-KR/resourcepacks/${doc.slug}`,
+                    "zh-TW": `https://mccreations.net/zh-TW/resourcepacks/${doc.slug}`,
                 }
             }
         }
