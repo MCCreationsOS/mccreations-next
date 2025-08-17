@@ -25,22 +25,22 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
         }
     })
     
-    const getKeys = (lang: any) => {
-        delete lang._id
-        const formattedLanguage: Language = {}
-        Object.keys(lang).forEach((key) => {
-            if(typeof lang[key] === 'string') {
-                formattedLanguage[key] = lang[key]
-            } else {
-                for (const k in getKeys(lang[key])) {
-                    formattedLanguage[key + "." + k] = getKeys(lang[key])[k]
-                }
-            }
-        })
-        return formattedLanguage
-    }
-    const formattedEnglishLanguage = getKeys(JSON.parse(englishLanguage))
-    const formattedEditingLanguage = getKeys(JSON.parse(editingLanguage))
+    // const getKeys = (lang: any) => {
+    //     delete lang._id
+    //     const formattedLanguage: Language = {}
+    //     Object.keys(lang).forEach((key) => {
+    //         if(typeof lang[key] === 'string') {
+    //             formattedLanguage[key] = lang[key]
+    //         } else {
+    //             for (const k in getKeys(lang[key])) {
+    //                 formattedLanguage[key + "." + k] = getKeys(lang[key])[k]
+    //             }
+    //         }
+    //     })
+    //     return formattedLanguage
+    // }
+    // const formattedEnglishLanguage = getKeys(JSON.parse(englishLanguage))
+    // const formattedEditingLanguage = getKeys(JSON.parse(editingLanguage))
     
     const saveLanguage = (language: string) => {
         fetch(`${process.env.DATA_URL}/translation/${langKey}`, {
@@ -48,7 +48,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: language
+            body: JSON.stringify(language)
         }).then(() => {
             //PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Translation successfully sent"))
             toast.success(t("Pages.Translate.lang.saved"))
@@ -71,7 +71,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
         <Tabs defaultValue="code">
             <TabsList className="w-full justify-around">
                 <TabsTrigger value="code" className="w-full">{t("Pages.Translate.lang.code")}</TabsTrigger>
-                <TabsTrigger value="visual" className="w-full">{t("Pages.Translate.lang.visual")}</TabsTrigger>
+                {/* <TabsTrigger value="visual" className="w-full">{t("Pages.Translate.lang.visual")}</TabsTrigger> */}
             </TabsList>
             <TabsContent value="code">
                 <form onSubmit={e => {
@@ -109,7 +109,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                     </div>
                 </form>
             </TabsContent>
-            <TabsContent value="visual">
+            {/* <TabsContent value="visual">
                 <div className="w-full max-h-[80vh] overflow-y-auto">
                     <Table>
                         <TableHeader>
@@ -148,7 +148,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                             }}>{t('Pages.Translate.lang.approve')}</Button>
                         )}
                     </div>
-            </TabsContent>
+            </TabsContent> */}
         </Tabs>
         </>
     )

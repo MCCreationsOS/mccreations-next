@@ -137,7 +137,7 @@ export default function CodeEditor({ sendOnChange, initialValue, editable = true
 
     const onChange = (editorState: EditorState, editor: LexicalEditor, tags: Set<string>) => {
         editorState.read(() => {
-            let text = $getRoot().getAllTextNodes().map(node => node.getTextContent()).join("\n");
+            let text = $getRoot().getAllTextNodes().map(node => node.getTextContent().trim()).join("");
             sendOnChange(text);
         })
     }
