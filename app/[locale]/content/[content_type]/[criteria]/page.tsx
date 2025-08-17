@@ -83,6 +83,6 @@ export default async function Page(props: {params: Promise<{locale: string, cont
     // defaultContent = (await searchContent({contentType: convertToCollection(contentType), sort: sort, status: status, includeTags: include, excludeTags: "", limit: 20, page: 0}, false)).documents
 
     return (
-        <CreationSearchPage searchParams={new Promise((resolve) => resolve({page: "0", search: search, sort: sort, status: status.toString(), includeTags: include, excludeTags: ""}))} collectionName={convertToCollection(contentType)} pathname={`/${params.locale}/content/${contentType}/${criteria}`} />
+        <CreationSearchPage searchParams={new Promise((resolve) => resolve({page: "0", search: search, sort: sort, status: status.toString(), includeTags: include, excludeTags: ""}))} collectionName={convertToCollection(contentType)} pathname={`/${params.locale}/content/${contentType}/${criteria}`} locale={params.locale} />
     )
 }
