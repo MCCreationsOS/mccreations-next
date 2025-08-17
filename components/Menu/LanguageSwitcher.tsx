@@ -28,6 +28,7 @@ export default function LanguageSwitcher() {
                     <DropdownMenuItem className="p-0"><Link href="/" locale="ja-JP" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">日本語</Button></Link></DropdownMenuItem>
                     <DropdownMenuItem className="p-0"><Link href="/" locale="ko-KR" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">한국어</Button></Link></DropdownMenuItem>
                     <DropdownMenuItem className="p-0"><Link href="/" locale="ru-RU" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">Русский (Россия)</Button></Link></DropdownMenuItem>
+                    <DropdownMenuItem className="p-0"><Link href="/" locale="nl-NL" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">Nederlands</Button></Link></DropdownMenuItem>
                     <DropdownMenuItem className="p-0"><Link href="/translate" className="w-full"><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start"><Plus />{t("Components.Navbar.LanguageSwitcher.help_translate")}</Button></Link></DropdownMenuItem>
                 </div>
             </DropdownMenuContent>
