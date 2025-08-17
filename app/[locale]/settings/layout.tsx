@@ -3,8 +3,9 @@ import styles from "./AccountSidebar.module.css"
 import { Bell, Image, User } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
-export default async function Layout({ children }: { children: React.ReactNode}) {
-    const t = await getTranslations()
+export default async function Layout({ children, params }: { children: React.ReactNode, params: Promise<{locale: string}>}) {
+    const {locale} = await params;
+    const t = await getTranslations({locale: locale})
     return <div className="m-5 flex flex-col gap-2">
                 <h1 className="text-2xl font-bold">{t('Pages.Settings.title')}</h1>
                 <div className="flex md:flex-row flex-col gap-10 ">

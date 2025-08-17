@@ -60,7 +60,7 @@ export default async function Page(props: { params: Promise<{locale: string, slu
     const params = await props.params;
     const map = await fetchMap(params.slug)
     setRequestLocale(params.locale)
-    const t = await getTranslations()
+    const t = await getTranslations({locale: params.locale})
 
     if (map && '_id' in map) {
         return (

@@ -15,7 +15,7 @@ export default async function Layout(props: {params: Promise<{locale: string}>, 
         children
     } = props;
 
-    const t = await getTranslations()
+    const t = await getTranslations({locale: locale})
 
     return (
         <div className="m-2 flex flex-col md:flex-row gap-10">

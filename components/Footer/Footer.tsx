@@ -7,8 +7,9 @@ import Image from "next/image";
 /**
  * The footer
  */
-export default async function Footer() {
-    const t = await getTranslations()
+export default async function Footer({params}: {params: Promise<{locale: string}>}) {
+    const {locale} = await params;
+    const t = await getTranslations({locale: locale})
     const splash = Math.floor(Math.random() * 9) + 1
     return (
         <>

@@ -16,7 +16,7 @@ export default async function Page(props: { params: Promise<{ locale: string }> 
         locale
     } = params;
 
-    const t = await getTranslations();
+    const t = await getTranslations({locale: locale});
     let dynamicPlaylists: { name: string, id: string, options: QueryOptions }[] = [{
         name: 'updated_content',
         id: "updated_content",

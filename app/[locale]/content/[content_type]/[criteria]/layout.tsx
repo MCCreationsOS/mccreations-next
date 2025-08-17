@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata(props: {params: Promise<{locale: string, content_type: string, criteria: string}>}) {
     const params = await props.params;
-    const t = await getTranslations()
+    const t = await getTranslations({locale: params.locale})
     const criteria = params.criteria
     let content_type = params.content_type
     if(content_type.includes("s")) {

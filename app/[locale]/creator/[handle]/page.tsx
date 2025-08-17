@@ -17,12 +17,12 @@ import { EditAbout, EditCustomCss, EditProfileImages, EditSocialLinks } from "./
 import dompurify from "isomorphic-dompurify";
 
 interface CreatorPageProps {
-    params: Promise<{ handle: string }>
+    params: Promise<{ handle: string, locale: string }>
 }
 
 export async function generateMetadata(props: CreatorPageProps): Promise<Metadata> {
     const params = await props.params;
-    const t = await getTranslations()
+    const t = await getTranslations({locale: params.locale})
     try {
         const creator = await getCreator(params.handle)
 
@@ -69,7 +69,7 @@ export default async function CreatorPage(props: CreatorPageProps) {
     return (
         <div className="max-w-6xl mx-auto px-4 md:px-6 lg:px-8 pb-16">
             <Suspense fallback={<CreatorProfileSkeleton />}>
-                <CreatorProfile handle={handle} />
+                <CreatorProfile handle={handle} locale={params.locale} />
             </Suspense>
         </div>
     )
@@ -113,8 +113,8 @@ function CreatorProfileSkeleton() {
     )
 }
 
-async function CreatorProfile({ handle }: { handle: string }) {
-    const t = await getTranslations()
+async function CreatorProfile({ handle, locale }: { handle: string, locale: string }) {
+    const t = await getTranslations({locale: locale})
     try {
         const creator = await getCreator(handle)
 

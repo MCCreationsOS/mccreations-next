@@ -577,7 +577,7 @@ export function CreatorAvatar({creator, size}: {creator: ICreator, size?: number
         <Avatar className={`w-${size ?? 7} h-${size ?? 7}`}>
             <AvatarImage src={fullCreator?.iconURL} />
             <AvatarFallback>
-                {creator.username.charAt(0)}
+                {(creator.username ?? "Unknown").charAt(0)}
             </AvatarFallback>
         </Avatar>
     )

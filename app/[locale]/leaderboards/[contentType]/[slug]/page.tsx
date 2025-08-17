@@ -10,7 +10,7 @@ import { ContentTypes } from "@/app/api/types"
 
 export default async function Page(props: {params: Promise<{locale: string, contentType: ContentTypes, slug: string}>}) {
     const params = await props.params;
-    const t = await getTranslations();
+    const t = await getTranslations({locale: params.locale});
     const formatter = await getFormatter();
     let leaderboard = await getLeaderboard(params.contentType, params.slug)
     let creation = undefined

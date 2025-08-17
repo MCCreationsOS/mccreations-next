@@ -5,8 +5,9 @@ import Loading from './loading'
 import { getTranslations } from 'next-intl/server'
 export const dynamic = "force-dynamic"
 
-export async function generateMetadata() {
-  const t = await getTranslations("Pages.Maps.Metadata")
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+  const {locale} = await params;
+  const t = await getTranslations({locale: locale, namespace: "Pages.Maps.Metadata"})
   return {
     metadataBase: new URL('https://mccreations.net'),
     title: t("title"),

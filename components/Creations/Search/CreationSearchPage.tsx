@@ -9,8 +9,8 @@ import PageNavigator from "./Navigator";
 import { makeSentenceCase } from "@/app/api/utils"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
-export default async function CreationSearchPage({searchParams, collectionName, pathname}: {searchParams: Promise<{ [key: string]: string | string[] | undefined }>, collectionName: CollectionNames, pathname: string}) {
-    const t = await getTranslations()
+export default async function CreationSearchPage({searchParams, collectionName, pathname, locale}: {searchParams: Promise<{ [key: string]: string | string[] | undefined }>, collectionName: CollectionNames, pathname: string, locale: string}) {
+    const t = await getTranslations({locale: locale})
     let contentType = convertToType(collectionName)
     let page = 0
     const params = await searchParams

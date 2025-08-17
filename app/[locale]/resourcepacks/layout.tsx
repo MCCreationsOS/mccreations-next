@@ -4,8 +4,9 @@ import { Metadata } from 'next'
 import Loading from './loading'
 import { getTranslations } from 'next-intl/server'
 
-export async function generateMetadata() {
-  const t = await getTranslations()
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+  const {locale} = await params;
+  const t = await getTranslations({locale: locale})
   return {
     metadataBase: new URL('https://mccreations.net'),
     title: t("Pages.Resourcepacks.Metadata.title"),

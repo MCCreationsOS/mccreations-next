@@ -13,8 +13,9 @@ import ServiceWorkerManager from '@/components/ServiceWorkerManager'
 import { Toaster } from '@/components/ui/sonner'
 import { routing } from '@/i18n/routing'
 
-export async function generateMetadata() {
-  const t = await getTranslations()
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+  const {locale} = await params;
+  const t = await getTranslations({locale: locale})
   return {
     metadataBase: new URL('https://mccreations.net'),
     title: t('Pages.Home.Metadata.title'),
@@ -59,7 +60,10 @@ export default async function RootLayout(props: {params: Promise<{locale: string
     children
   } = props;
 
+  const messages = await getMessages({locale: locale})
+
   setRequestLocale(locale)
+  console.log(locale)
   return (
 
    <html lang={locale}>
@@ -73,12 +77,12 @@ export default async function RootLayout(props: {params: Promise<{locale: string
        </head>
        <body id="view">
          <Script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5425604215170333" crossOrigin="anonymous"></Script>
-         <NextIntlClientProvider>
+         <NextIntlClientProvider locale={locale} messages={messages}>
            <Menu />
            <Suspense fallback={<Loading />}>
                {children}
            </Suspense>
-           <Footer></Footer>
+           <Footer params={props.params}></Footer>
            <Toaster />
            <Analytics />
            <ServiceWorkerManager />

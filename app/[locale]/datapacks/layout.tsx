@@ -5,8 +5,9 @@ import Loading from "./loading";
 import { getTranslations } from "next-intl/server";
 export const dynamic = "force-dynamic";
 
-export async function generateMetadata() {
-    const t = await getTranslations();
+export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
+    const {locale} = await params;
+    const t = await getTranslations({locale: locale});
     return {
         metadataBase: new URL("https://mccreations.net"),
         title: t("Pages.Datapacks.Metadata.title"),
@@ -48,7 +49,7 @@ export default async function DatapacksLayout(
 
     return (
         <>
-            <Suspense fallback={<Loading />}>{children}</Suspense>
+            <Suspense fallback={<Loading params={props.params} />}>{children}</Suspense>
         </>
     );
 }

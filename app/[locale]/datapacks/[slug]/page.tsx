@@ -10,7 +10,7 @@ export async function generateMetadata(props: { params: Promise<{locale: string,
     const params = await props.params;
     // fetch data
     const map: IContentDoc = await fetchDatapack(params.slug)
-    const t = await getTranslations()
+    const t = await getTranslations({locale: params.locale})
     const locale = await getLocale()
     if (!map || typeof map === "string") return {
         title: t('Pages.Datapacks.slug.Metadata.not_found_title', { content_type: t('datapack', {count: 1})}),
@@ -31,14 +31,14 @@ export async function generateMetadata(props: { params: Promise<{locale: string,
     if(!map.tags) map.tags = []
 
     return {
-        title: t('Pages.Datapacks.slug.Metadata.title', {title: map.title, content_type: t('datapack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}),
+        title: t('Pages.Datapacks.slug.Metadata.title', {title: map.title, content_type: t('datapack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : (map.files[0].minecraftVersion ?? []).join(", ")) : ""}),
         description: map.shortDescription,
         authors: (map.creators) ? map.creators.map((creator: ICreator) => { return { name: creator.username } }) : [],
         generator: "MCCreations",
-        keywords: map.tags.concat([t('Pages.Datapacks.slug.Metadata.Tags.minecraft'), t('datapack', {count: 2}), t('Pages.Datapacks.slug.Metadata.Tags.games'), t('Pages.Datapacks.slug.Metadata.Tags.gaming'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_datapack'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_creations'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}), t('Pages.Datapacks.slug.Metadata.Tags.mods'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_mods'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_but'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_survival')]),
+        keywords: map.tags.concat([t('Pages.Datapacks.slug.Metadata.Tags.minecraft'), t('datapack', {count: 2}), t('Pages.Datapacks.slug.Metadata.Tags.games'), t('Pages.Datapacks.slug.Metadata.Tags.gaming'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_datapack'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_creations'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_version', {minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : (map.files[0].minecraftVersion ?? []).join(", ")) : ""}), t('Pages.Datapacks.slug.Metadata.Tags.mods'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_mods'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_but'), t('Pages.Datapacks.slug.Metadata.Tags.minecraft_survival')]),
         publisher: "MCCreations",
         openGraph: {
-            title: t('Pages.Datapacks.slug.Metadata.title', {title: map.title, content_type: t('datapack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : map.files[0].minecraftVersion.join(", ")) : ""}),
+            title: t('Pages.Datapacks.slug.Metadata.title', {title: map.title, content_type: t('datapack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: (map.files && map.files[0]) ? ( typeof map.files[0].minecraftVersion === 'string' ? map.files[0].minecraftVersion : (map.files[0].minecraftVersion ?? []).join(", ")) : ""}),
             description: map.shortDescription,
             images: map.images,
             siteName: "MCCreations",
@@ -58,7 +58,7 @@ export default async function Page(props: {params: Promise<{locale: string, slug
     const params = await props.params;
     const map = await fetchDatapack(params.slug)
     setRequestLocale(params.locale)
-    const t = await getTranslations()
+    const t = await getTranslations({locale: params.locale})
 
     if(map && typeof map === "object" && "_id" in map) {
         return (

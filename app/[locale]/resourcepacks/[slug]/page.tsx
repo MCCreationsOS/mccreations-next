@@ -11,7 +11,7 @@ export async function generateMetadata(props: { params: Promise<{locale: string,
     // fetch data
     const map: IContentDoc = await fetchResourcepack(params.slug)
 
-    const t = await getTranslations()
+    const t = await getTranslations({locale: params.locale})
     const locale = await getLocale()
     if (!map || typeof map === "string") return {
         title: t('Pages.Resourcepacks.slug.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
@@ -61,7 +61,7 @@ export default async function Page(props: {params: Promise<{locale: string, slug
     const params = await props.params;
     const map = await fetchResourcepack(params.slug)
     setRequestLocale(params.locale)
-    const t = await getTranslations()
+    const t = await getTranslations({locale: params.locale})
 
     if(map && '_id' in map) {
         return (

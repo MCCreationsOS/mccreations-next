@@ -5,7 +5,7 @@ import { getTranslations } from "next-intl/server";
 export default async function NotFound(props: { params: Promise<{locale: string}>}) {
     const params = await props.params;
     setRequestLocale(params.locale)
-    const t = await getTranslations("Pages.NotFound")
+    const t = await getTranslations({locale: params.locale, namespace: "Pages.NotFound"})
     return (
         <>
             <div className="flex flex-col gap-2 items-center justify-center h-screen">
