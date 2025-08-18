@@ -49,7 +49,7 @@ export default async function DatapacksLayout(
 
     return (
         <>
-            <Suspense fallback={<Loading params={props.params} />}>{children}</Suspense>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
         </>
     );
 }
