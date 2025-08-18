@@ -4,9 +4,8 @@ import SidebarFiltersSkeleton from "@/components/skeletons/SidebarFiltersSkeleto
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { getTranslations } from "next-intl/server";
 
-export default async function Loading({params}: {params: Promise<{locale: string}>}) {
-    const {locale} = await params;
-    const t = await getTranslations({locale: locale})
+export default async function Loading() {
+    const t = await getTranslations()
     return <div>
         <div className="mb-4 mt-2 p-2">
             <h1 className="text-2xl font-bold">{t(`Components.Creations.Search.Headers.datapack.title`)}</h1>
