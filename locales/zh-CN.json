@@ -619,6 +619,7 @@
             },
             "Page": {
                 "Comments": {
+                    "title": "留下评论",
                     "username_placeholder": "用户名",
                     "comment_placeholder": "评论",
                     "send": "发送",

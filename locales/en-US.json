@@ -621,6 +621,7 @@
             },
             "Page": {
                 "Comments": {
+                    "title": "Leave a comment",
                     "username_placeholder": "Username",
                     "comment_placeholder": "Comment",
                     "send": "Send",

@@ -26,11 +26,11 @@ export default function Comments({creation, collection}: {creation: IContentDoc,
 
     return (
         <div>
-            <h2 className="text-2xl font-bold my-2">Leave a comment</h2>
+            <h2 className="text-2xl font-bold my-2">{t('Components.Creations.Page.Comments.title')}</h2>
             <CommentForm content_type={collection} creation={creation} setComments={setComments} comments={comments} sort={sort} />
             <div>
                 <div className='flex flex-row gap-2 w-full'>
-                    <h2 className="text-2xl font-bold my-2">Comments</h2>
+                    <h2 className="text-2xl font-bold my-2">{t('comment', {count: 2})}</h2>
                     <div className='flex-1 flex flex-row gap-2 justify-end'>    
                         <DropdownMenu>
                             <DropdownMenuTrigger>

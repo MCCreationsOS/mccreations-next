@@ -619,6 +619,7 @@
             },
             "Page": {
                 "Comments": {
+                    "title": "留下評論",
                     "username_placeholder": "用戶名稱",
                     "comment_placeholder": "評論",
                     "send": "傳送",

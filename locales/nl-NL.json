@@ -621,6 +621,7 @@
             },
             "Page": {
                 "Comments": {
+                    "title": "Laat een opmerking achter",
                     "username_placeholder": "Gebruikersnaam",
                     "comment_placeholder": "Opmerking",
                     "send": "Stuur",

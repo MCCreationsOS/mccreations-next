@@ -621,6 +621,7 @@
             },
             "Page": {
                 "Comments": {
+                    "title": "Оставить комментарий",
                     "username_placeholder": "Имя пользователя",
                     "comment_placeholder": "Комментарий",
                     "send": "Отправить",

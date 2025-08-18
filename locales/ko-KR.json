@@ -619,6 +619,7 @@
         },
         "Page": {
           "Comments": {
+            "title": "댓글 남기기",
             "username_placeholder": "사용자명",
             "comment_placeholder": "댓글",
             "send": "보내기",

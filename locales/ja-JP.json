@@ -620,6 +620,7 @@
             },
             "Page": {
                 "Comments": {
+                    "title": "コメントを残す",
                     "username_placeholder": "ユーザー名",
                     "comment_placeholder": "コメント",
                     "send": "送る",

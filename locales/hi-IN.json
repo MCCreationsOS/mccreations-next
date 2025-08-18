@@ -619,6 +619,7 @@
             },
             "Page": {
                 "Comments": {
+                    "title": "एक कमेंट छोड़ें",
                     "username_placeholder": "उपयोगकर्ता नाम",
                     "comment_placeholder": "कमेंट करें",
                     "send": "भेजें",

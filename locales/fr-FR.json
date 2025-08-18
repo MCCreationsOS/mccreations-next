@@ -619,6 +619,7 @@
             },
             "Page": {
                 "Comments": {
+                    "title": "Laisser un commentaire",
                     "username_placeholder": "Nom d'utilisateur",
                     "comment_placeholder": "Commentaire",
                     "send": "Envoyer",
