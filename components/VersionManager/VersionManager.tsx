@@ -63,6 +63,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
     }, [renderVersion])
 
     const saveVersion = (contentVersion: string, minecraftVersion: string | string[], bedrock: boolean, url: string) => {
+        console.log("saveVersion", contentVersion, minecraftVersion, bedrock, url)
         let v: IFile = { ...renderVersion! };
         v.contentVersion = contentVersion
         v.minecraftVersion = minecraftVersion
@@ -155,7 +156,9 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                         </div>
                     )}/>
                     <div className="flex flex-row gap-2">
-                        <Button type="submit" className="w-fit"><span>{t('Components.VersionManager.Version.save')}</span></Button>
+                        <Button type="button" onClick={() => {
+                            editForm.handleSubmit()
+                        }} className="w-fit"><span>{t('Components.VersionManager.Version.save')}</span></Button>
                         <Button type="button" variant="secondary" className="w-fit" onClick={() => {
                             setRenderVersion(undefined)
                         }}><span>{t('Components.VersionManager.Version.cancel')}</span></Button>
