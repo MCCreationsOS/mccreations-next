@@ -823,7 +823,7 @@
             "about": "О нас",
             "contact": "Контакты",
             "discord": "Discord",
-            "join_community": "Присоединяйтесь к сообществу",
+            "join_community": "Вступайте",
             "legal_contact": "Юридическая информация и контакты",
             "privacy": "Политика конфиденциальности",
             "request_data": "Запросить данные",
@@ -844,7 +844,7 @@
                 "10": "А вы знали, что это случайный текст?"
             },
             "mojang_disclamer": "НЕ ОФИЦИАЛЬНЫЙ ПРОДУКТ MINECRAFT. НЕ ОДОБРЕНО И НЕ СВЯЗАНО С MOJANG.",
-            "open_source": "MCCreations — это <link>проект с открытым исходным кодом</link>. Внесите свой вклад сегодня!",
+            "open_source": "MCCreations с <link>открытым кодом</link>. Внесите свой вклад сегодня!",
             "copyright": "© Ben Meier/CrazyCowMM"
         },
         "Dropzone": {
