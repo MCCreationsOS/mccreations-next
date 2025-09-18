@@ -102,7 +102,16 @@ export default function CreationCard(props: IContentCardProps) {
         })
     }
 
-    const minecraftVersion = (props.creation.files && props.creation.files.length > 0) ? props.creation.files[0].minecraftVersion as string : ""
+    let minecraftVersion = ""
+    if(props.creation.files && props.creation.files.length > 0) {
+        if(typeof props.creation.files[0].minecraftVersion === "string") {
+            minecraftVersion = props.creation.files[0].minecraftVersion
+        } else if(props.creation.files[0].minecraftVersion && props.creation.files[0].minecraftVersion.length > 0) {
+            minecraftVersion = props.creation.files[0].minecraftVersion.filter((version: string) => version !== "").join(", ")
+        } else {
+            minecraftVersion = ""
+        }
+    }
 
     return (
         <>
