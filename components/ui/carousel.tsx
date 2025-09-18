@@ -146,7 +146,7 @@ const Carousel = React.forwardRef<
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
-          className={cn("relative", className)}
+          className={cn("relative mb-8 sm:mb-0", className)}
           role="region"
           aria-roledescription="carousel"
           {...props}
@@ -218,9 +218,9 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute  h-25 w-8",
+        "absolute sm:h-25 h-8 sm:w-8 w-1/2",
         orientation === "horizontal"
-          ? "-left-10 top-1/2 -translate-y-1/2"
+          ? "sm:-left-10 left-0 sm:top-1/2 sm:-translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}
@@ -247,9 +247,9 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute h-25 w-8",
+        "absolute sm:h-25 h-8 sm:w-8 w-1/2",
         orientation === "horizontal"
-          ? "-right-10 top-1/2 -translate-y-1/2"
+          ? "sm:-right-10 right-0 sm:top-1/2 sm:-translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
         className
       )}

@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function Page() {
     return (
         <>
-            <div className="w-1/2 mx-auto p-5">
+            <div className="sm:w-1/2 mx-auto p-5">
                 <h1 className="text-2xl font-bold">Privacy Notice for California Residents</h1>
                 <p className="text-sm text-gray-500">Last modified: June 5, 2025</p>
                 <p><strong>Effective Date: </strong><em>June 5th, 2025</em></p><p>

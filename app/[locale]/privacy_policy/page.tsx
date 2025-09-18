@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 
 export default function Page() {
     return (<>
-    <div className="w-1/2 mx-auto p-5">
+    <div className="sm:w-1/2 mx-auto p-5">
         <h1 className="text-2xl font-bold">Privacy Policy</h1>
 
         <p className="text-sm text-gray-500">Last modified: June 5, 2025</p>

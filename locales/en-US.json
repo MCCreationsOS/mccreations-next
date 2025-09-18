@@ -615,7 +615,7 @@
         },
         "Creations": {
             "Cards": {
-                "logo_alt_text": "The logo for {title}, a Minecraft {type} for Minecraft {minecraft_version} by {creator} on MCCreations",
+                "logo_alt_text": "The logo for {title}, a Minecraft {type} for {minecraft_version} by {creator} on MCCreations",
                 "by": "by {creator}",
                 "by_joiner": ", "
             },
