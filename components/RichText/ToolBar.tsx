@@ -297,7 +297,7 @@ export default function ToolbarPlugin() {
             </button>
             <Divider />
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger asChild>
                 <button className={"p-2 m-0 hover:bg-white/10"} type="button">
                   <Pilcrow className="w-4 h-4" />
                 </button>
@@ -320,7 +320,7 @@ export default function ToolbarPlugin() {
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger asChild>
                 <button className={"p-2 m-0 hover:bg-white/10"} type="button">
                   <Baseline className="w-4 h-4" />
                 </button>
@@ -335,7 +335,7 @@ export default function ToolbarPlugin() {
               </DropdownMenuContent>
             </DropdownMenu>
             <DropdownMenu>
-              <DropdownMenuTrigger>
+              <DropdownMenuTrigger asChild>
                 <button className={"p-2 m-0 hover:bg-white/10"} type="button">
                   <PaintBucket className="w-4 h-4" />
                 </button>
@@ -391,7 +391,7 @@ export default function ToolbarPlugin() {
                 <AlignJustify className="w-4 h-4" />
             </button>
             <Dialog>
-              <DialogTrigger>
+              <DialogTrigger asChild>
                 <button className="p-2 m-0 hover:bg-white/10" type="button">
                   <Image className="w-4 h-4" />
                 </button>

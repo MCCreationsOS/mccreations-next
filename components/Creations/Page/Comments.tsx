@@ -33,7 +33,7 @@ export default function Comments({creation, collection}: {creation: IContentDoc,
                     <h2 className="text-2xl font-bold my-2">{t('comment', {count: 2})}</h2>
                     <div className='flex-1 flex flex-row gap-2 justify-end'>    
                         <DropdownMenu>
-                            <DropdownMenuTrigger>
+                            <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" className='text-muted-foreground'>
                                     <span>{t(`Components.Creations.Search.Sort.${sort}`)}</span>
                                     <ChevronDown className='w-4 h-4' />
@@ -253,7 +253,7 @@ export function Comment({comment, setComments, comments, sort}: {
                     </div>
                     <div className='flex-1 flex flex-row gap-2 justify-end items-center'>
                         <DropdownMenu>
-                            <DropdownMenuTrigger>
+                            <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="icon">
                                     <MoreHorizontalIcon className='w-4 h-4' />
                                 </Button>

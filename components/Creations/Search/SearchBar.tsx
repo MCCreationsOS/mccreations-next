@@ -89,7 +89,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                     <div>
                         <DropdownMenu>
                             <DropdownMenuLabel >{t('Components.Creations.Search.sort_by')}</DropdownMenuLabel>
-                            <DropdownMenuTrigger><Button variant="secondary"><span className="w-31">{t(`Components.Creations.Search.Sort.${sort}`)}</span></Button></DropdownMenuTrigger>
+                            <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{t(`Components.Creations.Search.Sort.${sort}`)}</span></Button></DropdownMenuTrigger>
                             <DropdownMenuContent >
                                 <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
                                     <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.newest')}</Button></DropdownMenuItem>
@@ -110,7 +110,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                     <div>
                         <DropdownMenu>
                             <DropdownMenuLabel>{t('Components.Creations.Search.status')}</DropdownMenuLabel>
-                            <DropdownMenuTrigger><Button variant="secondary"><span className="w-31">{t(`Components.Creations.Search.Status.${(StatusOptions[status] === "Unapproved") ? "unapproved" : (StatusOptions[status] === "Approved") ? "approved" : "featured"}`)}</span></Button></DropdownMenuTrigger>
+                            <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{t(`Components.Creations.Search.Status.${(StatusOptions[status] === "Unapproved") ? "unapproved" : (StatusOptions[status] === "Approved") ? "approved" : "featured"}`)}</span></Button></DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
                                     <DropdownMenuItem onClick={() => setStatus(StatusOptions.Unapproved)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.unapproved')}</Button></DropdownMenuItem>
@@ -125,7 +125,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                             <div key={category}>
                                 <DropdownMenu>
                                     <DropdownMenuLabel>{t(`Components.Creations.Tags.${category as TagCategories}`)}</DropdownMenuLabel>
-                                    <DropdownMenuTrigger><Button variant="secondary"><span className="w-31">{tag_dropdown_names[category]}</span></Button></DropdownMenuTrigger>
+                                    <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{tag_dropdown_names[category]}</span></Button></DropdownMenuTrigger>
                                     <DropdownMenuContent>
                                         <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
                                             {tags[category].map((tag) => <DropdownMenuItem key={tag} onClick={() => {

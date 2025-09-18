@@ -13,7 +13,7 @@ export default function LanguageSwitcher() {
 
     return (
         <DropdownMenu open={open} onOpenChange={setOpen}>
-            <DropdownMenuTrigger><Button variant="secondary"><span>{t("Components.Navbar.LanguageSwitcher.current_language")}</span><ChevronDown /></Button></DropdownMenuTrigger>
+            <DropdownMenuTrigger asChild><Button variant="secondary"><span>{t("Components.Navbar.LanguageSwitcher.current_language")}</span><ChevronDown /></Button></DropdownMenuTrigger>
             <DropdownMenuContent>
                 <div className="border-2 border-white/15 p-1">
                     <DropdownMenuItem className="p-0"><Link href={pathname} locale="en-US" className="w-full" onClick={() => setOpen(false)}><Button variant="ghost" className="m-0 p-1 h-full w-full justify-start">English</Button></Link></DropdownMenuItem>

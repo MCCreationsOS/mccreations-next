@@ -41,7 +41,7 @@ export default function CreatorCard({creator}: {creator: ICreator}) {
                     </div>
                 </Link>
                 {user && user.handle !== "" && !user.following?.includes(c.handle) && <DropdownMenu>
-                    <DropdownMenuTrigger>
+                    <DropdownMenuTrigger asChild>
                         <Button variant="secondary"><UserPlus /></Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent>

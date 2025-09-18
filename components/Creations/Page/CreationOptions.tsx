@@ -50,7 +50,7 @@ export default function CreationOptions({creation}: {creation: IContentDoc}) {
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DropdownMenu>
-                <DropdownMenuTrigger>
+                <DropdownMenuTrigger asChild>
                     <Button variant="secondary" className="flex items-center gap-2 py-5">
                         <EllipsisVertical className="h-5 w-5" />
                         <span className="sr-only">{t('Components.Creations.Page.CreationOptions.button')}</span>

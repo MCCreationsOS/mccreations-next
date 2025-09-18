@@ -113,7 +113,7 @@ export default function Navbar() {
                         </NavigationMenuItem>
                         <NavigationMenuItem>
                             <NavigationMenuTrigger>
-                                {t("Components.Navbar.creations")}
+                                <span>{t("Components.Navbar.creations")}</span>
                             </NavigationMenuTrigger>
                             <NavigationMenuContent>
                                 <ul className="grid w-[400px] gap-1 p-4 md:w-[600px] md:grid-cols-2 lg:w-[700px]">

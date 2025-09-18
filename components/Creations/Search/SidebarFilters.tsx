@@ -51,7 +51,7 @@ export default function SidebarFilters({contentType, tags, searchParams}: {conte
         <div className="hidden @2xl:flex flex-col gap-2">
             <h3>{t('Components.Creations.Search.sort_by')}</h3>
             <DropdownMenu>
-                <DropdownMenuTrigger><Button variant="secondary" className="w-full"><span className="w-full">{t(`Components.Creations.Search.Sort.${sort}`)}</span></Button></DropdownMenuTrigger>
+                <DropdownMenuTrigger asChild><Button variant="secondary" className="w-full"><span className="w-full">{t(`Components.Creations.Search.Sort.${sort}`)}</span></Button></DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
                         <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.newest')}</Button></DropdownMenuItem>
@@ -70,7 +70,7 @@ export default function SidebarFilters({contentType, tags, searchParams}: {conte
             </DropdownMenu>
             <h3>{t('Components.Creations.Search.status')}</h3>
             <DropdownMenu>
-                <DropdownMenuTrigger><Button variant="secondary" className="w-full"><span className="w-full">{t(`Components.Creations.Search.Status.${(StatusOptions[status] === "Unapproved") ? "unapproved" : (StatusOptions[status] === "Approved") ? "approved" : "featured"}`)}</span></Button></DropdownMenuTrigger>
+                <DropdownMenuTrigger asChild><Button variant="secondary" className="w-full"><span className="w-full">{t(`Components.Creations.Search.Status.${(StatusOptions[status] === "Unapproved") ? "unapproved" : (StatusOptions[status] === "Approved") ? "approved" : "featured"}`)}</span></Button></DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
                         <DropdownMenuItem onClick={() => setStatus(StatusOptions.Unapproved)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.unapproved')}</Button></DropdownMenuItem>
