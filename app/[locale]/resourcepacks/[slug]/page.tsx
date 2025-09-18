@@ -31,7 +31,16 @@ export async function generateMetadata(props: { params: Promise<{locale: string,
 
     if(!map.tags) map.tags = []
 
-    const minecraftVersion = (map.files && map.files.length > 0) ? map.files[0].minecraftVersion as string : "1.21.4"
+    let minecraftVersion = ""
+    if(map.files && map.files.length > 0) {
+        if(typeof map.files[0].minecraftVersion === "string") {
+            minecraftVersion = map.files[0].minecraftVersion
+        } else if(map.files[0].minecraftVersion && map.files[0].minecraftVersion.length > 0) {
+            minecraftVersion = map.files[0].minecraftVersion.filter((version: string) => version !== "").join(", ")
+        } else {
+            minecraftVersion = ""
+        }
+    }
 
     return {
         title: t('Pages.Resourcepacks.slug.Metadata.title', {title: map.title, content_type: t('resourcepack', {count: 1}), creator: (map.creators && map.creators[0]) ? map.creators[0].username : "", minecraft_version: minecraftVersion}),

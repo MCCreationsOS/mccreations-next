@@ -93,14 +93,25 @@ export default function CreationListCard(props: IContentCardProps) {
         })
     }
 
+    let minecraftVersion = ""
+    if(props.creation.files && props.creation.files.length > 0) {
+        if(typeof props.creation.files[0].minecraftVersion === "string") {
+            minecraftVersion = props.creation.files[0].minecraftVersion
+        } else if(props.creation.files[0].minecraftVersion && props.creation.files[0].minecraftVersion.length > 0) {
+            minecraftVersion = props.creation.files[0].minecraftVersion.filter((version: string) => version !== "").join(", ")
+        } else {
+            minecraftVersion = ""
+        }
+    }
+
     return (
         <>
         <div className="bg-card group transition-all duration-200 group-hover:bg-card-hover overflow-hidden grid grid-cols-[295px_1fr]" id={props.playlist + "_" + props.index} >
             <Link href={`/${(props.linkTo) ? props.linkTo : props.creation.type + "s"}/${props.creation.slug}`} onClick={() => {track("creation_card_logo_clicked", {playlist: props.playlist})}}>
                 <div className="border-gray-950 border-2 border-r-0 overflow-hidden aspect-video relative">
-                    <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 object-cover" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Components.Creations.Cards.logo_alt_text', {title: props.creation.title, type: props.creation.type, minecraft_version: (props.creation.files && props.creation.files.length > 0) ? ( typeof props.creation.files[0].minecraftVersion === 'object' ? props.creation.files[0].minecraftVersion.join(", ") : props.creation.files[0].minecraftVersion ?? "") : "", creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
+                    <Image priority={props.priority} placeholder={`data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} className="group-hover:scale-105 transition-all duration-200 object-cover" src={props.creation.images[0]} width={1280} height={720} sizes="25vw" alt={t('Components.Creations.Cards.logo_alt_text', {title: props.creation.title, type: props.creation.type, minecraft_version: minecraftVersion, creator: (props.creation.creators && props.creation.creators[0] && props.creation.creators[0].username) ? props.creation.creators[0].username : ""})}></Image>
                     <div className="absolute bottom-1 right-1 flex flex-row gap-1">
-                        <Badge>{props.creation.files && props.creation.files.length > 0 ? props.creation.files[0].minecraftVersion : ""}</Badge>
+                        <Badge>{minecraftVersion}</Badge>
                         {
                             !props.showCategory && (
                                 (props.creation.type === "map") ? <><Badge variant="secondary">{t('map', {count: 1})}</Badge></> : 
@@ -116,7 +127,7 @@ export default function CreationListCard(props: IContentCardProps) {
                     <div className={styles.stats}>
                         <div className={styles.stat}><Download className={styles.in_text_icon} />{props.creation.downloads}</div>
                         {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{((Math.round(props.creation.rating*100)/100) * 5).toFixed(2)}</div>: <></> }
-                        {(props.creation.files && props.creation.files.length > 0) ? <div className={styles.stat}><Map className={styles.in_text_icon} />{props.creation.files[0].minecraftVersion}</div>: <></> }
+                        {(props.creation.files && props.creation.files.length > 0) ? <div className={styles.stat}><Map className={styles.in_text_icon} />{minecraftVersion}</div>: <></> }
                     </div>
                 </div>
                 <div className="line-clamp-2 text-sm text-muted-foreground">

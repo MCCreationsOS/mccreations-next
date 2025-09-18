@@ -89,6 +89,17 @@ export default function Creation({creation, collectionName}: {creation: IContent
         }
       }
 
+      let minecraftVersion = ""
+    if(creation.files && creation.files.length > 0) {
+        if(typeof creation.files[0].minecraftVersion === "string") {
+            minecraftVersion = creation.files[0].minecraftVersion
+        } else if(creation.files[0].minecraftVersion && creation.files[0].minecraftVersion.length > 0) {
+            minecraftVersion = creation.files[0].minecraftVersion.filter((version: string) => version !== "").join(", ")
+        } else {
+            minecraftVersion = ""
+        }
+    }
+
     return (
         <div>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -100,7 +111,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
                     <Image className="max-w-xl w-full mx-auto object-cover object-center aspect-video" width={1280} height={720} src={creation.images[0]} alt={t('Components.Creations.Page.logo_alt', {title: title, type: t(creation.type, {count: 1})})} priority></Image>
                 </div>
                 <div className="w-full h-8 object-cover object-center aspect-video z-2 hidden md:flex md:absolute md:bottom-[-15px] gap-1 justify-center">
-                    {creation.files && creation.files.length > 0 && creation.files[0].minecraftVersion && <Badge className="text-md">{creation.files[0].minecraftVersion}</Badge>}
+                    {minecraftVersion !== "" && <Badge className="text-md">{minecraftVersion}</Badge>}
                         {
                             (creation.type === "map") ? <><Link href={`/${creation.type}s`}><Badge variant="secondary" className="text-md">{t(creation.type, {count: 1})}</Badge></Link></> : 
                                 (creation.type === "datapack") ? <><Link href={`/${creation.type}s`}><Badge variant="secondary" className="text-md">{t('datapack', {count: 1})}</Badge></Link></> : 
