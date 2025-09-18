@@ -4,7 +4,7 @@ import Link from "next/link"
 import styles from "./dashboard.module.css"
 import { Bell, Layers, Map, Package } from "lucide-react"
 
-export default async function Layout(props: {params: Promise<{locale: string}>, children: React.ReactElement<any>}) {
+export default async function Layout(props: {params: Promise<{locale: string}>, children: React.ReactNode}) {
     const params = await props.params;
 
     const {
