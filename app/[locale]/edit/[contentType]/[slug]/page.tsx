@@ -343,7 +343,7 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                             validators={{
                                 onSubmit: ({value}) => {
                                     if(value) {
-                                        if(!value.includes("https://www.youtube.com/watch?v=") && !value.includes("https://youtu.be/")) {
+                                        if(!value.startsWith("https://www.youtube.com/watch?v=") && !value.startsWith("https://youtu.be/")) {
                                             return t("Pages.Edit.contentType.slug.Warnings.invalid_video_url.description")
                                         }
                                     }
