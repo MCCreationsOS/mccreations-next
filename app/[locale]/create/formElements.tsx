@@ -136,9 +136,9 @@ export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
     const t = useTranslations();
     const form = useForm({
         defaultValues: {
-            title: creation.title,
-            type: creation.type,
-            shortDescription: creation.shortDescription,
+            title: creation.title ?? "",
+            type: creation.type ?? ContentTypes.Maps,
+            shortDescription: creation.shortDescription ?? "",
         },
         onSubmit: (data) => {
             onMapCreate(
@@ -239,6 +239,7 @@ export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
                                 defaultValue="map"
                                 value={field.state.value}
                                 onValueChange={(value) => {
+                                    //@ts-ignore
                                     field.handleChange(value);
                                 }}
                             >
