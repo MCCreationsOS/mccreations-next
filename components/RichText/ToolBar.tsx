@@ -3,6 +3,7 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { $isEditorIsNestedEditor, mergeRegister } from "@lexical/utils";
 import {
     $getSelectionStyleValueForProperty,
+    $isAtNodeEnd,
     $patchStyleText,
     $setBlocksType,
 } from "@lexical/selection";
@@ -13,11 +14,14 @@ import {
     $isRangeSelection,
     CAN_REDO_COMMAND,
     CAN_UNDO_COMMAND,
+    ElementNode,
     FORMAT_ELEMENT_COMMAND,
     FORMAT_TEXT_COMMAND,
     LexicalEditor,
+    RangeSelection,
     REDO_COMMAND,
     SELECTION_CHANGE_COMMAND,
+    TextNode,
     UNDO_COMMAND,
 } from "lexical";
 import { $createHeadingNode, HeadingTagType } from "@lexical/rich-text";
@@ -36,6 +40,7 @@ import {
     FoldVertical,
     Image,
     Italic,
+    Link,
     List,
     PaintBucket,
     Pilcrow,
@@ -50,11 +55,31 @@ import { DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 import ColorPicker from "./ColorPicker";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { $isLinkNode, TOGGLE_LINK_COMMAND } from "@lexical/link";
+import { InsertLinkDialog } from "./LinkPlugin";
 
 const LowPriority = 1;
 
 function Divider() {
     return <div className="divider" />;
+}
+
+export function getSelectedNode(
+  selection: RangeSelection,
+): TextNode | ElementNode {
+  const anchor = selection.anchor;
+  const focus = selection.focus;
+  const anchorNode = selection.anchor.getNode();
+  const focusNode = selection.focus.getNode();
+  if (anchorNode === focusNode) {
+    return anchorNode;
+  }
+  const isBackward = selection.isBackward();
+  if (isBackward) {
+    return $isAtNodeEnd(focus) ? anchorNode : focusNode;
+  } else {
+    return $isAtNodeEnd(anchor) ? anchorNode : focusNode;
+  }
 }
 
 export default function ToolbarPlugin() {
@@ -68,14 +93,22 @@ export default function ToolbarPlugin() {
     const [isUnderline, setIsUnderline] = useState(false);
     const [isStrikethrough, setIsStrikethrough] = useState(false);
     const [isImageCaption, setIsImageCaption] = useState(false);
+    const [isLink, setIsLink] = useState(false)
+    const [linkEditDialogOpen, setLinkEditDialogOpen] = useState(false)
     const [fontSize, setFontSize] = useState(16);
     const [fontColor, setFontColor] = useState("#ffffff");
     const [bgColor, setBgColor] = useState("#ffffffff");
     const t = useTranslations();
 
     const updateToolbar = useCallback(() => {
+        
         const selection = $getSelection();
         if (selection && $isRangeSelection(selection)) {
+            const node = getSelectedNode(selection);
+            const parent = node.getParent();
+            const isLink = $isLinkNode(parent) || $isLinkNode(node);
+            setIsLink(isLink)
+            
             setFontColor(
                 $getSelectionStyleValueForProperty(
                     selection,
@@ -390,6 +423,23 @@ export default function ToolbarPlugin() {
                 >
                 <AlignJustify className="w-4 h-4" />
             </button>
+            <Dialog open={linkEditDialogOpen} onOpenChange={setLinkEditDialogOpen}>
+                <DialogTrigger asChild>
+                    <button className="p-2 m-0 hover:bg-white/10" type="button" onClick={() => {
+                        if(isLink) {
+                            activeEditor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
+                        }
+                    }}>
+                        <Link className="w-4 h-4"/>
+                    </button>
+                </DialogTrigger>
+                <DialogContent className="py-4">
+                    <DialogHeader>
+                        <DialogTitle>Edit Link</DialogTitle>
+                    </DialogHeader>
+                    <InsertLinkDialog activeEditor={editor} setLinkEditDialogOpen={setLinkEditDialogOpen}/>
+                </DialogContent>
+            </Dialog>
             <Dialog>
               <DialogTrigger asChild>
                 <button className="p-2 m-0 hover:bg-white/10" type="button">
