@@ -136,9 +136,9 @@ export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
     const t = useTranslations();
     const form = useForm({
         defaultValues: {
-            title: "",
-            type: "map",
-            shortDescription: "",
+            title: creation.title,
+            type: creation.type,
+            shortDescription: creation.shortDescription,
         },
         onSubmit: (data) => {
             onMapCreate(
@@ -147,6 +147,16 @@ export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
                 data.value.shortDescription
             );
         },
+        validators: {
+            onChangeAsync: (data) => {
+                setCreation({
+                        ...creation,
+                        title: data.value.title ?? "",
+                        type: (data.value.type ?? "map") as ContentTypes,
+                        shortDescription: data.value.shortDescription
+                    })
+            }
+        }
     });
 
     const onMapCreate = (
@@ -326,6 +336,18 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                 data.value.videoUrl
             );
         },
+        validators: {
+            onChangeAsync: (data) => {
+                setCreation({
+                        ...creation,
+                        slug: data.value.slug,
+                        creators: data.value.creators,
+                        videoUrl: data.value.videoUrl,
+                        description: data.value.description,
+                        tags: data.value.tags.split(",")
+                    })
+            }
+        }
     });
 
     let showLeaderboardsHelp =
