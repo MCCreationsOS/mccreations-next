@@ -94,7 +94,12 @@ export default function Creation({creation, collectionName}: {creation: IContent
         if(typeof creation.files[0].minecraftVersion === "string") {
             minecraftVersion = creation.files[0].minecraftVersion
         } else if(creation.files[0].minecraftVersion && creation.files[0].minecraftVersion.length > 0) {
-            minecraftVersion = creation.files[0].minecraftVersion.filter((version: string) => version !== "").join(", ")
+            let versions = creation.files[0].minecraftVersion.filter((version: string) => version !== "")
+            if(versions.length < 3) {
+                minecraftVersion = versions.join(", ")
+            } else {
+                minecraftVersion = versions[0] + " - " + versions[versions.length-1]
+            }
         } else {
             minecraftVersion = ""
         }

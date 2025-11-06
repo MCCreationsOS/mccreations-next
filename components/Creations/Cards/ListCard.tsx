@@ -98,7 +98,12 @@ export default function CreationListCard(props: IContentCardProps) {
         if(typeof props.creation.files[0].minecraftVersion === "string") {
             minecraftVersion = props.creation.files[0].minecraftVersion
         } else if(props.creation.files[0].minecraftVersion && props.creation.files[0].minecraftVersion.length > 0) {
-            minecraftVersion = props.creation.files[0].minecraftVersion.filter((version: string) => version !== "").join(", ")
+            let versions = props.creation.files[0].minecraftVersion.filter((version: string) => version !== "")
+            if(versions.length < 3) {
+                minecraftVersion = versions.join(", ")
+            } else {
+                minecraftVersion = versions[0] + " - " + versions[versions.length-1]
+            }
         } else {
             minecraftVersion = ""
         }

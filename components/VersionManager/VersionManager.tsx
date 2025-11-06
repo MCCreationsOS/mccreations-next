@@ -235,9 +235,29 @@ function MinecraftVersionInput({
     }, [versionInput])
 
     const addTag = (tag: string) => {
-        if (versionInput.split(",").includes(tag)) return;
+        let versions = versionInput.split(",")
+        if (versions.includes(tag)) return;
         if (tag.length < 2) return;
-        setVersionInput(versionInput + "," + tag);
+        versions.push(tag)
+        versions.sort((a, b) => {
+            let aVersionNumbers = [0, 0]
+            let bVersionNumbers = [0, 0]
+            if(a.includes('.') && b.includes('.')) {
+                aVersionNumbers = [Number(a.split('.')[1]), Number(a.split('.')[2])]
+                bVersionNumbers = [Number(b.split('.')[1]), Number(b.split('.')[2])]
+            } else if(a.includes('w') && b.includes('w')) {
+                aVersionNumbers = [Number(a.slice(1)), Number(a.slice(3,4))]
+                bVersionNumbers = [Number(b.slice(1)), Number(b.slice(3,4))]
+            } else {
+                if(a.includes('.') && b.includes('w')) {
+                    return 1
+                } else {
+                    return -1
+                }
+            }
+            return (aVersionNumbers[0] > bVersionNumbers[0]) ? 1 : (aVersionNumbers[0] === bVersionNumbers[0] && aVersionNumbers[1] > bVersionNumbers[1]) ? 1 : 0
+        })
+        setVersionInput(versions.join(','));
         setSearch("");
     };
 
