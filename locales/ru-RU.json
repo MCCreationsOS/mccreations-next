@@ -272,7 +272,8 @@
                         "tags": "Теги",
                         "files": "Файлы",
                         "images": "Изображения",
-                        "save": "Сохранить"
+                        "save": "Сохранить",
+                        "request_approval": "Request Approval"
                     },
                     "Translations": {
                         "tab_title": "Переводы",

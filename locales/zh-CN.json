@@ -271,7 +271,8 @@
                         "tags": "标签",
                         "files": "文件",
                         "images": "图片",
-                        "save": "保存"
+                        "save": "保存",
+                        "request_approval": "请求核准"
                     },
                     "Translations": {
                         "tab_title": "翻译",

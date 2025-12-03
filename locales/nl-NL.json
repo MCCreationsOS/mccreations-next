@@ -272,7 +272,8 @@
                         "tags": "Tags",
                         "files": "Bestanden",
                         "images": "Afbeeldingen",
-                        "save": "Opslaan"
+                        "save": "Opslaan",
+                        "request_approval": "Request Approval"
                     },
                     "Translations": {
                         "tab_title": "Vertalingen",

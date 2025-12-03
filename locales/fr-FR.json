@@ -271,7 +271,8 @@
                         "tags": "Tags",
                         "files": "Fichiers",
                         "images": "Images",
-                        "save": "Sauvegarder"
+                        "save": "Sauvegarder",
+                        "request_approval": "Demander l'approbation"
                     },
                     "Translations": {
                         "tab_title": "Traductions",

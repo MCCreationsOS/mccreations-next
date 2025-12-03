@@ -3,6 +3,7 @@
 import { CreatorInput, Required, TagInput } from "@/app/[locale]/create/formElements";
 import {
     convertToCollection,
+    requestApproval,
     updateContent,
 } from "@/app/api/content";
 import { useCreation, useTags } from "@/app/api/hooks/creations";
@@ -38,10 +39,10 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState, use } from "react";
 import { toast } from "sonner";
 
-export default function Page(props: {params: Promise<{contentType: ContentTypes, slug: string}>}) {
+export default function Page(props: { params: Promise<{ contentType: ContentTypes, slug: string }> }) {
     const params = use(props.params);
     const contentType = (params.contentType.endsWith("s") ? params.contentType.slice(0, -1) : params.contentType) as ContentTypes;
-    const {creation} = useCreation(params.slug, contentType);
+    const { creation } = useCreation(params.slug, contentType);
     const { token } = useTokenOrKey();
     const { tags } = useTags(contentType);
     const t = useTranslations();
@@ -77,7 +78,7 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
     const parsedTranslations = JSON.parse(translations ?? "{}");
 
     useEffect(() => {
-        if(!creation || "error" in creation) return;
+        if (!creation || "error" in creation) return;
         generalForm.setFieldValue("title", creation.title);
         generalForm.setFieldValue("slug", creation.slug);
         generalForm.setFieldValue("shortDescription", creation.shortDescription);
@@ -90,7 +91,7 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
         setTranslations(JSON.stringify(creation.translations));
     }, [creation]);
 
-    if(!creation || "error" in creation) {
+    if (!creation || "error" in creation) {
         return <div>Loading...</div>
     }
 
@@ -232,31 +233,31 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                         className="flex flex-col gap-4"
                     >
                         <generalForm.Field
-                                name="title"
-                                children={(field) => (
-                                    <div className="flex flex-col gap-1">
-                                        <Label htmlFor="title">{t("Pages.Edit.contentType.slug.General.title")} <Required /></Label>
-                                        <Input
-                                            type="text"
-                                            name="title"
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(e) => {
-                                                field.handleChange(e.target.value);
-                                            }}
-                                            placeholder={t("Pages.Edit.contentType.slug.General.title")}
-                                        />
-                                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
-                                    </div>
-                                )}
-                                validators={{
-                                    onSubmit: ({value}) => {
-                                        if(value.length < 3) {
-                                            return t("Pages.Edit.contentType.slug.Warnings.title_too_short.description")
-                                        }
+                            name="title"
+                            children={(field) => (
+                                <div className="flex flex-col gap-1">
+                                    <Label htmlFor="title">{t("Pages.Edit.contentType.slug.General.title")} <Required /></Label>
+                                    <Input
+                                        type="text"
+                                        name="title"
+                                        value={field.state.value}
+                                        onBlur={field.handleBlur}
+                                        onChange={(e) => {
+                                            field.handleChange(e.target.value);
+                                        }}
+                                        placeholder={t("Pages.Edit.contentType.slug.General.title")}
+                                    />
+                                    {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                                </div>
+                            )}
+                            validators={{
+                                onSubmit: ({ value }) => {
+                                    if (value.length < 3) {
+                                        return t("Pages.Edit.contentType.slug.Warnings.title_too_short.description")
                                     }
-                                }}
-                            />
+                                }
+                            }}
+                        />
                         <generalForm.Field
                             name="slug"
                             children={(field) => (
@@ -270,51 +271,51 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                                         onChange={(e) => {
                                             field.handleChange(e.target.value);
                                         }}
-                                            placeholder={t("Pages.Edit.contentType.slug.General.slug")}
-                                        />
-                                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                                        placeholder={t("Pages.Edit.contentType.slug.General.slug")}
+                                    />
+                                    {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                 </div>
                             )}
                             validators={{
-                                onSubmit: ({value}) => {
-                                    if(value.length < 5) {
+                                onSubmit: ({ value }) => {
+                                    if (value.length < 5) {
                                         return t("Pages.Edit.contentType.slug.Warnings.slug_too_short.description")
-                                    } else if(value.length > 50) {
+                                    } else if (value.length > 50) {
                                         return t("Pages.Edit.contentType.slug.Warnings.slug_too_long.description")
                                     }
                                 }
                             }}
                         />
                         <generalForm.Field
-                                name="shortDescription"
-                                children={(field) => (
-                                    <div className="flex flex-col gap-1">
-                                        <Label htmlFor="shortDescription">{t("Pages.Edit.contentType.slug.General.short_description")} <Required /></Label>
-                                        <Input
-                                            type="text"
-                                            name="shortDescription"
-                                            value={field.state.value}
-                                            onBlur={field.handleBlur}
-                                            onChange={(e) => {
-                                                field.handleChange(e.target.value);
-                                            }}
-                                            placeholder={t(
-                                                "Pages.Edit.contentType.slug.General.short_description"
-                                            )}
-                                        />
-                                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
-                                    </div>
-                                )}
-                                validators={{
-                                    onSubmit: ({value}) => {
-                                        if(value.length < 20) {
-                                            return t("Pages.Edit.contentType.slug.Warnings.short_description_too_short.description")
-                                        } else if(value.length > 150) {
-                                            return t("Pages.Edit.contentType.slug.Warnings.short_description_too_long.description")
-                                        }
+                            name="shortDescription"
+                            children={(field) => (
+                                <div className="flex flex-col gap-1">
+                                    <Label htmlFor="shortDescription">{t("Pages.Edit.contentType.slug.General.short_description")} <Required /></Label>
+                                    <Input
+                                        type="text"
+                                        name="shortDescription"
+                                        value={field.state.value}
+                                        onBlur={field.handleBlur}
+                                        onChange={(e) => {
+                                            field.handleChange(e.target.value);
+                                        }}
+                                        placeholder={t(
+                                            "Pages.Edit.contentType.slug.General.short_description"
+                                        )}
+                                    />
+                                    {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                                </div>
+                            )}
+                            validators={{
+                                onSubmit: ({ value }) => {
+                                    if (value.length < 20) {
+                                        return t("Pages.Edit.contentType.slug.Warnings.short_description_too_short.description")
+                                    } else if (value.length > 150) {
+                                        return t("Pages.Edit.contentType.slug.Warnings.short_description_too_long.description")
                                     }
-                                }}
-                            />
+                                }
+                            }}
+                        />
                         <generalForm.Field name="creators" children={(field) => (
                             <div className="flex flex-col gap-1">
                                 <Label htmlFor="creators">{t("Pages.Edit.contentType.slug.General.creators")} <Required /></Label>
@@ -336,14 +337,14 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                                             field.handleChange(e.target.value);
                                         }}
                                         placeholder={t("Pages.Edit.contentType.slug.General.video_url")}
-                                        />
-                                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                                    />
+                                    {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                 </div>
                             )}
                             validators={{
-                                onSubmit: ({value}) => {
-                                    if(value) {
-                                        if(!value.startsWith("https://www.youtube.com/watch?v=") && !value.startsWith("https://youtu.be/")) {
+                                onSubmit: ({ value }) => {
+                                    if (value) {
+                                        if (!value.startsWith("https://www.youtube.com/watch?v=") && !value.startsWith("https://youtu.be/")) {
                                             return t("Pages.Edit.contentType.slug.Warnings.invalid_video_url.description")
                                         }
                                     }
@@ -359,14 +360,14 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                                         sendOnChange={(v) => {
                                             field.handleChange(v);
                                         }}
-                                            initialValue={creation.description}
-                                        />
-                                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                                        initialValue={creation.description}
+                                    />
+                                    {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                 </div>
                             )}
                             validators={{
-                                onSubmit: ({value}) => {
-                                    if(value.length < 50) {
+                                onSubmit: ({ value }) => {
+                                    if (value.length < 50) {
                                         return t("Pages.Edit.contentType.slug.Warnings.description_too_short.description")
                                     }
                                 }
@@ -380,14 +381,14 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                                     <TagInput
                                         tags={tags}
                                         creation={creation}
-                                            onChange={field.handleChange}
-                                        />
-                                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                                        onChange={field.handleChange}
+                                    />
+                                    {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                 </div>
                             )}
                             validators={{
-                                onSubmit: ({value}) => {
-                                    if(value.length < 1) {
+                                onSubmit: ({ value }) => {
+                                    if (value.length < 1) {
                                         return t("Pages.Edit.contentType.slug.Warnings.tags_too_short.description")
                                     }
                                 }
@@ -425,9 +426,16 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                                 </div>
                             )}
                         />
-                        <Button type="submit" className="w-fit">
-                            <span>{t("Pages.Edit.contentType.slug.General.save")}</span>
-                        </Button>
+                        <div className="flex gap-1">
+                            <Button type="submit" className="w-fit">
+                                <span>{t("Pages.Edit.contentType.slug.General.save")}</span>
+                            </Button>
+                            {creation.status === 0 && <Button type="submit" className="w-fit" onClick={() => {
+                                requestApproval(creation.slug, collectionName, token);
+                            }}>
+                                <span>{t("Pages.Edit.contentType.slug.General.request_approval")}</span>
+                            </Button>}
+                        </div>
                     </form>
                 </TabsContent>
                 <TabsContent value="translations">
@@ -446,7 +454,7 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                                 <CollapsibleContent className="flex flex-col gap-3">
                                     <div className="flex flex-col gap-2">
                                         <Label htmlFor={`translations.${translation}.title`}>{t("Pages.Edit.contentType.slug.General.title")}</Label>
-                                        <Input name={`translations.${translation}.title`} type="text" defaultValue={creation.translations?.[translation as keyof Translation]?.title ?? creation.title} 
+                                        <Input name={`translations.${translation}.title`} type="text" defaultValue={creation.translations?.[translation as keyof Translation]?.title ?? creation.title}
                                             onChange={(e) => {
                                                 setTranslations(JSON.stringify({
                                                     ...parsedTranslations,
@@ -494,10 +502,10 @@ export default function Page(props: {params: Promise<{contentType: ContentTypes,
                                                     }
                                                 }));
                                             }} />
-                                            <Label htmlFor={`translations.${translation}.approved`}>{t("Pages.Edit.contentType.slug.Translations.approved")}</Label>
+                                        <Label htmlFor={`translations.${translation}.approved`}>{t("Pages.Edit.contentType.slug.Translations.approved")}</Label>
                                     </div>
                                 </CollapsibleContent>
-                                </Collapsible>
+                            </Collapsible>
                         })}
                         <div className="flex flex-row gap-2">
                             <Button type="submit" className="w-fit">

@@ -271,7 +271,8 @@
                         "tags": "標籤",
                         "files": "檔案",
                         "images": "圖片",
-                        "save": "儲存"
+                        "save": "儲存",
+                        "request_approval": "Request Approval"
                     },
                     "Translations": {
                         "tab_title": "翻譯",

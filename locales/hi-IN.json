@@ -271,7 +271,8 @@
                         "tags": "टैग",
                         "files": "फ़ाइलें",
                         "images": "इमेजेस",
-                        "save": "सेव करें"
+                        "save": "सेव करें",
+                        "request_approval": "Request Approval"
                     },
                     "Translations": {
                         "tab_title": "अनुवाद",

@@ -50,18 +50,18 @@
                     }
                 },
                 "Metadata": {
-                    "title": "{username} - Minecraft クリエイター",
+                    "title": "{username} - マインクラ クリエイター",
                     "title_not_found": "クリエイターが見つかりません",
-                    "description": "{username} さんの Minecraft マップ、データパック、リソースパックをチェックしよう！コレクションを閲覧して、作品をダウンロードできます。",
+                    "description": "{username} さんの マインクラ マップ、データパック、リソースパックをチェックしよう！コレクションを閲覧して、作品をダウンロードできます。",
                     "description_not_found": "指定されたクリエイターが見つかりませんでした。",
                     "Keywords": {
-                        "minecraft": "Minecraft",
+                        "minecraft": "マインクラ",
                         "games": "ゲーム",
                         "gaming": "ゲーム",
-                        "minecraft_map": "Minecraft マップ",
-                        "minecraft_datapack": "Minecraft データパック",
-                        "minecraft_resourcepack": "Minecraft リソースパック",
-                        "minecraft_creations": "Minecraftのクリエイション"
+                        "minecraft_map": "マインクラ マップ",
+                        "minecraft_datapack": "マインクラ データパック",
+                        "minecraft_resourcepack": "マインクラ リソースパック",
+                        "minecraft_creations": "マインクラのクリエイション"
                     }
                 },
                 "banner": "{username}さんのバナー",
@@ -76,16 +76,16 @@
         "Content": {
             "content_type": {
                 "criteria": {
-                    "title": "Minecraftの{content_type}を閲覧・検索す",
-                    "blurb": "次の冒険にぴったりの、素晴らしいMinecraftの新しい{content_type}を見つけよう！",
-                    "description": "Minecraftの{content_type}とは、プレイヤーや開発者によって作成されたカスタムワールドのことで、通常のゲームプレイを超えたユニークな体験を提供します。これらの{content_type}には、シンプルなパルクールチャレンジから、複雑なアドベンチャーストーリー、謎解きクエスト、さらには現実世界の場所を再現したものまで多種多様な内容があります。Minecraft初期の頃から、コミュニティは{content_type}作りを創造的な表現の一形態として受け入れてきました。それが革新と協力の歴史を築き上げ、今日ではMinecraftの{content_type}は、コミュニティにとって欠かせない存在となっています。これにより、ゲームの無限の可能性が広がり、クリエイターとプレイヤーの活気あるエコシステムが生まれています。",
+                    "title": "マインクラの{content_type}を閲覧・検索す",
+                    "blurb": "次の冒険にぴったりの、素晴らしいマインクラの新しい{content_type}を見つけよう！",
+                    "description": "マインクラの{content_type}とは、プレイヤーや開発者によって作成されたカスタムワールドのことで、通常のゲームプレイを超えたユニークな体験を提供します。これらの{content_type}には、シンプルなパルクールチャレンジから、複雑なアドベンチャーストーリー、謎解きクエスト、さらには現実世界の場所を再現したものまで多種多様な内容があります。マインクラ初期の頃から、コミュニティは{content_type}作りを創造的な表現の一形態として受け入れてきました。それが革新と協力の歴史を築き上げ、今日ではマインクラの{content_type}は、コミュニティにとって欠かせない存在となっています。これにより、ゲームの無限の可能性が広がり、クリエイターとプレイヤーの活気あるエコシステムが生まれています。",
                     "Keywords": {
-                        "minecraft": "Minecraft",
+                        "minecraft": "マインクラ",
                         "games": "ゲーム",
                         "gaming": "ゲーム",
-                        "minecraft_map": "Minecraft マップ",
-                        "minecraft_creations": "Minecraftのクリエイション",
-                        "minecraft_version": "Minecraft {minecraft_version}"
+                        "minecraft_map": "マインクラ マップ",
+                        "minecraft_creations": "マインクラのクリエイション",
+                        "minecraft_version": "マインクラ {minecraft_version}"
                     }
                 }
             }
@@ -95,14 +95,14 @@
             "finish": "完了",
             "save": "保存",
             "Import": {
-                "PMC": "Planet Minecraftからのインポート",
+                "PMC": "Planet マインクラからのインポート",
                 "downloading": "{host}から作品をダウンロード中",
                 "preroll": "プレロール広告を再生中…",
                 "unknown": "不明なホストからインポート中",
-                "MinecraftMaps": "Minecraft Mapsからインポート中",
+                "マインクラMaps": "マインクラ Mapsからインポート中",
                 "Modrinth": "Modrinthからインポート中",
                 "link_placeholder": "インポート元のリンク",
-                "link_description": "インポートしたい作品のリンクを入力してください。Planet Minecraftのページや、Modrinthのページのリンクが使用できます。",
+                "link_description": "インポートしたい作品のリンクを入力してください。Planet マインクラのページや、Modrinthのページのリンクが使用できます。",
                 "link_label": "リンク",
                 "title": "インポート",
                 "missing_link": "リンクが入力されていません"
@@ -181,34 +181,34 @@
                 "Metadata": {
                     "not_found_title": "データパックが見つかりません",
                     "not_found_description": "このデータパックはMCCreations上に存在しません",
-                    "title": "Minecraft {minecraft_version} 向け：{creator} による {title} {content_type}",
+                    "title": "マインクラ {minecraft_version} 向け：{creator} による {title} {content_type}",
                     "Tags": {
-                        "minecraft": "Minecraft",
+                        "minecraft": "マインクラ",
                         "games": "ゲーム",
                         "gaming": "ゲーム",
-                        "minecraft_datapack": "Minecraft データパック",
-                        "minecraft_creations": "Minecraftのクリエイション",
-                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "minecraft_datapack": "マインクラ データパック",
+                        "minecraft_creations": "マインクラのクリエイション",
+                        "minecraft_version": "マインクラ {minecraft_version}",
                         "mods": "MOD",
-                        "minecraft_mods": "MinecraftのMOD",
-                        "minecraft_but": "Minecraft しかし",
-                        "minecraft_survival": "Minecraftサバイバル"
+                        "minecraft_mods": "マインクラのMOD",
+                        "minecraft_but": "マインクラ しかし",
+                        "minecraft_survival": "マインクラサバイバル"
                     }
                 }
             },
             "Metadata": {
                 "title": "データパックを探してダウンロードしよう",
-                "description": "最新の認証済みデータパックをMCCreationsでダウンロードしよう！データパックは、Minecraftのバニラ版向けのMODのような存在です。新しい機能を追加したり、ゲームの遊び方を変えたり、さまざまなカスタマイズが可能です！",
+                "description": "最新の認証済みデータパックをMCCreationsでダウンロードしよう！データパックは、マインクラのバニラ版向けのMODのような存在です。新しい機能を追加したり、ゲームの遊び方を変えたり、さまざまなカスタマイズが可能です！",
                 "Keywords": {
-                    "minecraft": "Minecraft",
+                    "minecraft": "マインクラ",
                     "games": "ゲーム",
                     "gaming": "ゲーム",
-                    "minecraft_datapack": "Minecraft データパック",
-                    "minecraft_creations": "Minecraftのクリエイション",
+                    "minecraft_datapack": "マインクラ データパック",
+                    "minecraft_creations": "マインクラのクリエイション",
                     "mods": "MOD",
-                    "minecraft_mods": "MinecraftのMOD",
-                    "minecraft_but": "Minecraft しかし",
-                    "minecraft_survival": "Minecraftサバイバル"
+                    "minecraft_mods": "マインクラのMOD",
+                    "minecraft_but": "マインクラ しかし",
+                    "minecraft_survival": "マインクラサバイバル"
                 }
             }
         },
@@ -272,7 +272,8 @@
                         "tags": "タグ",
                         "files": "ファイル",
                         "images": "画像",
-                        "save": "保存"
+                        "save": "保存",
+                        "request_approval": "承認を要求"
                     },
                     "Translations": {
                         "tab_title": "翻訳",
@@ -316,47 +317,47 @@
                 "Metadata": {
                     "not_found_title": "マップが見つかりません",
                     "not_found_description": "このマップはMCCreations上に存在しません",
-                    "title": "Minecraft {minecraft_version} 向け：{creator} による {title} {content_type}",
+                    "title": "マインクラ {minecraft_version} 向け：{creator} による {title} {content_type}",
                     "Tags": {
-                        "minecraft": "Minecraft",
+                        "minecraft": "マインクラ",
                         "games": "ゲーム",
                         "gaming": "ゲーム",
-                        "minecraft_map": "Minecraft マップ",
-                        "minecraft_creations": "Minecraftのクリエイション",
-                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "minecraft_map": "マインクラ マップ",
+                        "minecraft_creations": "マインクラのクリエイション",
+                        "minecraft_version": "マインクラ {minecraft_version}",
                         "maps": "マップ",
-                        "minecraft_games": "Minecraft ゲーム",
-                        "download": "無料のMinecraftマップ",
-                        "minecraft_adventure": "Minecraftアドベンチャー",
-                        "minecraft_parkour": "Minecraftのパルクール",
-                        "minecraft_pvp": "Minecraft PvP",
-                        "minecraft_skyblock": "Minecraftのスカイブロック",
-                        "minecraft_survival": "Minecraftのサバイバル",
-                        "minecraft_creative": "Minecraftのクリエイティブ",
-                        "minecraft_minigames": "Minecraftのミニゲーム"
+                        "minecraft_games": "マインクラ ゲーム",
+                        "download": "無料のマインクラマップ",
+                        "minecraft_adventure": "マインクラアドベンチャー",
+                        "minecraft_parkour": "マインクラのパルクール",
+                        "minecraft_pvp": "マインクラ PvP",
+                        "minecraft_skyblock": "マインクラのスカイブロック",
+                        "minecraft_survival": "マインクラのサバイバル",
+                        "minecraft_creative": "マインクラのクリエイティブ",
+                        "minecraft_minigames": "マインクラのミニゲーム"
                     }
                 }
             },
             "Metadata": {
-                "title": "Minecraftマップを見つけてダウンロードしよう",
-                "description": "MCCreationsで最新の認証済みMinecraftマップをダウンロードしよう！Minecraftマップとは、プレイヤーや開発者によって作成されたカスタムワールドで、通常のゲームプレイを超えたユニークな体験を提供します。これらのマップには、シンプルなパルクールチャレンジから、複雑なアドベンチャーストーリー、パズル解決型のクエスト、さらには現実世界の場所を再現したものまで、さまざまな種類があります。Minecraftの初期から、コミュニティはマップ制作を創造的表現の一つとして受け入れており、それによって革新と協力の豊かな歴史が築かれてきました。年月を経て、Minecraftマップはコミュニティに欠かせない存在となり、ゲームの無限の可能性を示すとともに、クリエイターとプレイヤーによる活発なエコシステムを育んでいます。",
+                "title": "マインクラマップを見つけてダウンロードしよう",
+                "description": "MCCreationsで最新の認証済みマインクラマップをダウンロードしよう！マインクラマップとは、プレイヤーや開発者によって作成されたカスタムワールドで、通常のゲームプレイを超えたユニークな体験を提供します。これらのマップには、シンプルなパルクールチャレンジから、複雑なアドベンチャーストーリー、パズル解決型のクエスト、さらには現実世界の場所を再現したものまで、さまざまな種類があります。マインクラの初期から、コミュニティはマップ制作を創造的表現の一つとして受け入れており、それによって革新と協力の豊かな歴史が築かれてきました。年月を経て、マインクラマップはコミュニティに欠かせない存在となり、ゲームの無限の可能性を示すとともに、クリエイターとプレイヤーによる活発なエコシステムを育んでいます。",
                 "Keywords": {
-                    "minecraft": "Minecraft",
+                    "minecraft": "マインクラ",
                     "games": "ゲーム",
                     "gaming": "ゲーム",
-                    "minecraft_map": "Minecraft マップ",
-                    "minecraft_creations": "Minecraftのクリエイション",
-                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "minecraft_map": "マインクラ マップ",
+                    "minecraft_creations": "マインクラのクリエイション",
+                    "minecraft_version": "マインクラ {minecraft_version}",
                     "maps": "マップ",
-                    "minecraft_games": "Minecraft ゲーム",
-                    "download": "無料のMinecraftマップ",
-                    "minecraft_adventure": "Minecraftアドベンチャー",
-                    "minecraft_parkour": "Minecraftのパルクール",
-                    "minecraft_pvp": "Minecraft PvP",
-                    "minecraft_skyblock": "Minecraftのスカイブロック",
-                    "minecraft_survival": "Minecraftのサバイバル",
-                    "minecraft_creative": "Minecraftのクリエイティブ",
-                    "minecraft_minigames": "Minecraftのミニゲーム"
+                    "minecraft_games": "マインクラ ゲーム",
+                    "download": "無料のマインクラマップ",
+                    "minecraft_adventure": "マインクラアドベンチャー",
+                    "minecraft_parkour": "マインクラのパルクール",
+                    "minecraft_pvp": "マインクラ PvP",
+                    "minecraft_skyblock": "マインクラのスカイブロック",
+                    "minecraft_survival": "マインクラのサバイバル",
+                    "minecraft_creative": "マインクラのクリエイティブ",
+                    "minecraft_minigames": "マインクラのミニゲーム"
                 }
             }
         },
@@ -381,33 +382,33 @@
                 "Metadata": {
                     "not_found_title": "リソースパックが見つかりません",
                     "not_found_description": "このリソースパックはMCCreations上に存在しません",
-                    "title": "Minecraft {minecraft_version} 向け：{creator} による {title} {content_type}",
+                    "title": "マインクラ {minecraft_version} 向け：{creator} による {title} {content_type}",
                     "Tags": {
-                        "minecraft": "Minecraft",
+                        "minecraft": "マインクラ",
                         "games": "ゲーム",
                         "gaming": "ゲーム",
-                        "minecraft_resourcepack": "Minecraft リソースパック",
-                        "minecraft_creations": "Minecraftのクリエイション",
-                        "minecraft_version": "Minecraft {minecraft_version}",
+                        "minecraft_resourcepack": "マインクラ リソースパック",
+                        "minecraft_creations": "マインクラのクリエイション",
+                        "minecraft_version": "マインクラ {minecraft_version}",
                         "mods": "MOD",
-                        "minecraft_mods": "MinecraftのMOD",
-                        "minecraft_hd": "Minecraft HD"
+                        "minecraft_mods": "マインクラのMOD",
+                        "minecraft_hd": "マインクラ HD"
                     }
                 }
             },
             "Metadata": {
-                "title": "Minecraftのリソースパックを探してダウンロードしよう",
-                "description": "MCCreationsで最新の認証済みMinecraftリソースパックをダウンロードしよう！Minecraftのリソースパックは、ゲームのビジュアルやサウンドを変更できるカスタマイズ用のファイル集で、プレイヤーが自分好みのプレイ体験を作り上げることができます。テクスチャ、モデル、音楽、効果音などを自由に変更でき、ゲームの見た目や雰囲気を一新することが可能です。リソースパックの登場以来、Minecraftコミュニティにおいて重要な役割を果たしており、多くのクリエイターが自らの創造性を発揮し、独自のビジョンを他のプレイヤーと共有してきました。年月を経て、リソースパックはMinecraftのモッディング文化の礎となり、アーティストやプレイヤーがゲームの可能性を広げ続ける、活気あるコミュニティを築き上げています。",
+                "title": "マインクラのリソースパックを探してダウンロードしよう",
+                "description": "MCCreationsで最新の認証済みマインクラリソースパックをダウンロードしよう！マインクラのリソースパックは、ゲームのビジュアルやサウンドを変更できるカスタマイズ用のファイル集で、プレイヤーが自分好みのプレイ体験を作り上げることができます。テクスチャ、モデル、音楽、効果音などを自由に変更でき、ゲームの見た目や雰囲気を一新することが可能です。リソースパックの登場以来、マインクラコミュニティにおいて重要な役割を果たしており、多くのクリエイターが自らの創造性を発揮し、独自のビジョンを他のプレイヤーと共有してきました。年月を経て、リソースパックはマインクラのモッディング文化の礎となり、アーティストやプレイヤーがゲームの可能性を広げ続ける、活気あるコミュニティを築き上げています。",
                 "Keywords": {
-                    "minecraft": "Minecraft",
+                    "minecraft": "マインクラ",
                     "games": "ゲーム",
                     "gaming": "ゲーム",
-                    "minecraft_resourcepack": "Minecraft リソースパック",
-                    "minecraft_creations": "Minecraftのクリエイション",
-                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "minecraft_resourcepack": "マインクラ リソースパック",
+                    "minecraft_creations": "マインクラのクリエイション",
+                    "minecraft_version": "マインクラ {minecraft_version}",
                     "mods": "MOD",
-                    "minecraft_mods": "MinecraftのMOD",
-                    "minecraft_hd": "Minecraft HD"
+                    "minecraft_mods": "マインクラのMOD",
+                    "minecraft_hd": "マインクラ HD"
                 }
             }
         },
@@ -472,17 +473,17 @@
             },
             "Metadata": {
                 "title": "サインイン",
-                "description": "MCCreationsのアカウントにサインインして、Minecraftのマップ、データパック、リソースパックなどをアップロードしましょう！",
+                "description": "MCCreationsのアカウントにサインインして、マインクラのマップ、データパック、リソースパックなどをアップロードしましょう！",
                 "Keywords": {
-                    "minecraft": "Minecraft",
+                    "minecraft": "マインクラ",
                     "games": "ゲーム",
                     "gaming": "ゲーム",
-                    "minecraft_map": "Minecraft マップ",
-                    "minecraft_creations": "Minecraftのクリエイション",
-                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "minecraft_map": "マインクラ マップ",
+                    "minecraft_creations": "マインクラのクリエイション",
+                    "minecraft_version": "マインクラ {minecraft_version}",
                     "maps": "Maps",
-                    "minecraft_games": "Minecraft ゲーム",
-                    "download": "無料のMinecraftマップ"
+                    "minecraft_games": "マインクラ ゲーム",
+                    "download": "無料のマインクラマップ"
                 }
             },
             "error": "エラーが発生しました。上記のリンクからこの問題をご報告ください。",
@@ -507,17 +508,17 @@
         "SignUp": {
             "Metadata": {
                 "title": "サインアップ",
-                "description": "MCCreationsに登録して、Minecraftのマップ、データパック、リソースパックなどをアップロードしよう！",
+                "description": "MCCreationsに登録して、マインクラのマップ、データパック、リソースパックなどをアップロードしよう！",
                 "Keywords": {
-                    "minecraft": "Minecraft",
+                    "minecraft": "マインクラ",
                     "games": "ゲーム",
                     "gaming": "ゲーム",
-                    "minecraft_map": "Minecraft マップ",
-                    "minecraft_creations": "Minecraftのクリエイション",
-                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "minecraft_map": "マインクラ マップ",
+                    "minecraft_creations": "マインクラのクリエイション",
+                    "minecraft_version": "マインクラ {minecraft_version}",
                     "maps": "マップ",
-                    "minecraft_games": "Minecraft ゲーム",
-                    "download": "無料のMinecraftマップ"
+                    "minecraft_games": "マインクラ ゲーム",
+                    "download": "無料のマインクラマップ"
                 }
             },
             "error": "アカウントの作成中にエラーが発生しました。上記のリンクからこの問題をご報告ください。",
@@ -568,17 +569,17 @@
             },
             "Metadata": {
                 "title": "翻訳",
-                "description": "MCCreationsをあなたの言語に翻訳して、世界中のMinecraftコミュニティをつなげるお手伝いをしましょう！",
+                "description": "MCCreationsをあなたの言語に翻訳して、世界中のマインクラコミュニティをつなげるお手伝いをしましょう！",
                 "Keywords": {
-                    "minecraft": "Minecraft",
+                    "minecraft": "マインクラ",
                     "games": "ゲーム",
                     "gaming": "ゲーム",
-                    "minecraft_map": "Minecraft マップ",
-                    "minecraft_creations": "Minecraftのクリエイション",
-                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "minecraft_map": "マインクラ マップ",
+                    "minecraft_creations": "マインクラのクリエイション",
+                    "minecraft_version": "マインクラ {minecraft_version}",
                     "maps": "マップ",
-                    "minecraft_games": "Minecraft ゲーム",
-                    "download": "無料のMinecraftマップ"
+                    "minecraft_games": "マインクラ ゲーム",
+                    "download": "無料のマインクラマップ"
                 }
             }
         },
@@ -589,21 +590,21 @@
         },
         "Home": {
             "Metadata": {
-                "title": "Minecraftコミュニティから集まった最高のマップ、データパック、リソースパック",
-                "description": "MCCreationsは非公式のファンサイトで、最新かつ最高のMinecraftマップ、データパック、リソースパックを見つけることができます！",
+                "title": "マインクラコミュニティから集まった最高のマップ、データパック、リソースパック",
+                "description": "MCCreationsは非公式のファンサイトで、最新かつ最高のマインクラマップ、データパック、リソースパックを見つけることができます！",
                 "Keywords": {
-                    "minecraft": "Minecraft",
+                    "minecraft": "マインクラ",
                     "games": "ゲーム",
                     "gaming": "ゲーム",
-                    "minecraft_map": "Minecraft マップ",
-                    "minecraft_creations": "Minecraftのクリエイション",
-                    "minecraft_version": "Minecraft {minecraft_version}",
+                    "minecraft_map": "マインクラ マップ",
+                    "minecraft_creations": "マインクラのクリエイション",
+                    "minecraft_version": "マインクラ {minecraft_version}",
                     "maps": "マップ",
-                    "minecraft_games": "Minecraft ゲーム",
-                    "download": "無料のMinecraftマップ"
+                    "minecraft_games": "マインクラ ゲーム",
+                    "download": "無料のマインクラマップ"
                 }
             },
-            "blurb": "世界中のMinecraftコミュニティによるマップ、データパック、リソースパックなどが勢ぞろい！",
+            "blurb": "世界中のマインクラコミュニティによるマップ、データパック、リソースパックなどが勢ぞろい！",
             "recently_updated": "または、新しいものを見つけよう！",
             "view_all": "...を検索"
         }
@@ -614,7 +615,7 @@
         },
         "Creations": {
             "Cards": {
-                "logo_alt_text": "MCCreations にて、{creator} による Minecraft {minecraft_version} 用の {type}{title}のロゴ",
+                "logo_alt_text": "MCCreations にて、{creator} による マインクラ {minecraft_version} 用の {type}{title}のロゴ",
                 "by": "{creator}による",
                 "by_joiner": ", "
             },
@@ -664,26 +665,26 @@
                 },
                 "not_found": "{content_type}が見つかりません",
                 "not_found_description": "この{content_type}はMCCreationsに存在しません",
-                "logo_alt": "Minecraftの{type}{title}のロゴ",
+                "logo_alt": "マインクラの{type}{title}のロゴ",
                 "images_alt": "{title} の画像 {index} / {total}",
                 "recommended_creations": "その他の{tag}クリエイション"
             },
             "Search": {
                 "Headers": {
                     "map": {
-                        "title": "Minecraftマップを閲覧・検索する",
-                        "blurb": "次の冒険のために、素晴らしい新しいMinecraftマップを見つけよう！",
-                        "description": "Minecraftのマップは、プレイヤーや開発者が作成したカスタムワールドで、標準のゲームを超えたユニークな体験を提供します。これらのマップは、シンプルなパルクールチャレンジから、複雑なアドベンチャーストーリーやパズル解決クエスト、さらには実在の場所の再現まで幅広くあります。Minecraftの初期から、コミュニティはマップ作成を創造的な表現の一つとして受け入れており、その結果、豊かなイノベーションと協力の歴史が築かれてきました。年月を経て、Minecraftのマップはコミュニティの定番となり、ゲームの無限の可能性を示すとともに、クリエイターとプレイヤーの活気あるエコシステムを育んでいます。"
+                        "title": "マインクラマップを閲覧・検索する",
+                        "blurb": "次の冒険のために、素晴らしい新しいマインクラマップを見つけよう！",
+                        "description": "マインクラのマップは、プレイヤーや開発者が作成したカスタムワールドで、標準のゲームを超えたユニークな体験を提供します。これらのマップは、シンプルなパルクールチャレンジから、複雑なアドベンチャーストーリーやパズル解決クエスト、さらには実在の場所の再現まで幅広くあります。マインクラの初期から、コミュニティはマップ作成を創造的な表現の一つとして受け入れており、その結果、豊かなイノベーションと協力の歴史が築かれてきました。年月を経て、マインクラのマップはコミュニティの定番となり、ゲームの無限の可能性を示すとともに、クリエイターとプレイヤーの活気あるエコシステムを育んでいます。"
                     },
                     "datapack": {
-                        "title": "Minecraftデータパックを閲覧・検索する",
-                        "blurb": "Minecraftの冒険に役立つツールやチャレンジなどを見つけよう！",
-                        "description": "Minecraftのデータパックは、基本的にバニラMinecraft用のモッドです。新しい機能やメカニクス、体験を追加することで、ゲームプレイを拡張します。データパックによって、新たなチャレンジやクエスト、さらには全く新しいゲームモードが生まれ、ゲームの世界が大きく変わることもあります。登場以来、データパックはクリエイターたちに愛されるツールとなり、コミュニティの創造力と可能性を広げる役割を果たしています。その結果、Minecraftの豊かな創造性と協力のエコシステムが育まれています。"
+                        "title": "マインクラデータパックを閲覧・検索する",
+                        "blurb": "マインクラの冒険に役立つツールやチャレンジなどを見つけよう！",
+                        "description": "マインクラのデータパックは、基本的にバニラマインクラ用のモッドです。新しい機能やメカニクス、体験を追加することで、ゲームプレイを拡張します。データパックによって、新たなチャレンジやクエスト、さらには全く新しいゲームモードが生まれ、ゲームの世界が大きく変わることもあります。登場以来、データパックはクリエイターたちに愛されるツールとなり、コミュニティの創造力と可能性を広げる役割を果たしています。その結果、マインクラの豊かな創造性と協力のエコシステムが育まれています。"
                     },
                     "resourcepack": {
-                        "title": "Minecraftリソースパックを閲覧・検索する",
-                        "blurb": "Minecraftの見た目を変えたり、より魅力的にしよう！",
-                        "description": "Minecraftのリソースパックは、ゲームの見た目や音を変更できるカスタマイズ可能なファイルの集合体で、プレイヤーが自分好みのゲーム体験を作り出せるようにします。テクスチャやモデル、音楽、効果音を変更できるため、ゲームの雰囲気や外観を大きく変えることが可能です。リソースパックの登場以来、Minecraftコミュニティにおいて重要な役割を果たしており、多くのクリエイターが独自の創造性を発揮し、そのビジョンを他のプレイヤーと共有しています。年月を経て、リソースパックはMinecraftのモッディング文化の基盤となり、アーティストやプレイヤーたちが常にゲームの可能性の限界を押し広げる、活気あふれるコミュニティを育んでいます。"
+                        "title": "マインクラリソースパックを閲覧・検索する",
+                        "blurb": "マインクラの見た目を変えたり、より魅力的にしよう！",
+                        "description": "マインクラのリソースパックは、ゲームの見た目や音を変更できるカスタマイズ可能なファイルの集合体で、プレイヤーが自分好みのゲーム体験を作り出せるようにします。テクスチャやモデル、音楽、効果音を変更できるため、ゲームの雰囲気や外観を大きく変えることが可能です。リソースパックの登場以来、マインクラコミュニティにおいて重要な役割を果たしており、多くのクリエイターが独自の創造性を発揮し、そのビジョンを他のプレイヤーと共有しています。年月を経て、リソースパックはマインクラのモッディング文化の基盤となり、アーティストやプレイヤーたちが常にゲームの可能性の限界を押し広げる、活気あふれるコミュニティを育んでいます。"
                     }
                 },
                 "search": "検索",
@@ -837,14 +838,14 @@
                 "2": "ウェブサイトだよ！",
                 "3": "何か壊れてる。",
                 "4": "私はフッターです！",
-                "5": "Minecraftってなかなかカッコいいよね。",
+                "5": "マインクラってなかなかカッコいいよね。",
                 "6": "クリエイティビティ万歳！",
                 "7": "こんなの誰が読むの？",
                 "8": "誰かサンドイッチ持ってる？",
                 "9": "Githubで貢献しよう！",
                 "10": "これがランダムって知ってた？"
             },
-            "mojang_disclamer": "これは公式のMinecraft製品ではありません。Mojangによる承認や関連はありません。",
+            "mojang_disclamer": "これは公式のマインクラ製品ではありません。Mojangによる承認や関連はありません。",
             "open_source": "MCCreationsは<link>オープンソース</link>です。ぜひ参加してください！",
             "copyright": "© Ben Meier/CrazyCowMM"
         },
@@ -926,7 +927,7 @@
                 "back_to_versions": "ファイル一覧に戻る",
                 "edit": "ファイルを編集",
                 "version_number": "バージョン番号",
-                "minecraft_version": "Minecraftバージョン",
+                "minecraft_version": "マインクラバージョン",
                 "Bedrock": "ベッドロック版",
                 "Bedrock_description": "このファイルはベッドロックエディション用です",
                 "MainFile": {
