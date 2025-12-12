@@ -125,7 +125,7 @@ export default function Navbar() {
                                                     className="block select-none space-y-2 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                                 >
                                                     <div className="text-sm font-medium leading-none">
-                                                        {t(`${creation.title}`, {count: 2})}
+                                                        {t(`${creation.title}`, { count: 2 })}
                                                     </div>
                                                     <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
                                                         {t(creation.description)}
@@ -151,6 +151,13 @@ export default function Navbar() {
                         </Link>
                     </Button>
                 </div>
+            </div>
+            <div className="flex items-center ml-auto gap-2 w-full justify-center">
+                <Link href="https://patreon.com/cw/pt_mccreations">
+                    <Button variant="destructive" className="sm:text-md md:text-lg px-5 py-5 mb-2 mt-[-5px]">
+                        <span>If you like the site, please consider supporting us on Patreon!</span>
+                    </Button>
+                </Link>
             </div>
         </header>
     );
