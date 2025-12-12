@@ -32,9 +32,6 @@ export default async function Page(props: { params: Promise<{ locale: string }> 
                 <p className="text-white text-center text-xl pb-7">{t('Pages.Home.blurb')}</p>
             </div>
             <FeaturedSlideshow creations={featured} />
-            <div className="relative">
-                <AdsenseComponent adSlot={"3283646290"} adClient={"ca-pub-5425604215170333"} adFormat={"auto"} adLayout={undefined} width={"1000px"} height={"100px"} />
-            </div>
             <h2 className="w-full text-center text-2xl font-bold mt-5 mb-2">{t('Pages.Home.view_all')}</h2>
             <div className="w-full flex justify-center gap-1 md:gap-2 mb-10">
                 <Link href={`/maps`}><Button className="text-md md:text-xl py-5 px-4 md:px-8"><Map /><span>{t('map', { count: 2 })}</span></Button></Link>
