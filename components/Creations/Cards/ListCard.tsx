@@ -17,6 +17,7 @@ import { Button } from "../../ui/button";
 import { Badge } from "../../ui/badge";
 import { InListAdUnit } from "../../AdUnits/InContent";
 import { track } from "@vercel/analytics/react";
+import { formatRating } from "@/app/api/utils";
 
 /**
  * A card for displaying content
@@ -131,7 +132,7 @@ export default function CreationListCard(props: IContentCardProps) {
                         <Link href={`/${(props.linkTo) ? props.linkTo : props.creation.type + "s"}/${props.creation.slug}`} onClick={() => { track("creation_card_title_clicked", { playlist: props.playlist }) }}><h2 className="mb-1">{title}</h2></Link>
                         <div className={styles.stats}>
                             <div className={styles.stat}><Download className={styles.in_text_icon} />{props.creation.downloads}</div>
-                            {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{((Math.round(props.creation.rating * 100) / 100) * 5).toFixed(2)}</div> : <></>}
+                            {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{formatRating(props.creation.rating)}</div> : <></>}
                             {(props.creation.files && props.creation.files.length > 0) ? <div className={styles.stat}><Map className={styles.in_text_icon} />{minecraftVersion}</div> : <></>}
                         </div>
                     </div>

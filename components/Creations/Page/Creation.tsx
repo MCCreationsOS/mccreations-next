@@ -4,7 +4,7 @@ import { IContentDoc, CollectionNames, } from "@/app/api/types";
 import Image from 'next/image'
 import { Car, Download, EllipsisVertical } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { makeSentenceCase } from "@/app/api/utils";
+import { makeSentenceCase, formatRating } from "@/app/api/utils";
 import { convertToType, downloadCreation } from "@/app/api/content";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -82,7 +82,7 @@ export default function Creation({creation, collectionName}: {creation: IContent
         // @ts-ignore
         jsonLd.aggregateRating = {
                 "@type": "AggregateRating",
-                ratingValue: (creation.rating * 5).toFixed(1),
+                ratingValue: formatRating(creation.rating, 1),
                 ratingCount: creation.ratings.length,
                 bestRating: "5",
                 worstRating: "1",

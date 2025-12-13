@@ -11,7 +11,7 @@ import { useEffect, useState } from "react"
 import { convertToCollection, downloadCreation } from "@/app/api/content"
 import { useLocale, useTranslations } from "use-intl";
 import { useTags } from "@/app/api/hooks/creations";
-import { makeSentenceCase } from "@/app/api/utils";
+import { makeSentenceCase, formatRating } from "@/app/api/utils";
 import { Button } from "../../ui/button";
 import { Archive, CheckSquare, Download, Layers, Map, Package, Square, Star, Tag } from "lucide-react";
 import { Badge } from "../../ui/badge";
@@ -142,7 +142,7 @@ export default function CreationCard(props: IContentCardProps) {
                     </div>
                     <div className={styles.stats}>
                         <div className={styles.stat}><Download className={styles.in_text_icon} />{props.creation.downloads}</div>
-                        {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{((Math.round(props.creation.rating * 100) / 100) * 5).toFixed(2)}</div> : <></>}
+                        {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{formatRating(props.creation.rating)}</div> : <></>}
                     </div>
                     <p className={styles.author}>{t('Components.Creations.Cards.by', { creator: props.creation.creators.slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner')) })}</p>
                 </div>
