@@ -1,26 +1,26 @@
 const createNextIntlPlugin = require('next-intl/plugin');
- 
+
 const withNextIntl = createNextIntlPlugin();
- 
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   headers: async () => [
     {
       source: '/(.*)',
-        headers: [
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'DENY',
-          },
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-        ],
+      headers: [
+        {
+          key: 'X-Content-Type-Options',
+          value: 'nosniff',
+        },
+        {
+          key: 'X-Frame-Options',
+          value: 'DENY',
+        },
+        {
+          key: 'Referrer-Policy',
+          value: 'strict-origin-when-cross-origin',
+        },
+      ],
     },
     {
       source: '/sw.js',
@@ -41,8 +41,8 @@ const nextConfig = {
     },
   ],
   env: {
-    DATA_URL: 'https://api.mccreations.net',
-    LOGGING_URL: 'https://api.mccreations.net/bamboo/v1'
+    DATA_URL: 'https://api2.mccreations.net',
+    LOGGING_URL: 'https://api2.mccreations.net/bamboo/v1'
   },
   images: {
     remotePatterns: [
