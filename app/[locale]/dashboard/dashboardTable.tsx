@@ -23,6 +23,7 @@ import { Button } from "../../../components/ui/button";
 import { ImageIcon, Edit, Trash, MoreHorizontal } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../../../components/ui/dropdown-menu";
 import { useIsClient } from "usehooks-ts";
+import { formatRating } from "@/app/api/utils";
 
 export default function dashboardTable({collectionName}: {collectionName: CollectionNames}) {
     const client = useIsClient()
@@ -96,7 +97,7 @@ export default function dashboardTable({collectionName}: {collectionName: Collec
                             <TableCell>{creation.createdDate < 10000000000 ? new Date(creation.createdDate * 1000).toLocaleDateString() : new Date(creation.createdDate).toLocaleDateString()}</TableCell>
                             <TableCell>{creation.updatedDate ? (creation.updatedDate < 10000000000 ? new Date(creation.updatedDate * 1000).toLocaleDateString() : new Date(creation.updatedDate).toLocaleDateString()) : ''}</TableCell>
                             <TableCell>{creation.downloads}</TableCell>
-                            <TableCell>{(creation.rating * 5).toFixed(2)}</TableCell>
+                            <TableCell>{formatRating(creation.rating)}</TableCell>
                             <TableCell>{creation.comments?.length ?? 0}</TableCell>
                             {user?.type === UserTypes.Admin && (
                                 <TableCell>

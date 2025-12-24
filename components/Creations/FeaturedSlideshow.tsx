@@ -8,6 +8,7 @@ import Image from "next/image";
 import { Download, Star } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import { useTranslations } from "next-intl";
+import { formatRating } from "@/app/api/utils";
 
 export default function FeaturedSlideshow({creations}: {creations: IContentDoc[]}) {
     const [currentSlide, setCurrentSlide] = useState(0)
@@ -44,7 +45,7 @@ export default function FeaturedSlideshow({creations}: {creations: IContentDoc[]
                                         <p className="text-sm line-clamp-2">{creation.shortDescription}</p>
                                         <div className="flex items-center gap-2">
                                             <span className="text-sm flex items-center gap-1"><Download className="w-5 h-5"/> {creation.downloads}</span>
-                                            {creation.rating > 0 && <span className="text-sm flex items-center gap-1"><Star className="w-5 h-5"/> {creation.rating * 5}</span>}
+                                            {creation.rating > 0 && <span className="text-sm flex items-center gap-1"><Star className="w-5 h-5"/> {formatRating(creation.rating)}</span>}
                                         </div>
                                         <p className="text-sm">{t('Components.Creations.Cards.by', {creator: creation.creators.slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner'))})}</p>
                                     </div>
