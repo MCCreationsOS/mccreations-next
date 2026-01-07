@@ -63,7 +63,6 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
   const messages = await getMessages({ locale: locale })
 
   setRequestLocale(locale)
-  console.log(locale)
   return (
 
     <html lang={locale}>
