@@ -157,7 +157,7 @@ export default function Navbar() {
             <div className="flex items-center ml-auto gap-2 w-full justify-center">
                 <Link href="https://patreon.com/cw/pt_mccreations">
                     <Button variant="destructive" className="sm:text-md md:text-lg px-5 py-5 mb-2 mt-1">
-                        <span>If you like the site, please consider supporting us on Patreon!</span>
+                        <span>Please consider supporting us on Patreon!</span>
                     </Button>
                 </Link>
             </div>
