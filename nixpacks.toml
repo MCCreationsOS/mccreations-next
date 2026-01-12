@@ -9,4 +9,4 @@ cmds = ["bun install"]
 cmds = ["bun run build"]
 
 [start]
-cmd = "next start"
+cmd = "bun run start"
