@@ -135,9 +135,9 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                 <div className="flex flex-col sm:flex-row gap-4">
                     <div className="lg:text-lg flex-1 list-disc">
                         <h1 className="text-4xl font-extrabold sm:text-left text-center mb-5">{title}</h1>
-                        <div className="aspect-video mb-5">
+                        {videoID && videoID.length > 0 && <div className="aspect-video mb-5">
                             <iframe src={`https://www.youtube.com/embed/${videoID}?autoplay=0&amp;rel=0&amp;origin=https://mccreations.net`} title={`Video of ${title} by ${creation.creators[0].username}`} allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" className="w-full h-full"></iframe>
-                        </div>
+                        </div>}
                         <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}>
 
                         </div>
