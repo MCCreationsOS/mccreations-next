@@ -102,7 +102,7 @@ export function Images({ handleNext }: { handleNext: () => void }) {
     };
 
     return (
-        <div className="flex flex-col gap-4 max-w-2xl">
+        <div className="flex flex-col gap-4 ">
             <ImageDropzone
                 onImagesUploaded={saveImagesForm}
                 presetFiles={JSON.stringify(
@@ -127,7 +127,7 @@ export function Required() {
     )
 }
 
-export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
+export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
     const { token } = useToken();
     const [creation, setCreation] = useSessionStorage<IContentDoc>(
         "tempCreation",
@@ -150,11 +150,11 @@ export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
         validators: {
             onChangeAsync: (data) => {
                 setCreation({
-                        ...creation,
-                        title: data.value.title ?? "",
-                        type: (data.value.type ?? "map") as ContentTypes,
-                        shortDescription: data.value.shortDescription
-                    })
+                    ...creation,
+                    title: data.value.title ?? "",
+                    type: (data.value.type ?? "map") as ContentTypes,
+                    shortDescription: data.value.shortDescription
+                })
             }
         }
     });
@@ -201,7 +201,7 @@ export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
                     e.preventDefault();
                     form.handleSubmit();
                 }}
-                className="flex flex-col gap-4 max-w-2xl"
+                className="flex flex-col gap-4"
             >
                 <form.Field
                     name="title"
@@ -222,8 +222,8 @@ export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
                         </div>
                     )}
                     validators={{
-                        onSubmit: ({value}) => {
-                            if(value.length < 3) {
+                        onSubmit: ({ value }) => {
+                            if (value.length < 3) {
                                 return t("Pages.Create.BasicInfo.title_too_short")
                             }
                         }
@@ -292,10 +292,10 @@ export function CreateBasicInfo({handleNext}: {handleNext: () => void}) {
                         </div>
                     )}
                     validators={{
-                        onSubmit: ({value}) => {
-                            if(value.length < 20) {
+                        onSubmit: ({ value }) => {
+                            if (value.length < 20) {
                                 return t("Pages.Create.BasicInfo.short_description_too_short")
-                            } else if(value.length > 150) {
+                            } else if (value.length > 150) {
                                 return t("Pages.Create.BasicInfo.short_description_too_long")
                             }
                         }
@@ -339,14 +339,14 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
         },
         validators: {
             onChangeAsync: (data) => {
-                setCreation({
-                        ...creation,
-                        slug: data.value.slug,
-                        creators: data.value.creators,
-                        videoUrl: data.value.videoUrl,
-                        description: data.value.description,
-                        tags: data.value.tags.split(",")
-                    })
+                sessionStorage.setItem("tempCreation", JSON.stringify({
+                    ...creation,
+                    slug: data.value.slug,
+                    creators: data.value.creators,
+                    videoUrl: data.value.videoUrl,
+                    description: data.value.description,
+                    tags: data.value.tags.split(",")
+                }));
             }
         }
     });
@@ -435,7 +435,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                 e.preventDefault();
                 form.handleSubmit();
             }}
-            className="flex flex-col gap-4 max-w-2xl"
+            className="flex flex-col gap-4 "
         >
             <form.Field
                 name="slug"
@@ -450,18 +450,18 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                             onChange={(e) => {
                                 field.handleChange(e.target.value);
                             }}
-                                placeholder={t("Pages.Create.Details.slug")}
-                            />
-                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                            placeholder={t("Pages.Create.Details.slug")}
+                        />
+                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                     </div>
                 )}
                 validators={{
-                    onSubmit: ({value}) => {
-                        if(value.length < 5) {
+                    onSubmit: ({ value }) => {
+                        if (value.length < 5) {
                             return t("Pages.Create.Details.slug_too_short")
-                        } else if(value.length > 50) {
+                        } else if (value.length > 50) {
                             return t("Pages.Create.Details.slug_too_long")
-                        } else if(!/^[a-zA-Z0-9_-]+$/.test(value)) {
+                        } else if (!/^[a-zA-Z0-9_-]+$/.test(value)) {
                             return t("Pages.Create.Details.slug_invalid_characters")
                         }
                     }
@@ -473,14 +473,14 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     <CreatorInput creators={field.state.value} onChange={field.handleChange} />
                     {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                 </div>
-             )} 
-             validators={{
-                onSubmit: ({value}) => {
-                    if(value.length < 1) {
-                        return t("Pages.Create.Details.creator_too_short")
+            )}
+                validators={{
+                    onSubmit: ({ value }) => {
+                        if (value.length < 1) {
+                            return t("Pages.Create.Details.creator_too_short")
+                        }
                     }
-                }
-             }}
+                }}
             />
             <form.Field
                 name="videoUrl"
@@ -496,14 +496,14 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                                 field.handleChange(e.target.value);
                             }}
                             placeholder={t("Pages.Create.Details.video_url")}
-                            />
-                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                        />
+                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                     </div>
                 )}
                 validators={{
-                    onSubmit: ({value}) => {
-                        if(value) {
-                            if(!value.includes("https://www.youtube.com/watch?v=") && !value.includes("https://youtu.be/")) {
+                    onSubmit: ({ value }) => {
+                        if (value) {
+                            if (!value.includes("https://www.youtube.com/watch?v=") && !value.includes("https://youtu.be/")) {
                                 return t("Pages.Create.Details.invalid_video_url")
                             }
                         }
@@ -519,14 +519,14 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                             sendOnChange={(v) => {
                                 field.handleChange(v);
                             }}
-                                initialValue={creation.description}
-                            />
-                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                            initialValue={creation.description}
+                        />
+                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                     </div>
                 )}
                 validators={{
-                    onSubmit: ({value}) => {
-                        if(value.length < 50) {
+                    onSubmit: ({ value }) => {
+                        if (value.length < 50) {
                             return t("Pages.Create.Details.description_too_short")
                         }
                     }
@@ -540,14 +540,14 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                         <TagInput
                             tags={tags}
                             creation={creation}
-                                onChange={field.handleChange}
-                            />
-                            {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
+                            onChange={field.handleChange}
+                        />
+                        {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                     </div>
                 )}
                 validators={{
-                    onSubmit: ({value}) => {
-                        if(value.length < 1) {
+                    onSubmit: ({ value }) => {
+                        if (value.length < 1) {
                             return t("Pages.Create.Details.tags_too_short")
                         }
                     }
@@ -561,7 +561,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
     );
 }
 
-export function CreatorInput({creators, onChange}: {creators: ICreator[], onChange: (creators: ICreator[]) => void}) {
+export function CreatorInput({ creators, onChange }: { creators: ICreator[], onChange: (creators: ICreator[]) => void }) {
     const t = useTranslations();
     return (
         <div className="flex flex-col gap-2">
@@ -589,7 +589,7 @@ export function CreatorInput({creators, onChange}: {creators: ICreator[], onChan
     )
 }
 
-export function CreatorAvatar({creator, size}: {creator: ICreator, size?: number}) {
+export function CreatorAvatar({ creator, size }: { creator: ICreator, size?: number }) {
     const [fullCreator, setFullCreator] = useState<IUser | undefined>(undefined);
     useEffect(() => {
         getCreator(creator.handle ?? creator.username).then((c) => {
