@@ -5,7 +5,7 @@ import { CollectionNames, IContentDoc, SortOptions, UserTypes } from "@/app/api/
 import { Suspense, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { approveContent, convertToType, deleteContent } from "@/app/api/content";
-import {useTranslations} from 'next-intl';
+import { useTranslations } from 'next-intl';
 import { useToken, useUser } from "@/app/api/hooks/users";
 import { useCreations } from "@/app/api/hooks/creations";
 import PageNavigator from "../../../components/Creations/Search/Navigator";
@@ -16,7 +16,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-  } from "@/components/ui/table"
+} from "@/components/ui/table"
 import Image from "next/image";
 import { Link } from "@/i18n/navigation";
 import { Button } from "../../../components/ui/button";
@@ -25,21 +25,21 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { useIsClient } from "usehooks-ts";
 import { formatRating } from "@/app/api/utils";
 
-export default function dashboardTable({collectionName}: {collectionName: CollectionNames}) {
+export default function dashboardTable({ collectionName }: { collectionName: CollectionNames }) {
     const client = useIsClient()
-    const {user, isLoading} = useUser(true)
-    const {token} = useToken()
+    const { user, isLoading } = useUser(true)
+    const { token } = useToken()
     const page = parseInt(useSearchParams().get("page") ?? "0")
-    const {creations, count} = useCreations({contentType: collectionName, status: 0, limit: 20, page: page, sort: SortOptions.Newest})
+    const { creations, count } = useCreations({ contentType: collectionName, status: 0, limit: 20, page: page, sort: SortOptions.Newest })
     const contentType = convertToType(collectionName);
     const [deleting, setDeleting] = useState(false)
     const t = useTranslations()
     const router = useRouter()
 
     const handleDelete = (slug: string) => {
-        if(!deleting) {
+        if (!deleting) {
             setDeleting(true)
-            toast(t('Pages.Dashboard.delete_content'))
+            toast(<span>{t('Pages.Dashboard.delete_creation')}</span>)
         } else {
             deleteContent(slug, token, collectionName)
             setDeleting(false)
@@ -48,11 +48,11 @@ export default function dashboardTable({collectionName}: {collectionName: Collec
 
     console.log(user)
 
-    
-    if(isLoading) {
+
+    if (isLoading) {
         return <div className="centered_content">{t('Pages.Dashboard.loading')}</div>
     }
-    
+
     // if(!user && client) {
     //     console.log(user)
     //     router.push("/signin?redirect=dashboard")
@@ -80,7 +80,7 @@ export default function dashboardTable({collectionName}: {collectionName: Collec
                             <TableCell className="max-w-xl">
                                 <div className="flex flex-row items-center gap-4">
                                     <Suspense fallback={<div className="w-16 h-16 bg-gray-200 rounded-md"></div>}>
-                                        <Image className="aspect-video object-cover" src={creation.images[0]} width={150} height={100} alt={`The logo for ${creation.title}`}/>
+                                        <Image className="aspect-video object-cover" src={creation.images[0]} width={150} height={100} alt={`The logo for ${creation.title}`} />
                                     </Suspense>
                                     <div className="flex flex-col">
                                         <Link href={`/edit/${collectionName.toLowerCase()}/${creation.slug}`}><h2 className="text-md font-bold">{creation.title}</h2></Link>
@@ -115,7 +115,7 @@ export default function dashboardTable({collectionName}: {collectionName: Collec
                             )}
                         </TableRow>
                     ))}
-                    </TableBody>
+                </TableBody>
             </Table>
             <PageNavigator page={page} pages={Math.ceil(count / 20)} />
         </>
