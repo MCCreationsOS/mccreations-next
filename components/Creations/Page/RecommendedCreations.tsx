@@ -11,8 +11,10 @@ export default function RecommendedCreations({ creation }: { creation: IContentD
     return (
         <div className="hidden md:block my-5">
             <h2 className="text-2xl font-bold my-2">{t('Components.Creations.Page.recommended_creations', { tag: t(`Components.Creations.Tags.${tag}`) })}</h2>
-            <div className="flex flex-row gap-4">
-                {creations.slice(0, 3).map(creation => <CreationCard creation={creation} key={creation._id} playlist="" index={0} priority={false} />)}
+            <div className="container">
+                <div className="grid grid-cols-3 gap-2 w-full">
+                    {creations.slice(0, 3).map(creation => <CreationCard creation={creation} key={creation._id} playlist="" index={0} priority={false} />)}
+                </div>
             </div>
         </div>
     )

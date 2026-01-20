@@ -125,14 +125,14 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                     {creation.tags && creation.tags.length > 0 && <>{creation.tags.slice(0, 6).map(tag => tag ? <Link href={`/${creation.type}s?includeTags=${tag}`}><Badge key={tag} variant="secondary" className="text-md">{t(`Components.Creations.Tags.${tag}`)}</Badge></Link> : <></>)}</>}
                 </div>
             </div>
-            <div className="max-w-4xl mx-auto mt-3 md:mt-10">
+            <div className="max-w-5xl mx-auto mt-3 md:mt-10">
                 <div className="flex flex-col sm:flex-row gap-4 mb-2 items-center">
 
                     <div className="flex flex-row gap-2 items-start">
 
                     </div>
                 </div>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col md:flex-row gap-15">
                     <div className="lg:text-lg flex-1 list-disc">
                         <h1 className="text-4xl font-extrabold sm:text-left text-center mb-5">{title}</h1>
                         {videoID && videoID.length > 0 && <div className="aspect-video mb-5">
@@ -141,13 +141,27 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                         <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}>
 
                         </div>
+                        {creation.images && creation.images.length > 1 && <div className="mt-5">
+                            <Carousel plugins={[Autoplay({ delay: 4000 })]}>
+                                <CarouselContent>
+                                    {creation.images.slice(1, creation.images.length).map(image => <CarouselItem key={image}>
+                                        <Image className="aspect-video object-cover object-center" width={1920} height={1080} src={image} alt={t('Components.Creations.Page.images_alt', { index: creation.images.indexOf(image) + 1, total: creation.images.length, title: title })}></Image>
+                                    </CarouselItem>) ?? <CarouselItem><div className="aspect-video object-cover object-center"></div></CarouselItem>}
+                                </CarouselContent>
+                                <CarouselNext />
+                                <CarouselPrevious />
+                            </Carousel>
+                        </div>}
                     </div>
-                    <div className="flex flex-col gap-4 max-w-sm h-fit justify-self-end ml-12">
+                    <div className="flex flex-col gap-6 w-full md:w-[400px] flex-shrink-0">
+                        {/* Download and Options */}
                         <div className="flex flex-row gap-2 items-start justify-center md:justify-start">
-                            {creation.files && creation.files.length > 0 && <DownloadButton slug={creation.slug} file={creation.files[0]} contentType={contentType} className="px-6 py-5" />}
+                            {creation.files && creation.files.length > 0 && <DownloadButton slug={creation.slug} file={creation.files[0]} contentType={contentType} className="px-6 py-5 w-full" />}
                             <CreationOptions creation={creation} />
                         </div>
-                        <div className="bg-card border-gray-950 border-2 p-5 w-full md:min-w-[300px] flex-1/2">
+
+                        {/* Info Card */}
+                        <div className="bg-card border-gray-950 border-2 p-5 w-full">
                             <div className="flex flex-col gap-2">
                                 {creation.creators.map(creator => <CreatorCard creator={creator} key={creator.username} />)}
                             </div>
@@ -175,26 +189,19 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                                     <span>{new Date(creation.updatedDate).toLocaleDateString()}</span>
                                 </div>}
                             </div>
-                            <hr className="my-2"></hr>
+                        </div>
+
+                        {/* Comments Section moved to Sidebar */}
+                        <div className="mt-2">
+                            <Comments creation={creation} collection={collectionName} />
                         </div>
                     </div>
                 </div>
-                {creation.images && creation.images.length > 1 && <div className="mt-5">
-                    <Carousel plugins={[Autoplay({ delay: 4000 })]}>
-                        <CarouselContent>
-                            {creation.images.slice(1, creation.images.length).map(image => <CarouselItem key={image}>
-                                <Image className="aspect-video object-cover object-center" width={1920} height={1080} src={image} alt={t('Components.Creations.Page.images_alt', { index: creation.images.indexOf(image) + 1, total: creation.images.length, title: title })}></Image>
-                            </CarouselItem>) ?? <CarouselItem><div className="aspect-video object-cover object-center"></div></CarouselItem>}
-                        </CarouselContent>
-                        <CarouselNext />
-                        <CarouselPrevious />
-                    </Carousel>
-                </div>}
                 <div>
                     {creation.tags && creation.tags.length > 0 && <RecommendedCreations creation={creation} />}
                 </div>
                 <div>
-                    <Comments creation={creation} collection={collectionName} />
+
                 </div>
             </div>
         </div>
