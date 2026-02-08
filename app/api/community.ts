@@ -1,4 +1,4 @@
-import { CollectionNames, ContentTypes, IComment, IContentDoc, Leaderboard, QueryOptions } from "@/app/api/types";
+import { CollectionNames, ContentTypes, IComment, IContentDoc, Leaderboard, QueryOptions, SortOptions } from "@/app/api/types";
 import { convertToCollection, formatQueryOptions } from "./content";
 
 /**
@@ -10,18 +10,18 @@ import { convertToCollection, formatQueryOptions } from "./content";
  */
 export async function postRating(rating: number, map: IContentDoc) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/rate`, { 
+        let response = await fetch(`${process.env.DATA_URL}/rate`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({rating: rating, id: map._id, collection: convertToCollection(map.type)}),
+            body: JSON.stringify({ rating: rating, id: map._id, collection: convertToCollection(map.type) }),
             cache: 'no-store'
         })
         let newRating = (await response.json()).rating as number
         return newRating;
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
 }
@@ -53,13 +53,13 @@ export async function postComment(slug: string, content_type: string, username: 
             }),
             cache: 'no-store'
         })
-        
+
         if (response.ok) {
             const createdComment = await response.json() as IComment;
             return createdComment;
         }
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
     return undefined;
@@ -82,13 +82,13 @@ export async function postReply(comment_id: string, username: string, reply: str
             }),
             cache: 'no-store'
         })
-        
+
         if (response.ok) {
             const createdReply = await response.json() as IComment;
             return createdReply;
         }
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
     return undefined;
@@ -96,7 +96,7 @@ export async function postReply(comment_id: string, username: string, reply: str
 
 export async function likeComment(comment_id: string, jwt: string = "") {
     try {
-        let response =await fetch(`${process.env.DATA_URL}/comment/${comment_id}/like`, {
+        let response = await fetch(`${process.env.DATA_URL}/comment/${comment_id}/like`, {
             method: "GET",
             headers: {
                 'Authorization': jwt
@@ -105,24 +105,23 @@ export async function likeComment(comment_id: string, jwt: string = "") {
         })
         return response.status === 200
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
     return false
 }
 
-export async function fetchComments(slug: string, options: QueryOptions) {
-    let opts = formatQueryOptions(options)
+export async function fetchComments(slug?: string, options?: { page?: number, contentType?: string, limit?: number, sort?: SortOptions }) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/comments?slug=${slug}&content_type=${opts.contentType}&limit=${opts.limit}&page=${opts.page}&sort=${opts.sort}&creators=${opts.creators?.join(",")}`, { next: { tags: ["comments"], revalidate: Infinity }})
+        let data = await fetch(`${process.env.DATA_URL}/comments?${(slug ? `slug=${slug}` : "")}&${(options?.contentType ? `content_type=${options.contentType}` : "")}&${(options?.limit ? `limit=${options.limit}` : "")}&${(options?.sort ? `sort=${options.sort}` : "")}&${(options?.page ? `page=${options.page}` : "")}`, { next: { tags: ["comments"], revalidate: Infinity } })
         try {
             let json = await data.json()
             return json;
-        } catch(e) {
+        } catch (e) {
             console.error(e)
         }
         return undefined
-    } catch(e) {
+    } catch (e) {
         console.error(e)
     }
     return undefined;
@@ -130,15 +129,15 @@ export async function fetchComments(slug: string, options: QueryOptions) {
 
 export async function fetchComment(id: string) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/comment/${id}`, { next: { tags: ["comment"], revalidate: Infinity }})
+        let data = await fetch(`${process.env.DATA_URL}/comment/${id}`, { next: { tags: ["comment"], revalidate: Infinity } })
         try {
             let json = await data.json()
             return json;
-        } catch(e) {
+        } catch (e) {
             console.error(e)
         }
         return undefined
-    } catch(e) {
+    } catch (e) {
         console.error(e)
     }
     return undefined;
@@ -156,7 +155,7 @@ export async function updateComment(comment: IComment, jwt: string = "") {
             cache: 'no-store'
         })
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
 }
@@ -171,24 +170,24 @@ export async function deleteComment(id: string, jwt: string = "") {
             cache: 'no-store'
         })
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
 }
 
 export async function getCreator(handle: string) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: 216000 }})
+        let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: 216000 } })
         try {
-            if(data.status === 200) {
+            if (data.status === 200) {
                 let json = await data.json()
                 return json;
             }
-        } catch(e) {
+        } catch (e) {
             console.error(e)
         }
         return undefined
-    } catch(e) {
+    } catch (e) {
         console.error(e)
     }
     return undefined;
@@ -200,11 +199,11 @@ export async function getLeaderboard(contentType: ContentTypes, slug: string) {
         try {
             let json = await data.json()
             return json as Leaderboard;
-        } catch(e) {
+        } catch (e) {
             console.error(e)
         }
         return undefined
-    } catch(e) {
+    } catch (e) {
         console.error(e)
     }
     return undefined;
@@ -226,7 +225,7 @@ export async function submitLeaderboard(contentType: ContentTypes, slug: string,
             cache: 'no-store'
         })
     }
-    catch(e) {
+    catch (e) {
         console.error(e);
     }
 }

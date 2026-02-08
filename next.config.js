@@ -95,8 +95,9 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'www.youtube.com'
-      }
+      },
     ],
+    minimumCacheTTL: 9999999
   },
   reactStrictMode: false
 }

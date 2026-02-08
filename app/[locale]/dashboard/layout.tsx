@@ -25,6 +25,7 @@ export default async function Layout(props: {params: Promise<{locale: string}>, 
                 <Link className="flex flex-row gap-2 items-center py-3 md:px-5 px-2 hover:bg-white/20 hover:border-t-white/20 hover:border-b-black/20 border-2 border-transparent" href="/dashboard/datapacks"><Package /> {t('datapack', {count : 2})}</Link>
                 <Link className="flex flex-row gap-2 items-center py-3 md:px-5 px-2 hover:bg-white/20 hover:border-t-white/20 hover:border-b-black/20 border-2 border-transparent" href="/dashboard/resourcepacks"><Layers /> {t('resourcepack', {count : 2})}</Link>
                 <Link className="flex flex-row gap-2 items-center py-3 md:px-5 px-2 hover:bg-white/20 hover:border-t-white/20 hover:border-b-black/20 border-2 border-transparent" href="/dashboard/notifications"><Bell /> {t('notification', {count : 2})}</Link>
+
             </nav>
             <div className={styles.dashboard_content}>{children}</div>
         </div>
