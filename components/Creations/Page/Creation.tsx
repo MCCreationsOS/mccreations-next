@@ -141,7 +141,7 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                         <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(description) }}>
 
                         </div>
-                        {creation.images && creation.images.length > 1 && <div className="mt-5">
+                        {creation.images && creation.images.length > 1 && <div className="mt- max-w-5xl">
                             <Carousel plugins={[Autoplay({ delay: 4000 })]}>
                                 <CarouselContent>
                                     {creation.images.slice(1, creation.images.length).map(image => <CarouselItem key={image}>
