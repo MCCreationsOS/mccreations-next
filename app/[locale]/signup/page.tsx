@@ -100,7 +100,6 @@ export default function SignUp() {
                 <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><Image src="/icons/google.png" alt="Google" width={20} height={20} /> <span>{t('Pages.SignUp.Providers.google')}</span></Button>
                 <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><Image src="/icons/discord.svg" alt="Discord" width={20} height={20} /> <span>{t('Pages.SignUp.Providers.discord')}</span></Button>
                 <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><Image src="/icons/github.svg" alt="Github" width={20} height={20} /> <span>{t('Pages.SignUp.Providers.github')}</span></Button>
-                <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithMicrosoft}><Image src="/icons/microsoft.svg" alt="Microsoft" width={20} height={20} /> <span>{t('Pages.SignUp.Providers.microsoft')}</span></Button>
             </div>
             <h2 className="text-2xl font-bold mb-2">{t('Pages.SignUp.title')}</h2>
             <form onSubmit={(e) => {e.preventDefault(); form.handleSubmit()}} className="flex flex-col gap-2">
