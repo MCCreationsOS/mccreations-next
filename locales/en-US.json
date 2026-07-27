@@ -174,7 +174,28 @@
             "actions": "Actions",
             "edit": "Edit",
             "view": "View",
-            "delete": "Delete"
+            "delete": "Delete",
+            "Files": {
+                "title": "Files",
+                "name": "Name",
+                "filename": "Filename",
+                "type": "Type",
+                "mimetype": "MIME Type",
+                "user": "User",
+                "download": "Download",
+                "filter": "Filter",
+                "clear_filter": "Clear",
+                "user_filter": "Filter by user ID",
+                "no_files": "No files found",
+                "edit_title": "Edit File Metadata",
+                "save": "Save",
+                "cancel": "Cancel",
+                "saved": "File updated",
+                "save_failed": "Failed to update file",
+                "delete_confirm": "Click delete again to confirm. This is permanent!",
+                "deleted": "File deleted",
+                "delete_failed": "Failed to delete file"
+            }
         },
         "Datapacks": {
             "slug": {

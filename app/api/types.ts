@@ -266,6 +266,23 @@ export interface FilePreview {
     name: string
 }
 
+export interface IFileRecord {
+    _id: string,
+    filename: string,
+    name: string,
+    mimetype: string,
+    type: string,
+    location?: string,
+    user?: string,
+    createdDate?: number,
+}
+
+export interface FileListOptions {
+    limit?: number,
+    page?: number,
+    user?: string,
+}
+
 export interface Tags {
     genre: string[],
     subgenre: string[],
