@@ -45,6 +45,7 @@ const nextConfig = {
     LOGGING_URL: 'https://api2.mccreations.net/bamboo/v1'
   },
   images: {
+    qualities: [50, 75],
     remotePatterns: [
       {
         protocol: 'http',
