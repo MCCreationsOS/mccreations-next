@@ -7,7 +7,7 @@
  *
  */
 
-export function setDomHiddenUntilFound(dom: HTMLElement): void {
+export function setDomHiddenUntilFound(dom: any): void {
     dom.hidden = 'until-found';
   }
   
