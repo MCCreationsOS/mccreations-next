@@ -6,8 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "export": "next export",
-    "start": "next start",
-    "test": "jest"
+    "start": "next start"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.633.0",
@@ -90,7 +89,6 @@
     "autoprefixer": "^10.0.1",
     "eslint": "^8.57.1",
     "eslint-config-next": "15.4.6",
-    "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8",
     "tailwindcss": "^4.1.4",
     "typescript": "^5"
