@@ -73,22 +73,22 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
     queryOptions = formatQueryOptions(queryOptions);
     try {
         let p1 = fetch(`${process.env.DATA_URL}/creations?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creators=${queryOptions.creators?.join(",")}`, {
-            cache: "no-cache",
             method: 'GET',
             headers: {
                 authorization: token + ""
-            }
+            },
+            next: { tags: ["creations"], revalidate: 3600}
         })
         let p2: Promise<Response> | undefined;
         if(filterQuery) {
             filterQuery = formatQueryOptions(filterQuery);
             // console.log(filterQuery)
             p2 = fetch(`${process.env.DATA_URL}/creations?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}&creators=${filterQuery.creators?.join(",")}`, {
-                cache: "no-cache",
                 method: 'GET',
                 headers: {
                     authorization: token + ""
-                }
+                },
+                next: { tags: ["creations"], revalidate: 3600}
             })
         }
         let responses = await Promise.all([p1, p2])
