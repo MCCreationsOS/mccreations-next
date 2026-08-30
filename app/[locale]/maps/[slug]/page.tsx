@@ -6,8 +6,6 @@ import { sendLog } from '@/app/api/logging';
 import Creation from '@/components/Creations/Page/Creation';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 
-export const dynamic = 'force-dynamic'
-
 export async function generateMetadata(props: { params: Promise<{locale: string, slug: string}> }, parent: ResolvingMetadata): Promise<Metadata> {
     const params = await props.params;
     // fetch data
