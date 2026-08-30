@@ -3,7 +3,6 @@ import Footer from "@/components/Footer/Footer";
 import { Metadata } from "next";
 import Loading from "./loading";
 import { getTranslations } from "next-intl/server";
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata({params}: {params: Promise<{locale: string}>}) {
     const {locale} = await params;
