@@ -7,7 +7,7 @@ import { CollectionNames, IContentDoc, SortOptions } from "@/app/api/types";
 // }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    let content = await searchContent({contentType: CollectionNames.Maps, status: 2, sort: SortOptions.Newest, limit: 50000}, false)
+    let content = await searchContent({contentType: CollectionNames.Maps, status: 2, sort: SortOptions.Newest, limit: 300}, false)
     return content.documents.map((doc: IContentDoc) => {
         // console.log(`Generating sitemap for ${doc.slug}`)
         return {

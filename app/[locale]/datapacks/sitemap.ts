@@ -7,7 +7,7 @@ import { CollectionNames, IContentDoc, SortOptions } from "@/app/api/types";
 // }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    let content = await searchContent({contentType: CollectionNames.Datapacks, status: 2, sort: SortOptions.Newest, limit: 50000, page: 0}, false)
+    let content = await searchContent({contentType: CollectionNames.Datapacks, status: 2, sort: SortOptions.Newest, limit: 300, page: 0}, false)
     return content.documents.map((doc: IContentDoc) => {
         return {
             url: `https://mccreations.net/en-US/datapacks/${doc.slug}`,
