@@ -1,7 +1,6 @@
 
 import { searchContent } from "@/app/api/content";
-import { CollectionNames, QueryOptions, SortOptions } from "../api/types";
-import { AdsenseComponent } from "@/components/AdUnits/InContent";
+import { SortOptions } from "../api/types";
 import { getTranslations } from "next-intl/server";
 import { Layers, Map, Package } from "lucide-react";
 import { Link } from "@/i18n/navigation";
@@ -17,12 +16,6 @@ export default async function Page(props: { params: Promise<{ locale: string }> 
     } = params;
 
     const t = await getTranslations({ locale: locale });
-    let dynamicPlaylists: { name: string, id: string, options: QueryOptions }[] = [{
-        name: 'updated_content',
-        id: "updated_content",
-        options: { contentType: 'content', status: 2, sort: SortOptions.Updated, limit: 19 }
-    }]
-    dynamicPlaylists.sort(() => Math.random() - 0.5)
 
     const featured = (await searchContent({ contentType: "content", status: 2, limit: 15, sort: SortOptions.Newest, }, false)).documents.sort((a, b) => b.downloads - a.downloads).slice(0, 5)
     return (

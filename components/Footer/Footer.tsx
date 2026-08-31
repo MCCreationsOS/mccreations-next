@@ -10,7 +10,6 @@ import Image from "next/image";
 export default async function Footer({params}: {params: Promise<{locale: string}>}) {
     const {locale} = await params;
     const t = await getTranslations({locale: locale})
-    const splash = Math.floor(Math.random() * 9) + 1
     return (
         <>
             <footer className="border-t-2 border-white/5">
@@ -18,7 +17,7 @@ export default async function Footer({params}: {params: Promise<{locale: string}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 p-5 max-w-6xl mx-auto">
                         <div className="flex flex-col gap-2">
                             <h2 className="text-xl sm:text-2xl font-brand flex flex-row gap-2 items-center"><Image src="/mcc_more_scaffold_cube.png" alt={t('brand')} width={30} height={30} /> {t('brand')}</h2>
-                            <p className="text-sm sm:text-base">{t(`Components.Footer.Splashes.${splash}`)}</p>
+                            <p className="text-sm sm:text-base">{t(`Components.Footer.Splashes.1`)}</p>
                             <p className="text-sm sm:text-base">{t.rich('Components.Footer.open_source', {link: (chunks) => <Link href="https://github.com/MCCreationsOS">{chunks}</Link>})}</p>
                             <Link href={'https://blog.mccreations.net'}><Button><span>{t('Components.Footer.updates')}</span></Button></Link>
                         </div>
