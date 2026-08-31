@@ -9,15 +9,12 @@ import type {
   
   import {LinkNode} from '@lexical/link';
   import {AutoFocusPlugin} from '@lexical/react/LexicalAutoFocusPlugin';
-  import {useCollaborationContext} from '@lexical/react/LexicalCollaborationContext';
-  import {CollaborationPlugin} from '@lexical/react/LexicalCollaborationPlugin';
   import {useLexicalComposerContext} from '@lexical/react/LexicalComposerContext';
   import {HistoryPlugin} from '@lexical/react/LexicalHistoryPlugin';
   import {LexicalNestedComposer} from '@lexical/react/LexicalNestedComposer';
   import { RichTextPlugin } from '@lexical/react/LexicalRichTextPlugin';
   import { ContentEditable } from '@lexical/react/LexicalContentEditable';
   import {useLexicalNodeSelection} from '@lexical/react/useLexicalNodeSelection';
-  import LexicalErrorBoundary from '@lexical/react/LexicalErrorBoundary';
   import {mergeRegister} from '@lexical/utils';
   import {
     $getNodeByKey,
@@ -153,7 +150,6 @@ function ErrorBoundary({children, onError}: {children: React.ReactNode, onError:
     const [isSelected, setSelected, clearSelection] =
       useLexicalNodeSelection(nodeKey);
     const [isResizing, setIsResizing] = useState<boolean>(false);
-    const {isCollabActive} = useCollaborationContext();
     const [editor] = useLexicalComposerContext();
     const [selection, setSelection] = useState<BaseSelection | null>(null);
     const activeEditorRef = useRef<LexicalEditor | null>(null);
