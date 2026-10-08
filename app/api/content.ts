@@ -77,7 +77,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
             headers: {
                 authorization: token + ""
             },
-            next: { tags: ["creations"], revalidate: 3600}
+            next: { tags: ["creations"], revalidate: 86400}
         })
         let p2: Promise<Response> | undefined;
         if(filterQuery) {
@@ -88,7 +88,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
                 headers: {
                     authorization: token + ""
                 },
-                next: { tags: ["creations"], revalidate: 3600}
+                next: { tags: ["creations"], revalidate: 86400}
             })
         }
         let responses = await Promise.all([p1, p2])
@@ -118,7 +118,7 @@ export async function getFeed(token: string | null, limit: number, page: number)
             headers: {
                 authorization: token + ""
             },
-            next: { tags: ["feed"], revalidate: 3600 }
+            next: { tags: ["feed"], revalidate: 86400 }
         })
         if(response.status === 401) {
             return {
@@ -143,7 +143,7 @@ export async function getFeed(token: string | null, limit: number, page: number)
 export async function fetchMap(slug: string, token?: string) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/creations/maps/${slug}`, { 
-            next: { tags: [slug], revalidate: 3600 },
+            next: { tags: [slug], revalidate: 86400 },
             headers: {
                 authorization: token + ""
             }
@@ -167,7 +167,7 @@ export async function fetchMap(slug: string, token?: string) {
 export async function fetchDatapack(slug: string, token?: string) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/creations/datapacks/${slug}`, { 
-            next: { tags: [slug], revalidate: 3600 },
+            next: { tags: [slug], revalidate: 86400 },
             headers: {
                 authorization: token + ""
             }
@@ -191,7 +191,7 @@ export async function fetchDatapack(slug: string, token?: string) {
 export async function fetchResourcepack(slug: string, token?: string) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/creations/resourcepacks/${slug}`, { 
-            next: { tags: [slug], revalidate: 3600 },
+            next: { tags: [slug], revalidate: 86400 },
             headers: {
                 authorization: token + ""
             }
@@ -210,7 +210,7 @@ export async function fetchResourcepack(slug: string, token?: string) {
 export async function fetchMarketplaceItem(slug: string, token?: string) {
     try {
         let response = await fetch(`${process.env.DATA_URL}/creations/marketplace/${slug}`, {
-            next: { tags: [slug], revalidate: 3600 },
+            next: { tags: [slug], revalidate: 86400 },
             headers: {
                 authorization: token + ""
             }

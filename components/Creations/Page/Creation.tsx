@@ -2,11 +2,9 @@
 
 import { IContentDoc, CollectionNames, } from "@/app/api/types";
 import Image from 'next/image'
-import { Car, Download, EllipsisVertical } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { makeSentenceCase, formatRating } from "@/app/api/utils";
-import { convertToType, downloadCreation } from "@/app/api/content";
-import { Button } from "@/components/ui/button";
+import { formatRating } from "@/app/api/utils";
+import { convertToType } from "@/app/api/content";
 import { Badge } from "@/components/ui/badge";
 import { useTags } from "@/app/api/hooks/creations";
 import CreatorCard from "@/components/Creator/CreatorCard";
@@ -17,14 +15,9 @@ import RecommendedCreations from "./RecommendedCreations";
 import Comments from "./Comments";
 import { getCookie, setCookie } from "@/app/setCookies";
 import { postRating } from "@/app/api/community";
-import { useCallback } from "react";
 import DownloadButton from "@/components/ui/client_buttons/DownloadButton";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import TranslationForm from "./CreationOptions";
 import CreationOptions from "./CreationOptions";
 import { Link } from "@/i18n/navigation";
-
-export const dynamic = 'force-dynamic'
 
 /**
  * The map component represents all the information displayed on a map page
