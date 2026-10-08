@@ -399,6 +399,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
                                     <VersionManager
+                                        forWhat={creation.slug}
                                         collectionName={collectionName}
                                         presetVersions={JSON.stringify(creation.files)}
                                         onVersionsChanged={(files) => {
@@ -413,6 +414,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
                                     <ImageDropzone
+                                        forWhat={creation.slug}
                                         onImagesUploaded={(images) => {
                                             field.handleChange(images.map((image) => image.url));
                                         }}

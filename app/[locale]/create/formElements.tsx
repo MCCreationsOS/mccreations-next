@@ -57,6 +57,7 @@ export function Files({ handleNext }: { handleNext: () => void }) {
         <>
             <VersionManager
                 collectionName={collectionName}
+                forWhat={creation.slug ?? creation._id}
                 presetVersions={JSON.stringify(creation.files)}
                 onVersionsChanged={saveVersionsForm}
             />
@@ -104,6 +105,7 @@ export function Images({ handleNext }: { handleNext: () => void }) {
     return (
         <div className="flex flex-col gap-4 ">
             <ImageDropzone
+                forWhat={creation.slug ?? creation._id}
                 onImagesUploaded={saveImagesForm}
                 presetFiles={JSON.stringify(
                     creation?.images?.map((image) => {

@@ -10,7 +10,7 @@ import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
-const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
+const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: string, presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
     const [file, setFile] = useState<string>("")
     const [rejected, setRejected] = useState<FileRejection[]>([])
     const {token} = useToken();
@@ -18,7 +18,7 @@ const FileDropzone = ({ onFilesUploaded, presetFile }: { presetImage?: string, o
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
-            upload(acceptedFiles, token).then(uploadedFiles => {
+            upload(acceptedFiles, token, forWhat).then(uploadedFiles => {
                 if(uploadedFiles) {
                     uploadedFiles.forEach(uploadedFile => {
                         // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', { file: uploadedFile.name })))

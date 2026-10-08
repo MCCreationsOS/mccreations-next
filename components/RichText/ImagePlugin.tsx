@@ -110,7 +110,7 @@ export function InsertImageUploadedDialogBody({
     }} className='flex flex-col gap-2'>
       <form.Field name="src" children={(field) => (
         <>
-          <ImageDropzone onImagesUploaded={(f) => {field.handleChange(f[0].url)}} allowMultiple={false}/>
+          <ImageDropzone forWhat={"comment"} onImagesUploaded={(f) => {field.handleChange(f[0].url)}} allowMultiple={false}/>
         </>
       )}/>
       <form.Field name="altText" children={(field) => (

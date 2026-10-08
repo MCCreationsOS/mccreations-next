@@ -30,7 +30,7 @@ export interface UploadedImageRepresentation {
  * @param allowMultiple Whether or not the dropzone should allow multiple images to be uploaded
  * @param presetFiles The preset files to display
  */
-const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFiles }: { presetImage?: string, onImagesUploaded(files: UploadedImageRepresentation[]) : void, allowMultiple: boolean, presetFiles?: string }) => {
+const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, presetFiles }: { forWhat: string, presetImage?: string, onImagesUploaded(files: UploadedImageRepresentation[]) : void, allowMultiple: boolean, presetFiles?: string }) => {
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     // Reject files are collected, although not technically displayed
     const [rejected, setRejected] = useState<FileRejection[]>([])
@@ -39,7 +39,7 @@ const ImageDropzone = ({ presetImage, onImagesUploaded, allowMultiple, presetFil
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
-            upload(acceptedFiles, token).then(uploadedFiles => {
+            upload(acceptedFiles, token, forWhat).then(uploadedFiles => {
                 if(files) {
                     files.forEach(uploadedFile => {
                         toast.success(t('Components.Dropzone.uploaded', {file: uploadedFile.name}))

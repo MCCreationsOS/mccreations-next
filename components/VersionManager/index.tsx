@@ -7,8 +7,8 @@ export interface VersionUploaderProps {
     name: string,
     value?: string,
     description?: string,
+    forWhat: string,
     onChange?: (value: string) => void
-
 }
 
 export default function VersionUploader(props: VersionUploaderProps) {
@@ -18,7 +18,7 @@ export default function VersionUploader(props: VersionUploaderProps) {
         <div className={'field '}>
             <h3 className="label">{props.name}</h3>
             <p className="">{props.description}</p>
-            <FileDropzone onFilesUploaded={(f) => {setValue(f)}} presetFile={props.value}/>
+            <FileDropzone forWhat={props.forWhat} onFilesUploaded={(f) => {setValue(f)}} presetFile={props.value}/>
             <input type="hidden" value={value} />
         </div>
     )

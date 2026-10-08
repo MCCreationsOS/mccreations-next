@@ -15,7 +15,7 @@ import { Label } from "../ui/label"
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover"
 import { getMinecraftVersions } from "@/app/api/minecraftVersions"
 
-export default function VersionManager({ onVersionsChanged, collectionName, presetVersions }: { onVersionsChanged: (versions: string) => void, collectionName: CollectionNames, presetVersions?: string }) {
+export default function VersionManager({ onVersionsChanged, collectionName, forWhat, presetVersions }: { onVersionsChanged: (versions: string) => void, collectionName: CollectionNames, forWhat: string, presetVersions?: string }) {
     const [versions, setVersions] = useState<IFile[]>([])
     const [renderVersion, setRenderVersion] = useState<IFile>()
     const [idx, setIdx] = useState(0)
@@ -197,7 +197,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, pres
                             }}>
                                 <uploadForm.Field name="url" children={(field) => (
                                     <>
-                                        <FileDropzone onFilesUploaded={field.handleChange} />
+                                        <FileDropzone forWhat={forWhat} onFilesUploaded={field.handleChange} />
                                     </>
                                 )} listeners={{
                                     onChange: (e) => {

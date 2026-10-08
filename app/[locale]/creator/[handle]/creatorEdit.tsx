@@ -54,7 +54,7 @@ export function EditProfileImages({params}: {params: {handle: string}}) {
                         <form.Field name="banner" children={(field) => (
                             <>
                                 <Label htmlFor={field.name} className="text-md font-medium">{t("banner")}</Label>
-                                <ImageDropzone onImagesUploaded={(files) => {
+                                <ImageDropzone forWhat={user?.handle ?? ""} onImagesUploaded={(files) => {
                                     field.handleChange(files[0].url)
                                 }} allowMultiple={false} presetImage={field.state.value}/>
                             </>
@@ -62,7 +62,7 @@ export function EditProfileImages({params}: {params: {handle: string}}) {
                         <form.Field name="icon" children={(field) => (
                             <>
                                 <Label htmlFor={field.name} className="text-md font-medium">{t("icon")}</Label>
-                                <ImageDropzone onImagesUploaded={(files) => {
+                                <ImageDropzone forWhat={user?.handle ?? ""} onImagesUploaded={(files) => {
                                     field.handleChange(files[0].url)
                                 }} allowMultiple={false} presetImage={field.state.value}/>
                             </>
