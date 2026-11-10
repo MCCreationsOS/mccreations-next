@@ -62,6 +62,26 @@ export function formatQueryOptions(queryOptions: QueryOptions) {
 }
 
 /**
+ * Build the /creations query string. Everything goes through URLSearchParams so user input
+ * (search terms like "R&D", "C#", "A+B") is encoded instead of breaking the request.
+ */
+function buildCreationsQuery(q: QueryOptions, count: boolean) {
+    return new URLSearchParams({
+        contentType: String(q.contentType),
+        status: String(q.status),
+        limit: String(q.limit),
+        page: String(q.page),
+        sort: String(q.sort),
+        search: q.search ?? "",
+        sendCount: String(count),
+        exclusiveStatus: String(q.exclusiveStatus),
+        includeTags: q.includeTags ?? "",
+        excludeTags: q.excludeTags ?? "",
+        creators: q.creators?.join(",") ?? ""
+    }).toString()
+}
+
+/**
  * Search for content based on a query
  * @param queryOptions The query options to send to the API
  * @param count Return the count of maps found rather than the actual maps. Used for pagination. For performance reasons
@@ -72,7 +92,7 @@ export function formatQueryOptions(queryOptions: QueryOptions) {
 export async function searchContent(queryOptions: QueryOptions, count: boolean, filterQuery?: QueryOptions, token?: string | null): Promise<{documents: IContentDoc[], totalCount: number}> {
     queryOptions = formatQueryOptions(queryOptions);
     try {
-        let p1 = fetch(`${process.env.DATA_URL}/creations?contentType=${queryOptions.contentType}&status=${queryOptions.status}&limit=${queryOptions.limit}&page=${queryOptions.page}&sort=${queryOptions.sort}&search=${queryOptions.search}&sendCount=${count}&exclusiveStatus=${queryOptions.exclusiveStatus}&includeTags=${queryOptions.includeTags}&excludeTags=${queryOptions.excludeTags}&creators=${queryOptions.creators?.join(",")}`, {
+        let p1 = fetch(`${process.env.DATA_URL}/creations?${buildCreationsQuery(queryOptions, count)}`, {
             method: 'GET',
             headers: {
                 authorization: token + ""
@@ -83,7 +103,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
         if(filterQuery) {
             filterQuery = formatQueryOptions(filterQuery);
             // console.log(filterQuery)
-            p2 = fetch(`${process.env.DATA_URL}/creations?contentType=${filterQuery.contentType}&status=${filterQuery.status}&limit=${filterQuery.limit}&page=${filterQuery.page}&sort=${filterQuery.sort}&search=${filterQuery.search}&sendCount=${count}&exclusiveStatus=${filterQuery.exclusiveStatus}&includeTags=${filterQuery.includeTags}&excludeTags=${filterQuery.excludeTags}&creators=${filterQuery.creators?.join(",")}`, {
+            p2 = fetch(`${process.env.DATA_URL}/creations?${buildCreationsQuery(filterQuery, count)}`, {
                 method: 'GET',
                 headers: {
                     authorization: token + ""
@@ -416,17 +436,28 @@ export async function deleteContent(slug: string, token: string | null, contentT
 }
 
 export async function requestApproval(slug: string, collectionName: CollectionNames, token: string | null) {
+    let res: Response
     try {
-        await fetch(`${process.env.DATA_URL}/creations/${slug}/request_approval?type=${collectionName}`, {
+        res = await fetch(`${process.env.DATA_URL}/creations/${slug}/request_approval?type=${collectionName}`, {
             method: 'GET',
             headers: {
                 'Authorization': token + ""
             }
         })
-        return;
     } catch(e) {
         throw {
-            error: e
+            error: String(e)
+        }
+    }
+    // Surface API failures (e.g. 401) to the caller instead of reporting success
+    if(!res.ok) {
+        let message = `Request failed (${res.status})`
+        try {
+            const data = await res.json()
+            if(data?.error) message = data.error
+        } catch(e) {}
+        throw {
+            error: message
         }
     }
 }

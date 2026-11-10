@@ -1,31 +1,55 @@
 "use client"
 
-import { CollectionNames, SortOptions, StatusOptions, StatusStrings, TagCategories, TagKeys, Tags } from "@/app/api/types";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import styles from './SearchBar.module.css'
+import { SortOptions, StatusOptions, TagCategories, TagKeys } from "@/app/api/types";
+import { useEffect, useRef, useState } from "react";
 import {useTranslations} from 'next-intl';
 import { useGridView } from "@/app/api/hooks/grids";
 import { Button } from "@/components/ui/button";
 import { Filter, Grid, List, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { statusLabelKey, useSearchFilters } from "./useSearchFilters";
+
+const SEARCH_DEBOUNCE_MS = 400
 
 export default function SearchAndFilter({searchParams, tags}: {searchParams: { [key: string]: string | number }, tags: {[key: string]: string[]}}) {
     const [filtering, setFiltering] = useState(false);
-    
-    const [search, setSearch] = useState(searchParams.search as string)
-    const [sort, setSort] = useState<SortOptions>(searchParams.sort as SortOptions)
-    const [status, setStatus] = useState(searchParams.status ? Number.parseInt(searchParams.status as string) : StatusOptions.Unapproved)
-    
-    const [includeTags, setIncludeTags] = useState<string[]>([])
-    const [excludeTags, setExcludeTags] = useState<string[]>([])
+    const { filters, setFilters, toggleTag, clearFilters } = useSearchFilters(searchParams)
+    const { search, sort, status, includeTags, excludeTags } = filters
+
+    // The input is edited locally and written to the URL after a short pause (or on Enter / the search button),
+    // instead of re-rendering the page and adding a history entry on every keystroke
+    const [searchInput, setSearchInput] = useState(search)
+    const lastSentSearch = useRef(search)
+    const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
     const {gridView, setGridView} = useGridView()
-    
-    const router = useRouter();
     const t = useTranslations()
+
+    // Pick up searches that change from outside this input (back/forward, clear filters)
+    useEffect(() => {
+        if (search !== lastSentSearch.current) {
+            lastSentSearch.current = search
+            setSearchInput(search)
+        }
+    }, [search])
+
+    useEffect(() => {
+        if (searchInput === lastSentSearch.current) return
+        debounceTimer.current = setTimeout(() => {
+            lastSentSearch.current = searchInput
+            setFilters({ search: searchInput }, "replace")
+        }, SEARCH_DEBOUNCE_MS)
+        return () => {
+            if (debounceTimer.current) clearTimeout(debounceTimer.current)
+        }
+    }, [searchInput, setFilters])
+
+    const submitSearch = () => {
+        if (debounceTimer.current) clearTimeout(debounceTimer.current)
+        lastSentSearch.current = searchInput
+        setFilters({ search: searchInput })
+    }
 
     let tag_dropdown_names: {[key: string]: string} = {
         genre: t('Components.Creations.Search.TagDropdown.any'),
@@ -62,25 +86,17 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
         })
     }
 
-    const performSearch = () => {
-        const params = new URLSearchParams(window.location.search)
-        params.set("search", search)
-        params.set("sort", sort)
-        params.set("status", status.toString())
-        params.set("includeTags", includeTags.join(","))
-        params.set("excludeTags", excludeTags.join(","))
-        router.push(`?${params.toString()}`)
-    }
-
-    useEffect(() => {
-        performSearch()
-    }, [search, sort, status, includeTags, excludeTags])
+    const sortOptions = [
+        SortOptions.Newest, SortOptions.Oldest, SortOptions.Updated, SortOptions.HighestRated, SortOptions.LowestRated,
+        SortOptions.HighestDownloads, SortOptions.LowestDownloads, SortOptions.TitleAscending, SortOptions.TitleDescending,
+        SortOptions.CreatorAscending, SortOptions.CreatorDescending
+    ]
 
     return (
         <div className="w-full max-w-screen-md mx-auto p-2">
                 <div className="flex flex-row gap-2 w-full mb-2">
-                    <Input type="text" placeholder={t('Components.Creations.Search.search_placeholder')} className="w-full" defaultValue={(search) ? search : ""} onChange={(e) => {setSearch(e.target.value)}} onKeyDown={(e) => (e.key === "Enter") ? performSearch() : false}></Input>
-                    <Button onClick={()=>{performSearch()}}><Search /></Button>
+                    <Input type="text" placeholder={t('Components.Creations.Search.search_placeholder')} className="w-full" value={searchInput} onChange={(e) => {setSearchInput(e.target.value)}} onKeyDown={(e) => { if (e.key === "Enter") submitSearch() }}></Input>
+                    <Button onClick={submitSearch}><Search /></Button>
                     <Button className="filter md:hidden" onClick={() => {setFiltering(!filtering)}}><Filter /></Button>
                     {/* <BulkDownloadButton /> */}
                     <Button variant="secondary" onClick={() => {setGridView(gridView === "grid" ? "list" : "grid")}}>{(gridView === "grid") ? <List /> : <Grid />}</Button>
@@ -92,17 +108,9 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                             <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{t(`Components.Creations.Search.Sort.${sort}`)}</span></Button></DropdownMenuTrigger>
                             <DropdownMenuContent >
                                 <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.newest')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.Oldest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.oldest')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.Updated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.updated')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.HighestRated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.highest_rated')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.LowestRated)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.lowest_rated')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.HighestDownloads)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.highest_downloads')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.LowestDownloads)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.lowest_downloads')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.TitleAscending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.title_ascending')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.TitleDescending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.title_descending')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorAscending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.creator_ascending')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.CreatorDescending)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.creator_descending')}</Button></DropdownMenuItem>
+                                    {sortOptions.map((option) => (
+                                        <DropdownMenuItem key={option} onSelect={() => setFilters({ sort: option })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t(`Components.Creations.Search.Sort.${option}`)}</Button></DropdownMenuItem>
+                                    ))}
                                 </div>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -110,17 +118,17 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                     <div>
                         <DropdownMenu>
                             <DropdownMenuLabel>{t('Components.Creations.Search.status')}</DropdownMenuLabel>
-                            <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{t(`Components.Creations.Search.Status.${(StatusOptions[status] === "Unapproved") ? "unapproved" : (StatusOptions[status] === "Approved") ? "approved" : "featured"}`)}</span></Button></DropdownMenuTrigger>
+                            <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{t(`Components.Creations.Search.Status.${statusLabelKey(status)}`)}</span></Button></DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                                    <DropdownMenuItem onClick={() => setStatus(StatusOptions.Unapproved)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.unapproved')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setStatus(StatusOptions.Approved)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.approved')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setStatus(StatusOptions.Featured)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.featured')}</Button></DropdownMenuItem>
+                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Unapproved })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.unapproved')}</Button></DropdownMenuItem>
+                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Approved })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.approved')}</Button></DropdownMenuItem>
+                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Featured })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.featured')}</Button></DropdownMenuItem>
                                 </div>
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
-                    {tags && Object.keys(tags).map((category, idx) => {
+                    {tags && Object.keys(tags).map((category) => {
                         return (
                             <div key={category}>
                                 <DropdownMenu>
@@ -128,21 +136,8 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                                     <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{tag_dropdown_names[category]}</span></Button></DropdownMenuTrigger>
                                     <DropdownMenuContent>
                                         <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                                            {tags[category].map((tag) => <DropdownMenuItem key={tag} onClick={() => {
-                                                if(includeTags.includes(tag)) {
-                                                    setIncludeTags(prev => prev.filter((t) => t != tag))
-                                                    setExcludeTags(prev => [...prev, tag])
-                                                }
-                                            }} className="p-0"><Button onClick={() => {
-                                                if(includeTags.includes(tag)) {
-                                                    setIncludeTags(prev => prev.filter((t) => t != tag))
-                                                    setExcludeTags(prev => [...prev, tag])
-                                                } else if(excludeTags.includes(tag)) {
-                                                    setExcludeTags(prev => prev.filter((t) => t != tag))
-                                                } else {
-                                                    setIncludeTags(prev => [...prev, tag])
-                                                }
-                                            }} variant="ghost" className="m-0 p-1 h-full w-full">{t(`Components.Creations.Tags.${tag as TagKeys}`)}</Button></DropdownMenuItem>)}
+                                            {/* One handler per item (previously the item and the inner button both toggled, double-applying the change) */}
+                                            {tags[category].map((tag) => <DropdownMenuItem key={tag} onSelect={() => toggleTag(tag)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t(`Components.Creations.Tags.${tag as TagKeys}`)}</Button></DropdownMenuItem>)}
                                         </div>
                                     </DropdownMenuContent>
                                 </DropdownMenu>
@@ -150,7 +145,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                         )
                     })}
                     <div className="clear_filters">
-                        <Button variant="destructive" onClick={() => {setSearch(""); setSort(SortOptions.Newest); setStatus(StatusOptions.Unapproved); setExcludeTags([]); setIncludeTags([])}}><span className="w-31">{t('Components.Creations.Search.clear_filters')}</span></Button>
+                        <Button variant="destructive" onClick={clearFilters}><span className="w-31">{t('Components.Creations.Search.clear_filters')}</span></Button>
                     </div>
             </div>
         </div>

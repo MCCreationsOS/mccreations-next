@@ -74,6 +74,7 @@ interface ReplyProps {
 function CommentForm(props: CommentProps | ReplyProps) {
     const t = useTranslations()
     const {user} = useUser()
+    const {token} = useToken()
     const richTextResetRef = useRef<{ reset: () => void }>(null)
     
     const form = useForm({
@@ -84,7 +85,7 @@ function CommentForm(props: CommentProps | ReplyProps) {
         },
         onSubmit: async (data) => {
             if ('content_type' in props) {
-                const newComment = await postComment(props.creation.slug, props.content_type, data.value.username, data.value.comment, user?.handle || '', data.value.rating)
+                const newComment = await postComment(props.creation.slug, props.content_type, data.value.username, data.value.comment, user?.handle || '', data.value.rating, token)
                 
                 // Add the new comment to the list immediately
                 if (newComment && props.comments && props.setComments) {
@@ -94,14 +95,15 @@ function CommentForm(props: CommentProps | ReplyProps) {
                     props.setComments(updatedComments);
                 }
                 
-                let cookie = await getCookie("RATED_" + props.creation._id)
+                // Only submit a rating if the commenter actually picked stars (0 means "no rating")
+                let cookie = data.value.rating > 0 ? await getCookie("RATED_" + props.creation._id) : "skip"
                 if(!cookie) {
                     await postRating(data.value.rating, props.creation);
                     setCookie("RATED_" + props.creation._id, "true")
                 }
             }
             else {
-                const newReply = await postReply(props.comment_id, data.value.username, data.value.comment, user?.handle || '')
+                const newReply = await postReply(props.comment_id, data.value.username, data.value.comment, user?.handle || '', token)
                 
                 // Add the new reply to the appropriate comment
                 if (newReply && props.comments && props.setComments) {

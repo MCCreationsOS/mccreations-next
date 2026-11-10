@@ -9,8 +9,10 @@ export async function getUser(authorization?: string) {
                 },
                 cache: 'no-store'
             })
+            // An expired or invalid token returns {error}; don't treat that as a user
+            if(!res.ok) return undefined
             let data = await res.json();
-            if(data) {
+            if(data && !data.error && data._id) {
                 return data as IUser;
             }
         } catch(e) {

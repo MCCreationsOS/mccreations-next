@@ -33,12 +33,14 @@ export async function postRating(rating: number, map: IContentDoc) {
  * @param comment The actual comment
  * @param account The UID of the poster of the comment
  */
-export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string, rating?: number): Promise<IComment | undefined> {
+export async function postComment(slug: string, content_type: string, username: string, comment: string, handle?: string, rating?: number, jwt?: string): Promise<IComment | undefined> {
     try {
         const response = await fetch(`${process.env.DATA_URL}/comment`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                // Optional: lets the API confirm the handle belongs to the signed-in user
+                ...(jwt ? { 'Authorization': jwt } : {})
             },
             body: JSON.stringify({
                 username: username,
@@ -65,12 +67,13 @@ export async function postComment(slug: string, content_type: string, username: 
     return undefined;
 }
 
-export async function postReply(comment_id: string, username: string, reply: string, handle: string): Promise<IComment | undefined> {
+export async function postReply(comment_id: string, username: string, reply: string, handle: string, jwt?: string): Promise<IComment | undefined> {
     try {
-        const response = await fetch(`${process.env.DATA_URL}/comment/${comment_id}/reply`, {
+        const response = await fetch(`${process.env.DATA_URL}/comment/${encodeURIComponent(comment_id)}/reply`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                ...(jwt ? { 'Authorization': jwt } : {})
             },
             body: JSON.stringify({
                 comment_id: comment_id,
@@ -113,7 +116,13 @@ export async function likeComment(comment_id: string, jwt: string = "") {
 
 export async function fetchComments(slug?: string, options?: { page?: number, contentType?: string, limit?: number, sort?: SortOptions }) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/comments?${(slug ? `slug=${slug}` : "")}&${(options?.contentType ? `content_type=${options.contentType}` : "")}&${(options?.limit ? `limit=${options.limit}` : "")}&${(options?.sort ? `sort=${options.sort}` : "")}&${(options?.page ? `page=${options.page}` : "")}`, { next: { tags: ["comments"], revalidate: Infinity } })
+        const params = new URLSearchParams()
+        if (slug) params.set("slug", slug)
+        if (options?.contentType) params.set("content_type", options.contentType)
+        if (options?.limit) params.set("limit", String(options.limit))
+        if (options?.sort) params.set("sort", options.sort)
+        if (options?.page) params.set("page", String(options.page))
+        let data = await fetch(`${process.env.DATA_URL}/comments?${params}`, { next: { tags: ["comments"], revalidate: Infinity } })
         try {
             let json = await data.json()
             return json;

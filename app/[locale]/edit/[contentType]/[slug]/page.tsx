@@ -433,7 +433,9 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <span>{t("Pages.Edit.contentType.slug.General.save")}</span>
                             </Button>
                             {creation.status === 0 && <Button type="submit" className="w-fit" onClick={() => {
-                                requestApproval(creation.slug, collectionName, token);
+                                requestApproval(creation.slug, collectionName, token).catch((e) => {
+                                    toast.error(e.error);
+                                });
                             }}>
                                 <span>{t("Pages.Edit.contentType.slug.General.request_approval")}</span>
                             </Button>}

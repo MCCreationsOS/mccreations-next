@@ -131,6 +131,8 @@ export function Required() {
 
 export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
     const { token } = useToken();
+    // Set through the hook (not sessionStorage directly) so every useTokenOrKey() on the page sees the key
+    const [, setTempKey] = useSessionStorage<string>("temp_key", "", { serializer: (value) => value, deserializer: (value) => value });
     const [creation, setCreation] = useSessionStorage<IContentDoc>(
         "tempCreation",
         createEmptyCreation()
@@ -187,8 +189,8 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
                     toast(key.error);
                     return;
                 }
-                if (key && "key" in key) {
-                    sessionStorage.setItem("temp_key", key.key);
+                if (key && "key" in key && key.key) {
+                    setTempKey(key.key);
                 }
                 setCreation({ ...creation, ...key.creation });
                 handleNext();

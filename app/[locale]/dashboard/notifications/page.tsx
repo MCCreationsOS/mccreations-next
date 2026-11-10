@@ -3,6 +3,7 @@
 import { readAllNotifications, readNotification } from "@/app/api/auth";
 import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 import { useNotifications } from "@/app/api/hooks/notifications";
 import { mutate } from "swr";
@@ -14,16 +15,18 @@ import { Link } from "@/i18n/navigation";
 
 export default function Notifications() {
     const page = parseInt(useSearchParams().get("page") ?? "0")
-    const {user} = useUser()
+    const {user, isLoading} = useUser()
     const {token} = useToken()
     const router = useRouter()
     const t = useTranslations()
     const {notifications, total} = useNotifications(page)
 
     
-    if(!user || user?._id === "") {
-        router.push("/signin")
-    }
+    useEffect(() => {
+        if(!isLoading && (!user || user._id === "")) {
+            router.push("/signin?redirect=dashboard/notifications")
+        }
+    }, [isLoading, user])
 
     const readAll = () => {
         mutate(notifications?.map(notification => ({...notification, read: true})) || [])

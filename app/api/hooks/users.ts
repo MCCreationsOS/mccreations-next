@@ -51,13 +51,23 @@ export const useUser = (alwaysSecure: boolean = false) => {
     }
 
     if(token) {
-        if(data && data._id !== "") {
-            // setStoredUser(data)
+        if(data && data._id && data._id !== "") {
             return {
                 user: data as IUser,
                 setUser,
-                isLoading: isLoading || false,
+                isLoading: false,
                 error: error || undefined
+            }
+        }
+
+        // There is a token but the user hasn't been fetched yet. Report that as loading so pages
+        // don't treat a signed-in user as signed out (and redirect them) while the request is in flight.
+        if(isLoading) {
+            return {
+                user: undefined,
+                setUser,
+                isLoading: true,
+                error: undefined
             }
         }
     }

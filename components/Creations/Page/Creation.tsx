@@ -99,13 +99,13 @@ export default function Creation({ creation, collectionName }: { creation: ICont
 
     return (
         <div>
-            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }} />
             <div className="w-full max-h-96 relative">
                 <div className="w-full max-h-96 object-cover object-center hidden md:block">
-                    <Image className="w-full max-h-96 object-cover object-center opacity-20" width={1920} height={1080} src={creation.images[0]} alt={t('Components.Creations.Page.logo_alt', { title: title, type: t(creation.type, { count: 1 }) })}></Image>
+                    <Image className="w-full max-h-96 object-cover object-center opacity-20" width={1920} height={1080} src={creation.images && creation.images.length > 0 ? creation.images[0] : '/defaultBanner.png'} alt={t('Components.Creations.Page.logo_alt', { title: title, type: t(creation.type, { count: 1 }) })}></Image>
                 </div>
                 <div className="w-full h-full object-cover object-center aspect-video z-2 mx-auto md:absolute md:top-5">
-                    <Image className="max-w-xl w-full mx-auto object-cover object-center aspect-video" width={1280} height={720} src={creation.images[0]} alt={t('Components.Creations.Page.logo_alt', { title: title, type: t(creation.type, { count: 1 }) })} priority></Image>
+                    <Image className="max-w-xl w-full mx-auto object-cover object-center aspect-video" width={1280} height={720} src={creation.images && creation.images.length > 0 ? creation.images[0] : '/defaultBanner.png'} alt={t('Components.Creations.Page.logo_alt', { title: title, type: t(creation.type, { count: 1 }) })} priority></Image>
                 </div>
                 <div className="w-full h-8 object-cover object-center aspect-video z-2 hidden md:flex md:absolute md:bottom-[-15px] gap-1 justify-center">
                     {minecraftVersion !== "" && <Badge className="text-md">{minecraftVersion}</Badge>}

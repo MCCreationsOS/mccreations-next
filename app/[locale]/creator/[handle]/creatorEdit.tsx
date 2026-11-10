@@ -27,7 +27,7 @@ export function EditProfileImages({params}: {params: {handle: string}}) {
             icon: user?.iconURL
         },
         onSubmit: async (values) => {
-            await updateProfile(token, values.value.banner, values.value.icon, user?.username, user?.about)
+            await updateProfile(token, values.value.banner, values.value.icon, user?.username, user?.about, user?.customCSS)
             setOpen(false)
             setUser({...user!, bannerURL: values.value.banner, iconURL: values.value.icon})
             form.reset()

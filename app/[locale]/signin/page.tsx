@@ -179,7 +179,7 @@ function SignInBackground() {
         <div className="w-full min-h-[700px] aspect-video relative">
             {creations.map((creation, i) => (
                 <div key={i} className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>
-                    <Image key={i} src={creation.images[0]} alt={creation.title} fill className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 object-cover blur-sm`} />
+                    <Image key={i} src={creation.images && creation.images.length > 0 ? creation.images[0] : '/defaultBanner.png'} alt={creation.title} fill className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 object-cover blur-sm`} />
                     <div className="absolute bottom-0 left-0 bg-black/50 p-4">
                         <h1 className="text-white text-xl font-bold">{creation.title}</h1>
                         <p className="text-sm">By {creation.creators.map((creator) => creator.username).join(", ")}</p>

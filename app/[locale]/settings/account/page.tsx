@@ -91,6 +91,7 @@ export default function AccountPage() {
                 authorization: token!,
                 'Content-Type': 'application/json',
             },
+            // The API only updates the fields that are sent, so the rest of the profile is left alone
             body: JSON.stringify({username: username})
         }).then((res) => {
             res.json().then(data => {

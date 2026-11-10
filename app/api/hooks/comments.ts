@@ -20,7 +20,7 @@ export const useComments = (slug: string, contentType: CollectionNames, sort: So
     return {
         comments: data?.documents as IComment[] | undefined,
         setComments: (comments: IComment[]) => {
-            mutate(['comments', slug, contentType, sort, limit], comments)
+            mutate(['comments', slug, contentType, sort, limit], {documents: comments})
         },
         isLoading,
         error

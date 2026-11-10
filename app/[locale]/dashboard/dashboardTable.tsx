@@ -80,7 +80,7 @@ export default function dashboardTable({ collectionName }: { collectionName: Col
                             <TableCell className="max-w-xl">
                                 <div className="flex flex-row items-center gap-4">
                                     <Suspense fallback={<div className="w-16 h-16 bg-gray-200 rounded-md"></div>}>
-                                        <Image className="aspect-video object-cover" src={creation.images[0]} width={150} height={100} alt={`The logo for ${creation.title}`} />
+                                        <Image className="aspect-video object-cover" src={creation.images && creation.images.length > 0 ? creation.images[0] : '/defaultBanner.png'} width={150} height={100} alt={`The logo for ${creation.title}`} />
                                     </Suspense>
                                     <div className="flex flex-col">
                                         <Link href={`/edit/${collectionName.toLowerCase()}/${creation.slug}`}><h2 className="text-md font-bold">{creation.title}</h2></Link>
