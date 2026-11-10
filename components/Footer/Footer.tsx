@@ -19,7 +19,10 @@ export default async function Footer({params}: {params: Promise<{locale: string}
                             <h2 className="text-xl sm:text-2xl font-brand flex flex-row gap-2 items-center"><Image src="/mcc_more_scaffold_cube.png" alt={t('brand')} width={30} height={30} /> {t('brand')}</h2>
                             <p className="text-sm sm:text-base">{t(`Components.Footer.Splashes.1`)}</p>
                             <p className="text-sm sm:text-base">{t.rich('Components.Footer.open_source', {link: (chunks) => <Link href="https://github.com/MCCreationsOS">{chunks}</Link>})}</p>
-                            <Link href={'https://blog.mccreations.net'}><Button><span>{t('Components.Footer.updates')}</span></Button></Link>
+                            <div className="flex flex-row gap-2">
+                                <Link href={'https://blog.mccreations.net'}><Button><span>{t('Components.Footer.updates')}</span></Button></Link>
+                                <Link className="hover:underline text-sm sm:text-base" href={'https://status.mccreations.net'}><span>{t('Components.Footer.status')}</span></Link>
+                            </div>
                         </div>
                         <div>
                             <h2 className="text-lg sm:text-xl font-bold mb-2">{t('Components.Footer.join_community')}</h2>

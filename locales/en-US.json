@@ -846,6 +846,7 @@
         "Footer": {
             "about": "About",
             "contact": "Contact",
+            "status": "Status",
             "discord": "Discord",
             "join_community": "Join the Community",
             "legal_contact": "Legal and Contact",
