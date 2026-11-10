@@ -44,7 +44,11 @@ export function Files({ handleNext }: { handleNext: () => void }) {
         });
 
         updateContent(newCreation, token, collectionName)
-            .then(() => {
+            .then((result) => {
+                if(result.error) {
+                    toast.error(result.error);
+                    return;
+                }
                 setCreation(newCreation);
                 toast.success(t("Pages.Create.Files.saved"));
             })
@@ -93,7 +97,11 @@ export function Images({ handleNext }: { handleNext: () => void }) {
         };
         newCreation.images = files.map((f) => f.url);
         updateContent(newCreation, token, collectionName)
-            .then(() => {
+            .then((result) => {
+                if(result.error) {
+                    toast.error(result.error);
+                    return;
+                }
                 setCreation(newCreation);
                 toast.success(t("Pages.Create.Images.saved"));
             })
@@ -183,19 +191,39 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
                 encodeURIComponent(title!.toLowerCase().replace(/ /g, "-")),
         });
 
-        createNewContent(title!, type!, shortDescription!, token).then(
-            (key) => {
-                if ("error" in key) {
-                    toast(key.error);
-                    return;
+        if(!creation._id) {
+            createNewContent(title!, type!, shortDescription!, token).then(
+                (result) => {
+                    if ("error" in result) {
+                        toast(result.error);
+                        return;
+                    }
+                    if (result && "key" in result && result.key) {
+                        setTempKey(result.key);
+                    }
+                    setCreation({...creation, ...result.creation});
+                    handleNext();
                 }
-                if (key && "key" in key && key.key) {
-                    setTempKey(key.key);
-                }
-                setCreation({ ...creation, ...key.creation });
-                handleNext();
-            }
-        );
+            );
+        } else {
+            updateContent(creation, token, convertToCollection(creation.type))
+                .then((result) => {
+                    console.log(result);
+                    if (result.error) {
+                        toast.error(result.error.toString());
+                        return;
+                    }
+
+                    handleNext();
+
+                    setCreation(creation);
+                    toast.success(t("Pages.Create.Details.saved"));
+                })
+                .catch((e) => {
+                    toast.error(e.error);
+                });
+        }
+
     };
 
     return (
@@ -637,7 +665,10 @@ export function TagInput({
     };
 
     const removeTag = (tag: string) => {
-        setTagInput(tagInput.replace("," + tag, ""));
+        let tags = tagInput.split(",");
+        tags = tags.filter((t) => t !== tag);
+        setTagInput(tags.join(","));
+        onChange(tags.join(","));
     };
 
     return (

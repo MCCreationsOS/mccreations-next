@@ -339,7 +339,7 @@ export async function updateContent(map: IContentDoc, token: string | null, type
     } catch(e) {
         console.error("API fetch error! `updateContent` Is it running?: " + e)
         return {
-            message: e
+            error: e
         }
     }
 }
@@ -347,49 +347,45 @@ export async function updateContent(map: IContentDoc, token: string | null, type
 export function errorCheckContent(content: IContentDoc) {
     let errors: {error: string, field: string}[] = []
 
-    if(!content.title) {
-        errors.push({error: "Content.Warnings.no_title.description", field: "title"})
+    if(!content.title || content.title.length < 3) {
+        errors.push({error: "Pages.Edit.contentType.slug.Warnings.title_too_short.description", field: "title"})
     }
 
     if(!content.creators || content.creators.length === 0) {
-        errors.push({error: "Content.Warnings.no_creators.description", field: "creators"})
+        errors.push({error: "Pages.Edit.contentType.slug.Warnings.creator_too_short.description", field: "creators"})
     }
 
-    if(!content.shortDescription) {
-        errors.push({error: "Content.Warnings.no_short_description.description", field: "shortDescription"})
+    if(!content.shortDescription || content.shortDescription.length < 20) {
+        errors.push({error: "Pages.Edit.contentType.slug.Warnings.short_description_too_short.description", field: "shortDescription"})
     }
 
-    if(content.shortDescription && content.shortDescription.length < 40) {
-        errors.push({error: "Content.Warnings.short_description_too_short.description", field: "shortDescription"})
+    if(content.shortDescription.length > 150) {
+        errors.push({error: "Pages.Edit.contentType.slug.Warnings.short_description_too_long.description", field: "shortDescription"})
     }
 
-    if(!content.description) {
-        errors.push({error: "Content.Warnings.no_description.description", field: "description"})
-    }
-
-    if(content.description && content.description.length < 100) {
-        errors.push({error: "Content.Warnings.description_too_short.description", field: "description"})
+    if(!content.description || content.description.length < 100) {
+        errors.push({error: "Pages.Edit.contentType.slug.Warnings.description_too_short.description", field: "description"})
     }
 
     if(!content.files || content.files.length === 0) {
-        errors.push({error: "Content.Warnings.no_files.description", field: "files"})
+        errors.push({error: "Pages.Edit.contentType.slug.Warnings.files_too_short.description", field: "files"})
     }
 
     if(!content.tags || content.tags.length === 0) {
-        errors.push({error: "Content.Warnings.no_tags.description", field: "tags"})
+        errors.push({error: "Pages.Edit.contentType.slug.Warnings.tags_too_short.description", field: "tags"})
     }
 
     if(!content.images || content.images.length === 0) {
-        errors.push({error: "Content.Warnings.no_images.description", field: "images"})
+        errors.push({error: "Pages.Edit.contentType.slug.Warnings.images_too_short.description", field: "images"})
     }
 
     if(!content.files || content.files.length > 0) {
         if(!content.files || !content.files[0].minecraftVersion) {
-            errors.push({error: "Content.Warnings.no_minecraft_version.description", field: "files.minecraftVersion"})
+            errors.push({error: "Pages.Edit.contentType.slug.Warnings.files_no_minecraft_version.description", field: "files.minecraftVersion"})
         }
 
         if(!content.files || (!content.files[0].worldUrl && !content.files[0].dataUrl && !content.files[0].resourceUrl && !content.files[0].url)) {
-            errors.push({error: "Content.Warnings.no_download_link.description", field: "files.download"})
+            errors.push({error: "Pages.Edit.contentType.slug.Warnings.no_download_link.description", field: "files.download"})
         }
     }
 

@@ -1,7 +1,7 @@
 import { deleteComment, likeComment, postComment, postRating, postReply } from '@/app/api/community'
 import { useComments } from '@/app/api/hooks/comments'
 import { useCreator, useToken, useUser } from '@/app/api/hooks/users'
-import { CollectionNames, IComment, IContentDoc, SortOptions } from '@/app/api/types'
+import { CollectionNames, IComment, IContentDoc, SortOptions, UserTypes } from '@/app/api/types'
 import RichText from '@/components/RichText/RichText'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -138,11 +138,13 @@ function CommentForm(props: CommentProps | ReplyProps) {
                 </>
             )} validators={{
                 onChange: ({value}) => {
-                    (!value) ?
-                    t('Components.Creations.Page.Comments.username_required') :
-                    value.length < 3 ?
-                    t('Components.Creations.Page.Comments.username_too_short') :
-                    undefined
+                    if(!value) {
+                        return t('Components.Creations.Page.Comments.username_required')
+                    }
+                    if(value.length < 3) {
+                        return t('Components.Creations.Page.Comments.username_too_short')
+                    }
+                    return undefined
                 },
                 onSubmit: ({value}) => {
                     if(value.length < 3) {
@@ -220,8 +222,13 @@ export function Comment({comment, setComments, comments, sort}: {
     }
 
     const handleDelete = () => {
-        deleteComment(comment._id!, token)
-        toast.success(t('Components.Creations.Page.Comments.deleted'))
+        deleteComment(comment._id!, token).then(() => {
+            toast.success(t('Components.Creations.Page.Comments.deleted'))
+            setComments?.(comments?.filter((c) => c._id !== comment._id) ?? [])
+        }).catch((error) => {
+            console.error(error)
+            toast.error(t('Components.Creations.Page.Comments.delete_error'))
+        })
     }
 
     return (
@@ -235,9 +242,9 @@ export function Comment({comment, setComments, comments, sort}: {
                         <div dangerouslySetInnerHTML={{__html: comment.comment}} className={`max-w-xl mb-2 ${showMore ? '' : 'line-clamp-4'}`} ref={text}></div>
                         {canShowMore && <div className='text-sm text-muted-foreground cursor-pointer' onClick={() => setShowMore(!showMore)}>{t('Components.Creations.Page.Comments.show_more', {showMore: showMore ? 'less' : 'more'})}</div>}
                         <div className='flex flex-row gap-2'>
-                            <Button variant="ghost" size="icon" className='w-8 h-8 text-muted-foreground' onClick={() => {likeComment(comment._id!)}}>
+                            {/* <Button variant="ghost" size="icon" className='w-8 h-8 text-muted-foreground' onClick={() => {likeComment(comment._id!)}}>
                                 <ThumbsUpIcon className='w-4 h-4' />
-                            </Button>
+                            </Button> */}
                             <Button variant="ghost" size="icon" className='w-8 h-8 text-muted-foreground' onClick={() => setReplying(!replying)}>
                                 <span className='text-sm'>{t('Components.Creations.Page.Comments.reply')}</span>
                             </Button>
@@ -266,7 +273,7 @@ export function Comment({comment, setComments, comments, sort}: {
                                         {t('Components.Creations.Page.Comments.permalink')}
                                     </Button>
                                 </DropdownMenuItem>
-                                {user?.handle === comment.handle && (
+                                {user?.handle === comment.handle || user?.type === UserTypes.Admin && (
                                     <DropdownMenuItem onClick={handleDelete} className="p-0">
                                         <Button variant="ghost"  className="m-0 p-1 h-full w-full">
                                             {t('Components.Creations.Page.Comments.delete')}

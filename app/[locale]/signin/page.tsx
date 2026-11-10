@@ -122,11 +122,13 @@ export default function SignIn() {
                         </>
                     )}  validators={{
                         onChange: ({value}) => {
-                            (!value) ?
-                            t('Pages.SignIn.email_required') :
-                            value.length < 3 ?
-                            t('Pages.SignIn.email_invalid') :
-                            undefined
+                            if(!value) {
+                                return t('Pages.SignIn.email_required')
+                            }
+                            if(value.length < 3) {
+                                return t('Pages.SignIn.email_invalid')
+                            }
+                            return undefined
                         },
                         onSubmit: ({value}) => {
                             if(value.length < 3) {
@@ -141,11 +143,13 @@ export default function SignIn() {
                         </>
                     )}  validators={{
                         onChange: ({value}) => {
-                            (!value) ?
-                            t('Pages.SignIn.password_required') :
-                            value.length < 3 ?
-                            t('Pages.SignIn.password_invalid') :
-                            undefined
+                            if(!value) {
+                                return t('Pages.SignIn.password_required')
+                            }
+                            if(value.length < 3) {
+                                return t('Pages.SignIn.password_invalid')
+                            }
+                            return undefined
                         },
                         onSubmit: ({value}) => {
                             if(value.length < 3) {

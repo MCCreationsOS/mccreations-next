@@ -47,13 +47,6 @@ function Notification({notification} : {notification : INotification}) {
     const {token} = useToken()
     let link = notification.link
 
-    if(link.includes("wall")) {
-        let creator = link.split("/")[2]
-        link = `/creator/${creator}#wall_title`
-    } else {
-        link = link + "#comments_title"
-    }
-
     const handleClick = () => {
         readNotification(token + "", notification._id + "")
     }

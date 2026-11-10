@@ -5,6 +5,7 @@ import { GetStaticPaths, GetStaticProps, Metadata, ResolvingMetadata } from 'nex
 import { sendLog } from '@/app/api/logging';
 import Creation from '@/components/Creations/Page/Creation';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props: { params: Promise<{locale: string, slug: string}> }, parent: ResolvingMetadata): Promise<Metadata> {
     const params = await props.params;
@@ -12,19 +13,21 @@ export async function generateMetadata(props: { params: Promise<{locale: string,
     const map: IContentDoc = await fetchMap(params.slug)
 
     const t = await getTranslations({locale: params.locale})
-    if (!map || typeof map === "string") return {
-        title: t('Pages.Maps.slug.Metadata.not_found_title', { content_type: t('map', {count: 1})}),
-        openGraph: {
+    if (!map || typeof map === "string") {
+        return {
             title: t('Pages.Maps.slug.Metadata.not_found_title', { content_type: t('map', {count: 1})}),
-            description: t('Pages.Maps.slug.Metadata.not_found_description', { content_type: t('map', {count: 1})}),
-            images: [
-                {
-                    url: "https://mccreations.net/images/logo.png"
-                }
-            ],
-            siteName: "MCCreations",
-            type: "article",
-            url: `https://mccreations.net/${params.locale}/maps/${params.slug}`
+            openGraph: {
+                title: t('Pages.Maps.slug.Metadata.not_found_title', { content_type: t('map', {count: 1})}),
+                description: t('Pages.Maps.slug.Metadata.not_found_description', { content_type: t('map', {count: 1})}),
+                images: [
+                    {
+                        url: "https://mccreations.net/images/logo.png"
+                    }
+                ],
+                siteName: "MCCreations",
+                type: "article",
+                url: `https://mccreations.net/${params.locale}/maps/${params.slug}`
+            }
         }
     }
 
@@ -69,13 +72,6 @@ export default async function Page(props: { params: Promise<{locale: string, slu
             <MapWrapper response={map} slug={params.slug} />
         )
     } else {
-        sendLog("Map Page", "")
-        return (
-            <div className='centered_content'>
-
-                <h1>{t('Pages.Maps.slug.Metadata.not_found_title')}</h1>
-                <p>{t('Pages.Maps.slug.Metadata.not_found_description')}</p>
-            </div>
-        )
+        notFound();
     }
 }

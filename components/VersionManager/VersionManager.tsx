@@ -262,7 +262,13 @@ function MinecraftVersionInput({
     };
 
     const removeTag = (tag: string) => {
-        setVersionInput(versionInput.replace("," + tag, ""));
+        let versions = versionInput.split(",");
+        versions = versions.filter((v) => v !== tag);
+        setVersionInput(versions.join(','));
+        onChange(versions.join(','));
+        setSearch("");
+        setBestSuggestion("");
+        setShowSuggestions(false);
     };
 
     return (

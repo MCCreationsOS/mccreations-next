@@ -7,11 +7,8 @@ import { useUser } from '@/app/api/hooks/users';
 import { UserTypes } from '@/app/api/types';
 import CodeEditor from '@/components/RichText/CodeEditor';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Table, TableHead, TableRow, TableHeader, TableBody, TableCell } from "@/components/ui/table";
-import { Input } from "@/components/ui/input";
 import { useTranslations } from "next-intl";
-
-type Language = {[key: string]: string}
+import { updateLanguage } from "@/app/api/translation";
 
 export default function LanguageEditor({englishLanguage, editingLanguage, langKey}: {englishLanguage: string, editingLanguage: string, langKey: string}) {
     const t = useTranslations()
@@ -43,26 +40,8 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
     // const formattedEditingLanguage = getKeys(JSON.parse(editingLanguage))
     
     const saveLanguage = (language: string) => {
-        fetch(`${process.env.DATA_URL}/translation/${langKey}`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(language)
-        }).then(() => {
-            //PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, "Translation successfully sent"))
+        updateLanguage(langKey, language).then(() => {
             toast.success(t("Pages.Translate.lang.saved"))
-        })
-    }
-
-    const approveLanguage = () => {
-        fetch(`${process.env.DATA_URL}/translation/approve/${langKey}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(() => {
-            toast.success(t("Pages.Translate.lang.approved"))
         })
     }
 
@@ -101,11 +80,6 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                             form.reset()
                         }}>{t("Pages.Translate.lang.cancel")}</Button>
                         <Link href={`/translate`}><Button type="button" variant="secondary">{t("Pages.Translate.lang.back")}</Button></Link>
-                        {user?.type === UserTypes.Admin && (
-                            <Button type="button" variant="secondary" onClick={() => {
-                                saveLanguage(form.state.values.language)
-                            }}>{t("Pages.Translate.lang.approve")}</Button>
-                        )}
                     </div>
                 </form>
             </TabsContent>

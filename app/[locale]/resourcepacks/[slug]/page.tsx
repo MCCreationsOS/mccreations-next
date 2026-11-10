@@ -5,6 +5,7 @@ import { Metadata, ResolvingMetadata } from 'next';
 import { sendLog } from '@/app/api/logging';
 import Creation from '@/components/Creations/Page/Creation';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props: { params: Promise<{locale: string, slug: string}> }, parent: ResolvingMetadata): Promise<Metadata> {
     const params = await props.params;
@@ -81,13 +82,6 @@ export default async function Page(props: {params: Promise<{locale: string, slug
             <ResourcepackWrapper response={map} slug={params.slug}/>
         )
     }  else {
-        sendLog("Resourcepack Page", "")
-        return (
-            <div className='centered_content'>
-
-                <h1>{t('Pages.Resourcepacks.slug.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})})}</h1>
-                <p>{t('Pages.Resourcepacks.slug.Metadata.not_found_description', { content_type: t('resourcepack', {count: 1})})}</p>
-            </div>
-        )
+        notFound();
     }
 }

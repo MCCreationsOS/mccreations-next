@@ -3,6 +3,7 @@
 import { CreatorInput, Required, TagInput } from "@/app/[locale]/create/formElements";
 import {
     convertToCollection,
+    errorCheckContent,
     requestApproval,
     updateContent,
 } from "@/app/api/content";
@@ -203,8 +204,8 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
         return new Promise<void>((resolve, reject) => {
             updateContent(newCreation, token, collectionName)
                 .then((result) => {
-                    if (result.error) {
-                        toast.error(result.error.toString());
+                    if (result.message) {
+                        toast.error(result.message);
                         return;
                     }
                     toast.success(t("Pages.Edit.contentType.slug.Messages.translations_saved"));
@@ -433,7 +434,12 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <span>{t("Pages.Edit.contentType.slug.General.save")}</span>
                             </Button>
                             {creation.status === 0 && <Button type="submit" className="w-fit" onClick={() => {
-                                requestApproval(creation.slug, collectionName, token).catch((e) => {
+                                let errors = errorCheckContent(creation);
+                                for(let error of errors) {
+                                    toast.error(error.error);
+                                }
+
+                                errors.length === 0 && requestApproval(creation.slug, collectionName, token).catch((e) => {
                                     toast.error(e.error);
                                 });
                             }}>

@@ -23,7 +23,7 @@ export async function getUser(authorization?: string) {
 
 export async function getCreators(authorization: string): Promise<IUser[] | undefined> {
     try {
-        let res = await fetch(`${process.env.DATA_URL}/auth/user/creators`, {
+        let res = await fetch(`${process.env.DATA_URL}/creators`, {
             headers: {
                 'Authorization': authorization
             }
@@ -163,7 +163,7 @@ export async function updateNotificationSettings(authorization: string, comment:
 }
 
 export async function readNotification(authorization: string, notification: string) {
-    fetch(`${process.env.DATA_URL}/notification/${notification}`, {
+    fetch(`${process.env.DATA_URL}/notifications/${notification}`, {
         method: 'PATCH',
         headers: {
             'Authorization': authorization

@@ -3,10 +3,11 @@
 export default async function upload(files: File[], token: string, forWhat: string): Promise<{type: string, name: string, location: string}[]> {
     return new Promise((resolve, reject) => {
         const formData = new FormData()
-        files.forEach((file, index) => {
+        // forWhat must come before the files: the API streams parts in order and needs it to pick the storage path
+        formData.append('forWhat', forWhat)
+        files.forEach((file) => {
             formData.append(`files`, file)
         })
-        formData.append('forWhat', forWhat)
         const xhr = new XMLHttpRequest()
         xhr.open('POST', `${process.env.DATA_URL}/upload`, true)
         xhr.setRequestHeader('Authorization', token)

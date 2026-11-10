@@ -5,6 +5,7 @@ import { sendLog } from '@/app/api/logging';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import Creation from '@/components/Creations/Page/Creation';
 import { DatapackWrapper } from '@/components/Creations/Page/ContentWrapper';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata(props: { params: Promise<{locale: string, slug: string}> }, parent: ResolvingMetadata): Promise<Metadata> {
     const params = await props.params;
@@ -69,13 +70,6 @@ export default async function Page(props: {params: Promise<{locale: string, slug
             <DatapackWrapper response={map} slug={params.slug}/>
         )
     }  else {
-        sendLog("Datapack Page", "")
-        return (
-            <div className='centered_content'>
-
-                <h1>{t('Pages.Datapacks.slug.Metadata.not_found_title')}</h1>
-                <p>{t('Pages.Datapacks.slug.Metadata.not_found_description')}</p>
-            </div>
-        )
+        notFound();
     }
 }

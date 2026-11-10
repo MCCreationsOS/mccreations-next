@@ -125,7 +125,7 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
     }
 
     const onDragEnd = useCallback((result: DropResult, provided: ResponderProvided) => {
-        if(result.destination?.index) {
+        if(result.destination?.index !== undefined) {
             moveFile(result.source.index, result.destination.index)
         }
       }, []);

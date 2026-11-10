@@ -3,6 +3,7 @@
 import {
     convertToCollection,
     createEmptyCreation,
+    errorCheckContent,
     requestApproval,
 } from "@/app/api/content";
 import {useTokenOrKey } from "@/app/api/hooks/users";
@@ -59,7 +60,12 @@ export default function Page() {
 
     const onFinish = () => {
         if (!creation || "error" in creation) return;
-        requestApproval(creation.slug, collectionName, token)
+        let errors = errorCheckContent(creation);
+        for(let error of errors) {
+            toast.error(t(error.error));
+        }
+
+        errors.length === 0 && requestApproval(creation.slug, collectionName, token)
             .then(() => {
                 setCreation(createEmptyCreation());
                 router.push(`/dashboard`);

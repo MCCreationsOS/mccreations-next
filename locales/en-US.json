@@ -255,7 +255,7 @@
                         },
                         "slug_too_long": {
                             "title": "Slug Too Long",
-                            "description": "The slug must be less than 50 characters long"
+                            "description": "The slug must be less than 150 characters long"
                         },
                         "slug_invalid_characters": {
                             "title": "Slug Invalid Characters",
@@ -271,11 +271,27 @@
                         },
                         "description_too_short": {
                             "title": "Description Too Short",
-                            "description": "The description must be at least 10 characters long"
+                            "description": "The description must be at least 100 characters long"
                         },
                         "tags_too_short": {
                             "title": "Too Few Tags",
                             "description": "The creation must have at least 1 tag"
+                        },
+                        "files_too_short": {
+                            "title": "Too Few Files",
+                            "description": "The creation must have at least 1 file"
+                        },
+                        "images_too_short": {
+                            "title": "Too Few Images",
+                            "description": "The creation must have at least 1 image"
+                        },
+                        "files_no_minecraft_version": {
+                            "title": "No Minecraft Version",
+                            "description": "The creation must have at least one file with a Minecraft version"
+                        },
+                        "no_download_link": {
+                            "title": "No Download Link",
+                            "description": "The creation must have at least one file with a download link"
                         }
                     },
                     "Messages": {

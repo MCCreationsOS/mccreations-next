@@ -162,11 +162,13 @@ export default function SignUp() {
                         if(!m) {
                             return t('Pages.SignUp.password_no_number')
                         }
-                        (!value) ?
-                        t('Pages.SignUp.password_required') :
-                        value.length < 9 ?
-                        t('Pages.SignUp.password_too_short') :
-                        undefined
+                        if(!value) {
+                            return t('Pages.SignUp.password_required')
+                        }
+                        if(value.length < 9) {
+                            return t('Pages.SignUp.password_too_short')
+                        }
+                        return undefined
                     },
                     onSubmit: ({value}) => {
                         if(value.length < 9) {
