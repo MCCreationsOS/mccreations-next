@@ -3,44 +3,57 @@
 import { useCallback, useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import { Plus, UploadCloud, X } from 'lucide-react'
-import upload from '@/app/api/upload'
 import { useTranslations } from 'next-intl'
 import { useToken } from '@/app/api/hooks/users'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { toast } from 'sonner'
 import { Button } from '../ui/button'
+import { Uploader } from '@/app/api/upload'
+import { Progress } from '../ui/progress'
 const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: string, presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
     const [file, setFile] = useState<string>("")
     const [rejected, setRejected] = useState<FileRejection[]>([])
+    const [progress, setProgress] = useState<number>(100)
     const {token} = useToken();
     const t = useTranslations()
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
-            upload(acceptedFiles, token, forWhat).then(uploadedFiles => {
-                if(uploadedFiles) {
-                    uploadedFiles.forEach(uploadedFile => {
-                        // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', { file: uploadedFile.name })))
-                        toast.success(t('Components.Dropzone.uploaded', { file: uploadedFile.name }))
-                        setFile(uploadedFile.location)
-                    })
-                    onFilesUploaded(uploadedFiles.map(file => file.location).join(','))
-                }
-            })
+            const uploader = new Uploader(acceptedFiles, token, forWhat)
+            uploader.onProgress = (progress: number) => {
+                setProgress(progress)
+            }
+            uploader.onComplete = (uploadedFiles: {type: string, name: string, location: string}[]) => {
+                setFile(uploadedFiles[0].location)
+            }
+            uploader.onError = (error: Error) => {
+                toast.error(error.message)
+            }
+            uploader.upload()
+            // upload(acceptedFiles, token, forWhat).then(uploadedFiles => {
+            //     if(uploadedFiles) {
+            //         uploadedFiles.forEach(uploadedFile => {
+            //             // PopupMessage.addMessage(new PopupMessage(PopupMessageType.Alert, t('Form.Shared.uploaded', { file: uploadedFile.name })))
+            //             toast.success(t('Components.Dropzone.uploaded', { file: uploadedFile.name }))
+            //             setFile(uploadedFile.location)
+            //         })
+            //         onFilesUploaded(uploadedFiles.map(file => file.location).join(','))
+            //     }
+            // })
         }
 
         if (rejectedFiles?.length) {
             setRejected(previousFiles => [...previousFiles, ...rejectedFiles])
             rejectedFiles.forEach(file => {
-                let message = file.file.name
+                let message = file.file.name + " - "
                 file.errors.forEach(error => {
                     switch (error.code) {
                         case 'file-invalid-type':
                             toast.error(t('Components.Dropzone.invalid_type', { type: t('Components.Dropzone.FileTypes.zip') }))
                             break;
                         case 'file-too-large':
-                            toast.error(t('Components.Dropzone.file_too_large', { size: '2MB' }))
+                            toast.error(t('Components.Dropzone.file_too_large', { max_size: '2MB' }))
                             break;
                         default:
                             toast.error(t('Components.Dropzone.file_unknown'))
@@ -93,6 +106,7 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
                     <Plus />
                     <p>{t('Components.Dropzone.dropzone')}</p>
                 </div>
+                {progress !== 100 && <Progress value={progress} />}
                 <p>{t('Components.Dropzone.or')}</p>
                 <div className="mt-3 w-full">
                     <Label className="text-sm font-medium">{t('Components.Dropzone.link')}</Label>

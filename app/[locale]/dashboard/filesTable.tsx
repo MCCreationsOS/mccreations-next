@@ -6,9 +6,11 @@ import { useToken, useUser } from "@/app/api/hooks/users"
 import { IFileRecord, UserTypes } from "@/app/api/types"
 import PageNavigator from "@/components/Creations/Search/Navigator"
 import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -25,8 +27,9 @@ import {
 } from "@/components/ui/table"
 import { Download, Edit, Trash } from "lucide-react"
 import { useTranslations } from "next-intl"
+import Image from "next/image"
 import { useRouter, useSearchParams } from "next/navigation"
-import { FormEvent, useState } from "react"
+import { FormEvent, useEffect, useState } from "react"
 import { toast } from "sonner"
 
 export default function FilesTable() {
@@ -42,6 +45,13 @@ export default function FilesTable() {
     const [editingFile, setEditingFile] = useState<IFileRecord | null>(null)
     const [filterInput, setFilterInput] = useState(userFilter)
     const [saving, setSaving] = useState(false)
+    const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
+    const [bulkConfirmOpen, setBulkConfirmOpen] = useState(false)
+    const [bulkDeleting, setBulkDeleting] = useState(false)
+
+    useEffect(() => {
+        setSelectedIds(new Set())
+    }, [page, userFilter])
 
     if (userLoading || isLoading) {
         return <div className="centered_content">{t("Pages.Dashboard.loading")}</div>
@@ -50,6 +60,31 @@ export default function FilesTable() {
     if (!user || user.type !== UserTypes.Admin) {
         router.push("/signin?redirect=dashboard/files")
         return null
+    }
+
+    const fileIds = files?.map((file) => file._id) ?? []
+    const allSelected = fileIds.length > 0 && fileIds.every((id) => selectedIds.has(id))
+    const someSelected = fileIds.some((id) => selectedIds.has(id))
+    const selectedCount = selectedIds.size
+
+    const toggleSelectAll = (checked: boolean) => {
+        if (checked) {
+            setSelectedIds(new Set(fileIds))
+        } else {
+            setSelectedIds(new Set())
+        }
+    }
+
+    const toggleSelect = (id: string, checked: boolean) => {
+        setSelectedIds((prev) => {
+            const next = new Set(prev)
+            if (checked) {
+                next.add(id)
+            } else {
+                next.delete(id)
+            }
+            return next
+        })
     }
 
     const handleDelete = async (file: IFileRecord) => {
@@ -63,9 +98,37 @@ export default function FilesTable() {
         setDeletingId(null)
         if (success) {
             toast.success(t("Pages.Dashboard.Files.deleted"))
+            setSelectedIds((prev) => {
+                const next = new Set(prev)
+                next.delete(file._id)
+                return next
+            })
             refresh()
         } else {
             toast.error(t("Pages.Dashboard.Files.delete_failed"))
+        }
+    }
+
+    const handleBulkDelete = async () => {
+        if (selectedCount === 0) return
+
+        setBulkDeleting(true)
+        const ids = Array.from(selectedIds)
+        const results = await Promise.all(ids.map((id) => deleteFile(id, token)))
+        const deleted = results.filter(Boolean).length
+        setBulkDeleting(false)
+        setBulkConfirmOpen(false)
+
+        if (deleted === ids.length) {
+            toast.success(t("Pages.Dashboard.Files.bulk_deleted", { count: deleted }))
+            setSelectedIds(new Set())
+            refresh()
+        } else if (deleted > 0) {
+            toast.error(t("Pages.Dashboard.Files.bulk_delete_partial", { deleted, total: ids.length }))
+            setSelectedIds(new Set())
+            refresh()
+        } else {
+            toast.error(t("Pages.Dashboard.Files.bulk_delete_failed"))
         }
     }
 
@@ -113,31 +176,50 @@ export default function FilesTable() {
 
     return (
         <>
-            <form onSubmit={handleFilter} className="flex flex-row gap-2 mb-4">
-                <Input
-                    placeholder={t("Pages.Dashboard.Files.user_filter")}
-                    value={filterInput}
-                    onChange={(e) => setFilterInput(e.target.value)}
-                    className="max-w-xs"
-                />
-                <Button type="submit" variant="secondary">{t("Pages.Dashboard.Files.filter")}</Button>
-                {userFilter && (
+            <div className="flex flex-row gap-2 mb-4 flex-wrap items-center">
+                <form onSubmit={handleFilter} className="flex flex-row gap-2 flex-1">
+                    <Input
+                        placeholder={t("Pages.Dashboard.Files.user_filter")}
+                        value={filterInput}
+                        onChange={(e) => setFilterInput(e.target.value)}
+                        className="max-w-xs"
+                    />
+                    <Button type="submit" variant="secondary">{t("Pages.Dashboard.Files.filter")}</Button>
+                    {userFilter && (
+                        <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => {
+                                setFilterInput("")
+                                router.push("?page=0")
+                            }}
+                        >
+                            {t("Pages.Dashboard.Files.clear_filter")}
+                        </Button>
+                    )}
+                </form>
+                {selectedCount > 0 && (
                     <Button
                         type="button"
-                        variant="outline"
-                        onClick={() => {
-                            setFilterInput("")
-                            router.push("?page=0")
-                        }}
+                        variant="destructive"
+                        onClick={() => setBulkConfirmOpen(true)}
                     >
-                        {t("Pages.Dashboard.Files.clear_filter")}
+                        <Trash />
+                        {t("Pages.Dashboard.Files.delete_selected", { count: selectedCount })}
                     </Button>
                 )}
-            </form>
+            </div>
 
             <Table>
                 <TableHeader>
                     <TableRow>
+                        <TableHead className="w-10">
+                            <Checkbox
+                                checked={allSelected ? true : someSelected ? "indeterminate" : false}
+                                onCheckedChange={(checked) => toggleSelectAll(checked === true)}
+                                aria-label={t("Pages.Dashboard.Files.select_all")}
+                            />
+                        </TableHead>
                         <TableHead>{t("Pages.Dashboard.Files.name")}</TableHead>
                         <TableHead>{t("Pages.Dashboard.Files.filename")}</TableHead>
                         <TableHead>{t("Pages.Dashboard.Files.type")}</TableHead>
@@ -149,8 +231,15 @@ export default function FilesTable() {
                 </TableHeader>
                 <TableBody>
                     {files && files.length > 0 ? files.map((file) => (
-                        <TableRow key={file._id}>
-                            <TableCell className="font-medium max-w-[200px] truncate">{file.name}</TableCell>
+                        <TableRow key={file._id} data-state={selectedIds.has(file._id) ? "selected" : undefined}>
+                            <TableCell>
+                                <Checkbox
+                                    checked={selectedIds.has(file._id)}
+                                    onCheckedChange={(checked) => toggleSelect(file._id, checked === true)}
+                                    aria-label={t("Pages.Dashboard.Files.select_file")}
+                                />
+                            </TableCell>
+                            <TableCell className="font-medium max-w-[200px] truncate">{file.mimetype === "image/webp" ? <Image src={file.location ?? ""} alt={file.filename} width={100} height={100} /> : file.name}</TableCell>
                             <TableCell className="max-w-[200px] truncate text-muted-foreground">{file.filename}</TableCell>
                             <TableCell>{file.type}</TableCell>
                             <TableCell className="text-muted-foreground">{file.mimetype}</TableCell>
@@ -181,7 +270,7 @@ export default function FilesTable() {
                         </TableRow>
                     )) : (
                         <TableRow>
-                            <TableCell colSpan={7} className="text-center text-muted-foreground py-8">
+                            <TableCell colSpan={8} className="text-center text-muted-foreground py-8">
                                 {t("Pages.Dashboard.Files.no_files")}
                             </TableCell>
                         </TableRow>
@@ -224,6 +313,37 @@ export default function FilesTable() {
                             </DialogFooter>
                         </form>
                     )}
+                </DialogContent>
+            </Dialog>
+
+            <Dialog open={bulkConfirmOpen} onOpenChange={(open) => !bulkDeleting && setBulkConfirmOpen(open)}>
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>{t("Pages.Dashboard.Files.bulk_delete_title")}</DialogTitle>
+                        <DialogDescription>
+                            {t("Pages.Dashboard.Files.bulk_delete_description", { count: selectedCount })}
+                        </DialogDescription>
+                    </DialogHeader>
+                    <DialogFooter>
+                        <Button
+                            type="button"
+                            variant="outline"
+                            disabled={bulkDeleting}
+                            onClick={() => setBulkConfirmOpen(false)}
+                        >
+                            {t("Pages.Dashboard.Files.cancel")}
+                        </Button>
+                        <Button
+                            type="button"
+                            variant="destructive"
+                            disabled={bulkDeleting}
+                            onClick={handleBulkDelete}
+                        >
+                            {bulkDeleting
+                                ? t("Pages.Dashboard.Files.bulk_deleting")
+                                : t("Pages.Dashboard.Files.bulk_delete_confirm")}
+                        </Button>
+                    </DialogFooter>
                 </DialogContent>
             </Dialog>
         </>

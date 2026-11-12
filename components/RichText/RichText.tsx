@@ -68,7 +68,7 @@ function onError(error: any) {
 }
 
 function ErrorBoundary({children, onError}: {children: React.ReactNode, onError: (error: Error) => void}) {
-  return null
+  return children
 }
 
 /**

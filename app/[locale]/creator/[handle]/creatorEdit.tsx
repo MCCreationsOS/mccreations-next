@@ -39,7 +39,7 @@ export function EditProfileImages({params}: {params: {handle: string}}) {
     return (
         <div className="absolute right-3 top-3">
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger>
+                <DialogTrigger asChild>
                     <Button variant="secondary" type="button"><span>{t("button")}</span></Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -55,7 +55,7 @@ export function EditProfileImages({params}: {params: {handle: string}}) {
                             <>
                                 <Label htmlFor={field.name} className="text-md font-medium">{t("banner")}</Label>
                                 <ImageDropzone forWhat={user?.handle ?? ""} onImagesUploaded={(files) => {
-                                    field.handleChange(files[0].url)
+                                    field.handleChange(files.length > 0 ? files[0].url : "")
                                 }} allowMultiple={false} presetImage={field.state.value}/>
                             </>
                         )}/>
@@ -63,7 +63,7 @@ export function EditProfileImages({params}: {params: {handle: string}}) {
                             <>
                                 <Label htmlFor={field.name} className="text-md font-medium">{t("icon")}</Label>
                                 <ImageDropzone forWhat={user?.handle ?? ""} onImagesUploaded={(files) => {
-                                    field.handleChange(files[0].url)
+                                    field.handleChange(files.length > 0 ? files[0].url : "")
                                 }} allowMultiple={false} presetImage={field.state.value}/>
                             </>
                         )}/>
@@ -102,7 +102,7 @@ export function EditAbout({params}: {params: {handle: string}}) {
     return (
         <div className="mt-2">
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger>
+                <DialogTrigger asChild>
                     <Button variant="secondary" type="button"><span>{t("title")}</span></Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -155,7 +155,7 @@ export function EditSocialLinks({params}: {params: {handle: string}}) {
     return (
         <div className="mt-2">
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger>
+                <DialogTrigger asChild>
                     <Button variant="secondary" type="button"><span>{t("title")}</span></Button>
                 </DialogTrigger>
                 <DialogContent>
@@ -218,7 +218,7 @@ export function EditCustomCss({params}: {params: {handle: string}}) {
     return (
         <div className="mt-2">
             <Dialog open={open} onOpenChange={setOpen}>
-                <DialogTrigger>
+                <DialogTrigger asChild>
                     <Button variant="secondary" type="button"><span>{t("title")}</span></Button>
                 </DialogTrigger>
                 <DialogContent>

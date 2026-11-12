@@ -5,13 +5,14 @@ import Image from 'next/image'
 import { useCallback, useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import { Plus, UploadCloud, X } from 'lucide-react'
-import styles from './ImageDropzone.module.css'
-import upload from '@/app/api/upload'
 import { useTranslations } from 'next-intl'
 import { useToken } from '@/app/api/hooks/users'
 import { toast } from 'sonner'
 import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from '@hello-pangea/dnd'
 import { Button } from '../ui/button'
+import { Uploader } from '@/app/api/upload'
+import { shimmer, toBase64 } from '../skeletons/imageShimmer'
+import { Progress } from '../ui/progress'
 
 /**
  * The representation of an uploaded image
@@ -20,7 +21,9 @@ import { Button } from '../ui/button'
  */
 export interface UploadedImageRepresentation {
     name: string,
-    url: string
+    url?: string,
+    progress: number,
+    uploaded: boolean
 }
 
 /**
@@ -34,46 +37,48 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
     const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
     // Reject files are collected, although not technically displayed
     const [rejected, setRejected] = useState<FileRejection[]>([])
+    const [progress, setProgress] = useState<number>(100)
     const {token} = useToken();
     const t = useTranslations()
 
+    let batch = files.filter(file => file.uploaded === false)
+    if (progress !== 100 && batch.length > 0) batch[Math.floor(progress / (100/batch.length))].progress = (progress * batch.length) % 100
+
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
-            upload(acceptedFiles, token, forWhat).then(uploadedFiles => {
-                if(files) {
-                    files.forEach(uploadedFile => {
-                        toast.success(t('Components.Dropzone.uploaded', {file: uploadedFile.name}))
-                    })
 
-                    if(allowMultiple) {
-                        setFiles(previousFiles => [
-                            ...previousFiles,
-                            ...uploadedFiles.map(file =>
-                                {return { url: file.location, name: file.name }}
-                            )
-                        ])
-                    } else {
-                        setFiles([
-                            ...uploadedFiles.map(file =>
-                                {return { url: file.location, name: file.name }}
-                            )
-                        ])
-                    }
+            const uploader = new Uploader(acceptedFiles, token, forWhat)
+            setFiles(previousFiles => [...previousFiles, ...acceptedFiles.map(file => ({name: file.name, progress: 0, uploaded: false}))])
+            uploader.onProgress = (progress: number) => {
+                setProgress(progress)
+            }
+            uploader.onComplete = (uploadedFiles: {type: string, name: string, location: string}[]) => {
+                if(allowMultiple) {
+                    setFiles(previousFiles => [
+                        ...previousFiles.filter(file => file.uploaded === true),
+                        ...uploadedFiles.map(file => ({name: file.name, url: file.location, progress: 100, uploaded: true}))
+                    ])
+                } else {
+                    setFiles([{name: uploadedFiles[0].name, url: uploadedFiles[0].location, progress: 100, uploaded: true}])
                 }
-            })
+            }
+            uploader.onError = (error: Error) => {
+                toast.error(error.message)
+            }
+            uploader.upload()
         }
 
         if (rejectedFiles?.length) {
             setRejected(previousFiles => [...previousFiles, ...rejectedFiles])
             rejectedFiles.forEach(file => {
-                let message = file.file.name
+                let message = file.file.name + " - "
                 file.errors.forEach(error => {
                     switch (error.code) {
                         case 'file-invalid-type':
                             message += t('Components.Dropzone.invalid_type', { type: t('Components.Dropzone.FileTypes.image') });
                             break;
                         case 'file-too-large':
-                            message += t('Components.Dropzone.file_too_large', { size: '2MB' });
+                            message += t('Components.Dropzone.file_too_large', { max_size: '2MB' });
                             break;
                         default:
                             message += t('Components.Dropzone.file_unknown');
@@ -102,12 +107,12 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
             }
         }
         if(presetImage) {
-            setFiles([{url: presetImage, name: presetImage}])
+            setFiles([{url: presetImage, name: presetImage, progress: 100, uploaded: true}])
         }
     }, [])
 
     useEffect(() => {
-        onImagesUploaded(files.map(file => ({url: file.url, name: file.name})));
+        onImagesUploaded(files.map(file => ({url: file.url, name: file.name, progress: file.progress, uploaded: file.uploaded})));
     }, [files])
 
     const removeFile = (name: string) => {
@@ -140,11 +145,10 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
 
     return (
         <div className='flex flex-col md:flex-row gap-4 w-[100%] overflow-auto'>
-            <form>
-                <div {...getRootProps()} className='max-w-[300px] h-[150px] w-fit min-w-[150px] mx-auto'>
+                <div {...getRootProps()} className='max-w-[300px] h-[150px] w-fit min-w-[150px] mx-auto relative'>
                     <input {...getInputProps({ name: 'file' })} />
                     <div className="max-w-[300px] h-[150px] w-fit min-w-[150px] relative group">
-                        <Image className="object-cover hover:opacity-50 max-w-[300px] h-[150px] w-fit" src={(files[files.length - 1] && files[files.length - 1].url) ? files[files.length - 1].url : "/defaultBanner.png"} width={1920} height={1080} alt=''></Image>
+                        {!allowMultiple && files.length === 1 && <Image className="object-cover hover:opacity-50 max-w-[300px] h-[150px] w-fit" src={files[0].url ? files[0].url : "/defaultBanner.png"} width={1920} height={1080} alt=''></Image>}
                         <div className="absolute top-0 left-0 w-full h-full flex flex-col items-center justify-center bg-black/50 p-4">
                             <UploadCloud></UploadCloud>
                             {isDragActive ? (
@@ -154,8 +158,8 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
                             )}
                         </div>
                     </div>
+                    {!allowMultiple && progress !== 100 && <Progress value={progress} className="absolute bottom-0 left-0 w-full"    />}
                 </div>
-            </form>
             {(allowMultiple) ?
              <DragDropContext onDragEnd={onDragEnd}>
                 <Droppable droppableId="droppable" direction="horizontal">
@@ -166,7 +170,8 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
                                     <Draggable key={`image-${file.name.substring(file.name.lastIndexOf('/') + 1, file.name.length - 4)}`} draggableId={`image-${file.name.substring(file.name.lastIndexOf('/') + 1, file.name.length - 4)}`} index={idx}>
                                         {(provided, snapshot) => (
                                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
-                                                <GalleryImage url={file.url} name={file.name} removeFile={removeFile} />
+                                                <GalleryImage url={file.url ? file.url : `data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} name={file.name} removeFile={removeFile} />
+                                                {file.progress !== 100 && <Progress value={file.progress} />}
                                             </div>
                                         )}
                                     </Draggable>

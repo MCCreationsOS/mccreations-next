@@ -194,7 +194,17 @@
                 "save_failed": "Failed to update file",
                 "delete_confirm": "Click delete again to confirm. This is permanent!",
                 "deleted": "File deleted",
-                "delete_failed": "Failed to delete file"
+                "delete_failed": "Failed to delete file",
+                "select_all": "Select all",
+                "select_file": "Select file",
+                "delete_selected": "Delete selected ({count})",
+                "bulk_delete_title": "Delete selected files?",
+                "bulk_delete_description": "This will permanently delete {count, plural, one {# file} other {# files}}. This cannot be undone.",
+                "bulk_delete_confirm": "Delete",
+                "bulk_deleted": "{count, plural, one {# file} other {# files}} deleted",
+                "bulk_delete_partial": "Deleted {deleted} of {total} files",
+                "bulk_delete_failed": "Failed to delete selected files",
+                "bulk_deleting": "Deleting..."
             }
         },
         "Datapacks": {

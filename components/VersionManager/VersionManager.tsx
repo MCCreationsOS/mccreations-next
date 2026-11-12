@@ -185,7 +185,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, forW
                 </div>
                 <div>
                     <Dialog open={addVersionDialogOpen} onOpenChange={setAddVersionDialogOpen}>
-                        <DialogTrigger><Button variant="secondary" type="button"><span>{t('Components.VersionManager.add_version')}</span></Button></DialogTrigger>
+                        <DialogTrigger asChild><Button variant="secondary" type="button"><span>{t('Components.VersionManager.add_version')}</span></Button></DialogTrigger>
                         <DialogContent>
                             <DialogHeader>
                                 <DialogTitle>{t('Components.VersionManager.add_version')}</DialogTitle>

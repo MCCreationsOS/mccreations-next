@@ -414,14 +414,15 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             name="images"
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
+                                    <Label className="mb-2">{t('Pages.Edit.contentType.slug.General.images')}</Label>
                                     <ImageDropzone
                                         forWhat={creation.slug}
                                         onImagesUploaded={(images) => {
-                                            field.handleChange(images.map((image) => image.url));
+                                            field.handleChange(images.filter(image => image.url).map((image) => image.url!));
                                         }}
                                         presetFiles={JSON.stringify(
                                             creation?.images?.map((image) => {
-                                                return { url: image, name: image };
+                                                return { url: image, name: image, uploaded: true, progress: 100 };
                                             })
                                         )}
                                         allowMultiple={true}
