@@ -12,12 +12,16 @@
         "Auth": {
             "OAuth_Handler": {
                 "error": "There was an error communicating with our API. Please report this with the link above",
-                "loading": "Signing you in!"
+                "loading": "Signing you in!",
+                "linked": "Account linked",
+                "state_mismatch": "That sign-in link has expired or wasn't started here. Please try again."
             }
         },
         "Comments": {
             "_id": {
-                "loading": "Loading Comment..."
+                "loading": "Loading Comment...",
+                "not_found": "This comment doesn't exist or has been removed.",
+                "view_creation": "View the creation"
             }
         },
         "Creator": {
@@ -41,13 +45,18 @@
                         "add": "Add Social Link",
                         "remove": "Remove",
                         "save": "Save",
-                        "cancel": "Cancel"
+                        "cancel": "Cancel",
+                        "name": "Name",
+                        "link": "Link"
                     },
                     "EditCustomCss": {
                         "title": "Edit Custom CSS",
                         "save": "Save",
-                        "cancel": "Cancel"
-                    }
+                        "cancel": "Cancel",
+                        "description": "Your CSS only applies to your profile area on this page."
+                    },
+                    "saved": "Profile saved",
+                    "save_error": "Couldn't save your profile"
                 },
                 "Metadata": {
                     "title": "{username} - Minecraft Creator",
@@ -61,7 +70,8 @@
                         "minecraft_map": "Minecraft Map",
                         "minecraft_datapack": "Minecraft Data Pack",
                         "minecraft_resourcepack": "Minecraft Resource Pack",
-                        "minecraft_creations": "Minecraft Creations"
+                        "minecraft_creations": "Minecraft Creations",
+                        "minecraft_version": "Minecraft {minecraft_version}"
                     }
                 },
                 "banner": "{username}'s Banner",
@@ -70,7 +80,11 @@
                 "about": "About",
                 "no_creations": "This creator hasn't published any {content_type} yet.",
                 "follow": "Follow",
-                "unfollow": "Unfollow"
+                "unfollow": "Unfollow",
+                "show_more": "Show more",
+                "followed": "Following {handle}",
+                "unfollowed": "Unfollowed {handle}",
+                "follow_error": "Couldn't update follow status"
             }
         },
         "Content": {
@@ -154,15 +168,27 @@
             "Images": {
                 "title": "Images",
                 "saved": "Images saved successfully"
-            }
+            },
+            "submitted": "Submitted for approval! You can follow its status in your dashboard."
         },
         "Dashboard": {
             "title": "Dashboard",
             "Notifications": {
                 "read_all": "Mark all as read",
-                "no_notifications": "No notifications yet!"
+                "no_notifications": "No notifications yet!",
+                "read_all_failed": "Couldn't mark notifications as read"
             },
             "delete_creation": "Click again to delete this creation. This is permanent!",
+            "deleted": "Creation deleted",
+            "delete_failed": "Failed to delete creation",
+            "delete_selected": "Delete selected ({count})",
+            "bulk_delete_title": "Delete selected creations?",
+            "bulk_delete_description": "This will permanently delete {count, plural, one {# creation} other {# creations}}. This cannot be undone.",
+            "bulk_delete_confirm": "Delete",
+            "bulk_deleted": "{count, plural, one {# creation} other {# creations}} deleted",
+            "bulk_delete_partial": "Deleted {deleted} of {total} creations",
+            "bulk_delete_failed": "Failed to delete selected creations",
+            "bulk_deleting": "Deleting...",
             "loading": "Loading...",
             "info": "Info",
             "status": "Status",
@@ -204,7 +230,24 @@
                 "bulk_deleted": "{count, plural, one {# file} other {# files}} deleted",
                 "bulk_delete_partial": "Deleted {deleted} of {total} files",
                 "bulk_delete_failed": "Failed to delete selected files",
-                "bulk_deleting": "Deleting..."
+                "bulk_deleting": "Deleting...",
+                "admin_only": "Only admins can view uploaded files."
+            },
+            "Status": {
+                "0": "Draft",
+                "1": "Awaiting approval",
+                "2": "Approved",
+                "3": "Featured"
+            },
+            "approve": "Approve",
+            "approved": "Creation approved",
+            "approve_failed": "Failed to approve creation",
+            "sign_in_prompt": "Sign in to see and manage your creations.",
+            "sign_in": "Sign in",
+            "empty": "Nothing here yet.",
+            "logo_alt": "The logo for {title}",
+            "Comments": {
+                "empty": "No comments yet."
             }
         },
         "Datapacks": {
@@ -306,7 +349,8 @@
                     },
                     "Messages": {
                         "translations_saved": "Translations saved successfully",
-                        "general_saved": "Creation saved successfully"
+                        "general_saved": "Creation saved successfully",
+                        "approval_requested": "Approval requested"
                     },
                     "General": {
                         "tab_title": "General",
@@ -329,13 +373,21 @@
                         "select_language": "Select a Language",
                         "approved": "Approved",
                         "save": "Save"
-                    }
+                    },
+                    "not_found": "This creation doesn't exist, or you don't have permission to edit it.",
+                    "loading": "Loading..."
                 }
             }
         },
         "Feed": {
             "not_found_title": "No Feed Found",
-            "not_found_description": "Sign in and subscribe to creators to see your feed!"
+            "not_found_description": "Sign in and subscribe to creators to see your feed!",
+            "loading": "Loading your feed...",
+            "sign_in_title": "Sign in to see your feed",
+            "sign_in_description": "Follow creators and their newest creations will show up here.",
+            "sign_in": "Sign in",
+            "empty_title": "Nothing here yet",
+            "empty_description": "Follow some creators and their newest creations will show up here."
         },
         "Leaderboards": {
             "contentType": {
@@ -414,15 +466,17 @@
             "button": "Go to Home"
         },
         "ResetPassword": {
-            "token_error": "No token found, returning to previous page",
+            "token_error": "This reset link is missing its token. Request a new one from the sign-in page.",
             "new_password": "New Password",
             "retype_password": "Retype Password",
-            "password_length": "Password must be 10 or more characters",
+            "password_length": "Password must be at least 9 characters",
             "password_number": "Password must include at least one number",
             "passwords_not_same": "Passwords are not the same",
             "password_required": "Password is required",
             "reset": "Reset",
-            "title": "Reset Password"
+            "title": "Reset Password",
+            "success": "Password reset. You can now sign in with your new password",
+            "request_new": "Request a new reset link"
         },
         "Resourcepacks": {
             "slug": {
@@ -486,7 +540,12 @@
                 "new_username": "New Username",
                 "new_handle": "New Handle",
                 "new_email": "New Email",
-                "new_password": "New Password"
+                "new_password": "New Password",
+                "current_password": "Current Password",
+                "current_password_hint": "Leave blank if you only sign in with Discord, Google, GitHub or Microsoft",
+                "password_updated_sign_in": "Password updated. Please sign in again with your new password",
+                "password_too_short": "Password must be at least 9 characters",
+                "no_changes": "Nothing to change"
             },
             "Notifications": {
                 "title": "Notification Settings",
@@ -504,7 +563,10 @@
                 "rating": "New Creation Ratings",
                 "install_ios_instructions": "To use push notifications on iOS, tap the <icon></icon> share button and then \"Add to Home Screen\".",
                 "add_to_this_device": "Subscribe to Push Notifications Here",
-                "follow": "Following Posts"
+                "follow": "Following Posts",
+                "saved": "Notification settings saved",
+                "save_error": "Couldn't save your notification settings",
+                "push_error": "Couldn't turn on push notifications for this device"
             },
             "title": "Settings",
             "account_menu_item": "Account",
@@ -516,7 +578,9 @@
                 "title": "Reset Password",
                 "email": "Email",
                 "email_placeholder": "steve@minecraft.net",
-                "send_reset_email": "Send Reset Email"
+                "send_reset_email": "Send Reset Email",
+                "sent": "If an account uses that email, we've sent it a link to reset your password.",
+                "error": "Couldn't send the reset email. Please try again."
             },
             "Metadata": {
                 "title": "Sign In",
@@ -541,7 +605,7 @@
             "email_invalid": "Email is not a valid email address",
             "password_required": "Password is required",
             "password_invalid": "Password is not a valid password",
-            "password_too_short": "Password must be 10 or more characters",
+            "password_too_short": "Password must be at least 9 characters",
             "button": "Sign In",
             "no_account": "Don't have an account?",
             "forgot_password": "Forgot your password?",
@@ -550,7 +614,9 @@
                 "github": "Github",
                 "google": "Google",
                 "microsoft": "Microsoft"
-            }
+            },
+            "by": "By {creators}",
+            "password_placeholder": "Password"
         },
         "SignUp": {
             "Metadata": {
@@ -578,7 +644,7 @@
             "email_required": "Email is required",
             "password_required": "Password is required",
             "password_no_number": "Password must include at least one number",
-            "password_too_short": "Password must be 10 or more characters",
+            "password_too_short": "Password must be at least 9 characters",
             "button": "Sign Up",
             "providers": "Sign up with...",
             "title": "Sign Up",
@@ -589,7 +655,9 @@
                 "github": "Github",
                 "google": "Google",
                 "microsoft": "Microsoft"
-            }
+            },
+            "password_placeholder": "Password",
+            "success": "Welcome to MCCreations, {username}!"
         },
         "Translate": {
             "title": "Translate",
@@ -613,7 +681,9 @@
                 "back": "Back",
                 "key": "Key",
                 "english": "English",
-                "translation": "Translation"
+                "translation": "Translation",
+                "invalid_json": "The translation isn't valid JSON. Check for a missing comma or quote.",
+                "save_error": "Couldn't save the translation"
             },
             "Metadata": {
                 "title": "Translate",
@@ -684,7 +754,14 @@
                     "permalink": "Copy comment permalink",
                     "permalink_copied": "Comment permalink copied to clipboard",
                     "delete": "Delete comment",
-                    "deleted": "Comment deleted successfully"
+                    "deleted": "Comment deleted successfully",
+                    "posted": "Comment posted",
+                    "post_error": "Couldn't post your comment",
+                    "posting_as": "Posting as {username}",
+                    "load_more": "Load more comments",
+                    "delete_error": "Couldn't delete the comment",
+                    "expand": "Show more",
+                    "collapse": "Show less"
                 },
                 "CreationOptions": {
                     "button": "Options",
@@ -697,7 +774,10 @@
                     "shortDescription": "Short Description",
                     "description": "Description",
                     "submit": "Submit",
-                    "cancel": "Cancel"
+                    "cancel": "Cancel",
+                    "submitted": "Thanks! Your translation was sent to the creator for review.",
+                    "saved": "Translation saved",
+                    "error": "Couldn't send your translation"
                 },
                 "Sidebar": {
                     "downloads": "Downloads",
@@ -709,13 +789,21 @@
                     "2": "2 Stars",
                     "3": "3 Stars",
                     "4": "4 Stars",
-                    "5": "5 Stars"
+                    "5": "5 Stars",
+                    "label": "Rated {rating} out of 5",
+                    "thanks": "Thanks for rating!",
+                    "already_rated": "You've already rated this",
+                    "error": "Couldn't save your rating"
                 },
                 "not_found": "{content_type} not found",
                 "not_found_description": "This {content_type} does not exist on MCCreations",
                 "logo_alt": "The logo for {title}, a Minecraft {type}",
                 "images_alt": "Image {index} of {total} for {title}",
-                "recommended_creations": "Other {tag} Creations"
+                "recommended_creations": "Other {tag} Creations",
+                "loading": "Loading...",
+                "extra_files": "This also needs these files:",
+                "extra_file": "File {number}",
+                "video_title": "Video of {title} by {creator}"
             },
             "Search": {
                 "Headers": {
@@ -913,7 +1001,10 @@
             "or": "Or...",
             "link": "Link to File",
             "link_placeholder": "https://example.com/file.zip",
-            "set_link": "Set Link"
+            "set_link": "Set Link",
+            "remove": "Remove {name}",
+            "invalid_type": "Only {type} files can be uploaded here",
+            "upload_failed": "Upload failed"
         },
         "Navbar": {
             "LanguageSwitcher": {
@@ -929,7 +1020,9 @@
                 "profile": "Profile",
                 "settings": "Settings",
                 "admin": "Admin",
-                "account": "Account"
+                "account": "Account",
+                "unread": "{count, plural, one {# unread notification} other {# unread notifications}}",
+                "icon_alt": "Your profile picture"
             },
             "toggle_menu": "Toggle Menu",
             "home": "Home",
@@ -945,7 +1038,8 @@
             },
             "creators": "Creators",
             "create": "Create",
-            "account": "Account"
+            "account": "Account",
+            "patreon": "Please consider supporting us on Patreon!"
         },
         "RichText": {
             "placeholder": "Start typing here...",
@@ -967,7 +1061,14 @@
                 "right_align": "Right Align",
                 "justify_align": "Justify Align",
                 "spoiler": "Spoiler"
-            }
+            },
+            "Image": {
+                "url": "Image URL",
+                "alt_text": "Alt Text",
+                "insert": "Insert Image"
+            },
+            "paragraph": "Paragraph",
+            "heading": "Heading {level}"
         },
         "VersionManager": {
             "title": "Files",
@@ -993,7 +1094,8 @@
                 "cancel": "Cancel",
                 "delete": "Delete",
                 "add_file": "Add File",
-                "add_file_description": "Add any extra files required for this creation, like resourcepacks"
+                "add_file_description": "Add any extra files required for this creation, like resourcepacks",
+                "search_placeholder": "Start typing to search for versions..."
             }
         }
     },

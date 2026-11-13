@@ -1,6 +1,5 @@
-import Link from "next/link";
-import styles from "./AccountSidebar.module.css"
-import { Bell, Image, User } from "lucide-react";
+import { Link } from "@/i18n/navigation";
+import { Image, User } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 
 export default async function Layout({ children, params }: { children: React.ReactNode, params: Promise<{locale: string}>}) {

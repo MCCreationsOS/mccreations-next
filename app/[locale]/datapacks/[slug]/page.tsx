@@ -1,7 +1,6 @@
 import { fetchDatapack } from '@/app/api/content'
 import { ICreator, IContentDoc, CollectionNames } from '@/app/api/types'
 import { Metadata, ResolvingMetadata } from 'next';
-import { sendLog } from '@/app/api/logging';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import Creation from '@/components/Creations/Page/Creation';
 import { DatapackWrapper } from '@/components/Creations/Page/ContentWrapper';
@@ -13,7 +12,9 @@ export async function generateMetadata(props: { params: Promise<{locale: string,
     const map: IContentDoc = await fetchDatapack(params.slug)
     const t = await getTranslations({locale: params.locale})
     const locale = await getLocale()
-    if (!map || typeof map === "string") return {
+    if (!map || typeof map !== "object" || !("_id" in map)) return {
+        // Keep drafts out of search results
+        robots: { index: false },
         title: t('Pages.Datapacks.slug.Metadata.not_found_title', { content_type: t('datapack', {count: 1})}),
         openGraph: {
             title: t('Pages.Datapacks.slug.Metadata.not_found_title', { content_type: t('datapack', {count: 1})}),

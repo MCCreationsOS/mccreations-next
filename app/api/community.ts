@@ -18,6 +18,7 @@ export async function postRating(rating: number, map: IContentDoc) {
             body: JSON.stringify({ rating: rating, id: map._id, collection: convertToCollection(map.type) }),
             cache: 'no-store'
         })
+        if (!response.ok) return undefined
         let newRating = (await response.json()).rating as number
         return newRating;
     }
@@ -170,17 +171,17 @@ export async function updateComment(comment: IComment, jwt: string = "") {
 }
 
 export async function deleteComment(id: string, jwt: string = "") {
-    try {
-        fetch(`${process.env.DATA_URL}/comment/${id}`, {
-            method: "DELETE",
-            headers: {
-                'Authorization': jwt
-            },
-            cache: 'no-store'
-        })
-    }
-    catch (e) {
-        console.error(e);
+    const response = await fetch(`${process.env.DATA_URL}/comment/${encodeURIComponent(id)}`, {
+        method: "DELETE",
+        headers: {
+            'Authorization': jwt
+        },
+        cache: 'no-store'
+    })
+    if (!response.ok) {
+        let message = "Failed to delete comment"
+        try { message = (await response.json()).error ?? message } catch {}
+        throw new Error(message)
     }
 }
 

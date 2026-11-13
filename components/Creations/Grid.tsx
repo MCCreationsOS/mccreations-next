@@ -5,13 +5,8 @@ import CreationCard from "./Cards/Card"
 import { useGridView } from "@/app/api/hooks/grids"
 import CreationListCard from "./Cards/ListCard"
 
-export default function ContentGrid({content, linkTo, enableSelection, enableAds, showCategory, playlist}: {content: IContentDoc[], linkTo?: string, enableSelection?: boolean, enableAds?: boolean, showCategory?: boolean, playlist?: string}) {
+export default function ContentGrid({content, linkTo, showCategory, playlist}: {content: IContentDoc[], linkTo?: string, showCategory?: boolean, playlist?: string}) {
     const {gridView} = useGridView()
-    let adPosition = Math.floor(Math.random() * 15) + 2
-
-    if(!enableAds) {
-        adPosition = -1
-    }
 
     if(gridView === "grid") {
         return (
@@ -19,7 +14,7 @@ export default function ContentGrid({content, linkTo, enableSelection, enableAds
                 <div className="grid grid-cols-1 @md:grid-cols-2 @3xl:grid-cols-3 @4xl:grid-cols-4 gap-2 w-full">
                     {content && content.map((map: IContentDoc, idx: number) => {
                         return (
-                            <CreationCard adPosition={adPosition} key={map._id} creation={map} priority={true} playlist={playlist ?? "none"} index={idx} linkTo={linkTo} enableSelection={enableSelection} showCategory={showCategory}></CreationCard>
+                            <CreationCard key={map._id} creation={map} priority={idx < 4} playlist={playlist ?? "none"} index={idx} linkTo={linkTo} showCategory={showCategory}></CreationCard>
                         )
                     })}
                 </div>
@@ -29,7 +24,7 @@ export default function ContentGrid({content, linkTo, enableSelection, enableAds
     return (
         <div className="flex flex-col gap-2 w-full">
             {content && content.map((map: IContentDoc, idx: number) => {
-                return <CreationListCard adPosition={adPosition} key={map._id} creation={map} priority={true} playlist={playlist ?? "none"} index={idx} linkTo={linkTo} enableSelection={enableSelection} showCategory={showCategory}></CreationListCard>
+                return <CreationListCard key={map._id} creation={map} priority={idx < 4} playlist={playlist ?? "none"} index={idx} linkTo={linkTo} showCategory={showCategory}></CreationListCard>
             })}
         </div>
     )

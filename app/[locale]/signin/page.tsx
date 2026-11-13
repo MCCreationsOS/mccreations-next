@@ -1,19 +1,24 @@
 'use client'
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
-import { Link } from "@/i18n/navigation";
-import { SortOptions, StatusOptions, UserTypes } from "../../api/types";
-import { sendLog } from "@/app/api/logging";
+import { useSearchParams } from "next/navigation";
+import { Link, useRouter } from "@/i18n/navigation";
+import { UserTypes } from "../../api/types";
+import { safeRedirectPath } from "@/app/api/oauth";
+import AuthShell, { OAuthButtons } from "@/components/Auth/AuthShell";
 import {useTranslations} from 'next-intl';
 import { useUser, useToken } from "@/app/api/hooks/users";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { useForm } from "@tanstack/react-form";
 import { Input } from "@/components/ui/input";
-import { useCreations } from "@/app/api/hooks/creations";
-import Image from "next/image";
 
 export default function SignIn() {
+    const {setUser} = useUser(true)
+    const {setToken} = useToken()
+    const query = useSearchParams()
+    const router = useRouter();
+    const t = useTranslations()
+    const redirect = query.get('redirect') ?? undefined
+
     const form = useForm({
         defaultValues: {
             email: "",
@@ -23,14 +28,10 @@ export default function SignIn() {
             await signInWithEmail(data.value.email, data.value.password)
         }
     })
-    const {setUser} = useUser(true)
-    const {setToken} = useToken()
-    const query = useSearchParams()
-    const router = useRouter();
-    const t = useTranslations()
 
-    const signInWithEmail = (email: string, password: string) => {
-        fetch(`${process.env.DATA_URL}/sign_in`, {
+    const signInWithEmail = async (email: string, password: string) => {
+        try {
+            const res = await fetch(`${process.env.DATA_URL}/sign_in`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,84 +41,31 @@ export default function SignIn() {
                     password: password,
                     type: UserTypes.Account
                 })
-            }).then(res => {
-                res.json().then(data => {
-                    if(data.jwt) {
-                        setUser(data.user)
-                        setToken(data.jwt)
-                        let redirect = query.get('redirect') ?? ''
-                        if(redirect !== "null" && redirect !== "") {
-                            router.push('/' + redirect)
-                        } else {
-                            router.push('/')
-                        }
-                    } else {
-                        toast.error(data.error)
-                        return;
-                    }
-                }).catch(e => {
-                    toast.error(t('Pages.SignIn.error'))
-                    return;
-                })
-            }).catch(error => {
-                sendLog("Sign in with email", error)
-                toast.error(t('Pages.SignIn.error'))
-                return;
             })
+            let data: any = undefined
+            try { data = await res.json() } catch {}
+            if(data?.jwt) {
+                setUser(data.user)
+                setToken(data.jwt)
+                router.push(safeRedirectPath(redirect))
+            } else {
+                toast.error(data?.error ?? t('Pages.SignIn.error'))
+            }
+        } catch(error) {
+            console.error(error)
+            toast.error(t('Pages.SignIn.error'))
+        }
     }
 
-    const signUpWithGoogle = () => {
-        let googleParams = new URLSearchParams({
-            client_id: "92325017566-5lilo6v3qr4csbpnm3uvlub20e8va8ho.apps.googleusercontent.com",
-            redirect_uri: "https://mccreations.net/auth/oauth_handler?provider=google",
-            response_type: "token",
-            scope: "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile",
-            state: "ILikeBigMoosAndICannotLie"
-        })
-        router.push("https://accounts.google.com/o/oauth2/v2/auth?" + googleParams.toString())
-    }
-
-    const signUpWithGithub = () => {
-        router.push("https://github.com/login/oauth/authorize?client_id=d8fb2f8d7b4f8f88c320&scope=user:email,read:user")
-    }
-
-    const signUpWithMicrosoft = () => {
-        let microsoftParams = new URLSearchParams({
-            client_id: "f4c0f386-febc-4e8e-b0d5-20a99b4d0667",
-            response_type: "code",
-            redirect_uri: "https://mccreations.net/auth/oauth_handler",
-            scope: "openid email profile",
-            response_mode: "query",
-            state: "ShoutoutToMyBoyMicrosoft"
-        })
-        router.push("https://login.microsoftonline.com/common/oauth2/v2.0/authorize?" + microsoftParams.toString())
-    }
-
-    const signInWithDiscord = () => {
-        let discordParams = new URLSearchParams({
-            client_id: "882869275063386153",
-            redirect_uri: "https://mccreations.net/auth/oauth_handler?provider=discord",
-            response_type: "code",
-            scope: "identify email"
-        })
-        router.push("https://discord.com/api/oauth2/authorize?" + discordParams.toString())
-    }
-    
     return (
-        <div className="h-full relative">
-            <SignInBackground />
-            <div className="m-auto w-full md:w-1/2 my-10 bg-secondary p-10 absolute top-0 left-1/2 -translate-x-1/2 border-2 border-black">
+        <AuthShell>
                 <h2 className="text-2xl font-bold mb-2">{t('Pages.SignIn.providers')}</h2>
-                <div className="flex flex-row flex-wrap gap-2 mb-5">
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGoogle}><Image src="/icons/google.png" alt="Google" width={20} height={20} /> <span>{t('Pages.SignIn.Providers.google')}</span></Button>
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signInWithDiscord}><Image src="/icons/discord.svg" alt="Discord" width={20} height={20} /> <span>{t('Pages.SignIn.Providers.discord')}</span></Button>
-                    <Button variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={signUpWithGithub}><Image src="/icons/github.svg" alt="Github" width={20} height={20} /> <span>{t('Pages.SignIn.Providers.github')}</span></Button>
-                </div>
+                <OAuthButtons redirect={redirect} />
                 <h2 className="text-2xl font-bold mb-2">{t('Pages.SignIn.email_title')}</h2>
                 <form onSubmit={(e) => {e.preventDefault(); form.handleSubmit()}} className="flex flex-col gap-2">
                     <form.Field name="email" children={(field) => (
                         <>
-                            <Input type="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.SignIn.email_placeholder')} />
+                            <Input type="email" autoComplete="email" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.SignIn.email_placeholder')} />
                             {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                         </>
                     )}  validators={{
@@ -138,7 +86,7 @@ export default function SignIn() {
                     }}/>
                     <form.Field name="password" children={(field) => (
                         <>
-                            <Input type="password" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="" />
+                            <Input type="password" value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Pages.SignIn.password_placeholder')} autoComplete="current-password" />
                             {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                         </>
                     )}  validators={{
@@ -157,39 +105,14 @@ export default function SignIn() {
                             }
                         }
                     }}/>
-                    <Button><span>{t('Pages.SignIn.button')}</span></Button>
+                    <form.Subscribe selector={(state) => state.isSubmitting} children={(isSubmitting) => (
+                        <Button type="submit" disabled={isSubmitting}><span>{t('Pages.SignIn.button')}</span></Button>
+                    )}/>
                 </form>
                 <div className="flex flex-row gap-4 mt-2">
                     <Link className="text-sm hover:underline" href="/signup">{t('Pages.SignIn.no_account')}</Link>
                     <Link className="text-sm hover:underline" href="/signin/reset" >{t('Pages.SignIn.forgot_password')}</Link>
                 </div>
-            </div>
-        </div>
-    )
-}
-
-function SignInBackground() {
-    const {creations} = useCreations({status: 2, contentType: "content", limit: 20, page: 0, sort: SortOptions.HighestDownloads})
-    const [index, setIndex] = useState(0)
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setIndex((index + 1) % creations.length)
-        }, 5000)
-        return () => clearInterval(interval)
-    }, [creations, index])
-    
-    return (
-        <div className="w-full min-h-[700px] aspect-video relative">
-            {creations.map((creation, i) => (
-                <div key={i} className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500`}>
-                    <Image key={i} src={creation.images && creation.images.length > 0 ? creation.images[0] : '/defaultBanner.png'} alt={creation.title} fill className={`${index === i ? 'opacity-100' : 'opacity-0'} transition-opacity duration-500 object-cover blur-sm`} />
-                    <div className="absolute bottom-0 left-0 bg-black/50 p-4">
-                        <h1 className="text-white text-xl font-bold">{creation.title}</h1>
-                        <p className="text-sm">By {creation.creators.map((creator) => creator.username).join(", ")}</p>
-                    </div>
-                </div>
-            ))}
-        </div>
+        </AuthShell>
     )
 }

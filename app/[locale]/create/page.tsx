@@ -11,7 +11,7 @@ import {
     IContentDoc,
 } from "@/app/api/types";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useRouter } from "next/navigation";
+import { useRouter } from "@/i18n/navigation";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { useSessionStorage } from "usehooks-ts";
@@ -35,7 +35,6 @@ export default function Page() {
     useEffect(() => {
 
         return (() => {
-            console.log("Clearing Temp Creation")
             sessionStorage.removeItem("tempCreation")
         })
     }, [])
@@ -67,6 +66,7 @@ export default function Page() {
 
         errors.length === 0 && requestApproval(creation.slug, collectionName, token)
             .then(() => {
+                toast.success(t('Pages.Create.submitted'));
                 setCreation(createEmptyCreation());
                 router.push(`/dashboard`);
             })
@@ -76,9 +76,9 @@ export default function Page() {
     };
 
     return (
-        <div className="w-1/2 mx-auto mt-5 p-5">
+        <div className="w-full max-w-3xl mx-auto mt-5 p-4 md:p-5">
             <Tabs value={activeTab} onValueChange={handleTabChange}>
-                <TabsList className="w-full">
+                <TabsList className="w-full h-auto flex-wrap">
                     <TabsTrigger value="basic_info" className="w-1/4">{t('Pages.Create.BasicInfo.title')}</TabsTrigger>
                     <TabsTrigger value="details" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Details.title')}</TabsTrigger>
                     <TabsTrigger value="files" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Files.title')}</TabsTrigger>

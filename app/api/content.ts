@@ -6,8 +6,10 @@ import { ICreator, IContentDoc, QueryOptions, SortOptions, CollectionNames, Cont
  * @param queryOptions The query options to format
  * @returns The formatted queryOptions
 */
-export function formatQueryOptions(queryOptions: QueryOptions) {
-   
+export function formatQueryOptions(options: QueryOptions) {
+    // Work on a copy: callers (and SWR keys) pass in objects they still use
+    const queryOptions: QueryOptions = { ...options }
+
     // Define a limit if there is none defined
     if(!queryOptions.limit) {
         queryOptions.limit = 0
@@ -134,7 +136,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
 
 export async function getFeed(token: string | null, limit: number, page: number) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/feed?limit=${limit}&page=${page}`, {
+        let response = await fetch(`${process.env.DATA_URL}/feed?${new URLSearchParams({ limit: String(limit), page: String(page) })}`, {
             headers: {
                 authorization: token + ""
             },
@@ -162,7 +164,7 @@ export async function getFeed(token: string | null, limit: number, page: number)
  */
 export async function fetchMap(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/creations/maps/${slug}`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/maps/${encodeURIComponent(slug)}`, { 
             next: { tags: [slug], revalidate: 86400 },
             headers: {
                 authorization: token + ""
@@ -186,7 +188,7 @@ export async function fetchMap(slug: string, token?: string) {
  */
 export async function fetchDatapack(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/creations/datapacks/${slug}`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/datapacks/${encodeURIComponent(slug)}`, { 
             next: { tags: [slug], revalidate: 86400 },
             headers: {
                 authorization: token + ""
@@ -196,10 +198,10 @@ export async function fetchDatapack(slug: string, token?: string) {
         return data
     } catch (e: any) {
         console.error("API fetch error! `fetchDatapack` Is it running?: " + e);
-        return JSON.stringify({
+        return {
             error: e.toString(),
             query: slug
-        })
+        }
     }
 }
 
@@ -210,7 +212,7 @@ export async function fetchDatapack(slug: string, token?: string) {
  */
 export async function fetchResourcepack(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/creations/resourcepacks/${slug}`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/resourcepacks/${encodeURIComponent(slug)}`, { 
             next: { tags: [slug], revalidate: 86400 },
             headers: {
                 authorization: token + ""
@@ -229,7 +231,7 @@ export async function fetchResourcepack(slug: string, token?: string) {
 
 export async function fetchMarketplaceItem(slug: string, token?: string) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/creations/marketplace/${slug}`, {
+        let response = await fetch(`${process.env.DATA_URL}/creations/marketplace/${encodeURIComponent(slug)}`, {
             next: { tags: [slug], revalidate: 86400 },
             headers: {
                 authorization: token + ""
@@ -263,7 +265,7 @@ export async function fetchTags(type: ContentTypes) {
 
 export async function downloadCreation(slug: string, collectionName: CollectionNames) {
     try {
-        await fetch(`${process.env.DATA_URL}/creations/${collectionName.toLowerCase()}/${slug}/download`)
+        await fetch(`${process.env.DATA_URL}/creations/${collectionName.toLowerCase()}/${encodeURIComponent(slug)}/download`)
         return;
     } catch (e) {
         console.error("API fetch error! `downloadCreation` Is it running?: " + e);
@@ -344,57 +346,68 @@ export async function updateContent(map: IContentDoc, token: string | null, type
     }
 }
 
+export const CONTENT_RULES = {
+    titleMin: 3,
+    slugMin: 5,
+    slugMax: 50,
+    slugPattern: /^[a-zA-Z0-9_-]+$/,
+    shortDescriptionMin: 20,
+    shortDescriptionMax: 150,
+    descriptionMin: 50,
+}
+
 export function errorCheckContent(content: IContentDoc) {
     let errors: {error: string, field: string}[] = []
+    const warning = (key: string) => `Pages.Edit.contentType.slug.Warnings.${key}.description`
 
-    if(!content.title || content.title.length < 3) {
-        errors.push({error: "Pages.Edit.contentType.slug.Warnings.title_too_short.description", field: "title"})
+    if(!content.title || content.title.length < CONTENT_RULES.titleMin) {
+        errors.push({error: warning("title_too_short"), field: "title"})
     }
 
     if(!content.creators || content.creators.length === 0) {
-        errors.push({error: "Pages.Edit.contentType.slug.Warnings.creator_too_short.description", field: "creators"})
+        errors.push({error: warning("creator_too_short"), field: "creators"})
     }
 
-    if(!content.shortDescription || content.shortDescription.length < 20) {
-        errors.push({error: "Pages.Edit.contentType.slug.Warnings.short_description_too_short.description", field: "shortDescription"})
+    const shortDescription = content.shortDescription ?? ""
+    if(shortDescription.length < CONTENT_RULES.shortDescriptionMin) {
+        errors.push({error: warning("short_description_too_short"), field: "shortDescription"})
+    } else if(shortDescription.length > CONTENT_RULES.shortDescriptionMax) {
+        errors.push({error: warning("short_description_too_long"), field: "shortDescription"})
     }
 
-    if(content.shortDescription.length > 150) {
-        errors.push({error: "Pages.Edit.contentType.slug.Warnings.short_description_too_long.description", field: "shortDescription"})
+    if(!content.description || content.description.length < CONTENT_RULES.descriptionMin) {
+        errors.push({error: warning("description_too_short"), field: "description"})
     }
 
-    if(!content.description || content.description.length < 100) {
-        errors.push({error: "Pages.Edit.contentType.slug.Warnings.description_too_short.description", field: "description"})
-    }
-
-    if(!content.files || content.files.length === 0) {
-        errors.push({error: "Pages.Edit.contentType.slug.Warnings.files_too_short.description", field: "files"})
-    }
-
-    if(!content.tags || content.tags.length === 0) {
-        errors.push({error: "Pages.Edit.contentType.slug.Warnings.tags_too_short.description", field: "tags"})
+    if(!content.tags || content.tags.filter((tag) => tag.length > 0).length === 0) {
+        errors.push({error: warning("tags_too_short"), field: "tags"})
     }
 
     if(!content.images || content.images.length === 0) {
-        errors.push({error: "Pages.Edit.contentType.slug.Warnings.images_too_short.description", field: "images"})
+        errors.push({error: warning("images_too_short"), field: "images"})
     }
 
-    if(!content.files || content.files.length > 0) {
-        if(!content.files || !content.files[0].minecraftVersion) {
-            errors.push({error: "Pages.Edit.contentType.slug.Warnings.files_no_minecraft_version.description", field: "files.minecraftVersion"})
+    const latest = content.files?.[0]
+    if(!latest) {
+        errors.push({error: warning("files_too_short"), field: "files"})
+    } else {
+        const versions = Array.isArray(latest.minecraftVersion) ? latest.minecraftVersion.filter((v) => v) : latest.minecraftVersion
+        if(!versions || versions.length === 0) {
+            errors.push({error: warning("files_no_minecraft_version"), field: "files.minecraftVersion"})
         }
 
-        if(!content.files || (!content.files[0].worldUrl && !content.files[0].dataUrl && !content.files[0].resourceUrl && !content.files[0].url)) {
-            errors.push({error: "Pages.Edit.contentType.slug.Warnings.no_download_link.description", field: "files.download"})
+        if(!latest.worldUrl && !latest.dataUrl && !latest.resourceUrl && !latest.url) {
+            errors.push({error: warning("no_download_link"), field: "files.download"})
         }
     }
 
     return errors
 }
 
+/** @returns the API response ({error} on failure) */
 export async function updateTranslation(slug: string, type: ContentTypes, translation: {[key: string]: {description: string, shortDescription: string, title: string}}, token: string | null) {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/creations/${slug}/translate`, { 
+        let response = await fetch(`${process.env.DATA_URL}/creations/${encodeURIComponent(slug)}/translate`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -405,25 +418,30 @@ export async function updateTranslation(slug: string, type: ContentTypes, transl
                 translation: translation
             })
         })
-        let data = await response.json();
-        return data;
+        let data: any = undefined
+        try { data = await response.json() } catch {}
+        if (!response.ok) return { error: data?.error ?? `Request failed (${response.status})` }
+        return data ?? {};
     } catch(e) {
         console.error("API fetch error! Is it running?: " + e)
         return {
-            message: e
+            error: String(e)
         }
     }
 }
 
 export async function deleteContent(slug: string, token: string | null, contentType: CollectionNames) {
     try {
-        await fetch(`${process.env.DATA_URL}/creations/${slug}?type=${contentType}`, {
+        let response = await fetch(`${process.env.DATA_URL}/creations/${encodeURIComponent(slug)}?type=${contentType}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': token + ""
             }
         })
-        return;
+        if(!response.ok) {
+            console.error("API fetch error! `deleteContent` Is it running?: " + response.statusText)
+        }
+        return response.ok;
     } catch(e) {
         throw {
             error: e
@@ -434,7 +452,7 @@ export async function deleteContent(slug: string, token: string | null, contentT
 export async function requestApproval(slug: string, collectionName: CollectionNames, token: string | null) {
     let res: Response
     try {
-        res = await fetch(`${process.env.DATA_URL}/creations/${slug}/request_approval?type=${collectionName}`, {
+        res = await fetch(`${process.env.DATA_URL}/creations/${encodeURIComponent(slug)}/request_approval?type=${collectionName}`, {
             method: 'GET',
             headers: {
                 'Authorization': token + ""
@@ -458,18 +476,18 @@ export async function requestApproval(slug: string, collectionName: CollectionNa
     }
 }
 
+/** @returns whether the API approved the creation */
 export async function approveContent(slug: string, collectioName: CollectionNames, token: string | null) {
     try {
-        await fetch(`${process.env.DATA_URL}/creations/${slug}/approve?type=${collectioName}`, {
+        const res = await fetch(`${process.env.DATA_URL}/creations/${encodeURIComponent(slug)}/approve?type=${collectioName}`, {
             headers: {
                 'Authorization': token + ""
             }
         })
-        return;
+        return res.ok
     } catch(e) {
-        throw {
-            error: e
-        }
+        console.error(e)
+        return false
     }
 }
 

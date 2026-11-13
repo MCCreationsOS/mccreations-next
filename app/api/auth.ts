@@ -39,89 +39,68 @@ export async function getCreators(authorization: string): Promise<IUser[] | unde
     }
 }
 
-export async function deleteUser(authorization: string) {
+export type ApiResult = { ok: true, error?: undefined } | { ok: false, error: string }
+
+/**
+ * Sends a write request to the API and reports whether it worked. Most of these routes reply with an
+ * empty body on success and {error} on failure, so the body is only read when the status isn't ok.
+ */
+async function send(path: string, method: string, authorization?: string, body?: unknown): Promise<ApiResult> {
     try {
-        fetch(`${process.env.DATA_URL}/user`, {
-            method: 'DELETE',
+        const res = await fetch(`${process.env.DATA_URL}${path}`, {
+            method,
             headers: {
-                "Authorization": authorization
+                ...(authorization ? { 'Authorization': authorization } : {}),
+                ...(body !== undefined ? { 'Content-Type': 'application/json' } : {})
             },
+            body: body !== undefined ? JSON.stringify(body) : undefined,
             cache: 'no-store'
         })
-    } catch(e) {
+        if (res.ok) return { ok: true }
+        let error = `Request failed (${res.status})`
+        try {
+            const data = await res.json()
+            if (data?.error) error = String(data.error)
+        } catch {}
+        return { ok: false, error }
+    } catch (e) {
         console.error(e)
+        return { ok: false, error: String(e) }
     }
 }
 
-// export async function 
+export async function deleteUser(authorization: string) {
+    return send('/user', 'DELETE', authorization)
+}
 
-export async function updateProfile(authorization: string, banner?: string, icon?: string, username?: string, about?: string, customCss?: string) {
-    try {
-        fetch(`${process.env.DATA_URL}/user/updateProfile`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authorization
-            },
-            body: JSON.stringify({
-                banner: banner,
-                icon: icon,
-                username: username,
-                about: about,
-                customCSS: customCss
-            }),
-            cache: 'no-store'
-        })
-    } catch(e) {
-        console.error(e)
-    }
+export async function updateProfile(authorization: string, profile: { banner?: string, icon?: string, username?: string, about?: string, customCss?: string }) {
+    return send('/user/updateProfile', 'POST', authorization, {
+        banner: profile.banner,
+        icon: profile.icon,
+        username: profile.username,
+        about: profile.about,
+        customCSS: profile.customCss
+    })
 }
 
 export async function updateSocialLinks(authorization: string, socialLinks: {link: string, name: string}[]) {
-    try {
-        fetch(`${process.env.DATA_URL}/user/updateSocialLinks`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authorization
-            },
-            body: JSON.stringify({links: socialLinks}),
-            cache: 'no-store'
-        })
-    } catch(e) {
-        console.error(e)
-    }
+    return send('/user/updateSocialLinks', 'POST', authorization, {links: socialLinks})
 }
 
-// export async function updateProfileLayout(authorization: string, layout: ProfileLayout) {
-//     try {
-//         fetch(`${process.env.DATA_URL}/user/updateProfileLayout`, {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json',
-//                 'Authorization': authorization
-//             },
-//             body: JSON.stringify({profileLayout: layout}),
-//             cache: 'no-store'
-//         })
-//     } catch(e) {
-//         console.error(e)
-//     }
-// }
+export async function updateHandle(authorization: string, handle: string) {
+    return send('/user/updateHandle', 'POST', authorization, {handle})
+}
+
+export async function updateEmail(authorization: string, email: string, currentPassword: string) {
+    return send('/user/updateEmail', 'POST', authorization, {email, currentPassword})
+}
+
+export async function updatePassword(authorization: string, password: string, currentPassword: string) {
+    return send('/user/updatePassword', 'POST', authorization, {password, currentPassword})
+}
 
 export async function sendPasswordResetEmail(email: string) {
-    try {
-        fetch(`${process.env.DATA_URL}/user/forgotPassword`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({email: email}),
-            cache: 'no-store'
-        })
-    } catch(e) {
-        console.error(e)
-    }
+    return send('/user/forgotPassword', 'POST', undefined, {email})
 }
 
 export async function resetPassword(token: string, password: string) {
@@ -151,46 +130,17 @@ export async function resetPassword(token: string, password: string) {
 }
 
 export async function updateNotificationSettings(authorization: string, comment: string, like: string, reply: string, follow: string, rating: string, translation: string) {
-    fetch(`${process.env.DATA_URL}/user/updateSettings`, {
-        method: 'POST',
-        headers: {
-            'Authorization': authorization,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({notifications: {comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation}}),
-            cache: 'no-store'
-    })
+    return send('/user/updateSettings', 'POST', authorization, {notifications: {comment: comment, like: like, reply: reply, follow: follow, rating: rating, translation: translation}})
 }
 
 export async function readNotification(authorization: string, notification: string) {
-    fetch(`${process.env.DATA_URL}/notifications/${notification}`, {
-        method: 'PATCH',
-        headers: {
-            'Authorization': authorization
-        },
-        cache: 'no-store'
-    })
+    return send(`/notifications/${encodeURIComponent(notification)}`, 'PATCH', authorization)
 }
 
 export async function readAllNotifications(authorization: string) {
-    fetch(`${process.env.DATA_URL}/notifications`, {
-        method: 'PATCH',
-        headers: {
-            'Authorization': authorization
-        },
-        cache: 'no-store'
-    })
+    return send('/notifications', 'PATCH', authorization)
 }
 
 export async function subscribeToPushNotifications(authorization: string, subscription: PushSubscription) {
-    fetch(`${process.env.DATA_URL}/notifications/subscribe`, {
-        method: 'POST',
-        headers: {
-            'Authorization': authorization,
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(subscription),
-        cache: 'no-store'
-    })
+    return send('/notifications/subscribe', 'POST', authorization, subscription.toJSON())
 }
-

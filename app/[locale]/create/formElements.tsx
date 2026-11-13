@@ -1,8 +1,8 @@
-import { getCreator } from "@/app/api/community";
-import { convertToCollection, createEmptyCreation, createNewContent, updateContent } from "@/app/api/content";
+import { CONTENT_RULES, convertToCollection, createEmptyCreation, createNewContent, updateContent } from "@/app/api/content";
 import { useTags } from "@/app/api/hooks/creations";
-import { useToken, useTokenOrKey } from "@/app/api/hooks/users";
-import { ContentTypes, IContentDoc, ICreator, IUser, TagKeys, Tags } from "@/app/api/types";
+import { useCreator, useToken, useTokenOrKey } from "@/app/api/hooks/users";
+import { ContentTypes, IContentDoc, ICreator, IUser, Tags } from "@/app/api/types";
+import { tagLabel } from "@/app/api/utils";
 import ImageDropzone, { UploadedImageRepresentation } from "@/components/ImageDropzone";
 import RichText from "@/components/RichText/RichText";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -12,12 +12,11 @@ import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import VersionManager from "@/components/VersionManager/VersionManager";
-import { cn } from "@/lib/utils";
 import { useForm } from "@tanstack/react-form";
 import { ChevronRight, Plus, Trash } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useSessionStorage } from "usehooks-ts";
 
@@ -95,7 +94,7 @@ export function Images({ handleNext }: { handleNext: () => void }) {
         let newCreation = {
             ...creation,
         };
-        newCreation.images = files.map((f) => f.url);
+        newCreation.images = files.filter(f => f.url).map((f) => f.url!);
         updateContent(newCreation, token, collectionName)
             .then((result) => {
                 if(result.error) {
@@ -117,7 +116,7 @@ export function Images({ handleNext }: { handleNext: () => void }) {
                 onImagesUploaded={saveImagesForm}
                 presetFiles={JSON.stringify(
                     creation?.images?.map((image) => {
-                        return { url: image, name: image };
+                        return { url: image, name: image, uploaded: true };
                     })
                 )}
                 allowMultiple={true}
@@ -138,8 +137,9 @@ export function Required() {
 }
 
 export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
+    // Use token to assign to logged in user, tokenOrKey to continue to update the rest of the creation
     const { token } = useToken();
-    // Set through the hook (not sessionStorage directly) so every useTokenOrKey() on the page sees the key
+    const { token: tokenOrKey } = useTokenOrKey();
     const [, setTempKey] = useSessionStorage<string>("temp_key", "", { serializer: (value) => value, deserializer: (value) => value });
     const [creation, setCreation] = useSessionStorage<IContentDoc>(
         "tempCreation",
@@ -180,6 +180,7 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
         if (!type) toast.error(t("Pages.Create.BasicInfo.missing_type"));
         if (!shortDescription)
             toast.error(t("Pages.Create.BasicInfo.missing_short_description"));
+        if (!title || !type || !shortDescription) return;
 
         setCreation({
             ...creation,
@@ -206,18 +207,18 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
                 }
             );
         } else {
-            updateContent(creation, token, convertToCollection(creation.type))
+            // Going back to this step and pressing Next again updates the draft rather than creating another
+            const updated = { ...creation, title: title!, type: type!, shortDescription: shortDescription! }
+            updateContent(updated, tokenOrKey, convertToCollection(updated.type))
                 .then((result) => {
-                    console.log(result);
                     if (result.error) {
                         toast.error(result.error.toString());
                         return;
                     }
 
-                    handleNext();
-
-                    setCreation(creation);
+                    setCreation(updated);
                     toast.success(t("Pages.Create.Details.saved"));
+                    handleNext();
                 })
                 .catch((e) => {
                     toast.error(e.error);
@@ -255,7 +256,7 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
                     )}
                     validators={{
                         onSubmit: ({ value }) => {
-                            if (value.length < 3) {
+                            if (value.length < CONTENT_RULES.titleMin) {
                                 return t("Pages.Create.BasicInfo.title_too_short")
                             }
                         }
@@ -325,9 +326,9 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
                     )}
                     validators={{
                         onSubmit: ({ value }) => {
-                            if (value.length < 20) {
+                            if (value.length < CONTENT_RULES.shortDescriptionMin) {
                                 return t("Pages.Create.BasicInfo.short_description_too_short")
-                            } else if (value.length > 150) {
+                            } else if (value.length > CONTENT_RULES.shortDescriptionMax) {
                                 return t("Pages.Create.BasicInfo.short_description_too_long")
                             }
                         }
@@ -354,11 +355,11 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
     const t = useTranslations();
     const form = useForm({
         defaultValues: {
-            slug: creation.slug,
-            creators: creation.creators,
-            videoUrl: creation.videoUrl,
-            description: creation.description,
-            tags: creation.tags?.join(","),
+            slug: creation.slug ?? "",
+            creators: creation.creators ?? [],
+            videoUrl: creation.videoUrl ?? "",
+            description: creation.description ?? "",
+            tags: (creation.tags ?? []).filter((tag) => tag.length > 0).join(","),
         },
         onSubmit: (data) => {
             saveGeneralForm(
@@ -449,10 +450,10 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                         return;
                     }
 
-                    handleNext();
-
-                    setCreation(newCreation);
+                    // The API may change the slug to keep it unique
+                    setCreation({ ...newCreation, slug: result.slug ?? newCreation.slug });
                     toast.success(t("Pages.Create.Details.saved"));
+                    handleNext();
                     resolve();
                 })
                 .catch((e) => {
@@ -489,11 +490,11 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                 )}
                 validators={{
                     onSubmit: ({ value }) => {
-                        if (value.length < 5) {
+                        if (value.length < CONTENT_RULES.slugMin) {
                             return t("Pages.Create.Details.slug_too_short")
-                        } else if (value.length > 50) {
+                        } else if (value.length > CONTENT_RULES.slugMax) {
                             return t("Pages.Create.Details.slug_too_long")
-                        } else if (!/^[a-zA-Z0-9_-]+$/.test(value)) {
+                        } else if (!CONTENT_RULES.slugPattern.test(value)) {
                             return t("Pages.Create.Details.slug_invalid_characters")
                         }
                     }
@@ -558,7 +559,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                 )}
                 validators={{
                     onSubmit: ({ value }) => {
-                        if (value.length < 50) {
+                        if (value.length < CONTENT_RULES.descriptionMin) {
                             return t("Pages.Create.Details.description_too_short")
                         }
                     }
@@ -622,20 +623,27 @@ export function CreatorInput({ creators, onChange }: { creators: ICreator[], onC
 }
 
 export function CreatorAvatar({ creator, size }: { creator: ICreator, size?: number }) {
-    const [fullCreator, setFullCreator] = useState<IUser | undefined>(undefined);
-    useEffect(() => {
-        getCreator(creator.handle ?? creator.username).then((c) => {
-            setFullCreator(c);
-        })
-    }, [creator])
+    const { creator: fullCreator } = useCreator(creator.handle || undefined);
+    const dimension = `${(size ?? 7) * 0.25}rem`
     return (
-        <Avatar className={`w-${size ?? 7} h-${size ?? 7}`}>
-            <AvatarImage src={fullCreator?.iconURL} />
+        <Avatar style={{ width: dimension, height: dimension }}>
+            <AvatarImage src={fullCreator?.iconURL ?? (creator as IUser).iconURL} />
             <AvatarFallback>
-                {(creator.username ?? "Unknown").charAt(0)}
+                {(creator.username || "?").charAt(0)}
             </AvatarFallback>
         </Avatar>
     )
+}
+
+/** Every known tag for the content type, flattened across categories */
+function flattenTags(tags: Tags | { error: string } | undefined) {
+    const all: string[] = [];
+    if (tags && !("error" in tags)) {
+        Object.keys(tags).forEach((category) => {
+            (tags[category] ?? []).forEach((tag) => all.push(tag));
+        });
+    }
+    return all;
 }
 
 export function TagInput({
@@ -647,36 +655,37 @@ export function TagInput({
     creation: IContentDoc;
     onChange: (tags: string) => void;
 }) {
-    const [tagInput, setTagInput] = useState(creation.tags?.join(",") ?? "");
+    const [selected, setSelected] = useState<string[]>((creation.tags ?? []).filter((tag) => tag.length > 0));
     const [search, setSearch] = useState("");
-    const [bestSuggestion, setBestSuggestion] = useState("");
     const [showSuggestions, setShowSuggestions] = useState(false);
     const t = useTranslations();
 
-    useEffect(() => {
-        onChange(tagInput);
-    }, [tagInput])
+    const matches = flattenTags(tags).filter((tag) =>
+        !selected.includes(tag) &&
+        (tag.toLowerCase().includes(search.toLowerCase()) || tagLabel(t, tag).toLowerCase().includes(search.toLowerCase()))
+    );
+
+    const update = (next: string[]) => {
+        setSelected(next);
+        onChange(next.join(","));
+    };
 
     const addTag = (tag: string) => {
-        if (tagInput.split(",").includes(tag)) return;
-        if (tag.length < 2) return;
-        setTagInput(tagInput + "," + tag);
+        if (!tag || selected.includes(tag)) return;
+        update([...selected, tag]);
         setSearch("");
     };
 
     const removeTag = (tag: string) => {
-        let tags = tagInput.split(",");
-        tags = tags.filter((t) => t !== tag);
-        setTagInput(tags.join(","));
-        onChange(tags.join(","));
+        update(selected.filter((t) => t !== tag));
     };
 
     return (
         <Popover onOpenChange={setShowSuggestions} open={showSuggestions}>
             <PopoverTrigger asChild>
-                <div className="flex flex-row gap-2 px-2 py-1 border overflow-auto">
+                <div className="flex flex-row flex-wrap gap-2 px-2 py-1 border overflow-auto">
                     <Input
-                        className="border-none min-w-[100px]"
+                        className="border-none min-w-[100px] flex-1"
                         type="text"
                         value={search}
                         onChange={(e) => {
@@ -685,29 +694,24 @@ export function TagInput({
                         }}
                         onKeyDown={(e) => {
                             if (e.key === "Enter") {
-                                addTag(bestSuggestion);
+                                e.preventDefault();
+                                if (search.trim() && matches.length > 0) addTag(matches[0]);
                             }
                         }}
                         placeholder={t("Pages.Create.Details.TagInput.placeholder")}
+                        aria-label={t("Pages.Create.Details.TagInput.placeholder")}
                     />
-                    <Label className="text-md font-medium">
-                        {tagInput.split(",").map((tag) => {
-                            if (tag.length === 0) return null;
-                            return (
-                                <Button
-                                    type="button"
-                                    variant="ghost"
-                                    key={tag}
-                                    className="text-sm border py-0 px-2"
-                                    onClick={() => {
-                                        removeTag(tag);
-                                    }}
-                                >
-                                    {t(`Components.Creations.Tags.${tag as TagKeys}`)}
-                                </Button>
-                            );
-                        })}
-                    </Label>
+                    {selected.map((tag) => (
+                        <Button
+                            type="button"
+                            variant="ghost"
+                            key={tag}
+                            className="text-sm border py-0 px-2"
+                            onClick={() => removeTag(tag)}
+                        >
+                            {tagLabel(t, tag)} ×
+                        </Button>
+                    ))}
                 </div>
             </PopoverTrigger>
             <PopoverContent
@@ -716,64 +720,33 @@ export function TagInput({
                 }}
                 className="max-h-[25vh] overflow-y-auto"
             >
-                <div className="flex flex-col gap-2">
-                    <TagSearch
-                        tags={tags}
-                        search={search}
-                        onSelect={addTag}
-                        onBestSuggestionChanged={setBestSuggestion}
-                    />
-                </div>
+                <TagSearch matches={matches} onSelect={addTag} />
             </PopoverContent>
         </Popover>
     );
 }
 
 export function TagSearch({
-    tags,
-    search,
-    onBestSuggestionChanged,
+    matches,
     onSelect,
 }: {
-    tags: Tags | { error: string };
-    search: string;
-    onBestSuggestionChanged: (tag: string) => void;
+    matches: string[];
     onSelect: (tag: string) => void;
 }) {
     const t = useTranslations();
-    const fTags: string[] = [];
-    if (tags && "genre" in tags) {
-        Object.keys(tags).forEach((category) => {
-            tags[category].forEach((tag) => {
-                fTags.push(tag);
-            });
-        });
-    }
     return (
         <div className="flex flex-wrap gap-2 border-2 border-white/15 p-1">
-            {fTags
-                .filter((tag) =>
-                    tag.toLowerCase().includes(search.toLowerCase())
-                )
-                .map((tag, index) => {
-                    if (index === 0) {
-                        onBestSuggestionChanged(tag);
-                    }
-                    return (
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            key={tag}
-                            className="text-sm border py-0 px-2"
-                            onClick={() => {
-                                onSelect(tag);
-                            }}
-                        >
-                            {t(`Components.Creations.Tags.${tag as TagKeys}`)}
-                        </Button>
-                    );
-                })}
+            {matches.map((tag) => (
+                <Button
+                    type="button"
+                    variant="ghost"
+                    key={tag}
+                    className="text-sm border py-0 px-2"
+                    onClick={() => onSelect(tag)}
+                >
+                    {tagLabel(t, tag)}
+                </Button>
+            ))}
         </div>
     );
 }
-

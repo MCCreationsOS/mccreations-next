@@ -2,7 +2,7 @@
 
 import { FilePreview } from '@/app/api/types'
 import Image from 'next/image'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import { Plus, UploadCloud, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -33,16 +33,34 @@ export interface UploadedImageRepresentation {
  * @param allowMultiple Whether or not the dropzone should allow multiple images to be uploaded
  * @param presetFiles The preset files to display
  */
+/** Matches the API's per-file upload limit */
+const MAX_IMAGE_SIZE_MB = 30
+
+function initialFiles(presetFiles?: string, presetImage?: string): UploadedImageRepresentation[] {
+    if(presetImage) return [{url: presetImage, name: presetImage, progress: 100, uploaded: true}]
+    if(presetFiles) {
+        try {
+            const files = JSON.parse(presetFiles) as UploadedImageRepresentation[] | null
+            if(files && files.length > 0) return files.map(file => ({...file, progress: file.progress ?? 100, uploaded: file.uploaded ?? true}))
+        } catch {}
+    }
+    return []
+}
+
 const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, presetFiles }: { forWhat: string, presetImage?: string, onImagesUploaded(files: UploadedImageRepresentation[]) : void, allowMultiple: boolean, presetFiles?: string }) => {
-    const [files, setFiles] = useState<UploadedImageRepresentation[]>([])
-    // Reject files are collected, although not technically displayed
+    const [files, setFiles] = useState<UploadedImageRepresentation[]>(() => initialFiles(presetFiles, presetImage))
+    const isFirstRender = useRef(true)
     const [rejected, setRejected] = useState<FileRejection[]>([])
     const [progress, setProgress] = useState<number>(100)
     const {token} = useToken();
     const t = useTranslations()
 
     let batch = files.filter(file => file.uploaded === false)
-    if (progress !== 100 && batch.length > 0) batch[Math.floor(progress / (100/batch.length))].progress = (progress * batch.length) % 100
+    let currentFile = Math.floor(progress / (100/batch.length))
+    if (progress !== 100 && batch.length > 0) batch[currentFile].progress = (progress * batch.length) % 100
+    for(let i = 0; i < currentFile; i++) {
+        batch[i].progress = 100
+    }
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
@@ -64,8 +82,11 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
             }
             uploader.onError = (error: Error) => {
                 toast.error(error.message)
+                // Drop the placeholders for this batch so they don't sit at 0% forever
+                setFiles(previousFiles => previousFiles.filter(file => file.uploaded === true))
+                setProgress(100)
             }
-            uploader.upload()
+            uploader.upload().catch(() => { /* reported through onError */ })
         }
 
         if (rejectedFiles?.length) {
@@ -78,7 +99,7 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
                             message += t('Components.Dropzone.invalid_type', { type: t('Components.Dropzone.FileTypes.image') });
                             break;
                         case 'file-too-large':
-                            message += t('Components.Dropzone.file_too_large', { max_size: '2MB' });
+                            message += t('Components.Dropzone.file_too_large', { max_size: `${MAX_IMAGE_SIZE_MB}MB` });
                             break;
                         default:
                             message += t('Components.Dropzone.file_unknown');
@@ -88,36 +109,29 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
                 toast.error(message)
             })
         }
-    }, [])
+    }, [token, forWhat, allowMultiple, t])
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: {
             'image/*': []
         },
-        maxSize: 1024 * 2000,
+        maxSize: MAX_IMAGE_SIZE_MB * 1024 * 1024,
         maxFiles: (allowMultiple) ? 10 : 1,
         onDrop
     })
 
     useEffect(() => {
-        if(presetFiles) {
-            let files = JSON.parse(presetFiles) as UploadedImageRepresentation[]
-            if(files && files.length > 0) {
-                setFiles(files);
-            }
+        // Only report real changes, not the presets we started with
+        if(isFirstRender.current) {
+            isFirstRender.current = false
+            return
         }
-        if(presetImage) {
-            setFiles([{url: presetImage, name: presetImage, progress: 100, uploaded: true}])
-        }
-    }, [])
-
-    useEffect(() => {
         onImagesUploaded(files.map(file => ({url: file.url, name: file.name, progress: file.progress, uploaded: file.uploaded})));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [files])
 
     const removeFile = (name: string) => {
         setFiles(files => files.filter(file => file.name !== name))
-        onImagesUploaded(files.filter(file => file.name !== name));
     }
 
     const removeAll = () => {
@@ -145,7 +159,7 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
 
     return (
         <div className='flex flex-col md:flex-row gap-4 w-[100%] overflow-auto'>
-                <div {...getRootProps()} className='max-w-[300px] h-[150px] w-fit min-w-[150px] mx-auto relative'>
+                <div {...getRootProps()} className='w-150px h-150px relative'>
                     <input {...getInputProps({ name: 'file' })} />
                     <div className="max-w-[300px] h-[150px] w-fit min-w-[150px] relative group">
                         {!allowMultiple && files.length === 1 && <Image className="object-cover hover:opacity-50 max-w-[300px] h-[150px] w-fit" src={files[0].url ? files[0].url : "/defaultBanner.png"} width={1920} height={1080} alt=''></Image>}
@@ -167,7 +181,7 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
                         <div ref={provided.innerRef} className="flex flex-row gap-2 overflow-auto flex-nowrap" {...provided.droppableProps}>
                             {files.map((file, idx) =>
                                 (
-                                    <Draggable key={`image-${file.name.substring(file.name.lastIndexOf('/') + 1, file.name.length - 4)}`} draggableId={`image-${file.name.substring(file.name.lastIndexOf('/') + 1, file.name.length - 4)}`} index={idx}>
+                                    <Draggable key={`image-${file.url ?? file.name}-${idx}`} draggableId={`image-${file.url ?? file.name}-${idx}`} index={idx}>
                                         {(provided, snapshot) => (
                                             <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                                                 <GalleryImage url={file.url ? file.url : `data:image/svg+xml;base64,${toBase64(shimmer(1280, 720))}`} name={file.name} removeFile={removeFile} />
@@ -190,11 +204,12 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
 
 
 export function GalleryImage({url, name, removeFile}: {url: string, name: string, removeFile: (name: string) => void}) {
-    
+    const t = useTranslations()
+
     return (
         <div className="max-w-[300px] h-[150px] w-fit min-w-[150px] relative group">
             <Image className="object-cover hover:opacity-50 max-w-[300px] h-[150px] w-fit" src={url} width={150} height={150} alt={`${url.substring(url.lastIndexOf('/') + 1)}`}></Image>
-            <Button className="absolute top-2 right-2 hidden group-hover:flex" variant="destructive" size="icon" onClick={() => removeFile(name)}><X className='w-4 h-4'/></Button>
+            <Button type="button" className="absolute top-2 right-2 flex md:hidden md:group-hover:flex md:group-focus-within:flex" variant="destructive" size="icon" aria-label={t('Components.Dropzone.remove', {name: name.substring(name.lastIndexOf('/') + 1)})} onClick={() => removeFile(name)}><X className='w-4 h-4'/></Button>
         </div>
     )
 }

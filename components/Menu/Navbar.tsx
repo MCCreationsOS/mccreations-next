@@ -16,7 +16,7 @@ import {
 import UserOptions from "./UserOptions";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 
 export default function Navbar() {
     const t = useTranslations();
@@ -106,11 +106,11 @@ export default function Navbar() {
                     <NavigationMenu className="hidden md:flex">
                         <NavigationMenuList>
                             <NavigationMenuItem>
-                                <Link href="/feed" legacyBehavior passHref>
-                                    <NavigationMenuLink className="group inline-flex h-9 w-max items-center justify-center bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                                <NavigationMenuLink asChild className="group inline-flex h-9 w-max items-center justify-center bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50">
+                                    <Link href="/feed">
                                         {t("Components.Navbar.feed")}
-                                    </NavigationMenuLink>
-                                </Link>
+                                    </Link>
+                                </NavigationMenuLink>
                             </NavigationMenuItem>
                             <NavigationMenuItem>
                                 <NavigationMenuTrigger>
@@ -142,7 +142,9 @@ export default function Navbar() {
                     </NavigationMenu>
 
                     <div className="flex items-center ml-auto gap-2">
-                        <LanguageSwitcher />
+                        <Suspense fallback={null}>
+                            <LanguageSwitcher />
+                        </Suspense>
                         <UserOptions />
 
                         <Button asChild className="hidden md:flex gap-0">
@@ -155,11 +157,11 @@ export default function Navbar() {
                 </div>
             </header>
             <div className="flex items-center ml-auto gap-2 w-full justify-center">
-                <Link href="https://patreon.com/cw/pt_mccreations">
-                    <Button variant="destructive" className="sm:text-md md:text-lg px-5 py-5 mb-2 mt-1">
-                        <span>Please consider supporting us on Patreon!</span>
-                    </Button>
-                </Link>
+                <Button asChild variant="secondary" className="sm:text-md md:text-lg px-5 py-5 mb-2 mt-1">
+                    <a href="https://patreon.com/cw/pt_mccreations" target="_blank" rel="noopener noreferrer">
+                        <span>{t("Components.Navbar.patreon")}</span>
+                    </a>
+                </Button>
             </div>
         </>
     );

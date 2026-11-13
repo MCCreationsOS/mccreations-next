@@ -1,18 +1,18 @@
-import useSWR, { mutate } from "swr"
+import useSWR from "swr"
 import { listFiles } from "../files"
 import { FileListOptions } from "../types"
+import { useToken } from "./users"
 
 export const useFiles = (options: FileListOptions) => {
-    const { data, error, isLoading } = useSWR(
-        ["files", options.page, options.limit, options.user],
-        () => listFiles(options),
-    )
+    const { token } = useToken()
+    const key = token ? ["files", token, options.page, options.limit, options.user] : null
+    const { data, error, isLoading, mutate } = useSWR(key, () => listFiles(options, token))
 
     return {
         files: data?.documents,
         total: data?.totalCount ?? 0,
         isLoading,
         error,
-        refresh: () => mutate(["files", options.page, options.limit, options.user]),
+        refresh: () => mutate(),
     }
 }

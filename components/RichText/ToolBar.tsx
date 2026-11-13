@@ -337,18 +337,10 @@ export default function ToolbarPlugin() {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <div className="border-2 border-white/15 p-1">
-                  <DropdownMenuItem className="p-0">
-                    <Button variant="dropdown" onClick={() => {formatParagraph(editor)}}>Paragraph</Button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="p-0">
-                    <Button variant="dropdown" onClick={() => {formatHeading(editor, "", "h1")}}>Heading 1</Button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="p-0">
-                    <Button variant="dropdown" onClick={() => {formatHeading(editor, "", "h2")}}>Heading 2</Button>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="p-0">
-                    <Button variant="dropdown" onClick={() => {formatHeading(editor, "", "h3")}}>Heading 3</Button>
-                  </DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => formatParagraph(editor)}>{t('Components.RichText.paragraph')}</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => formatHeading(editor, "", "h1")}>{t('Components.RichText.heading', {level: 1})}</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => formatHeading(editor, "", "h2")}>{t('Components.RichText.heading', {level: 2})}</DropdownMenuItem>
+                  <DropdownMenuItem onSelect={() => formatHeading(editor, "", "h3")}>{t('Components.RichText.heading', {level: 3})}</DropdownMenuItem>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>

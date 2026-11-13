@@ -11,8 +11,12 @@ import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import { Uploader } from '@/app/api/upload'
 import { Progress } from '../ui/progress'
+/** Matches the API's per-file upload limit */
+const MAX_FILE_SIZE_MB = 30
+
 const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: string, presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
-    const [file, setFile] = useState<string>("")
+    const [file, setFile] = useState<string>(presetFile ?? "")
+    const [link, setLink] = useState<string>(presetFile ?? "")
     const [rejected, setRejected] = useState<FileRejection[]>([])
     const [progress, setProgress] = useState<number>(100)
     const {token} = useToken();
@@ -25,12 +29,18 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
                 setProgress(progress)
             }
             uploader.onComplete = (uploadedFiles: {type: string, name: string, location: string}[]) => {
-                setFile(uploadedFiles[0].location)
+                setProgress(100)
+                if (uploadedFiles[0]) {
+                    setFile(uploadedFiles[0].location)
+                    setLink(uploadedFiles[0].location)
+                }
             }
             uploader.onError = (error: Error) => {
-                toast.error(error.message)
+                setProgress(100)
+                toast.error(error.message || t('Components.Dropzone.upload_failed'))
             }
-            uploader.upload()
+            setProgress(0)
+            uploader.upload().catch(() => { /* reported through onError */ })
             // upload(acceptedFiles, token, forWhat).then(uploadedFiles => {
             //     if(uploadedFiles) {
             //         uploadedFiles.forEach(uploadedFile => {
@@ -53,7 +63,7 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
                             toast.error(t('Components.Dropzone.invalid_type', { type: t('Components.Dropzone.FileTypes.zip') }))
                             break;
                         case 'file-too-large':
-                            toast.error(t('Components.Dropzone.file_too_large', { max_size: '2MB' }))
+                            toast.error(t('Components.Dropzone.file_too_large', { max_size: `${MAX_FILE_SIZE_MB}MB` }))
                             break;
                         default:
                             toast.error(t('Components.Dropzone.file_unknown'))
@@ -62,27 +72,23 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
                 })
             })
         }
-    }, [])
+    }, [token, forWhat, t])
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: {
             'application/zip': ['.zip', '.mcworld', '.mcpack', '.mctemplate', '.mcaddon'],
         },
         maxFiles: 1,
-        maxSize: 1024 * 101024,
+        maxSize: MAX_FILE_SIZE_MB * 1024 * 1024,
         onDrop
     })
 
+    // Report each new file exactly once (the preset doesn't count as new)
     useEffect(() => {
-        if(presetFile) {
-            setFile(presetFile);
-        }
-    }, [])
-
-    useEffect(() => {
-        if(file) {
+        if(file && file !== presetFile) {
             onFilesUploaded(file)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file])
 
     const removeFile = (name: string) => {
@@ -110,11 +116,16 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
                 <p>{t('Components.Dropzone.or')}</p>
                 <div className="mt-3 w-full">
                     <Label className="text-sm font-medium">{t('Components.Dropzone.link')}</Label>
-                    <Input type="text" name="Link" id="Link" placeholder={t('Components.Dropzone.link_placeholder')} defaultValue={file} />
+                    <Input type="url" name="Link" id="Link" placeholder={t('Components.Dropzone.link_placeholder')} value={link} onChange={(e) => setLink(e.target.value)} onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            e.preventDefault()
+                            setFile(link.trim())
+                        }
+                    }} />
                     <Button variant="secondary" type="button" onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
-                        setFile((document.getElementById('Link') as HTMLInputElement).value || "")
+                        setFile(link.trim())
                     }}><span>{t('Components.Dropzone.set_link')}</span></Button>
                 </div>
             </div>

@@ -21,7 +21,7 @@ import SpoilerPlugin from './SpoilerPlugin';
 import { CollapsibleContainerNode } from './SpoilerPlugin/SpoilerContainerNode';
 import { CollapsibleContentNode } from './SpoilerPlugin/SpoilerContentNode';
 import { CollapsibleTitleNode } from './SpoilerPlugin/SpoilerTitleNode';
-import { useEffect, useImperativeHandle, forwardRef, type JSX } from 'react';
+import { useEffect, useImperativeHandle, useRef, type JSX } from 'react';
 import {HeadingNode} from '@lexical/rich-text'
 
 const theme = {
@@ -89,30 +89,33 @@ function ResetPlugin({ resetRef }: { resetRef: React.RefObject<{ reset: () => vo
 }
 
 /**
- * Load preset HTML into the editor
- * @param html The HTML string to load 
- * @returns 
+ * Load preset HTML into the editor. This happens once, when the HTML first arrives: later changes to
+ * `html` (e.g. SWR refetching the creation when the window regains focus) must not throw away what
+ * the user has typed. To load different content, remount the editor with a new `key`.
+ * @param html The HTML string to load
  */
 function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
     const [editor] = useLexicalComposerContext();
-    useEffect(() => {   
+    const loaded = useRef(false);
+    useEffect(() => {
+      if(loaded.current || html.length === 0) return;
+      loaded.current = true;
       editor.update(() => {
         try {
-          if(html.length === 0) return;
           const parser = new DOMParser();
           // HTML sanitization is handled in the API
           const dom = parser.parseFromString(html, "text/html");
-          
+
           const nodes = $generateNodesFromDOM(editor, dom);
-          
+
           $getRoot().clear();
-          
+
           $insertNodes(nodes);
         } catch(e) {
           console.error(e);
         }
       });
-    }, [html])
+    }, [html, editor])
     return <></>;
 }
 

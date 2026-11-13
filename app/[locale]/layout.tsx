@@ -69,7 +69,6 @@ export default async function RootLayout(props: { params: Promise<{ locale: stri
       <head>
         <meta property="og:image:width" content="2500"></meta>
         <meta property="og:image:height" content="1408"></meta>
-        <meta property="og:url" content="https://www.mccreations.net"></meta>
         <link rel="preconnect" href="https://fonts.googleapis.com"></link>
         <link rel="preconnect" href="https://fonts.gstatic.com"></link>
         <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&family=Oxygen:wght@300;400;700&family=Paytone+One&display=swap" rel="stylesheet"></link>

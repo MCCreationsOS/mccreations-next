@@ -2,19 +2,19 @@
 
 import { IContentDoc, CollectionNames, } from "@/app/api/types";
 import Image from 'next/image'
-import { useLocale, useTranslations } from "next-intl";
-import { formatRating } from "@/app/api/utils";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
+import { formatRating, tagLabel } from "@/app/api/utils";
 import { convertToType } from "@/app/api/content";
 import { Badge } from "@/components/ui/badge";
 import { useTags } from "@/app/api/hooks/creations";
 import CreatorCard from "@/components/Creator/CreatorCard";
-import Rating from "@/components/Creations/Page/Rating";
+import Rating, { submitRating } from "@/components/Creations/Page/Rating";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import RecommendedCreations from "./RecommendedCreations";
 import Comments from "./Comments";
-import { getCookie, setCookie } from "@/app/setCookies";
-import { postRating } from "@/app/api/community";
+import { toast } from "sonner";
+import { useState } from "react";
 import DownloadButton from "@/components/ui/client_buttons/DownloadButton";
 import CreationOptions from "./CreationOptions";
 import { Link } from "@/i18n/navigation";
@@ -27,6 +27,24 @@ import { Link } from "@/i18n/navigation";
 export default function Creation({ creation, collectionName }: { creation: IContentDoc, collectionName: CollectionNames }) {
     const t = useTranslations()
     const locale = useLocale();
+    const format = useFormatter();
+    // Updated after the visitor rates, so the new average shows without a reload
+    const [rating, setRating] = useState({ value: creation.rating, count: creation.ratings?.length ?? 0 })
+    // A fixed time zone so the server and browser render the same date (avoids hydration mismatches)
+    // Older creations store dates in seconds rather than milliseconds
+    const formatDate = (date: number) => format.dateTime(new Date(date < 10000000000 ? date * 1000 : date), { dateStyle: "medium", timeZone: "UTC" })
+
+    const onRate = async (value: number) => {
+        const result = await submitRating(value, creation)
+        if (result === "already_rated") {
+            toast(t('Components.Creations.Page.Rating.already_rated'))
+        } else if (result === "error") {
+            toast.error(t('Components.Creations.Page.Rating.error'))
+        } else {
+            setRating({ value: result, count: rating.count + 1 })
+            toast.success(t('Components.Creations.Page.Rating.thanks'))
+        }
+    }
     const contentType = convertToType(collectionName);
     const { tags } = useTags(contentType)
 
@@ -67,7 +85,7 @@ export default function Creation({ creation, collectionName }: { creation: ICont
             availability: "https://schema.org/InStock",
         },
         image: creation.images && creation.images.length > 0 ? creation.images[0] : undefined,
-        downloadUrl: `${process.env.NEXT_PUBLIC_API_BASE_URL}/creations/${collectionName}/${creation.slug}/download`,
+        downloadUrl: creation.files?.[0] ? (creation.files[0].url ?? creation.files[0].worldUrl ?? creation.files[0].dataUrl ?? creation.files[0].resourceUrl) : undefined,
     }
 
     if (creation.rating > 0 && creation.ratings && creation.ratings.length > 0) {
@@ -114,7 +132,7 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                             (creation.type === "datapack") ? <><Link href={`/${creation.type}s`}><Badge variant="secondary" className="text-md">{t('datapack', { count: 1 })}</Badge></Link></> :
                                 <><Link href={`/${creation.type}s`}><Badge variant="secondary" className="text-md">{t('resourcepack', { count: 1 })}</Badge></Link></>
                     }
-                    {creation.tags && creation.tags.length > 0 && <>{creation.tags.slice(0, 6).map(tag => tag ? <Link href={`/${creation.type}s?includeTags=${tag}`}><Badge key={tag} variant="secondary" className="text-md">{t(`Components.Creations.Tags.${tag}`)}</Badge></Link> : <></>)}</>}
+                    {creation.tags?.filter(tag => tag).slice(0, 6).map(tag => <Link key={tag} href={{ pathname: `/${creation.type}s`, query: { includeTags: tag } }}><Badge variant="secondary" className="text-md">{tagLabel(t, tag)}</Badge></Link>)}
                 </div>
             </div>
             <div className="max-w-5xl mx-auto mt-3 md:mt-10">
@@ -128,7 +146,7 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                     <div className="lg:text-lg flex-1 list-disc">
                         <h1 className="text-4xl font-extrabold sm:text-left text-center mb-5">{title}</h1>
                         {videoID && videoID.length > 0 && <div className="aspect-video mb-5">
-                            <iframe src={`https://www.youtube.com/embed/${videoID}?autoplay=0&amp;rel=0&amp;origin=https://mccreations.net`} title={`Video of ${title} by ${creation.creators[0].username}`} allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" className="w-full h-full"></iframe>
+                            <iframe src={`https://www.youtube.com/embed/${videoID}?autoplay=0&amp;rel=0&amp;origin=https://mccreations.net`} title={t('Components.Creations.Page.video_title', { title, creator: creation.creators?.[0]?.username ?? "" })} allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" className="w-full h-full"></iframe>
                         </div>}
                         <div dangerouslySetInnerHTML={{ __html: description }}>
 
@@ -160,13 +178,7 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                             <hr className="my-2"></hr>
                             <div className="flex flex-col gap-1 text-sm text-muted-foreground">
                                 <div>
-                                    <Rating value={creation.rating} currentRating={creation.rating} ratings={creation.ratings} showCount={true} onRate={async (value) => {
-                                        let cookie = await getCookie("RATED_" + creation._id)
-                                        if (!cookie) {
-                                            await postRating(value, creation);
-                                            setCookie("RATED_" + creation._id, "true")
-                                        }
-                                    }} />
+                                    <Rating value={rating.value} currentRating={rating.value} ratings={Array(rating.count).fill(0)} showCount={true} onRate={onRate} />
                                 </div>
                                 <div className="flex flex-row">
                                     <span className="flex-1">{t('Components.Creations.Page.Sidebar.downloads')}</span>
@@ -174,11 +186,11 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                                 </div>
                                 <div className="flex flex-row">
                                     <span className="flex-1">{t('Components.Creations.Page.Sidebar.created_date')}</span>
-                                    <span>{new Date(creation.createdDate).toLocaleDateString()}</span>
+                                    <span>{formatDate(creation.createdDate)}</span>
                                 </div>
                                 {creation.updatedDate && <div className="flex flex-row">
                                     <span className="flex-1">{t('Components.Creations.Page.Sidebar.updated_date')}</span>
-                                    <span>{new Date(creation.updatedDate).toLocaleDateString()}</span>
+                                    <span>{formatDate(creation.updatedDate)}</span>
                                 </div>}
                             </div>
                         </div>

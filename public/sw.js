@@ -8,7 +8,7 @@ self.addEventListener('push', (event) => {
             tag: data.tag,
             data: {
                 dateOfArrival: Date.now(),
-                primaryKey: '2'
+                link: data.link
             }
         }
 
@@ -18,5 +18,11 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
     event.notification.close()
-    event.waitUntil(clients.openWindow("https://mccreations.net"))
+    // Open the page the notification is about (older notifications used singular paths like /map/foo)
+    let link = (event.notification.data && event.notification.data.link) || "/"
+    link = link.replace(/^\/(map|datapack|resourcepack)\//, "/$1s/")
+    const url = new URL(link, self.location.origin)
+    // Only ever open pages on this site
+    const target = url.origin === self.location.origin ? url.href : self.location.origin
+    event.waitUntil(clients.openWindow(target))
 })

@@ -9,10 +9,15 @@ const notificationsFetcher = (authorization: string, page: number) => {
 
 export const useNotifications = (page: number) => {
     const {token} = useToken()
-    const {data, error, isLoading} = useSWR(['notifications', page], ([key, page]) => notificationsFetcher(token, page))
+    // The token is part of the key so a different account never sees cached notifications
+    const {data, error, isLoading, mutate} = useSWR(token ? ['notifications', token, page] : null, ([, token, page]) => notificationsFetcher(token as string, page as number))
+    const notifications = data?.documents as INotification[] | undefined
     return {
-        notifications: data?.documents as INotification[]|undefined,
-        total: data?.totalCount as number|undefined,
+        notifications,
+        total: data?.totalCount as number | undefined,
+        /** Updates the loaded notifications locally without refetching */
+        setNotifications: (updated: INotification[]) => mutate({...data, documents: updated}, { revalidate: false }),
+        refresh: () => mutate(),
         isLoading,
         error
     }

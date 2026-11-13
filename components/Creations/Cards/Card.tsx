@@ -1,19 +1,13 @@
 'use client'
 
-import { IContentDoc, NewFile } from "@/app/api/types"
+import { IContentDoc } from "@/app/api/types"
 import Image from "next/image"
 import { Link } from "@/i18n/navigation";
 import { shimmer, toBase64 } from "../../skeletons/imageShimmer"
 import styles from './Card.module.css'
-import { useRouter } from "next/navigation"
-import InGridAdUnit from "../../AdUnits/InContent"
-import { useEffect, useState } from "react"
-import { convertToCollection, downloadCreation } from "@/app/api/content"
-import { useLocale, useTranslations } from "use-intl";
-import { useTags } from "@/app/api/hooks/creations";
-import { makeSentenceCase, formatRating } from "@/app/api/utils";
-import { Button } from "../../ui/button";
-import { Archive, CheckSquare, Download, Layers, Map, Package, Square, Star, Tag } from "lucide-react";
+import { useLocale, useTranslations } from "next-intl";
+import { formatRating, tagLabel } from "@/app/api/utils";
+import { Download, Star } from "lucide-react";
 import { Badge } from "../../ui/badge";
 import { track } from "@vercel/analytics/react";
 
@@ -22,9 +16,7 @@ export interface IContentCardProps {
     playlist: string
     index: number
     priority: boolean,
-    enableSelection?: boolean
     linkTo?: string
-    adPosition?: number
     showCategory?: boolean
 }
 
@@ -36,46 +28,8 @@ export interface IContentCardProps {
  * @param priority Whether the image should be loaded with priority
  */
 export default function CreationCard(props: IContentCardProps) {
-    const [selected, setSelected] = useState(false)
     const t = useTranslations()
     const locale = useLocale();
-
-    useEffect(() => {
-        let selectedCreations = localStorage?.getItem('selectedCreations')
-        if (selectedCreations) {
-            let creations = JSON.parse(selectedCreations)
-            if (props.creation.files && props.creation.files.length > 0) {
-                if (creations.includes((props.creation.files[0].worldUrl) ? props.creation.files[0].worldUrl : (props.creation.files[0].dataUrl) ? props.creation.files[0].dataUrl : props.creation.files[0].resourceUrl!)) {
-                    setSelected(true)
-                }
-            }
-        }
-    }, [])
-
-    const selectCreation = (e: any) => {
-        e.preventDefault();
-
-        if (!selected) {
-            let selectedMaps = localStorage?.getItem('selectedContent')
-            if (selectedMaps) {
-                let maps = JSON.parse(selectedMaps)
-                maps.push((props.creation.files[0].worldUrl) ? props.creation.files[0].worldUrl : (props.creation.files[0].dataUrl) ? props.creation.files[0].dataUrl : props.creation.files[0].resourceUrl!)
-                localStorage?.setItem('selectedContent', JSON.stringify(maps))
-            } else {
-                localStorage?.setItem('selectedContent', JSON.stringify([(props.creation.files[0].worldUrl) ? props.creation.files[0].worldUrl : (props.creation.files[0].dataUrl) ? props.creation.files[0].dataUrl : props.creation.files[0].resourceUrl!]))
-            }
-        } else {
-            let selectedMaps = localStorage?.getItem('selectedContent')
-            if (selectedMaps) {
-                let maps = JSON.parse(selectedMaps)
-                maps = maps.filter((map: string) => map !== ((props.creation.files[0].worldUrl) ? props.creation.files[0].worldUrl : (props.creation.files[0].dataUrl) ? props.creation.files[0].dataUrl : props.creation.files[0].resourceUrl!))
-                localStorage?.setItem('selectedContent', JSON.stringify(maps))
-            }
-
-        }
-
-        setSelected(!selected)
-    }
 
     let shortDescription = props.creation.shortDescription
     let title = props.creation.title
@@ -83,23 +37,6 @@ export default function CreationCard(props: IContentCardProps) {
     if (props.creation.translations && props.creation.translations[locale] && props.creation.translations[locale].approved) {
         shortDescription = props.creation.translations[locale].shortDescription
         title = props.creation.translations[locale].title
-    }
-
-    const downloadButtonClicked = async () => {
-        let file = props.creation.files[0]
-        await downloadCreation(props.creation.slug, convertToCollection(props.creation.type))
-        let files: NewFile[] = [{ url: file.url ?? file.worldUrl ?? file.dataUrl ?? file.resourceUrl ?? "", required: true, type: file.type }]
-        file.extraFiles && files.push(...file.extraFiles)
-
-        files.forEach((file) => {
-            if (!file.required) return
-            let a = document.createElement('a')
-            a.href = file.url
-            a.download = props.creation.slug
-            a.target = '_blank'
-            a.click()
-            a.remove()
-        })
     }
 
     let minecraftVersion = ""
@@ -131,7 +68,7 @@ export default function CreationCard(props: IContentCardProps) {
                                     (props.creation.type === "map") ? <><Badge variant="secondary">{t('map', { count: 1 })}</Badge></> :
                                         (props.creation.type === 'datapack') ? <><Badge variant="secondary">{t('datapack', { count: 1 })}</Badge></> :
                                             <><Badge variant="secondary">{t('resourcepack', { count: 1 })}</Badge></>)}
-                            {props.showCategory && props.creation.tags && props.creation.tags.length > 0 && <>{props.creation.tags.slice(0, 2).map(tag => tag ? <Badge key={tag} variant="secondary">{t(`Components.Creations.Tags.${tag}`)}</Badge> : <></>)}</>}
+                            {props.showCategory && props.creation.tags && props.creation.tags.length > 0 && <>{props.creation.tags.filter(tag => tag).slice(0, 2).map(tag => <Badge key={tag} variant="secondary">{tagLabel(t, tag)}</Badge>)}</>}
                         </div>
                     </div>
                 </Link>

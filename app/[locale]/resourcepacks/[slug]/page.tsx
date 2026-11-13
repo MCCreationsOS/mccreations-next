@@ -2,7 +2,6 @@ import { fetchResourcepack } from '@/app/api/content';
 import { ICreator, IContentDoc, CollectionNames } from '@/app/api/types';
 import MapWrapper, { ResourcepackWrapper } from '@/components/Creations/Page/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
-import { sendLog } from '@/app/api/logging';
 import Creation from '@/components/Creations/Page/Creation';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -14,7 +13,8 @@ export async function generateMetadata(props: { params: Promise<{locale: string,
 
     const t = await getTranslations({locale: params.locale})
     const locale = await getLocale()
-    if (!map || typeof map === "string") return {
+    if (!map || typeof map !== "object" || !("_id" in map)) return {
+        robots: { index: false },
         title: t('Pages.Resourcepacks.slug.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),
         openGraph: {
             title: t('Pages.Resourcepacks.slug.Metadata.not_found_title', { content_type: t('resourcepack', {count: 1})}),

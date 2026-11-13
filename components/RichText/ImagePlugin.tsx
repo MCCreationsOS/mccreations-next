@@ -52,6 +52,7 @@ export function InsertImageUriDialogBody({
 }: {
   onClick: (payload: InsertImagePayload) => void;
 }) {
+  const t = useTranslations()
   const form = useForm({
     defaultValues: {
       src: '',
@@ -72,15 +73,15 @@ export function InsertImageUriDialogBody({
     }} className='flex flex-col gap-2'>
       <form.Field name="src" children={(field) => (
         <>
-          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Image URL" />
+          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Components.RichText.Image.url')} />
         </>
       )}/>
       <form.Field name="altText" children={(field) => (
         <>
-          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Alt Text" />
+          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Components.RichText.Image.alt_text')} />
         </>
       )}/>
-      <Button type="submit"><span>Insert Image</span></Button>
+      <Button type="submit"><span>{t('Components.RichText.Image.insert')}</span></Button>
     </form>
     </>
   );
@@ -91,6 +92,7 @@ export function InsertImageUploadedDialogBody({
 }: {
   onClick: (payload: InsertImagePayload) => void;
 }) {
+  const t = useTranslations()
   const form = useForm({
     defaultValues: {
       src: '',
@@ -110,15 +112,15 @@ export function InsertImageUploadedDialogBody({
     }} className='flex flex-col gap-2'>
       <form.Field name="src" children={(field) => (
         <>
-          <ImageDropzone forWhat={"comment"} onImagesUploaded={(f) => {field.handleChange(f[0].url)}} allowMultiple={false}/>
+          <ImageDropzone forWhat={"comment"} onImagesUploaded={(f) => {field.handleChange(f[0]?.url ?? "")}} allowMultiple={false}/>
         </>
       )}/>
       <form.Field name="altText" children={(field) => (
         <>
-          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder="Alt Text" />
+          <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Components.RichText.Image.alt_text')} />
         </>
       )}/>
-      <Button type="submit">Insert Image</Button>
+      <Button type="submit">{t('Components.RichText.Image.insert')}</Button>
     </form>
     </>
   );

@@ -32,6 +32,13 @@ import { useRouter, useSearchParams } from "next/navigation"
 import { FormEvent, useEffect, useState } from "react"
 import { toast } from "sonner"
 
+// `user` may be an id or an embedded user object
+function fileUserLabel(user: IFileRecord["user"]) {
+    if (!user) return "—"
+    if (typeof user === "string") return user
+    return user.handle ?? user.username ?? user._id ?? user.id ?? "—"
+}
+
 export default function FilesTable() {
     const t = useTranslations()
     const router = useRouter()
@@ -58,8 +65,7 @@ export default function FilesTable() {
     }
 
     if (!user || user.type !== UserTypes.Admin) {
-        router.push("/signin?redirect=dashboard/files")
-        return null
+        return <div className="centered_content">{t("Pages.Dashboard.Files.admin_only")}</div>
     }
 
     const fileIds = files?.map((file) => file._id) ?? []
@@ -243,7 +249,7 @@ export default function FilesTable() {
                             <TableCell className="max-w-[200px] truncate text-muted-foreground">{file.filename}</TableCell>
                             <TableCell>{file.type}</TableCell>
                             <TableCell className="text-muted-foreground">{file.mimetype}</TableCell>
-                            <TableCell>{file.user ?? "—"}</TableCell>
+                            <TableCell>{fileUserLabel(file.user)}</TableCell>
                             <TableCell>{formatDate(file.createdDate)}</TableCell>
                             <TableCell>
                                 <div className="flex flex-row gap-1">

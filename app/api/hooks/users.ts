@@ -2,10 +2,9 @@ import { getUser } from "../auth"
 import useSWR, { mutate } from 'swr'
 import { CreatorSettings, ICreator, IUser, UserTypes } from "../types"
 import { getCreator } from "../community"
-import { useEffect } from "react"
+import { useState } from "react"
 import { useIsClient, useLocalStorage, useSessionStorage } from 'usehooks-ts'
-import { searchContent } from "../content"
-import { getUserSettings } from "../creators"
+import { follow, getUserSettings, unfollow } from "../creators"
 
 const getUserFetcher = (token: string) => {
     return getUser(token)
@@ -14,11 +13,6 @@ const getUserFetcher = (token: string) => {
 const getCreatorFetcher = (handle?: string) => {
     if(!handle) return undefined
     return getCreator(handle)
-}
-
-const getOwnedCreationsFetcher = (handle: string) => {
-    if(!handle) return undefined
-    return searchContent({contentType: "content", creators: [handle], status: 0, limit: 20, page: 0}, false)
 }
 
 const getUserSettingsFetcher = (token: string) => {
@@ -60,8 +54,7 @@ export const useUser = (alwaysSecure: boolean = false) => {
             }
         }
 
-        // There is a token but the user hasn't been fetched yet. Report that as loading so pages
-        // don't treat a signed-in user as signed out (and redirect them) while the request is in flight.
+        // Slight trickery to avoid redirecting to signin while the request is in flight
         if(isLoading) {
             return {
                 user: undefined,
@@ -104,10 +97,31 @@ export const useUserSettings = () => {
     }
 }
 
-// export const useOwnedCreations = (handle: string) => {
-//     const [token] = useLocalStorage('jwt', '')
-//     if(!token) {
-//         token = sessionStorage?.getItem('temp_key') + ""
-//     }
+export const useFollow = (handle?: string) => {
+    const {user, setUser} = useUser()
+    const {token} = useToken()
+    const [pending, setPending] = useState(false)
 
-// }
+    const isFollowing = !!handle && !!user?.following?.includes(handle)
+    const isSelf = !!user?.handle && user.handle === handle
+
+    const toggle = async () => {
+        if(!handle || !user || pending) return false
+        setPending(true)
+        try {
+            const ok = isFollowing ? await unfollow(token, handle) : await follow(token, handle)
+            if(!ok) return false
+            const following = isFollowing ? (user.following ?? []).filter((h) => h !== handle) : [...(user.following ?? []), handle]
+            setUser({...user, following})
+            mutate([handle, 'creator'], (creator: IUser | undefined) => creator && {
+                ...creator,
+                followers: isFollowing ? (creator.followers ?? []).filter((id) => id !== user._id) : [...(creator.followers ?? []), user._id!]
+            }, { revalidate: false })
+            return true
+        } finally {
+            setPending(false)
+        }
+    }
+
+    return { isFollowing, isSelf, signedIn: !!user, pending, toggle }
+}

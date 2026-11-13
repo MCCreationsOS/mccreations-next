@@ -43,22 +43,28 @@ export const useCreations = (queryOptions: QueryOptions, filterQuery?: QueryOpti
         creations: (data?.documents ?? []) as IContentDoc[],
         count: data?.totalCount ?? 0,
         isLoading,
-        error
+        error,
+        refresh: () => mutate([key, queryOptions, filterQuery, 'useCreations'])
     }
 }
 
-export const useCreation = (slug: string, type: ContentTypes) => {
+/**
+ * @param options.editing Pass true on edit pages: the creation isn't refetched when the window regains
+ * focus, so a refetch can't overwrite (or reset the editor over) unsaved changes.
+ */
+export const useCreation = (slug: string, type: ContentTypes, options?: { editing?: boolean }) => {
     const {token} = useToken()
     const [tempKey] = useSessionStorage('temp_key', '', {serializer: (value) => value, deserializer: (value) => value})
 
     let key = (token?.length ?? 0) > 0 ? token : tempKey
 
-    const { data, error, isLoading } = useSWR([key, slug, type, 'useCreation'], ([key, slug, type]) => getCreationFetcher(key, slug, type))
+    const { data, error, isLoading } = useSWR([key, slug, type, 'useCreation'], ([key, slug, type]) => getCreationFetcher(key, slug, type), options?.editing ? { revalidateOnFocus: false, revalidateOnReconnect: false } : undefined)
 
     return {
         creation: data as IContentDoc | {error: string},
         isLoading,
-        error
+        error,
+        refresh: () => mutate([key, slug, type, 'useCreation'])
     }
 }
 

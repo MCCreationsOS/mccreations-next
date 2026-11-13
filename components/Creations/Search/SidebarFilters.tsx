@@ -35,7 +35,7 @@ export default function SidebarFilters({contentType, tags, searchParams}: {conte
                 <DropdownMenuContent>
                     <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
                         {sortOptions.map((option) => (
-                            <DropdownMenuItem key={option} onSelect={() => setFilters({ sort: option })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t(`Components.Creations.Search.Sort.${option}`)}</Button></DropdownMenuItem>
+                            <DropdownMenuItem key={option} onSelect={() => setFilters({ sort: option })}>{t(`Components.Creations.Search.Sort.${option}`)}</DropdownMenuItem>
                         ))}
                     </div>
                 </DropdownMenuContent>
@@ -45,9 +45,9 @@ export default function SidebarFilters({contentType, tags, searchParams}: {conte
                 <DropdownMenuTrigger asChild><Button variant="secondary" className="w-full"><span className="w-full">{t(`Components.Creations.Search.Status.${statusLabelKey(status)}`)}</span></Button></DropdownMenuTrigger>
                 <DropdownMenuContent>
                     <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                        <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Unapproved })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.unapproved')}</Button></DropdownMenuItem>
-                        <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Approved })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.approved')}</Button></DropdownMenuItem>
-                        <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Featured })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.featured')}</Button></DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Unapproved })}>{t('Components.Creations.Search.Status.unapproved')}</DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Approved })}>{t('Components.Creations.Search.Status.approved')}</DropdownMenuItem>
+                        <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Featured })}>{t('Components.Creations.Search.Status.featured')}</DropdownMenuItem>
                     </div>
                 </DropdownMenuContent>
             </DropdownMenu>

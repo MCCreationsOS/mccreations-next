@@ -1,12 +1,10 @@
 import ContentGrid from "@/components/Creations/Grid"
 import { convertToType, fetchTags, searchContent } from "@/app/api/content"
 import SearchAndFilter from "@/components/Creations/Search/SearchBar"
-import { AdsenseComponent } from "@/components/AdUnits/InContent"
 import SidebarFilters from "@/components/Creations/Search/SidebarFilters"
 import { getTranslations } from "next-intl/server";
 import { CollectionNames, SortOptions, StatusOptions } from "@/app/api/types";
 import PageNavigator from "./Navigator";
-import { makeSentenceCase } from "@/app/api/utils"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
 
 export default async function CreationSearchPage({ searchParams, collectionName, pathname, locale }: { searchParams: Promise<{ [key: string]: string | string[] | undefined }>, collectionName: CollectionNames, pathname: string, locale: string }) {
@@ -15,7 +13,7 @@ export default async function CreationSearchPage({ searchParams, collectionName,
     let page = 0
     const params = await searchParams
     if (params.page != null && params.page.length > 0) {
-        page = (Number.parseInt(params.page as string));
+        page = Math.max(Number.parseInt(params.page as string) || 0, 0);
     }
     let search = params.search ? params.search as string : ""
     let sort = params.sort ? params.sort as SortOptions : SortOptions.Newest
@@ -49,11 +47,11 @@ export default async function CreationSearchPage({ searchParams, collectionName,
                     <SearchAndFilter searchParams={{ search: search, sort: sort, status: status, includeTags: includeTags, excludeTags: excludeTags }} tags={tags} />
                     {creations && creations.length !== 0 && (
                         <>
-                            <ContentGrid content={creations} enableSelection={true} enableAds={true} showCategory={true} playlist={collectionName}></ContentGrid>
+                            <ContentGrid content={creations} showCategory={true} playlist={collectionName}></ContentGrid>
                             {creations && pages > 1 && (<PageNavigator page={page} pages={pages} className="mt-4" />)}
                         </>
                     )}
-                    {!creations || creations.length === 0 && (
+                    {(!creations || creations.length === 0) && (
                         <div className="no_comments">
                             <h2>{t('Components.Creations.Page.not_found', { content_type: t(contentType, { count: 2 }) })}</h2>
                         </div>

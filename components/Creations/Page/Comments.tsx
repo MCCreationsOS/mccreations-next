@@ -1,4 +1,4 @@
-import { deleteComment, likeComment, postComment, postRating, postReply } from '@/app/api/community'
+import { deleteComment, postComment, postReply } from '@/app/api/community'
 import { useComments } from '@/app/api/hooks/comments'
 import { useCreator, useToken, useUser } from '@/app/api/hooks/users'
 import { CollectionNames, IComment, IContentDoc, SortOptions, UserTypes } from '@/app/api/types'
@@ -7,12 +7,9 @@ import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
 import { Input } from '@/components/ui/input'
 import {useForm} from '@tanstack/react-form'
-import { ChevronDown, ChevronDownIcon, ChevronUp, MoreHorizontalIcon, ThumbsUpIcon } from 'lucide-react'
-import Image from 'next/image'
+import { ChevronDown, ChevronUp, MoreHorizontalIcon } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-import Rating from './Rating'
-import { setCookie } from '@/app/setCookies'
-import { getCookie } from '@/app/setCookies'
+import Rating, { submitRating } from './Rating'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { useTranslations } from 'next-intl'
 import { toast } from 'sonner'
@@ -20,7 +17,7 @@ import { CreatorAvatar } from '@/app/[locale]/create/formElements'
 
 export default function Comments({creation, collection}: {creation: IContentDoc, collection: CollectionNames}) {
     const [sort, setSort] = useState(SortOptions.Newest)
-    const {comments, setComments} = useComments(creation.slug, collection, sort, 20);
+    const {comments, setComments, hasMore, loadMore, isLoadingMore} = useComments(creation.slug, collection, sort);
     const t = useTranslations();
 
     return (
@@ -40,8 +37,8 @@ export default function Comments({creation, collection}: {creation: IContentDoc,
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.newest')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onClick={() => setSort(SortOptions.Oldest)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Sort.oldest')}</Button></DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => setSort(SortOptions.Newest)}>{t('Components.Creations.Search.Sort.newest')}</DropdownMenuItem>
+                                    <DropdownMenuItem onClick={() => setSort(SortOptions.Oldest)}>{t('Components.Creations.Search.Sort.oldest')}</DropdownMenuItem>
                                 </div>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -51,6 +48,9 @@ export default function Comments({creation, collection}: {creation: IContentDoc,
                     {comments?.map((comment) => (
                         <Comment key={comment._id} comment={comment} setComments={setComments} comments={comments} sort={sort} />
                     ))}
+                    {hasMore && <Button type="button" variant="secondary" className='w-fit' disabled={isLoadingMore} onClick={() => loadMore()}>
+                        {t('Components.Creations.Page.Comments.load_more')}
+                    </Button>}
                 </div>
             </div>
         </div>
@@ -76,7 +76,9 @@ function CommentForm(props: CommentProps | ReplyProps) {
     const {user} = useUser()
     const {token} = useToken()
     const richTextResetRef = useRef<{ reset: () => void }>(null)
-    
+    // Signed-in users always post under their own name
+    const signedIn = !!user?.username
+
     const form = useForm({
         defaultValues: {
             username: user?.username || '',
@@ -84,29 +86,34 @@ function CommentForm(props: CommentProps | ReplyProps) {
             rating: 0
         },
         onSubmit: async (data) => {
+            const username = signedIn ? user!.username : data.value.username
             if ('content_type' in props) {
-                const newComment = await postComment(props.creation.slug, props.content_type, data.value.username, data.value.comment, user?.handle || '', data.value.rating, token)
-                
-                // Add the new comment to the list immediately
-                if (newComment && props.comments && props.setComments) {
-                    const updatedComments = props.sort === SortOptions.Newest 
-                        ? [newComment, ...props.comments]
-                        : [...props.comments, newComment];
-                    props.setComments(updatedComments);
+                const newComment = await postComment(props.creation.slug, props.content_type, username, data.value.comment, user?.handle || '', data.value.rating, token)
+                if (!newComment) {
+                    toast.error(t('Components.Creations.Page.Comments.post_error'))
+                    return
                 }
-                
+                toast.success(t('Components.Creations.Page.Comments.posted'))
+
+                // Add the new comment to the list immediately
+                if (props.comments && props.setComments) {
+                    props.setComments([newComment, ...props.comments]);
+                }
+
                 // Only submit a rating if the commenter actually picked stars (0 means "no rating")
-                let cookie = data.value.rating > 0 ? await getCookie("RATED_" + props.creation._id) : "skip"
-                if(!cookie) {
-                    await postRating(data.value.rating, props.creation);
-                    setCookie("RATED_" + props.creation._id, "true")
+                if (data.value.rating > 0) {
+                    await submitRating(data.value.rating, props.creation)
                 }
             }
             else {
-                const newReply = await postReply(props.comment_id, data.value.username, data.value.comment, user?.handle || '', token)
-                
+                const newReply = await postReply(props.comment_id, username, data.value.comment, user?.handle || '', token)
+                if (!newReply) {
+                    toast.error(t('Components.Creations.Page.Comments.post_error'))
+                    return
+                }
+
                 // Add the new reply to the appropriate comment
-                if (newReply && props.comments && props.setComments) {
+                if (props.comments && props.setComments) {
                     const updatedComments = props.comments.map(comment => {
                         if (comment._id === props.comment_id) {
                             return {
@@ -119,7 +126,7 @@ function CommentForm(props: CommentProps | ReplyProps) {
                     props.setComments(updatedComments);
                 }
             }
-            form.reset();
+            form.reset({ username: user?.username || data.value.username, comment: '', rating: 0 });
             // Reset the RichText editor
             richTextResetRef.current?.reset();
         },
@@ -131,7 +138,8 @@ function CommentForm(props: CommentProps | ReplyProps) {
             e.stopPropagation()
             form.handleSubmit()
         }} className='flex flex-col gap-2'>
-            <form.Field name="username" children={(field) => (
+            {signedIn && <p className='text-sm text-muted-foreground'>{t('Components.Creations.Page.Comments.posting_as', {username: user!.username})}</p>}
+            {!signedIn && <form.Field name="username" children={(field) => (
                 <>
                     <Input value={field.state.value} onBlur={field.handleBlur} onChange={(e) => {field.handleChange(e.target.value)}} placeholder={t('Components.Creations.Page.Comments.username_placeholder')} />
                     {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
@@ -151,7 +159,7 @@ function CommentForm(props: CommentProps | ReplyProps) {
                         return t('Components.Creations.Page.Comments.username_too_short')
                     }
                 }
-            }}/>
+            }}/>}
             {'content_type' in props && <form.Field name="rating" children={(field) => (
                 <>
                     <Rating value={field.state.value} currentRating={field.state.value} ratings={[field.state.value]} onRate={field.handleChange}/>
@@ -176,11 +184,13 @@ function CommentForm(props: CommentProps | ReplyProps) {
                 </>
             )} validators={{
                 onChange: ({value}) => {
-                    (!value) ?
-                    t('Components.Creations.Page.Comments.comment_required') :
-                    value.length < 10 ?
-                    t('Components.Creations.Page.Comments.comment_too_short') :
-                    undefined
+                    if(!value) {
+                        return t('Components.Creations.Page.Comments.comment_required')
+                    }
+                    if(value.length < 10) {
+                        return t('Components.Creations.Page.Comments.comment_too_short')
+                    }
+                    return undefined
                 },
                 onSubmit: ({value}) => {
                     if(value.length < 10) {
@@ -188,7 +198,9 @@ function CommentForm(props: CommentProps | ReplyProps) {
                     }
                 }
             }}/>
-            <Button type="submit" className='mt-2 w-fit'><span>{t('Components.Creations.Page.Comments.send')}</span></Button>
+            <form.Subscribe selector={(state) => state.isSubmitting} children={(isSubmitting) => (
+                <Button type="submit" className='mt-2 w-fit' disabled={isSubmitting}><span>{t('Components.Creations.Page.Comments.send')}</span></Button>
+            )}/>
         </form>
     )
 }
@@ -212,9 +224,10 @@ export function Comment({comment, setComments, comments, sort}: {
 
     useEffect(() => {
         if (text.current) {
-            setCanShowMore(text.current.scrollHeight > 100)
+            // line-clamp hides the overflow, so compare the full height with the visible height
+            setCanShowMore(text.current.scrollHeight > text.current.clientHeight + 1)
         }
-    }, [text])
+    }, [comment.comment])
 
     const handleCopy = () => {
         navigator.clipboard.writeText(`${window.location.origin}/comments/${comment._id}`)
@@ -238,9 +251,9 @@ export function Comment({comment, setComments, comments, sort}: {
                     <CreatorAvatar creator={creator ?? {username: comment.username, handle: comment.handle}} size={10} />
                     <div>
                         <h3 className='font-bold'>{comment.username}</h3>
-                        {rating > 0 && (<Rating className='my-1' value={rating} currentRating={rating} ratings={[rating]} onRate={() => {}}/>)}
+                        {rating > 0 && (<Rating className='my-1' value={rating} currentRating={rating} ratings={[rating]} onRate={() => {}} canChange={false}/>)}
                         <div dangerouslySetInnerHTML={{__html: comment.comment}} className={`max-w-xl mb-2 ${showMore ? '' : 'line-clamp-4'}`} ref={text}></div>
-                        {canShowMore && <div className='text-sm text-muted-foreground cursor-pointer' onClick={() => setShowMore(!showMore)}>{t('Components.Creations.Page.Comments.show_more', {showMore: showMore ? 'less' : 'more'})}</div>}
+                        {canShowMore && <div className='text-sm text-muted-foreground cursor-pointer' onClick={() => setShowMore(!showMore)}>{showMore ? t('Components.Creations.Page.Comments.collapse') : t('Components.Creations.Page.Comments.expand')}</div>}
                         <div className='flex flex-row gap-2'>
                             {/* <Button variant="ghost" size="icon" className='w-8 h-8 text-muted-foreground' onClick={() => {likeComment(comment._id!)}}>
                                 <ThumbsUpIcon className='w-4 h-4' />
@@ -268,17 +281,9 @@ export function Comment({comment, setComments, comments, sort}: {
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                                <DropdownMenuItem onClick={handleCopy} className="p-0">
-                                    <Button variant="ghost"  className="m-0 p-1 h-full w-full">
-                                        {t('Components.Creations.Page.Comments.permalink')}
-                                    </Button>
-                                </DropdownMenuItem>
-                                {user?.handle === comment.handle || user?.type === UserTypes.Admin && (
-                                    <DropdownMenuItem onClick={handleDelete} className="p-0">
-                                        <Button variant="ghost"  className="m-0 p-1 h-full w-full">
-                                            {t('Components.Creations.Page.Comments.delete')}
-                                        </Button>
-                                    </DropdownMenuItem>
+                                <DropdownMenuItem onClick={handleCopy}>{t('Components.Creations.Page.Comments.permalink')}</DropdownMenuItem>
+                                {user && ((!!comment.handle && user.handle === comment.handle) || user.type === UserTypes.Admin) && (
+                                    <DropdownMenuItem onClick={handleDelete}>{t('Components.Creations.Page.Comments.delete')}</DropdownMenuItem>
                                 )}
                                 </div>
                             </DropdownMenuContent>

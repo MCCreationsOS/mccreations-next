@@ -109,7 +109,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                             <DropdownMenuContent >
                                 <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
                                     {sortOptions.map((option) => (
-                                        <DropdownMenuItem key={option} onSelect={() => setFilters({ sort: option })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t(`Components.Creations.Search.Sort.${option}`)}</Button></DropdownMenuItem>
+                                        <DropdownMenuItem key={option} onSelect={() => setFilters({ sort: option })}>{t(`Components.Creations.Search.Sort.${option}`)}</DropdownMenuItem>
                                     ))}
                                 </div>
                             </DropdownMenuContent>
@@ -121,9 +121,9 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                             <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{t(`Components.Creations.Search.Status.${statusLabelKey(status)}`)}</span></Button></DropdownMenuTrigger>
                             <DropdownMenuContent>
                                 <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Unapproved })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.unapproved')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Approved })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.approved')}</Button></DropdownMenuItem>
-                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Featured })} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t('Components.Creations.Search.Status.featured')}</Button></DropdownMenuItem>
+                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Unapproved })}>{t('Components.Creations.Search.Status.unapproved')}</DropdownMenuItem>
+                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Approved })}>{t('Components.Creations.Search.Status.approved')}</DropdownMenuItem>
+                                    <DropdownMenuItem onSelect={() => setFilters({ status: StatusOptions.Featured })}>{t('Components.Creations.Search.Status.featured')}</DropdownMenuItem>
                                 </div>
                             </DropdownMenuContent>
                         </DropdownMenu>
@@ -136,8 +136,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                                     <DropdownMenuTrigger asChild><Button variant="secondary"><span className="w-31">{tag_dropdown_names[category]}</span></Button></DropdownMenuTrigger>
                                     <DropdownMenuContent>
                                         <div className="flex flex-col gap-2 border-2 border-white/15 p-1">
-                                            {/* One handler per item (previously the item and the inner button both toggled, double-applying the change) */}
-                                            {tags[category].map((tag) => <DropdownMenuItem key={tag} onSelect={() => toggleTag(tag)} className="p-0"><Button variant="ghost" className="m-0 p-1 h-full w-full">{t(`Components.Creations.Tags.${tag as TagKeys}`)}</Button></DropdownMenuItem>)}
+                                            {tags[category].map((tag) => <DropdownMenuItem key={tag} onSelect={() => toggleTag(tag)}>{t(`Components.Creations.Tags.${tag as TagKeys}`)}</DropdownMenuItem>)}
                                         </div>
                                     </DropdownMenuContent>
                                 </DropdownMenu>

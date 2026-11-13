@@ -46,6 +46,7 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
+    qualities: [50, 75],
     remotePatterns: [
       {
         protocol: 'http',
@@ -138,9 +139,6 @@ module.exports = withSentryConfig(
 
     // Automatically tree-shake Sentry logger statements to reduce bundle size
     disableLogger: true,
-
-    tracesSampleRate: 0.05,
-    replaySessionSampleRate: 0,
-    replaysOnErrorSampleRate: 0.05,
+    // Sample rates are runtime options: they live in sentry.{client,server,edge}.config.ts
   }
 );

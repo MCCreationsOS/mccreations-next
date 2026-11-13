@@ -41,35 +41,37 @@ export async function getUserSettings(authorization: string) {
     }
 }
 
+/** @returns whether the API accepted the follow */
 export async function follow(authorization: string, handle: string) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/follow/${handle}`, {
+        const res = await fetch(`${process.env.DATA_URL}/creator/follow/${encodeURIComponent(handle)}`, {
             method: 'GET',
             headers: {
                 'Authorization': authorization
             },
             cache: 'no-store'
         })
-        return;
+        return res.ok
     } catch(e) {
         console.error(e)
+        return false
     }
 }
 
+/** @returns whether the API accepted the unfollow */
 export async function unfollow(authorization: string, handle: string) {
     try {
-        await fetch(`${process.env.DATA_URL}/creator/unfollow/${handle}`, {
+        const res = await fetch(`${process.env.DATA_URL}/creator/unfollow/${encodeURIComponent(handle)}`, {
             method: 'GET',
             headers: {
                 'Authorization': authorization
             },
             cache: 'no-store'
-
         })
-
-        return;
+        return res.ok
     } catch(e) {
         console.error(e)
+        return false
     }
 }
 

@@ -39,10 +39,19 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
     // const formattedEnglishLanguage = getKeys(JSON.parse(englishLanguage))
     // const formattedEditingLanguage = getKeys(JSON.parse(editingLanguage))
     
-    const saveLanguage = (language: string) => {
-        updateLanguage(langKey, language).then(() => {
+    const saveLanguage = async (language: string) => {
+        try {
+            JSON.parse(language)
+        } catch {
+            toast.error(t("Pages.Translate.lang.invalid_json"))
+            return
+        }
+        const result = await updateLanguage(langKey, language)
+        if (result.error) {
+            toast.error(result.error || t("Pages.Translate.lang.save_error"))
+        } else {
             toast.success(t("Pages.Translate.lang.saved"))
-        })
+        }
     }
 
     return (
@@ -79,7 +88,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
                         <Button type="button" variant="secondary" onClick={() => {
                             form.reset()
                         }}>{t("Pages.Translate.lang.cancel")}</Button>
-                        <Link href={`/translate`}><Button type="button" variant="secondary">{t("Pages.Translate.lang.back")}</Button></Link>
+                        <Button asChild variant="secondary"><Link href={`/translate`}>{t("Pages.Translate.lang.back")}</Link></Button>
                     </div>
                 </form>
             </TabsContent>

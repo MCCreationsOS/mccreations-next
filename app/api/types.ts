@@ -211,11 +211,10 @@ export interface IUser {
     iconURL?: string,
     about?: string,
     bannerURL?: string,
-    socialLinks?: [{
+    socialLinks?: {
         link: string,
         name: string
-    }]
-    // profileLayout?: ProfileLayout,
+    }[]
     settings?: CreatorSettings,
     followers?: string[],
     following?: string[],
@@ -273,7 +272,8 @@ export interface IFileRecord {
     mimetype: string,
     type: string,
     location?: string,
-    user?: string,
+    /** Stored as an id, or (for older uploads) an embedded user object */
+    user?: string | { _id?: string, id?: string, username?: string, handle?: string },
     createdDate?: number,
 }
 

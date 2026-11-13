@@ -1,6 +1,6 @@
 import { FileListOptions, IFileRecord } from "./types"
 
-export async function listFiles(options: FileListOptions = {}): Promise<{ documents: IFileRecord[], totalCount: number }> {
+export async function listFiles(options: FileListOptions = {}, token?: string): Promise<{ documents: IFileRecord[], totalCount: number }> {
     const params = new URLSearchParams()
     params.set("limit", (options.limit ?? 20).toString())
     params.set("page", (options.page ?? 0).toString())
@@ -9,7 +9,7 @@ export async function listFiles(options: FileListOptions = {}): Promise<{ docume
     }
 
     try {
-        const res = await fetch(`${process.env.DATA_URL}/files?${params}`, { cache: "no-store" })
+        const res = await fetch(`${process.env.DATA_URL}/files?${params}`, { cache: "no-store", headers: token ? { Authorization: token } : undefined })
         if (!res.ok) {
             return { documents: [], totalCount: 0 }
         }

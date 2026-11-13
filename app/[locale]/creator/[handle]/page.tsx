@@ -12,8 +12,32 @@ import { searchContent } from "@/app/api/content";
 import Grid from "@/components/Creations/Grid";
 import SubscribeButton from "@/components/ui/client_buttons/SubscribeButton";
 import { Button } from "@/components/ui/button";
-import { Link } from "@/i18n/navigation";
 import { EditAbout, EditCustomCss, EditProfileImages, EditSocialLinks } from "./creatorEdit";
+import CreatorCreationsMore, { CREATOR_PAGE_SIZE } from "./CreatorCreationsMore";
+
+// Scope CSS to the creator's profile
+function scopeCreatorCss(css?: string) {
+    if (!css) return ""
+    const stripped = css.replace(/\/\*[\s\S]*?\*\//g, "")
+    if (/["'][^"']*[{}][^"']*["']/.test(stripped)) return ""
+    let depth = 0
+    for (const char of stripped) {
+        if (char === "{") depth++
+        if (char === "}" && --depth < 0) return ""
+    }
+    if (depth !== 0) return ""
+    return `@scope (#creator-profile) {\n${stripped.replace(/</g, "\\3c ")}\n}`
+}
+
+function normalizeLink(link: string) {
+    try {
+        const url = new URL(/^[a-z][a-z0-9+.-]*:\/\//i.test(link) ? link : `https://${link}`)
+        if (url.protocol !== "https:" && url.protocol !== "http:") return undefined
+        return url
+    } catch {
+        return undefined
+    }
+}
 
 interface CreatorPageProps {
     params: Promise<{ handle: string, locale: string }>
@@ -114,18 +138,17 @@ function CreatorProfileSkeleton() {
 
 async function CreatorProfile({ handle, locale }: { handle: string, locale: string }) {
     const t = await getTranslations({locale: locale})
-    try {
-        const creator = await getCreator(handle)
+        const creator = await getCreator(handle) as IUser | undefined
 
-        // if (!creator) {
-        //     notFound()
-        // }
+        if (!creator) {
+            notFound()
+        }
+
+        const customCss = scopeCreatorCss(creator.customCSS)
 
         return (
-        <>
-            <style>
-                {creator.customCSS && creator.customCSS.length > 0 ? creator.customCSS : ""}
-            </style>
+        <div id="creator-profile">
+            {customCss && <style>{customCss}</style>}
             <div className="relative">
             {creator.bannerURL ? (
                 <div className="relative w-full h-48 overflow-hidden mb-16 border-white/15 border-2">
@@ -162,7 +185,7 @@ async function CreatorProfile({ handle, locale }: { handle: string, locale: stri
                             <h1 className="text-2xl font-bold">{creator.username}</h1>
                             <p className="text-muted-foreground">@{creator.handle}</p>
                         </div>
-                        <SubscribeButton handle={creator.handle} />
+                        <SubscribeButton handle={creator.handle ?? handle} />
                     </div>
 
                 </div>
@@ -185,25 +208,22 @@ async function CreatorProfile({ handle, locale }: { handle: string, locale: stri
                     <EditAbout params={{handle}} />
                 )}
 
-                {creator.socialLinks && creator.socialLinks.length > 0 && (
                 <div className="mt-4">
-                    {creator.socialLinks?.map((link: {link: string, name: string}) => (
-                        <Link href={link.link} target="_blank" rel="noopener noreferrer" key={link.link}>
-                            <Button variant="ghost" className="w-full justify-start">
-                                <Suspense fallback={<Image src="/favicon.ico" alt="favicon" width={20} height={20} />}>
-                                    <img src={`https://geticon.io/img?url=https://${link.link.split("/")[2]}`} alt={link.name} width={20} height={20}/>
-                                </Suspense>
-                                <span>{link.name}</span>
-                                <ExternalLink className="h-4 w-4 ml-auto" />
+                    {creator.socialLinks?.map((link) => {
+                        const url = normalizeLink(link.link)
+                        if (!url) return null
+                        return (
+                            <Button asChild variant="ghost" className="w-full justify-start" key={link.link}>
+                                <a href={url.href} target="_blank" rel="noopener noreferrer nofollow">
+                                    <img src={`https://geticon.io/img?url=${encodeURIComponent(url.origin)}`} alt="" width={20} height={20}/>
+                                    <span>{link.name || url.hostname}</span>
+                                    <ExternalLink className="h-4 w-4 ml-auto" />
+                                </a>
                             </Button>
-                        </Link>
-                    ))}
+                        )
+                    })}
                     <EditSocialLinks params={{handle}} />
                 </div>
-                )}
-                {!creator.socialLinks || creator.socialLinks.length === 0 && (
-                    <EditSocialLinks params={{handle}} />
-                )}
                 <EditCustomCss params={{handle}} />
                 </div>
             </div>
@@ -236,12 +256,8 @@ async function CreatorProfile({ handle, locale }: { handle: string, locale: stri
                 </Tabs>
             </div>
             </div>
-        </>
+        </div>
         )
-    } catch (error) {
-        console.error("Error loading creator profile:", error)
-        notFound()
-    }
 }
 
 function CreatorContentSkeleton() {
@@ -258,7 +274,7 @@ return (
 
 async function CreatorMaps({ handle }: { handle: string }) {
     const t = await getTranslations()
-    const maps = (await searchContent({creators: [handle], contentType: CollectionNames.Maps, limit: 10, page: 0}, false)).documents
+    const {documents: maps, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Maps, limit: CREATOR_PAGE_SIZE, page: 0}, false)
 
     if (maps.length === 0) {
         return (
@@ -268,12 +284,15 @@ async function CreatorMaps({ handle }: { handle: string }) {
         )
     }
 
-    return <Grid content={maps} />
+    return <>
+        <Grid content={maps} />
+        <CreatorCreationsMore handle={handle} contentType={CollectionNames.Maps} total={totalCount} />
+    </>
 }
 
 async function CreatorDatapacks({ handle }: { handle: string }) {
     const t = await getTranslations()
-    const datapacks = (await searchContent({creators: [handle], contentType: CollectionNames.Datapacks, limit: 10, page: 0}, false)).documents
+    const {documents: datapacks, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Datapacks, limit: CREATOR_PAGE_SIZE, page: 0}, false)
 
     if (datapacks.length === 0) {
         return (
@@ -283,12 +302,15 @@ async function CreatorDatapacks({ handle }: { handle: string }) {
         )
     }
 
-    return <Grid content={datapacks} />
+    return <>
+        <Grid content={datapacks} />
+        <CreatorCreationsMore handle={handle} contentType={CollectionNames.Datapacks} total={totalCount} />
+    </>
 }
 
 async function CreatorResourcepacks({ handle }: { handle: string }) {
     const t = await getTranslations()
-    const resourcepacks = (await searchContent({creators: [handle], contentType: CollectionNames.Resourcepacks, limit: 10, page: 0}, false)).documents
+    const {documents: resourcepacks, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Resourcepacks, limit: CREATOR_PAGE_SIZE, page: 0}, false)
 
     if (resourcepacks.length === 0) {
         return (
@@ -298,5 +320,8 @@ async function CreatorResourcepacks({ handle }: { handle: string }) {
         )
     }
 
-    return <Grid content={resourcepacks} />
+    return <>
+        <Grid content={resourcepacks} />
+        <CreatorCreationsMore handle={handle} contentType={CollectionNames.Resourcepacks} total={totalCount} />
+    </>
 }

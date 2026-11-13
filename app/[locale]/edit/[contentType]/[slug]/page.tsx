@@ -2,6 +2,7 @@
 
 import { CreatorInput, Required, TagInput } from "@/app/[locale]/create/formElements";
 import {
+    CONTENT_RULES,
     convertToCollection,
     errorCheckContent,
     requestApproval,
@@ -11,6 +12,7 @@ import { useCreation, useTags } from "@/app/api/hooks/creations";
 import { useTokenOrKey } from "@/app/api/hooks/users";
 import {
     ContentTypes,
+    IContentDoc,
     ICreator,
     IFile,
     Translation,
@@ -34,6 +36,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import VersionManager from "@/components/VersionManager/VersionManager";
 import { routing } from "@/i18n/routing";
+import { useRouter } from "@/i18n/navigation";
 import { useForm } from "@tanstack/react-form";
 import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -43,7 +46,8 @@ import { toast } from "sonner";
 export default function Page(props: { params: Promise<{ contentType: ContentTypes, slug: string }> }) {
     const params = use(props.params);
     const contentType = (params.contentType.endsWith("s") ? params.contentType.slice(0, -1) : params.contentType) as ContentTypes;
-    const { creation } = useCreation(params.slug, contentType);
+    const { creation, isLoading } = useCreation(params.slug, contentType, { editing: true });
+    const router = useRouter();
     const { token } = useTokenOrKey();
     const { tags } = useTags(contentType);
     const t = useTranslations();
@@ -59,8 +63,8 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
             files: [] as IFile[],
             images: [] as string[],
         },
-        onSubmit: (data) => {
-            saveCreation(
+        onSubmit: async (data) => {
+            await saveCreation(
                 data.value.title,
                 data.value.shortDescription,
                 data.value.slug,
@@ -92,13 +96,17 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
         setTranslations(JSON.stringify(creation.translations));
     }, [creation]);
 
+    if (isLoading) {
+        return <div className="centered_content">{t("Pages.Edit.contentType.slug.loading")}</div>
+    }
+
     if (!creation || "error" in creation) {
-        return <div>Loading...</div>
+        return <div className="centered_content">{t("Pages.Edit.contentType.slug.not_found")}</div>
     }
 
     const collectionName = convertToCollection(contentType);
 
-    const saveCreation = (
+    const saveCreation = async (
         title: string,
         shortDescription: string,
         slug: string,
@@ -108,91 +116,54 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
         videoUrl?: string,
         images?: string[],
         files?: IFile[]
-    ) => {
-        return new Promise<void>((resolve, reject) => {
-            if (!creation || "error" in creation) return;
-            if (slug.length < 2) {
-                toast.error(t("Pages.Edit.contentType.slug.Warnings.slug_too_short.description"));
+    ): Promise<IContentDoc | undefined> => {
+        if (!creation || "error" in creation) return;
+
+        const newCreation: IContentDoc = {
+            ...creation,
+            title,
+            shortDescription,
+            slug,
+            creators,
+            description,
+            videoUrl: videoUrl || undefined,
+            // Drop empty entries and duplicates
+            tags: tags.split(",").filter((tag, index, all) => tag.length > 0 && all.indexOf(tag) === index),
+            images: images ?? creation.images,
+            files: files ?? creation.files,
+        };
+
+        try {
+            const result = await updateContent(newCreation, token, collectionName);
+            if (result.error) {
+                toast.error(result.error.toString());
                 return;
             }
-
-            let newCreation = {
-                ...creation,
-            };
-
-            if (title) {
-                newCreation.title = title;
-            } else {
-                toast.error(t("Pages.Edit.contentType.slug.Warnings.title_too_short.description"));
+            toast.success(t("Pages.Edit.contentType.slug.Messages.general_saved"));
+            const saved = { ...newCreation, slug: result.slug ?? newCreation.slug };
+            if (saved.slug !== params.slug) {
+                router.replace(`/edit/${params.contentType}/${saved.slug}`);
             }
+            return saved;
+        } catch (e: any) {
+            toast.error(e?.error ?? String(e));
+        }
+    };
 
-            if (shortDescription) {
-                newCreation.shortDescription = shortDescription;
-            } else {
-                toast.error(t("Pages.Edit.contentType.slug.Warnings.short_description_too_short.description"));
-            }
-
-            if (slug) {
-                newCreation.slug = encodeURI(slug);
-            } else {
-                toast.error(t("Pages.Edit.contentType.slug.Warnings.slug_too_short.description"));
-            }
-
-            if (creators) {
-                newCreation.creators = creators;
-            } else {
-                toast.error(
-                    t("Pages.Edit.contentType.slug.Warnings.creator_too_short.description")
-                );
-            }
-
-            if (videoUrl) {
-                newCreation.videoUrl = videoUrl;
-            }
-
-            if (description) {
-                newCreation.description = description + "";
-            } else {
-                toast.error(
-                    t("Pages.Edit.contentType.slug.Warnings.description_too_short.description")
-                );
-            }
-
-            if (tags) {
-                newCreation.tags = tags.split(",");
-                newCreation.tags = newCreation.tags.filter(
-                    (tag) => tag.length > 0
-                );
-                newCreation.tags = newCreation.tags?.filter((tag, index) => {
-                    return newCreation.tags?.indexOf(tag) === index;
-                });
-            } else {
-                toast.error(t("Pages.Edit.contentType.slug.Warnings.tags_too_short.description"));
-            }
-
-            if (images) {
-                newCreation.images = images;
-            }
-
-            if (files) {
-                newCreation.files = files;
-            }
-
-            updateContent(newCreation, token, collectionName)
-                .then((result) => {
-                    if (result.error) {
-                        toast.error(result.error.toString());
-                        return;
-                    }
-
-                    toast.success(t("Pages.Edit.contentType.slug.Messages.general_saved"));
-                    resolve();
-                })
-                .catch((e) => {
-                    toast.error(e.error);
-                    reject();
-                });
-        });
+    const saveAndRequestApproval = async () => {
+        await generalForm.handleSubmit();
+        if (!generalForm.state.isValid) return;
+        const values = generalForm.state.values;
+        const latest = { ...creation, ...values, tags: values.tags.split(",").filter((tag) => tag.length > 0) } as IContentDoc;
+        const errors = errorCheckContent(latest);
+        errors.forEach((error) => toast.error(t(error.error)));
+        if (errors.length > 0) return;
+        try {
+            await requestApproval(latest.slug, collectionName, token);
+            toast.success(t("Pages.Edit.contentType.slug.Messages.approval_requested"));
+        } catch (e: any) {
+            toast.error(e?.error ?? String(e));
+        }
     };
 
     const saveTranslations = () => {
@@ -204,8 +175,8 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
         return new Promise<void>((resolve, reject) => {
             updateContent(newCreation, token, collectionName)
                 .then((result) => {
-                    if (result.message) {
-                        toast.error(result.message);
+                    if (result.error) {
+                        toast.error(result.error.toString());
                         return;
                     }
                     toast.success(t("Pages.Edit.contentType.slug.Messages.translations_saved"));
@@ -253,7 +224,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             )}
                             validators={{
                                 onSubmit: ({ value }) => {
-                                    if (value.length < 3) {
+                                    if (value.length < CONTENT_RULES.titleMin) {
                                         return t("Pages.Edit.contentType.slug.Warnings.title_too_short.description")
                                     }
                                 }
@@ -279,10 +250,12 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             )}
                             validators={{
                                 onSubmit: ({ value }) => {
-                                    if (value.length < 5) {
+                                    if (value.length < CONTENT_RULES.slugMin) {
                                         return t("Pages.Edit.contentType.slug.Warnings.slug_too_short.description")
-                                    } else if (value.length > 50) {
+                                    } else if (value.length > CONTENT_RULES.slugMax) {
                                         return t("Pages.Edit.contentType.slug.Warnings.slug_too_long.description")
+                                    } else if (!CONTENT_RULES.slugPattern.test(value)) {
+                                        return t("Pages.Create.Details.slug_invalid_characters")
                                     }
                                 }
                             }}
@@ -309,9 +282,9 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             )}
                             validators={{
                                 onSubmit: ({ value }) => {
-                                    if (value.length < 20) {
+                                    if (value.length < CONTENT_RULES.shortDescriptionMin) {
                                         return t("Pages.Edit.contentType.slug.Warnings.short_description_too_short.description")
-                                    } else if (value.length > 150) {
+                                    } else if (value.length > CONTENT_RULES.shortDescriptionMax) {
                                         return t("Pages.Edit.contentType.slug.Warnings.short_description_too_long.description")
                                     }
                                 }
@@ -368,7 +341,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             )}
                             validators={{
                                 onSubmit: ({ value }) => {
-                                    if (value.length < 50) {
+                                    if (value.length < CONTENT_RULES.descriptionMin) {
                                         return t("Pages.Edit.contentType.slug.Warnings.description_too_short.description")
                                     }
                                 }
@@ -431,19 +404,12 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             )}
                         />
                         <div className="flex gap-1">
-                            <Button type="submit" className="w-fit">
-                                <span>{t("Pages.Edit.contentType.slug.General.save")}</span>
-                            </Button>
-                            {creation.status === 0 && <Button type="submit" className="w-fit" onClick={() => {
-                                let errors = errorCheckContent(creation);
-                                for(let error of errors) {
-                                    toast.error(error.error);
-                                }
-
-                                errors.length === 0 && requestApproval(creation.slug, collectionName, token).catch((e) => {
-                                    toast.error(e.error);
-                                });
-                            }}>
+                            <generalForm.Subscribe selector={(state) => state.isSubmitting} children={(isSubmitting) => (
+                                <Button type="submit" className="w-fit" disabled={isSubmitting}>
+                                    <span>{t("Pages.Edit.contentType.slug.General.save")}</span>
+                                </Button>
+                            )}/>
+                            {creation.status === 0 && <Button type="button" className="w-fit" onClick={saveAndRequestApproval}>
                                 <span>{t("Pages.Edit.contentType.slug.General.request_approval")}</span>
                             </Button>}
                         </div>
@@ -456,11 +422,9 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                     }} className="flex flex-col gap-4">
                         {Object.keys(parsedTranslations ?? {}).map((translation) => {
                             return <Collapsible key={translation} className="border-b border-white/15 pb-4 bg-card p-4">
-                                <CollapsibleTrigger className="flex flex-row gap-2 items-center w-full">
+                                <CollapsibleTrigger className="flex flex-row gap-2 items-center w-full cursor-pointer">
                                     <h3 className="text-lg font-medium">{translation}</h3>
-                                    <Button variant="ghost" size="icon">
-                                        <ChevronDown />
-                                    </Button>
+                                    <ChevronDown className="w-4 h-4" aria-hidden="true" />
                                 </CollapsibleTrigger>
                                 <CollapsibleContent className="flex flex-col gap-3">
                                     <div className="flex flex-col gap-2">
