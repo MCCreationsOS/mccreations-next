@@ -42,6 +42,7 @@ import { ChevronDown } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect, useState, use } from "react";
 import { toast } from "sonner";
+import Creation from "@/components/Creations/Page/Creation";
 
 export default function Page(props: { params: Promise<{ contentType: ContentTypes, slug: string }> }) {
     const params = use(props.params);
@@ -193,9 +194,13 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
         <div className="max-w-4xl mx-auto my-10">
             <Tabs defaultValue="general">
                 <TabsList className="w-full mb-4">
-                    <TabsTrigger value="general">{t('Pages.Edit.contentType.slug.General.tab_title')}</TabsTrigger>
-                    <TabsTrigger value="translations">{t('Pages.Edit.contentType.slug.Translations.tab_title')}</TabsTrigger>
+                    <TabsTrigger value="general" className="cursor-pointer">{t('Pages.Edit.contentType.slug.General.tab_title')}</TabsTrigger>
+                    <TabsTrigger value="preview" className="cursor-pointer">{t('Pages.Edit.contentType.slug.Preview.tab_title')}</TabsTrigger>
+                    <TabsTrigger value="translations" className="cursor-pointer">{t('Pages.Edit.contentType.slug.Translations.tab_title')}</TabsTrigger>
                 </TabsList>
+                <TabsContent value="preview">
+                    <Creation creation={creation} collectionName={collectionName} />
+                </TabsContent>
                 <TabsContent value="general">
                     <form
                         onSubmit={(e) => {

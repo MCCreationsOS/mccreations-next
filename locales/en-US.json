@@ -374,6 +374,9 @@
                         "approved": "Approved",
                         "save": "Save"
                     },
+                    "Preview": {
+                        "tab_title": "Preview"
+                    },
                     "not_found": "This creation doesn't exist, or you don't have permission to edit it.",
                     "loading": "Loading..."
                 }
