@@ -30,18 +30,24 @@ export function Files({ handleNext }: { handleNext: () => void }) {
     const { token } = useTokenOrKey();
     const t = useTranslations();
 
+    // Version edits are kept locally and only sent to the API when the user presses Next
     const saveVersionsForm = (versions: string) => {
+        setCreation((prev) => ({ ...prev, files: JSON.parse(versions) }));
+    };
+
+    const [saving, setSaving] = useState(false);
+
+    const saveAndNext = () => {
         if (!creation || "error" in creation) return;
 
         let newCreation = {
             ...creation,
         };
-        newCreation.files = JSON.parse(versions);
-
-        newCreation.files?.sort((a, b) => {
+        newCreation.files = [...(newCreation.files ?? [])].sort((a, b) => {
             return b.createdDate - a.createdDate;
         });
 
+        setSaving(true);
         updateContent(newCreation, token, collectionName)
             .then((result) => {
                 if(result.error) {
@@ -50,10 +56,12 @@ export function Files({ handleNext }: { handleNext: () => void }) {
                 }
                 setCreation(newCreation);
                 toast.success(t("Pages.Create.Files.saved"));
+                handleNext();
             })
             .catch((e) => {
                 toast.error(e.error);
-            });
+            })
+            .finally(() => setSaving(false));
     };
 
     return (
@@ -64,7 +72,7 @@ export function Files({ handleNext }: { handleNext: () => void }) {
                 presetVersions={JSON.stringify(creation.files)}
                 onVersionsChanged={saveVersionsForm}
             />
-            <Button onClick={handleNext} className="w-fit mt-2">
+            <Button onClick={saveAndNext} disabled={saving} className="w-fit mt-2">
                 <span>{t("Pages.Create.next")}</span>
                 <ChevronRight />
             </Button>

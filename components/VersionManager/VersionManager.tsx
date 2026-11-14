@@ -19,7 +19,7 @@ import { useDebounceValue } from "usehooks-ts"
 export default function VersionManager({ onVersionsChanged, collectionName, forWhat, presetVersions }: { onVersionsChanged: (versions: string) => void, collectionName: CollectionNames, forWhat: string, presetVersions?: string }) {
     const [versions, setVersions] = useState<IFile[]>([])
     const [renderVersion, setRenderVersion] = useState<IFile>()
-    const [idx, setIdx] = useState(0)
+    const [idx, setIdx] = useState(-1)
     const [loaded, setLoaded] = useState(false)
     const [addVersionDialogOpen, setAddVersionDialogOpen] = useState(false)
     const t = useTranslations()
@@ -37,9 +37,6 @@ export default function VersionManager({ onVersionsChanged, collectionName, forW
             minecraftVersion: [] as string[],
             bedrock: false,
             url: ""
-        },
-        onSubmit: (data) => {
-            saveVersion(data.value.contentVersion, data.value.minecraftVersion, data.value.bedrock, data.value.url)
         }
     })
 
@@ -57,13 +54,31 @@ export default function VersionManager({ onVersionsChanged, collectionName, forW
     }, [])
 
     useEffect(() => {
-        setIdx(versions.indexOf(renderVersion!))
         editForm.setFieldValue("contentVersion", renderVersion?.contentVersion || "")
         editForm.setFieldValue("minecraftVersion", (typeof renderVersion?.minecraftVersion === "string" ? renderVersion.minecraftVersion.split(",") : renderVersion?.minecraftVersion || []).filter((v) => v.length > 0))
         editForm.setFieldValue("url", renderVersion?.url || "")
     }, [renderVersion])
 
+    const openVersion = (version: IFile | undefined, index = -1) => {
+        setIdx(index)
+        setRenderVersion(version)
+    }
+
+    // Edits apply straight to the version list, so the parent form always has the latest values
+    const applyEdits = () => {
+        const { contentVersion, minecraftVersion, bedrock, url } = editForm.state.values
+        saveVersion(contentVersion, minecraftVersion, bedrock, url)
+    }
+
+    const cancelEdits = () => {
+        if (renderVersion && idx >= 0) {
+            setVersions((vs) => vs.map((v, i) => i === idx ? renderVersion : v))
+        }
+        openVersion(undefined)
+    }
+
     const saveVersion = (contentVersion: string, minecraftVersion: string | string[], bedrock: boolean, url: string) => {
+        if (idx < 0) return
         let v: IFile = { ...renderVersion! };
         v.contentVersion = contentVersion
         v.minecraftVersion = minecraftVersion
@@ -80,17 +95,14 @@ export default function VersionManager({ onVersionsChanged, collectionName, forW
             }
         }
 
-        setRenderVersion(v)
-        let vs = [...versions]
-        vs[idx] = v
-        setVersions(vs)
+        setVersions((vs) => vs.map((old, i) => i === idx ? v : old))
     }
 
     const deleteVersion = () => {
         let vs = [...versions]
         vs.splice(idx, 1)
         setVersions(vs)
-        setRenderVersion(undefined)
+        openVersion(undefined)
     }
 
     const addVersion = (url: string) => {
@@ -119,30 +131,30 @@ export default function VersionManager({ onVersionsChanged, collectionName, forW
             return b.createdDate - a.createdDate
         })
         setVersions(newVersions)
-        setRenderVersion(newVersions[0])
+        openVersion(newVersions[0], 0)
     }
 
     if (renderVersion) {
         return <div className="flex flex-col gap-4">
             <Label>{t('Components.VersionManager.Version.edit', { version: renderVersion.contentVersion ?? "1.0.0" })}</Label>
-            <Button type="button" variant="secondary" onClick={() => { setRenderVersion(undefined) }} className="w-fit"><ArrowLeft /><span>{t('Components.VersionManager.Version.back_to_versions')}</span></Button>
+            <Button type="button" variant="secondary" onClick={() => { openVersion(undefined) }} className="w-fit"><ArrowLeft /><span>{t('Components.VersionManager.Version.back_to_versions')}</span></Button>
             <div className="flex flex-col gap-4 max-w-2xl" onKeyDown={(e) => {
                 if (e.key === "Enter" && (e.target as HTMLElement).tagName === "INPUT") {
+                    // Changes are already applied; just keep Enter from submitting the parent form
                     e.preventDefault()
-                    editForm.handleSubmit()
                 }
             }}>
                 <editForm.Field name="contentVersion" children={(field) => (
                     <div className="flex flex-col gap-2">
                         <Label htmlFor={field.name}>{t('Components.VersionManager.Version.version_number')}</Label>
-                        <Input id={field.name} name={field.name} value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+                        <Input id={field.name} name={field.name} value={field.state.value} onChange={(e) => { field.handleChange(e.target.value); applyEdits() }} />
                         {!field.state.meta.isValid && <p className="text-red-500">{field.state.meta.errors.join(", ")}</p>}
                     </div>
                 )} />
                 <editForm.Field name="minecraftVersion" children={(field) => (
                     <div className="flex flex-col gap-2">
                         <Label htmlFor={field.name}>{t('Components.VersionManager.Version.minecraft_version')}</Label>
-                        <MinecraftVersionInput version={renderVersion} onChange={(v) => field.handleChange(v.split(",").filter((version) => version.length > 0))} />
+                        <MinecraftVersionInput version={renderVersion} onChange={(v) => { field.handleChange(v.split(",").filter((version) => version.length > 0)); applyEdits() }} />
                         {!field.state.meta.isValid && <p className="text-red-500">{field.state.meta.errors.join(", ")}</p>}
                     </div>
                 )} />
@@ -152,16 +164,13 @@ export default function VersionManager({ onVersionsChanged, collectionName, forW
                 <editForm.Field name="url" children={(field) => (
                     <div className="flex flex-col gap-2">
                         <Label htmlFor={field.name}>{t('Components.VersionManager.Version.MainFile.link')}</Label>
-                        <Input id={field.name} name={field.name} type="url" value={field.state.value} onChange={(e) => field.handleChange(e.target.value)} />
+                        <Input id={field.name} name={field.name} type="url" value={field.state.value} onChange={(e) => { field.handleChange(e.target.value); applyEdits() }} />
                         {!field.state.meta.isValid && <p className="text-red-500">{field.state.meta.errors.join(", ")}</p>}
                     </div>
                 )} />
                 <div className="flex flex-row gap-2">
-                    <Button type="button" onClick={() => {
-                        editForm.handleSubmit()
-                    }} className="w-fit"><span>{t('Components.VersionManager.Version.save')}</span></Button>
                     <Button type="button" variant="secondary" className="w-fit" onClick={() => {
-                        setRenderVersion(undefined)
+                        cancelEdits()
                     }}><span>{t('Components.VersionManager.Version.cancel')}</span></Button>
                     <Button type="button" variant="destructive" className="w-fit" onClick={() => {
                         deleteVersion()
@@ -179,7 +188,7 @@ export default function VersionManager({ onVersionsChanged, collectionName, forW
                     {versions && versions.map((version, idx) => {
                         return (
                             <Button type="button" variant="secondary" key={`version_${version.createdDate}_${idx}`} onClick={() => {
-                                setRenderVersion(version)
+                                openVersion(version, idx)
                             }}><span>{version.contentVersion}</span>  <Edit /></Button>
                         )
                     })}
