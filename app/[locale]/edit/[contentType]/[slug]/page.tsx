@@ -4,6 +4,7 @@ import { CreatorInput, Required, TagInput } from "@/app/[locale]/create/formElem
 import {
     CONTENT_RULES,
     convertToCollection,
+    createEmptyCreation,
     errorCheckContent,
     requestApproval,
     updateContent,
@@ -43,11 +44,13 @@ import { useTranslations } from "next-intl";
 import { useEffect, useState, use } from "react";
 import { toast } from "sonner";
 import Creation from "@/components/Creations/Page/Creation";
+import { useSessionStorage } from "usehooks-ts";
 
 export default function Page(props: { params: Promise<{ contentType: ContentTypes, slug: string }> }) {
     const params = use(props.params);
     const contentType = (params.contentType.endsWith("s") ? params.contentType.slice(0, -1) : params.contentType) as ContentTypes;
     const { creation, isLoading } = useCreation(params.slug, contentType, { editing: true });
+    const [localCreation, setLocalCreation] = useSessionStorage<IContentDoc>("localCreation", createEmptyCreation());
     const router = useRouter();
     const { token } = useTokenOrKey();
     const { tags } = useTags(contentType);
@@ -95,6 +98,8 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
         generalForm.setFieldValue("images", creation.images);
         generalForm.setFieldValue("files", creation.files);
         setTranslations(JSON.stringify(creation.translations));
+
+        setLocalCreation(creation);
     }, [creation]);
 
     if (isLoading) {
@@ -199,7 +204,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                     <TabsTrigger value="translations" className="cursor-pointer">{t('Pages.Edit.contentType.slug.Translations.tab_title')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="preview">
-                    <Creation creation={creation} collectionName={collectionName} />
+                    <Creation creation={localCreation} collectionName={collectionName} />
                 </TabsContent>
                 <TabsContent value="general">
                     <form
@@ -221,6 +226,10 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                         onBlur={field.handleBlur}
                                         onChange={(e) => {
                                             field.handleChange(e.target.value);
+                                            setLocalCreation({
+                                                ...localCreation,
+                                                title: e.target.value
+                                            });
                                         }}
                                         placeholder={t("Pages.Edit.contentType.slug.General.title")}
                                     />
@@ -247,6 +256,10 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                         onBlur={field.handleBlur}
                                         onChange={(e) => {
                                             field.handleChange(e.target.value);
+                                            setLocalCreation({
+                                                ...localCreation,
+                                                slug: e.target.value
+                                            });
                                         }}
                                         placeholder={t("Pages.Edit.contentType.slug.General.slug")}
                                     />
@@ -277,6 +290,10 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                         onBlur={field.handleBlur}
                                         onChange={(e) => {
                                             field.handleChange(e.target.value);
+                                            setLocalCreation({
+                                                ...localCreation,
+                                                shortDescription: e.target.value
+                                            });
                                         }}
                                         placeholder={t(
                                             "Pages.Edit.contentType.slug.General.short_description"
@@ -314,6 +331,10 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                         onBlur={field.handleBlur}
                                         onChange={(e) => {
                                             field.handleChange(e.target.value);
+                                            setLocalCreation({
+                                                ...localCreation,
+                                                videoUrl: e.target.value
+                                            });
                                         }}
                                         placeholder={t("Pages.Edit.contentType.slug.General.video_url")}
                                     />
@@ -338,6 +359,10 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                     <RichText
                                         sendOnChange={(v) => {
                                             field.handleChange(v);
+                                            setLocalCreation({
+                                                ...localCreation,
+                                                description: v
+                                            });
                                         }}
                                         initialValue={creation.description}
                                     />
@@ -360,7 +385,13 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                     <TagInput
                                         tags={tags}
                                         creation={creation}
-                                        onChange={field.handleChange}
+                                        onChange={(tags) => {
+                                            field.handleChange(tags);
+                                            setLocalCreation({
+                                                ...localCreation,
+                                                tags: tags.split(",").filter((tag) => tag.length > 0)
+                                            });
+                                        }}
                                     />
                                     {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                                 </div>
@@ -383,6 +414,10 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                         presetVersions={JSON.stringify(creation.files)}
                                         onVersionsChanged={(files) => {
                                             field.handleChange(JSON.parse(files));
+                                            setLocalCreation({
+                                                ...localCreation,
+                                                files: JSON.parse(files)
+                                            });
                                         }}
                                     />
                                 </div>
@@ -397,6 +432,10 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                         forWhat={creation.slug}
                                         onImagesUploaded={(images) => {
                                             field.handleChange(images.filter(image => image.url).map((image) => image.url!));
+                                            setLocalCreation({
+                                                ...localCreation,
+                                                images: images.filter(image => image.url).map((image) => image.url!)
+                                            });
                                         }}
                                         presetFiles={JSON.stringify(
                                             creation?.images?.map((image) => {
