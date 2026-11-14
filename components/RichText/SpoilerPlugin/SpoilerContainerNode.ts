@@ -34,7 +34,9 @@ import {
   export function $convertDetailsElement(
     domNode: HTMLDetailsElement,
   ): DOMConversionOutput | null {
-    const isOpen = domNode.open !== undefined ? domNode.open : true;
+    // data-open carries the editor state; the real open attribute is never exported so rendered spoilers start closed
+    const dataOpen = domNode.getAttribute('data-open');
+    const isOpen = dataOpen !== null ? dataOpen === 'true' : domNode.open !== undefined ? domNode.open : true;
     const node = $createCollapsibleContainerNode(isOpen);
     return {
       node,
@@ -128,7 +130,8 @@ import {
     exportDOM(): DOMExportOutput {
       const element = document.createElement('details');
       element.classList.add('Collapsible__container');
-      element.setAttribute('open', this.__open.toString());
+      // Any open attribute (even open="false") expands a <details>, so leave it off and keep the state in data-open
+      element.setAttribute('data-open', this.__open.toString());
       return {element};
     }
   

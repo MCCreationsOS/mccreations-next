@@ -148,7 +148,7 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                         {videoID && videoID.length > 0 && <div className="aspect-video mb-5">
                             <iframe src={`https://www.youtube.com/embed/${videoID}?autoplay=0&amp;rel=0&amp;origin=https://mccreations.net`} title={t('Components.Creations.Page.video_title', { title, creator: creation.creators?.[0]?.username ?? "" })} allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" className="w-full h-full"></iframe>
                         </div>}
-                        <div dangerouslySetInnerHTML={{ __html: description }}>
+                        <div dangerouslySetInnerHTML={{ __html: closeSpoilers(description) }}>
 
                         </div>
                         {creation.images && creation.images.length > 1 && <div className="mt- max-w-5xl">
@@ -210,4 +210,9 @@ export default function Creation({ creation, collectionName }: { creation: ICont
             </div>
         </div>
     )
+}
+
+/** Strips the open attribute from spoiler <details> so they render collapsed (older descriptions saved open="true"/"false") */
+function closeSpoilers(html: string) {
+    return html?.replace(/<details\b([^>]*?)\s+open(?:=(?:"[^"]*"|'[^']*'|[^\s>]*))?/gi, '<details$1')
 }
