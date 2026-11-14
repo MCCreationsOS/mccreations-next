@@ -13,7 +13,7 @@ import Grid from "@/components/Creations/Grid";
 import SubscribeButton from "@/components/ui/client_buttons/SubscribeButton";
 import { Button } from "@/components/ui/button";
 import { EditAbout, EditCustomCss, EditProfileImages, EditSocialLinks } from "./creatorEdit";
-import CreatorCreationsMore, { CREATOR_PAGE_SIZE } from "./CreatorCreationsMore";
+import CreatorCreationsMore from "./CreatorCreationsMore";
 
 // Scope CSS to the creator's profile
 function scopeCreatorCss(css?: string) {
@@ -274,7 +274,7 @@ return (
 
 async function CreatorMaps({ handle }: { handle: string }) {
     const t = await getTranslations()
-    const {documents: maps, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Maps, limit: CREATOR_PAGE_SIZE, page: 0}, false)
+    const {documents: maps, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Maps, limit: 12, page: 0}, false)
 
     if (maps.length === 0) {
         return (
@@ -292,7 +292,7 @@ async function CreatorMaps({ handle }: { handle: string }) {
 
 async function CreatorDatapacks({ handle }: { handle: string }) {
     const t = await getTranslations()
-    const {documents: datapacks, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Datapacks, limit: CREATOR_PAGE_SIZE, page: 0}, false)
+    const {documents: datapacks, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Datapacks, limit: 12, page: 0}, false)
 
     if (datapacks.length === 0) {
         return (
@@ -310,7 +310,7 @@ async function CreatorDatapacks({ handle }: { handle: string }) {
 
 async function CreatorResourcepacks({ handle }: { handle: string }) {
     const t = await getTranslations()
-    const {documents: resourcepacks, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Resourcepacks, limit: CREATOR_PAGE_SIZE, page: 0}, false)
+    const {documents: resourcepacks, totalCount} = await searchContent({creators: [handle], contentType: CollectionNames.Resourcepacks, limit: 12, page: 0}, false)
 
     if (resourcepacks.length === 0) {
         return (

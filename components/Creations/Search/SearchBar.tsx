@@ -9,6 +9,9 @@ import { Filter, Grid, List, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { statusLabelKey, useSearchFilters } from "./useSearchFilters";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Label } from "@/components/ui/label";
+import Tag from "./Tag";
 
 const SEARCH_DEBOUNCE_MS = 400
 
@@ -51,40 +54,33 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
         setFilters({ search: searchInput })
     }
 
-    let tag_dropdown_names: {[key: string]: string} = {
-        genre: t('Components.Creations.Search.TagDropdown.any'),
-        subgenre: t('Components.Creations.Search.TagDropdown.any'),
-        difficulty: t('Components.Creations.Search.TagDropdown.any'),
-        length: t('Components.Creations.Search.TagDropdown.any'),
-        theme: t('Components.Creations.Search.TagDropdown.any'),
-        resolution: t('Components.Creations.Search.TagDropdown.any'),
-    }
-
+    let tag_dropdown_name = t('Components.Creations.Search.TagDropdown.any')
     if((includeTags.length > 0 || excludeTags.length > 0) && tags) {
         Object.keys(tags).forEach((category) => {
             tags[category].forEach((tag) => {
                 if(includeTags.includes(tag)) {
-                    if(tag_dropdown_names[category] == t('Components.Creations.Search.TagDropdown.any')) {
-                        tag_dropdown_names[category] = t('Components.Creations.Search.TagDropdown.include_tag', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
+                    if(tag_dropdown_name == t('Components.Creations.Search.TagDropdown.any')) {
+                        tag_dropdown_name = t('Components.Creations.Search.TagDropdown.include_tag', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
                     } else {
-                        tag_dropdown_names[category] += ` ${t('Components.Creations.Search.TagDropdown.and')} ${t(`Components.Creations.Tags.${tag as TagKeys}`)}`
+                        tag_dropdown_name += ` ${t('Components.Creations.Search.TagDropdown.and')} ${t(`Components.Creations.Tags.${tag as TagKeys}`)}`
                     }
                 }
             })
 
             tags[category].forEach((tag) => {
                 if(excludeTags.includes(tag)) {
-                    if(tag_dropdown_names[category] == t('Components.Creations.Search.TagDropdown.any')) {
-                        tag_dropdown_names[category] = t('Components.Creations.Search.TagDropdown.exclude_tag', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
-                    } else if(tag_dropdown_names[category].includes(t('Components.Creations.Search.TagDropdown.include')) && !tag_dropdown_names[category].includes(t('Components.Creations.Search.TagDropdown.exclude'))) {
-                        tag_dropdown_names[category] += t('Components.Creations.Search.TagDropdown.and_exclude', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
+                    if(tag_dropdown_name == t('Components.Creations.Search.TagDropdown.any')) {
+                        tag_dropdown_name = t('Components.Creations.Search.TagDropdown.exclude_tag', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
+                    } else if(tag_dropdown_name.includes(t('Components.Creations.Search.TagDropdown.include')) && !tag_dropdown_name.includes(t('Components.Creations.Search.TagDropdown.exclude'))) {
+                        tag_dropdown_name += t('Components.Creations.Search.TagDropdown.and_exclude', {tag: t(`Components.Creations.Tags.${tag as TagKeys}`)})
                     } else {
-                        tag_dropdown_names[category] += ` ${t('Components.Creations.Search.TagDropdown.and')} ${t(`Components.Creations.Tags.${tag as TagKeys}`)}`
+                        tag_dropdown_name += ` ${t('Components.Creations.Search.TagDropdown.and')} ${t(`Components.Creations.Tags.${tag as TagKeys}`)}`
                     }
                 }
             })
         })
     }
+
 
     const sortOptions = [
         SortOptions.Newest, SortOptions.Oldest, SortOptions.Updated, SortOptions.HighestRated, SortOptions.LowestRated,
@@ -128,7 +124,25 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
-                    {tags && Object.keys(tags).map((category) => {
+                    <div>
+                        <Label className="px-2 py-1.5 text-sm font-semibold">{t('Components.Creations.Search.tags')}</Label>
+                        <Popover>
+                            <PopoverTrigger asChild><Button variant="secondary"><span className="w-31">{tag_dropdown_name}</span></Button></PopoverTrigger>
+                            <PopoverContent className="p-1 max-h-[500px] overflow-y-auto">
+                                {Object.keys(tags).map((category) => (
+                                    <div key={category} className="p-1 pb-3">
+                                        <h4>{t(`Components.Creations.Tags.${category as TagCategories}`)}</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {tags[category].map((tag) => (
+                                                <Tag key={tag} tagValue={tag} tag={t(`Components.Creations.Tags.${tag as TagKeys}`)} includeTags={includeTags} excludeTags={excludeTags} toggleTag={toggleTag} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))}
+                            </PopoverContent>
+                        </Popover>
+                    </div>
+                    {/* {tags && Object.keys(tags).map((category) => {
                         return (
                             <div key={category}>
                                 <DropdownMenu>
@@ -142,7 +156,7 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
                                 </DropdownMenu>
                             </div>
                         )
-                    })}
+                    })} */}
                     <div className="clear_filters">
                         <Button variant="destructive" onClick={clearFilters}><span className="w-31">{t('Components.Creations.Search.clear_filters')}</span></Button>
                     </div>

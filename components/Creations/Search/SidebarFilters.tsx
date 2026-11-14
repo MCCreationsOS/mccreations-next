@@ -6,20 +6,13 @@ import styles from './SearchBar.module.css'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { statusLabelKey, useSearchFilters } from "./useSearchFilters";
+import Tag from "./Tag";
 
 export default function SidebarFilters({contentType, tags, searchParams}: {contentType: CollectionNames, searchParams: { [key: string]: string | number }, tags: {[key: string]: string[]}}) {
     const t = useTranslations()
     // Shares its state with the search bar through the URL, so the two never disagree
     const { filters, setFilters, toggleTag } = useSearchFilters(searchParams)
     const { sort, status, includeTags, excludeTags } = filters
-
-    const Tag = ({tag, tagValue}: {tag: string, tagValue: string}) => {
-        return (
-            <button className={`${styles.tag} ${(includeTags.includes(tagValue)) ? styles.include : ""} ${(excludeTags.includes(tagValue)) ? styles.exclude : ""}`} onClick={() => toggleTag(tagValue)}>
-                {tag}
-            </button>
-        )
-    }
 
     const sortOptions = [
         SortOptions.Newest, SortOptions.Oldest, SortOptions.Updated, SortOptions.HighestRated, SortOptions.LowestRated,
@@ -58,7 +51,7 @@ export default function SidebarFilters({contentType, tags, searchParams}: {conte
                         <h4>{t(`Components.Creations.Tags.${category as TagCategories}`)}</h4>
                         <div>
                             <div className={styles.tags_list}>
-                                {tags[category].map((tag) => <Tag key={tag} tagValue={tag} tag={t(`Components.Creations.Tags.${tag as TagKeys}`)} />)}
+                                {tags[category].map((tag) => <Tag key={tag} tagValue={tag} tag={t(`Components.Creations.Tags.${tag as TagKeys}`)} includeTags={includeTags} excludeTags={excludeTags} toggleTag={toggleTag} />)}
                             </div>
                         </div>
                     </div>
