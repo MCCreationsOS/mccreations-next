@@ -380,14 +380,14 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
         },
         validators: {
             onChangeAsync: (data) => {
-                sessionStorage.setItem("tempCreation", JSON.stringify({
+                setCreation({
                     ...creation,
                     slug: data.value.slug,
                     creators: data.value.creators,
                     videoUrl: data.value.videoUrl,
                     description: data.value.description,
                     tags: data.value.tags.split(",")
-                }));
+                });
             }
         }
     });

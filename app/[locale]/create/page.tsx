@@ -17,6 +17,7 @@ import { toast } from "sonner";
 import { useSessionStorage } from "usehooks-ts";
 import { CreateBasicInfo, CreateDetails, Files, Images } from "./formElements";
 import { useTranslations } from "next-intl";
+import Creation from "@/components/Creations/Page/Creation";
 
 export default function Page() {
     const [creation, setCreation] = useSessionStorage<IContentDoc>(
@@ -76,27 +77,35 @@ export default function Page() {
     };
 
     return (
-        <div className="w-full max-w-3xl mx-auto mt-5 p-4 md:p-5">
-            <Tabs value={activeTab} onValueChange={handleTabChange}>
-                <TabsList className="w-full h-auto flex-wrap">
-                    <TabsTrigger value="basic_info" className="w-1/4">{t('Pages.Create.BasicInfo.title')}</TabsTrigger>
-                    <TabsTrigger value="details" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Details.title')}</TabsTrigger>
-                    <TabsTrigger value="files" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Files.title')}</TabsTrigger>
-                    <TabsTrigger value="images" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Images.title')}</TabsTrigger>
-                </TabsList>
-                <TabsContent value="basic_info">
-                    <CreateBasicInfo handleNext={handleNext} />
-                </TabsContent>
-                <TabsContent value="details">
-                    <CreateDetails handleNext={handleNext} />
-                </TabsContent>
-                <TabsContent value="files">
-                    <Files handleNext={handleNext} />
-                </TabsContent>
-                <TabsContent value="images">
-                    <Images handleNext={handleNext} />
-                </TabsContent>
-            </Tabs>
+        <div>
+            <div className="w-full max-w-3xl mx-auto mt-5 p-4 md:p-5">
+                <Tabs value={activeTab} onValueChange={handleTabChange}>
+                    <TabsList className="w-full h-auto flex-wrap">
+                        <TabsTrigger value="basic_info" className="w-1/4">{t('Pages.Create.BasicInfo.title')}</TabsTrigger>
+                        <TabsTrigger value="details" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Details.title')}</TabsTrigger>
+                        <TabsTrigger value="files" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Files.title')}</TabsTrigger>
+                        <TabsTrigger value="images" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Images.title')}</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="basic_info">
+                        <CreateBasicInfo handleNext={handleNext} />
+                    </TabsContent>
+                    <TabsContent value="details">
+                        <CreateDetails handleNext={handleNext} />
+                    </TabsContent>
+                    <TabsContent value="files">
+                        <Files handleNext={handleNext} />
+                    </TabsContent>
+                    <TabsContent value="images">
+                        <Images handleNext={handleNext} />
+                    </TabsContent>
+                </Tabs>
+            </div>
+            {creation.slug && (
+                <>
+                    <div className="text-2xl font-bold text-center my-10 border-b border-gray-200 pb-2"><h2>Preview</h2></div>
+                    <Creation creation={creation} collectionName={collectionName} />
+                </>
+            )}
         </div>
     );
 }
