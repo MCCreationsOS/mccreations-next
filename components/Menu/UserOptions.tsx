@@ -56,7 +56,7 @@ export default function UserOptions() {
                 <User className="h-5 w-5" />
                 <span className="sr-only">{t('Components.Navbar.UserOptions.account')}</span>
                 {user && unread > 0 && <>
-                    <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 border-2 border-black" aria-hidden="true"></span>
+                    <span className="absolute top-0 -right-1 w-3 h-3 bg-red-500 border-2 border-black" aria-hidden="true"></span>
                     <span className="sr-only">{t('Components.Navbar.UserOptions.unread', {count: unread})}</span>
                 </>}
             </Button>
