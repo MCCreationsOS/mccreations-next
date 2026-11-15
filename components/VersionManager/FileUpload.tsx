@@ -11,11 +11,12 @@ import { toast } from 'sonner'
 import { Button } from '../ui/button'
 import { Uploader } from '@/app/api/upload'
 import { Progress } from '../ui/progress'
+import { UploadedFile } from '@/app/api/types'
 /** Matches the API's per-file upload limit */
 const MAX_FILE_SIZE_MB = 30
 
 const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: string, presetImage?: string, onFilesUploaded(files: string) : void, presetFile?: string }) => {
-    const [file, setFile] = useState<string>(presetFile ?? "")
+    const [file, setFile] = useState<UploadedFile | undefined>(presetFile ? { type: presetFile.split(".")[1], name: presetFile, location: presetFile } : undefined)
     const [link, setLink] = useState<string>(presetFile ?? "")
     const [rejected, setRejected] = useState<FileRejection[]>([])
     const [progress, setProgress] = useState<number>(100)
@@ -31,7 +32,7 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
             uploader.onComplete = (uploadedFiles: {type: string, name: string, location: string}[]) => {
                 setProgress(100)
                 if (uploadedFiles[0]) {
-                    setFile(uploadedFiles[0].location)
+                    setFile(uploadedFiles[0])
                     setLink(uploadedFiles[0].location)
                 }
             }
@@ -85,18 +86,18 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
 
     // Report each new file exactly once (the preset doesn't count as new)
     useEffect(() => {
-        if(file && file !== presetFile) {
-            onFilesUploaded(file)
+        if(file && file.location !== presetFile) {
+            onFilesUploaded(file.location)
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [file])
 
     const removeFile = (name: string) => {
-        setFile("")
+        setFile(undefined)
     }
 
     const removeAll = () => {
-        setFile("")
+        setFile(undefined)
         setRejected([])
     }
 
@@ -119,13 +120,13 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
                     <Input type="url" name="Link" id="Link" placeholder={t('Components.Dropzone.link_placeholder')} value={link} onChange={(e) => setLink(e.target.value)} onKeyDown={(e) => {
                         if (e.key === "Enter") {
                             e.preventDefault()
-                            setFile(link.trim())
+                            setFile({ type: "application/zip", name: link.trim(), location: link.trim() })
                         }
                     }} />
                     <Button variant="secondary" type="button" onClick={(e) => {
                         e.preventDefault()
                         e.stopPropagation()
-                        setFile(link.trim())
+                        setFile({ type: "application/zip", name: link.trim(), location: link.trim() })
                     }}><span>{t('Components.Dropzone.set_link')}</span></Button>
                 </div>
             </div>

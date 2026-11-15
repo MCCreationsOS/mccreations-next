@@ -193,6 +193,12 @@ export interface IFile {
     createdDate: number,
 }
 
+export interface UploadedFile {
+    type: string,
+    location: string,
+    name: string,
+}
+
 export interface NewFile {
     type: string,
     url: string,

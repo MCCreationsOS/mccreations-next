@@ -1,7 +1,7 @@
 import { CONTENT_RULES, convertToCollection, createEmptyCreation, createNewContent, updateContent } from "@/app/api/content";
 import { useTags } from "@/app/api/hooks/creations";
 import { useCreator, useToken, useTokenOrKey } from "@/app/api/hooks/users";
-import { ContentTypes, IContentDoc, ICreator, IUser, Tags } from "@/app/api/types";
+import { ContentTypes, IContentDoc, ICreator, IFile, IUser, Tags, UploadedFile } from "@/app/api/types";
 import { tagLabel } from "@/app/api/utils";
 import ImageDropzone, { UploadedImageRepresentation } from "@/components/ImageDropzone";
 import RichText from "@/components/RichText/RichText";
@@ -11,9 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import VersionManager from "@/components/VersionManager/VersionManager";
+import { VersionManager2 } from "@/components/VersionManager/VersionManager2";
 import { useForm } from "@tanstack/react-form";
-import { ChevronRight, Plus, Trash } from "lucide-react";
+import { CheckSquare, CheckSquare2, ChevronRight, Plus, Trash } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -29,23 +29,48 @@ export function Files({ handleNext }: { handleNext: () => void }) {
     const collectionName = convertToCollection(contentType);
     const { token } = useTokenOrKey();
     const t = useTranslations();
+    const [url, setUrl] = useState<string | undefined>(creation.files && creation.files.length > 0 ? creation.files[0].url! : undefined);
+    const file = creation.files && creation.files.length > 0 ? creation.files[0] : undefined;
+
+    const editForm = useForm({
+        defaultValues: {
+            contentVersion: creation.files && creation.files.length > 0 ? creation.files[0].contentVersion : "1.0.0",
+            minecraftVersion: creation.files && creation.files.length > 0 ? creation.files[0].minecraftVersion : [] as string[],
+            bedrock: false,
+            url: url
+        },
+        onSubmit: (data) => {
+
+            const files: IFile[] = [{
+                contentVersion: data.value.contentVersion,
+                minecraftVersion: data.value.minecraftVersion,
+                url: data.value.url,
+                type: contentType,
+                createdDate: Date.now()
+            }];
+            saveVersionsForm(files);
+            saveAndNext(files);
+        }
+    })
 
     // Version edits are kept locally and only sent to the API when the user presses Next
-    const saveVersionsForm = (versions: string) => {
-        setCreation((prev) => ({ ...prev, files: JSON.parse(versions) }));
+    const saveVersionsForm = (files: IFile[]) => {
+        setCreation((prev) => ({ ...prev, files: files }));
     };
+
+    const hamdleChange = (file: IFile) => {
+        setCreation((prev) => ({ ...prev, files: [file] }));
+    }
 
     const [saving, setSaving] = useState(false);
 
-    const saveAndNext = () => {
+    const saveAndNext = (files: IFile[]) => {
         if (!creation || "error" in creation) return;
 
         let newCreation = {
             ...creation,
+            files: files
         };
-        newCreation.files = [...(newCreation.files ?? [])].sort((a, b) => {
-            return b.createdDate - a.createdDate;
-        });
 
         setSaving(true);
         updateContent(newCreation, token, collectionName)
@@ -66,13 +91,8 @@ export function Files({ handleNext }: { handleNext: () => void }) {
 
     return (
         <>
-            <VersionManager
-                collectionName={collectionName}
-                forWhat={creation.slug ?? creation._id}
-                presetVersions={JSON.stringify(creation.files)}
-                onVersionsChanged={saveVersionsForm}
-            />
-            <Button onClick={saveAndNext} disabled={saving} className="w-fit mt-2">
+            <VersionManager2 initialFile={file} forWhat={creation.slug ?? creation._id} onChange={hamdleChange} />
+            <Button onClick={editForm.handleSubmit} disabled={saving || !file} className="w-fit mt-2">
                 <span>{t("Pages.Create.next")}</span>
                 <ChevronRight />
             </Button>

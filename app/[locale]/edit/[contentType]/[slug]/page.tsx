@@ -45,16 +45,19 @@ import { useEffect, useState, use } from "react";
 import { toast } from "sonner";
 import Creation from "@/components/Creations/Page/Creation";
 import { useSessionStorage } from "usehooks-ts";
+import { VersionManager2 } from "@/components/VersionManager/VersionManager2";
 
 export default function Page(props: { params: Promise<{ contentType: ContentTypes, slug: string }> }) {
     const params = use(props.params);
     const contentType = (params.contentType.endsWith("s") ? params.contentType.slice(0, -1) : params.contentType) as ContentTypes;
-    const { creation, isLoading } = useCreation(params.slug, contentType, { editing: true });
+    const { creation, isLoading, refresh } = useCreation(params.slug, contentType, { editing: true });
     const [localCreation, setLocalCreation] = useSessionStorage<IContentDoc>("localCreation", createEmptyCreation());
     const router = useRouter();
     const { token } = useTokenOrKey();
     const { tags } = useTags(contentType);
     const t = useTranslations();
+    const [createVersionDialogOpen, setCreateVersionDialogOpen] = useState(false);
+    const [editVersionDialogOpen, setEditVersionDialogOpen] = useState(false);
     const generalForm = useForm({
         defaultValues: {
             title: "",
@@ -146,6 +149,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                 return;
             }
             toast.success(t("Pages.Edit.contentType.slug.Messages.general_saved"));
+            refresh();
             const saved = { ...newCreation, slug: result.slug ?? newCreation.slug };
             if (saved.slug !== params.slug) {
                 router.replace(`/edit/${params.contentType}/${saved.slug}`);
@@ -166,6 +170,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
         if (errors.length > 0) return;
         try {
             await requestApproval(latest.slug, collectionName, token);
+            refresh();
             toast.success(t("Pages.Edit.contentType.slug.Messages.approval_requested"));
         } catch (e: any) {
             toast.error(e?.error ?? String(e));
@@ -214,6 +219,87 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                         }}
                         className="flex flex-col gap-4"
                     >
+                        <generalForm.Field
+                            name="files"
+                            children={(field) => (
+                                <div className="flex flex-col gap-1">
+                                    <Label>Versions</Label>
+                                    <div className="flex flex-wrap gap-1">
+                                        {localCreation.files.map((file) => {
+                                            if(creation.files.find((f) => f.createdDate === file.createdDate)) {
+                                                return (
+                                                    <Dialog key={file.url}>
+                                                    <DialogTrigger asChild><Button variant="secondary" type="button"><span>{file.contentVersion}</span></Button></DialogTrigger>
+                                                    <DialogContent>
+                                                        <DialogHeader>
+                                                            <DialogTitle>{file.contentVersion}</DialogTitle>
+                                                        </DialogHeader>
+                                                        <div className="flex flex-col gap-1">
+                                                            <div className="flex flex-row gap-1">
+                                                                <span className="flex-1">Minecraft Versions</span>
+                                                                <span>{typeof file.minecraftVersion === "string" ? file.minecraftVersion : file.minecraftVersion.join(", ")}</span>
+                                                            </div>
+                                                            <div className="flex flex-row gap-1">
+                                                                <span className="flex-1">URL</span>
+                                                                <span>{file.url}</span>
+                                                            </div>
+                                                            <div className="flex flex-row gap-1">
+                                                                <span className="flex-1">Created Date</span>
+                                                                <span>{new Date(file.createdDate).toLocaleDateString()}</span>
+                                                            </div>
+                                                            <Button variant="destructive" type="button" onClick={() => {
+                                                                field.handleChange(creation.files.filter((f) => f.url !== file.url));
+                                                                setLocalCreation({
+                                                                    ...localCreation,
+                                                                    files: creation.files.filter((f) => f.url !== file.url)
+                                                                });
+                                                            }}><span>Delete</span></Button>
+                                                        </div>
+                                                    </DialogContent>
+                                                    </Dialog>
+                                                )
+                                            } else {
+                                                return (
+                                                    <Dialog key={file.url} open={editVersionDialogOpen} onOpenChange={setEditVersionDialogOpen}>
+                                                        <DialogTrigger asChild><Button variant="default" type="button"><span>{file.contentVersion}</span></Button></DialogTrigger>
+                                                        <DialogContent>
+                                                            <DialogHeader>
+                                                                <DialogTitle>{file.contentVersion}</DialogTitle>
+                                                            </DialogHeader>
+                                                            <VersionManager2 initialFile={file} forWhat={creation.slug} onChange={(file) => {
+                                                                console.log(localCreation.files)
+                                                                field.handleChange([...creation.files, file]);
+                                                                setLocalCreation((prev) => ({
+                                                                    ...prev,
+                                                                    files: [...creation.files, file]
+                                                                }));
+                                                            }} />
+                                                        </DialogContent>
+                                                    </Dialog>
+                                                )
+                                            }
+                                        })}
+                                        <Dialog open={createVersionDialogOpen} onOpenChange={setCreateVersionDialogOpen} >
+                                            <DialogTrigger asChild><Button hidden={localCreation.files.length !== creation.files.length} variant="default" type="button"><span>Update {t(`${contentType}`, { count: 1 })}</span></Button></DialogTrigger>
+                                            <DialogContent>
+                                                <DialogHeader>
+                                                    <DialogTitle>Update {t(`${contentType}`, { count: 1 })}</DialogTitle>
+                                                </DialogHeader>
+                                                <VersionManager2 forWhat={creation.slug} onChange={(file) => {
+                                                    console.log(localCreation.files)
+                                                    field.handleChange([...creation.files, file]);
+                                                    setLocalCreation((prev) => ({
+                                                        ...prev,
+                                                        files: [...creation.files, file]
+                                                    }));
+                                                }} />
+                                            </DialogContent>
+                                        </Dialog>
+                                    </div>
+                                    <p className="text-sm text-gray-500">* Version updates must be saved with the "Save" button at the bottom of this form.</p>
+                                </div>
+                            )}
+                        />
                         <generalForm.Field
                             name="title"
                             children={(field) => (
@@ -403,25 +489,6 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                     }
                                 }
                             }}
-                        />
-                        <generalForm.Field
-                            name="files"
-                            children={(field) => (
-                                <div className="flex flex-col gap-1">
-                                    <VersionManager
-                                        forWhat={creation.slug}
-                                        collectionName={collectionName}
-                                        presetVersions={JSON.stringify(creation.files)}
-                                        onVersionsChanged={(files) => {
-                                            field.handleChange(JSON.parse(files));
-                                            setLocalCreation({
-                                                ...localCreation,
-                                                files: JSON.parse(files)
-                                            });
-                                        }}
-                                    />
-                                </div>
-                            )}
                         />
                         <generalForm.Field
                             name="images"
