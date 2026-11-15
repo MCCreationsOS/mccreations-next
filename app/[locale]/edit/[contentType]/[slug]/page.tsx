@@ -225,7 +225,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <div className="flex flex-col gap-1">
                                     <Label>Versions</Label>
                                     <div className="flex flex-wrap gap-1">
-                                        {localCreation.files.map((file) => {
+                                        {localCreation.files.map((file, idx) => {
                                             if(creation.files.find((f) => f.createdDate === file.createdDate)) {
                                                 return (
                                                     <Dialog key={file.url}>
@@ -234,7 +234,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                                         <DialogHeader>
                                                             <DialogTitle>{file.contentVersion}</DialogTitle>
                                                         </DialogHeader>
-                                                        <div className="flex flex-col gap-1">
+                                                        <div className="flex flex-col gap-1 min-w-lg">
                                                             <div className="flex flex-row gap-1">
                                                                 <span className="flex-1">Minecraft Versions</span>
                                                                 <span>{typeof file.minecraftVersion === "string" ? file.minecraftVersion : file.minecraftVersion.join(", ")}</span>
@@ -247,11 +247,17 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                                                 <span className="flex-1">Created Date</span>
                                                                 <span>{new Date(file.createdDate).toLocaleDateString()}</span>
                                                             </div>
+                                                            {file.changelog && (
+                                                                <div className="flex flex-col gap-1">
+                                                                    <span className="flex-1">Changelog</span>
+                                                                    <span dangerouslySetInnerHTML={{ __html: file.changelog }} />
+                                                                </div>
+                                                            )}
                                                             <Button variant="destructive" type="button" onClick={() => {
-                                                                field.handleChange(creation.files.filter((f) => f.url !== file.url));
+                                                                field.handleChange(localCreation.files.filter((f, index) => index !== idx));
                                                                 setLocalCreation({
                                                                     ...localCreation,
-                                                                    files: creation.files.filter((f) => f.url !== file.url)
+                                                                    files: localCreation.files.filter((f, index) => index !== idx)
                                                                 });
                                                             }}><span>Delete</span></Button>
                                                         </div>
@@ -262,11 +268,11 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                                 return (
                                                     <Dialog key={file.url} open={editVersionDialogOpen} onOpenChange={setEditVersionDialogOpen}>
                                                         <DialogTrigger asChild><Button variant="default" type="button"><span>{file.contentVersion}</span></Button></DialogTrigger>
-                                                        <DialogContent>
+                                                        <DialogContent className="overflow-x-auto">
                                                             <DialogHeader>
                                                                 <DialogTitle>{file.contentVersion}</DialogTitle>
                                                             </DialogHeader>
-                                                            <VersionManager2 initialFile={file} forWhat={creation.slug} onChange={(file) => {
+                                                            <VersionManager2 enableChangelog={true} initialFile={file} forWhat={creation.slug} onChange={(file) => {
                                                                 console.log(localCreation.files)
                                                                 field.handleChange([...creation.files, file]);
                                                                 setLocalCreation((prev) => ({
@@ -274,18 +280,19 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                                                     files: [...creation.files, file]
                                                                 }));
                                                             }} />
+                                                            <Button type="button" onClick={() => {setEditVersionDialogOpen(false); generalForm.handleSubmit();}} disabled={generalForm.state.isSubmitting}><span>Save</span></Button>
                                                         </DialogContent>
                                                     </Dialog>
                                                 )
                                             }
                                         })}
                                         <Dialog open={createVersionDialogOpen} onOpenChange={setCreateVersionDialogOpen} >
-                                            <DialogTrigger asChild><Button hidden={localCreation.files.length !== creation.files.length} variant="default" type="button"><span>Update {t(`${contentType}`, { count: 1 })}</span></Button></DialogTrigger>
+                                            <DialogTrigger asChild><Button hidden={localCreation.files.length > creation.files.length} variant="default" type="button"><span>Update {t(`${contentType}`, { count: 1 })}</span></Button></DialogTrigger>
                                             <DialogContent>
                                                 <DialogHeader>
                                                     <DialogTitle>Update {t(`${contentType}`, { count: 1 })}</DialogTitle>
                                                 </DialogHeader>
-                                                <VersionManager2 forWhat={creation.slug} onChange={(file) => {
+                                                <VersionManager2 enableChangelog={true} forWhat={creation.slug} onChange={(file) => {
                                                     console.log(localCreation.files)
                                                     field.handleChange([...creation.files, file]);
                                                     setLocalCreation((prev) => ({
@@ -293,10 +300,11 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                                         files: [...creation.files, file]
                                                     }));
                                                 }} />
+                                                <Button type="button" onClick={() => {setCreateVersionDialogOpen(false); generalForm.handleSubmit();}} disabled={generalForm.state.isSubmitting || localCreation.files.length === creation.files.length}><span>Save</span></Button>
                                             </DialogContent>
                                         </Dialog>
                                     </div>
-                                    <p className="text-sm text-gray-500">* Version updates must be saved with the "Save" button at the bottom of this form.</p>
+                                    {localCreation.files.length !== creation.files.length && <p className="text-sm text-red-500">* You have unsaved version updates.</p>}
                                 </div>
                             )}
                         />

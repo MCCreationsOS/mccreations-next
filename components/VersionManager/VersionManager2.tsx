@@ -7,8 +7,9 @@ import { CheckSquare2, Trash } from "lucide-react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import MinecraftVersionInput from "./MinecraftVersionInput";
+import RichText from "../RichText/RichText";
 
-export function VersionManager2({ initialFile, forWhat, onChange }: { initialFile?: IFile, forWhat: string, onChange: (file: IFile) => void }) {
+export function VersionManager2({ initialFile, enableChangelog, forWhat, onChange }: { initialFile?: IFile, enableChangelog?: boolean, forWhat: string, onChange: (file: IFile) => void }) {
     const t = useTranslations();
     const [url, setUrl] = useState<string | undefined>(initialFile?.url);
     const [file, setFile] = useState<IFile | undefined>(initialFile);
@@ -18,17 +19,19 @@ export function VersionManager2({ initialFile, forWhat, onChange }: { initialFil
             contentVersion: file?.contentVersion ?? "1.0.0",
             minecraftVersion: file?.minecraftVersion ?? [] as string[],
             bedrock: false,
-            url: url
+            url: url,
+            changelog: enableChangelog ? file?.changelog ?? "" : ""
         }
     })
 
-    const handleChange = (contentVersion?: string, minecraftVersion?: string[], url?: string) => {
+    const handleChange = (contentVersion?: string, minecraftVersion?: string[], url?: string, changelog?: string) => {
         const newFile = {
             ...file,
             contentVersion: contentVersion ?? file?.contentVersion ?? "1.0.0",
             minecraftVersion: minecraftVersion ?? file?.minecraftVersion ?? [] as string[],
             url: url ?? file?.url ?? "",
-            createdDate: file?.createdDate ?? Date.now()
+            createdDate: file?.createdDate ?? Date.now(),
+            changelog: changelog ?? file?.changelog ?? ""
         }
         setFile(newFile as IFile);
         onChange(newFile as IFile);
@@ -80,6 +83,14 @@ export function VersionManager2({ initialFile, forWhat, onChange }: { initialFil
                                 {!field.state.meta.isValid && <p className="text-red-500">{field.state.meta.errors.join(", ")}</p>}
                             </div>
                         )} />
+                        {enableChangelog && (
+                            <editForm.Field name="changelog" children={(field) => (
+                                <div className="flex flex-col gap-2">
+                                    <Label htmlFor={field.name}>{t('Components.VersionManager.Version.changelog')}</Label>
+                                    <RichText initialValue={field.state.value} sendOnChange={(content) => { field.handleChange(content); handleChange(undefined, undefined, undefined, content);}} />
+                                </div>
+                            )} />
+                        )}
                     </div>
                 </div>
                 
