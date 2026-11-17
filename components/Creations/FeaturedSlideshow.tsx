@@ -1,7 +1,6 @@
 "use client"
 
 import { IContentDoc } from "@/app/api/types";
-import { useEffect, useRef, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "../ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
@@ -11,23 +10,11 @@ import { useTranslations } from "next-intl";
 import { formatRating } from "@/app/api/utils";
 
 export default function FeaturedSlideshow({creations}: {creations: IContentDoc[]}) {
-    const [currentSlide, setCurrentSlide] = useState(0)
-    const timer = useRef<NodeJS.Timeout | null>(null)
     const t = useTranslations()
 
-    useEffect(() => {
-        if(timer.current) {
-            clearTimeout(timer.current)
-        }
-        timer.current = setTimeout(() => {
-            setCurrentSlide((currentSlide + 1) % creations.length)
-        }, 5000)
-        return () => {
-            if(timer.current) {
-                clearTimeout(timer.current)
-            }
-        }
-    }, [currentSlide])
+    if (!creations || creations.length === 0) {
+        return null
+    }
 
     return (
         <div className="relative mx-10">
@@ -47,7 +34,7 @@ export default function FeaturedSlideshow({creations}: {creations: IContentDoc[]
                                             <span className="text-sm flex items-center gap-1"><Download className="w-5 h-5"/> {creation.downloads}</span>
                                             {creation.rating > 0 && <span className="text-sm flex items-center gap-1"><Star className="w-5 h-5"/> {formatRating(creation.rating)}</span>}
                                         </div>
-                                        <p className="text-sm">{t('Components.Creations.Cards.by', {creator: creation.creators.slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner'))})}</p>
+                                        <p className="text-sm">{t('Components.Creations.Cards.by', {creator: (creation.creators ?? []).slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner'))})}</p>
                                     </div>
                                 </div>
                             </Link>

@@ -245,7 +245,7 @@ export default function FilesTable() {
                                     aria-label={t("Pages.Dashboard.Files.select_file")}
                                 />
                             </TableCell>
-                            <TableCell className="font-medium max-w-[200px] truncate">{file.mimetype === "image/webp" ? <Image src={file.location ?? ""} alt={file.filename} width={100} height={100} /> : file.name}</TableCell>
+                            <TableCell className="font-medium max-w-[200px] truncate">{file.mimetype === "image/webp" ? <Image src={file.location || "/defaultBanner.png"} alt={file.filename} width={100} height={100} /> : file.name}</TableCell>
                             <TableCell className="max-w-[200px] truncate text-muted-foreground">{file.filename}</TableCell>
                             <TableCell>{file.type}</TableCell>
                             <TableCell className="text-muted-foreground">{file.mimetype}</TableCell>

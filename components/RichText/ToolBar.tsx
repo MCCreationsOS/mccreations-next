@@ -331,7 +331,7 @@ export default function ToolbarPlugin() {
             <Divider />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className={"p-2 m-0 hover:bg-white/10"} type="button">
+                <button className={"p-2 m-0 hover:bg-white/10"} type="button" aria-label={t("Components.RichText.Toolbar.paragraph")}>
                   <Pilcrow className="w-4 h-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -346,7 +346,7 @@ export default function ToolbarPlugin() {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className={"p-2 m-0 hover:bg-white/10"} type="button">
+                <button className={"p-2 m-0 hover:bg-white/10"} type="button" aria-label={t("Components.RichText.Toolbar.font_color")}>
                   <Baseline className="w-4 h-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -361,7 +361,7 @@ export default function ToolbarPlugin() {
             </DropdownMenu>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <button className={"p-2 m-0 hover:bg-white/10"} type="button">
+                <button className={"p-2 m-0 hover:bg-white/10"} type="button" aria-label={t("Components.RichText.Toolbar.background_color")}>
                   <PaintBucket className="w-4 h-4" />
                 </button>
               </DropdownMenuTrigger>
@@ -417,7 +417,7 @@ export default function ToolbarPlugin() {
             </button>
             <Dialog open={linkEditDialogOpen} onOpenChange={setLinkEditDialogOpen}>
                 <DialogTrigger asChild>
-                    <button className="p-2 m-0 hover:bg-white/10" type="button" onClick={() => {
+                    <button className="p-2 m-0 hover:bg-white/10" type="button" aria-label={t("Components.RichText.Toolbar.link")} onClick={() => {
                         if(isLink) {
                             activeEditor.dispatchCommand(TOGGLE_LINK_COMMAND, null)
                         }
@@ -434,7 +434,7 @@ export default function ToolbarPlugin() {
             </Dialog>
             <Dialog>
               <DialogTrigger asChild>
-                <button className="p-2 m-0 hover:bg-white/10" type="button">
+                <button className="p-2 m-0 hover:bg-white/10" type="button" aria-label={t("Components.RichText.Toolbar.image")}>
                   <Image className="w-4 h-4" />
                 </button>
               </DialogTrigger>

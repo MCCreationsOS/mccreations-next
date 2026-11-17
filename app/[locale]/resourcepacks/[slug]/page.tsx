@@ -1,8 +1,8 @@
 import { fetchResourcepack } from '@/app/api/content';
 import { ICreator, IContentDoc, CollectionNames } from '@/app/api/types';
-import MapWrapper, { ResourcepackWrapper } from '@/components/Creations/Page/ContentWrapper';
 import { Metadata, ResolvingMetadata } from 'next';
 import Creation from '@/components/Creations/Page/Creation';
+import { ResourcepackWrapper } from '@/components/Creations/Page/ContentWrapper';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
@@ -73,15 +73,12 @@ export default async function Page(props: {params: Promise<{locale: string, slug
     setRequestLocale(params.locale)
     const t = await getTranslations({locale: params.locale})
 
-    if(map && '_id' in map) {
+    if (map && typeof map === "object" && "_id" in map) {
         return (
             <Creation creation={map} collectionName={CollectionNames.Resourcepacks}/>
         )
     } else if (map) {
-        return (
-            <ResourcepackWrapper response={map} slug={params.slug}/>
-        )
-    }  else {
-        notFound();
+        return <ResourcepackWrapper response={map} slug={params.slug} />
     }
+    notFound();
 }

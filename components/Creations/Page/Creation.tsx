@@ -64,6 +64,11 @@ export default function Creation({ creation, collectionName }: { creation: ICont
     } else if (creation.videoUrl) {
         videoID = creation.videoUrl.substring(creation.videoUrl.lastIndexOf("/") + 1)
     }
+    if (!/^[\w-]{6,20}$/.test(videoID)) {
+        videoID = ""
+    }
+
+    const toIsoDate = (date: number) => new Date(date < 10000000000 ? date * 1000 : date).toISOString()
 
     let jsonLd = {
         "@context": "https://schema.org",
@@ -71,9 +76,9 @@ export default function Creation({ creation, collectionName }: { creation: ICont
         name: title,
         applicationCategory: "Game",
         operatingSystem: "Windows, macOS, Linux",
-        description: shortDescription || description.substring(0, 160),
-        datePublished: new Date(creation.createdDate).toISOString(),
-        dateModified: new Date(creation.updatedDate ?? creation.createdDate).toISOString(),
+        description: shortDescription || (description ?? "").substring(0, 160),
+        datePublished: toIsoDate(creation.createdDate),
+        dateModified: toIsoDate(creation.updatedDate ?? creation.createdDate),
         author: {
             "@type": "Person",
             name: creation.creators && creation.creators.length > 0 ? creation.creators[0].username : "Unknown",
@@ -173,7 +178,7 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                         {/* Info Card */}
                         <div className="bg-card border-gray-950 border-2 p-5 w-full">
                             <div className="flex flex-col gap-2">
-                                {creation.creators.map(creator => <CreatorCard creator={creator} key={creator.username} />)}
+                                {(creation.creators ?? []).map(creator => <CreatorCard creator={creator} key={creator.username} />)}
                             </div>
                             <hr className="my-2"></hr>
                             <div className="flex flex-col gap-1 text-sm text-muted-foreground">

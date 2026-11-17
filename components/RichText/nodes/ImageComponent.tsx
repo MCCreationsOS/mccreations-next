@@ -47,7 +47,7 @@ import ImageResizer from './ImageResizer';
 import {useTranslations} from 'next-intl';
 
 function ErrorBoundary({children, onError}: {children: React.ReactNode, onError: (error: Error) => void}) {
-  return null
+  return children
 }
   
   const imageCache = new Set();

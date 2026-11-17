@@ -2,7 +2,7 @@
 
 import { Link } from "@/i18n/navigation";
 import { Menu, Upload, User } from "lucide-react";
-import { Sheet, SheetTrigger, SheetContent } from "../ui/sheet";
+import { Sheet, SheetTrigger, SheetContent, SheetTitle, SheetDescription } from "../ui/sheet";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import {
@@ -37,6 +37,8 @@ export default function Navbar() {
                             </Button>
                         </SheetTrigger>
                         <SheetContent side="left" className="p-4 border-2 border-white/15">
+                            <SheetTitle className="sr-only">{t("Components.Navbar.toggle_menu")}</SheetTitle>
+                            <SheetDescription className="sr-only">{t("Components.Navbar.creations")}</SheetDescription>
                             <Link href="/" className="flex items-center gap-2 mb-8">
                                 <div className="relative w-8 h-8">
                                     <Image

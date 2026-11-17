@@ -100,7 +100,7 @@ export async function postReply(comment_id: string, username: string, reply: str
 
 export async function likeComment(comment_id: string, jwt: string = "") {
     try {
-        let response = await fetch(`${process.env.DATA_URL}/comment/${comment_id}/like`, {
+        let response = await fetch(`${process.env.DATA_URL}/comment/${encodeURIComponent(comment_id)}/like`, {
             method: "GET",
             headers: {
                 'Authorization': jwt
@@ -139,7 +139,7 @@ export async function fetchComments(slug?: string, options?: { page?: number, co
 
 export async function fetchComment(id: string) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/comment/${id}`, { next: { tags: ["comment"], revalidate: Infinity } })
+        let data = await fetch(`${process.env.DATA_URL}/comment/${encodeURIComponent(id)}`, { next: { tags: ["comment"], revalidate: Infinity } })
         try {
             let json = await data.json()
             return json;
@@ -155,7 +155,7 @@ export async function fetchComment(id: string) {
 
 export async function updateComment(comment: IComment, jwt: string = "") {
     try {
-        fetch(`${process.env.DATA_URL}/comment/${comment._id}`, {
+        fetch(`${process.env.DATA_URL}/comment/${encodeURIComponent(comment._id ?? "")}`, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ export async function deleteComment(id: string, jwt: string = "") {
 
 export async function getCreator(handle: string) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/creator/${handle}`, { next: { tags: ["creator"], revalidate: 216000 } })
+        let data = await fetch(`${process.env.DATA_URL}/creator/${encodeURIComponent(handle)}`, { next: { tags: ["creator"], revalidate: 216000 } })
         try {
             if (data.status === 200) {
                 let json = await data.json()
@@ -205,7 +205,7 @@ export async function getCreator(handle: string) {
 
 export async function getLeaderboard(contentType: ContentTypes, slug: string) {
     try {
-        let data = await fetch(`${process.env.DATA_URL}/leaderboards/${convertToCollection(contentType)}/${slug}`)
+        let data = await fetch(`${process.env.DATA_URL}/leaderboards/${encodeURIComponent(convertToCollection(contentType))}/${encodeURIComponent(slug)}`)
         try {
             let json = await data.json()
             return json as Leaderboard;
@@ -219,13 +219,13 @@ export async function getLeaderboard(contentType: ContentTypes, slug: string) {
     return undefined;
 }
 
-export async function submitLeaderboard(contentType: ContentTypes, slug: string, score: number, score_type: string, username: string, jwt: string = "") {
+export async function submitLeaderboard(contentType: ContentTypes, slug: string, score: number, score_type: string, username: string, jwt: string = ""): Promise<boolean> {
     try {
-        fetch(`${process.env.DATA_URL}/leaderboards/${convertToCollection(contentType)}/${slug}`, {
+        const response = await fetch(`${process.env.DATA_URL}/leaderboards/${encodeURIComponent(convertToCollection(contentType))}/${encodeURIComponent(slug)}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': jwt
+                ...(jwt ? { 'Authorization': jwt } : {}),
             },
             body: JSON.stringify({
                 score: score,
@@ -234,8 +234,10 @@ export async function submitLeaderboard(contentType: ContentTypes, slug: string,
             }),
             cache: 'no-store'
         })
+        return response.ok
     }
     catch (e) {
         console.error(e);
+        return false
     }
 }

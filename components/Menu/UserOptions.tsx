@@ -4,13 +4,12 @@ import { useEffect, useState, } from "react"
 import Image from "next/image"
 import { UserTypes } from "@/app/api/types"
 import { Bell, LogIn, LogOut, Settings, Table, User, UserPlus } from "lucide-react"
-import { usePathname } from "next/navigation"
 import { useTranslations } from "next-intl";
 import { useUser, useToken } from "@/app/api/hooks/users";
 import { useIsClient } from "usehooks-ts";
 import { useNotifications } from "@/app/api/hooks/notifications"
 import { Button } from "../ui/button"
-import { Link, useRouter } from "@/i18n/navigation"
+import { Link, usePathname, useRouter } from "@/i18n/navigation"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu"
 
 /** Pages that only make sense signed in; signing out on one of these goes back home */
@@ -39,7 +38,7 @@ export default function UserOptions() {
     const signOut = () => {
         setToken("")
         setUser({_id: "", username: "", email: "", type: UserTypes.Account })
-        if(PROTECTED_PREFIXES.includes(pathname.split("/")[2] ?? "")) {
+        if(PROTECTED_PREFIXES.includes(pathname.split("/").filter(Boolean)[0] ?? "")) {
             router.push("/")
         }
     }

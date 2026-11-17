@@ -29,47 +29,26 @@ export function Files({ handleNext }: { handleNext: () => void }) {
     const collectionName = convertToCollection(contentType);
     const { token } = useTokenOrKey();
     const t = useTranslations();
-    const [url, setUrl] = useState<string | undefined>(creation.files && creation.files.length > 0 ? creation.files[0].url! : undefined);
     const file = creation.files && creation.files.length > 0 ? creation.files[0] : undefined;
+    const hasDownloadUrl = !!(file?.url || file?.worldUrl || file?.dataUrl || file?.resourceUrl);
 
-    const editForm = useForm({
-        defaultValues: {
-            contentVersion: creation.files && creation.files.length > 0 ? creation.files[0].contentVersion : "1.0.0",
-            minecraftVersion: creation.files && creation.files.length > 0 ? creation.files[0].minecraftVersion : [] as string[],
-            bedrock: false,
-            url: url
-        },
-        onSubmit: (data) => {
-
-            const files: IFile[] = [{
-                contentVersion: data.value.contentVersion,
-                minecraftVersion: data.value.minecraftVersion,
-                url: data.value.url,
-                type: contentType,
-                createdDate: Date.now()
-            }];
-            saveVersionsForm(files);
-            saveAndNext(files);
-        }
-    })
-
-    // Version edits are kept locally and only sent to the API when the user presses Next
-    const saveVersionsForm = (files: IFile[]) => {
-        setCreation((prev) => ({ ...prev, files: files }));
-    };
-
-    const hamdleChange = (file: IFile) => {
-        setCreation((prev) => ({ ...prev, files: [file] }));
+    const handleFileChange = (next: IFile) => {
+        setCreation((prev) => ({ ...prev, files: [next] }));
     }
 
     const [saving, setSaving] = useState(false);
 
-    const saveAndNext = (files: IFile[]) => {
+    const saveAndNext = () => {
         if (!creation || "error" in creation) return;
+        const files = creation.files ?? [];
+        if (!files[0] || !(files[0].url || files[0].worldUrl || files[0].dataUrl || files[0].resourceUrl)) {
+            toast.error(t("Components.Dropzone.link_placeholder"));
+            return;
+        }
 
-        let newCreation = {
+        const newCreation = {
             ...creation,
-            files: files
+            files,
         };
 
         setSaving(true);
@@ -91,8 +70,8 @@ export function Files({ handleNext }: { handleNext: () => void }) {
 
     return (
         <>
-            <VersionManager2 initialFile={file} forWhat={creation.slug ?? creation._id} onChange={hamdleChange} />
-            <Button onClick={editForm.handleSubmit} disabled={saving || !file} className="w-fit mt-2">
+            <VersionManager2 initialFile={file} forWhat={creation.slug ?? creation._id} onChange={handleFileChange} />
+            <Button type="button" onClick={saveAndNext} disabled={saving || !hasDownloadUrl} className="w-fit mt-2">
                 <span>{t("Pages.Create.next")}</span>
                 <ChevronRight />
             </Button>
@@ -224,7 +203,7 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
             createNewContent(title!, type!, shortDescription!, token).then(
                 (result) => {
                     if ("error" in result) {
-                        toast(result.error);
+                        toast.error(result.error);
                         return;
                     }
                     if (result && "key" in result && result.key) {
@@ -270,6 +249,7 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
                         <div className="flex flex-col gap-1">
                             <Label htmlFor="title">{t("Pages.Create.BasicInfo.title")} <Required /></Label>
                             <Input
+                                id="title"
                                 type="text"
                                 name="title"
                                 value={field.state.value}
@@ -304,7 +284,7 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
                                     field.handleChange(value);
                                 }}
                             >
-                                <SelectTrigger>
+                                <SelectTrigger id="type">
                                     <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
@@ -338,6 +318,7 @@ export function CreateBasicInfo({ handleNext }: { handleNext: () => void }) {
                         <div className="flex flex-col gap-1">
                             <Label htmlFor="shortDescription">{t("Pages.Create.BasicInfo.short_description")} <Required /></Label>
                             <Input
+                                id="shortDescription"
                                 type="text"
                                 name="shortDescription"
                                 value={field.state.value}
@@ -504,6 +485,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     <div className="flex flex-col gap-1">
                         <Label htmlFor="slug">{t("Pages.Create.Details.slug")} <Required /></Label>
                         <Input
+                            id="slug"
                             type="text"
                             name="slug"
                             value={field.state.value}
@@ -531,7 +513,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
             <form.Field name="creators" children={(field) => (
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="creators">{t("Pages.Create.Details.creators")} <Required /></Label>
-                    <CreatorInput creators={field.state.value} onChange={field.handleChange} />
+                    <CreatorInput id="creators" creators={field.state.value} onChange={field.handleChange} />
                     {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                 </div>
             )}
@@ -549,6 +531,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     <div className="flex flex-col gap-1">
                         <Label htmlFor="videoUrl">{t("Pages.Create.Details.video_url")}</Label>
                         <Input
+                            id="videoUrl"
                             type="text"
                             name="videoUrl"
                             value={field.state.value}
@@ -577,6 +560,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     <div className="flex flex-col gap-1">
                         <Label htmlFor="description">{t("Pages.Create.Details.description")} <Required /></Label>
                         <RichText
+                            id="description"
                             sendOnChange={(v) => {
                                 field.handleChange(v);
                             }}
@@ -599,6 +583,7 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
                     <div className="flex flex-col gap-1">
                         <Label htmlFor="tags">{t("Pages.Create.Details.tags")} <Required /></Label>
                         <TagInput
+                            id="tags"
                             tags={tags}
                             creation={creation}
                             onChange={field.handleChange}
@@ -622,14 +607,14 @@ export function CreateDetails({ handleNext }: { handleNext: () => void }) {
     );
 }
 
-export function CreatorInput({ creators, onChange }: { creators: ICreator[], onChange: (creators: ICreator[]) => void }) {
+export function CreatorInput({ creators, onChange, id }: { creators: ICreator[], onChange: (creators: ICreator[]) => void, id?: string }) {
     const t = useTranslations();
     return (
         <div className="flex flex-col gap-2">
             {creators?.map((creator, index) => (
                 <div key={index} className="flex flex-row gap-2 items-center">
                     <CreatorAvatar creator={creator} />
-                    <Input type="text" value={creator.username} onChange={(e) => {
+                    <Input id={index === 0 ? id : undefined} type="text" value={creator.username} onChange={(e) => {
                         onChange(creators.map((c, i) => i === index ? { ...c, username: e.target.value } : c))
                     }} placeholder={t("Pages.Create.Details.CreatorInput.username")} />
                     <Input type="text" value={creator.handle} onChange={(e) => {
@@ -640,7 +625,7 @@ export function CreatorInput({ creators, onChange }: { creators: ICreator[], onC
                     }}><Trash /></Button>
                 </div>
             ))}
-            <Button variant="secondary" className="w-fit" type="button" onClick={() => {
+            <Button id={!creators?.length ? id : undefined} variant="secondary" className="w-fit" type="button" onClick={() => {
                 onChange([...creators, {
                     username: "",
                     handle: ""
@@ -678,10 +663,12 @@ export function TagInput({
     tags,
     creation,
     onChange,
+    id,
 }: {
     tags: Tags | { error: string };
     creation: IContentDoc;
     onChange: (tags: string) => void;
+    id?: string;
 }) {
     const [selected, setSelected] = useState<string[]>((creation.tags ?? []).filter((tag) => tag.length > 0));
     const [search, setSearch] = useState("");
@@ -713,6 +700,7 @@ export function TagInput({
             <PopoverTrigger asChild>
                 <div className="flex flex-row flex-wrap gap-2 px-2 py-1 border overflow-auto">
                     <Input
+                        id={id}
                         className="border-none min-w-[100px] flex-1"
                         type="text"
                         value={search}

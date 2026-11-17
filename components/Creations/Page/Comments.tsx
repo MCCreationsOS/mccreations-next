@@ -253,7 +253,16 @@ export function Comment({comment, setComments, comments, sort}: {
                         <h3 className='font-bold'>{comment.username}</h3>
                         {rating > 0 && (<Rating className='my-1' value={rating} currentRating={rating} ratings={[rating]} onRate={() => {}} canChange={false}/>)}
                         <div dangerouslySetInnerHTML={{__html: comment.comment}} className={`max-w-xl mb-2 ${showMore ? '' : 'line-clamp-4'}`} ref={text}></div>
-                        {canShowMore && <div className='text-sm text-muted-foreground cursor-pointer' onClick={() => setShowMore(!showMore)}>{showMore ? t('Components.Creations.Page.Comments.collapse') : t('Components.Creations.Page.Comments.expand')}</div>}
+                        {canShowMore && (
+                            <button
+                                type="button"
+                                className="text-sm text-muted-foreground cursor-pointer"
+                                onClick={() => setShowMore(!showMore)}
+                                aria-expanded={showMore}
+                            >
+                                {showMore ? t('Components.Creations.Page.Comments.collapse') : t('Components.Creations.Page.Comments.expand')}
+                            </button>
+                        )}
                         <div className='flex flex-row gap-2'>
                             {/* <Button variant="ghost" size="icon" className='w-8 h-8 text-muted-foreground' onClick={() => {likeComment(comment._id!)}}>
                                 <ThumbsUpIcon className='w-4 h-4' />
@@ -275,8 +284,9 @@ export function Comment({comment, setComments, comments, sort}: {
                     <div className='flex-1 flex flex-row gap-2 justify-end items-center'>
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="ghost" size="icon">
+                                <Button variant="ghost" size="icon" aria-label={t('Components.Creations.Page.CreationOptions.button')}>
                                     <MoreHorizontalIcon className='w-4 h-4' />
+                                    <span className="sr-only">{t('Components.Creations.Page.CreationOptions.button')}</span>
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>

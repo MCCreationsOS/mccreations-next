@@ -79,7 +79,7 @@ export default function CreationCard(props: IContentCardProps) {
                             <div className={styles.stat}><Download className={styles.in_text_icon} />{props.creation.downloads}</div>
                             {(props.creation.rating > 0) ? <div className={styles.stat}><Star className={styles.in_text_icon} />{formatRating(props.creation.rating)}</div> : <></>}
                         </div>
-                        <p className={styles.author}>{t('Components.Creations.Cards.by', { creator: props.creation.creators.slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner')) })}</p>
+                        <p className={styles.author}>{t('Components.Creations.Cards.by', { creator: (props.creation.creators ?? []).slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner')) })}</p>
                     </div>
                 </div>
             </Link>

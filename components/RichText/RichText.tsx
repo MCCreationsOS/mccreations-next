@@ -126,11 +126,12 @@ function LoadHTMLPlugin({ html }: { html: string }): JSX.Element {
  * @param resetRef A ref that can be used to reset the editor content
  * @returns 
  */
-export default function RichText({ sendOnChange, initialValue, className, resetRef }: { 
+export default function RichText({ sendOnChange, initialValue, className, resetRef, id }: { 
     sendOnChange: (state: string) => void, 
     initialValue?: string, 
     className?: string,
-    resetRef?: React.RefObject<{ reset: () => void } | null>
+    resetRef?: React.RefObject<{ reset: () => void } | null>,
+    id?: string
 }) {
 
     const initialConfig = {
@@ -156,7 +157,7 @@ export default function RichText({ sendOnChange, initialValue, className, resetR
                 <ToolbarPlugin />
                 <div className={`border-t-1 border-white/15 relative ${className}`}>
                     <RichTextPlugin
-                        contentEditable={<ContentEditable className={`min-h-[200px] px-3 py-1 ${className}`} />}
+                        contentEditable={<ContentEditable id={id} className={`min-h-[200px] px-3 py-1 ${className}`} />}
                         placeholder={<div className="editor-placeholder">{t('Components.RichText.placeholder')}</div>}
                         ErrorBoundary={ErrorBoundary}
                     />

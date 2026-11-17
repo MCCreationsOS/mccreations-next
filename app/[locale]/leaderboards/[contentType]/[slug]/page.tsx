@@ -2,7 +2,7 @@ import { getLeaderboard } from "@/app/api/community"
 import { fetchDatapack, fetchMap } from "@/app/api/content"
 import Image from "next/image"
 import styles from '../../leaderboard.module.css'
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
 import { getFormatter, getTranslations } from "next-intl/server"
 import DownloadButton from "@/components/ui/client_buttons/DownloadButton"
 import Rating from "@/components/Creations/Page/Rating"
@@ -18,12 +18,15 @@ export default async function Page(props: {params: Promise<{locale: string, cont
     switch (params.contentType) {
         case 'map':
             let res = await fetchMap(params.slug)
-            if('_id' in res) {
+            if(res && typeof res === "object" && '_id' in res) {
                 creation = res
             }
             break;
         case 'datapack':
-            creation = await fetchDatapack(params.slug)
+            let datapack = await fetchDatapack(params.slug)
+            if(datapack && typeof datapack === "object" && '_id' in datapack) {
+                creation = datapack
+            }
             break;
     }
 
@@ -42,13 +45,15 @@ export default async function Page(props: {params: Promise<{locale: string, cont
         return `${hours}h ${minutes}m ${seconds}s ${ticks}t`
     }
 
+    const imageSrc = creation?.images?.[0] ?? "/defaultBanner.png"
+
     if(!leaderboard) {
         return <div style={{height: "80vh"}}>
         <div className={styles.leaderboard}>
-            {(creation) ? <Image priority src={creation?.images[0] ?? "/defaultBanner.png"} width={1920} height={1080} alt="" className={styles.background_image}></Image> : <div className={styles.background_image}></div>}
+            {(creation) ? <Image priority src={imageSrc} width={1920} height={1080} alt="" className={styles.background_image}></Image> : <div className={styles.background_image}></div>}
             <div className={styles.information}>
                 <div className={styles.creation_title}>
-                    {creation && <Image priority src={creation?.images[0] ?? "/defaultBanner.png"} width={1920} height={1080} alt="" className={styles.image}></Image>}
+                    {creation && <Image priority src={imageSrc} width={1920} height={1080} alt="" className={styles.image}></Image>}
                     <div>
                         <h1 className={styles.title}>{creation?.title ?? title}</h1>
                         <div className='map_download_stack'>
@@ -68,10 +73,10 @@ export default async function Page(props: {params: Promise<{locale: string, cont
     return (
         <div style={{height: "80vh"}}>
             <div className={styles.leaderboard}>
-                {(creation) ? <Image priority src={creation?.images[0] ?? "/defaultBanner.png"} width={1920} height={1080} alt="" className={styles.background_image}></Image> : <div className={styles.background_image}></div>}
+                {(creation) ? <Image priority src={imageSrc} width={1920} height={1080} alt="" className={styles.background_image}></Image> : <div className={styles.background_image}></div>}
                 <div className={styles.information}>
                     <div className={styles.creation_title}>
-                        {creation && <Link className={styles.image} href={(creation) ? `/${creation.type}s/${creation.slug}` : ""}><Image priority src={creation?.images[0] ?? "/defaultBanner.png"} width={1920} height={1080} alt="" className={styles.image}></Image></Link>}
+                        {creation && <Link className={styles.image} href={(creation) ? `/${creation.type}s/${creation.slug}` : ""}><Image priority src={imageSrc} width={1920} height={1080} alt="" className={styles.image}></Image></Link>}
                         <div>
                         <Link href={(creation) ? `/${creation.type}s/${creation.slug}` : ""}><h1 className={styles.title}>{creation?.title ?? title}</h1></Link>
                             <div className='map_download_stack'>
@@ -96,10 +101,10 @@ export default async function Page(props: {params: Promise<{locale: string, cont
                                     if(a.score_type !== "highest_score") return a.score - b.score
                                     return b.score - a.score
                                 }).map((entry, index) => (
-                                <tr key={entry.date}>
+                                <tr key={`${entry.username}-${entry.date}-${index}`}>
                                     <td className={styles.leaderboard_table_data}>{index + 1}</td>
                                     <td className={styles.leaderboard_table_data}>{entry.username}</td>
-                                    <td className={styles.leaderboard_table_data}>{formatTime(entry.score)}</td>
+                                    <td className={styles.leaderboard_table_data}>{entry.score_type === "time" ? formatTime(entry.score) : entry.score}</td>
                                     <td className={styles.leaderboard_table_data}>{formatter.dateTime(new Date(entry.date), {
                                         timeStyle: "short",
                                         dateStyle: "medium"

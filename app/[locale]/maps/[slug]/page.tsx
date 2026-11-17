@@ -1,8 +1,8 @@
 import { fetchMap, searchContent } from '@/app/api/content';
 import { ICreator, IFile, IContentDoc, CollectionNames } from '@/app/api/types';
-import MapWrapper from '@/components/Creations/Page/ContentWrapper';
 import { GetStaticPaths, GetStaticProps, Metadata, ResolvingMetadata } from 'next';
 import Creation from '@/components/Creations/Page/Creation';
+import MapWrapper from '@/components/Creations/Page/ContentWrapper';
 import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 
@@ -63,15 +63,14 @@ export default async function Page(props: { params: Promise<{locale: string, slu
     setRequestLocale(params.locale)
     const t = await getTranslations({locale: params.locale})
 
-    if (map && '_id' in map) {
+    // Public creations render on the server. Drafts (and other credential-gated
+    // responses) come back without `_id`, so retry client-side with the owner's token.
+    if (map && typeof map === "object" && "_id" in map) {
         return (
             <Creation creation={map} collectionName={CollectionNames.Maps} />
         )
     } else if (map) {
-        return (
-            <MapWrapper response={map} slug={params.slug} />
-        )
-    } else {
-        notFound();
+        return <MapWrapper response={map} slug={params.slug} />
     }
+    notFound();
 }

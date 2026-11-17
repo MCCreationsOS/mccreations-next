@@ -12,10 +12,15 @@ export default function ProfilePage() {
 
     useEffect(() => {
         if(isLoading) return
-        if(user?.handle) {
+        if(!user) {
+            router.replace("/signin?redirect=settings/profile")
+            return
+        }
+        if(user.handle) {
             router.replace(`/creator/${user.handle}`)
         } else {
-            router.replace("/signin?redirect=settings/profile")
+            // Logged in but no creator handle yet — send them to set one, not back to sign-in
+            router.replace("/settings/account")
         }
     }, [user, isLoading, router])
 

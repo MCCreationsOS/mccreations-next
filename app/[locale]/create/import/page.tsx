@@ -1,10 +1,10 @@
 "use client"
 
-import { convertToCollection, createEmptyCreation, importContent, requestApproval } from "@/app/api/content"
+import { convertToCollection, createEmptyCreation, errorCheckContent, importContent, requestApproval } from "@/app/api/content"
 import { useToken, useTokenOrKey } from "@/app/api/hooks/users"
 import { IContentDoc } from "@/app/api/types"
 import { useTranslations } from "next-intl"
-import { useRouter } from "next/navigation"
+import { useRouter } from "@/i18n/navigation"
 import { useState } from "react"
 import { useSessionStorage } from "usehooks-ts"
 import styles from "../create.module.css"
@@ -18,12 +18,70 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { CreateDetails, Files, Images, Required } from "../formElements"
 import { Label } from "@/components/ui/label"
 
+/** Pull complete JSON objects out of a buffered stream (NDJSON lines and/or brace-balanced objects). */
+function extractJsonObjects(buffer: string): { objects: any[], rest: string } {
+    const objects: any[] = []
+    let rest = buffer
+
+    while (rest.length > 0) {
+        const trimmedStart = rest.match(/^\s*/)?.[0].length ?? 0
+        rest = rest.slice(trimmedStart)
+        if (!rest) break
+
+        if (rest[0] !== "{" && rest[0] !== "[") {
+            const nl = rest.indexOf("\n")
+            if (nl === -1) break
+            rest = rest.slice(nl + 1)
+            continue
+        }
+
+        let depth = 0
+        let inString = false
+        let escape = false
+        let end = -1
+        for (let i = 0; i < rest.length; i++) {
+            const ch = rest[i]
+            if (inString) {
+                if (escape) escape = false
+                else if (ch === "\\") escape = true
+                else if (ch === '"') inString = false
+                continue
+            }
+            if (ch === '"') {
+                inString = true
+                continue
+            }
+            if (ch === "{" || ch === "[") depth++
+            else if (ch === "}" || ch === "]") {
+                depth--
+                if (depth === 0) {
+                    end = i
+                    break
+                }
+            }
+        }
+
+        if (end === -1) break
+
+        const slice = rest.slice(0, end + 1)
+        rest = rest.slice(end + 1)
+        try {
+            objects.push(JSON.parse(slice))
+        } catch {
+            // Skip malformed complete slices; keep going with the remainder
+        }
+    }
+
+    return { objects, rest }
+}
+
 export default function ImportPage() {
     const [creation, setCreation] = useSessionStorage<IContentDoc>(
         "tempCreation",
         createEmptyCreation()
     );
     const [activeTab, setActiveTab] = useState("import");
+    const [tabsDisabled, setTabsDisabled] = useState(true);
     const { token } = useTokenOrKey();
 
     const contentType = creation.type;
@@ -32,6 +90,7 @@ export default function ImportPage() {
     const t = useTranslations();
 
     const handleTabChange = (tab: string) => {
+        if (tabsDisabled && tab !== "import") return;
         setActiveTab(tab);
     };
 
@@ -47,10 +106,22 @@ export default function ImportPage() {
         }
     };
 
+    const onImportComplete = () => {
+        setTabsDisabled(false);
+        setActiveTab("details");
+    };
+
     const onFinish = () => {
         if (!creation || "error" in creation) return;
+        const errors = errorCheckContent(creation);
+        for (const error of errors) {
+            toast.error(t(error.error));
+        }
+        if (errors.length > 0) return;
+
         requestApproval(creation.slug, collectionName, token)
             .then(() => {
+                toast.success(t('Pages.Create.submitted'));
                 setCreation(createEmptyCreation());
                 router.push(`/dashboard`);
             })
@@ -60,16 +131,16 @@ export default function ImportPage() {
     };
 
     return (
-        <div className="w-1/2 mx-auto mt-5 p-5">
-            <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <div className="max-w-3xl w-full mx-auto px-4 mt-5 p-5">
+            <Tabs value={activeTab} onValueChange={handleTabChange}>
                 <TabsList className="w-full">
                     <TabsTrigger value="import" className="w-1/4">{t('Pages.Create.Import.title')}</TabsTrigger>
-                    <TabsTrigger value="details" className="w-1/4">{t('Pages.Create.Details.title')}</TabsTrigger>
-                    <TabsTrigger value="files" className="w-1/4">{t('Pages.Create.Files.title')}</TabsTrigger>
-                    <TabsTrigger value="images" className="w-1/4">{t('Pages.Create.Images.title')}</TabsTrigger>
+                    <TabsTrigger value="details" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Details.title')}</TabsTrigger>
+                    <TabsTrigger value="files" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Files.title')}</TabsTrigger>
+                    <TabsTrigger value="images" className="w-1/4" disabled={tabsDisabled}>{t('Pages.Create.Images.title')}</TabsTrigger>
                 </TabsList>
                 <TabsContent value="import">
-                    <Import />
+                    <Import onImportComplete={onImportComplete} />
                 </TabsContent>
                 <TabsContent value="details">
                     <CreateDetails handleNext={handleNext} />
@@ -85,14 +156,14 @@ export default function ImportPage() {
     );
 }
 
-function Import() {
+function Import({ onImportComplete }: { onImportComplete: () => void }) {
     const [importing, setImporting] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>("Importing...")
+    const [message, setMessage] = useState<string>("Pages.Create.Import.importing")
     const [options, setOptions] = useState<any>()
     const [progress, setProgress] = useState<number>(0)
     const {token} = useToken()
     const [creation, setCreation] = useSessionStorage<IContentDoc>('tempCreation', createEmptyCreation())
-    const router = useRouter()
+    const [, setTempKey] = useSessionStorage<string>("temp_key", "", { serializer: (value) => value, deserializer: (value) => value })
     const t = useTranslations();
     const form = useForm({
         defaultValues: {
@@ -104,49 +175,60 @@ function Import() {
         }
     })
 
+    const handleStreamEvent = (json: any) => {
+        switch(json.type) {
+            case 'progress':
+                setMessage(json.data.message)
+                setOptions(json.data.options)
+                setProgress(json.data.progress)
+                break
+            case 'error':
+                toast.error(json.data)
+                setImporting(false)
+                break
+            case 'complete': {
+                const uploadedCreation = json.data.creation
+                if (json.data.key) {
+                    setTempKey(json.data.key)
+                }
+                setCreation({...creation, ...uploadedCreation})
+                setImporting(false)
+                onImportComplete()
+                break
+            }
+        }
+    }
 
     const onMapImport = async (link?: string, type?: string) => {
         if(link && type) {
             setImporting(true)
-            setMessage(t('Pages.Create.Import.importing'))
+            setMessage('Pages.Create.Import.importing')
             let res = await importContent(link, type, token)
             if(typeof res === 'object' && 'error' in res) {
                 toast.error(res.error)
                 setImporting(false)
             } else {
                 const decoder = new TextDecoder()
-                const processChunk = (value: Uint8Array) => {
-                    const text = decoder.decode(value)
-                    try {
-                        // Try parsing as JSON first
-                        const json = JSON.parse(text)
-                        switch(json.type) {
-                            case 'progress':
-                                setMessage(json.data.message)
-                                setOptions(json.data.options)
-                                setProgress(json.data.progress)
-                                break
-                            case 'error':
-                                toast.error(json.data)
-                                setImporting(false)
-                                break
-                            case 'complete':
-                                const uploadedCreation = json.data.creation
-                                setCreation({...creation, ...uploadedCreation})
-                                router.push(`/create/basic_info`)
-                                break
-                        }
-                    } catch {
-                    }
-
-                }
+                let buffer = ""
                 const stream = res.body
                 if(stream) {
                     const reader = stream.getReader()
                     while(true) {
                         const {done, value} = await reader.read()
                         if(done) break
-                        processChunk(value)
+                        buffer += decoder.decode(value, { stream: true })
+                        const { objects, rest } = extractJsonObjects(buffer)
+                        buffer = rest
+                        for (const json of objects) {
+                            handleStreamEvent(json)
+                        }
+                    }
+                    buffer += decoder.decode()
+                    if (buffer.trim()) {
+                        const { objects } = extractJsonObjects(buffer)
+                        for (const json of objects) {
+                            handleStreamEvent(json)
+                        }
                     }
                 } else {
                     toast.error(t('Pages.Create.Import.Importing.error'))

@@ -1,7 +1,7 @@
 'use client'
 
 import { useCreations } from "@/app/api/hooks/creations";
-import { useUser } from "@/app/api/hooks/users";
+import { useToken, useUser } from "@/app/api/hooks/users";
 import { OAuthProvider, startOAuth } from "@/app/api/oauth";
 import { SortOptions } from "@/app/api/types";
 import { Button } from "@/components/ui/button";
@@ -29,7 +29,7 @@ function AuthBackground() {
                     <Image src={creation.images && creation.images.length > 0 ? creation.images[0] : '/defaultBanner.png'} alt="" fill sizes="100vw" className="object-cover blur-sm" />
                     <div className="absolute bottom-0 left-0 bg-black/50 p-4 hidden md:block">
                         <p className="text-white text-xl font-bold">{creation.title}</p>
-                        <p className="text-sm">{t('Pages.SignIn.by', {creators: creation.creators.map((creator) => creator.username).join(", ")})}</p>
+                        <p className="text-sm">{t('Pages.SignIn.by', {creators: (creation.creators ?? []).map((creator) => creator.username).join(", ")})}</p>
                     </div>
                 </div>
             ))}
@@ -45,14 +45,15 @@ const PROVIDERS: {id: OAuthProvider, icon: string}[] = [
 
 export function OAuthButtons({redirect}: {redirect?: string}) {
     const t = useTranslations()
-    const {user} = useUser()
-    // A signed-in user going through a provider links it to their account instead
-    const mode = user ? "link" : "signin"
+    const {token} = useToken()
+    const {isLoading} = useUser()
+    // Prefer JWT over resolved user so linking still works while SWR is loading
+    const mode = token ? "link" : "signin"
 
     return (
         <div className="flex flex-row flex-wrap gap-2 mb-5">
             {PROVIDERS.map((provider) => (
-                <Button key={provider.id} type="button" variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" onClick={() => startOAuth(provider.id, mode, redirect)}>
+                <Button key={provider.id} type="button" variant="secondary" className="bg-white/10 py-3 px-6 hover:bg-white/20" disabled={!!token && isLoading} onClick={() => startOAuth(provider.id, mode, redirect)}>
                     <Image src={provider.icon} alt="" width={20} height={20} /> <span>{t(`Pages.SignIn.Providers.${provider.id}`)}</span>
                 </Button>
             ))}
@@ -62,7 +63,7 @@ export function OAuthButtons({redirect}: {redirect?: string}) {
 
 export default function AuthShell({children}: {children: React.ReactNode}) {
     return (
-        <div className="relative min-h-[700px] flex items-start justify-center px-4 py-10">
+        <div className="relative min-h-[min(700px,100dvh)] flex items-start justify-center px-4 py-10">
             <AuthBackground />
             <div className="relative z-10 w-full max-w-xl bg-secondary p-6 md:p-10 border-2 border-black">
                 {children}

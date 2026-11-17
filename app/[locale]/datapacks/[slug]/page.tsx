@@ -62,15 +62,12 @@ export default async function Page(props: {params: Promise<{locale: string, slug
     setRequestLocale(params.locale)
     const t = await getTranslations({locale: params.locale})
 
-    if(map && typeof map === "object" && "_id" in map) {
+    if (map && typeof map === "object" && "_id" in map) {
         return (
             <Creation creation={map} collectionName={CollectionNames.Datapacks}/>
         )
     } else if (map) {
-        return (
-            <DatapackWrapper response={map} slug={params.slug}/>
-        )
-    }  else {
-        notFound();
+        return <DatapackWrapper response={map} slug={params.slug} />
     }
+    notFound();
 }

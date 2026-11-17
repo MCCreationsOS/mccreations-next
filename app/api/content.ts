@@ -97,7 +97,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
         let p1 = fetch(`${process.env.DATA_URL}/creations?${buildCreationsQuery(queryOptions, count)}`, {
             method: 'GET',
             headers: {
-                authorization: token + ""
+                ...(token ? { authorization: token } : {})
             },
             next: { tags: ["creations"], revalidate: 86400}
         })
@@ -108,7 +108,7 @@ export async function searchContent(queryOptions: QueryOptions, count: boolean, 
             p2 = fetch(`${process.env.DATA_URL}/creations?${buildCreationsQuery(filterQuery, count)}`, {
                 method: 'GET',
                 headers: {
-                    authorization: token + ""
+                    ...(token ? { authorization: token } : {})
                 },
                 next: { tags: ["creations"], revalidate: 86400}
             })
@@ -138,7 +138,7 @@ export async function getFeed(token: string | null, limit: number, page: number)
     try {
         let response = await fetch(`${process.env.DATA_URL}/feed?${new URLSearchParams({ limit: String(limit), page: String(page) })}`, {
             headers: {
-                authorization: token + ""
+                ...(token ? { authorization: token } : {})
             },
             next: { tags: ["feed"], revalidate: 86400 }
         })
@@ -167,7 +167,7 @@ export async function fetchMap(slug: string, token?: string) {
         let response = await fetch(`${process.env.DATA_URL}/creations/maps/${encodeURIComponent(slug)}`, { 
             next: { tags: [slug], revalidate: 86400 },
             headers: {
-                authorization: token + ""
+                ...(token ? { authorization: token } : {})
             }
         })
         let data = await response.json();
@@ -191,7 +191,7 @@ export async function fetchDatapack(slug: string, token?: string) {
         let response = await fetch(`${process.env.DATA_URL}/creations/datapacks/${encodeURIComponent(slug)}`, { 
             next: { tags: [slug], revalidate: 86400 },
             headers: {
-                authorization: token + ""
+                ...(token ? { authorization: token } : {})
             }
         })
         let data = await response.json();
@@ -215,7 +215,7 @@ export async function fetchResourcepack(slug: string, token?: string) {
         let response = await fetch(`${process.env.DATA_URL}/creations/resourcepacks/${encodeURIComponent(slug)}`, { 
             next: { tags: [slug], revalidate: 86400 },
             headers: {
-                authorization: token + ""
+                ...(token ? { authorization: token } : {})
             }
         })
         let data = await response.json();
@@ -234,7 +234,7 @@ export async function fetchMarketplaceItem(slug: string, token?: string) {
         let response = await fetch(`${process.env.DATA_URL}/creations/marketplace/${encodeURIComponent(slug)}`, {
             next: { tags: [slug], revalidate: 86400 },
             headers: {
-                authorization: token + ""
+                ...(token ? { authorization: token } : {})
             }
         })
         let data = await response.json();
@@ -277,13 +277,12 @@ export async function downloadCreation(slug: string, collectionName: CollectionN
 }
 
 export async function createNewContent(title: string, type: string, summary: string, token?: string | null) {
-    if(!token) token = ""
     try {
         let res = await fetch(`${process.env.DATA_URL}/creations/upload`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token
+                ...(token ? { 'Authorization': token } : {})
             },
             body: JSON.stringify({
                 title: title,
@@ -309,7 +308,7 @@ export async function importContent(link: string, type: string, token?: string |
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token + ""
+            ...(token ? { 'Authorization': token } : {})
         },
         body: JSON.stringify({
             url: link,
@@ -332,7 +331,7 @@ export async function updateContent(map: IContentDoc, token: string | null, type
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token + ""
+                ...(token ? { 'Authorization': token } : {})
             },
             body: JSON.stringify(map)
         })
@@ -411,7 +410,7 @@ export async function updateTranslation(slug: string, type: ContentTypes, transl
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token + ''
+                ...(token ? { 'Authorization': token } : {})
             },
             body: JSON.stringify({
                 type: type,
@@ -435,7 +434,7 @@ export async function deleteContent(slug: string, token: string | null, contentT
         let response = await fetch(`${process.env.DATA_URL}/creations/${encodeURIComponent(slug)}?type=${contentType}`, {
             method: 'DELETE',
             headers: {
-                'Authorization': token + ""
+                ...(token ? { 'Authorization': token } : {})
             }
         })
         if(!response.ok) {
@@ -455,7 +454,7 @@ export async function requestApproval(slug: string, collectionName: CollectionNa
         res = await fetch(`${process.env.DATA_URL}/creations/${encodeURIComponent(slug)}/request_approval?type=${collectionName}`, {
             method: 'GET',
             headers: {
-                'Authorization': token + ""
+                ...(token ? { 'Authorization': token } : {})
             }
         })
     } catch(e) {
@@ -481,7 +480,7 @@ export async function approveContent(slug: string, collectioName: CollectionName
     try {
         const res = await fetch(`${process.env.DATA_URL}/creations/${encodeURIComponent(slug)}/approve?type=${collectioName}`, {
             headers: {
-                'Authorization': token + ""
+                ...(token ? { 'Authorization': token } : {})
             }
         })
         return res.ok
@@ -533,7 +532,7 @@ export function createEmptyCreation(): IContentDoc {
         rating: 0,
         createdDate: Date.now(),
         _id: 0,
-        tags: [""],
+        tags: [],
         type: ContentTypes.Maps
     }
 }

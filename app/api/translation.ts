@@ -12,11 +12,14 @@ export async function getLanguage(locale: string) {
 }
 
 /** @returns {error} when saving fails */
-export async function updateLanguage(locale: string, language: string): Promise<{ error?: string }> {
+export async function updateLanguage(locale: string, language: string, authorization?: string | null): Promise<{ error?: string }> {
     try {
         const response = await fetch(`${process.env.DATA_URL}/translation/${encodeURIComponent(locale)}`, {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                ...(authorization ? { 'Authorization': authorization } : {})
+            },
             body: language,
             cache: 'no-store'
         })

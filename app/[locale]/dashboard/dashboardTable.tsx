@@ -206,7 +206,10 @@ export default function DashboardTable({ collectionName }: { collectionName: Col
                                 <TableCell>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
-                                            <Button size="icon" variant="secondary"><MoreHorizontal /></Button>
+                                            <Button size="icon" variant="secondary" aria-label={t('Pages.Dashboard.actions')}>
+                                                <MoreHorizontal />
+                                                <span className="sr-only">{t('Pages.Dashboard.actions')}</span>
+                                            </Button>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent>
                                             <DropdownMenuItem onSelect={() => handleApprove(creation)}>

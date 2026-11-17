@@ -91,11 +91,21 @@ export default function SearchAndFilter({searchParams, tags}: {searchParams: { [
     return (
         <div className="w-full max-w-screen-md mx-auto p-2">
                 <div className="flex flex-row gap-2 w-full mb-2">
-                    <Input type="text" placeholder={t('Components.Creations.Search.search_placeholder')} className="w-full" value={searchInput} onChange={(e) => {setSearchInput(e.target.value)}} onKeyDown={(e) => { if (e.key === "Enter") submitSearch() }}></Input>
-                    <Button onClick={submitSearch}><Search /></Button>
-                    <Button className="filter md:hidden" onClick={() => {setFiltering(!filtering)}}><Filter /></Button>
+                    <Label htmlFor="creation-search" className="sr-only">{t('Components.Creations.Search.search')}</Label>
+                    <Input id="creation-search" type="text" placeholder={t('Components.Creations.Search.search_placeholder')} className="w-full" value={searchInput} onChange={(e) => {setSearchInput(e.target.value)}} onKeyDown={(e) => { if (e.key === "Enter") submitSearch() }}></Input>
+                    <Button onClick={submitSearch} aria-label={t('Components.Creations.Search.search')}>
+                        <Search />
+                        <span className="sr-only">{t('Components.Creations.Search.search')}</span>
+                    </Button>
+                    <Button className="filter md:hidden" onClick={() => {setFiltering(!filtering)}} aria-label={t('Components.Creations.Search.filter')} aria-expanded={filtering}>
+                        <Filter />
+                        <span className="sr-only">{t('Components.Creations.Search.filter')}</span>
+                    </Button>
                     {/* <BulkDownloadButton /> */}
-                    <Button variant="secondary" onClick={() => {setGridView(gridView === "grid" ? "list" : "grid")}}>{(gridView === "grid") ? <List /> : <Grid />}</Button>
+                    <Button variant="secondary" onClick={() => {setGridView(gridView === "grid" ? "list" : "grid")}} aria-label={gridView === "grid" ? t('Components.Creations.Search.list_view') : t('Components.Creations.Search.grid_view')}>
+                        {(gridView === "grid") ? <List /> : <Grid />}
+                        <span className="sr-only">{gridView === "grid" ? t('Components.Creations.Search.list_view') : t('Components.Creations.Search.grid_view')}</span>
+                    </Button>
                 </div>
                 <div className={`flex gap-2 flex-wrap items-end overflow-hidden ${filtering ? "" : "hidden"}`}>
                     <div>

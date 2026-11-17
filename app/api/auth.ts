@@ -114,6 +114,14 @@ export async function resetPassword(token: string, password: string) {
             body: JSON.stringify({password: password}),
             cache: 'no-store'
         })
+        if (!res.ok) {
+            let error = `Request failed (${res.status})`
+            try {
+                const data = await res.json()
+                if (data?.error) error = String(data.error)
+            } catch {}
+            return error
+        }
         try {
             let data = await res.json()
             if(data && data.error) {
@@ -121,6 +129,7 @@ export async function resetPassword(token: string, password: string) {
             }
             return undefined
         } catch(e) {
+            // Empty/non-JSON body on success
             return undefined
         }
     } catch(e) {

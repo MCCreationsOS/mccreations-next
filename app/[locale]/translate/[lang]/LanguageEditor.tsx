@@ -3,7 +3,7 @@ import { Link } from "@/i18n/navigation";
 import { toast } from 'sonner';
 import { useForm } from '@tanstack/react-form';
 import { Button } from '@/components/ui/button';
-import { useUser } from '@/app/api/hooks/users';
+import { useToken, useUser } from '@/app/api/hooks/users';
 import { UserTypes } from '@/app/api/types';
 import CodeEditor from '@/components/RichText/CodeEditor';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,6 +13,7 @@ import { updateLanguage } from "@/app/api/translation";
 export default function LanguageEditor({englishLanguage, editingLanguage, langKey}: {englishLanguage: string, editingLanguage: string, langKey: string}) {
     const t = useTranslations()
     const {user} = useUser();
+    const {token} = useToken();
     const form = useForm({
         defaultValues: {
             language: editingLanguage
@@ -46,7 +47,7 @@ export default function LanguageEditor({englishLanguage, editingLanguage, langKe
             toast.error(t("Pages.Translate.lang.invalid_json"))
             return
         }
-        const result = await updateLanguage(langKey, language)
+        const result = await updateLanguage(langKey, language, token)
         if (result.error) {
             toast.error(result.error || t("Pages.Translate.lang.save_error"))
         } else {

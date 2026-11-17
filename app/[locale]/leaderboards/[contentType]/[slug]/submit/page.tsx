@@ -9,28 +9,33 @@ import { Label } from "@/components/ui/label"
 import { useForm } from "@tanstack/react-form"
 import { useTranslations } from "next-intl"
 import { useSearchParams } from "next/navigation"
-import { useRouter } from "next/navigation"
+import { useRouter } from "@/i18n/navigation"
+import { toast } from "sonner"
 
 export default function Page(props: { params: Promise<{locale: string, contentType: ContentTypes, slug: string}>}) {
     const params = use(props.params);
-    const form = useForm({
-        defaultValues: {
-            username: ""
-        }
-    })
     const t = useTranslations()
     const query = useSearchParams()
     const score = parseInt(query.get("time") ?? "0")
     const score_type = query.get("score_type") ?? "time"
     const router = useRouter()
 
-    const sendScore = async (inputs: string[]) => {
-        let jwt = localStorage?.getItem('jwt')
-        const contentType = params.contentType as ContentTypes
-        const slug = params.slug as string
-        submitLeaderboard(contentType, slug, score, score_type, inputs[0], jwt + "")
-        router.push(`/leaderboards/${contentType}/${slug}`)
-    }
+    const form = useForm({
+        defaultValues: {
+            username: ""
+        },
+        onSubmit: async ({ value }) => {
+            const jwt = localStorage?.getItem('jwt') ?? ""
+            const contentType = params.contentType as ContentTypes
+            const slug = params.slug as string
+            const ok = await submitLeaderboard(contentType, slug, score, score_type, value.username, jwt)
+            if (!ok) {
+                toast.error("Failed to submit score")
+                return
+            }
+            router.push(`/leaderboards/${contentType}/${slug}`)
+        }
+    })
 
     return (
         <div className="centered_content">
@@ -40,12 +45,12 @@ export default function Page(props: { params: Promise<{locale: string, contentTy
             {score_type !== "time" && <p>{t('Pages.Leaderboards.contentType.slug.Submit.submit_score_description', {score: score})}</p>}
             <form onSubmit={(e) => {
                 e.preventDefault();
-                form.handleSubmit(sendScore);
+                form.handleSubmit();
             }}>
                 <form.Field name="username" children={(field) => (
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="username">{t('Pages.Leaderboards.contentType.slug.Submit.username')}</Label>
-                        <Input id="username" name="username" defaultValue={field.state.value} onChange={(e) => {
+                        <Input id="username" name="username" value={field.state.value} onChange={(e) => {
                             field.handleChange(e.target.value);
                         }} />
                     </div>

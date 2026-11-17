@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import { Plus, UploadCloud, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useToken } from '@/app/api/hooks/users'
+import { useTokenOrKey } from '@/app/api/hooks/users'
 import { toast } from 'sonner'
 import { DragDropContext, Draggable, Droppable, DropResult, ResponderProvided } from '@hello-pangea/dnd'
 import { Button } from '../ui/button'
@@ -52,15 +52,18 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
     const isFirstRender = useRef(true)
     const [rejected, setRejected] = useState<FileRejection[]>([])
     const [progress, setProgress] = useState<number>(100)
-    const {token} = useToken();
+    const {token} = useTokenOrKey();
     const t = useTranslations()
 
-    let batch = files.filter(file => file.uploaded === false)
-    let currentFile = Math.floor(progress / (100/batch.length))
-    if (progress !== 100 && batch.length > 0) batch[currentFile].progress = (progress * batch.length) % 100
-    for(let i = 0; i < currentFile; i++) {
-        batch[i].progress = 100
-    }
+    const uploading = files.filter(file => !file.uploaded)
+    const currentUploadingIndex = uploading.length > 0 ? Math.floor(progress / (100 / uploading.length)) : 0
+    const filesWithProgress = files.map((file) => {
+        if (file.uploaded || progress === 100 || uploading.length === 0) return file
+        const idx = uploading.indexOf(file)
+        if (idx < currentUploadingIndex) return { ...file, progress: 100 }
+        if (idx === currentUploadingIndex) return { ...file, progress: (progress * uploading.length) % 100 }
+        return file
+    })
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
         if (acceptedFiles?.length) {
@@ -179,7 +182,7 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
                 <Droppable droppableId="droppable" direction="horizontal">
                 {(provided, snapshot) => (
                         <div ref={provided.innerRef} className="flex flex-row gap-2 overflow-auto flex-nowrap" {...provided.droppableProps}>
-                            {files.map((file, idx) =>
+                            {filesWithProgress.map((file, idx) =>
                                 (
                                     <Draggable key={`image-${file.url ?? file.name}-${idx}`} draggableId={`image-${file.url ?? file.name}-${idx}`} index={idx}>
                                         {(provided, snapshot) => (
@@ -195,7 +198,7 @@ const ImageDropzone = ({ forWhat, presetImage, onImagesUploaded, allowMultiple, 
                         </div>
                     )}
                 </Droppable>
-                <input type='hidden' name='files' value={JSON.stringify(files)} />
+                <input type='hidden' name='files' value={JSON.stringify(filesWithProgress)} />
             </DragDropContext>
             : <></>}
         </div>

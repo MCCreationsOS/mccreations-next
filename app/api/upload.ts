@@ -24,6 +24,7 @@ export class Uploader {
             xhr.open('POST', `${process.env.DATA_URL}/upload`, true)
             xhr.setRequestHeader('Authorization', this.token)
             xhr.upload.onprogress = (event) => {
+                if (!event.total) return
                 this.onProgress(Math.round(event.loaded / event.total * 100))
             }
     

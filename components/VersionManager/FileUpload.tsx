@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { FileRejection, useDropzone } from 'react-dropzone'
 import { Plus, UploadCloud, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import { useToken } from '@/app/api/hooks/users'
+import { useTokenOrKey } from '@/app/api/hooks/users'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { toast } from 'sonner'
@@ -20,7 +20,7 @@ const FileDropzone = ({ forWhat, onFilesUploaded, presetFile }: { forWhat: strin
     const [link, setLink] = useState<string>(presetFile ?? "")
     const [rejected, setRejected] = useState<FileRejection[]>([])
     const [progress, setProgress] = useState<number>(100)
-    const {token} = useToken();
+    const {token} = useTokenOrKey();
     const t = useTranslations()
 
     const onDrop = useCallback((acceptedFiles: File[], rejectedFiles: FileRejection[]) => {

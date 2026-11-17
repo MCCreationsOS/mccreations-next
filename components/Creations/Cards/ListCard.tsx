@@ -78,7 +78,7 @@ export default function CreationListCard(props: IContentCardProps) {
                                 (props.creation.type === 'datapack') ? <><Package className={styles.in_text_icon} />{t('datapack', { count: 1 })}</> :
                                 <><Layers className={styles.in_text_icon} />{t('resourcepack', { count: 1 })}</>)}
                         </div>
-                        <p className={styles.author}>{t('Components.Creations.Cards.by', { creator: props.creation.creators.slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner')) })}</p>
+                        <p className={styles.author}>{t('Components.Creations.Cards.by', { creator: (props.creation.creators ?? []).slice(0, 3).map(c => c.username).join(t('Components.Creations.Cards.by_joiner')) })}</p>
                     </div>
                 </div>
         </Link>

@@ -54,8 +54,9 @@ export default function OauthHandlerPage() {
         }
 
         const provider = PROVIDER_IDS[flow.provider]
-        const request = flow.mode === "link" && token
-            ? postJson('/user/providers', { provider, code }, token).then(() => {
+        const jwt = (typeof window !== "undefined" ? localStorage.getItem("jwt") : null) || token
+        const request = flow.mode === "link" && jwt
+            ? postJson('/user/providers', { provider, code }, jwt).then(() => {
                 toast.success(t('Pages.Auth.OAuth_Handler.linked'))
             })
             : postJson('/sign_in', { provider, code }).then((data) => {

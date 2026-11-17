@@ -51,7 +51,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
     const params = use(props.params);
     const contentType = (params.contentType.endsWith("s") ? params.contentType.slice(0, -1) : params.contentType) as ContentTypes;
     const { creation, isLoading, refresh } = useCreation(params.slug, contentType, { editing: true });
-    const [localCreation, setLocalCreation] = useSessionStorage<IContentDoc>("localCreation", createEmptyCreation());
+    const [localCreation, setLocalCreation] = useSessionStorage<IContentDoc>(`localCreation:${params.slug}`, createEmptyCreation());
     const router = useRouter();
     const { token } = useTokenOrKey();
     const { tags } = useTags(contentType);
@@ -71,7 +71,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
             images: [] as string[],
         },
         onSubmit: async (data) => {
-            await saveCreation(
+            return await saveCreation(
                 data.value.title,
                 data.value.shortDescription,
                 data.value.slug,
@@ -161,21 +161,44 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
     };
 
     const saveAndRequestApproval = async () => {
-        await generalForm.handleSubmit();
+        await generalForm.validateAllFields("submit");
         if (!generalForm.state.isValid) return;
         const values = generalForm.state.values;
-        const latest = { ...creation, ...values, tags: values.tags.split(",").filter((tag) => tag.length > 0) } as IContentDoc;
-        const errors = errorCheckContent(latest);
+        const saved = await saveCreation(
+            values.title,
+            values.shortDescription,
+            values.slug,
+            values.creators,
+            values.description,
+            values.tags,
+            values.videoUrl,
+            values.images,
+            values.files
+        );
+        if (!saved) return;
+        const errors = errorCheckContent(saved);
         errors.forEach((error) => toast.error(t(error.error)));
         if (errors.length > 0) return;
         try {
-            await requestApproval(latest.slug, collectionName, token);
+            await requestApproval(saved.slug, collectionName, token);
             refresh();
             toast.success(t("Pages.Edit.contentType.slug.Messages.approval_requested"));
         } catch (e: any) {
             toast.error(e?.error ?? String(e));
         }
     };
+
+    const upsertPendingFile = (prevFiles: IFile[], file: IFile) => {
+        const idx = prevFiles.findIndex((f) => f.createdDate === file.createdDate);
+        if (idx >= 0) {
+            return prevFiles.map((f, i) => (i === idx ? file : f));
+        }
+        return [...prevFiles, file];
+    };
+
+    const filesChanged =
+        JSON.stringify(localCreation.files.map((f) => ({ url: f.url, contentVersion: f.contentVersion, minecraftVersion: f.minecraftVersion, createdDate: f.createdDate, changelog: f.changelog }))) !==
+        JSON.stringify(creation.files.map((f) => ({ url: f.url, contentVersion: f.contentVersion, minecraftVersion: f.minecraftVersion, createdDate: f.createdDate, changelog: f.changelog })));
 
     const saveTranslations = () => {
         const newCreation = {
@@ -223,7 +246,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                             name="files"
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
-                                    <Label>Versions</Label>
+                                    <Label>{t("Pages.Edit.contentType.slug.General.versions")}</Label>
                                     <div className="flex flex-wrap gap-1">
                                         {localCreation.files.map((file, idx) => {
                                             if(creation.files.find((f) => f.createdDate === file.createdDate)) {
@@ -236,20 +259,20 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                                         </DialogHeader>
                                                         <div className="flex flex-col gap-1 min-w-lg">
                                                             <div className="flex flex-row gap-1">
-                                                                <span className="flex-1">Minecraft Versions</span>
+                                                                <span className="flex-1">{t("Components.VersionManager.Version.minecraft_version")}</span>
                                                                 <span>{typeof file.minecraftVersion === "string" ? file.minecraftVersion : file.minecraftVersion.join(", ")}</span>
                                                             </div>
                                                             <div className="flex flex-row gap-1">
-                                                                <span className="flex-1">URL</span>
+                                                                <span className="flex-1">{t("Pages.Edit.contentType.slug.General.url")}</span>
                                                                 <span>{file.url}</span>
                                                             </div>
                                                             <div className="flex flex-row gap-1">
-                                                                <span className="flex-1">Created Date</span>
+                                                                <span className="flex-1">{t("Pages.Edit.contentType.slug.General.created_date")}</span>
                                                                 <span>{new Date(file.createdDate).toLocaleDateString()}</span>
                                                             </div>
                                                             {file.changelog && (
                                                                 <div className="flex flex-col gap-1">
-                                                                    <span className="flex-1">Changelog</span>
+                                                                    <span className="flex-1">{t("Pages.Edit.contentType.slug.General.changelog")}</span>
                                                                     <span dangerouslySetInnerHTML={{ __html: file.changelog }} />
                                                                 </div>
                                                             )}
@@ -259,7 +282,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                                                     ...localCreation,
                                                                     files: localCreation.files.filter((f, index) => index !== idx)
                                                                 });
-                                                            }}><span>Delete</span></Button>
+                                                            }}><span>{t("Components.VersionManager.Version.delete")}</span></Button>
                                                         </div>
                                                     </DialogContent>
                                                     </Dialog>
@@ -272,39 +295,37 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                                             <DialogHeader>
                                                                 <DialogTitle>{file.contentVersion}</DialogTitle>
                                                             </DialogHeader>
-                                                            <VersionManager2 enableChangelog={true} initialFile={file} forWhat={creation.slug} onChange={(file) => {
-                                                                console.log(localCreation.files)
-                                                                field.handleChange([...creation.files, file]);
-                                                                setLocalCreation((prev) => ({
-                                                                    ...prev,
-                                                                    files: [...creation.files, file]
-                                                                }));
+                                                            <VersionManager2 enableChangelog={true} initialFile={file} forWhat={creation.slug} onChange={(nextFile) => {
+                                                                setLocalCreation((prev) => {
+                                                                    const files = upsertPendingFile(prev.files, nextFile);
+                                                                    field.handleChange(files);
+                                                                    return { ...prev, files };
+                                                                });
                                                             }} />
-                                                            <Button type="button" onClick={() => {setEditVersionDialogOpen(false); generalForm.handleSubmit();}} disabled={generalForm.state.isSubmitting}><span>Save</span></Button>
+                                                            <Button type="button" onClick={() => {setEditVersionDialogOpen(false); generalForm.handleSubmit();}} disabled={generalForm.state.isSubmitting}><span>{t("Pages.Edit.contentType.slug.General.save")}</span></Button>
                                                         </DialogContent>
                                                     </Dialog>
                                                 )
                                             }
                                         })}
                                         <Dialog open={createVersionDialogOpen} onOpenChange={setCreateVersionDialogOpen} >
-                                            <DialogTrigger asChild><Button hidden={localCreation.files.length > creation.files.length} variant="default" type="button"><span>Update {t(`${contentType}`, { count: 1 })}</span></Button></DialogTrigger>
+                                            <DialogTrigger asChild><Button hidden={localCreation.files.some((f) => !creation.files.find((cf) => cf.createdDate === f.createdDate))} variant="default" type="button"><span>{t("Pages.Edit.contentType.slug.General.update", { content_type: t(`${contentType}`, { count: 1 }) })}</span></Button></DialogTrigger>
                                             <DialogContent>
                                                 <DialogHeader>
-                                                    <DialogTitle>Update {t(`${contentType}`, { count: 1 })}</DialogTitle>
+                                                    <DialogTitle>{t("Pages.Edit.contentType.slug.General.update", { content_type: t(`${contentType}`, { count: 1 }) })}</DialogTitle>
                                                 </DialogHeader>
-                                                <VersionManager2 enableChangelog={true} forWhat={creation.slug} onChange={(file) => {
-                                                    console.log(localCreation.files)
-                                                    field.handleChange([...creation.files, file]);
-                                                    setLocalCreation((prev) => ({
-                                                        ...prev,
-                                                        files: [...creation.files, file]
-                                                    }));
+                                                <VersionManager2 enableChangelog={true} forWhat={creation.slug} onChange={(nextFile) => {
+                                                    setLocalCreation((prev) => {
+                                                        const files = upsertPendingFile(prev.files, nextFile);
+                                                        field.handleChange(files);
+                                                        return { ...prev, files };
+                                                    });
                                                 }} />
-                                                <Button type="button" onClick={() => {setCreateVersionDialogOpen(false); generalForm.handleSubmit();}} disabled={generalForm.state.isSubmitting || localCreation.files.length === creation.files.length}><span>Save</span></Button>
+                                                <Button type="button" onClick={() => {setCreateVersionDialogOpen(false); generalForm.handleSubmit();}} disabled={generalForm.state.isSubmitting || !localCreation.files.some((f) => !creation.files.find((cf) => cf.createdDate === f.createdDate))}><span>{t("Pages.Edit.contentType.slug.General.save")}</span></Button>
                                             </DialogContent>
                                         </Dialog>
                                     </div>
-                                    {localCreation.files.length !== creation.files.length && <p className="text-sm text-red-500">* You have unsaved version updates.</p>}
+                                    {filesChanged && <p className="text-sm text-red-500">{t("Pages.Edit.contentType.slug.General.unsaved_versions")}</p>}
                                 </div>
                             )}
                         />
@@ -314,6 +335,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <div className="flex flex-col gap-1">
                                     <Label htmlFor="title">{t("Pages.Edit.contentType.slug.General.title")} <Required /></Label>
                                     <Input
+                                        id="title"
                                         type="text"
                                         name="title"
                                         value={field.state.value}
@@ -344,6 +366,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <div className="flex flex-col gap-1">
                                     <Label htmlFor="slug">{t("Pages.Edit.contentType.slug.General.slug")} <Required /></Label>
                                     <Input
+                                        id="slug"
                                         type="text"
                                         name="slug"
                                         value={field.state.value}
@@ -378,6 +401,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <div className="flex flex-col gap-1">
                                     <Label htmlFor="shortDescription">{t("Pages.Edit.contentType.slug.General.short_description")} <Required /></Label>
                                     <Input
+                                        id="shortDescription"
                                         type="text"
                                         name="shortDescription"
                                         value={field.state.value}
@@ -409,16 +433,25 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                         <generalForm.Field name="creators" children={(field) => (
                             <div className="flex flex-col gap-1">
                                 <Label htmlFor="creators">{t("Pages.Edit.contentType.slug.General.creators")} <Required /></Label>
-                                <CreatorInput creators={field.state.value} onChange={field.handleChange} />
+                                <CreatorInput id="creators" creators={field.state.value} onChange={field.handleChange} />
                                 {!field.state.meta.isValid && <em role='alert' className='text-red-500'>{field.state.meta.errors.join(', ')}</em>}
                             </div>
-                        )} />
+                        )}
+                            validators={{
+                                onSubmit: ({ value }) => {
+                                    if (value.length < 1) {
+                                        return t("Pages.Edit.contentType.slug.Warnings.creator_too_short.description")
+                                    }
+                                }
+                            }}
+                        />
                         <generalForm.Field
                             name="videoUrl"
                             children={(field) => (
                                 <div className="flex flex-col gap-1">
                                     <Label htmlFor="videoUrl">{t("Pages.Edit.contentType.slug.General.video_url")}</Label>
                                     <Input
+                                        id="videoUrl"
                                         type="text"
                                         name="videoUrl"
                                         value={field.state.value}
@@ -451,6 +484,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <div className="flex flex-col gap-1">
                                     <Label htmlFor="description">{t("Pages.Edit.contentType.slug.General.description")} <Required /></Label>
                                     <RichText
+                                        id="description"
                                         sendOnChange={(v) => {
                                             field.handleChange(v);
                                             setLocalCreation({
@@ -477,6 +511,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <div className="flex flex-col gap-1">
                                     <Label htmlFor="tags">{t("Pages.Edit.contentType.slug.General.tags")} <Required /></Label>
                                     <TagInput
+                                        id="tags"
                                         tags={tags}
                                         creation={creation}
                                         onChange={(tags) => {
@@ -548,7 +583,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                 <CollapsibleContent className="flex flex-col gap-3">
                                     <div className="flex flex-col gap-2">
                                         <Label htmlFor={`translations.${translation}.title`}>{t("Pages.Edit.contentType.slug.General.title")}</Label>
-                                        <Input name={`translations.${translation}.title`} type="text" defaultValue={creation.translations?.[translation as keyof Translation]?.title ?? creation.title}
+                                        <Input id={`translations.${translation}.title`} name={`translations.${translation}.title`} type="text" defaultValue={creation.translations?.[translation as keyof Translation]?.title ?? creation.title}
                                             onChange={(e) => {
                                                 setTranslations(JSON.stringify({
                                                     ...parsedTranslations,
@@ -561,7 +596,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <Label htmlFor={`translations.${translation}.shortDescription`}>{t("Pages.Edit.contentType.slug.General.short_description")}</Label>
-                                        <Input name={`translations.${translation}.shortDescription`} type="text" defaultValue={creation.translations?.[translation as keyof Translation]?.shortDescription ?? creation.shortDescription} onChange={(e) => {
+                                        <Input id={`translations.${translation}.shortDescription`} name={`translations.${translation}.shortDescription`} type="text" defaultValue={creation.translations?.[translation as keyof Translation]?.shortDescription ?? creation.shortDescription} onChange={(e) => {
                                             setTranslations(JSON.stringify({
                                                 ...parsedTranslations,
                                                 [translation]: {
@@ -573,7 +608,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                     </div>
                                     <div className="flex flex-col gap-2">
                                         <Label htmlFor={`translations.${translation}.description`}>{t("Pages.Edit.contentType.slug.General.description")}</Label>
-                                        <RichText initialValue={creation.translations?.[translation as keyof Translation]?.description ?? creation.description} sendOnChange={(v) => {
+                                        <RichText id={`translations.${translation}.description`} initialValue={creation.translations?.[translation as keyof Translation]?.description ?? creation.description} sendOnChange={(v) => {
                                             setTranslations(JSON.stringify({
                                                 ...parsedTranslations,
                                                 [translation]: {
@@ -585,6 +620,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
                                     </div>
                                     <div className="flex flex-row gap-2 items-center">
                                         <Checkbox
+                                            id={`translations.${translation}.approved`}
                                             name={`translations.${translation}.approved`}
                                             defaultChecked={creation.translations?.[translation as keyof Translation]?.approved}
                                             onCheckedChange={(checked) => {
