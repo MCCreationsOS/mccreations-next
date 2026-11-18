@@ -18,6 +18,7 @@ import { useState } from "react";
 import DownloadButton from "@/components/ui/client_buttons/DownloadButton";
 import CreationOptions from "./CreationOptions";
 import { Link } from "@/i18n/navigation";
+import { Button } from "@/components/ui/button";
 
 /**
  * The map component represents all the information displayed on a map page
@@ -170,7 +171,7 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                     </div>
                     <div className="flex flex-col gap-6 w-full md:w-[400px] flex-shrink-0">
                         {/* Download and Options */}
-                        <div className="flex flex-row gap-2 items-start justify-center md:justify-start">
+                        <div className="flex flex-col gap-1 items-start justify-center md:justify-start">
                             {creation.files && creation.files.length > 0 && <DownloadButton slug={creation.slug} file={creation.files[0]} contentType={contentType} className="px-6 py-5 w-full" />}
                             <CreationOptions creation={creation} />
                         </div>
@@ -197,6 +198,10 @@ export default function Creation({ creation, collectionName }: { creation: ICont
                                     <span className="flex-1">{t('Components.Creations.Page.Sidebar.updated_date')}</span>
                                     <span>{formatDate(creation.updatedDate)}</span>
                                 </div>}
+                                <div className="flex flex-row">
+                                    <span className="flex-1">{t('Components.Creations.Page.Sidebar.content_version')}</span>
+                                    <span>{creation.files?.[0]?.contentVersion}</span>
+                                </div>
                             </div>
                         </div>
 

@@ -790,12 +790,14 @@
                     "cancel": "Cancel",
                     "submitted": "Thanks! Your translation was sent to the creator for review.",
                     "saved": "Translation saved",
-                    "error": "Couldn't send your translation"
+                    "error": "Couldn't send your translation",
+                    "changelog": "Changelog"
                 },
                 "Sidebar": {
                     "downloads": "Downloads",
                     "created_date": "Created Date",
-                    "updated_date": "Updated Date"
+                    "updated_date": "Updated Date",
+                    "content_version": "Version"
                 },
                 "Rating": {
                     "1": "1 Star",

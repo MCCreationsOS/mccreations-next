@@ -193,7 +193,7 @@ export default function Page(props: { params: Promise<{ contentType: ContentType
         if (idx >= 0) {
             return prevFiles.map((f, i) => (i === idx ? file : f));
         }
-        return [...prevFiles, file];
+        return [file, ...prevFiles];
     };
 
     const filesChanged =
